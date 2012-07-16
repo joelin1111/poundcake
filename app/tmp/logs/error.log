@@ -3089,3 +3089,101 @@
 #4 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Routing/Dispatcher.php(161): Dispatcher->_invoke(Object(SchoolsController), Object(CakeRequest), Object(CakeResponse))
 #5 /home/critchie/www/cakephp-cakephp-e0b6f86/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
 #6 {main}
+2012-07-16 23:10:03 Error: [MissingComponentException] Component class UploadComponent could not be found.
+#0 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Controller/ComponentCollection.php(52): ComponentCollection->load('AjaxMultiUpload...', Array)
+#1 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Controller/Controller.php(635): ComponentCollection->init(Object(SchoolsController))
+#2 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Routing/Dispatcher.php(182): Controller->constructClasses()
+#3 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Routing/Dispatcher.php(161): Dispatcher->_invoke(Object(SchoolsController), Object(CakeRequest), Object(CakeResponse))
+#4 /home/critchie/www/cakephp-cakephp-e0b6f86/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#5 {main}
+2012-07-16 23:10:05 Error: [MissingComponentException] Component class UploadComponent could not be found.
+#0 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Controller/ComponentCollection.php(52): ComponentCollection->load('AjaxMultiUpload...', Array)
+#1 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Controller/Controller.php(635): ComponentCollection->init(Object(SchoolsController))
+#2 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Routing/Dispatcher.php(182): Controller->constructClasses()
+#3 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Routing/Dispatcher.php(161): Dispatcher->_invoke(Object(SchoolsController), Object(CakeRequest), Object(CakeResponse))
+#4 /home/critchie/www/cakephp-cakephp-e0b6f86/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#5 {main}
+2012-07-16 23:10:09 Error: [MissingComponentException] Component class UploadComponent could not be found.
+#0 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Controller/ComponentCollection.php(52): ComponentCollection->load('AjaxMultiUpload...', Array)
+#1 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Controller/Controller.php(635): ComponentCollection->init(Object(SchoolsController))
+#2 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Routing/Dispatcher.php(182): Controller->constructClasses()
+#3 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Routing/Dispatcher.php(161): Dispatcher->_invoke(Object(SchoolsController), Object(CakeRequest), Object(CakeResponse))
+#4 /home/critchie/www/cakephp-cakephp-e0b6f86/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#5 {main}
+2012-07-16 23:10:10 Error: [MissingComponentException] Component class UploadComponent could not be found.
+#0 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Controller/ComponentCollection.php(52): ComponentCollection->load('AjaxMultiUpload...', Array)
+#1 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Controller/Controller.php(635): ComponentCollection->init(Object(SchoolsController))
+#2 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Routing/Dispatcher.php(182): Controller->constructClasses()
+#3 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Routing/Dispatcher.php(161): Dispatcher->_invoke(Object(SchoolsController), Object(CakeRequest), Object(CakeResponse))
+#4 /home/critchie/www/cakephp-cakephp-e0b6f86/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#5 {main}
+2012-07-16 23:11:07 Error: [MissingComponentException] Component class UploadComponent could not be found.
+#0 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Controller/ComponentCollection.php(52): ComponentCollection->load('AjaxMultiUpload...', Array)
+#1 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Controller/Controller.php(635): ComponentCollection->init(Object(SchoolsController))
+#2 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Routing/Dispatcher.php(182): Controller->constructClasses()
+#3 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Routing/Dispatcher.php(161): Dispatcher->_invoke(Object(SchoolsController), Object(CakeRequest), Object(CakeResponse))
+#4 /home/critchie/www/cakephp-cakephp-e0b6f86/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#5 {main}
+2012-07-16 23:11:30 Error: [MissingComponentException] Component class AjaxMultiUploadComponent could not be found.
+#0 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Controller/ComponentCollection.php(52): ComponentCollection->load('AjaxMultiUpload', Array)
+#1 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Controller/Controller.php(635): ComponentCollection->init(Object(SchoolsController))
+#2 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Routing/Dispatcher.php(182): Controller->constructClasses()
+#3 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Routing/Dispatcher.php(161): Dispatcher->_invoke(Object(SchoolsController), Object(CakeRequest), Object(CakeResponse))
+#4 /home/critchie/www/cakephp-cakephp-e0b6f86/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#5 {main}
+2012-07-16 23:12:48 Error: [MissingComponentException] Component class AjaxMultiUploadComponent could not be found.
+#0 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Controller/ComponentCollection.php(52): ComponentCollection->load('AjaxMultiUpload', Array)
+#1 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Controller/Controller.php(635): ComponentCollection->init(Object(SchoolsController))
+#2 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Routing/Dispatcher.php(182): Controller->constructClasses()
+#3 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Routing/Dispatcher.php(161): Dispatcher->_invoke(Object(SchoolsController), Object(CakeRequest), Object(CakeResponse))
+#4 /home/critchie/www/cakephp-cakephp-e0b6f86/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#5 {main}
+2012-07-16 23:12:50 Error: [MissingComponentException] Component class AjaxMultiUploadComponent could not be found.
+#0 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Controller/ComponentCollection.php(52): ComponentCollection->load('AjaxMultiUpload', Array)
+#1 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Controller/Controller.php(635): ComponentCollection->init(Object(SchoolsController))
+#2 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Routing/Dispatcher.php(182): Controller->constructClasses()
+#3 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Routing/Dispatcher.php(161): Dispatcher->_invoke(Object(SchoolsController), Object(CakeRequest), Object(CakeResponse))
+#4 /home/critchie/www/cakephp-cakephp-e0b6f86/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#5 {main}
+2012-07-16 23:12:52 Error: [MissingComponentException] Component class AjaxMultiUploadComponent could not be found.
+#0 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Controller/ComponentCollection.php(52): ComponentCollection->load('AjaxMultiUpload', Array)
+#1 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Controller/Controller.php(635): ComponentCollection->init(Object(SchoolsController))
+#2 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Routing/Dispatcher.php(182): Controller->constructClasses()
+#3 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Routing/Dispatcher.php(161): Dispatcher->_invoke(Object(SchoolsController), Object(CakeRequest), Object(CakeResponse))
+#4 /home/critchie/www/cakephp-cakephp-e0b6f86/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#5 {main}
+2012-07-16 23:12:53 Error: [MissingComponentException] Component class AjaxMultiUploadComponent could not be found.
+#0 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Controller/ComponentCollection.php(52): ComponentCollection->load('AjaxMultiUpload', Array)
+#1 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Controller/Controller.php(635): ComponentCollection->init(Object(SchoolsController))
+#2 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Routing/Dispatcher.php(182): Controller->constructClasses()
+#3 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Routing/Dispatcher.php(161): Dispatcher->_invoke(Object(SchoolsController), Object(CakeRequest), Object(CakeResponse))
+#4 /home/critchie/www/cakephp-cakephp-e0b6f86/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#5 {main}
+2012-07-16 23:12:55 Error: [MissingComponentException] Component class AjaxMultiUploadComponent could not be found.
+#0 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Controller/ComponentCollection.php(52): ComponentCollection->load('AjaxMultiUpload', Array)
+#1 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Controller/Controller.php(635): ComponentCollection->init(Object(SchoolsController))
+#2 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Routing/Dispatcher.php(182): Controller->constructClasses()
+#3 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Routing/Dispatcher.php(161): Dispatcher->_invoke(Object(SchoolsController), Object(CakeRequest), Object(CakeResponse))
+#4 /home/critchie/www/cakephp-cakephp-e0b6f86/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#5 {main}
+2012-07-16 23:13:17 Error: [MissingComponentException] Component class AjaxMultiUploadComponent could not be found.
+#0 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Controller/ComponentCollection.php(52): ComponentCollection->load('AjaxMultiUpload', Array)
+#1 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Controller/Controller.php(635): ComponentCollection->init(Object(SchoolsController))
+#2 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Routing/Dispatcher.php(182): Controller->constructClasses()
+#3 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Routing/Dispatcher.php(161): Dispatcher->_invoke(Object(SchoolsController), Object(CakeRequest), Object(CakeResponse))
+#4 /home/critchie/www/cakephp-cakephp-e0b6f86/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#5 {main}
+2012-07-16 23:13:19 Error: [MissingComponentException] Component class AjaxMultiUploadComponent could not be found.
+#0 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Controller/ComponentCollection.php(52): ComponentCollection->load('AjaxMultiUpload', Array)
+#1 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Controller/Controller.php(635): ComponentCollection->init(Object(SchoolsController))
+#2 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Routing/Dispatcher.php(182): Controller->constructClasses()
+#3 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Routing/Dispatcher.php(161): Dispatcher->_invoke(Object(SchoolsController), Object(CakeRequest), Object(CakeResponse))
+#4 /home/critchie/www/cakephp-cakephp-e0b6f86/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#5 {main}
+2012-07-16 23:13:21 Error: [MissingComponentException] Component class AjaxMultiUploadComponent could not be found.
+#0 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Controller/ComponentCollection.php(52): ComponentCollection->load('AjaxMultiUpload', Array)
+#1 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Controller/Controller.php(635): ComponentCollection->init(Object(SchoolsController))
+#2 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Routing/Dispatcher.php(182): Controller->constructClasses()
+#3 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Routing/Dispatcher.php(161): Dispatcher->_invoke(Object(SchoolsController), Object(CakeRequest), Object(CakeResponse))
+#4 /home/critchie/www/cakephp-cakephp-e0b6f86/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#5 {main}
