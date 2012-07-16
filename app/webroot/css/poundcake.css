@@ -1,0 +1,30 @@
+/** Clark testing **/
+body {
+	background: #ddd;
+	font: 12px "Lucida Grande", "Trebuchet Ms", sans-serif;
+}
+#wrap {
+	margin: 20px auto;
+	background: #fff;
+	width: 800px;
+}
+#navigation, #footer {
+	background: #333;
+	padding: 8px 10px;
+	color: #fff;
+}
+#navigation a {
+	color: #fff;
+	text-decoration: none;
+	font-size: 14px;
+	margin: 0 15px;
+}
+#content {
+	padding: 5px 20px;
+}
+#content h2 {
+	margin: 0;
+}
+#footer {
+	font-size: 11px;
+}
