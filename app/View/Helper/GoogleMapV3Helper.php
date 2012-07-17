@@ -1350,7 +1350,7 @@ var iconShape = {
 
 		return $markers;
 	}
-	
+
 	protected function _protocol() {
 		if (($https = $this->_currentOptions['https']) === null) {
 			$https = !empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on';
