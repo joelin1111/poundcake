@@ -7,38 +7,54 @@
     //echo ("<pre>"); print_r($schools); echo("</pre>");
 ?>
 <BR><BR>
-<h3>Sort by:</h3>
+<h3>Search</h3>
+<?php
+    echo $this->Form->create('School', array(
+        'url' => array_merge(array('action' => 'index'), $this->params['pass'])
+    ));
+    echo $this->Form->input('primary_school', array('div' => false));
+    //echo $this->Form->input('district', array('div' => false));
+    //echo $this->Form->input('district', array('div' => false, 'options' => $schools));
+    echo $this->Form->submit(__('Search', true), array('div' => false));
+    echo $this->Form->end();
+?>
+
+<BR><BR>
+<h3>Sort</h3>
 <LI><?php echo $this->Paginator->sort('primary_school', 'Primary School');?></LI>
 <LI><?php echo $this->Paginator->sort('district', 'District');?></LI>
 
-
 <BR><BR>
-<table>
+<table width="100%">
    <tr>
+       <th>Name</th>
        <th>Province</th>
-       <th>Primary School</th>
        <th>District</th>
-       <th>TRC</th>
-       <th>School Code</th>
-       <th>Type</th>
-       <th>S/N</th>
+       <th>School Type</th>
+       <th>Power</th>
+       <th>Internet</th>
+       <th>Road</th>
        <th>Actions</th>
    </tr>
-
+   
     <?php
     foreach ($schools as $school): ?>
        <tr>
-           <td><?php echo $school['Province']['name']; ?></td>
+           <?php
+                //print_r($school['School']);
+                //echo $school['School']['PowerType'];
+           ?>
            <td><?php echo $this->Html->link($school['School']['primary_school'],
                    array('controller' => 'schools', 'action' => 'view', $school['School']['id']));
                 ?>
            </td>
+           <td><?php echo $school['Province']['name']; ?></td>
            <td><?php echo $school['School']['district']; ?></td>
-           <td><?php echo $school['School']['trc']; ?></td>
-           <td><?php echo $school['School']['school_code']; ?></td>
-           <td><?php echo $school['School']['type']; ?></td>
-           <td><?php echo $school['School']['sn']; ?></td>
-           <td>
+           <td><?php echo '(No Data)' ?></td>
+           <td><?php echo $school['PowerType']['name']; ?></td>
+           <td><?php echo $school['ConnectivityType']['name']; ?></td>
+           <td><?php echo '(No Data)' ?></td>
+           <td align="center">
             <?php echo $this->Html->link('Edit', array('action'=>'edit', $school['School']['id']));?>
             <?php echo $this->Html->link('Delete', array('action' => 'delete', $school['School']['id']), null, 'Are you sure?' )?>
            </td>

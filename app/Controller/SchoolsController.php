@@ -7,7 +7,7 @@ class SchoolsController extends AppController
 {
     // AjaxMultiUpload is used for the file upload plugin
     // GoogleMapV3 is for... duh
-    var $helpers = array('AjaxMultiUpload.Upload','Html','Js','GoogleMapV3');
+    var $helpers = array('AjaxMultiUpload.Upload','Html','Js','GoogleMapV3','AltGoogleMapV3');
     
     // pagination of results ($paginate) is down in the index function
 
@@ -67,6 +67,11 @@ class SchoolsController extends AppController
             //$this->set('schools', $allSchools);
             
         }
+    }
+    
+    // for testing alternate Google Maps helper
+    public function overviewalt() {
+       $this->overview();
     }
     
     public function overview() {
