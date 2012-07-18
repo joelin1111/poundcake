@@ -13,7 +13,7 @@
 <BR>
 <P><B>Province:</B>&nbsp;<?php echo $school['Province']['name']; ?></P>
 <BR>
-<P><B>District:</B>&nbsp;<?php echo $school['School']['district']; ?></P>
+<P><B>District:</B>&nbsp;<?php echo $school['District']['name']; ?></P>
 <BR>
 <P><B>TRC:</B>&nbsp;<?php echo $school['School']['trc']; ?></P>
 <BR>
@@ -32,6 +32,8 @@
 <P><B>Site State:</B>&nbsp;<?php echo $school['SiteState']['name']; ?></P>
 <BR>
 <P><B>Power Type:</B>&nbsp;<?php echo $school['PowerType']['name']; ?></P>
+<BR>
+<P><B>Road Condition:</B>&nbsp;<?php echo $school['RoadType']['name']; ?></P>
 <BR>
 <P><B>GPS Coordinates:</B>&nbsp;<?php echo $lat . ' ' . $lon . '<br>'; ?> </P>
 <P><B>Map:</B></P>

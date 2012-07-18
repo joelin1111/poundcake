@@ -49,7 +49,7 @@
                 ?>
            </td>
            <td><?php echo $school['Province']['name']; ?></td>
-           <td><?php echo $school['School']['district']; ?></td>
+           <td><?php echo $school['District']['name']; ?></td>
            <td><?php echo '(No Data)' ?></td>
            <td><?php echo $school['PowerType']['name']; ?></td>
            <td><?php echo $school['ConnectivityType']['name']; ?></td>
@@ -65,7 +65,7 @@
 </table>
 
 <?php
-    echo $this->Paginator->prev('<<´ Previous', null, null, array('class' => 'disabled'));
+    echo $this->Paginator->prev('<< Previous', null, null, array('class' => 'disabled'));
     ?>
     <?php
     // shows the page numbers

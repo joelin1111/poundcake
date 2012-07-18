@@ -6,7 +6,7 @@
     
     // drop down meny of available regions
     echo $this->Form->input('School.province_id', array('type'=>'select','options' => $provinces));
-    echo $this->Form->input('district');
+    echo $this->Form->input('School.district_id', array('type'=>'select','options' => $districts));
     echo $this->Form->input('trc');
     echo $this->Form->input('school_code');
     echo $this->Form->input('type');
@@ -21,6 +21,8 @@
     echo $this->Form->input('School.site_state_id', array('type'=>'select','options' => $sitestates));
     // drop down menu of available power types
     echo $this->Form->input('School.power_type_id', array('type'=>'select','options' => $powertypes));
+    // drop down menu of available power types
+    echo $this->Form->input('School.road_type_id', array('type'=>'select','options' => $roadtypes));
     
     // again, we're treating the latitude and longitude values special here,
     // accessing them by a vaiarable since we have to save them to the model

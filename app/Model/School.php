@@ -11,7 +11,10 @@ class School extends AppModel {
         'InterventionType',
         'SiteState',
         'ServiceProvider',
-        'PowerType'
+        'PowerType',
+        'District',
+        'RoadType',
+        'District'
     );
     
     // we'll eventually save the school's latitude/longitude here -- but only

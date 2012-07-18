@@ -70,6 +70,12 @@ class SchoolsController extends AppController
     }
     
     // for testing alternate Google Maps helper
+    public function overviewfilter() {
+       $this->getProvinces();
+       $this->overview();
+    }
+
+    // for testing alternate Google Maps helper
     public function overviewalt() {
        $this->overview();
     }
@@ -157,6 +163,16 @@ class SchoolsController extends AppController
         
     }
     
+    function getDistricts() {
+        // return a list of districts (which will be put into a drop-down menu
+        // on the add/edit forms)
+        $districts = $this->School->District->find('list');
+        // save the array back to the school object
+        // have also seen this syntax, which I'm unsure about:
+        // $this->School->set(compact('regions'));
+        $this->set('districts',$districts);
+    }
+    
     function getProvinces() {
         // return a list of regions (which will be put into a drop-down menu
         // on the add/edit forms)
@@ -197,15 +213,23 @@ class SchoolsController extends AppController
         $this->set('powertypes',$powertypes);
     }
     
+    function getRoadTypes() {
+        // identical to getRegions
+        $roadtypes = $this->School->RoadType->find('list');
+        $this->set('roadtypes',$roadtypes);
+    }
+    
     function add() {
         // get a list of regions, link and intervention types
         // the School may belong to
         $this->getProvinces();
+        $this->getDistricts();
         $this->getConnectivityTypes();
         $this->getInterventionTypes();
         $this->getServiceProviders();
         $this->getSiteStates();
         $this->getPowerTypes();
+        $this->getRoadTypes();
         
         // Note prior to adding the belongsTo relationship (school belongs to
         // region) I had this if in advance of actually calling the save method
@@ -214,11 +238,21 @@ class SchoolsController extends AppController
         // if ($this->request->is('school')) {
         $this->School->create();
         
+        
+        // should I wrap all the following with?
+        // if ($this->request->is('post')) {        
+        
         if ( $this->request->data != null ) {
             $this->set('lat',$this->request->data['School']['lat']);
             $this->set('lon',$this->request->data['School']['lon']);
         }
-        //$this->getLatLon( );
+        
+        // store the currently logged in user as a reference for the created school
+        // The user() function provided by the component returns any column from
+        // the currently logged in user.  We used this method to add the data into
+        // the request info that is saved.
+        $this->request->data['School']['user_id'] = $this->Auth->user('id');
+        
         if ($this->School->save($this->request->data)) {
             // see comments in edit()
             $query =  "UPDATE schools SET location=";
@@ -239,6 +273,11 @@ class SchoolsController extends AppController
             //$this->Session->setFlash(__('The school could not be saved. [Error 001]'));
         }
         */
+    }
+    
+    // return true if a school is owned by a user (was created by)
+    public function isOwnedBy($school, $user) {
+        return $this->field('id', array('id' => $school, 'user_id' => $user)) === $school;
     }
     
     function delete($id) {
@@ -266,11 +305,14 @@ class SchoolsController extends AppController
         // get a list of regions, link and installation types
         // the School may belong to
         $this->getProvinces();
+        $this->getDistricts();
         $this->getConnectivityTypes();
         $this->getInterventionTypes();
         $this->getServiceProviders();
         $this->getSiteStates();
         $this->getPowerTypes();
+        $this->getRoadTypes();
+        
         $this->setLatLon( $id );
         
         if (!$this->School->exists()) {
@@ -308,6 +350,25 @@ class SchoolsController extends AppController
         } else {
             $this->request->data = $this->School->read(null, $id);
         }
+    }
+    
+    // allow staff  to create schools but prevent the editing schools if
+    // the staff id does not match.
+    public function isAuthorized($user) {
+        // All registered users can add posts
+        if ($this->action === 'add') {
+            return true;
+        }
+
+        // The owner of a post can edit and delete it
+        if (in_array($this->action, array('edit', 'delete'))) {
+            $postId = $this->request->params['pass'][0];
+            if ($this->Post->isOwnedBy($postId, $user['id'])) {
+                return true;
+            }
+        }
+
+        return parent::isAuthorized($user);
     }
 }
 ?>

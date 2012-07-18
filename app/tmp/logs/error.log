@@ -3283,3 +3283,55 @@
 #3 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Core/App.php(899): App::_checkFatalError()
 #4 [internal function]: App::shutdown()
 #5 {main}
+2012-07-17 21:14:44 Error: [MissingActionException] Action SchoolsController::overviewfilter() could not be found.
+#0 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Routing/Dispatcher.php(186): Controller->invokeAction(Object(CakeRequest))
+#1 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Routing/Dispatcher.php(161): Dispatcher->_invoke(Object(SchoolsController), Object(CakeRequest), Object(CakeResponse))
+#2 /home/critchie/www/cakephp-cakephp-e0b6f86/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#3 {main}
+2012-07-17 21:14:52 Error: [MissingViewException] View file "/home/critchie/www/cakephp-cakephp-e0b6f86/app/View/Schools/overviewfilter.ctp" is missing.
+#0 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/View/View.php(472): View->_getViewFileName(NULL)
+#1 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Controller/Controller.php(957): View->render(NULL, NULL)
+#2 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Routing/Dispatcher.php(193): Controller->render()
+#3 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Routing/Dispatcher.php(161): Dispatcher->_invoke(Object(SchoolsController), Object(CakeRequest), Object(CakeResponse))
+#4 /home/critchie/www/cakephp-cakephp-e0b6f86/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#5 {main}
+2012-07-17 21:14:54 Error: [MissingViewException] View file "/home/critchie/www/cakephp-cakephp-e0b6f86/app/View/Schools/overviewfilter.ctp" is missing.
+#0 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/View/View.php(472): View->_getViewFileName(NULL)
+#1 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Controller/Controller.php(957): View->render(NULL, NULL)
+#2 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Routing/Dispatcher.php(193): Controller->render()
+#3 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Routing/Dispatcher.php(161): Dispatcher->_invoke(Object(SchoolsController), Object(CakeRequest), Object(CakeResponse))
+#4 /home/critchie/www/cakephp-cakephp-e0b6f86/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#5 {main}
+2012-07-17 21:15:40 Error: [MissingViewException] View file "/home/critchie/www/cakephp-cakephp-e0b6f86/app/View/Schools/overviewfilter.ctp" is missing.
+#0 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/View/View.php(472): View->_getViewFileName(NULL)
+#1 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Controller/Controller.php(957): View->render(NULL, NULL)
+#2 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Routing/Dispatcher.php(193): Controller->render()
+#3 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Routing/Dispatcher.php(161): Dispatcher->_invoke(Object(SchoolsController), Object(CakeRequest), Object(CakeResponse))
+#4 /home/critchie/www/cakephp-cakephp-e0b6f86/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#5 {main}
+2012-07-17 22:24:16 Error: Fatal Error (1): Cannot unset string offsets in [/home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/View/Helper/FormHelper.php, line 1262]
+2012-07-17 22:24:16 Error: [FatalErrorException] Cannot unset string offsets
+#0 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Error/ErrorHandler.php(162): ErrorHandler::handleFatalError(1, 'Cannot unset st...', '/home/critchie/...', 1262)
+#1 [internal function]: ErrorHandler::handleError(1, 'Cannot unset st...', '/home/critchie/...', 1262, Array)
+#2 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Core/App.php(926): call_user_func('ErrorHandler::h...', 1, 'Cannot unset st...', '/home/critchie/...', 1262, Array)
+#3 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Core/App.php(899): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2012-07-17 22:40:49 Error: [MissingActionException] Action SchoolsController::myadd() could not be found.
+#0 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Routing/Dispatcher.php(186): Controller->invokeAction(Object(CakeRequest))
+#1 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Routing/Dispatcher.php(161): Dispatcher->_invoke(Object(SchoolsController), Object(CakeRequest), Object(CakeResponse))
+#2 /home/critchie/www/cakephp-cakephp-e0b6f86/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#3 {main}
+2012-07-18 17:00:43 Error: [MissingActionException] Action UsersController::login() could not be found.
+#0 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Routing/Dispatcher.php(186): Controller->invokeAction(Object(CakeRequest))
+#1 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Routing/Dispatcher.php(161): Dispatcher->_invoke(Object(UsersController), Object(CakeRequest), Object(CakeResponse))
+#2 /home/critchie/www/cakephp-cakephp-e0b6f86/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#3 {main}
+2012-07-18 17:01:11 Error: Fatal Error (64): Cannot redeclare UsersController::beforeFilter() in [/home/critchie/www/cakephp-cakephp-e0b6f86/app/Controller/UsersController.php, line 72]
+2012-07-18 17:01:11 Error: [FatalErrorException] Cannot redeclare UsersController::beforeFilter()
+#0 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Error/ErrorHandler.php(162): ErrorHandler::handleFatalError(64, 'Cannot redeclar...', '/home/critchie/...', 72)
+#1 [internal function]: ErrorHandler::handleError(64, 'Cannot redeclar...', '/home/critchie/...', 72, Array)
+#2 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Core/App.php(926): call_user_func('ErrorHandler::h...', 64, 'Cannot redeclar...', '/home/critchie/...', 72, Array)
+#3 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Core/App.php(899): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}

@@ -1,6 +1,6 @@
 <?php
     # include Jquery
-    //echo $this->Html->script('jquery-1.7.2'); # or wherever it is in your js folder
+    echo $this->Html->script('jquery-1.7.2'); # or wherever it is in your js folder
     # include the map js code
     //echo $this->Html->script($this->GoogleMapV3->apiUrl());
     
@@ -24,6 +24,94 @@
 <P>
     <I>Note: This version of overview map uses the Marc Fernandez map helper, version 2.0.</I>
 </P>
+
+<P>
+    
+</P>
+<?php
+    echo $this->Form->create('School', array(
+        'url' => array_merge(array('action' => 'index'), $this->params['pass'])
+    ));
+    if ($schools != null) {
+        //echo '<LI>'.$schools[$i]['School']['primary_school'].'</LI>';
+        //echo '<pre> LAT ' . $lat . '</pre>';
+        //echo '<pre> LON ' .  $lon . '</pre>';
+        //echo '<pre> defaultLat ' . $defaultLat . '</pre>';
+        //echo '<pre> defaultLon ' .  $defaultLng . '</pre>';
+     
+       $i = 0; 
+       foreach ($provinces as $province) {
+           $i++;
+           //$this->Form->checkbox("School.province.1", array("value"=>"1"));
+           //echo "<BR>";
+           
+           //echo $this->Form->checkbox("foo", array("value"=>$i));
+           //echo "<label for=".$i.">".$province['name']."</label>";
+           /*
+           echo $this->Form->input('Provice.name', array(
+                'type' => 'select', 
+                'multiple' => 'checkbox',
+                'options' => array(
+                'Value 1' => 'Label 1',
+                'Value 2' => 'Label 2'
+            )
+            ));
+           */
+           }
+    }
+            echo $this->Form->input('Province.name', array(
+                'type' => 'select', 
+                'multiple' => 'checkbox',
+                'options' => array(
+                        'Value 1' => 'Zanzibar',
+                        'Value 2' => 'Mwtara'
+                )
+            ));
+    ////echo $this->Form->input('primary_school', array('div' => false));
+    //echo $this->Form->input('district', array('div' => false));
+    //echo $this->Form->input('district', array('div' => false, 'options' => $schools));
+    echo $this->Form->submit(__('Search', true), array('div' => false));
+    echo $this->Form->end();
+    
+    //serialize the form element to submit
+ 
+    $data = $this->Js->get('#UserMyaddForm')->serializeForm(
+                                                array(
+                                                'isForm' => true,
+                                                'inline' => true)
+                                            );
+ 
+    // Submit the serialize data on submit click
+ 
+    $this->Js->get('#UserMyaddForm')->event(
+          'submit',
+          $this->Js->request(
+            array('action' => 'myadd'),
+            array(
+                    'update' => '#HiOutput', // element to update
+                                             // after form submission
+                    'data' => $data,
+                    'async' => true,
+                    'dataExpression'=>true,
+                    'method' => 'POST'
+                )
+            )
+        );
+ 
+    // User Form 
+ 
+    echo $this->Form->create('User', array(
+                                        'action' => 'myadd',
+                                        'default' => false)  // stop Form's
+                                                            // general submit
+                                    );
+    echo __('Add User');
+    echo $this->Form->input('username');
+    echo $this->Form->input('password');
+    echo $this->Form->end(__('Submit'));
+    echo $this->Js->writeBuffer();  // cache the js code generated
+?>
+?>
 <P>
 <?php
 

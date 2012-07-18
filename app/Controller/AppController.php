@@ -32,4 +32,40 @@ App::uses('Controller', 'Controller');
  * @link http://book.cakephp.org/2.0/en/controllers.html#the-app-controller
  */
 class AppController extends Controller {
+
+    // used for the login/ACL
+    public $components = array(
+        'Session',
+        'Auth' => array(
+            'loginRedirect' => array('controller' => 'schools', 'action' => 'overview'),
+            'logoutRedirect' => array('controller' => 'schools', 'action' => 'overviewalt'),
+            'authorize' => array('Controller')
+        )
+    );
+
+    // used for the login/ACL
+    public function beforeFilter() {
+        // tell the AuthComponent to not require a login for all index and
+        // view actions, in every controller. We want our visitors to be able to
+        // read and list the entries without registering in the site.
+        $this->Auth->allow('index', 'view', 'overview','overviewalt');
+        
+        // allows access to nothing if not logged in by forcing them to the login
+        // page as served by the User controller
+        //$this->Auth->allow('login');
+    }
+    
+    // we could prevent some staff to edit or delete others' schools
+    // basic rules for our app are that admin users can access every url, while
+    // normal users (the author role) can only access the permitted actions.
+    public function isAuthorized($user) {
+        // Admin can access every action
+        if (isset($user['role']) && $user['role'] === 'admin') {
+            return true;
+        }
+
+        // Default deny
+        return false;
+    }
 }
+?>

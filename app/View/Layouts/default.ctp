@@ -37,15 +37,14 @@ $cakeDescription = __d('cake_dev', 'CakePHP: the rapid development php framework
 <body>
 <div id="wrap">
 		<div id="navigation">
-			<?php echo $this->Html->link('Home',
-                            array('controller' => 'pages',
-                            'action' => 'index')); ?> |
-			<?php echo $this->Html->link('Map',
-                            array('controller' => 'schools',
-                            'action' => 'overview')); ?> |
-			<?php echo $this->Html->link('Schools',
-                            array('controller' => 'schools',
-                            'action' => 'index')); ?>
+                    <?php
+                        echo $this->Html->link('Login', array('controller' => 'users', 'action' => 'login'));
+                        //echo $this->Html->link('Home', array('controller' => 'pages', 'action' => 'index'));
+                        echo $this->Html->link('Map v1', array('controller' => 'schools', 'action' => 'overview'));
+                        echo $this->Html->link('Map v2', array('controller' => 'schools', 'action' => 'overviewalt'));
+                        echo $this->Html->link('Schools', array('controller' => 'schools', 'action' => 'index'));
+                        echo $this->Html->link('Logout', array('controller' => 'users', 'action' => 'logout'));
+                    ?>
 		</div>
 		<div id="content"><?php echo $content_for_layout; ?></div>
 		<div id="footer">
