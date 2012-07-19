@@ -17,6 +17,27 @@ class School extends AppModel {
         'District'
     );
     
+    public $validate = array(
+            'primary_school' => array(
+                    'notempty' => array(
+                            'rule' => array('notempty'),
+                            'message' => 'This field cannot be blank.',
+                            //'allowEmpty' => false,
+                            //'required' => false,
+                            //'last' => false, // Stop validation after this rule
+                            //'on' => 'create', // Limit validation to 'create' or 'update' operations
+                    ),
+                    'alphanumeric' => array(
+                            'rule' => array('alphanumeric'),
+                            'message' => 'Only letters and numbers are allowed.',
+                            //'allowEmpty' => false,
+                            //'required' => false,
+                            //'last' => false, // Stop validation after this rule
+                            //'on' => 'create', // Limit validation to 'create' or 'update' operations
+                    ),
+            ),
+	);
+    
     // we'll eventually save the school's latitude/longitude here -- but only
     // after decoding it from the spatial data type in the db
     var $lat = 0;

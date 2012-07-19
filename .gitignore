@@ -63,6 +63,10 @@ Thumbs.db
 !/app/tmp/tests/
 !/app/tmp/tests/empty
 
-/app/webroot/files/*
-!/app/webroot/files/
-!/app/webroot/files/empty
+/app/webroot/files/School/*
+!/app/webroot/files/School/
+!/app/webroot/files/School/empty
+
+/app/tmp/logs/*
+!/app/tmp/logs/
+!/app/tmp/logs/empty

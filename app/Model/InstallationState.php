@@ -22,7 +22,7 @@ class InstallationState extends AppModel {
             'name' => array(
                     'notempty' => array(
                             'rule' => array('notempty'),
-                            'message' => 'This field cannot be blank.',
+                            //'message' => 'This field cannot be blank.',
                             //'allowEmpty' => false,
                             //'required' => false,
                             //'last' => false, // Stop validation after this rule
