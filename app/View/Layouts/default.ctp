@@ -40,14 +40,16 @@ $cakeDescription = __d('cake_dev', 'CakePHP: the rapid development php framework
                     <?php
                         // $user is set in AppController's beforeRender
                         //echo "<pre>".print_r($user)."</pre>";
-                    
+                        
+                        // may want to use:  $this->Session->read('User.id')));
+                        // 
                         // if the user is logged in, show their name and role
                         // near the top
                         if ( isset($user) ) {
                             echo "<small>Logged in as: ".$user['username']."<br>";
                             echo "Role: ".$user['role']."</small><br><br><br>";
                             //echo $this->Html->link('Pages Home', array('controller' => 'pages', 'action' => 'index'));
-                            echo $this->Html->link('Schools Home', array('controller' => 'schools', 'action' => 'home'));
+                            echo $this->Html->link('About', array('controller' => 'schools', 'action' => 'about'));
                             echo $this->Html->link('Map v1', array('controller' => 'schools', 'action' => 'overview'));
                             echo $this->Html->link('Map v2', array('controller' => 'schools', 'action' => 'overviewalt'));
                             echo $this->Html->link('Schools', array('controller' => 'schools', 'action' => 'index'));
@@ -55,6 +57,7 @@ $cakeDescription = __d('cake_dev', 'CakePHP: the rapid development php framework
                                 echo $this->Html->link('Setup', array('controller' => 'users', 'action' => 'setup'));
                                 }
                             echo $this->Html->link('Logout', array('controller' => 'users', 'action' => 'logout'));
+                            
                         }
                         else {
                             // otherwise show a login box

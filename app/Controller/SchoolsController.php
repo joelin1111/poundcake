@@ -73,7 +73,7 @@ class SchoolsController extends AppController
         }
     }
     
-    public function home() {
+    public function about() {
         // do nothing
     }
     
@@ -228,6 +228,13 @@ class SchoolsController extends AppController
     }
     
     function add() {
+        // Note prior to adding the belongsTo relationship (school belongs to
+        // region) I had this if in advance of actually calling the save method
+        // -- this failed after I added belongsTo and I'm not sure why
+        // commenting out for now
+        // if ($this->request->is('school')) {
+        $this->School->create();
+
         // get a list of regions, link and intervention types
         // the School may belong to
         $this->getProvinces();
@@ -238,29 +245,21 @@ class SchoolsController extends AppController
         $this->getSiteStates();
         $this->getPowerTypes();
         $this->getRoadTypes();
-        
-        // Note prior to adding the belongsTo relationship (school belongs to
-        // region) I had this if in advance of actually calling the save method
-        // -- this failed after I added belongsTo and I'm not sure why
-        // commenting out for now
-        // if ($this->request->is('school')) {
-        $this->School->create();
-        
-        
+
         // should I wrap all the following with?
         // if ($this->request->is('post')) {        
-        
+
         if ( $this->request->data != null ) {
             $this->set('lat',$this->request->data['School']['lat']);
             $this->set('lon',$this->request->data['School']['lon']);
         }
-        
+
         // store the currently logged in user as a reference for the created school
         // The user() function provided by the component returns any column from
         // the currently logged in user.  We used this method to add the data into
         // the request info that is saved.
-        $this->request->data['School']['user_id'] = $this->Auth->user('id');
-        
+        //$this->request->data['School']['user_id'] = $this->Auth->user('id');
+
         if ($this->School->save($this->request->data)) {
             // see comments in edit()
             $query =  "UPDATE schools SET location=";
@@ -321,6 +320,7 @@ class SchoolsController extends AppController
         if (!$this->School->exists()) {
             throw new NotFoundException(__('Invalid school'));
         }
+        
         if ($this->request->is('post') || $this->request->is('put')) {
             //echo "<pre> New Lat:".print_r( $this->request )."</pre>";
             //echo '<pre>' . print_r($this->request->data) . '</pre>';

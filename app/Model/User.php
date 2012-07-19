@@ -17,8 +17,9 @@ class User extends AppModel {
         ),
         'password' => array(
             'required' => array(
-                'rule' => array('notEmpty'),
-                'message' => 'Password is required'
+                //'rule' => array('notEmpty'),
+                'rule'    => array('between', 5, 15),
+                'message' => 'Passwords must be between 5 and 15 characters long.'
             )
         ),
         'role' => array(

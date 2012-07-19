@@ -53,7 +53,7 @@
            <td><?php echo '(No Data)' ?></td>
            <td><?php echo $school['PowerType']['name']; ?></td>
            <td><?php echo $school['ConnectivityType']['name']; ?></td>
-           <td><?php echo '(No Data)' ?></td>
+           <td><?php echo $school['RoadType']['name']; ?></td>
            <td align="center">
             <?php echo $this->Html->link('Edit', array('action'=>'edit', $school['School']['id']));?>
             <?php echo $this->Html->link('Delete', array('action' => 'delete', $school['School']['id']), null, 'Are you sure?' )?>

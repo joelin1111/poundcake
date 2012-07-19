@@ -72,15 +72,7 @@ class UsersController extends AppController {
     }
     
     public function setup() {
-        debug();
-        //// nothing
-        /*
-        if (!$this->User->isAuthorized()) {
-            $this->redirect(array('controller' => 'schools', 'action' => 'overview'));
-        }
-        */
-        exit;
-
+        // show the setup page - main admin landing page
     }
     
     public function login() {
@@ -97,7 +89,18 @@ class UsersController extends AppController {
         // setFlash doesn't actually work here, maybe we should redirect them to a page
         // confirming they've been logged out (which then redirects to the main page?
         // $this->Session->setFlash(__('Logout complete')); // a white lie? :-)
-        $this->redirect($this->Auth->logout());
+        //$this->redirect($this->Auth->logout());
+        
+        // having problems with the logout function sending them to a non-authorized page
+        // this workaround seems to work, just send them back to the login page
+        // problem described here:
+        // see:  http://stackoverflow.com/questions/8262720/cakephp-2-0-logout
+        if($this->Auth->user()) {
+            $this->redirect($this->Auth->logout());
+        } else {
+            $this->redirect(array('controller'=>'pages','action' => 'display','home'));
+            $this->Session->setFlash(__('Not logged in'), 'default', array(), 'auth');
+        }
     }
     
     public function isAuthorized($user) {
@@ -106,6 +109,10 @@ class UsersController extends AppController {
         // remember to comment this out!
         
         if ($this->action === 'add') {
+            // for testing
+            return true;
+        }
+        if ($this->action === 'logout') {
             // for testing
             return true;
         }

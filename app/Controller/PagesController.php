@@ -77,12 +77,21 @@ class PagesController extends AppController {
     public function beforeFilter() {
         parent::beforeFilter();
         // this doesn't seem to work
-        //$this->Auth->allow('index','home');
+        $this->Auth->allow('login','logout');
     }
     
-    /*
+    public function logout() {
+        // show logout page
+    }
+    
     public function isAuthorized($user) {
-         if ($this->action === 'home') {
+        return true;
+        /*
+        if ($user != null) {
+            return true;
+        }
+        */
+        if ($this->action === 'home') {
             // for testing
             return true;
         }
@@ -96,7 +105,6 @@ class PagesController extends AppController {
             }
         }
         */
-        
-        //return parent::isAuthorized($user);
-    //}
+        return parent::isAuthorized($user);
+   }
 }

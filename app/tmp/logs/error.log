@@ -3747,3 +3747,83 @@
 #1 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Routing/Dispatcher.php(161): Dispatcher->_invoke(Object(UsersController), Object(CakeRequest), Object(CakeResponse))
 #2 /home/critchie/www/cakephp-cakephp-e0b6f86/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
 #3 {main}
+2012-07-19 01:20:41 Error: [MissingViewException] View file "/home/critchie/www/cakephp-cakephp-e0b6f86/app/View/Schools/home.ctp" is missing.
+#0 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/View/View.php(472): View->_getViewFileName(NULL)
+#1 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Controller/Controller.php(957): View->render(NULL, NULL)
+#2 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Routing/Dispatcher.php(193): Controller->render()
+#3 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Routing/Dispatcher.php(161): Dispatcher->_invoke(Object(SchoolsController), Object(CakeRequest), Object(CakeResponse))
+#4 /home/critchie/www/cakephp-cakephp-e0b6f86/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#5 {main}
+2012-07-19 01:20:45 Error: [MissingActionException] Action SchoolsController::about() could not be found.
+#0 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Routing/Dispatcher.php(186): Controller->invokeAction(Object(CakeRequest))
+#1 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Routing/Dispatcher.php(161): Dispatcher->_invoke(Object(SchoolsController), Object(CakeRequest), Object(CakeResponse))
+#2 /home/critchie/www/cakephp-cakephp-e0b6f86/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#3 {main}
+2012-07-19 03:21:27 Error: [MissingControllerException] Controller class RoadsController could not be found.
+#0 /home/critchie/www/cakephp-cakephp-e0b6f86/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2012-07-19 03:21:31 Error: [MissingControllerException] Controller class RoadController could not be found.
+#0 /home/critchie/www/cakephp-cakephp-e0b6f86/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2012-07-19 03:21:44 Error: [MissingControllerException] Controller class RoadtypeController could not be found.
+#0 /home/critchie/www/cakephp-cakephp-e0b6f86/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2012-07-19 03:21:47 Error: [MissingControllerException] Controller class RoadtypesController could not be found.
+#0 /home/critchie/www/cakephp-cakephp-e0b6f86/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2012-07-19 03:22:17 Error: [MissingControllerException] Controller class RoadtypeController could not be found.
+#0 /home/critchie/www/cakephp-cakephp-e0b6f86/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2012-07-19 03:22:19 Error: [MissingControllerException] Controller class RoadtypesController could not be found.
+#0 /home/critchie/www/cakephp-cakephp-e0b6f86/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2012-07-19 03:22:22 Error: [MissingControllerException] Controller class RoadtypesController could not be found.
+#0 /home/critchie/www/cakephp-cakephp-e0b6f86/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2012-07-19 04:12:28 Error: [MissingControllerException] Controller class ServiceProviderController could not be found.
+#0 /home/critchie/www/cakephp-cakephp-e0b6f86/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2012-07-19 04:31:18 Error: [MissingControllerException] Controller class DisplayController could not be found.
+#0 /home/critchie/www/cakephp-cakephp-e0b6f86/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2012-07-19 04:34:52 Error: [MissingControllerException] Controller class DisplayController could not be found.
+#0 /home/critchie/www/cakephp-cakephp-e0b6f86/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2012-07-19 04:41:57 Error: [MissingControllerException] Controller class AuthController could not be found.
+#0 /home/critchie/www/cakephp-cakephp-e0b6f86/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2012-07-19 04:43:40 Error: [MissingControllerException] Controller class AuthController could not be found.
+#0 /home/critchie/www/cakephp-cakephp-e0b6f86/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2012-07-19 04:43:43 Error: [MissingControllerException] Controller class AuthController could not be found.
+#0 /home/critchie/www/cakephp-cakephp-e0b6f86/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2012-07-19 18:20:28 Error: Fatal Error (1): Call to a member function find() on a non-object in [/home/critchie/www/cakephp-cakephp-e0b6f86/app/Controller/SchoolsController.php, line 197]
+2012-07-19 18:20:28 Error: [FatalErrorException] Call to a member function find() on a non-object
+#0 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Error/ErrorHandler.php(162): ErrorHandler::handleFatalError(1, 'Call to a membe...', '/home/critchie/...', 197)
+#1 [internal function]: ErrorHandler::handleError(1, 'Call to a membe...', '/home/critchie/...', 197, Array)
+#2 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Core/App.php(926): call_user_func('ErrorHandler::h...', 1, 'Call to a membe...', '/home/critchie/...', 197, Array)
+#3 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Core/App.php(899): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2012-07-19 18:20:35 Error: Fatal Error (1): Call to a member function find() on a non-object in [/home/critchie/www/cakephp-cakephp-e0b6f86/app/Controller/SchoolsController.php, line 197]
+2012-07-19 18:20:35 Error: [FatalErrorException] Call to a member function find() on a non-object
+#0 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Error/ErrorHandler.php(162): ErrorHandler::handleFatalError(1, 'Call to a membe...', '/home/critchie/...', 197)
+#1 [internal function]: ErrorHandler::handleError(1, 'Call to a membe...', '/home/critchie/...', 197, Array)
+#2 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Core/App.php(926): call_user_func('ErrorHandler::h...', 1, 'Call to a membe...', '/home/critchie/...', 197, Array)
+#3 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Core/App.php(899): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2012-07-19 19:57:16 Error: [MissingControllerException] Controller class InstallationStatesController could not be found.
+#0 /home/critchie/www/cakephp-cakephp-e0b6f86/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2012-07-19 19:58:49 Error: [MissingControllerException] Controller class InstallationStatesController could not be found.
+#0 /home/critchie/www/cakephp-cakephp-e0b6f86/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2012-07-19 19:59:22 Error: [MissingViewException] View file "/home/critchie/www/cakephp-cakephp-e0b6f86/app/View/InstallationStates/index.ctp" is missing.
+#0 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/View/View.php(472): View->_getViewFileName(NULL)
+#1 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Controller/Controller.php(957): View->render(NULL, NULL)
+#2 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Routing/Dispatcher.php(193): Controller->render()
+#3 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Routing/Dispatcher.php(161): Dispatcher->_invoke(Object(InstallationStatesController), Object(CakeRequest), Object(CakeResponse))
+#4 /home/critchie/www/cakephp-cakephp-e0b6f86/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#5 {main}

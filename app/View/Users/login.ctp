@@ -1,6 +1,8 @@
 <BR><BR>
     <?php
         // display any messages here
+        // these can be customized
+        // http://book.cakephp.org/1.3/view/1252/Displaying-Auth-Error-Messages
         echo $this->Session->flash('auth');
     ?>
 <BR><BR>

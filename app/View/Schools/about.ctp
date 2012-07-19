@@ -4,7 +4,7 @@ Welcome to "Poundcake"
 <H2 align="center">TZ21 Schools Database<BR>
 </h2>
 
-<H3 align="center">(Schools Controller)</H3>
+<H3 align="center">(About page in Schools Controller)</H3>
 
 <P>
     Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
@@ -48,5 +48,7 @@ Welcome to "Poundcake"
     nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
     Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore
     eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-    sunt in culpa qui officia deserunt mollit anim id est laborum.
+    sunt in culp
 </P>
+
+

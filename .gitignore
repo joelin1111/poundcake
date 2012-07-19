@@ -62,3 +62,7 @@ Thumbs.db
 /app/tmp/tests/*
 !/app/tmp/tests/
 !/app/tmp/tests/empty
+
+/app/webroot/files/*
+!/app/webroot/files/
+!/app/webroot/files/empty
