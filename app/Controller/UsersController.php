@@ -65,12 +65,24 @@ class UsersController extends AppController {
     }
     
     public function beforeFilter() {
-        // tell the AuthComponent to let un-authenticated users to access
-        // the users add function and implement the login and logout action
         parent::beforeFilter();
-        $this->Auth->allow('add','logout'); // putting add here would allow users register themselves
+        // this needs to be removed before going into production
+        // basically bypass authentication for:  /users/add 
+        $this->Auth->allow('add');
     }
+    
+    public function setup() {
+        debug();
+        //// nothing
+        /*
+        if (!$this->User->isAuthorized()) {
+            $this->redirect(array('controller' => 'schools', 'action' => 'overview'));
+        }
+        */
+        exit;
 
+    }
+    
     public function login() {
         if ($this->request->is('post')) {
             if ($this->Auth->login()) {
@@ -86,6 +98,29 @@ class UsersController extends AppController {
         // confirming they've been logged out (which then redirects to the main page?
         // $this->Session->setFlash(__('Logout complete')); // a white lie? :-)
         $this->redirect($this->Auth->logout());
+    }
+    
+    public function isAuthorized($user) {
+        // override isAuthorized in AppController by allowing specific functionality
+        // All registered users can add posts
+        // remember to comment this out!
+        
+        if ($this->action === 'add') {
+            // for testing
+            return true;
+        }
+        /*
+        from the sample code:
+        // The owner of a post can edit and delete it
+        if (in_array($this->action, array('edit', 'delete'))) {
+            $postId = $this->request->params['pass'][0];
+            if ($this->Post->isOwnedBy($postId, $user['id'])) {
+                return true;
+            }
+        }
+        */
+        
+        return parent::isAuthorized($user);
     }
 }
 ?>

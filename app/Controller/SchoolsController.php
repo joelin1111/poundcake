@@ -12,7 +12,7 @@ class SchoolsController extends AppController
     // pagination of results ($paginate) is down in the index function
 
     // make Schools visible to the search plugin
-    public $components = array('Search.Prg','AjaxMultiUpload.Upload');
+    public $components = array('Search.Prg','AjaxMultiUpload.Upload','DebugKit.Toolbar');
     
     public $presetVars = array(
         // field names for the form itself , 'model' => 'School'
@@ -22,9 +22,13 @@ class SchoolsController extends AppController
     );
     
     public function beforeFilter() {
+        
+        parent::beforeFilter();
+        //$this->Auth->allow('home');
+        
         $this->set('primary_school', $this->School->primary_school);
         $this->set('district', $this->School->district);    
-        parent::beforeFilter();
+        //parent::beforeFilter();
     }
     
     public function find() {
@@ -69,7 +73,11 @@ class SchoolsController extends AppController
         }
     }
     
-    // for testing alternate Google Maps helper
+    public function home() {
+        // do nothing
+    }
+    
+    // for testing alternate Google Maps search/filter
     public function overviewfilter() {
        $this->getProvinces();
        $this->overview();
@@ -275,11 +283,6 @@ class SchoolsController extends AppController
         */
     }
     
-    // return true if a school is owned by a user (was created by)
-    public function isOwnedBy($school, $user) {
-        return $this->field('id', array('id' => $school, 'user_id' => $user)) === $school;
-    }
-    
     function delete($id) {
         // this came from one of the search examples, not sure why it's here
         // if (!$this->request->is('post')) {
@@ -355,19 +358,29 @@ class SchoolsController extends AppController
     // allow staff  to create schools but prevent the editing schools if
     // the staff id does not match.
     public function isAuthorized($user) {
-        // All registered users can add posts
+        
+        // revisit: if the user is logged in then permit any action
+        // on the schools controller except delete
+        // to do
+        if ($user != null)
+            return true;
+        /*
+        return true;
+        echo "<pre>".$this->action."</pre>";
+        //// all registered users can add schools
         if ($this->action === 'add') {
             return true;
         }
 
-        // The owner of a post can edit and delete it
+        // only the owner of a school can edit or delete it
         if (in_array($this->action, array('edit', 'delete'))) {
-            $postId = $this->request->params['pass'][0];
-            if ($this->Post->isOwnedBy($postId, $user['id'])) {
+            $schoolID = $this->request->params['pass'][0];
+            if ($this->School->isOwnedBy($schoolID, $user['id'])) {
                 return true;
             }
         }
-
+        */
+        
         return parent::isAuthorized($user);
     }
 }

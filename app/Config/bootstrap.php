@@ -193,6 +193,9 @@ CakeLog::config('error', array(
 CakePlugin::load('AjaxMultiUpload');
 // CakePlugin::load('CakePHP-AjaxMultiUpload');
 CakePlugin::load('Search');
+CakePlugin::load('DebugKit');
+
+
 //CakePlugin::loadAll(array(
 //    'Search' => array('routes' => true, 'bootstrap' => true),
 //));

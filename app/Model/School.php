@@ -81,5 +81,12 @@ class School extends AppModel {
                 $this->alias . '.primary_school LIKE' => $primary_school,
             ));
     }
+    
+    // return true if a school is owned by a user (was created by)
+    public function isOwnedBy($school, $user) {
+        return $this->field('id', array('id' => $school, 'user_id' => $user)) === $school;
+    }
+    
+    
 }
 ?>

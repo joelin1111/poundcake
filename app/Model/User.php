@@ -7,6 +7,7 @@ App::uses('AuthComponent', 'Controller/Component');
 
 class User extends AppModel {
     
+    // used on saving new user
     public $validate = array(
         'username' => array(
             'required' => array(

@@ -4,7 +4,7 @@ Welcome to "Poundcake"
 <H2 align="center">TZ21 Schools Database<BR>
 </h2>
 
-<H3 align="center">(Pages Controller)</H3>
+<H3 align="center">(Schools Controller)</H3>
 
 <P>
     Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor

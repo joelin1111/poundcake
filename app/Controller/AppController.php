@@ -36,23 +36,29 @@ class AppController extends Controller {
     // used for the login/ACL
     public $components = array(
         'Session',
+        'DebugKit.Toolbar',
         'Auth' => array(
-            'loginRedirect' => array('controller' => 'schools', 'action' => 'overview'),
-            'logoutRedirect' => array('controller' => 'schools', 'action' => 'overviewalt'),
+            //'loginRedirect' => array('controller' => 'schools', 'action' => 'overview'),\
+            // if the user is not logged in, 
+            // if the logged in user accesses a page they are not supposed to (by 
+            // typing in the URL manually), send them here
+            'loginRedirect' => array('controller' => 'schools', 'action' => 'home'),
+            'logoutRedirect' => array('controller' => 'pages', 'action' => 'display', 'home'),
             'authorize' => array('Controller')
         )
     );
 
     // used for the login/ACL
     public function beforeFilter() {
-        // tell the AuthComponent to not require a login for all index and
+        //// tell the AuthComponent to not require a login for all index and
         // view actions, in every controller. We want our visitors to be able to
         // read and list the entries without registering in the site.
-        $this->Auth->allow('index', 'view', 'overview','overviewalt');
+        //$this->Auth->allow('index', 'view', 'overview','overviewalt');
+        // $this->Auth->allow();
         
-        // allows access to nothing if not logged in by forcing them to the login
-        // page as served by the User controller
-        //$this->Auth->allow('login');
+        // allows access to nothing if not logged in
+        // by only allowing them access to the logout page
+        $this->Auth->allow('logout');
     }
     
     // we could prevent some staff to edit or delete others' schools
@@ -66,6 +72,11 @@ class AppController extends Controller {
 
         // Default deny
         return false;
+    }
+    
+    function beforeRender() {
+        // In the views $user['User']['username'] would display the logged in users username
+        $this->set('user', $this->Auth->user());
     }
 }
 ?>

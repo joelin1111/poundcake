@@ -3335,3 +3335,415 @@
 #3 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Core/App.php(899): App::_checkFatalError()
 #4 [internal function]: App::shutdown()
 #5 {main}
+2012-07-18 20:00:54 Error: [MissingControllerException] Controller class DefaultController could not be found.
+#0 /home/critchie/www/cakephp-cakephp-e0b6f86/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2012-07-18 20:05:37 Error: [MissingControllerException] Controller class HomeController could not be found.
+#0 /home/critchie/www/cakephp-cakephp-e0b6f86/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2012-07-18 20:10:04 Error: [MissingViewException] View file "/home/critchie/www/cakephp-cakephp-e0b6f86/app/View/Users/index.ctp" is missing.
+#0 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/View/View.php(472): View->_getViewFileName(NULL)
+#1 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Controller/Controller.php(957): View->render(NULL, NULL)
+#2 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Routing/Dispatcher.php(193): Controller->render()
+#3 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Routing/Dispatcher.php(161): Dispatcher->_invoke(Object(UsersController), Object(CakeRequest), Object(CakeResponse))
+#4 /home/critchie/www/cakephp-cakephp-e0b6f86/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#5 {main}
+2012-07-18 20:12:07 Error: Fatal Error (1): Call to a member function isOwnedBy() on a non-object in [/home/critchie/www/cakephp-cakephp-e0b6f86/app/Controller/SchoolsController.php, line 366]
+2012-07-18 20:12:07 Error: [FatalErrorException] Call to a member function isOwnedBy() on a non-object
+#0 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Error/ErrorHandler.php(162): ErrorHandler::handleFatalError(1, 'Call to a membe...', '/home/critchie/...', 366)
+#1 [internal function]: ErrorHandler::handleError(1, 'Call to a membe...', '/home/critchie/...', 366, Array)
+#2 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Core/App.php(926): call_user_func('ErrorHandler::h...', 1, 'Call to a membe...', '/home/critchie/...', 366, Array)
+#3 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Core/App.php(899): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2012-07-18 20:12:24 Error: Fatal Error (1): Call to a member function isOwnedBy() on a non-object in [/home/critchie/www/cakephp-cakephp-e0b6f86/app/Controller/SchoolsController.php, line 366]
+2012-07-18 20:12:24 Error: [FatalErrorException] Call to a member function isOwnedBy() on a non-object
+#0 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Error/ErrorHandler.php(162): ErrorHandler::handleFatalError(1, 'Call to a membe...', '/home/critchie/...', 366)
+#1 [internal function]: ErrorHandler::handleError(1, 'Call to a membe...', '/home/critchie/...', 366, Array)
+#2 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Core/App.php(926): call_user_func('ErrorHandler::h...', 1, 'Call to a membe...', '/home/critchie/...', 366, Array)
+#3 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Core/App.php(899): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2012-07-18 20:12:54 Error: [PDOException] SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'isOwnedBy' at line 1
+#0 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Model/Datasource/DboSource.php(461): PDOStatement->execute(Array)
+#1 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Model/Datasource/DboSource.php(427): DboSource->_execute('isOwnedBy', Array)
+#2 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Model/Datasource/DboSource.php(671): DboSource->execute('isOwnedBy', Array, Array)
+#3 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Model/Datasource/DboSource.php(613): DboSource->fetchAll('isOwnedBy', Array, Array)
+#4 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Model/Model.php(784): DboSource->query('isOwnedBy', Array, Object(School))
+#5 [internal function]: Model->__call('isOwnedBy', Array)
+#6 /home/critchie/www/cakephp-cakephp-e0b6f86/app/Controller/SchoolsController.php(366): School->isOwnedBy('1', '1')
+#7 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Controller/Component/Auth/ControllerAuthorize.php(64): SchoolsController->isAuthorized(Array)
+#8 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Controller/Component/AuthComponent.php(379): ControllerAuthorize->authorize(Array, Object(CakeRequest))
+#9 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Controller/Component/AuthComponent.php(326): AuthComponent->isAuthorized(Array)
+#10 [internal function]: AuthComponent->startup(Object(SchoolsController))
+#11 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Utility/ObjectCollection.php(130): call_user_func_array(Array, Array)
+#12 [internal function]: ObjectCollection->trigger(Object(CakeEvent))
+#13 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Event/CakeEventManager.php(246): call_user_func(Array, Object(CakeEvent))
+#14 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Controller/Controller.php(671): CakeEventManager->dispatch(Object(CakeEvent))
+#15 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Routing/Dispatcher.php(183): Controller->startupProcess()
+#16 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Routing/Dispatcher.php(161): Dispatcher->_invoke(Object(SchoolsController), Object(CakeRequest), Object(CakeResponse))
+#17 /home/critchie/www/cakephp-cakephp-e0b6f86/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#18 {main}
+2012-07-18 20:13:54 Error: [PDOException] SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'isOwnedBy' at line 1
+#0 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Model/Datasource/DboSource.php(461): PDOStatement->execute(Array)
+#1 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Model/Datasource/DboSource.php(427): DboSource->_execute('isOwnedBy', Array)
+#2 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Model/Datasource/DboSource.php(671): DboSource->execute('isOwnedBy', Array, Array)
+#3 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Model/Datasource/DboSource.php(613): DboSource->fetchAll('isOwnedBy', Array, Array)
+#4 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Model/Model.php(784): DboSource->query('isOwnedBy', Array, Object(School))
+#5 [internal function]: Model->__call('isOwnedBy', Array)
+#6 /home/critchie/www/cakephp-cakephp-e0b6f86/app/Controller/SchoolsController.php(366): School->isOwnedBy(NULL, '1')
+#7 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Controller/Component/Auth/ControllerAuthorize.php(64): SchoolsController->isAuthorized(Array)
+#8 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Controller/Component/AuthComponent.php(379): ControllerAuthorize->authorize(Array, Object(CakeRequest))
+#9 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Controller/Component/AuthComponent.php(326): AuthComponent->isAuthorized(Array)
+#10 [internal function]: AuthComponent->startup(Object(SchoolsController))
+#11 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Utility/ObjectCollection.php(130): call_user_func_array(Array, Array)
+#12 [internal function]: ObjectCollection->trigger(Object(CakeEvent))
+#13 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Event/CakeEventManager.php(246): call_user_func(Array, Object(CakeEvent))
+#14 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Controller/Controller.php(671): CakeEventManager->dispatch(Object(CakeEvent))
+#15 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Routing/Dispatcher.php(183): Controller->startupProcess()
+#16 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Routing/Dispatcher.php(161): Dispatcher->_invoke(Object(SchoolsController), Object(CakeRequest), Object(CakeResponse))
+#17 /home/critchie/www/cakephp-cakephp-e0b6f86/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#18 {main}
+2012-07-18 20:14:26 Error: [PDOException] SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'isOwnedBy' at line 1
+#0 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Model/Datasource/DboSource.php(461): PDOStatement->execute(Array)
+#1 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Model/Datasource/DboSource.php(427): DboSource->_execute('isOwnedBy', Array)
+#2 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Model/Datasource/DboSource.php(671): DboSource->execute('isOwnedBy', Array, Array)
+#3 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Model/Datasource/DboSource.php(613): DboSource->fetchAll('isOwnedBy', Array, Array)
+#4 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Model/Model.php(784): DboSource->query('isOwnedBy', Array, Object(School))
+#5 [internal function]: Model->__call('isOwnedBy', Array)
+#6 /home/critchie/www/cakephp-cakephp-e0b6f86/app/Controller/SchoolsController.php(366): School->isOwnedBy('1', '1')
+#7 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Controller/Component/Auth/ControllerAuthorize.php(64): SchoolsController->isAuthorized(Array)
+#8 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Controller/Component/AuthComponent.php(379): ControllerAuthorize->authorize(Array, Object(CakeRequest))
+#9 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Controller/Component/AuthComponent.php(326): AuthComponent->isAuthorized(Array)
+#10 [internal function]: AuthComponent->startup(Object(SchoolsController))
+#11 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Utility/ObjectCollection.php(130): call_user_func_array(Array, Array)
+#12 [internal function]: ObjectCollection->trigger(Object(CakeEvent))
+#13 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Event/CakeEventManager.php(246): call_user_func(Array, Object(CakeEvent))
+#14 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Controller/Controller.php(671): CakeEventManager->dispatch(Object(CakeEvent))
+#15 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Routing/Dispatcher.php(183): Controller->startupProcess()
+#16 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Routing/Dispatcher.php(161): Dispatcher->_invoke(Object(SchoolsController), Object(CakeRequest), Object(CakeResponse))
+#17 /home/critchie/www/cakephp-cakephp-e0b6f86/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#18 {main}
+2012-07-18 20:14:30 Error: [PDOException] SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'isOwnedBy' at line 1
+#0 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Model/Datasource/DboSource.php(461): PDOStatement->execute(Array)
+#1 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Model/Datasource/DboSource.php(427): DboSource->_execute('isOwnedBy', Array)
+#2 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Model/Datasource/DboSource.php(671): DboSource->execute('isOwnedBy', Array, Array)
+#3 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Model/Datasource/DboSource.php(613): DboSource->fetchAll('isOwnedBy', Array, Array)
+#4 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Model/Model.php(784): DboSource->query('isOwnedBy', Array, Object(School))
+#5 [internal function]: Model->__call('isOwnedBy', Array)
+#6 /home/critchie/www/cakephp-cakephp-e0b6f86/app/Controller/SchoolsController.php(366): School->isOwnedBy('1', '1')
+#7 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Controller/Component/Auth/ControllerAuthorize.php(64): SchoolsController->isAuthorized(Array)
+#8 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Controller/Component/AuthComponent.php(379): ControllerAuthorize->authorize(Array, Object(CakeRequest))
+#9 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Controller/Component/AuthComponent.php(326): AuthComponent->isAuthorized(Array)
+#10 [internal function]: AuthComponent->startup(Object(SchoolsController))
+#11 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Utility/ObjectCollection.php(130): call_user_func_array(Array, Array)
+#12 [internal function]: ObjectCollection->trigger(Object(CakeEvent))
+#13 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Event/CakeEventManager.php(246): call_user_func(Array, Object(CakeEvent))
+#14 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Controller/Controller.php(671): CakeEventManager->dispatch(Object(CakeEvent))
+#15 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Routing/Dispatcher.php(183): Controller->startupProcess()
+#16 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Routing/Dispatcher.php(161): Dispatcher->_invoke(Object(SchoolsController), Object(CakeRequest), Object(CakeResponse))
+#17 /home/critchie/www/cakephp-cakephp-e0b6f86/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#18 {main}
+2012-07-18 20:25:08 Error: Fatal Error (1): Call to undefined method View::isAuthorized() in [/home/critchie/www/cakephp-cakephp-e0b6f86/app/View/Layouts/default.ctp, line 43]
+2012-07-18 20:25:08 Error: [FatalErrorException] Call to undefined method View::isAuthorized()
+#0 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Error/ErrorHandler.php(162): ErrorHandler::handleFatalError(1, 'Call to undefin...', '/home/critchie/...', 43)
+#1 [internal function]: ErrorHandler::handleError(1, 'Call to undefin...', '/home/critchie/...', 43, Array)
+#2 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Core/App.php(926): call_user_func('ErrorHandler::h...', 1, 'Call to undefin...', '/home/critchie/...', 43, Array)
+#3 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Core/App.php(899): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2012-07-18 20:25:35 Error: Fatal Error (1): Call to undefined method View::isAuthorized() in [/home/critchie/www/cakephp-cakephp-e0b6f86/app/View/Layouts/default.ctp, line 43]
+2012-07-18 20:25:35 Error: [FatalErrorException] Call to undefined method View::isAuthorized()
+#0 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Error/ErrorHandler.php(162): ErrorHandler::handleFatalError(1, 'Call to undefin...', '/home/critchie/...', 43)
+#1 [internal function]: ErrorHandler::handleError(1, 'Call to undefin...', '/home/critchie/...', 43, Array)
+#2 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Core/App.php(926): call_user_func('ErrorHandler::h...', 1, 'Call to undefin...', '/home/critchie/...', 43, Array)
+#3 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Core/App.php(899): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2012-07-18 21:16:31 Error: Fatal Error (4): syntax error, unexpected '/' in [/home/critchie/www/cakephp-cakephp-e0b6f86/app/Controller/AppController.php, line 52]
+2012-07-18 21:16:31 Error: [FatalErrorException] syntax error, unexpected '/'
+#0 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Error/ErrorHandler.php(162): ErrorHandler::handleFatalError(4, 'syntax error, u...', '/home/critchie/...', 52)
+#1 [internal function]: ErrorHandler::handleError(4, 'syntax error, u...', '/home/critchie/...', 52, Array)
+#2 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Core/App.php(926): call_user_func('ErrorHandler::h...', 4, 'syntax error, u...', '/home/critchie/...', 52, Array)
+#3 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Core/App.php(899): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2012-07-18 21:29:50 Error: [MissingActionException] Action SchoolsController::home() could not be found.
+#0 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Routing/Dispatcher.php(186): Controller->invokeAction(Object(CakeRequest))
+#1 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Routing/Dispatcher.php(161): Dispatcher->_invoke(Object(SchoolsController), Object(CakeRequest), Object(CakeResponse))
+#2 /home/critchie/www/cakephp-cakephp-e0b6f86/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#3 {main}
+2012-07-18 21:41:45 Error: [MissingActionException] Action UsersController::home() could not be found.
+#0 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Routing/Dispatcher.php(186): Controller->invokeAction(Object(CakeRequest))
+#1 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Routing/Dispatcher.php(161): Dispatcher->_invoke(Object(UsersController), Object(CakeRequest), Object(CakeResponse))
+#2 /home/critchie/www/cakephp-cakephp-e0b6f86/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#3 {main}
+2012-07-18 21:46:40 Error: [MissingViewException] View file "/home/critchie/www/cakephp-cakephp-e0b6f86/app/View/Users/index.ctp" is missing.
+#0 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/View/View.php(472): View->_getViewFileName(NULL)
+#1 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Controller/Controller.php(957): View->render(NULL, NULL)
+#2 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Routing/Dispatcher.php(193): Controller->render()
+#3 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Routing/Dispatcher.php(161): Dispatcher->_invoke(Object(UsersController), Object(CakeRequest), Object(CakeResponse))
+#4 /home/critchie/www/cakephp-cakephp-e0b6f86/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#5 {main}
+2012-07-18 21:47:10 Error: Fatal Error (64): Cannot redeclare UsersController::index() in [/home/critchie/www/cakephp-cakephp-e0b6f86/app/Controller/UsersController.php, line 78]
+2012-07-18 21:47:10 Error: [FatalErrorException] Cannot redeclare UsersController::index()
+#0 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Error/ErrorHandler.php(162): ErrorHandler::handleFatalError(64, 'Cannot redeclar...', '/home/critchie/...', 78)
+#1 [internal function]: ErrorHandler::handleError(64, 'Cannot redeclar...', '/home/critchie/...', 78, Array)
+#2 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Core/App.php(926): call_user_func('ErrorHandler::h...', 64, 'Cannot redeclar...', '/home/critchie/...', 78, Array)
+#3 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Core/App.php(899): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2012-07-18 21:48:18 Error: [MissingViewException] View file "/home/critchie/www/cakephp-cakephp-e0b6f86/app/View/Users/index.ctp" is missing.
+#0 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/View/View.php(472): View->_getViewFileName(NULL)
+#1 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Controller/Controller.php(957): View->render(NULL, NULL)
+#2 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Routing/Dispatcher.php(193): Controller->render()
+#3 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Routing/Dispatcher.php(161): Dispatcher->_invoke(Object(UsersController), Object(CakeRequest), Object(CakeResponse))
+#4 /home/critchie/www/cakephp-cakephp-e0b6f86/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#5 {main}
+2012-07-18 21:49:59 Error: [MissingActionException] Action UsersController::home() could not be found.
+#0 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Routing/Dispatcher.php(186): Controller->invokeAction(Object(CakeRequest))
+#1 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Routing/Dispatcher.php(161): Dispatcher->_invoke(Object(UsersController), Object(CakeRequest), Object(CakeResponse))
+#2 /home/critchie/www/cakephp-cakephp-e0b6f86/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#3 {main}
+2012-07-18 21:52:44 Error: [MissingViewException] View file "/home/critchie/www/cakephp-cakephp-e0b6f86/app/View/Users/index.ctp" is missing.
+#0 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/View/View.php(472): View->_getViewFileName(NULL)
+#1 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Controller/Controller.php(957): View->render(NULL, NULL)
+#2 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Routing/Dispatcher.php(193): Controller->render()
+#3 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Routing/Dispatcher.php(161): Dispatcher->_invoke(Object(UsersController), Object(CakeRequest), Object(CakeResponse))
+#4 /home/critchie/www/cakephp-cakephp-e0b6f86/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#5 {main}
+2012-07-18 21:53:03 Error: Fatal Error (64): Cannot redeclare UsersController::index() in [/home/critchie/www/cakephp-cakephp-e0b6f86/app/Controller/UsersController.php, line 74]
+2012-07-18 21:53:03 Error: [FatalErrorException] Cannot redeclare UsersController::index()
+#0 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Error/ErrorHandler.php(162): ErrorHandler::handleFatalError(64, 'Cannot redeclar...', '/home/critchie/...', 74)
+#1 [internal function]: ErrorHandler::handleError(64, 'Cannot redeclar...', '/home/critchie/...', 74, Array)
+#2 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Core/App.php(926): call_user_func('ErrorHandler::h...', 64, 'Cannot redeclar...', '/home/critchie/...', 74, Array)
+#3 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Core/App.php(899): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2012-07-18 21:53:05 Error: Fatal Error (64): Cannot redeclare UsersController::index() in [/home/critchie/www/cakephp-cakephp-e0b6f86/app/Controller/UsersController.php, line 74]
+2012-07-18 21:53:05 Error: [FatalErrorException] Cannot redeclare UsersController::index()
+#0 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Error/ErrorHandler.php(162): ErrorHandler::handleFatalError(64, 'Cannot redeclar...', '/home/critchie/...', 74)
+#1 [internal function]: ErrorHandler::handleError(64, 'Cannot redeclar...', '/home/critchie/...', 74, Array)
+#2 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Core/App.php(926): call_user_func('ErrorHandler::h...', 64, 'Cannot redeclar...', '/home/critchie/...', 74, Array)
+#3 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Core/App.php(899): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2012-07-18 21:59:59 Error: Fatal Error (1): Call to a member function check() on a non-object in [/home/critchie/www/cakephp-cakephp-e0b6f86/app/View/Layouts/default.ctp, line 47]
+2012-07-18 21:59:59 Error: [FatalErrorException] Call to a member function check() on a non-object
+#0 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Error/ErrorHandler.php(162): ErrorHandler::handleFatalError(1, 'Call to a membe...', '/home/critchie/...', 47)
+#1 [internal function]: ErrorHandler::handleError(1, 'Call to a membe...', '/home/critchie/...', 47, Array)
+#2 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Core/App.php(926): call_user_func('ErrorHandler::h...', 1, 'Call to a membe...', '/home/critchie/...', 47, Array)
+#3 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Core/App.php(899): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2012-07-18 22:05:02 Error: [MissingHelperException] Helper class userDataHelper could not be found.
+#0 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/View/HelperCollection.php(62): HelperCollection->load('userData')
+#1 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/View/View.php(812): HelperCollection->__isset('userData')
+#2 /home/critchie/www/cakephp-cakephp-e0b6f86/app/View/Layouts/default.ctp(43): View->__get('userData')
+#3 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/View/View.php(920): include('/home/critchie/...')
+#4 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/View/View.php(883): View->_evaluate('/home/critchie/...', Array)
+#5 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/View/View.php(539): View->_render('/home/critchie/...')
+#6 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/View/View.php(483): View->renderLayout('', 'default')
+#7 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Controller/Controller.php(957): View->render('home', NULL)
+#8 /home/critchie/www/cakephp-cakephp-e0b6f86/app/Controller/PagesController.php(73): Controller->render('home')
+#9 [internal function]: PagesController->display('home')
+#10 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Controller/Controller.php(485): ReflectionMethod->invokeArgs(Object(PagesController), Array)
+#11 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Routing/Dispatcher.php(186): Controller->invokeAction(Object(CakeRequest))
+#12 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Routing/Dispatcher.php(161): Dispatcher->_invoke(Object(PagesController), Object(CakeRequest), Object(CakeResponse))
+#13 /home/critchie/www/cakephp-cakephp-e0b6f86/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#14 {main}
+2012-07-18 22:17:59 Error: [MissingActionException] Action UsersController::admin() could not be found.
+#0 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Routing/Dispatcher.php(186): Controller->invokeAction(Object(CakeRequest))
+#1 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Routing/Dispatcher.php(161): Dispatcher->_invoke(Object(UsersController), Object(CakeRequest), Object(CakeResponse))
+#2 /home/critchie/www/cakephp-cakephp-e0b6f86/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#3 {main}
+2012-07-18 22:27:56 Error: [MissingActionException] Action UsersController::admin() could not be found.
+#0 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Routing/Dispatcher.php(186): Controller->invokeAction(Object(CakeRequest))
+#1 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Routing/Dispatcher.php(161): Dispatcher->_invoke(Object(UsersController), Object(CakeRequest), Object(CakeResponse))
+#2 /home/critchie/www/cakephp-cakephp-e0b6f86/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#3 {main}
+2012-07-18 22:41:36 Error: Fatal Error (4): syntax error, unexpected '{' in [/home/critchie/www/cakephp-cakephp-e0b6f86/app/Controller/UsersController.php, line 79]
+2012-07-18 22:41:36 Error: [FatalErrorException] syntax error, unexpected '{'
+#0 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Error/ErrorHandler.php(162): ErrorHandler::handleFatalError(4, 'syntax error, u...', '/home/critchie/...', 79)
+#1 [internal function]: ErrorHandler::handleError(4, 'syntax error, u...', '/home/critchie/...', 79, Array)
+#2 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Core/App.php(926): call_user_func('ErrorHandler::h...', 4, 'syntax error, u...', '/home/critchie/...', 79, Array)
+#3 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Core/App.php(899): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2012-07-18 22:58:47 Error: Fatal Error (4): syntax error, unexpected '}' in [/home/critchie/www/cakephp-cakephp-e0b6f86/app/Controller/UsersController.php, line 126]
+2012-07-18 22:58:47 Error: [FatalErrorException] syntax error, unexpected '}'
+#0 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Error/ErrorHandler.php(162): ErrorHandler::handleFatalError(4, 'syntax error, u...', '/home/critchie/...', 126)
+#1 [internal function]: ErrorHandler::handleError(4, 'syntax error, u...', '/home/critchie/...', 126, Array)
+#2 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Core/App.php(926): call_user_func('ErrorHandler::h...', 4, 'syntax error, u...', '/home/critchie/...', 126, Array)
+#3 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Core/App.php(899): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2012-07-18 23:09:14 Error: [MissingPluginException] Plugin DebugKit could not be found.
+#0 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Core/App.php(364): CakePlugin::path('DebugKit')
+#1 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Core/App.php(225): App::pluginPath('DebugKit')
+#2 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Core/App.php(542): App::path('Controller/Comp...', 'DebugKit')
+#3 [internal function]: App::load('ToolbarComponen...')
+#4 [internal function]: spl_autoload_call('ToolbarComponen...')
+#5 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Controller/ComponentCollection.php(99): class_exists('ToolbarComponen...')
+#6 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Controller/ComponentCollection.php(52): ComponentCollection->load('DebugKit.Toolba...', Array)
+#7 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Controller/Controller.php(635): ComponentCollection->init(Object(UsersController))
+#8 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Routing/Dispatcher.php(182): Controller->constructClasses()
+#9 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Routing/Dispatcher.php(161): Dispatcher->_invoke(Object(UsersController), Object(CakeRequest), Object(CakeResponse))
+#10 /home/critchie/www/cakephp-cakephp-e0b6f86/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#11 {main}
+2012-07-18 23:09:28 Error: [MissingPluginException] Plugin DebugKit could not be found.
+#0 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Core/App.php(364): CakePlugin::path('DebugKit')
+#1 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Core/App.php(225): App::pluginPath('DebugKit')
+#2 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Core/App.php(542): App::path('Controller/Comp...', 'DebugKit')
+#3 [internal function]: App::load('ToolbarComponen...')
+#4 [internal function]: spl_autoload_call('ToolbarComponen...')
+#5 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Controller/ComponentCollection.php(99): class_exists('ToolbarComponen...')
+#6 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Controller/ComponentCollection.php(52): ComponentCollection->load('DebugKit.Toolba...', Array)
+#7 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Controller/Controller.php(635): ComponentCollection->init(Object(UsersController))
+#8 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Routing/Dispatcher.php(182): Controller->constructClasses()
+#9 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Routing/Dispatcher.php(161): Dispatcher->_invoke(Object(UsersController), Object(CakeRequest), Object(CakeResponse))
+#10 /home/critchie/www/cakephp-cakephp-e0b6f86/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#11 {main}
+2012-07-18 23:09:33 Error: [MissingPluginException] Plugin DebugKit could not be found.
+#0 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Core/App.php(364): CakePlugin::path('DebugKit')
+#1 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Core/App.php(225): App::pluginPath('DebugKit')
+#2 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Core/App.php(542): App::path('Controller/Comp...', 'DebugKit')
+#3 [internal function]: App::load('ToolbarComponen...')
+#4 [internal function]: spl_autoload_call('ToolbarComponen...')
+#5 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Controller/ComponentCollection.php(99): class_exists('ToolbarComponen...')
+#6 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Controller/ComponentCollection.php(52): ComponentCollection->load('DebugKit.Toolba...', Array)
+#7 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Controller/Controller.php(635): ComponentCollection->init(Object(UsersController))
+#8 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Routing/Dispatcher.php(182): Controller->constructClasses()
+#9 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Routing/Dispatcher.php(161): Dispatcher->_invoke(Object(UsersController), Object(CakeRequest), Object(CakeResponse))
+#10 /home/critchie/www/cakephp-cakephp-e0b6f86/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#11 {main}
+2012-07-18 23:10:04 Error: [MissingComponentException] Component class DebugKitComponent could not be found.
+#0 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Controller/ComponentCollection.php(52): ComponentCollection->load('DebugKit', Array)
+#1 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Controller/Controller.php(635): ComponentCollection->init(Object(UsersController))
+#2 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Routing/Dispatcher.php(182): Controller->constructClasses()
+#3 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Routing/Dispatcher.php(161): Dispatcher->_invoke(Object(UsersController), Object(CakeRequest), Object(CakeResponse))
+#4 /home/critchie/www/cakephp-cakephp-e0b6f86/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#5 {main}
+2012-07-18 23:13:17 Error: [MissingActionException] Action SchoolsController::foo() could not be found.
+#0 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Routing/Dispatcher.php(186): Controller->invokeAction(Object(CakeRequest))
+#1 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Routing/Dispatcher.php(161): Dispatcher->_invoke(Object(SchoolsController), Object(CakeRequest), Object(CakeResponse))
+#2 /home/critchie/www/cakephp-cakephp-e0b6f86/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#3 {main}
+2012-07-18 23:17:42 Error: [MissingActionException] Action SchoolsController::foo() could not be found.
+#0 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Routing/Dispatcher.php(186): Controller->invokeAction(Object(CakeRequest))
+#1 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Routing/Dispatcher.php(161): Dispatcher->_invoke(Object(SchoolsController), Object(CakeRequest), Object(CakeResponse))
+#2 /home/critchie/www/cakephp-cakephp-e0b6f86/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#3 {main}
+2012-07-18 23:17:58 Error: [MissingActionException] Action SchoolsController::setup() could not be found.
+#0 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Routing/Dispatcher.php(186): Controller->invokeAction(Object(CakeRequest))
+#1 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Routing/Dispatcher.php(161): Dispatcher->_invoke(Object(SchoolsController), Object(CakeRequest), Object(CakeResponse))
+#2 /home/critchie/www/cakephp-cakephp-e0b6f86/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#3 {main}
+2012-07-18 23:18:09 Error: [MissingActionException] Action SchoolsController::foo() could not be found.
+#0 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Routing/Dispatcher.php(186): Controller->invokeAction(Object(CakeRequest))
+#1 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Routing/Dispatcher.php(161): Dispatcher->_invoke(Object(SchoolsController), Object(CakeRequest), Object(CakeResponse))
+#2 /home/critchie/www/cakephp-cakephp-e0b6f86/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#3 {main}
+2012-07-18 23:19:36 Error: [MissingActionException] Action SchoolsController::foo() could not be found.
+#0 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Routing/Dispatcher.php(186): Controller->invokeAction(Object(CakeRequest))
+#1 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Routing/Dispatcher.php(161): Dispatcher->_invoke(Object(SchoolsController), Object(CakeRequest), Object(CakeResponse))
+#2 /home/critchie/www/cakephp-cakephp-e0b6f86/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#3 {main}
+2012-07-18 23:22:47 Error: [MissingActionException] Action SchoolsController::foo() could not be found.
+#0 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Routing/Dispatcher.php(186): Controller->invokeAction(Object(CakeRequest))
+#1 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Routing/Dispatcher.php(161): Dispatcher->_invoke(Object(SchoolsController), Object(CakeRequest), Object(CakeResponse))
+#2 /home/critchie/www/cakephp-cakephp-e0b6f86/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#3 {main}
+2012-07-18 23:22:53 Error: [CakeException] Authorization adapter "User" was not found.
+#0 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Controller/Component/AuthComponent.php(376): AuthComponent->constructAuthorize()
+#1 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Controller/Component/AuthComponent.php(326): AuthComponent->isAuthorized(Array)
+#2 [internal function]: AuthComponent->startup(Object(UsersController))
+#3 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Utility/ObjectCollection.php(130): call_user_func_array(Array, Array)
+#4 [internal function]: ObjectCollection->trigger(Object(CakeEvent))
+#5 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Event/CakeEventManager.php(246): call_user_func(Array, Object(CakeEvent))
+#6 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Controller/Controller.php(671): CakeEventManager->dispatch(Object(CakeEvent))
+#7 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Routing/Dispatcher.php(183): Controller->startupProcess()
+#8 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Routing/Dispatcher.php(161): Dispatcher->_invoke(Object(UsersController), Object(CakeRequest), Object(CakeResponse))
+#9 /home/critchie/www/cakephp-cakephp-e0b6f86/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#10 {main}
+2012-07-18 23:24:33 Error: [CakeException] Authorization adapter "controller" was not found.
+#0 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Controller/Component/AuthComponent.php(376): AuthComponent->constructAuthorize()
+#1 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Controller/Component/AuthComponent.php(326): AuthComponent->isAuthorized(Array)
+#2 [internal function]: AuthComponent->startup(Object(UsersController))
+#3 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Utility/ObjectCollection.php(130): call_user_func_array(Array, Array)
+#4 [internal function]: ObjectCollection->trigger(Object(CakeEvent))
+#5 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Event/CakeEventManager.php(246): call_user_func(Array, Object(CakeEvent))
+#6 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Controller/Controller.php(671): CakeEventManager->dispatch(Object(CakeEvent))
+#7 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Routing/Dispatcher.php(183): Controller->startupProcess()
+#8 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Routing/Dispatcher.php(161): Dispatcher->_invoke(Object(UsersController), Object(CakeRequest), Object(CakeResponse))
+#9 /home/critchie/www/cakephp-cakephp-e0b6f86/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#10 {main}
+2012-07-18 23:24:39 Error: [CakeException] Authorization adapter "controller" was not found.
+#0 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Controller/Component/AuthComponent.php(376): AuthComponent->constructAuthorize()
+#1 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Controller/Component/AuthComponent.php(326): AuthComponent->isAuthorized(Array)
+#2 [internal function]: AuthComponent->startup(Object(PagesController))
+#3 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Utility/ObjectCollection.php(130): call_user_func_array(Array, Array)
+#4 [internal function]: ObjectCollection->trigger(Object(CakeEvent))
+#5 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Event/CakeEventManager.php(246): call_user_func(Array, Object(CakeEvent))
+#6 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Controller/Controller.php(671): CakeEventManager->dispatch(Object(CakeEvent))
+#7 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Routing/Dispatcher.php(183): Controller->startupProcess()
+#8 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Routing/Dispatcher.php(161): Dispatcher->_invoke(Object(PagesController), Object(CakeRequest), Object(CakeResponse))
+#9 /home/critchie/www/cakephp-cakephp-e0b6f86/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#10 {main}
+2012-07-18 23:24:48 Error: [CakeException] Authorization adapter "controller" was not found.
+#0 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Controller/Component/AuthComponent.php(376): AuthComponent->constructAuthorize()
+#1 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Controller/Component/AuthComponent.php(326): AuthComponent->isAuthorized(Array)
+#2 [internal function]: AuthComponent->startup(Object(PagesController))
+#3 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Utility/ObjectCollection.php(130): call_user_func_array(Array, Array)
+#4 [internal function]: ObjectCollection->trigger(Object(CakeEvent))
+#5 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Event/CakeEventManager.php(246): call_user_func(Array, Object(CakeEvent))
+#6 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Controller/Controller.php(671): CakeEventManager->dispatch(Object(CakeEvent))
+#7 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Routing/Dispatcher.php(183): Controller->startupProcess()
+#8 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Routing/Dispatcher.php(161): Dispatcher->_invoke(Object(PagesController), Object(CakeRequest), Object(CakeResponse))
+#9 /home/critchie/www/cakephp-cakephp-e0b6f86/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#10 {main}
+2012-07-18 23:26:38 Error: Fatal Error (1): Call to undefined method SchoolsController::debug() in [/home/critchie/www/cakephp-cakephp-e0b6f86/app/Controller/SchoolsController.php, line 25]
+2012-07-18 23:26:38 Error: [FatalErrorException] Call to undefined method SchoolsController::debug()
+#0 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Error/ErrorHandler.php(162): ErrorHandler::handleFatalError(1, 'Call to undefin...', '/home/critchie/...', 25)
+#1 [internal function]: ErrorHandler::handleError(1, 'Call to undefin...', '/home/critchie/...', 25, Array)
+#2 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Core/App.php(926): call_user_func('ErrorHandler::h...', 1, 'Call to undefin...', '/home/critchie/...', 25, Array)
+#3 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Core/App.php(899): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2012-07-18 23:28:29 Error: Fatal Error (1): Call to undefined method SchoolsController::debug() in [/home/critchie/www/cakephp-cakephp-e0b6f86/app/Controller/SchoolsController.php, line 25]
+2012-07-18 23:28:29 Error: [FatalErrorException] Call to undefined method SchoolsController::debug()
+#0 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Error/ErrorHandler.php(162): ErrorHandler::handleFatalError(1, 'Call to undefin...', '/home/critchie/...', 25)
+#1 [internal function]: ErrorHandler::handleError(1, 'Call to undefin...', '/home/critchie/...', 25, Array)
+#2 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Core/App.php(926): call_user_func('ErrorHandler::h...', 1, 'Call to undefin...', '/home/critchie/...', 25, Array)
+#3 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Core/App.php(899): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2012-07-18 23:28:31 Error: Fatal Error (1): Call to undefined method SchoolsController::debug() in [/home/critchie/www/cakephp-cakephp-e0b6f86/app/Controller/SchoolsController.php, line 25]
+2012-07-18 23:28:31 Error: [FatalErrorException] Call to undefined method SchoolsController::debug()
+#0 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Error/ErrorHandler.php(162): ErrorHandler::handleFatalError(1, 'Call to undefin...', '/home/critchie/...', 25)
+#1 [internal function]: ErrorHandler::handleError(1, 'Call to undefin...', '/home/critchie/...', 25, Array)
+#2 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Core/App.php(926): call_user_func('ErrorHandler::h...', 1, 'Call to undefin...', '/home/critchie/...', 25, Array)
+#3 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Core/App.php(899): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2012-07-18 23:30:33 Error: Fatal Error (1): Call to undefined method SchoolsController::debug() in [/home/critchie/www/cakephp-cakephp-e0b6f86/app/Controller/SchoolsController.php, line 25]
+2012-07-18 23:30:33 Error: [FatalErrorException] Call to undefined method SchoolsController::debug()
+#0 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Error/ErrorHandler.php(162): ErrorHandler::handleFatalError(1, 'Call to undefin...', '/home/critchie/...', 25)
+#1 [internal function]: ErrorHandler::handleError(1, 'Call to undefin...', '/home/critchie/...', 25, Array)
+#2 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Core/App.php(926): call_user_func('ErrorHandler::h...', 1, 'Call to undefin...', '/home/critchie/...', 25, Array)
+#3 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Core/App.php(899): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2012-07-19 00:31:56 Error: Fatal Error (4): syntax error, unexpected '*' in [/home/critchie/www/cakephp-cakephp-e0b6f86/app/Controller/PagesController.php, line 102]
+2012-07-19 00:31:56 Error: [FatalErrorException] syntax error, unexpected '*'
+#0 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Error/ErrorHandler.php(162): ErrorHandler::handleFatalError(4, 'syntax error, u...', '/home/critchie/...', 102)
+#1 [internal function]: ErrorHandler::handleError(4, 'syntax error, u...', '/home/critchie/...', 102, Array)
+#2 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Core/App.php(926): call_user_func('ErrorHandler::h...', 4, 'syntax error, u...', '/home/critchie/...', 102, Array)
+#3 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Core/App.php(899): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2012-07-19 01:13:49 Error: [MissingActionException] Action UsersController::admin() could not be found.
+#0 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Routing/Dispatcher.php(186): Controller->invokeAction(Object(CakeRequest))
+#1 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Routing/Dispatcher.php(161): Dispatcher->_invoke(Object(UsersController), Object(CakeRequest), Object(CakeResponse))
+#2 /home/critchie/www/cakephp-cakephp-e0b6f86/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#3 {main}
