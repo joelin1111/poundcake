@@ -1,34 +1,37 @@
 <div class="users view">
+    <?php
+        //echo "<pre>";
+        //echo print_r($user);
+        //echo "</pre>";
+    
+        // it seems that Cake defaults to not storing the user password in
+        // the session now?  or at least it's not part of the model?
+    ?>
 <h2><?php  echo __('User'); ?></h2>
 	<dl>
 		<dt><?php echo __('Id'); ?></dt>
 		<dd>
-			<?php echo h($user['User']['id']); ?>
+			<?php echo h($user['id']); ?>
 			&nbsp;
 		</dd>
 		<dt><?php echo __('Username'); ?></dt>
 		<dd>
-			<?php echo h($user['User']['username']); ?>
-			&nbsp;
-		</dd>
-		<dt><?php echo __('Password'); ?></dt>
-		<dd>
-			<?php echo h($user['User']['password']); ?>
+			<?php echo h($user['username']); ?>
 			&nbsp;
 		</dd>
 		<dt><?php echo __('Role'); ?></dt>
 		<dd>
-			<?php echo h($user['User']['role']); ?>
+			<?php echo h($user['role']); ?>
 			&nbsp;
 		</dd>
 		<dt><?php echo __('Created'); ?></dt>
 		<dd>
-			<?php echo h($user['User']['created']); ?>
+			<?php echo h($user['created']); ?>
 			&nbsp;
 		</dd>
 		<dt><?php echo __('Modified'); ?></dt>
 		<dd>
-			<?php echo h($user['User']['modified']); ?>
+			<?php echo h($user['modified']); ?>
 			&nbsp;
 		</dd>
 	</dl>

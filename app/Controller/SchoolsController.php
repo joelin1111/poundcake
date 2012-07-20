@@ -49,9 +49,10 @@ class SchoolsController extends AppController
                 'conditions' => $this->School->parseCriteria($this->passedArgs),
                 'order' => array(
                     'School.primary_school' => 'asc'
-                )
-                )
-        );
+                ),
+            )
+            
+            );
         
         if ( $id != null ) {
             // this gets executed when we've searched on a school

@@ -19,17 +19,33 @@
     echo $this->Form->end();
 ?>
 
-<BR><BR>
-<h3>Sort</h3>
-<LI><?php echo $this->Paginator->sort('primary_school', 'Primary School');?></LI>
-<LI><?php echo $this->Paginator->sort('district', 'District');?></LI>
+<?php
+// alternate sort syntax?
+//echo $this->Paginator->sort('primary_school', 'Primary School');
+?>
 
 <BR><BR>
 <table width="100%">
+    <?php
+     /*   echo $this->Html->tableHeaders(
+                array (
+                    'School',
+                    'Province',
+                    'District',
+                    'School Type',
+                    'Power',
+                    'Internet',
+                    'Road',
+                    'Actions'
+                )
+         );
+        this->html->tableCells
+  */              
+  ?>
    <tr>
-       <th>Name</th>
-       <th>Province</th>
-       <th>District</th>
+       <th><?php echo $this->Paginator->sort('primary_school'); ?></th>
+       <th><?php echo $this->Paginator->sort('Province'); ?></th>
+       <th><?php echo $this->Paginator->sort('primary_school'); ?></th>
        <th>School Type</th>
        <th>Power</th>
        <th>Internet</th>
