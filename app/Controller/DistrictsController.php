@@ -7,6 +7,7 @@ App::uses('AppController', 'Controller');
  */
 class DistrictsController extends AppController {
 
+    //public $helpers = array('Js');
     public $helpers = array('Js' => array('Jquery'));
     
 /**
@@ -102,5 +103,22 @@ class DistrictsController extends AppController {
 		}
 		$this->Session->setFlash(__('District was not deleted'));
 		$this->redirect(array('action' => 'index'));
+	}
+        
+        
+        
+        public function getByCatchment() {
+            
+		$catchment_id = $this->request->data['Area']['catchment_id'];
+                //echo $catchment_id;
+                //die;
+		$areas = $this->Area->find('list', array(
+			'conditions' => array('Area.catchment_id' => $catchment_id),
+			'recursive' => -1
+			));
+ 
+		$this->set('areas',$areas);
+                 $this->layout = false;
+		$this->layout = 'ajax';
 	}
 }

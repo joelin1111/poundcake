@@ -4191,3 +4191,164 @@
 #3 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Core/App.php(899): App::_checkFatalError()
 #4 [internal function]: App::shutdown()
 #5 {main}
+2012-07-21 03:44:40 Error: [MissingControllerException] Controller class PostsController could not be found.
+#0 /home/critchie/www/cakephp-cakephp-e0b6f86/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2012-07-21 03:44:59 Error: [MissingControllerException] Controller class JsController could not be found.
+#0 /home/critchie/www/cakephp-cakephp-e0b6f86/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2012-07-21 03:46:47 Error: [MissingControllerException] Controller class JsController could not be found.
+#0 /home/critchie/www/cakephp-cakephp-e0b6f86/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2012-07-21 03:49:58 Error: [MissingControllerException] Controller class JsController could not be found.
+#0 /home/critchie/www/cakephp-cakephp-e0b6f86/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2012-07-21 03:50:51 Error: [MissingControllerException] Controller class JsController could not be found.
+#0 /home/critchie/www/cakephp-cakephp-e0b6f86/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2012-07-21 04:20:12 Error: [MissingControllerException] Controller class JsController could not be found.
+#0 /home/critchie/www/cakephp-cakephp-e0b6f86/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2012-07-21 04:20:32 Error: [MissingControllerException] Controller class JsController could not be found.
+#0 /home/critchie/www/cakephp-cakephp-e0b6f86/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2012-07-21 04:21:47 Error: [MissingControllerException] Controller class JsController could not be found.
+#0 /home/critchie/www/cakephp-cakephp-e0b6f86/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2012-07-21 04:57:58 Error: Fatal Error (4): syntax error, unexpected '*' in [/home/critchie/www/cakephp-cakephp-e0b6f86/app/View/Districts/add.ctp, line 50]
+2012-07-21 04:57:58 Error: [FatalErrorException] syntax error, unexpected '*'
+#0 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Error/ErrorHandler.php(162): ErrorHandler::handleFatalError(4, 'syntax error, u...', '/home/critchie/...', 50)
+#1 [internal function]: ErrorHandler::handleError(4, 'syntax error, u...', '/home/critchie/...', 50, Array)
+#2 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Core/App.php(926): call_user_func('ErrorHandler::h...', 4, 'syntax error, u...', '/home/critchie/...', 50, Array)
+#3 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Core/App.php(899): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2012-07-21 04:58:33 Error: [MissingActionException] Action AreasController::getByCategory() could not be found.
+#0 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Routing/Dispatcher.php(186): Controller->invokeAction(Object(CakeRequest))
+#1 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Routing/Dispatcher.php(161): Dispatcher->_invoke(Object(AreasController), Object(CakeRequest), Object(CakeResponse))
+#2 /home/critchie/www/cakephp-cakephp-e0b6f86/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#3 {main}
+2012-07-21 04:58:36 Error: [MissingActionException] Action AreasController::getByCategory() could not be found.
+#0 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Routing/Dispatcher.php(186): Controller->invokeAction(Object(CakeRequest))
+#1 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Routing/Dispatcher.php(161): Dispatcher->_invoke(Object(AreasController), Object(CakeRequest), Object(CakeResponse))
+#2 /home/critchie/www/cakephp-cakephp-e0b6f86/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#3 {main}
+2012-07-21 05:00:36 Error: [MissingActionException] Action AreasController::getByCategory() could not be found.
+#0 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Routing/Dispatcher.php(186): Controller->invokeAction(Object(CakeRequest))
+#1 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Routing/Dispatcher.php(161): Dispatcher->_invoke(Object(AreasController), Object(CakeRequest), Object(CakeResponse))
+#2 /home/critchie/www/cakephp-cakephp-e0b6f86/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#3 {main}
+2012-07-21 05:00:38 Error: [MissingActionException] Action AreasController::getByCategory() could not be found.
+#0 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Routing/Dispatcher.php(186): Controller->invokeAction(Object(CakeRequest))
+#1 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Routing/Dispatcher.php(161): Dispatcher->_invoke(Object(AreasController), Object(CakeRequest), Object(CakeResponse))
+#2 /home/critchie/www/cakephp-cakephp-e0b6f86/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#3 {main}
+2012-07-21 05:02:47 Error: [MissingActionException] Action DistrictsController::getByCategory() could not be found.
+#0 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Routing/Dispatcher.php(186): Controller->invokeAction(Object(CakeRequest))
+#1 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Routing/Dispatcher.php(161): Dispatcher->_invoke(Object(DistrictsController), Object(CakeRequest), Object(CakeResponse))
+#2 /home/critchie/www/cakephp-cakephp-e0b6f86/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#3 {main}
+2012-07-21 05:03:14 Error: [MissingActionException] Action DistrictsController::getByCategory() could not be found.
+#0 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Routing/Dispatcher.php(186): Controller->invokeAction(Object(CakeRequest))
+#1 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Routing/Dispatcher.php(161): Dispatcher->_invoke(Object(DistrictsController), Object(CakeRequest), Object(CakeResponse))
+#2 /home/critchie/www/cakephp-cakephp-e0b6f86/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#3 {main}
+2012-07-21 05:04:20 Error: [MissingActionException] Action DistrictsController::getByCategory() could not be found.
+#0 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Routing/Dispatcher.php(186): Controller->invokeAction(Object(CakeRequest))
+#1 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Routing/Dispatcher.php(161): Dispatcher->_invoke(Object(DistrictsController), Object(CakeRequest), Object(CakeResponse))
+#2 /home/critchie/www/cakephp-cakephp-e0b6f86/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#3 {main}
+2012-07-21 05:04:54 Error: Fatal Error (1): Call to a member function find() on a non-object in [/home/critchie/www/cakephp-cakephp-e0b6f86/app/Controller/DistrictsController.php, line 115]
+2012-07-21 05:04:54 Error: [FatalErrorException] Call to a member function find() on a non-object
+#0 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Error/ErrorHandler.php(162): ErrorHandler::handleFatalError(1, 'Call to a membe...', '/home/critchie/...', 115)
+#1 [internal function]: ErrorHandler::handleError(1, 'Call to a membe...', '/home/critchie/...', 115, Array)
+#2 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Core/App.php(926): call_user_func('ErrorHandler::h...', 1, 'Call to a membe...', '/home/critchie/...', 115, Array)
+#3 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Core/App.php(899): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2012-07-21 05:04:57 Error: Fatal Error (1): Call to a member function find() on a non-object in [/home/critchie/www/cakephp-cakephp-e0b6f86/app/Controller/DistrictsController.php, line 115]
+2012-07-21 05:04:57 Error: [FatalErrorException] Call to a member function find() on a non-object
+#0 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Error/ErrorHandler.php(162): ErrorHandler::handleFatalError(1, 'Call to a membe...', '/home/critchie/...', 115)
+#1 [internal function]: ErrorHandler::handleError(1, 'Call to a membe...', '/home/critchie/...', 115, Array)
+#2 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Core/App.php(926): call_user_func('ErrorHandler::h...', 1, 'Call to a membe...', '/home/critchie/...', 115, Array)
+#3 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Core/App.php(899): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2012-07-21 05:04:58 Error: Fatal Error (1): Call to a member function find() on a non-object in [/home/critchie/www/cakephp-cakephp-e0b6f86/app/Controller/DistrictsController.php, line 115]
+2012-07-21 05:04:58 Error: [FatalErrorException] Call to a member function find() on a non-object
+#0 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Error/ErrorHandler.php(162): ErrorHandler::handleFatalError(1, 'Call to a membe...', '/home/critchie/...', 115)
+#1 [internal function]: ErrorHandler::handleError(1, 'Call to a membe...', '/home/critchie/...', 115, Array)
+#2 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Core/App.php(926): call_user_func('ErrorHandler::h...', 1, 'Call to a membe...', '/home/critchie/...', 115, Array)
+#3 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Core/App.php(899): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2012-07-21 05:06:36 Error: Fatal Error (4): syntax error, unexpected ')' in [/home/critchie/www/cakephp-cakephp-e0b6f86/app/View/Districts/add.ctp, line 50]
+2012-07-21 05:06:36 Error: [FatalErrorException] syntax error, unexpected ')'
+#0 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Error/ErrorHandler.php(162): ErrorHandler::handleFatalError(4, 'syntax error, u...', '/home/critchie/...', 50)
+#1 [internal function]: ErrorHandler::handleError(4, 'syntax error, u...', '/home/critchie/...', 50, Array)
+#2 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Core/App.php(926): call_user_func('ErrorHandler::h...', 4, 'syntax error, u...', '/home/critchie/...', 50, Array)
+#3 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Core/App.php(899): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2012-07-21 05:06:50 Error: Fatal Error (1): Call to a member function find() on a non-object in [/home/critchie/www/cakephp-cakephp-e0b6f86/app/Controller/DistrictsController.php, line 115]
+2012-07-21 05:06:50 Error: [FatalErrorException] Call to a member function find() on a non-object
+#0 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Error/ErrorHandler.php(162): ErrorHandler::handleFatalError(1, 'Call to a membe...', '/home/critchie/...', 115)
+#1 [internal function]: ErrorHandler::handleError(1, 'Call to a membe...', '/home/critchie/...', 115, Array)
+#2 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Core/App.php(926): call_user_func('ErrorHandler::h...', 1, 'Call to a membe...', '/home/critchie/...', 115, Array)
+#3 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Core/App.php(899): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2012-07-21 05:06:52 Error: Fatal Error (1): Call to a member function find() on a non-object in [/home/critchie/www/cakephp-cakephp-e0b6f86/app/Controller/DistrictsController.php, line 115]
+2012-07-21 05:06:52 Error: [FatalErrorException] Call to a member function find() on a non-object
+#0 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Error/ErrorHandler.php(162): ErrorHandler::handleFatalError(1, 'Call to a membe...', '/home/critchie/...', 115)
+#1 [internal function]: ErrorHandler::handleError(1, 'Call to a membe...', '/home/critchie/...', 115, Array)
+#2 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Core/App.php(926): call_user_func('ErrorHandler::h...', 1, 'Call to a membe...', '/home/critchie/...', 115, Array)
+#3 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Core/App.php(899): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2012-07-21 13:23:25 Error: [MissingControllerException] Controller class AreaController could not be found.
+#0 /home/critchie/www/cakephp-cakephp-e0b6f86/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2012-07-21 13:23:37 Error: [MissingControllerException] Controller class AreaController could not be found.
+#0 /home/critchie/www/cakephp-cakephp-e0b6f86/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2012-07-21 13:23:54 Error: [MissingControllerException] Controller class AreaController could not be found.
+#0 /home/critchie/www/cakephp-cakephp-e0b6f86/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2012-07-21 13:25:39 Error: [MissingActionException] Action AreasController::getByCatchment() could not be found.
+#0 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Routing/Dispatcher.php(186): Controller->invokeAction(Object(CakeRequest))
+#1 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Routing/Dispatcher.php(161): Dispatcher->_invoke(Object(AreasController), Object(CakeRequest), Object(CakeResponse))
+#2 /home/critchie/www/cakephp-cakephp-e0b6f86/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#3 {main}
+2012-07-21 13:25:40 Error: [MissingActionException] Action AreasController::getByCatchment() could not be found.
+#0 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Routing/Dispatcher.php(186): Controller->invokeAction(Object(CakeRequest))
+#1 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Routing/Dispatcher.php(161): Dispatcher->_invoke(Object(AreasController), Object(CakeRequest), Object(CakeResponse))
+#2 /home/critchie/www/cakephp-cakephp-e0b6f86/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#3 {main}
+2012-07-21 13:25:41 Error: [MissingActionException] Action AreasController::getByCatchment() could not be found.
+#0 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Routing/Dispatcher.php(186): Controller->invokeAction(Object(CakeRequest))
+#1 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Routing/Dispatcher.php(161): Dispatcher->_invoke(Object(AreasController), Object(CakeRequest), Object(CakeResponse))
+#2 /home/critchie/www/cakephp-cakephp-e0b6f86/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#3 {main}
+2012-07-21 13:55:19 Error: [MissingViewException] View file "/home/critchie/www/cakephp-cakephp-e0b6f86/app/View/Areas/get_by_catchment.ctp" is missing.
+#0 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/View/View.php(472): View->_getViewFileName(NULL)
+#1 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Controller/Controller.php(957): View->render(NULL, NULL)
+#2 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Routing/Dispatcher.php(193): Controller->render()
+#3 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Routing/Dispatcher.php(161): Dispatcher->_invoke(Object(AreasController), Object(CakeRequest), Object(CakeResponse))
+#4 /home/critchie/www/cakephp-cakephp-e0b6f86/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#5 {main}
+2012-07-21 13:55:21 Error: [MissingViewException] View file "/home/critchie/www/cakephp-cakephp-e0b6f86/app/View/Areas/get_by_catchment.ctp" is missing.
+#0 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/View/View.php(472): View->_getViewFileName(NULL)
+#1 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Controller/Controller.php(957): View->render(NULL, NULL)
+#2 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Routing/Dispatcher.php(193): Controller->render()
+#3 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Routing/Dispatcher.php(161): Dispatcher->_invoke(Object(AreasController), Object(CakeRequest), Object(CakeResponse))
+#4 /home/critchie/www/cakephp-cakephp-e0b6f86/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#5 {main}
+2012-07-21 14:14:52 Error: Fatal Error (4): syntax error, unexpected '/' in [/home/critchie/www/cakephp-cakephp-e0b6f86/app/View/Districts/add.ctp, line 24]
+2012-07-21 14:14:52 Error: [FatalErrorException] syntax error, unexpected '/'
+#0 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Error/ErrorHandler.php(162): ErrorHandler::handleFatalError(4, 'syntax error, u...', '/home/critchie/...', 24)
+#1 [internal function]: ErrorHandler::handleError(4, 'syntax error, u...', '/home/critchie/...', 24, Array)
+#2 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Core/App.php(926): call_user_func('ErrorHandler::h...', 4, 'syntax error, u...', '/home/critchie/...', 24, Array)
+#3 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Core/App.php(899): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}

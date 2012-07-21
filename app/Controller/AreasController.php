@@ -103,21 +103,23 @@ class AreasController extends AppController {
 		$this->redirect(array('action' => 'index'));
 	}
         
-        /* tsting for use in jquery select list refresh
         public function getByCatchment() {
-            
-		$catchment_id = $this->request->data['Area']['catchment_id'];
-                echo $catchment_id;
-                die;
-		$areas = $this->Area->find('list', array(
-			'conditions' => array('Area.catchment_id' => $catchment_id),
-			'recursive' => -1
-			));
- 
-		$this->set('areas',$areas);
-                 $this->layout = false;
-		$this->layout = 'ajax';
-	}
-         
-         */
+            // this function returns the set of catchments that match a given
+            // area -- is used by the add method in the add district
+            //if ( $this->request->data != null ) {
+                $catchment_id = $this->request->data['District']['catchment_id'];
+                
+                $conditions = array('Area.catchment_id' => $catchment_id);
+                
+                $areas = $this->Area->find('list', array(
+                        'conditions' => $conditions,
+                        'recursive' => -1
+                        ));
+                
+                //$areas = array ('foo','bar','car');
+                $this->set('areas',$areas);
+                //$this->layout = false;
+                $this->layout = 'ajax';
+            //}
+        }
 }
