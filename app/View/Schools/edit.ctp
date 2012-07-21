@@ -4,9 +4,11 @@
     echo $this->Form->input('id', array('type'=>'hidden'));
     echo $this->Form->input('primary_school');
     
-    // drop down meny of available regions
-    echo $this->Form->input('School.province_id', array('type'=>'select','options' => $provinces));
+    // drop down meny of available catchments, etc.
+    echo $this->Form->input('School.catchment_id', array('type'=>'select','options' => $catchments));
+    echo $this->Form->input('School.area_id', array('type'=>'select','options' => $areas));
     echo $this->Form->input('School.district_id', array('type'=>'select','options' => $districts));
+    
     echo $this->Form->input('trc');
     echo $this->Form->input('school_code');
     echo $this->Form->input('type');

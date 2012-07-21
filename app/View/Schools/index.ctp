@@ -27,7 +27,9 @@
 <BR><BR>
 <table width="100%">
     <?php
-     /*   echo $this->Html->tableHeaders(
+     /*
+     Revisit the HTML in this view and replace with Html helper, e.g.
+        echo $this->Html->tableHeaders(
                 array (
                     'School',
                     'Province',
@@ -39,17 +41,23 @@
                     'Actions'
                 )
          );
-        this->html->tableCells
+        this->html->tableCells...
   */              
   ?>
    <tr>
        <th><?php echo $this->Paginator->sort('primary_school'); ?></th>
-       <th><?php echo $this->Paginator->sort('Province'); ?></th>
-       <th><?php echo $this->Paginator->sort('primary_school'); ?></th>
-       <th>School Type</th>
-       <th>Power</th>
-       <th>Internet</th>
-       <th>Road</th>
+       <th><?php
+            // because we've defined alternate classes in the $paginate array
+            // in the controller, we can sort by name -- otherwise this would
+            // sort by ID
+            echo $this->Paginator->sort('catchment_id','Catchment');
+       ?></th>
+       <th><?php echo $this->Paginator->sort('area_id','Area'); ?></th>
+       <th><?php echo $this->Paginator->sort('district_id','District'); ?></th>
+       <th><?php echo $this->Paginator->sort('type','Type'); ?></th>
+       <th><?php echo $this->Paginator->sort('power_type_id','Power'); ?></th>
+       <th><?php echo $this->Paginator->sort('connectivity_type_id','Connectivity'); ?></th>
+       <th><?php echo $this->Paginator->sort('road_type_id','Road'); ?></th>
        <th>Actions</th>
    </tr>
    
@@ -64,7 +72,8 @@
                    array('controller' => 'schools', 'action' => 'view', $school['School']['id']));
                 ?>
            </td>
-           <td><?php echo $school['Province']['name']; ?></td>
+           <td><?php echo $school['Catchment']['name']; ?></td>
+           <td><?php echo $school['Area']['name']; ?></td>
            <td><?php echo $school['District']['name']; ?></td>
            <td><?php echo '(No Data)' ?></td>
            <td><?php echo $school['PowerType']['name']; ?></td>

@@ -11,6 +11,11 @@
 			<?php echo h($district['District']['name']); ?>
 			&nbsp;
 		</dd>
+		<dt><?php echo __('Area Id'); ?></dt>
+		<dd>
+			<?php echo h($district['District']['area_id']); ?>
+			&nbsp;
+		</dd>
 	</dl>
 </div>
 <div class="actions">

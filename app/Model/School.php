@@ -6,15 +6,16 @@ class School extends AppModel {
     // schools for a region, would need to define the relationship the other
     // way to do that
     var $belongsTo = array(
-        'Province',
+        'Catchment',
+        'Area',
+        'District',
         'ConnectivityType',
         'InterventionType',
         'SiteState',
         'ServiceProvider',
         'PowerType',
         'District',
-        'RoadType',
-        'District'
+        'RoadType',        
     );
     
     public $validate = array(

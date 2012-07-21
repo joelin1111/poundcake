@@ -50,8 +50,13 @@ class SchoolsController extends AppController
                 'order' => array(
                     'School.primary_school' => 'asc'
                 ),
+            ),
+            // revisit: do other fields (columns) in view
+            'RoadType' => array(
+                'order' => array(
+                    'RoadType.name' => 'asc'
+                ),
             )
-            
             );
         
         if ( $id != null ) {
@@ -80,7 +85,7 @@ class SchoolsController extends AppController
     
     // for testing alternate Google Maps search/filter
     public function overviewfilter() {
-       $this->getProvinces();
+       $this->getCatchments();
        $this->overview();
     }
 
@@ -182,14 +187,24 @@ class SchoolsController extends AppController
         $this->set('districts',$districts);
     }
     
-    function getProvinces() {
+    function getCatchments() {
         // return a list of regions (which will be put into a drop-down menu
         // on the add/edit forms)
-        $provinces = $this->School->Province->find('list');
+        $catchments = $this->School->Catchment->find('list');
         // save the array back to the school object
         // have also seen this syntax, which I'm unsure about:
         // $this->School->set(compact('regions'));
-        $this->set('provinces',$provinces);
+        $this->set('catchments',$catchments);
+    }
+    
+    function getAreas() {
+        // return a list of regions (which will be put into a drop-down menu
+        // on the add/edit forms)
+        $areas = $this->School->Area->find('list');
+        // save the array back to the school object
+        // have also seen this syntax, which I'm unsure about:
+        // $this->School->set(compact('regions'));
+        $this->set('areas',$areas);
     }
     
     function getConnectivityTypes() {
@@ -238,7 +253,8 @@ class SchoolsController extends AppController
 
         // get a list of regions, link and intervention types
         // the School may belong to
-        $this->getProvinces();
+        $this->getCatchments();
+        $this->getAreas();
         $this->getDistricts();
         $this->getConnectivityTypes();
         $this->getInterventionTypes();
@@ -307,7 +323,8 @@ class SchoolsController extends AppController
         
         // get a list of regions, link and installation types
         // the School may belong to
-        $this->getProvinces();
+        $this->getCatchments();
+        $this->getAreas();
         $this->getDistricts();
         $this->getConnectivityTypes();
         $this->getInterventionTypes();

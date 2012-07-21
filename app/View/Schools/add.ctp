@@ -2,8 +2,9 @@
 <?php
     echo $this->Form->create('School', array('action'=>'add'));
     echo $this->Form->input('School.primary_school');
-    // drop down meny of available regions
-    echo $this->Form->input('School.province_id', array('type'=>'select','options' => $provinces));
+    // drop down meny of available catchments, etc.
+    echo $this->Form->input('School.catchment_id', array('type'=>'select','options' => $catchments));
+    echo $this->Form->input('School.area_id', array('type'=>'select','options' => $areas));
     echo $this->Form->input('School.district', array('label'=>'School District')); // another syntax of labeling fields
     echo $this->Form->input('School.trc');
     echo $this->Form->input('School.school_code');

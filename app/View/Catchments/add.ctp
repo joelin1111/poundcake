@@ -1,7 +1,7 @@
-<div class="provinces form">
-<?php echo $this->Form->create('Province'); ?>
+<div class="catchments form">
+<?php echo $this->Form->create('Catchment'); ?>
 	<fieldset>
-		<legend><?php echo __('Add Province'); ?></legend>
+		<legend><?php echo __('Add Catchment'); ?></legend>
 	<?php
 		echo $this->Form->input('name');
 	?>
@@ -12,6 +12,6 @@
 	<h3><?php echo __('Actions'); ?></h3>
 	<ul>
 
-		<li><?php echo $this->Html->link(__('List Provinces'), array('action' => 'index')); ?></li>
+		<li><?php echo $this->Html->link(__('List Catchments'), array('action' => 'index')); ?></li>
 	</ul>
 </div>

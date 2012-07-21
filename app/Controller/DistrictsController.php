@@ -7,6 +7,8 @@ App::uses('AppController', 'Controller');
  */
 class DistrictsController extends AppController {
 
+    public $helpers = array('Js' => array('Jquery'));
+    
 /**
  * index method
  *
@@ -46,8 +48,13 @@ class DistrictsController extends AppController {
 			} else {
 				$this->Session->setFlash(__('The district could not be saved. Please, try again.'));
 			}
-		}
+                }
+                $areas = $this->District->Area->find('list');
+                //$this->set(compact('areas'));
+                $catchments = $this->District->Area->Catchment->find('list');
+                $this->set(compact('catchments','areas'));
 	}
+
 
 /**
  * edit method
@@ -96,9 +103,4 @@ class DistrictsController extends AppController {
 		$this->Session->setFlash(__('District was not deleted'));
 		$this->redirect(array('action' => 'index'));
 	}
-        
-        // check the ACL
-        public function isAuthorized($user) {
-            return parent::isAuthorized($user);
-        }
 }

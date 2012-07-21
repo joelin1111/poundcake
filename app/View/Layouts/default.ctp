@@ -71,6 +71,13 @@ $cakeDescription = __d('cake_dev', 'CakePHP: the rapid development php framework
                 </div>
 	</div>
         Debugging info:
-	<?php //echo $this->element('sql_dump'); ?>
+	<?php echo $this->element('sql_dump'); ?>
+        
+        <?php echo $scripts_for_layout; ?>
+	<!-- Js writeBuffer -->
+	<?php
+	if (class_exists('JsHelper') && method_exists($this->Js, 'writeBuffer')) echo $this->Js->writeBuffer();
+	// Writes cached scripts
+	?>
 </body>
 </html>

@@ -3,9 +3,9 @@ App::uses('AppController', 'Controller');
 /**
  * Provinces Controller
  *
- * @property Province $Province
+ * @property Province $Catchment
  */
-class ProvincesController extends AppController {
+class CatchmentsController extends AppController {
 
 /**
  * index method
@@ -13,8 +13,8 @@ class ProvincesController extends AppController {
  * @return void
  */
 	public function index() {
-		$this->Province->recursive = 0;
-		$this->set('provinces', $this->paginate());
+		$this->Catchment->recursive = 0;
+		$this->set('catchments', $this->paginate());
 	}
 
 /**
@@ -25,11 +25,11 @@ class ProvincesController extends AppController {
  * @return void
  */
 	public function view($id = null) {
-		$this->Province->id = $id;
-		if (!$this->Province->exists()) {
+		$this->Catchment->id = $id;
+		if (!$this->Catchment->exists()) {
 			throw new NotFoundException(__('Invalid province'));
 		}
-		$this->set('province', $this->Province->read(null, $id));
+		$this->set('catchment', $this->Catchment->read(null, $id));
 	}
 
 /**
@@ -39,12 +39,12 @@ class ProvincesController extends AppController {
  */
 	public function add() {
 		if ($this->request->is('post')) {
-			$this->Province->create();
-			if ($this->Province->save($this->request->data)) {
-				$this->Session->setFlash(__('The province has been saved'));
+			$this->Catchment->create();
+			if ($this->Catchment->save($this->request->data)) {
+				$this->Session->setFlash(__('The catchment has been saved'));
 				$this->redirect(array('action' => 'index'));
 			} else {
-				$this->Session->setFlash(__('The province could not be saved. Please, try again.'));
+				$this->Session->setFlash(__('The catchment could not be saved. Please, try again.'));
 			}
 		}
 	}
@@ -57,19 +57,19 @@ class ProvincesController extends AppController {
  * @return void
  */
 	public function edit($id = null) {
-		$this->Province->id = $id;
-		if (!$this->Province->exists()) {
+		$this->Catchment->id = $id;
+		if (!$this->Catchment->exists()) {
 			throw new NotFoundException(__('Invalid province'));
 		}
 		if ($this->request->is('post') || $this->request->is('put')) {
-			if ($this->Province->save($this->request->data)) {
-				$this->Session->setFlash(__('The province has been saved'));
+			if ($this->Catchment->save($this->request->data)) {
+				$this->Session->setFlash(__('The catchment has been saved'));
 				$this->redirect(array('action' => 'index'));
 			} else {
-				$this->Session->setFlash(__('The province could not be saved. Please, try again.'));
+				$this->Session->setFlash(__('The catchment could not be saved. Please, try again.'));
 			}
 		} else {
-			$this->request->data = $this->Province->read(null, $id);
+			$this->request->data = $this->Catchment->read(null, $id);
 		}
 	}
 
@@ -85,15 +85,15 @@ class ProvincesController extends AppController {
 		if (!$this->request->is('post')) {
 			throw new MethodNotAllowedException();
 		}
-		$this->Province->id = $id;
-		if (!$this->Province->exists()) {
-			throw new NotFoundException(__('Invalid province'));
+		$this->Catchment->id = $id;
+		if (!$this->Catchment->exists()) {
+			throw new NotFoundException(__('Invalid catchment'));
 		}
-		if ($this->Province->delete()) {
-			$this->Session->setFlash(__('Province deleted'));
+		if ($this->Catchment->delete()) {
+			$this->Session->setFlash(__('Catchment deleted'));
 			$this->redirect(array('action' => 'index'));
 		}
-		$this->Session->setFlash(__('Province was not deleted'));
+		$this->Session->setFlash(__('Catchment was not deleted'));
 		$this->redirect(array('action' => 'index'));
 	}
         

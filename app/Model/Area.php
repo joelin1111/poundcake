@@ -1,10 +1,12 @@
 <?php
 App::uses('AppModel', 'Model');
 /**
- * Catchment Model
+ * Area Model
  *
+ * @property Catchment $Catchment
+ * @property District $Districts
  */
-class Catchment extends AppModel {
+class Area extends AppModel {
 
 /**
  * Display field
@@ -18,8 +20,8 @@ class Catchment extends AppModel {
  *
  * @var array
  */
-        public $validate = array(
-            'name' => array(
+	public $validate = array(
+		'name' => array(
                     'notempty' => array(
                             'rule' => array('notempty'),
                             'message' => 'This field cannot be blank.',
@@ -36,18 +38,45 @@ class Catchment extends AppModel {
                             //'last' => false, // Stop validation after this rule
                             //'on' => 'create', // Limit validation to 'create' or 'update' operations
                     ),
-            ),
+                ),
+		'catchment_id' => array(
+			'numeric' => array(
+				'rule' => array('numeric'),
+				//'message' => 'Your custom message here',
+				//'allowEmpty' => false,
+				//'required' => false,
+				//'last' => false, // Stop validation after this rule
+				//'on' => 'create', // Limit validation to 'create' or 'update' operations
+			),
+		),
 	);
-        
+
+	//The Associations below have been created with all possible keys, those that are not needed can be removed
+
+/**
+ * belongsTo associations
+ *
+ * @var array
+ */
+	public $belongsTo = array(
+		'Catchment' => array(
+			'className' => 'Catchment',
+			'foreignKey' => 'catchment_id',
+			'conditions' => '',
+			'fields' => '',
+			'order' => ''
+		)
+	);
+
 /**
  * hasMany associations
  *
  * @var array
  */
-	public $hasMany = array(
-		'Area' => array(
-			'className' => 'Area',
-			'foreignKey' => 'catchment_id',
+        public $hasMany = array(
+		'District' => array(
+			'className' => 'District',
+			'foreignKey' => 'area_id',
 			'dependent' => false,
 			'conditions' => '',
 			'fields' => '',
@@ -59,4 +88,5 @@ class Catchment extends AppModel {
 			'counterQuery' => ''
 		)
 	);
+
 }

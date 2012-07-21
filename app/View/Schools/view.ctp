@@ -11,7 +11,9 @@
 <BR>
 <P><B>Primary school:</B>&nbsp;<?php echo $school['School']['primary_school']; ?></P>
 <BR>
-<P><B>Province:</B>&nbsp;<?php echo $school['Province']['name']; ?></P>
+<P><B>Province:</B>&nbsp;<?php echo $school['Catchment']['name']; ?></P>
+<BR>
+<P><B>District:</B>&nbsp;<?php echo $school['Area']['name']; ?></P>
 <BR>
 <P><B>District:</B>&nbsp;<?php echo $school['District']['name']; ?></P>
 <BR>
