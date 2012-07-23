@@ -1,4 +1,5 @@
 /** Clark testing **/
+
 body {
 	background: #ddd;
 	font: 12px "Lucida Grande", "Trebuchet Ms", sans-serif;
@@ -21,10 +22,64 @@ body {
 }
 #content {
 	padding: 5px 20px;
+        /*
+        clear: left;
+	float: left;
+	width: 100%;
+	padding: 20px 0;
+	margin: 0 0 0 4%;
+	display: inline;
+        */
 }
 #content h2 {
 	margin: 0;
 }
 #footer {
 	font-size: 11px;
+}
+
+.maskAlt{
+   position: relative;
+   overflow: hidden;
+   margin: 0px auto;
+   width: 90%;
+   background-color: #fff // #f4f4f4
+}
+.headerAlt{
+   float: left;
+   width: 100%;
+   background-color: #fff // #f4f4f4
+}
+.colleftAlt{
+   position: relative;
+   width: 100%;
+   right: 50%;
+   background-color: #fff // #f4f4f4
+}
+.col1Alt{
+   position: relative;
+   overflow: hidden;
+   float: left;
+   width: 48%;
+   left: 101%;
+   background-color: #fff // #e6e6e6
+}
+.col2Alt{
+   position: relative;
+   overflow: hidden;
+   float: left;
+   width: 48%;
+   left: 3%;
+   background-color: #fff // #e6e6e6
+}
+.footerAlt{
+   float: left;
+   width: 100%;
+   background-color: #fff // #b4caf7
+}
+bodyAlt {
+   padding: 0px;
+   margin: 0px;
+   font-size: 90%;
+   background-color: #fff // #e7e7de
 }

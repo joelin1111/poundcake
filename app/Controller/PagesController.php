@@ -75,9 +75,11 @@ class PagesController extends AppController {
         
     // used for the login/ACL
     public function beforeFilter() {
-        parent::beforeFilter();
+        // parent::beforeFilter();
         // this doesn't seem to work
-        $this->Auth->allow('login','logout');
+        //$this->Auth->allow('index','login','logout');
+        $this->Auth->allow('*');
+        parent::beforeFilter();
     }
     
     public function logout() {
@@ -85,12 +87,14 @@ class PagesController extends AppController {
     }
     
     public function isAuthorized($user) {
-        return true;
+        // this doesn't get called until after the login function
+        //return true;
         /*
         if ($user != null) {
             return true;
         }
         */
+        //echo "<pre>".print_r($this->action)."</pre>";
         if ($this->action === 'home') {
             // for testing
             return true;

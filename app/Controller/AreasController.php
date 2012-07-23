@@ -50,8 +50,8 @@ class AreasController extends AppController {
 			}
 		}
 		$catchments = $this->Area->Catchment->find('list');
-		$this->set(compact('catchments'));
-	}
+                $this->set(compact('catchments'));
+        }
 
 /**
  * edit method

@@ -11,9 +11,12 @@
 			<?php echo h($district['District']['name']); ?>
 			&nbsp;
 		</dd>
-		<dt><?php echo __('Area Id'); ?></dt>
+		<dt><?php echo __('Area'); ?></dt>
 		<dd>
-			<?php echo h($district['District']['area_id']); ?>
+			<?php
+                            echo h($district['Area']['name']);
+                            
+                        ?>
 			&nbsp;
 		</dd>
 	</dl>

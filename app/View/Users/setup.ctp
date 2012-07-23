@@ -27,7 +27,7 @@ Click to manage:
         <?php echo $this->Html->link('Installation States', '/installationStates/index'); ?>
             
     </li>
-    <li
+    <li>
         <?php echo $this->Html->link('Connectivity Types', '/connectivityTypes/index'); ?>
     </li>
     <li>

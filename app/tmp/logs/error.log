@@ -4814,3 +4814,84 @@
 #8 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Routing/Dispatcher.php(161): Dispatcher->_invoke(Object(SchoolsController), Object(CakeRequest), Object(CakeResponse))
 #9 /home/critchie/www/cakephp-cakephp-e0b6f86/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
 #10 {main}
+2012-07-23 18:15:04 Error: [MissingControllerException] Controller class Index.phpController could not be found.
+#0 /home/critchie/www/cakephp-cakephp-e0b6f86/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2012-07-23 18:15:11 Error: [MissingControllerException] Controller class IndexController could not be found.
+#0 /home/critchie/www/cakephp-cakephp-e0b6f86/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2012-07-23 19:30:24 Error: Fatal Error (4): syntax error, unexpected ';' in [/home/critchie/www/cakephp-cakephp-e0b6f86/app/View/Districts/add.ctp, line 29]
+2012-07-23 19:30:24 Error: [FatalErrorException] syntax error, unexpected ';'
+#0 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Error/ErrorHandler.php(162): ErrorHandler::handleFatalError(4, 'syntax error, u...', '/home/critchie/...', 29)
+#1 [internal function]: ErrorHandler::handleError(4, 'syntax error, u...', '/home/critchie/...', 29, Array)
+#2 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Core/App.php(926): call_user_func('ErrorHandler::h...', 4, 'syntax error, u...', '/home/critchie/...', 29, Array)
+#3 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Core/App.php(899): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2012-07-23 19:32:32 Error: Fatal Error (4): syntax error, unexpected ';', expecting ')' in [/home/critchie/www/cakephp-cakephp-e0b6f86/app/View/Districts/add.ctp, line 25]
+2012-07-23 19:32:32 Error: [FatalErrorException] syntax error, unexpected ';', expecting ')'
+#0 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Error/ErrorHandler.php(162): ErrorHandler::handleFatalError(4, 'syntax error, u...', '/home/critchie/...', 25)
+#1 [internal function]: ErrorHandler::handleError(4, 'syntax error, u...', '/home/critchie/...', 25, Array)
+#2 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Core/App.php(926): call_user_func('ErrorHandler::h...', 4, 'syntax error, u...', '/home/critchie/...', 25, Array)
+#3 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Core/App.php(899): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2012-07-23 19:43:17 Error: Fatal Error (4): syntax error, unexpected T_PUBLIC in [/home/critchie/www/cakephp-cakephp-e0b6f86/app/Controller/AreasController.php, line 62]
+2012-07-23 19:43:17 Error: [FatalErrorException] syntax error, unexpected T_PUBLIC
+#0 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Error/ErrorHandler.php(162): ErrorHandler::handleFatalError(4, 'syntax error, u...', '/home/critchie/...', 62)
+#1 [internal function]: ErrorHandler::handleError(4, 'syntax error, u...', '/home/critchie/...', 62, Array)
+#2 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Core/App.php(926): call_user_func('ErrorHandler::h...', 4, 'syntax error, u...', '/home/critchie/...', 62, Array)
+#3 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Core/App.php(899): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2012-07-23 19:46:08 Error: Fatal Error (4): syntax error, unexpected T_PUBLIC in [/home/critchie/www/cakephp-cakephp-e0b6f86/app/Controller/AreasController.php, line 62]
+2012-07-23 19:46:08 Error: [FatalErrorException] syntax error, unexpected T_PUBLIC
+#0 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Error/ErrorHandler.php(162): ErrorHandler::handleFatalError(4, 'syntax error, u...', '/home/critchie/...', 62)
+#1 [internal function]: ErrorHandler::handleError(4, 'syntax error, u...', '/home/critchie/...', 62, Array)
+#2 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Core/App.php(926): call_user_func('ErrorHandler::h...', 4, 'syntax error, u...', '/home/critchie/...', 62, Array)
+#3 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Core/App.php(899): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2012-07-23 20:05:09 Error: [MissingControllerException] Controller class CssController could not be found.
+#0 /home/critchie/www/cakephp-cakephp-e0b6f86/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2012-07-23 20:06:40 Error: [MissingControllerException] Controller class CssController could not be found.
+#0 /home/critchie/www/cakephp-cakephp-e0b6f86/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2012-07-23 20:06:42 Error: [MissingControllerException] Controller class CssController could not be found.
+#0 /home/critchie/www/cakephp-cakephp-e0b6f86/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2012-07-23 20:32:29 Error: [NotFoundException] Invalid school
+#0 [internal function]: SchoolsController->view('13')
+#1 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Controller/Controller.php(485): ReflectionMethod->invokeArgs(Object(SchoolsController), Array)
+#2 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Routing/Dispatcher.php(186): Controller->invokeAction(Object(CakeRequest))
+#3 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Routing/Dispatcher.php(161): Dispatcher->_invoke(Object(SchoolsController), Object(CakeRequest), Object(CakeResponse))
+#4 /home/critchie/www/cakephp-cakephp-e0b6f86/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#5 {main}
+2012-07-23 20:32:34 Error: [NotFoundException] Invalid school
+#0 [internal function]: SchoolsController->view('1')
+#1 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Controller/Controller.php(485): ReflectionMethod->invokeArgs(Object(SchoolsController), Array)
+#2 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Routing/Dispatcher.php(186): Controller->invokeAction(Object(CakeRequest))
+#3 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Routing/Dispatcher.php(161): Dispatcher->_invoke(Object(SchoolsController), Object(CakeRequest), Object(CakeResponse))
+#4 /home/critchie/www/cakephp-cakephp-e0b6f86/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#5 {main}
+2012-07-23 20:32:42 Error: [NotFoundException] Invalid school
+#0 [internal function]: SchoolsController->view()
+#1 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Controller/Controller.php(485): ReflectionMethod->invokeArgs(Object(SchoolsController), Array)
+#2 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Routing/Dispatcher.php(186): Controller->invokeAction(Object(CakeRequest))
+#3 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Routing/Dispatcher.php(161): Dispatcher->_invoke(Object(SchoolsController), Object(CakeRequest), Object(CakeResponse))
+#4 /home/critchie/www/cakephp-cakephp-e0b6f86/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#5 {main}
+2012-07-23 20:35:44 Error: [MissingActionException] Action SchoolsController::view9() could not be found.
+#0 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Routing/Dispatcher.php(186): Controller->invokeAction(Object(CakeRequest))
+#1 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Routing/Dispatcher.php(161): Dispatcher->_invoke(Object(SchoolsController), Object(CakeRequest), Object(CakeResponse))
+#2 /home/critchie/www/cakephp-cakephp-e0b6f86/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#3 {main}
+2012-07-23 20:36:53 Error: Fatal Error (4): syntax error, unexpected '{' in [/home/critchie/www/cakephp-cakephp-e0b6f86/app/View/Schools/view.ctp, line 106]
+2012-07-23 20:36:53 Error: [FatalErrorException] syntax error, unexpected '{'
+#0 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Error/ErrorHandler.php(162): ErrorHandler::handleFatalError(4, 'syntax error, u...', '/home/critchie/...', 106)
+#1 [internal function]: ErrorHandler::handleError(4, 'syntax error, u...', '/home/critchie/...', 106, Array)
+#2 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Core/App.php(926): call_user_func('ErrorHandler::h...', 4, 'syntax error, u...', '/home/critchie/...', 106, Array)
+#3 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Core/App.php(899): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}

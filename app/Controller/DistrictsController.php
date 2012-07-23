@@ -50,8 +50,23 @@ class DistrictsController extends AppController {
 				$this->Session->setFlash(__('The district could not be saved. Please, try again.'));
 			}
                 }
-                $areas = $this->District->Area->find('list');
-                //$this->set(compact('areas'));
+                //$areas = $this->District->Area->find('list');
+                
+                // this is a little bit of a cheat, but when someone goes to add
+                // a district, normally we'd give them a select list showing all
+                // areas
+                // e.g. $areas = $this->District->Area->find('list');
+                // however because we're using Ajax to auto-refresh the Area
+                // select list with the areas for a specified catchment, let's
+                // default the list to match the first item in the
+                // Catchment list
+                $areas = $this->District->Area->find(
+                        'list',
+                        array(
+                            'conditions' => array('Area.catchment_id' => 1)
+                        )
+                );
+                //echo "<pre>".print_r($areas)."</pre>";
                 $catchments = $this->District->Area->Catchment->find('list');
                 $this->set(compact('catchments','areas'));
 	}

@@ -52,9 +52,10 @@ $cakeDescription = __d('cake_dev', 'CakePHP: the rapid development php framework
                             echo "Role: ".$user['role']."</small><br><br><br>";
                             //echo $this->Html->link('Pages Home', array('controller' => 'pages', 'action' => 'index'));
                             echo $this->Html->link('About', array('controller' => 'schools', 'action' => 'about'));
-                            echo $this->Html->link('Map v1', array('controller' => 'schools', 'action' => 'overview'));
-                            echo $this->Html->link('Map v2', array('controller' => 'schools', 'action' => 'overviewalt'));
+                            echo $this->Html->link('Overview Map', array('controller' => 'schools', 'action' => 'overview'));
                             echo $this->Html->link('Schools', array('controller' => 'schools', 'action' => 'index'));
+                            // this doesn't really belong here, should probably serve up a different
+                            // view for admins
                             if ($user['role'] === 'admin'  ) {
                                 echo $this->Html->link('Setup', array('controller' => 'users', 'action' => 'setup'));
                                 }

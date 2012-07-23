@@ -12,7 +12,10 @@
 	<tr>
 		<td><?php echo h($district['District']['id']); ?>&nbsp;</td>
 		<td><?php echo h($district['District']['name']); ?>&nbsp;</td>
-		<td><?php echo h($district['District']['area_id']); ?>&nbsp;</td>
+		<td><?php
+                    // echo h($district['District']['area_id']);
+                    echo h($district['Area']['name']);
+                ?>&nbsp;</td>
 		<td class="actions">
 			<?php echo $this->Html->link(__('View'), array('action' => 'view', $district['District']['id'])); ?>
 			<?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $district['District']['id'])); ?>

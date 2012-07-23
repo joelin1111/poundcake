@@ -1,6 +1,8 @@
 <?php
         
-        //echo $this->element('sql_dump');
+        // echo $this->element('sql_dump');
+        // jquery is used to auto-refresh the Areas select box after a user
+        // picks a District
         echo $this->Html->script('jquery-1.7.2');
 
 ?>
@@ -12,17 +14,30 @@
 		<legend><?php echo __('Add District'); ?></legend>
 	<?php
 		echo $this->Form->input('catchment_id');
-                
+                /*
                 $options = array(
                     array(
                         'name' => '(Select District)',
                         'value' => '(Select District)',
                         'disabled' => true,
+                        'label' => 'Pick Catchment',
                         'selected' => false
-                    )
-                    );
-                echo $this->Form->select('area_id', $options);
+                        )
+                );
+
+                //echo $this->Form->select('area_id', $options);
                 
+                echo $this->Form->input(
+                    'area_id',
+                    array(
+                        'options' => $options,
+                        'type' => 'select',
+                        'empty' => '-- Select a Catchment --',
+                        'label' => 'Area'
+                    )
+                );
+                */
+                echo $this->Form->input('area_id');
                 // echo $this->Form->input('area_id');
                 echo $this->Form->input('name');
                 
@@ -42,26 +57,11 @@
 
 <?php
     // $this->Js->get('#catchment_id')->event('change', $this->Js->alert('hey you!'));
-    /*
-    $this->Js->get('#catchment_id')->event('change',
-            $this->Js->request(
-                    array(
-                        'controller'=>'areas',
-                        'action' => 'getByCatchment'), 
-                            array(
-                                'async' => true,
-                                'method' => 'post',
-                                'update' => '#area_id',
-                                'dataExpression' => true,
-                                'data'=> $this->Js->serializeForm(
-                                        array(
-                                            'isForm' => true,
-                                            'inline' => true
-                                            ))
-                            )
-                    )
-      );*/
 
+    // this creates the Javascript to refresh the Areas select box after a user
+    // picks a District -- basically call getByCatchment on the Areas controller
+    // which dynamically replaces just the HTML for $this->Form->select('area_id')
+    // with the view code defined in Areas/get_by_catchment.ctp
     $this->Js->get('#DistrictCatchmentId');
     $this->Js->event('change',
         $this->Js->request(array(
@@ -80,24 +80,6 @@
                         )
                     )
     );
-
-    /*
-        $this->Js->request(array(
-		'controller'=>'areas',
-		'action'=>'getByCategory'
-		), array(
-		'update'=>'#area_id',
-		'async' => true,
-		'method' => 'post',
-		'dataExpression'=>true,
-		'data'=> $this->Js->serializeForm(array(
-			'isForm' => true,
-			'inline' => true
-			))
-		))
-	);
-    */
-    
     echo $this->Js->writeBuffer(); // Write cached scripts
 
 ?>

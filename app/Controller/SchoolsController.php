@@ -6,7 +6,7 @@
 class SchoolsController extends AppController
 {
     // AjaxMultiUpload is used for the file upload plugin
-    // GoogleMapV3 is for... duh
+    // AltGoogleMapV3 is the Marc Fernandez Google Map helper, just renamed
     var $helpers = array('AjaxMultiUpload.Upload','Html','AltGoogleMapV3');
     
     // pagination of results ($paginate) is down in the index function
