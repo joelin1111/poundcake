@@ -27,12 +27,13 @@ $cakeDescription = __d('cake_dev', 'CakePHP: the rapid development php framework
 		<?php echo $title_for_layout; ?>
 	</title>
 	<?php
-		echo $this->Html->meta('icon');
+		//echo $this->Html->script('jquery-1.7.2');
+                echo $this->Html->meta('icon');
 		echo $this->Html->css('poundcake');
 		echo $this->fetch('meta');
 		echo $this->fetch('css');
 		echo $this->fetch('script');
-                echo $this->Html->script('jquery-1.7.2');
+                //echo $this->Html->script('jquery-1.7.2');
 	?>
 </head>
 <body>
@@ -74,10 +75,10 @@ $cakeDescription = __d('cake_dev', 'CakePHP: the rapid development php framework
         Debugging info:
 	<?php echo $this->element('sql_dump'); ?>
         
-        <?php echo $scripts_for_layout; ?>
+        <?php //echo $scripts_for_layout; ?>
 	<!-- Js writeBuffer -->
 	<?php
-	if (class_exists('JsHelper') && method_exists($this->Js, 'writeBuffer')) echo $this->Js->writeBuffer();
+	//if (class_exists('JsHelper') && method_exists($this->Js, 'writeBuffer')) echo $this->Js->writeBuffer();
 	// Writes cached scripts
 	?>
 </body>

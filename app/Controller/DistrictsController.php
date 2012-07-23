@@ -8,7 +8,7 @@ App::uses('AppController', 'Controller');
 class DistrictsController extends AppController {
 
     //public $helpers = array('Js');
-    public $helpers = array('Js' => array('Jquery'));
+    //public $helpers = array('Js' => array('Jquery'));
     
 /**
  * index method

@@ -1,3 +1,14 @@
+<?php
+    # include Jquery
+    echo $this->Html->script('jquery-1.7.2');
+    # jquery UI - for the date picker
+    echo $this->Html->script('jquery-ui-1.8.21.custom.min');
+    # other date picker stuff is in poundcake and datepicker js files
+    echo $this->Html->script('poundcake');
+    echo $this->Html->script('datepicker');
+?>
+
+
 <h1>Edit School</h1>
 <?php
     echo $this->Form->create('School', array('action' => 'edit'));
@@ -13,6 +24,9 @@
     echo $this->Form->input('school_code');
     echo $this->Form->input('type');
     echo $this->Form->input('sn');
+    
+    
+     
     // drop down menu of available link types
     echo $this->Form->input('School.connectivity_type_id', array('type'=>'select','options' => $connectivitytypes));
     // drop down menu of available intervention types
@@ -30,6 +44,7 @@
     // accessing them by a vaiarable since we have to save them to the model
     // in a special way so that MySQL treats it as spatial data
     //echo "<pre>".$lat."</pre>";
+    
     echo $this->Form->input('lat', array (
         'label' => 'Latitude',
         'value' => $lat
@@ -41,6 +56,16 @@
         'value' => $lon
         )
     );
+    
+    echo $this->Form->input('access_instruction', array('type'=>'textarea','label' => 'Access Instructions', 'rows' => 15, 'cols' => 35));
+    
+    echo $this->Form->input('install_date', 
+        array(
+           'class'=>'datepicker', 
+           'type'=>'text'
+        )
+    );
+   echo "<BR><BR><BR><BR><BR><BR><BR><BR><BR><BR><BR>";
     
     // this is the upload field
     echo $this->Upload->edit('School', $this->Form->fields['School.id']); 

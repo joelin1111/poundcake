@@ -1,6 +1,7 @@
 <?php
         
         //echo $this->element('sql_dump');
+        echo $this->Html->script('jquery-1.7.2');
 
 ?>
 <div class="districts form">

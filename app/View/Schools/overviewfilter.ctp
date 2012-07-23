@@ -1,7 +1,7 @@
 <?php
-    # include Jquery
-    echo $this->Html->script('jquery-1.7.2'); # or wherever it is in your js folder
-    # include the map js code
+    // include Jquery
+    //echo $this->Html->script('jquery-1.7.2'); # or wherever it is in your js folder
+    // include the map js code
     //echo $this->Html->script($this->GoogleMapV3->apiUrl());
     
     // Marc Fernandez helper 

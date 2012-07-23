@@ -10,33 +10,11 @@
 
 <BR>
 <P><B>Primary school:</B>&nbsp;<?php echo $school['School']['primary_school']; ?></P>
-<BR>
 <P><B>Province:</B>&nbsp;<?php echo $school['Catchment']['name']; ?></P>
-<BR>
 <P><B>District:</B>&nbsp;<?php echo $school['Area']['name']; ?></P>
-<BR>
 <P><B>District:</B>&nbsp;<?php echo $school['District']['name']; ?></P>
-<BR>
 <P><B>TRC:</B>&nbsp;<?php echo $school['School']['trc']; ?></P>
-<BR>
 <P><B>School code:</B>&nbsp;<?php echo $school['School']['school_code']; ?></P>
-<BR>
-<P><B>Type:</B>&nbsp;<?php echo $school['School']['type']; ?></P>
-<BR>
-<P><B>SN:</B>&nbsp;<?php echo $school['School']['sn']; ?></P>
-<BR>
-<P><B>Connectivity Type:</B>&nbsp;<?php echo $school['ConnectivityType']['name']; ?></P>
-<BR>
-<P><B>Intervention Type:</B>&nbsp;<?php echo $school['InterventionType']['name']; ?></P>
-<BR>
-<P><B>Service Provider:</B>&nbsp;<?php echo $school['ServiceProvider']['name']; ?></P>
-<BR>
-<P><B>Site State:</B>&nbsp;<?php echo $school['SiteState']['name']; ?></P>
-<BR>
-<P><B>Power Type:</B>&nbsp;<?php echo $school['PowerType']['name']; ?></P>
-<BR>
-<P><B>Road Condition:</B>&nbsp;<?php echo $school['RoadType']['name']; ?></P>
-<BR>
 <P><B>GPS Coordinates:</B>&nbsp;<?php echo $lat . ' ' . $lon . '<br>'; ?> </P>
 <P><B>Map:</B></P>
     <?php
@@ -90,6 +68,16 @@
         
     ?>
 </p>
+<P><B>Type:</B>&nbsp;<?php echo $school['School']['type']; ?></P>
+<P><B>SN:</B>&nbsp;<?php echo $school['School']['sn']; ?></P>
+<P><B>Install Date:</B>&nbsp;<?php echo $school['School']['install_date']; ?></P>
+<P><B>Connectivity Type:</B>&nbsp;<?php echo $school['ConnectivityType']['name']; ?></P>
+<P><B>Intervention Type:</B>&nbsp;<?php echo $school['InterventionType']['name']; ?></P>
+<P><B>Service Provider:</B>&nbsp;<?php echo $school['ServiceProvider']['name']; ?></P>
+<P><B>Site State:</B>&nbsp;<?php echo $school['SiteState']['name']; ?></P>
+<P><B>Power Type:</B>&nbsp;<?php echo $school['PowerType']['name']; ?></P>
+<P><B>Road Condition:</B>&nbsp;<?php echo $school['RoadType']['name']; ?></P>
+<P><B>Access Instructions:</B>&nbsp;<?php echo $school['School']['access_instruction']; ?></P>
 
 <P><B></B><BR>
     <?php

@@ -39,6 +39,7 @@ class School extends AppModel {
             ),
 	);
     
+    
     // we'll eventually save the school's latitude/longitude here -- but only
     // after decoding it from the spatial data type in the db
     var $lat = 0;

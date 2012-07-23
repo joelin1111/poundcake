@@ -33,10 +33,13 @@ App::uses('Controller', 'Controller');
  */
 class AppController extends Controller {
 
+    //public $helpers = array('Js' => array('Jquery'));
+    //public $helpers = array('Js');
+    
     // used for the login/ACL
     public $components = array(
         'Session',
-        'DebugKit.Toolbar',
+        //'DebugKit.Toolbar',
         'Auth' => array(
             //'loginRedirect' => array('controller' => 'schools', 'action' => 'overview'),\
             // if the user is not logged in, 

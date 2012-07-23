@@ -7,12 +7,12 @@ class SchoolsController extends AppController
 {
     // AjaxMultiUpload is used for the file upload plugin
     // GoogleMapV3 is for... duh
-    var $helpers = array('AjaxMultiUpload.Upload','Html','Js','GoogleMapV3','AltGoogleMapV3');
+    var $helpers = array('AjaxMultiUpload.Upload','Html','AltGoogleMapV3');
     
     // pagination of results ($paginate) is down in the index function
 
     // make Schools visible to the search plugin
-    public $components = array('Search.Prg','AjaxMultiUpload.Upload','DebugKit.Toolbar');
+    public $components = array('Search.Prg','AjaxMultiUpload.Upload'); //,'DebugKit.Toolbar'
     
     public $presetVars = array(
         // field names for the form itself , 'model' => 'School'
@@ -342,8 +342,12 @@ class SchoolsController extends AppController
         if ($this->request->is('post') || $this->request->is('put')) {
             //echo "<pre> New Lat:".print_r( $this->request )."</pre>";
             //echo '<pre>' . print_r($this->request->data) . '</pre>';
-            //echo '<pre> New Lat: ' . $this->request->data['School']['lat'] . '</pre>';            
-            //Debugger::dump($this->School);
+            echo '<pre> New Lat: ' . $this->request->data['School']['lat'] . '</pre>';            
+            //$loc = "GeomFromText('POINT(".$this->request->data['School']['lat'];
+            //$loc .= " ".$this->request->data['School']['lon'].")') ";
+            //$this->request->data['School']['location'] = $loc;
+            ////Debugger::dump($this->School);
+            
             if ($this->School->save($this->request->data)) {
                 // now that the school data is saved, we have to actually do
                 // an update on the same record to effectively re-save the same
@@ -353,7 +357,7 @@ class SchoolsController extends AppController
                 $query .= "GeomFromText('POINT(".$this->request->data['School']['lat'];
                 $query .= " ".$this->request->data['School']['lon'].")') ";
                 $query .= " WHERE id = " . $id;
-                //print $query;
+                print $query;
                 $this->School->query($query);
                 
                 // and save the lat/long back to the variables on School

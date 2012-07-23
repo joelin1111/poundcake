@@ -1,9 +1,6 @@
 <?php
     # include Jquery
-    //echo $this->Html->script('jquery-1.7.2'); # or wherever it is in your js folder
-    # include the map js code
-    //echo $this->Html->script($this->GoogleMapV3->apiUrl());
-    
+    echo $this->Html->script('jquery-1.7.2');
     // Marc Fernandez helper 
     echo $this->Html->script('http://maps.google.com/maps/api/js?sensor=true',false);
     //$this->Html->script('http://code.google.com/apis/gears/gears_init.js',false);
@@ -37,7 +34,7 @@
             'id'=>'map_canvas', // Map canvas ID
             'width'=>'800px', // Width of the map
             'height'=>'800px', //Height of the map
-            'style' => 'width: 100%; height:400px;', //CSS style for the map canvas
+            'style' => 'width: 100%; height:300px;', //CSS style for the map canvas
             //'zoom'=>7, //Zoom
             'type'=>'ROADMAP', // Type of map (ROADMAP, SATELLITE, HYBRID or TERRAIN)
             //'custom'=>null, // Any other map option not mentioned before and available for the map. For example 'mapTypeControl: true' (http://code.google.com/apis/maps/documentation/javascript/controls.html)
@@ -80,8 +77,8 @@
            // this is sort of a guesshah
            $link = "http://" . $_SERVER['HTTP_HOST'] ."/schools/view/" . $school['School']['id'];
            
-            $windowText = $primary_school."<br>Lorem ipsum dolor sit amet<BR><A HREF=\"".$link."\">More Detail</A>";
-            //echo $link;
+           $windowText = $primary_school."<br>Lorem ipsum dolor sit amet<BR><A HREF=\"".$link."\">More Detail</A>";
+           // echo $link;
            // See all options:
            // https://github.com/marcferna/CakePHP-Google-Maps-V3-Helper/blob/master/google_map_v3.php
            
