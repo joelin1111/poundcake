@@ -5065,3 +5065,41 @@
 #3 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Core/App.php(899): App::_checkFatalError()
 #4 [internal function]: App::shutdown()
 #5 {main}
+2012-07-24 17:05:35 Error: Fatal Error (4): syntax error, unexpected T_ENDFOREACH in [/home/critchie/www/cakephp-cakephp-e0b6f86/app/View/Roles/index.ctp, line 24]
+2012-07-24 17:05:35 Error: [FatalErrorException] syntax error, unexpected T_ENDFOREACH
+#0 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Error/ErrorHandler.php(162): ErrorHandler::handleFatalError(4, 'syntax error, u...', '/home/critchie/...', 24)
+#1 [internal function]: ErrorHandler::handleError(4, 'syntax error, u...', '/home/critchie/...', 24, Array)
+#2 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Core/App.php(926): call_user_func('ErrorHandler::h...', 4, 'syntax error, u...', '/home/critchie/...', 24, Array)
+#3 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Core/App.php(899): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2012-07-24 17:05:49 Error: Fatal Error (4): syntax error, unexpected T_ENDFOREACH in [/home/critchie/www/cakephp-cakephp-e0b6f86/app/View/Roles/index.ctp, line 24]
+2012-07-24 17:05:49 Error: [FatalErrorException] syntax error, unexpected T_ENDFOREACH
+#0 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Error/ErrorHandler.php(162): ErrorHandler::handleFatalError(4, 'syntax error, u...', '/home/critchie/...', 24)
+#1 [internal function]: ErrorHandler::handleError(4, 'syntax error, u...', '/home/critchie/...', 24, Array)
+#2 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Core/App.php(926): call_user_func('ErrorHandler::h...', 4, 'syntax error, u...', '/home/critchie/...', 24, Array)
+#3 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Core/App.php(899): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2012-07-24 17:06:46 Error: Fatal Error (4): syntax error, unexpected '&' in [/home/critchie/www/cakephp-cakephp-e0b6f86/app/View/Roles/index.ctp, line 19]
+2012-07-24 17:06:46 Error: [FatalErrorException] syntax error, unexpected '&'
+#0 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Error/ErrorHandler.php(162): ErrorHandler::handleFatalError(4, 'syntax error, u...', '/home/critchie/...', 19)
+#1 [internal function]: ErrorHandler::handleError(4, 'syntax error, u...', '/home/critchie/...', 19, Array)
+#2 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Core/App.php(926): call_user_func('ErrorHandler::h...', 4, 'syntax error, u...', '/home/critchie/...', 19, Array)
+#3 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Core/App.php(899): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2012-07-24 17:18:48 Error: [NotFoundException] Invalid school
+#0 [internal function]: SchoolsController->delete('10')
+#1 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Controller/Controller.php(485): ReflectionMethod->invokeArgs(Object(SchoolsController), Array)
+#2 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Routing/Dispatcher.php(186): Controller->invokeAction(Object(CakeRequest))
+#3 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Routing/Dispatcher.php(161): Dispatcher->_invoke(Object(SchoolsController), Object(CakeRequest), Object(CakeResponse))
+#4 /home/critchie/www/cakephp-cakephp-e0b6f86/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#5 {main}
+2012-07-24 17:19:48 Error: [NotFoundException] Invalid school
+#0 [internal function]: SchoolsController->view('10')
+#1 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Controller/Controller.php(485): ReflectionMethod->invokeArgs(Object(SchoolsController), Array)
+#2 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Routing/Dispatcher.php(186): Controller->invokeAction(Object(CakeRequest))
+#3 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Routing/Dispatcher.php(161): Dispatcher->_invoke(Object(SchoolsController), Object(CakeRequest), Object(CakeResponse))
+#4 /home/critchie/www/cakephp-cakephp-e0b6f86/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#5 {main}

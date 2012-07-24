@@ -70,7 +70,8 @@ class AppController extends Controller {
     // normal users (the author role) can only access the permitted actions.
     public function isAuthorized($user) {
         // Admin can access every action
-        if (isset($user['role']) && $user['role'] === 'admin') {
+        //if (isset($user['role']) && $user['role'] === 'admin') {
+        if (isset($user['Role']['name']) && $user['Role']['name'] === 'admin') {
             return true;
         }
 

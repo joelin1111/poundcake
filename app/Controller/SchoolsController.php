@@ -336,17 +336,9 @@ class SchoolsController extends AppController
             throw new NotFoundException(__('Invalid school'));
         }
         
-        // the only way we know if there are any files attached to this School
-        // is to use the Upload helper, and b/c it's a helper it's only available
-        // in a view
-        // so we have to call this special delete view which will take care of that
-        // for us -- a bit of non-MVC here, not sure how else to do it
-        // without explicitly calling this, delete.ctp was not being called since
-        // the element was already deleted by the end of this function
-        $this->set('school', $this->School->read(null, $id));
-        $this->render('delete');
-        
         if ($this->School->delete()) {
+            // now cleanup any files associated with this school
+            $this->Upload->deleteAll('School', $id);
             $this->Session->setFlash(__('School deleted'));
             $this->redirect(array('action' => 'index'));
         } else {

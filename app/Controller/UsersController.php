@@ -10,6 +10,9 @@ class UsersController extends AppController {
         $this->set('users', $this->paginate());
     }
 
+    /*
+    it seems unnecessary to have a view for user since the users are all listed
+    on the index page
     public function view($id = null) {
         $this->User->id = $id;
         if (!$this->User->exists()) {
@@ -17,7 +20,14 @@ class UsersController extends AppController {
         }
         $this->set('user', $this->User->read(null, $id));
     }
-
+    */
+    
+    function getRoles() {
+        // identical to getRegions
+        $roles = $this->User->Role->find('list');
+        $this->set('roles',$roles);
+    }
+    
     public function add() {
         if ($this->request->is('post')) {
             $this->User->create();
@@ -32,6 +42,8 @@ class UsersController extends AppController {
 
     public function edit($id = null) {
         $this->User->id = $id;
+        $this->getRoles();
+        
         if (!$this->User->exists()) {
             throw new NotFoundException(__('Invalid user'));
         }

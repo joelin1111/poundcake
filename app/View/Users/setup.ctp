@@ -3,7 +3,9 @@ Click to manage:
 <UL>
     <li>
         <?php echo $this->Html->link('Users', '/users/index'); ?>
-            
+    </li>
+    <li>
+        <?php echo $this->Html->link('Roles', '/roles/index'); ?>
     </li>
     
     <HR>

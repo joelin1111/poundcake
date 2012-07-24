@@ -7,6 +7,10 @@ App::uses('AuthComponent', 'Controller/Component');
 
 class User extends AppModel {
     
+    var $belongsTo = array(
+        'Role',
+    );
+    
     // used on saving new user
     public $validate = array(
         'username' => array(
