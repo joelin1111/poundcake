@@ -178,6 +178,8 @@ class SchoolsController extends AppController
     }
     
     function getDistricts() {
+        // this may be irrelevant now that the District select is using Ajax
+        
         // return a list of districts (which will be put into a drop-down menu
         // on the add/edit forms)
         $districts = $this->School->District->find('list');
@@ -188,6 +190,8 @@ class SchoolsController extends AppController
     }
     
     function getCatchments() {
+        // this may be irrelevant now that the Catchment select is using Ajax
+        
         // return a list of regions (which will be put into a drop-down menu
         // on the add/edit forms)
         $catchments = $this->School->Catchment->find('list');
@@ -198,7 +202,9 @@ class SchoolsController extends AppController
     }
     
     function getAreas() {
-        // return a list of regions (which will be put into a drop-down menu
+        // this may be irrelevant now that the Area select is using Ajax
+        
+        // // return a list of regions (which will be put into a drop-down menu
         // on the add/edit forms)
         $areas = $this->School->Area->find('list');
         // save the array back to the school object
@@ -253,9 +259,11 @@ class SchoolsController extends AppController
 
         // get a list of regions, link and intervention types
         // the School may belong to
-        $this->getCatchments();
-        $this->getAreas();
-        $this->getDistricts();
+        // Catchments/Areas/Districts now handled by Ajax due to their new
+        // relationships
+        //$this->getCatchments();
+        //$this->getAreas();
+        //$this->getDistricts();
         $this->getConnectivityTypes();
         $this->getInterventionTypes();
         $this->getServiceProviders();
@@ -263,6 +271,25 @@ class SchoolsController extends AppController
         $this->getPowerTypes();
         $this->getRoadTypes();
 
+        // return all areas that match the default catchment
+        $areas = $this->School->District->Area->find(
+                        'list',
+                        array(
+                            'conditions' => array('Area.catchment_id' => 1)
+                        )
+                );
+        // return all districts that match the default area
+        $districts = $this->School->District->find(
+                        'list',
+                        array(
+                            'conditions' => array('District.area_id' => 1)
+                        )
+                );
+        // get all Catchments
+        $catchments = $this->School->District->Area->Catchment->find('list');
+
+        $this->set(compact('catchments','areas','districts'));
+                
         // should I wrap all the following with?
         // if ($this->request->is('post')) {        
 
@@ -308,11 +335,21 @@ class SchoolsController extends AppController
         if (!$this->School->exists()) {
             throw new NotFoundException(__('Invalid school'));
         }
+        
+        // the only way we know if there are any files attached to this School
+        // is to use the Upload helper, and b/c it's a helper it's only available
+        // in a view
+        // so we have to call this special delete view which will take care of that
+        // for us -- a bit of non-MVC here, not sure how else to do it
+        // without explicitly calling this, delete.ctp was not being called since
+        // the element was already deleted by the end of this function
+        $this->set('school', $this->School->read(null, $id));
+        $this->render('delete');
+        
         if ($this->School->delete()) {
             $this->Session->setFlash(__('School deleted'));
             $this->redirect(array('action' => 'index'));
-        }
-        else {
+        } else {
             $this->Session->setFlash(__('School was not deleted'));
             $this->redirect(array('action' => 'index'));
         }
@@ -323,9 +360,9 @@ class SchoolsController extends AppController
         
         // get a list of regions, link and installation types
         // the School may belong to
-        $this->getCatchments();
-        $this->getAreas();
-        $this->getDistricts();
+        //$this->getCatchments();
+        //$this->getAreas();
+        //$this->getDistricts();
         $this->getConnectivityTypes();
         $this->getInterventionTypes();
         $this->getServiceProviders();

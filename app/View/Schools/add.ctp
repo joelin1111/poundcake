@@ -1,11 +1,22 @@
-<h1>Add School</h1>
+<?php
+    echo $this->Html->script('jquery-1.7.2');
+?>
+
+<fieldset>
+    <legend><?php echo __('Add School'); ?></legend>
 <?php
     echo $this->Form->create('School', array('action'=>'add'));
     echo $this->Form->input('School.primary_school');
+    
     // drop down meny of available catchments, etc.
-    echo $this->Form->input('School.catchment_id', array('type'=>'select','options' => $catchments));
-    echo $this->Form->input('School.area_id', array('type'=>'select','options' => $areas));
-    echo $this->Form->input('School.district', array('label'=>'School District')); // another syntax of labeling fields
+    //echo $this->Form->input('School.catchment_id', array('type'=>'select','options' => $catchments));
+    echo $this->Form->input('catchment_id');
+    //echo $this->Form->input('School.area_id', array('type'=>'select','options' => $areas));
+    echo $this->Form->input('area_id');
+    //echo $this->Form->input('School.district', array('label'=>'School District')); // another syntax of labeling fields
+    //echo $this->Form->input('district_id',array('disabled' => true));
+    echo $this->Form->input('district_id');
+    
     echo $this->Form->input('School.trc');
     echo $this->Form->input('School.school_code');
     echo $this->Form->input('School.type');
@@ -36,4 +47,55 @@
     );
     // no upload field since we don't have a School.id until after save
     echo $this->Form->end('Save school');
+?>
+</fieldset>
+
+<?php
+    //$this->Js->get('#SchoolCatchmentId')->event('change', $this->Js->alert('catchment changed!'));
+    //$this->Js->get('#catchment_id')->event('change', $this->Js->alert('hey you!'));
+
+    // this creates the Javascript to refresh the Areas select box after a user
+    // picks a District -- basically call getByCatchment on the Areas controller
+    // which dynamically replaces just the HTML for $this->Form->select('area_id')
+    // with the view code defined in Areas/get_by_catchment.ctp
+
+    $this->Js->get('#SchoolCatchmentId');
+    $this->Js->event('change',
+        $this->Js->request(array(
+        'controller' => 'areas',
+                'action'=>'getByCatchment'),
+                    array('async' => true,
+                        'update' => '#SchoolAreaId',
+                        'dataExpression' => true,
+                        'data'=> $this->Js->serializeForm(
+                                array(
+                                    'isForm' => true,
+                                    'inline'=> true
+                                    )
+                                ),
+                        'method' => 'post'
+                        )
+                    )
+    );
+    
+    $this->Js->get('#SchoolAreaId');
+    $this->Js->event('change',
+        $this->Js->request(array(
+        'controller' => 'districts',
+                'action'=>'getByArea'),
+                    array('async' => true,
+                        'update' => '#SchoolDistrictId',
+                        'dataExpression' => true,
+                        'data'=> $this->Js->serializeForm(
+                                array(
+                                    'isForm' => true,
+                                    'inline'=> true
+                                    )
+                                ),
+                        'method' => 'post'
+                        )
+                    )
+    );
+    echo $this->Js->writeBuffer(); // Write cached scripts
+    
 ?>

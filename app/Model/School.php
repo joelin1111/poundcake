@@ -109,7 +109,5 @@ class School extends AppModel {
     public function isOwnedBy($school, $user) {
         return $this->field('id', array('id' => $school, 'user_id' => $user)) === $school;
     }
-    
-    
 }
 ?>

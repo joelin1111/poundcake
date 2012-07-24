@@ -4895,3 +4895,173 @@
 #3 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Core/App.php(899): App::_checkFatalError()
 #4 [internal function]: App::shutdown()
 #5 {main}
+2012-07-23 21:38:47 Error: [PDOException] SQLSTATE[42S22]: Column not found: 1054 Unknown column 'School.area_id' in 'where clause'
+#0 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Model/Datasource/DboSource.php(461): PDOStatement->execute(Array)
+#1 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Model/Datasource/DboSource.php(427): DboSource->_execute('SELECT `Area`.`...', Array)
+#2 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Model/Datasource/DboSource.php(671): DboSource->execute('SELECT `Area`.`...', Array, Array)
+#3 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Model/Datasource/DboSource.php(1082): DboSource->fetchAll('SELECT `Area`.`...', false)
+#4 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Model/Model.php(2631): DboSource->read(Object(Area), Array)
+#5 /home/critchie/www/cakephp-cakephp-e0b6f86/app/Controller/SchoolsController.php(276): Model->find('list', Array)
+#6 [internal function]: SchoolsController->add()
+#7 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Controller/Controller.php(485): ReflectionMethod->invokeArgs(Object(SchoolsController), Array)
+#8 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Routing/Dispatcher.php(186): Controller->invokeAction(Object(CakeRequest))
+#9 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Routing/Dispatcher.php(161): Dispatcher->_invoke(Object(SchoolsController), Object(CakeRequest), Object(CakeResponse))
+#10 /home/critchie/www/cakephp-cakephp-e0b6f86/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#11 {main}
+2012-07-23 21:39:20 Error: [PDOException] SQLSTATE[42S22]: Column not found: 1054 Unknown column 'Area.area_id' in 'where clause'
+#0 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Model/Datasource/DboSource.php(461): PDOStatement->execute(Array)
+#1 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Model/Datasource/DboSource.php(427): DboSource->_execute('SELECT `Area`.`...', Array)
+#2 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Model/Datasource/DboSource.php(671): DboSource->execute('SELECT `Area`.`...', Array, Array)
+#3 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Model/Datasource/DboSource.php(1082): DboSource->fetchAll('SELECT `Area`.`...', false)
+#4 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Model/Model.php(2631): DboSource->read(Object(Area), Array)
+#5 /home/critchie/www/cakephp-cakephp-e0b6f86/app/Controller/SchoolsController.php(276): Model->find('list', Array)
+#6 [internal function]: SchoolsController->add()
+#7 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Controller/Controller.php(485): ReflectionMethod->invokeArgs(Object(SchoolsController), Array)
+#8 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Routing/Dispatcher.php(186): Controller->invokeAction(Object(CakeRequest))
+#9 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Routing/Dispatcher.php(161): Dispatcher->_invoke(Object(SchoolsController), Object(CakeRequest), Object(CakeResponse))
+#10 /home/critchie/www/cakephp-cakephp-e0b6f86/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#11 {main}
+2012-07-23 21:42:03 Error: Fatal Error (1): Call to a member function find() on a non-object in [/home/critchie/www/cakephp-cakephp-e0b6f86/app/Controller/SchoolsController.php, line 276]
+2012-07-23 21:42:03 Error: [FatalErrorException] Call to a member function find() on a non-object
+#0 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Error/ErrorHandler.php(162): ErrorHandler::handleFatalError(1, 'Call to a membe...', '/home/critchie/...', 276)
+#1 [internal function]: ErrorHandler::handleError(1, 'Call to a membe...', '/home/critchie/...', 276, Array)
+#2 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Core/App.php(926): call_user_func('ErrorHandler::h...', 1, 'Call to a membe...', '/home/critchie/...', 276, Array)
+#3 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Core/App.php(899): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2012-07-23 21:49:36 Error: Fatal Error (4): syntax error, unexpected T_DOUBLE_ARROW in [/home/critchie/www/cakephp-cakephp-e0b6f86/app/View/Schools/add.ctp, line 17]
+2012-07-23 21:49:36 Error: [FatalErrorException] syntax error, unexpected T_DOUBLE_ARROW
+#0 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Error/ErrorHandler.php(162): ErrorHandler::handleFatalError(4, 'syntax error, u...', '/home/critchie/...', 17)
+#1 [internal function]: ErrorHandler::handleError(4, 'syntax error, u...', '/home/critchie/...', 17, Array)
+#2 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Core/App.php(926): call_user_func('ErrorHandler::h...', 4, 'syntax error, u...', '/home/critchie/...', 17, Array)
+#3 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Core/App.php(899): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2012-07-23 22:20:16 Error: Fatal Error (1): Call to undefined method UploadComponent::listing() in [/home/critchie/www/cakephp-cakephp-e0b6f86/app/Controller/SchoolsController.php, line 340]
+2012-07-23 22:20:16 Error: [FatalErrorException] Call to undefined method UploadComponent::listing()
+#0 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Error/ErrorHandler.php(162): ErrorHandler::handleFatalError(1, 'Call to undefin...', '/home/critchie/...', 340)
+#1 [internal function]: ErrorHandler::handleError(1, 'Call to undefin...', '/home/critchie/...', 340, Array)
+#2 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Core/App.php(926): call_user_func('ErrorHandler::h...', 1, 'Call to undefin...', '/home/critchie/...', 340, Array)
+#3 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Core/App.php(899): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2012-07-23 22:20:37 Error: Fatal Error (1): Call to a member function listing() on a non-object in [/home/critchie/www/cakephp-cakephp-e0b6f86/app/Controller/SchoolsController.php, line 340]
+2012-07-23 22:20:37 Error: [FatalErrorException] Call to a member function listing() on a non-object
+#0 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Error/ErrorHandler.php(162): ErrorHandler::handleFatalError(1, 'Call to a membe...', '/home/critchie/...', 340)
+#1 [internal function]: ErrorHandler::handleError(1, 'Call to a membe...', '/home/critchie/...', 340, Array)
+#2 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Core/App.php(926): call_user_func('ErrorHandler::h...', 1, 'Call to a membe...', '/home/critchie/...', 340, Array)
+#3 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Core/App.php(899): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2012-07-23 22:21:43 Error: Fatal Error (1): Call to undefined method UploadComponent::listing() in [/home/critchie/www/cakephp-cakephp-e0b6f86/app/Controller/SchoolsController.php, line 340]
+2012-07-23 22:21:43 Error: [FatalErrorException] Call to undefined method UploadComponent::listing()
+#0 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Error/ErrorHandler.php(162): ErrorHandler::handleFatalError(1, 'Call to undefin...', '/home/critchie/...', 340)
+#1 [internal function]: ErrorHandler::handleError(1, 'Call to undefin...', '/home/critchie/...', 340, Array)
+#2 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Core/App.php(926): call_user_func('ErrorHandler::h...', 1, 'Call to undefin...', '/home/critchie/...', 340, Array)
+#3 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Core/App.php(899): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2012-07-23 22:21:47 Error: Fatal Error (1): Call to undefined method UploadComponent::listing() in [/home/critchie/www/cakephp-cakephp-e0b6f86/app/Controller/SchoolsController.php, line 340]
+2012-07-23 22:21:47 Error: [FatalErrorException] Call to undefined method UploadComponent::listing()
+#0 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Error/ErrorHandler.php(162): ErrorHandler::handleFatalError(1, 'Call to undefin...', '/home/critchie/...', 340)
+#1 [internal function]: ErrorHandler::handleError(1, 'Call to undefin...', '/home/critchie/...', 340, Array)
+#2 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Core/App.php(926): call_user_func('ErrorHandler::h...', 1, 'Call to undefin...', '/home/critchie/...', 340, Array)
+#3 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Core/App.php(899): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2012-07-23 22:38:25 Error: Fatal Error (1): Call to undefined method UploadComponent::listing() in [/home/critchie/www/cakephp-cakephp-e0b6f86/app/Controller/SchoolsController.php, line 341]
+2012-07-23 22:38:25 Error: [FatalErrorException] Call to undefined method UploadComponent::listing()
+#0 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Error/ErrorHandler.php(162): ErrorHandler::handleFatalError(1, 'Call to undefin...', '/home/critchie/...', 341)
+#1 [internal function]: ErrorHandler::handleError(1, 'Call to undefin...', '/home/critchie/...', 341, Array)
+#2 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Core/App.php(926): call_user_func('ErrorHandler::h...', 1, 'Call to undefin...', '/home/critchie/...', 341, Array)
+#3 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Core/App.php(899): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2012-07-23 22:38:38 Error: Fatal Error (1): Call to a member function listing() on a non-object in [/home/critchie/www/cakephp-cakephp-e0b6f86/app/Controller/SchoolsController.php, line 341]
+2012-07-23 22:38:38 Error: [FatalErrorException] Call to a member function listing() on a non-object
+#0 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Error/ErrorHandler.php(162): ErrorHandler::handleFatalError(1, 'Call to a membe...', '/home/critchie/...', 341)
+#1 [internal function]: ErrorHandler::handleError(1, 'Call to a membe...', '/home/critchie/...', 341, Array)
+#2 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Core/App.php(926): call_user_func('ErrorHandler::h...', 1, 'Call to a membe...', '/home/critchie/...', 341, Array)
+#3 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Core/App.php(899): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2012-07-24 03:38:07 Error: [MissingHelperException] Helper class AjaxMultiUploadHelper could not be found.
+#0 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/View/View.php(861): HelperCollection->load('AjaxMultiUpload', Array)
+#1 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/View/View.php(468): View->loadHelpers()
+#2 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Controller/Controller.php(957): View->render(NULL, NULL)
+#3 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Routing/Dispatcher.php(193): Controller->render()
+#4 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Routing/Dispatcher.php(161): Dispatcher->_invoke(Object(SchoolsController), Object(CakeRequest), Object(CakeResponse))
+#5 /home/critchie/www/cakephp-cakephp-e0b6f86/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#6 {main}
+2012-07-24 03:38:18 Error: [MissingHelperException] Helper class AjaxMultiUploadHelper could not be found.
+#0 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/View/View.php(861): HelperCollection->load('AjaxMultiUpload', Array)
+#1 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/View/View.php(468): View->loadHelpers()
+#2 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Controller/Controller.php(957): View->render(NULL, NULL)
+#3 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Routing/Dispatcher.php(193): Controller->render()
+#4 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Routing/Dispatcher.php(161): Dispatcher->_invoke(Object(SchoolsController), Object(CakeRequest), Object(CakeResponse))
+#5 /home/critchie/www/cakephp-cakephp-e0b6f86/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#6 {main}
+2012-07-24 03:38:47 Error: Fatal Error (1): Call to undefined method UploadComponent::listing() in [/home/critchie/www/cakephp-cakephp-e0b6f86/app/Controller/SchoolsController.php, line 341]
+2012-07-24 03:38:47 Error: [FatalErrorException] Call to undefined method UploadComponent::listing()
+#0 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Error/ErrorHandler.php(162): ErrorHandler::handleFatalError(1, 'Call to undefin...', '/home/critchie/...', 341)
+#1 [internal function]: ErrorHandler::handleError(1, 'Call to undefin...', '/home/critchie/...', 341, Array)
+#2 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Core/App.php(926): call_user_func('ErrorHandler::h...', 1, 'Call to undefin...', '/home/critchie/...', 341, Array)
+#3 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Core/App.php(899): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2012-07-24 03:39:23 Error: Fatal Error (1): Call to a member function listing() on a non-object in [/home/critchie/www/cakephp-cakephp-e0b6f86/app/Controller/SchoolsController.php, line 341]
+2012-07-24 03:39:23 Error: [FatalErrorException] Call to a member function listing() on a non-object
+#0 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Error/ErrorHandler.php(162): ErrorHandler::handleFatalError(1, 'Call to a membe...', '/home/critchie/...', 341)
+#1 [internal function]: ErrorHandler::handleError(1, 'Call to a membe...', '/home/critchie/...', 341, Array)
+#2 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Core/App.php(926): call_user_func('ErrorHandler::h...', 1, 'Call to a membe...', '/home/critchie/...', 341, Array)
+#3 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Core/App.php(899): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2012-07-24 03:39:54 Error: Fatal Error (1): Call to undefined method UploadComponent::listing() in [/home/critchie/www/cakephp-cakephp-e0b6f86/app/Controller/SchoolsController.php, line 341]
+2012-07-24 03:39:54 Error: [FatalErrorException] Call to undefined method UploadComponent::listing()
+#0 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Error/ErrorHandler.php(162): ErrorHandler::handleFatalError(1, 'Call to undefin...', '/home/critchie/...', 341)
+#1 [internal function]: ErrorHandler::handleError(1, 'Call to undefin...', '/home/critchie/...', 341, Array)
+#2 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Core/App.php(926): call_user_func('ErrorHandler::h...', 1, 'Call to undefin...', '/home/critchie/...', 341, Array)
+#3 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Core/App.php(899): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2012-07-24 03:45:00 Error: Fatal Error (1): Call to undefined method UploadComponent::listing() in [/home/critchie/www/cakephp-cakephp-e0b6f86/app/Controller/SchoolsController.php, line 342]
+2012-07-24 03:45:00 Error: [FatalErrorException] Call to undefined method UploadComponent::listing()
+#0 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Error/ErrorHandler.php(162): ErrorHandler::handleFatalError(1, 'Call to undefin...', '/home/critchie/...', 342)
+#1 [internal function]: ErrorHandler::handleError(1, 'Call to undefin...', '/home/critchie/...', 342, Array)
+#2 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Core/App.php(926): call_user_func('ErrorHandler::h...', 1, 'Call to undefin...', '/home/critchie/...', 342, Array)
+#3 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Core/App.php(899): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2012-07-24 03:45:01 Error: Fatal Error (1): Call to undefined method UploadComponent::listing() in [/home/critchie/www/cakephp-cakephp-e0b6f86/app/Controller/SchoolsController.php, line 342]
+2012-07-24 03:45:01 Error: [FatalErrorException] Call to undefined method UploadComponent::listing()
+#0 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Error/ErrorHandler.php(162): ErrorHandler::handleFatalError(1, 'Call to undefin...', '/home/critchie/...', 342)
+#1 [internal function]: ErrorHandler::handleError(1, 'Call to undefin...', '/home/critchie/...', 342, Array)
+#2 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Core/App.php(926): call_user_func('ErrorHandler::h...', 1, 'Call to undefin...', '/home/critchie/...', 342, Array)
+#3 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Core/App.php(899): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2012-07-24 03:48:16 Error: Fatal Error (1): Call to undefined method UploadComponent::listing() in [/home/critchie/www/cakephp-cakephp-e0b6f86/app/Controller/SchoolsController.php, line 342]
+2012-07-24 03:48:16 Error: [FatalErrorException] Call to undefined method UploadComponent::listing()
+#0 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Error/ErrorHandler.php(162): ErrorHandler::handleFatalError(1, 'Call to undefin...', '/home/critchie/...', 342)
+#1 [internal function]: ErrorHandler::handleError(1, 'Call to undefin...', '/home/critchie/...', 342, Array)
+#2 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Core/App.php(926): call_user_func('ErrorHandler::h...', 1, 'Call to undefin...', '/home/critchie/...', 342, Array)
+#3 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Core/App.php(899): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2012-07-24 03:48:21 Error: Fatal Error (1): Call to undefined method UploadComponent::listing() in [/home/critchie/www/cakephp-cakephp-e0b6f86/app/Controller/SchoolsController.php, line 342]
+2012-07-24 03:48:21 Error: [FatalErrorException] Call to undefined method UploadComponent::listing()
+#0 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Error/ErrorHandler.php(162): ErrorHandler::handleFatalError(1, 'Call to undefin...', '/home/critchie/...', 342)
+#1 [internal function]: ErrorHandler::handleError(1, 'Call to undefin...', '/home/critchie/...', 342, Array)
+#2 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Core/App.php(926): call_user_func('ErrorHandler::h...', 1, 'Call to undefin...', '/home/critchie/...', 342, Array)
+#3 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Core/App.php(899): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2012-07-24 03:55:19 Error: Fatal Error (1): Call to a member function listing() on a non-object in [/home/critchie/www/cakephp-cakephp-e0b6f86/app/Model/School.php, line 115]
+2012-07-24 03:55:19 Error: [FatalErrorException] Call to a member function listing() on a non-object
+#0 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Error/ErrorHandler.php(162): ErrorHandler::handleFatalError(1, 'Call to a membe...', '/home/critchie/...', 115)
+#1 [internal function]: ErrorHandler::handleError(1, 'Call to a membe...', '/home/critchie/...', 115, Array)
+#2 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Core/App.php(926): call_user_func('ErrorHandler::h...', 1, 'Call to a membe...', '/home/critchie/...', 115, Array)
+#3 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Core/App.php(899): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}

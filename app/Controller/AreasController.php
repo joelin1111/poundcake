@@ -107,7 +107,20 @@ class AreasController extends AppController {
             // this function returns the set of catchments that match a given
             // area -- is used by the add method in the add district
             //if ( $this->request->data != null ) {
-                $catchment_id = $this->request->data['District']['catchment_id'];
+                
+                // if this is being called from the Add District form, we get
+                // catchment_id from $this->request->data['District']['catchment_id']
+                // otherwise if this is being called from the Add School form,
+                // we need to get it off the school object
+                // $catchment_id = $this->request->data['District']['catchment_id'];
+                
+                // revisit, there is probably a cleaner way to do this
+                if ($this->request->data['District'] != null ) {
+                    $obj = 'District';
+                } elseif ($this->request->data['School'] != null ) {
+                    $obj = 'School';
+                }
+                $catchment_id = $this->request->data[$obj]['catchment_id'];
                 
                 $conditions = array('Area.catchment_id' => $catchment_id);
                 

@@ -52,8 +52,8 @@ class DistrictsController extends AppController {
                 }
                 //$areas = $this->District->Area->find('list');
                 
-                // this is a little bit of a cheat, but when someone goes to add
-                // a district, normally we'd give them a select list showing all
+                // this is a little bit of a hack/cheat, but when someone goes to
+                // add a district, normally we'd give them a select list showing all
                 // areas
                 // e.g. $areas = $this->District->Area->find('list');
                 // however because we're using Ajax to auto-refresh the Area
@@ -67,6 +67,7 @@ class DistrictsController extends AppController {
                         )
                 );
                 //echo "<pre>".print_r($areas)."</pre>";
+                // get all Catchments
                 $catchments = $this->District->Area->Catchment->find('list');
                 $this->set(compact('catchments','areas'));
 	}
@@ -120,20 +121,23 @@ class DistrictsController extends AppController {
 		$this->redirect(array('action' => 'index'));
 	}
         
-        
-        
-        public function getByCatchment() {
-            
-		$catchment_id = $this->request->data['Area']['catchment_id'];
-                //echo $catchment_id;
-                //die;
-		$areas = $this->Area->find('list', array(
-			'conditions' => array('Area.catchment_id' => $catchment_id),
-			'recursive' => -1
-			));
- 
-		$this->set('areas',$areas);
-                 $this->layout = false;
-		$this->layout = 'ajax';
-	}
+    public function getByArea() {
+            // see documenttion on Area controller
+           
+            //if ( $this->request->data != null ) {
+                $area_id = $this->request->data['School']['area_id'];
+                
+                $conditions = array('District.area_id' => $area_id);
+                
+                $districts = $this->District->find('list', array(
+                        'conditions' => $conditions,
+                        'recursive' => -1
+                        ));
+                
+                //$areas = array ('foo','bar','car');
+                $this->set('districts', $districts);
+                //$this->layout = false;
+                $this->layout = 'ajax';
+            //}
+        }
 }
