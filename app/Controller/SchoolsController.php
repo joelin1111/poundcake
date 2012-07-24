@@ -7,7 +7,7 @@ class SchoolsController extends AppController
 {
     // AjaxMultiUpload is used for the file upload plugin
     // AltGoogleMapV3 is the Marc Fernandez Google Map helper, just renamed
-    var $helpers = array('AjaxMultiUpload.Upload','Html','AltGoogleMapV3');
+    var $helpers = array('AjaxMultiUpload.Upload','Html','AltGoogleMapV3','AutoComplete','Js');
     
     // pagination of results ($paginate) is down in the index function
 
@@ -434,5 +434,19 @@ class SchoolsController extends AppController
         
         return parent::isAuthorized($user);
     }
+    
+    function auto_complete() {
+        $schools = $this->School->find('all', array( 
+            'conditions' => array( 
+                'School.primary_school LIKE' => $this->params['url']['autoCompleteText'].'%' 
+            ), 
+            'fields' => array('primary_school'), 
+            'limit' => 3, 
+            'recursive'=>-1, 
+        )); 
+        $schools = Set::Extract($schools,'{n}.School.primary_school'); 
+        $this->set('schools', $schools); 
+        $this->layout = 'ajax';     
+    } 
 }
 ?>

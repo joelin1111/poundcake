@@ -1,3 +1,7 @@
+<?php
+    echo $this->Html->script('jquery-1.7.2');
+?>
+
 <h2>TZ21 Schools</h2>
 <?php
     echo $this->Html->link('Add school',array('controller' => 'schools','action' => 'add'));
@@ -7,7 +11,8 @@
     //echo ("<pre>"); print_r($schools); echo("</pre>");
 ?>
 <BR><BR>
-<h3>Search</h3>
+<fieldset>
+    <legend><?php echo __('Search'); ?></legend>
 <?php
     echo $this->Form->create('School', array(
         'url' => array_merge(array('action' => 'index'), $this->params['pass'])
@@ -15,9 +20,35 @@
     echo $this->Form->input('primary_school', array('div' => false));
     //echo $this->Form->input('district', array('div' => false));
     //echo $this->Form->input('district', array('div' => false, 'options' => $schools));
+    echo "<BR><BR>";
     echo $this->Form->submit(__('Search', true), array('div' => false));
     echo $this->Form->end();
 ?>
+</fieldset>
+
+<fieldset>
+    <legend><?php echo __('Search w/ auto-complete'); ?></legend>
+<?php
+    echo $this->Form->create('School', array(
+        'url' => array_merge(array('action' => 'index'), $this->params['pass'])
+    ));
+    echo $this->AutoComplete->input( 
+    'primary_school', 
+    array( 
+        'autoCompleteUrl'=>$this->Html->url(  
+            array( 
+                'controller'=>'Schools', 
+                'action'=>'auto_complete', 
+            ) 
+        ), 
+        'autoCompleteRequestItem'=>'autoCompleteText', 
+    ) 
+);
+    echo "<BR>";
+    echo $this->Form->submit(__('Search', true), array('div' => false));
+    echo $this->Form->end();    
+?>
+</fieldset>
 
 <?php
 // alternate sort syntax?

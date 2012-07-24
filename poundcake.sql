@@ -323,7 +323,7 @@ CREATE TABLE `catchments` (
 
 LOCK TABLES `catchments` WRITE;
 /*!40000 ALTER TABLE `catchments` DISABLE KEYS */;
-INSERT INTO `catchments` VALUES (1,'Mtwara'),(2,'Zanzibar');
+INSERT INTO `catchments` VALUES (1,'Zanzibar'),(2,'Mtwara');
 /*!40000 ALTER TABLE `catchments` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -351,9 +351,9 @@ LOCK TABLES `areas` WRITE;
 INSERT INTO `areas` VALUES
 -- Zanzibar ID = 2
 -- Mtwara ID = 1
-(1,'Pemba',2),
-(2,'Unguja',2),
-(3,'Mtwara',1);;
+(1,'Pemba',1),
+(2,'Unguja',1),
+(3,'Mtwara',2);;
 /*!40000 ALTER TABLE `areas` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -361,26 +361,6 @@ UNLOCK TABLES;
 --
 -- Table structure for table `regions`
 --
-
-DROP TABLE IF EXISTS `regions`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `regions` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `regions`
---
-
-LOCK TABLES `regions` WRITE;
-/*!40000 ALTER TABLE `regions` DISABLE KEYS */;
-INSERT INTO `regions` VALUES (1,'Mtwara'),(2,'Zanzibar');
-/*!40000 ALTER TABLE `regions` ENABLE KEYS */;
-UNLOCK TABLES;
 
 
 --

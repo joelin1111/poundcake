@@ -40,6 +40,13 @@
 
                     $defaultLat = -5.6;
                     $defaultLng = 36;
+                    
+                    // map should center around the coordinates that are passed to the view
+                    // otherwise it should default to "about Tanzania"
+                    if ( $lat != null && $lon != null ) {
+                        $defaultLat = $lat;
+                        $defaultLng = $lon;
+                    }
 
                     // https://github.com/marcferna/CakePHP-Google-Maps-V3-Helper
                     // http://marcferna.tumblr.com/post/3580268729/google-maps-api-v3-cakephp-helper
@@ -62,13 +69,6 @@
                             //'windowText'=>'My Position'		//Default text inside the information window
                     );
                     echo $this->AltGoogleMapV3->map($mapOptions); //To add a map that localizes you
-
-                    // map should center around the coordinates that are passed to the view
-                    // otherwise it should default to "about Tanzania"
-                    if ( $lat != null && $lon != null ) {
-                        $defaultLat = $lat;
-                        $defaultLng = $lon;
-                    }
 
                     // text for the popup over the placemarker
                     $windowText = $school['School']['primary_school'];
