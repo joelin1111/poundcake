@@ -17,7 +17,8 @@
     //echo $this->Form->input('district_id',array('disabled' => true));
     echo $this->Form->input('district_id');
     
-    echo $this->Form->input('School.trc');
+    echo $this->Form->input('trc_id');
+    
     echo $this->Form->input('School.school_code');
     echo $this->Form->input('School.type');
     echo $this->Form->input('School.sn');

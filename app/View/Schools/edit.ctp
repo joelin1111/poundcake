@@ -11,25 +11,22 @@
 <fieldset>
     <legend><?php echo __('Edit School'); ?></legend>
 <?php
-    echo $this->Form->create('School', array('action' => 'edit'));
+    //echo $this->Form->create('School', array('action' => 'edit'));
+    echo $this->Form->create('School');
     echo $this->Form->input('id', array('type'=>'hidden'));
     echo $this->Form->input('primary_school');
     
+    //echo "<pre>".print_r($this->request->data)."</pre>";
+     
     // drop down meny of available catchments, etc.
-    //echo $this->Form->input('School.catchment_id', array('type'=>'select','options' => $catchments));
     echo $this->Form->input('catchment_id');
-    //echo $this->Form->input('School.area_id', array('type'=>'select','options' => $areas));
     echo $this->Form->input('area_id');
-    //echo $this->Form->input('School.district', array('label'=>'School District')); // another syntax of labeling fields
-    //echo $this->Form->input('district_id',array('disabled' => true));
+    echo $this->Form->input('region_id');
     echo $this->Form->input('district_id');
-    
     echo $this->Form->input('trc');
     echo $this->Form->input('school_code');
     echo $this->Form->input('type');
     echo $this->Form->input('sn');
-    
-    
      
     // drop down menu of available link types
     echo $this->Form->input('School.connectivity_type_id', array('type'=>'select','options' => $connectivitytypes));
@@ -73,9 +70,10 @@
     
     // this is the upload field
     echo $this->Upload->edit('School', $this->Form->fields['School.id']); 
+    
     echo $this->Form->end('Save School');
-
-        $this->Js->get('#SchoolCatchmentId');
+    
+    $this->Js->get('#SchoolCatchmentId');
     $this->Js->event('change',
         $this->Js->request(array(
         'controller' => 'areas',
@@ -113,4 +111,5 @@
                     )
     );
     echo $this->Js->writeBuffer(); // Write cached scripts
+    
 ?>

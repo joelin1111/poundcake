@@ -1,7 +1,7 @@
 <?php
     # include Jquery
     echo $this->Html->script('jquery-1.7.2');
-    // Marc Fernandez helper 
+    // Marc Fernandez map helper 
     echo $this->Html->script('http://maps.google.com/maps/api/js?sensor=true',false);
     //$this->Html->script('http://code.google.com/apis/gears/gears_init.js',false);
     echo $this->Html->script('gears_init');
@@ -10,18 +10,33 @@
     <div class="maskAlt">
     <div class="headerAlt">
 	         <h1><?php echo $school['School']['primary_school']?></h1>
-	</div> 
+    </div>
+    <?php
+        echo $this->Html->link('Edit School', array('action'=>'edit', $school['School']['id']));
+    ?>
+        <HR>
     <div class="colleftAlt">
 	    	  
 	    <div class="col1Alt">
 	        <P><B>Catchment:</B>&nbsp;<?php echo $school['Catchment']['name']; ?></P>
                 <P><B>Area:</B>&nbsp;<?php echo $school['Area']['name']; ?></P>
+                <P><B>Region:</B>&nbsp;<?php echo $school['Region']['name']; ?></P>
                 <P><B>District:</B>&nbsp;<?php echo $school['District']['name']; ?></P>
+                <P><B>TC/TRC:</B>&nbsp;
+                    <?php
+                        // link to the TRC view
+                        // echo $school['Trc']['name'];
+                        echo $this->Html->link(__($school['Trc']['name']),
+                                array(
+                                    'controller' => 'trcs',
+                                    'action' => 'view',
+                                    $school['Trc']['id']));
+                    ?>
+                
+                </P>
                 <P><B>Type:</B>&nbsp;<?php echo $school['School']['type']; ?></P>
-                <P><B>TRC:</B>&nbsp;<?php echo $school['School']['trc']; ?></P>
                 <P><B>School code:</B>&nbsp;<?php echo $school['School']['school_code']; ?></P>
                 <P><B>GPS Coordinates:</B>&nbsp;<?php echo $lat . ' ' . $lon . '<br>'; ?> </P>
-                <P><B>Service Provider:</B>&nbsp;<?php echo $school['ServiceProvider']['name']; ?></P>
 	    </div>
         
 	    <div class="col2Alt">
@@ -30,6 +45,7 @@
                 <P><B>Connectivity Type:</B>&nbsp;<?php echo $school['ConnectivityType']['name']; ?></P>
                 <P><B>Intervention Type:</B>&nbsp;<?php echo $school['InterventionType']['name']; ?></P>
                 <P><B>Site State:</B>&nbsp;<?php echo $school['SiteState']['name']; ?></P>
+                <P><B>Service Provider:</B>&nbsp;<?php echo $school['ServiceProvider']['name']; ?></P>
                 <P><B>Power Type:</B>&nbsp;<?php echo $school['PowerType']['name']; ?></P>
                 <P><B>Road Condition:</B>&nbsp;<?php echo $school['RoadType']['name']; ?></P>
 	    </div> 

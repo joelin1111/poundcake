@@ -74,8 +74,8 @@ class Area extends AppModel {
  * @var array
  */
         public $hasMany = array(
-		'District' => array(
-			'className' => 'District',
+		'Region' => array(
+			'className' => 'Region',
 			'foreignKey' => 'area_id',
 			'dependent' => false,
 			'conditions' => '',

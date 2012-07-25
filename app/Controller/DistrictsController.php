@@ -60,7 +60,14 @@ class DistrictsController extends AppController {
                 // select list with the areas for a specified catchment, let's
                 // default the list to match the first item in the
                 // Catchment list
-                $areas = $this->District->Area->find(
+                $regions = $this->District->Region->find(
+                        'list',
+                        array(
+                            'conditions' => array('Region.area_id' => 1)
+                        )
+                );
+                
+                $areas = $this->District->Region->Area->find(
                         'list',
                         array(
                             'conditions' => array('Area.catchment_id' => 1)
@@ -68,8 +75,8 @@ class DistrictsController extends AppController {
                 );
                 //echo "<pre>".print_r($areas)."</pre>";
                 // get all Catchments
-                $catchments = $this->District->Area->Catchment->find('list');
-                $this->set(compact('catchments','areas'));
+                $catchments = $this->District->Region->Area->Catchment->find('list');
+                $this->set(compact('catchments','areas','regions'));
 	}
 
 
@@ -82,6 +89,7 @@ class DistrictsController extends AppController {
  */
 	public function edit($id = null) {
 		$this->District->id = $id;
+                $this->set('regions',$this->District->Region->find('list'));
 		if (!$this->District->exists()) {
 			throw new NotFoundException(__('Invalid district'));
 		}
@@ -121,13 +129,13 @@ class DistrictsController extends AppController {
 		$this->redirect(array('action' => 'index'));
 	}
         
-    public function getByArea() {
+    public function getByRegion() {
             // see documenttion on Area controller
            
             //if ( $this->request->data != null ) {
-                $area_id = $this->request->data['School']['area_id'];
+                $area_id = $this->request->data['School']['region_id'];
                 
-                $conditions = array('District.area_id' => $area_id);
+                $conditions = array('District.region_id' => $region_id);
                 
                 $districts = $this->District->find('list', array(
                         'conditions' => $conditions,

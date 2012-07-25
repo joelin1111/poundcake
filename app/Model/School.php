@@ -9,13 +9,15 @@ class School extends AppModel {
         'Catchment',
         'Area',
         'District',
+        'Region',
         'ConnectivityType',
         'InterventionType',
         'SiteState',
         'ServiceProvider',
         'PowerType',
         'District',
-        'RoadType',        
+        'RoadType',
+        'Trc'
     );
     
     public $validate = array(

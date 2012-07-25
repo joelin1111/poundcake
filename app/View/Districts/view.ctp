@@ -11,10 +11,10 @@
 			<?php echo h($district['District']['name']); ?>
 			&nbsp;
 		</dd>
-		<dt><?php echo __('Area'); ?></dt>
+		<dt><?php echo __('Region'); ?></dt>
 		<dd>
 			<?php
-                            echo h($district['Area']['name']);
+                            echo h($district['Region']['name']);
                             
                         ?>
 			&nbsp;

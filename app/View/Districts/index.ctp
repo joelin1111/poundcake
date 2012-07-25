@@ -4,7 +4,7 @@
 	<tr>
 			<th><?php echo $this->Paginator->sort('id'); ?></th>
 			<th><?php echo $this->Paginator->sort('name'); ?></th>
-			<th><?php echo $this->Paginator->sort('area_id'); ?></th>
+			<th><?php echo $this->Paginator->sort('region_id'); ?></th>
 			<th class="actions"><?php echo __('Actions'); ?></th>
 	</tr>
 	<?php
@@ -14,7 +14,7 @@
 		<td><?php echo h($district['District']['name']); ?>&nbsp;</td>
 		<td><?php
                     // echo h($district['District']['area_id']);
-                    echo h($district['Area']['name']);
+                    echo h($district['Region']['name']);
                 ?>&nbsp;</td>
 		<td class="actions">
 			<?php echo $this->Html->link(__('View'), array('action' => 'view', $district['District']['id'])); ?>

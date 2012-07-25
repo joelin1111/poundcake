@@ -177,76 +177,60 @@ class SchoolsController extends AppController
         
     }
     
-    function getDistricts() {
-        // this may be irrelevant now that the District select is using Ajax
-        
-        // return a list of districts (which will be put into a drop-down menu
-        // on the add/edit forms)
-        $districts = $this->School->District->find('list');
-        // save the array back to the school object
-        // have also seen this syntax, which I'm unsure about:
-        // $this->School->set(compact('regions'));
-        $this->set('districts',$districts);
-    }
-    
     function getCatchments() {
-        // this may be irrelevant now that the Catchment select is using Ajax
-        
-        // return a list of regions (which will be put into a drop-down menu
+        // return a list of catchments (which will be put into a drop-down menu
         // on the add/edit forms)
-        $catchments = $this->School->Catchment->find('list');
-        // save the array back to the school object
-        // have also seen this syntax, which I'm unsure about:
-        // $this->School->set(compact('regions'));
-        $this->set('catchments',$catchments);
+        $this->set('catchments',$this->School->Catchment->find('list'));
     }
     
     function getAreas() {
-        // this may be irrelevant now that the Area select is using Ajax
-        
-        // // return a list of regions (which will be put into a drop-down menu
-        // on the add/edit forms)
-        $areas = $this->School->Area->find('list');
-        // save the array back to the school object
-        // have also seen this syntax, which I'm unsure about:
-        // $this->School->set(compact('regions'));
-        $this->set('areas',$areas);
+        // identical to getCatchments
+        $this->set('areas',$this->School->Area->find('list'));
+    }
+    
+    function getRegions() {
+        // identical to getCatchments
+        $this->set('regions',$this->School->Region->find('list'));
+    }
+    
+    function getDistricts() {
+        // identical to getCatchments
+        $this->set('districts',$this->School->District->find('list'));
+    }
+    
+    function getTrcs() {
+        // identical to getCatchments
+        $this->set('trcs',$this->School->Trc->find('list'));
     }
     
     function getConnectivityTypes() {
-        // identical to getRegions
-        $connectivitytypes = $this->School->ConnectivityType->find('list');
-        $this->set('connectivitytypes',$connectivitytypes);
+        // identical to getCatchments
+        $this->set('connectivitytypes',$this->School->ConnectivityType->find('list'));
     }
     
     function getInterventionTypes() {
-        // identical to getRegions
-        $interventiontypes = $this->School->InterventionType->find('list');
-        $this->set('interventiontypes',$interventiontypes);
+        // identical to getCatchments
+        $this->set('interventiontypes',$this->School->InterventionType->find('list'));
     }
     
     function getServiceProviders() {
-        // identical to getRegions
-        $serviceproviders = $this->School->ServiceProvider->find('list');
-        $this->set('serviceproviders',$serviceproviders);
+        // identical to getCatchments
+        $this->set('serviceproviders',$this->School->ServiceProvider->find('list'));
     }
     
     function getSiteStates() {
-        // identical to getRegions
-        $sitestates = $this->School->SiteState->find('list');
-        $this->set('sitestates',$sitestates);
+        // identical to getCatchments
+        $this->set('sitestates',$this->School->SiteState->find('list'));
     }
     
     function getPowerTypes() {
-        // identical to getRegions
-        $powertypes = $this->School->PowerType->find('list');
-        $this->set('powertypes',$powertypes);
+        // identical to getCatchments
+        $this->set('powertypes',$this->School->PowerType->find('list'));
     }
     
     function getRoadTypes() {
-        // identical to getRegions
-        $roadtypes = $this->School->RoadType->find('list');
-        $this->set('roadtypes',$roadtypes);
+        // identical to getCatchments
+        $this->set('roadtypes',$this->School->RoadType->find('list'));
     }
     
     function add() {
@@ -261,9 +245,6 @@ class SchoolsController extends AppController
         // the School may belong to
         // Catchments/Areas/Districts now handled by Ajax due to their new
         // relationships
-        //$this->getCatchments();
-        //$this->getAreas();
-        //$this->getDistricts();
         $this->getConnectivityTypes();
         $this->getInterventionTypes();
         $this->getServiceProviders();
@@ -287,8 +268,11 @@ class SchoolsController extends AppController
                 );
         // get all Catchments
         $catchments = $this->School->District->Area->Catchment->find('list');
+        
+        // get all TRCs
+        $trcs = $this->School->Trc->find('list');
 
-        $this->set(compact('catchments','areas','districts'));
+        $this->set(compact('catchments','areas','districts','trcs'));
                 
         // should I wrap all the following with?
         // if ($this->request->is('post')) {        
@@ -352,9 +336,12 @@ class SchoolsController extends AppController
         
         // get a list of regions, link and installation types
         // the School may belong to
-        //$this->getCatchments();
-        //$this->getAreas();
-        //$this->getDistricts();
+        $this->getCatchments();
+        $this->getAreas();
+        $this->getRegions();
+        $this->getDistricts();
+        
+        $this->getTrcs();
         $this->getConnectivityTypes();
         $this->getInterventionTypes();
         $this->getServiceProviders();
@@ -402,7 +389,15 @@ class SchoolsController extends AppController
                 $this->Session->setFlash(__('The school could not be saved. [Error 002]'));
             }
         } else {
+            // show edit page
             $this->request->data = $this->School->read(null, $id);
+            /*
+            debug($this->School->id);
+            debug($this->School->catchment_id);
+            debug($this->School->area_id);
+            debug($this->School->district_id);
+            debug($this->School->school_code);
+            */
         }
     }
     
