@@ -474,6 +474,8 @@ INSERT INTO `contacts` VALUES
 UNLOCK TABLES;
 
 
+ -- 
+
 --
 -- Table structure for table `road_types`
 --
