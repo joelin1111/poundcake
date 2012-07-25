@@ -15,6 +15,60 @@
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
+
+
+DROP TABLE IF EXISTS `trcs`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `trcs` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+LOCK TABLES `trcs` WRITE;
+/*!40000 ALTER TABLE `trcs` DISABLE KEYS */;
+INSERT INTO `trcs` VALUES
+(1,'BUBUBU'),
+(2,'CHIKONGOLA'),
+(3,'CHIUNGUTWA'),
+(4,'DUNGA'),
+(5,'KIEMBESAMAKI'),
+(6,'KITANGARI'),
+(7,'KITOGANI'),
+(8,'KIUTA'),
+(9,'LENGO'),
+(10,'LIBOBE'),
+(11,'LUAGALA'),
+(12,'LUCHINGU'),
+(13,'LUKULEDI'),
+(14,'MADIMBA'),
+(15,'MAJENGO'),
+(16,'MANGAKA'),
+(17,'MATOGORO'),
+(18,'MCHICHIRA'),
+(19,'MICHAKAINI'),
+(20,'MICHIGA'),
+(21,'MIHAMBWE'),
+(22,'MIKANGAULA'),
+(23,'MIKUMBI'),
+(24,'MITENGO'),
+(25,'MITIULAYA'),
+(26,'MIZINGANI'),
+(27,'MKOMAINDO'),
+(28,'MKWAJUNI'),
+(29,'MWENA'),
+(30,'MWITIKA'),
+(31,'NANDETE'),
+(32,'NANGURUWE'),
+(33,'NANYAMBA'),
+(34,'NANYUMBU'),
+(35,'WINGWI');
+
+/*!40000 ALTER TABLE `trcs` ENABLE KEYS */;
+UNLOCK TABLES;
+
 --
 -- Table structure for table `connectivity_types`
 --
@@ -49,7 +103,7 @@ DROP TABLE IF EXISTS `districts`;
 CREATE TABLE `districts` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
-  `area_id` int(10) NOT NULL,
+  `region_id` int(10) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -64,24 +118,24 @@ INSERT INTO `districts` VALUES
 -- Zanzibar areas
 -- Pemba ID = 1
 -- Unguja ID = 2
-(1,'Central',1),
-(2,'Chake Chake',1),
-(3,'Micheweni',1),
-(4,'Mkoani',1),
-(5,'North \'A\'',2),
-(6,'North \'B\'',2),
-(7,'South',2),
-(8,'Urban',2),
-(9,'West',2),
-(10,'Wete',2),
+(1,'D-Central',1),
+(2,'D-Chake Chake',1),
+(3,'D-Micheweni',1),
+(4,'D-Mkoani',1),
+(5,'D-North \'A\'',2),
+(6,'D-North \'B\'',2),
+(7,'D-South',2),
+(8,'D-Urban',2),
+(9,'D-West',2),
+(10,'D-Wete',2),
 -- Mtwara areas
 -- Mtwara ID = 3
-(11,'Newala',3),
-(12,'Masasi',3),
-(13,'Tandahimba',3),
-(14,'Mtwara DC',3),
-(15,'Mtwara MC',3),
-(16,'Nanyumbu',3);
+(11,'D-Newala',3),
+(12,'D-Masasi',3),
+(13,'D-Tandahimba',3),
+(14,'D-Mtwara DC',3),
+(15,'D-Mtwara MC',3),
+(16,'D-Nanyumbu',3);
 
 
 /*!40000 ALTER TABLE `districts` ENABLE KEYS */;
@@ -351,13 +405,42 @@ LOCK TABLES `areas` WRITE;
 INSERT INTO `areas` VALUES
 -- Zanzibar ID = 2
 -- Mtwara ID = 1
-(1,'Pemba',1),
-(2,'Unguja',1),
-(3,'Mtwara',2);;
+(1,'A-Pemba',1),
+(2,'A-Unguja',1),
+(3,'A-Mtwara',2);;
 /*!40000 ALTER TABLE `areas` ENABLE KEYS */;
 UNLOCK TABLES;
 
+DROP TABLE IF EXISTS `regions`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `regions` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL,
+  `area_id` int(10) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
+--
+-- Dumping data for table `regions`
+--
+
+LOCK TABLES `regions` WRITE;
+/*!40000 ALTER TABLE `regions` DISABLE KEYS */;
+INSERT INTO `regions` VALUES
+-- Zanzibar ID = 2
+-- Mtwara ID = 1
+(1,'R-Mtwara',1),
+(2,'R-Urban-West',1),
+(3,'R-South-Unguja',2),
+(4,'R-North-Unguja',2),
+(5,'R-South-Pemba',2),
+(6,'R-North-Pemba',2);
+
+
+/*!40000 ALTER TABLE `regions` ENABLE KEYS */;
+UNLOCK TABLES;
 --
 -- Table structure for table `regions`
 --
@@ -376,6 +459,7 @@ CREATE TABLE `contacts` (
   `last_name` varchar(255) NOT NULL,
   `mobile` varchar(255) NOT NULL,
   `skype` varchar(255),
+  `trc_id` int(10),
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -383,8 +467,9 @@ CREATE TABLE `contacts` (
 LOCK TABLES `contacts` WRITE;
 /*!40000 ALTER TABLE `contacts` DISABLE KEYS */;
 INSERT INTO `contacts` VALUES
-(1,'Clark','Ritchie','+1 (503) 936-2575','clarkritchie'),
-(2,'Andris','Bjornson','+1 (415) 205-7802','andris.bjornson');
+(1,'Clark','Ritchie','+1 (503) 936-2575','clarkritchie',5),
+(2,'Andris','Bjornson','+1 (415) 205-7802','andris.bjornson',2),
+(3,'Jen','Overgaag','+1 (805) 440-9423','wyojeno',2);
 /*!40000 ALTER TABLE `contacts` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -423,7 +508,6 @@ DROP TABLE IF EXISTS `schools`;
 CREATE TABLE `schools` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `primary_school` varchar(50) NOT NULL,
-  `trc` varchar(50) NOT NULL,
   `school_code` varchar(10) NOT NULL,
   `type` varchar(1) NOT NULL,
   `sn` varchar(3) NOT NULL,
@@ -432,7 +516,9 @@ CREATE TABLE `schools` (
   `access_instruction` TEXT DEFAULT NULL,
   `catchment_id` int(10) NOT NULL,
   `area_id` int(10) NOT NULL,
+  `region_id` int(10) NOT NULL,
   `district_id` int(10) NOT NULL,
+  `trc_id` int(10) NOT NULL,
   `connectivity_type_id` int(10) NOT NULL,
   `intervention_type_id` int(10) NOT NULL,
   `site_state_id` int(10) NOT NULL,
@@ -450,17 +536,19 @@ CREATE TABLE `schools` (
 
 LOCK TABLES `schools` WRITE;
 /*!40000 ALTER TABLE `schools` DISABLE KEYS */;
-INSERT INTO `schools` VALUES (2,'CHITANDI','','MT.04/008','E','2','\0\0\0\0\0\0\02•ñïsÀÞqŠŽäÒC@','','',2,1,4,4,3,2,2,2,3,NULL),
-(3,'JULIA','','MT.04/091','E','3','\0\0\0\0\0\0\0gÕçj+vÀôÃáÑÒC@','','',1,1,5,2,6,1,2,2,2,NULL),
-(4,'KARUME','','MT.04/014','E','4','\0\0\0\0\0\0\0R¸…ë±ÀÀ!T©ÙÓC@','','',1,1,7,1,2,7,1,1,1,NULL),
-(5,'CHIKOI','LENGO','MT.04/005','E','1','\0\0\0\0\0\0\0}Ëœ.‹©ÀÚ|a2ÝC@','','',1,1,2,4,7,12,1,1,1,NULL),
-(6,'KUNGUNI','MKOANI','','E','1','\0\0\0\0\0\0\0LÃð1…ÀÅÉýEÙC@','','',2,1,2,3,3,11,1,1,6,NULL),
-(7,'NG\'OMBENI \' A\'','MKOANI','','E','1','\0\0\0\0\0\0\0—wJ‡Àž^)ËƒC@','','',2,1,3,3,4,9,1,1,4,NULL),
-(8,'NG\'OMBENI \' B\'','MKOANI','','M','1','\0\0\0\0\0\0\0‚9zü¾À!<Ú8ÞC@','','',2,1,4,4,4,5,1,1,3,NULL),
-(9,'CHOKOCHO','MKOANI','','B','1','\0\0\0\0\0\0\0N—ÅÄæcÀKÍhâC@','','',2,1,5,1,1,4,1,2,4,NULL),
-(10,'BUTIAMA','LUCHINGU','MT.04/093','E','1','\0\0\0\0\0\0\0%#gaO›ÀçãÚP1ÒC@','','',1,1,5,2,2,6,1,1,1,NULL),
-(11,'CHITANDI','','MT.04/008','E','2','\0\0\0\0\0\0\0—‹øNÌ:À«[=\'½×C@','','',1,1,5,1,5,7,2,1,2,NULL),
-(12,'JULIA','','MT.04/091','E','3','\0\0\0\0\0\0\0_^€}tJÀÐ\nYÝÞC@','','',1,1,1,4,3,4,1,2,4,NULL);
+INSERT INTO `schools` VALUES
+(2,'CHITANDI','MT.04/008','E','2','\0\0\0\0\0\0\02•ñïsÀÞqŠŽäÒC@','','',2,1,3,12,4,4,3,2,2,2,3,NULL),
+(3,'JULIA','MT.04/091','E','3','\0\0\0\0\0\0\0gÕçj+vÀôÃáÑÒC@','','',1,1,4,6,5,2,6,1,2,2,2,NULL),
+(4,'KARUME','MT.04/014','E','4','\0\0\0\0\0\0\0R¸…ë±ÀÀ!T©ÙÓC@','','',1,1,3,14,7,1,2,7,1,1,1,NULL),
+(5,'CHIKOI','MT.04/005','E','1','\0\0\0\0\0\0\0}Ëœ.‹©ÀÚ|a2ÝC@','','',1,1,1,9,2,4,7,12,1,1,1,NULL),
+(6,'KUNGUNI','MT.04/005','E','1','\0\0\0\0\0\0\0LÃð1…ÀÅÉýEÙC@','','',2,1,7,30,2,3,3,11,1,1,6,NULL),
+(7,'NG\'OMBENI \' A\'','MT.04/005','E','1','\0\0\0\0\0\0\0—wJ‡Àž^)ËƒC@','','',2,1,1,30,2,3,3,11,1,1,6,NULL),
+(8,'NG\'OMBENI \' B\'','','M','1','\0\0\0\0\0\0\0‚9zü¾À!<Ú8ÞC@','','',2,1,4,10,4,4,4,5,1,1,3,NULL),
+(9,'CHOKOCHO','','B','1','\0\0\0\0\0\0\0N—ÅÄæcÀKÍhâC@','','',2,1,5,1,5,1,1,4,1,2,4,NULL),
+(10,'BUTIAMA','MT.04/093','E','1','\0\0\0\0\0\0\0%#gaO›ÀçãÚP1ÒC@','','',1,1,2,6,5,2,2,6,1,1,1,NULL),
+(11,'CHITANDI','MT.04/008','E','2','\0\0\0\0\0\0\0—‹øNÌ:À«[=\'½×C@','','',1,1,1,4,5,1,5,7,2,1,2,NULL),
+(12,'JULIA','MT.04/091','E','3','\0\0\0\0\0\0\0_^€}tJÀÐ\nYÝÞC@','','',1,1,5,26,1,4,3,4,1,2,4,NULL);
+
 /*!40000 ALTER TABLE `schools` ENABLE KEYS */;
 UNLOCK TABLES;
 
