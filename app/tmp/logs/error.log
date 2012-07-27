@@ -5792,3 +5792,219 @@
 2012-07-25 21:35:03 Error: [MissingControllerException] Controller class SchoolController could not be found.
 #0 /home/critchie/www/cakephp-cakephp-e0b6f86/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
 #1 {main}
+2012-07-26 04:28:53 Error: Fatal Error (4): syntax error, unexpected T_VARIABLE in [/home/critchie/www/cakephp-cakephp-e0b6f86/app/View/PowerTypes/index.ctp, line 23]
+2012-07-26 04:28:53 Error: [FatalErrorException] syntax error, unexpected T_VARIABLE
+#0 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Error/ErrorHandler.php(162): ErrorHandler::handleFatalError(4, 'syntax error, u...', '/home/critchie/...', 23)
+#1 [internal function]: ErrorHandler::handleError(4, 'syntax error, u...', '/home/critchie/...', 23, Array)
+#2 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Core/App.php(926): call_user_func('ErrorHandler::h...', 4, 'syntax error, u...', '/home/critchie/...', 23, Array)
+#3 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Core/App.php(899): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2012-07-26 04:29:33 Error: Fatal Error (4): syntax error, unexpected T_VARIABLE in [/home/critchie/www/cakephp-cakephp-e0b6f86/app/View/PowerTypes/edit.ctp, line 11]
+2012-07-26 04:29:33 Error: [FatalErrorException] syntax error, unexpected T_VARIABLE
+#0 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Error/ErrorHandler.php(162): ErrorHandler::handleFatalError(4, 'syntax error, u...', '/home/critchie/...', 11)
+#1 [internal function]: ErrorHandler::handleError(4, 'syntax error, u...', '/home/critchie/...', 11, Array)
+#2 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Core/App.php(926): call_user_func('ErrorHandler::h...', 4, 'syntax error, u...', '/home/critchie/...', 11, Array)
+#3 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Core/App.php(899): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2012-07-26 04:29:44 Error: Fatal Error (1): Unsupported operand types in [/home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/View/Helper/FormHelper.php, line 1805]
+2012-07-26 04:29:44 Error: [FatalErrorException] Unsupported operand types
+#0 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Error/ErrorHandler.php(162): ErrorHandler::handleFatalError(1, 'Unsupported ope...', '/home/critchie/...', 1805)
+#1 [internal function]: ErrorHandler::handleError(1, 'Unsupported ope...', '/home/critchie/...', 1805, Array)
+#2 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Core/App.php(926): call_user_func('ErrorHandler::h...', 1, 'Unsupported ope...', '/home/critchie/...', 1805, Array)
+#3 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Core/App.php(899): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2012-07-26 04:30:07 Error: Fatal Error (1): Unsupported operand types in [/home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/View/Helper/FormHelper.php, line 1805]
+2012-07-26 04:30:07 Error: [FatalErrorException] Unsupported operand types
+#0 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Error/ErrorHandler.php(162): ErrorHandler::handleFatalError(1, 'Unsupported ope...', '/home/critchie/...', 1805)
+#1 [internal function]: ErrorHandler::handleError(1, 'Unsupported ope...', '/home/critchie/...', 1805, Array)
+#2 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Core/App.php(926): call_user_func('ErrorHandler::h...', 1, 'Unsupported ope...', '/home/critchie/...', 1805, Array)
+#3 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Core/App.php(899): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2012-07-26 04:31:33 Error: Fatal Error (1): Unsupported operand types in [/home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/View/Helper/FormHelper.php, line 1805]
+2012-07-26 04:31:33 Error: [FatalErrorException] Unsupported operand types
+#0 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Error/ErrorHandler.php(162): ErrorHandler::handleFatalError(1, 'Unsupported ope...', '/home/critchie/...', 1805)
+#1 [internal function]: ErrorHandler::handleError(1, 'Unsupported ope...', '/home/critchie/...', 1805, Array)
+#2 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Core/App.php(926): call_user_func('ErrorHandler::h...', 1, 'Unsupported ope...', '/home/critchie/...', 1805, Array)
+#3 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Core/App.php(899): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2012-07-26 04:34:10 Error: Fatal Error (4): syntax error, unexpected ';' in [/home/critchie/www/cakephp-cakephp-e0b6f86/app/View/PowerTypes/edit.ctp, line 11]
+2012-07-26 04:34:10 Error: [FatalErrorException] syntax error, unexpected ';'
+#0 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Error/ErrorHandler.php(162): ErrorHandler::handleFatalError(4, 'syntax error, u...', '/home/critchie/...', 11)
+#1 [internal function]: ErrorHandler::handleError(4, 'syntax error, u...', '/home/critchie/...', 11, Array)
+#2 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Core/App.php(926): call_user_func('ErrorHandler::h...', 4, 'syntax error, u...', '/home/critchie/...', 11, Array)
+#3 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Core/App.php(899): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2012-07-26 04:34:30 Error: Fatal Error (4): syntax error, unexpected ';' in [/home/critchie/www/cakephp-cakephp-e0b6f86/app/View/PowerTypes/edit.ctp, line 11]
+2012-07-26 04:34:30 Error: [FatalErrorException] syntax error, unexpected ';'
+#0 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Error/ErrorHandler.php(162): ErrorHandler::handleFatalError(4, 'syntax error, u...', '/home/critchie/...', 11)
+#1 [internal function]: ErrorHandler::handleError(4, 'syntax error, u...', '/home/critchie/...', 11, Array)
+#2 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Core/App.php(926): call_user_func('ErrorHandler::h...', 4, 'syntax error, u...', '/home/critchie/...', 11, Array)
+#3 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Core/App.php(899): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2012-07-26 04:34:53 Error: Fatal Error (4): syntax error, unexpected ';' in [/home/critchie/www/cakephp-cakephp-e0b6f86/app/View/PowerTypes/edit.ctp, line 12]
+2012-07-26 04:34:53 Error: [FatalErrorException] syntax error, unexpected ';'
+#0 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Error/ErrorHandler.php(162): ErrorHandler::handleFatalError(4, 'syntax error, u...', '/home/critchie/...', 12)
+#1 [internal function]: ErrorHandler::handleError(4, 'syntax error, u...', '/home/critchie/...', 12, Array)
+#2 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Core/App.php(926): call_user_func('ErrorHandler::h...', 4, 'syntax error, u...', '/home/critchie/...', 12, Array)
+#3 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Core/App.php(899): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2012-07-26 04:35:45 Error: Fatal Error (4): syntax error, unexpected ';' in [/home/critchie/www/cakephp-cakephp-e0b6f86/app/View/PowerTypes/edit.ctp, line 14]
+2012-07-26 04:35:45 Error: [FatalErrorException] syntax error, unexpected ';'
+#0 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Error/ErrorHandler.php(162): ErrorHandler::handleFatalError(4, 'syntax error, u...', '/home/critchie/...', 14)
+#1 [internal function]: ErrorHandler::handleError(4, 'syntax error, u...', '/home/critchie/...', 14, Array)
+#2 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Core/App.php(926): call_user_func('ErrorHandler::h...', 4, 'syntax error, u...', '/home/critchie/...', 14, Array)
+#3 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Core/App.php(899): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2012-07-26 04:35:58 Error: Fatal Error (4): syntax error, unexpected ';' in [/home/critchie/www/cakephp-cakephp-e0b6f86/app/View/PowerTypes/edit.ctp, line 16]
+2012-07-26 04:35:58 Error: [FatalErrorException] syntax error, unexpected ';'
+#0 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Error/ErrorHandler.php(162): ErrorHandler::handleFatalError(4, 'syntax error, u...', '/home/critchie/...', 16)
+#1 [internal function]: ErrorHandler::handleError(4, 'syntax error, u...', '/home/critchie/...', 16, Array)
+#2 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Core/App.php(926): call_user_func('ErrorHandler::h...', 4, 'syntax error, u...', '/home/critchie/...', 16, Array)
+#3 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Core/App.php(899): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2012-07-26 04:36:37 Error: Fatal Error (4): syntax error, unexpected ';' in [/home/critchie/www/cakephp-cakephp-e0b6f86/app/View/PowerTypes/edit.ctp, line 14]
+2012-07-26 04:36:37 Error: [FatalErrorException] syntax error, unexpected ';'
+#0 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Error/ErrorHandler.php(162): ErrorHandler::handleFatalError(4, 'syntax error, u...', '/home/critchie/...', 14)
+#1 [internal function]: ErrorHandler::handleError(4, 'syntax error, u...', '/home/critchie/...', 14, Array)
+#2 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Core/App.php(926): call_user_func('ErrorHandler::h...', 4, 'syntax error, u...', '/home/critchie/...', 14, Array)
+#3 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Core/App.php(899): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2012-07-26 04:37:36 Error: Fatal Error (4): syntax error, unexpected ';' in [/home/critchie/www/cakephp-cakephp-e0b6f86/app/View/PowerTypes/edit.ctp, line 10]
+2012-07-26 04:37:36 Error: [FatalErrorException] syntax error, unexpected ';'
+#0 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Error/ErrorHandler.php(162): ErrorHandler::handleFatalError(4, 'syntax error, u...', '/home/critchie/...', 10)
+#1 [internal function]: ErrorHandler::handleError(4, 'syntax error, u...', '/home/critchie/...', 10, Array)
+#2 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Core/App.php(926): call_user_func('ErrorHandler::h...', 4, 'syntax error, u...', '/home/critchie/...', 10, Array)
+#3 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Core/App.php(899): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2012-07-26 04:59:22 Error: [MissingViewException] View file "/home/critchie/www/cakephp-cakephp-e0b6f86/app/View/Regions/get_by_area.ctp" is missing.
+#0 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/View/View.php(472): View->_getViewFileName(NULL)
+#1 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Controller/Controller.php(957): View->render(NULL, NULL)
+#2 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Routing/Dispatcher.php(193): Controller->render()
+#3 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Routing/Dispatcher.php(161): Dispatcher->_invoke(Object(RegionsController), Object(CakeRequest), Object(CakeResponse))
+#4 /home/critchie/www/cakephp-cakephp-e0b6f86/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#5 {main}
+2012-07-26 04:59:26 Error: [MissingViewException] View file "/home/critchie/www/cakephp-cakephp-e0b6f86/app/View/Regions/get_by_area.ctp" is missing.
+#0 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/View/View.php(472): View->_getViewFileName(NULL)
+#1 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Controller/Controller.php(957): View->render(NULL, NULL)
+#2 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Routing/Dispatcher.php(193): Controller->render()
+#3 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Routing/Dispatcher.php(161): Dispatcher->_invoke(Object(RegionsController), Object(CakeRequest), Object(CakeResponse))
+#4 /home/critchie/www/cakephp-cakephp-e0b6f86/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#5 {main}
+2012-07-26 05:01:00 Error: [MissingViewException] View file "/home/critchie/www/cakephp-cakephp-e0b6f86/app/View/Regions/get_by_area.ctp" is missing.
+#0 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/View/View.php(472): View->_getViewFileName(NULL)
+#1 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Controller/Controller.php(957): View->render(NULL, NULL)
+#2 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Routing/Dispatcher.php(193): Controller->render()
+#3 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Routing/Dispatcher.php(161): Dispatcher->_invoke(Object(RegionsController), Object(CakeRequest), Object(CakeResponse))
+#4 /home/critchie/www/cakephp-cakephp-e0b6f86/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#5 {main}
+2012-07-26 05:01:02 Error: [MissingViewException] View file "/home/critchie/www/cakephp-cakephp-e0b6f86/app/View/Regions/get_by_area.ctp" is missing.
+#0 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/View/View.php(472): View->_getViewFileName(NULL)
+#1 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Controller/Controller.php(957): View->render(NULL, NULL)
+#2 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Routing/Dispatcher.php(193): Controller->render()
+#3 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Routing/Dispatcher.php(161): Dispatcher->_invoke(Object(RegionsController), Object(CakeRequest), Object(CakeResponse))
+#4 /home/critchie/www/cakephp-cakephp-e0b6f86/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#5 {main}
+2012-07-26 05:01:05 Error: [MissingViewException] View file "/home/critchie/www/cakephp-cakephp-e0b6f86/app/View/Regions/get_by_area.ctp" is missing.
+#0 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/View/View.php(472): View->_getViewFileName(NULL)
+#1 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Controller/Controller.php(957): View->render(NULL, NULL)
+#2 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Routing/Dispatcher.php(193): Controller->render()
+#3 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Routing/Dispatcher.php(161): Dispatcher->_invoke(Object(RegionsController), Object(CakeRequest), Object(CakeResponse))
+#4 /home/critchie/www/cakephp-cakephp-e0b6f86/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#5 {main}
+2012-07-26 05:01:11 Error: [MissingViewException] View file "/home/critchie/www/cakephp-cakephp-e0b6f86/app/View/Regions/get_by_area.ctp" is missing.
+#0 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/View/View.php(472): View->_getViewFileName(NULL)
+#1 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Controller/Controller.php(957): View->render(NULL, NULL)
+#2 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Routing/Dispatcher.php(193): Controller->render()
+#3 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Routing/Dispatcher.php(161): Dispatcher->_invoke(Object(RegionsController), Object(CakeRequest), Object(CakeResponse))
+#4 /home/critchie/www/cakephp-cakephp-e0b6f86/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#5 {main}
+2012-07-26 05:01:14 Error: [MissingViewException] View file "/home/critchie/www/cakephp-cakephp-e0b6f86/app/View/Regions/get_by_area.ctp" is missing.
+#0 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/View/View.php(472): View->_getViewFileName(NULL)
+#1 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Controller/Controller.php(957): View->render(NULL, NULL)
+#2 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Routing/Dispatcher.php(193): Controller->render()
+#3 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Routing/Dispatcher.php(161): Dispatcher->_invoke(Object(RegionsController), Object(CakeRequest), Object(CakeResponse))
+#4 /home/critchie/www/cakephp-cakephp-e0b6f86/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#5 {main}
+2012-07-26 05:01:25 Error: [MissingViewException] View file "/home/critchie/www/cakephp-cakephp-e0b6f86/app/View/Regions/get_by_area.ctp" is missing.
+#0 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/View/View.php(472): View->_getViewFileName(NULL)
+#1 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Controller/Controller.php(957): View->render(NULL, NULL)
+#2 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Routing/Dispatcher.php(193): Controller->render()
+#3 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Routing/Dispatcher.php(161): Dispatcher->_invoke(Object(RegionsController), Object(CakeRequest), Object(CakeResponse))
+#4 /home/critchie/www/cakephp-cakephp-e0b6f86/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#5 {main}
+2012-07-26 05:01:27 Error: [MissingViewException] View file "/home/critchie/www/cakephp-cakephp-e0b6f86/app/View/Regions/get_by_area.ctp" is missing.
+#0 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/View/View.php(472): View->_getViewFileName(NULL)
+#1 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Controller/Controller.php(957): View->render(NULL, NULL)
+#2 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Routing/Dispatcher.php(193): Controller->render()
+#3 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Routing/Dispatcher.php(161): Dispatcher->_invoke(Object(RegionsController), Object(CakeRequest), Object(CakeResponse))
+#4 /home/critchie/www/cakephp-cakephp-e0b6f86/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#5 {main}
+2012-07-26 05:01:33 Error: [MissingViewException] View file "/home/critchie/www/cakephp-cakephp-e0b6f86/app/View/Regions/get_by_area.ctp" is missing.
+#0 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/View/View.php(472): View->_getViewFileName(NULL)
+#1 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Controller/Controller.php(957): View->render(NULL, NULL)
+#2 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Routing/Dispatcher.php(193): Controller->render()
+#3 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Routing/Dispatcher.php(161): Dispatcher->_invoke(Object(RegionsController), Object(CakeRequest), Object(CakeResponse))
+#4 /home/critchie/www/cakephp-cakephp-e0b6f86/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#5 {main}
+2012-07-26 05:01:35 Error: [MissingViewException] View file "/home/critchie/www/cakephp-cakephp-e0b6f86/app/View/Regions/get_by_area.ctp" is missing.
+#0 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/View/View.php(472): View->_getViewFileName(NULL)
+#1 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Controller/Controller.php(957): View->render(NULL, NULL)
+#2 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Routing/Dispatcher.php(193): Controller->render()
+#3 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Routing/Dispatcher.php(161): Dispatcher->_invoke(Object(RegionsController), Object(CakeRequest), Object(CakeResponse))
+#4 /home/critchie/www/cakephp-cakephp-e0b6f86/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#5 {main}
+2012-07-26 05:01:57 Error: [MissingViewException] View file "/home/critchie/www/cakephp-cakephp-e0b6f86/app/View/Regions/get_by_area.ctp" is missing.
+#0 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/View/View.php(472): View->_getViewFileName(NULL)
+#1 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Controller/Controller.php(957): View->render(NULL, NULL)
+#2 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Routing/Dispatcher.php(193): Controller->render()
+#3 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Routing/Dispatcher.php(161): Dispatcher->_invoke(Object(RegionsController), Object(CakeRequest), Object(CakeResponse))
+#4 /home/critchie/www/cakephp-cakephp-e0b6f86/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#5 {main}
+2012-07-26 05:03:03 Error: [MissingViewException] View file "/home/critchie/www/cakephp-cakephp-e0b6f86/app/View/Regions/get_by_area.ctp" is missing.
+#0 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/View/View.php(472): View->_getViewFileName(NULL)
+#1 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Controller/Controller.php(957): View->render(NULL, NULL)
+#2 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Routing/Dispatcher.php(193): Controller->render()
+#3 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Routing/Dispatcher.php(161): Dispatcher->_invoke(Object(RegionsController), Object(CakeRequest), Object(CakeResponse))
+#4 /home/critchie/www/cakephp-cakephp-e0b6f86/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#5 {main}
+2012-07-26 05:20:32 Error: Fatal Error (1): Call to a member function find() on a non-object in [/home/critchie/www/cakephp-cakephp-e0b6f86/app/Controller/SchoolsController.php, line 256]
+2012-07-26 05:20:32 Error: [FatalErrorException] Call to a member function find() on a non-object
+#0 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Error/ErrorHandler.php(162): ErrorHandler::handleFatalError(1, 'Call to a membe...', '/home/critchie/...', 256)
+#1 [internal function]: ErrorHandler::handleError(1, 'Call to a membe...', '/home/critchie/...', 256, Array)
+#2 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Core/App.php(926): call_user_func('ErrorHandler::h...', 1, 'Call to a membe...', '/home/critchie/...', 256, Array)
+#3 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Core/App.php(899): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2012-07-26 05:22:18 Error: Fatal Error (1): Call to a member function find() on a non-object in [/home/critchie/www/cakephp-cakephp-e0b6f86/app/Controller/SchoolsController.php, line 277]
+2012-07-26 05:22:18 Error: [FatalErrorException] Call to a member function find() on a non-object
+#0 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Error/ErrorHandler.php(162): ErrorHandler::handleFatalError(1, 'Call to a membe...', '/home/critchie/...', 277)
+#1 [internal function]: ErrorHandler::handleError(1, 'Call to a membe...', '/home/critchie/...', 277, Array)
+#2 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Core/App.php(926): call_user_func('ErrorHandler::h...', 1, 'Call to a membe...', '/home/critchie/...', 277, Array)
+#3 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Core/App.php(899): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2012-07-26 05:27:07 Error: [MissingActionException] Action DistrictsController::getByArea() could not be found.
+#0 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Routing/Dispatcher.php(186): Controller->invokeAction(Object(CakeRequest))
+#1 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Routing/Dispatcher.php(161): Dispatcher->_invoke(Object(DistrictsController), Object(CakeRequest), Object(CakeResponse))
+#2 /home/critchie/www/cakephp-cakephp-e0b6f86/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#3 {main}
+2012-07-26 17:23:12 Error: Fatal Error (4): syntax error, unexpected '(', expecting T_STRING or T_VARIABLE or '{' or '$' in [/home/critchie/www/cakephp-cakephp-e0b6f86/app/View/Districts/district_form_js.php, line 29]
+2012-07-26 17:23:12 Error: [FatalErrorException] syntax error, unexpected '(', expecting T_STRING or T_VARIABLE or '{' or '$'
+#0 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Error/ErrorHandler.php(162): ErrorHandler::handleFatalError(4, 'syntax error, u...', '/home/critchie/...', 29)
+#1 [internal function]: ErrorHandler::handleError(4, 'syntax error, u...', '/home/critchie/...', 29, Array)
+#2 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Core/App.php(926): call_user_func('ErrorHandler::h...', 4, 'syntax error, u...', '/home/critchie/...', 29, Array)
+#3 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Core/App.php(899): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}

@@ -253,26 +253,33 @@ class SchoolsController extends AppController
         $this->getRoadTypes();
 
         // return all areas that match the default catchment
-        $areas = $this->School->District->Area->find(
+        $areas = $this->School->District->Region->Area->find(
                         'list',
                         array(
                             'conditions' => array('Area.catchment_id' => 1)
                         )
                 );
-        // return all districts that match the default area
+        // return all regions that match the default area
+        $regions = $this->School->District->Region->find(
+                        'list',
+                        array(
+                            'conditions' => array('Region.area_id' => 1)
+                        )
+                );
+        //// return all districts that match the default area
         $districts = $this->School->District->find(
                         'list',
                         array(
-                            'conditions' => array('District.area_id' => 1)
+                            'conditions' => array('District.region_id' => 1)
                         )
                 );
         // get all Catchments
-        $catchments = $this->School->District->Area->Catchment->find('list');
+        $catchments = $this->School->District->Region->Area->Catchment->find('list');
         
         // get all TRCs
         $trcs = $this->School->Trc->find('list');
 
-        $this->set(compact('catchments','areas','districts','trcs'));
+        $this->set(compact('catchments','areas','regions','districts','trcs'));
                 
         // should I wrap all the following with?
         // if ($this->request->is('post')) {        

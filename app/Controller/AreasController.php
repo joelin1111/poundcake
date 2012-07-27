@@ -128,7 +128,6 @@ class AreasController extends AppController {
                         'conditions' => $conditions,
                         'recursive' => -1
                         ));
-                
                 //$areas = array ('foo','bar','car');
                 $this->set('areas',$areas);
                 //$this->layout = false;

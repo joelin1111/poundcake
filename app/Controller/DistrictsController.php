@@ -89,7 +89,26 @@ class DistrictsController extends AppController {
  */
 	public function edit($id = null) {
 		$this->District->id = $id;
-                $this->set('regions',$this->District->Region->find('list'));
+                
+                $regions = $this->District->Region->find(
+                        'list',
+                        array(
+                            'conditions' => array('Region.area_id' => 1)
+                        )
+                );
+                
+                $areas = $this->District->Region->Area->find(
+                        'list',
+                        array(
+                            'conditions' => array('Area.catchment_id' => 1)
+                        )
+                );
+                //echo "<pre>".print_r($areas)."</pre>";
+                // get all Catchments
+                $catchments = $this->District->Region->Area->Catchment->find('list');
+                $this->set(compact('catchments','areas','regions'));
+                
+                //$this->set('regions',$this->District->Region->find('list'));
 		if (!$this->District->exists()) {
 			throw new NotFoundException(__('Invalid district'));
 		}
@@ -132,7 +151,7 @@ class DistrictsController extends AppController {
     public function getByRegion() {
             // see documenttion on Area controller
            
-            //if ( $this->request->data != null ) {
+            if ( $this->request->data != null ) {
                 $area_id = $this->request->data['School']['region_id'];
                 
                 $conditions = array('District.region_id' => $region_id);
@@ -146,6 +165,6 @@ class DistrictsController extends AppController {
                 $this->set('districts', $districts);
                 //$this->layout = false;
                 $this->layout = 'ajax';
-            //}
+            }
         }
 }

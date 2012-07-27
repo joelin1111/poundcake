@@ -7,6 +7,8 @@ App::uses('AppController', 'Controller');
  */
 class RegionsController extends AppController {
 
+    public $helpers = array('Js');
+    
 /**
  * index method
  *
@@ -102,4 +104,39 @@ class RegionsController extends AppController {
 		$this->Session->setFlash(__('Region was not deleted'));
 		$this->redirect(array('action' => 'index'));
 	}
+        
+        public function getByArea() {
+            // this function returns the set of catchments that match a given
+            // area -- is used by the add method in the add district
+            //if ( $this->request->data != null ) {
+                
+                // if this is being called from the Add District form, we get
+                // catchment_id from $this->request->data['District']['catchment_id']
+                // otherwise if this is being called from the Add School form,
+                // we need to get it off the school object
+                // $catchment_id = $this->request->data['District']['catchment_id'];
+                
+                // revisit, there is probably a cleaner way to do this
+                // this is needed to re-use the Ajax code from multiple forms
+                // $obj is basically the object of the form that the request is
+                // coming from
+                /*if ($this->request->data['Region'] != null ) {
+                    $obj = 'Region';
+                } elseif ($this->request->data['School'] != null ) {
+                    $obj = 'School';
+                }*/
+                $area_id = $this->request->data['District']['area_id'];
+                
+                $conditions = array('Region.area_id' => $area_id);
+                
+                $regions = $this->Region->find('list', array(
+                        'conditions' => $conditions,
+                        'recursive' => -1
+                        ));
+                //$regions = array ('foo','bar','car');
+                $this->set('regions',$regions);
+                //$this->layout = false;
+                $this->layout = 'ajax';
+            //}
+        }
 }
