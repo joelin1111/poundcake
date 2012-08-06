@@ -50,4 +50,21 @@ class Contact extends AppModel {
 			),
 		),
 	);
+        
+        public $belongsTo = array(
+		'Trc' => array(
+			'className' => 'Trc',
+			'foreignKey' => 'trc_id',
+			'conditions' => '',
+			'fields' => '',
+			'order' => ''
+		),
+                'School' => array(
+			'className' => 'School',
+			'foreignKey' => 'school_id',
+			'conditions' => '',
+			'fields' => '',
+			'order' => ''
+		),
+	);
 }

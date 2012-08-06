@@ -6008,3 +6008,240 @@
 #3 /home/critchie/www/cakephp-cakephp-e0b6f86/lib/Cake/Core/App.php(899): App::_checkFatalError()
 #4 [internal function]: App::shutdown()
 #5 {main}
+2012-07-27 16:11:20 Error: [MissingControllerException] Controller class Index.phpController could not be found.
+#0 /Applications/MAMP/htdocs/poundcake/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2012-07-27 16:14:30 Error: [MissingControllerException] Controller class Index.phpController could not be found.
+#0 /Applications/MAMP/htdocs/poundcake/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2012-07-27 18:54:01 Error: [MissingControllerException] Controller class Index.phpController could not be found.
+#0 /Applications/MAMP/htdocs/poundcake/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2012-07-27 18:56:15 Error: [MissingControllerException] Controller class Index.phpController could not be found.
+#0 /Applications/MAMP/htdocs/poundcake/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2012-08-06 01:35:29 Error: [MissingControllerException] Controller class Index.phpController could not be found.
+#0 /Applications/MAMP/htdocs/poundcake/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2012-08-06 01:35:43 Error: [MissingTableException] Table regions for model Region was not found in datasource default.
+#0 /Applications/MAMP/htdocs/poundcake/lib/Cake/Model/Model.php(3180): Model->setSource('regions')
+#1 /Applications/MAMP/htdocs/poundcake/lib/Cake/Model/Datasource/DboSource.php(1068): Model->getDataSource()
+#2 /Applications/MAMP/htdocs/poundcake/lib/Cake/Model/Model.php(2631): DboSource->read(Object(School), Array)
+#3 /Applications/MAMP/htdocs/poundcake/lib/Cake/Controller/Component/PaginatorComponent.php(173): Model->find('all', Array)
+#4 /Applications/MAMP/htdocs/poundcake/lib/Cake/Controller/Controller.php(1082): PaginatorComponent->paginate('School', Array, Array)
+#5 /Applications/MAMP/htdocs/poundcake/app/Controller/SchoolsController.php(73): Controller->paginate('School')
+#6 [internal function]: SchoolsController->index()
+#7 /Applications/MAMP/htdocs/poundcake/lib/Cake/Controller/Controller.php(485): ReflectionMethod->invokeArgs(Object(SchoolsController), Array)
+#8 /Applications/MAMP/htdocs/poundcake/lib/Cake/Routing/Dispatcher.php(186): Controller->invokeAction(Object(CakeRequest))
+#9 /Applications/MAMP/htdocs/poundcake/lib/Cake/Routing/Dispatcher.php(161): Dispatcher->_invoke(Object(SchoolsController), Object(CakeRequest), Object(CakeResponse))
+#10 /Applications/MAMP/htdocs/poundcake/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#11 {main}
+2012-08-06 01:36:35 Error: [MissingTableException] Table regions for model Region was not found in datasource default.
+#0 /Applications/MAMP/htdocs/poundcake/lib/Cake/Model/Model.php(3180): Model->setSource('regions')
+#1 /Applications/MAMP/htdocs/poundcake/lib/Cake/Model/Datasource/DboSource.php(1068): Model->getDataSource()
+#2 /Applications/MAMP/htdocs/poundcake/lib/Cake/Model/Model.php(2631): DboSource->read(Object(School), Array)
+#3 /Applications/MAMP/htdocs/poundcake/lib/Cake/Controller/Component/PaginatorComponent.php(173): Model->find('all', Array)
+#4 /Applications/MAMP/htdocs/poundcake/lib/Cake/Controller/Controller.php(1082): PaginatorComponent->paginate('School', Array, Array)
+#5 /Applications/MAMP/htdocs/poundcake/app/Controller/SchoolsController.php(73): Controller->paginate('School')
+#6 [internal function]: SchoolsController->index()
+#7 /Applications/MAMP/htdocs/poundcake/lib/Cake/Controller/Controller.php(485): ReflectionMethod->invokeArgs(Object(SchoolsController), Array)
+#8 /Applications/MAMP/htdocs/poundcake/lib/Cake/Routing/Dispatcher.php(186): Controller->invokeAction(Object(CakeRequest))
+#9 /Applications/MAMP/htdocs/poundcake/lib/Cake/Routing/Dispatcher.php(161): Dispatcher->_invoke(Object(SchoolsController), Object(CakeRequest), Object(CakeResponse))
+#10 /Applications/MAMP/htdocs/poundcake/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#11 {main}
+2012-08-06 01:37:07 Error: Fatal Error (1): Call to a member function find() on a non-object in [/Applications/MAMP/htdocs/poundcake/app/Controller/SchoolsController.php, line 251]
+2012-08-06 01:37:07 Error: [FatalErrorException] Call to a member function find() on a non-object
+#0 /Applications/MAMP/htdocs/poundcake/lib/Cake/Error/ErrorHandler.php(162): ErrorHandler::handleFatalError(1, 'Call to a membe...', '/Applications/M...', 251)
+#1 [internal function]: ErrorHandler::handleError(1, 'Call to a membe...', '/Applications/M...', 251, Array)
+#2 /Applications/MAMP/htdocs/poundcake/lib/Cake/Core/App.php(926): call_user_func('ErrorHandler::h...', 1, 'Call to a membe...', '/Applications/M...', 251, Array)
+#3 /Applications/MAMP/htdocs/poundcake/lib/Cake/Core/App.php(899): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2012-08-06 01:38:10 Error: [PDOException] SQLSTATE[42S22]: Column not found: 1054 Unknown column 'District.region_id' in 'where clause'
+#0 /Applications/MAMP/htdocs/poundcake/lib/Cake/Model/Datasource/DboSource.php(461): PDOStatement->execute(Array)
+#1 /Applications/MAMP/htdocs/poundcake/lib/Cake/Model/Datasource/DboSource.php(427): DboSource->_execute('SELECT `Distric...', Array)
+#2 /Applications/MAMP/htdocs/poundcake/lib/Cake/Model/Datasource/DboSource.php(671): DboSource->execute('SELECT `Distric...', Array, Array)
+#3 /Applications/MAMP/htdocs/poundcake/lib/Cake/Model/Datasource/DboSource.php(1082): DboSource->fetchAll('SELECT `Distric...', false)
+#4 /Applications/MAMP/htdocs/poundcake/lib/Cake/Model/Model.php(2631): DboSource->read(Object(District), Array)
+#5 /Applications/MAMP/htdocs/poundcake/app/Controller/SchoolsController.php(263): Model->find('list', Array)
+#6 [internal function]: SchoolsController->add()
+#7 /Applications/MAMP/htdocs/poundcake/lib/Cake/Controller/Controller.php(485): ReflectionMethod->invokeArgs(Object(SchoolsController), Array)
+#8 /Applications/MAMP/htdocs/poundcake/lib/Cake/Routing/Dispatcher.php(186): Controller->invokeAction(Object(CakeRequest))
+#9 /Applications/MAMP/htdocs/poundcake/lib/Cake/Routing/Dispatcher.php(161): Dispatcher->_invoke(Object(SchoolsController), Object(CakeRequest), Object(CakeResponse))
+#10 /Applications/MAMP/htdocs/poundcake/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#11 {main}
+2012-08-06 01:38:49 Error: Fatal Error (4): syntax error, unexpected '$areas' (T_VARIABLE) in [/Applications/MAMP/htdocs/poundcake/app/Controller/SchoolsController.php, line 251]
+2012-08-06 01:38:49 Error: [FatalErrorException] syntax error, unexpected '$areas' (T_VARIABLE)
+#0 /Applications/MAMP/htdocs/poundcake/lib/Cake/Error/ErrorHandler.php(162): ErrorHandler::handleFatalError(4, 'syntax error, u...', '/Applications/M...', 251)
+#1 [internal function]: ErrorHandler::handleError(4, 'syntax error, u...', '/Applications/M...', 251, Array)
+#2 /Applications/MAMP/htdocs/poundcake/lib/Cake/Core/App.php(926): call_user_func('ErrorHandler::h...', 4, 'syntax error, u...', '/Applications/M...', 251, Array)
+#3 /Applications/MAMP/htdocs/poundcake/lib/Cake/Core/App.php(899): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2012-08-06 01:39:03 Error: [PDOException] SQLSTATE[42S22]: Column not found: 1054 Unknown column 'District.region_id' in 'where clause'
+#0 /Applications/MAMP/htdocs/poundcake/lib/Cake/Model/Datasource/DboSource.php(461): PDOStatement->execute(Array)
+#1 /Applications/MAMP/htdocs/poundcake/lib/Cake/Model/Datasource/DboSource.php(427): DboSource->_execute('SELECT `Distric...', Array)
+#2 /Applications/MAMP/htdocs/poundcake/lib/Cake/Model/Datasource/DboSource.php(671): DboSource->execute('SELECT `Distric...', Array, Array)
+#3 /Applications/MAMP/htdocs/poundcake/lib/Cake/Model/Datasource/DboSource.php(1082): DboSource->fetchAll('SELECT `Distric...', false)
+#4 /Applications/MAMP/htdocs/poundcake/lib/Cake/Model/Model.php(2631): DboSource->read(Object(District), Array)
+#5 /Applications/MAMP/htdocs/poundcake/app/Controller/SchoolsController.php(263): Model->find('list', Array)
+#6 [internal function]: SchoolsController->add()
+#7 /Applications/MAMP/htdocs/poundcake/lib/Cake/Controller/Controller.php(485): ReflectionMethod->invokeArgs(Object(SchoolsController), Array)
+#8 /Applications/MAMP/htdocs/poundcake/lib/Cake/Routing/Dispatcher.php(186): Controller->invokeAction(Object(CakeRequest))
+#9 /Applications/MAMP/htdocs/poundcake/lib/Cake/Routing/Dispatcher.php(161): Dispatcher->_invoke(Object(SchoolsController), Object(CakeRequest), Object(CakeResponse))
+#10 /Applications/MAMP/htdocs/poundcake/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#11 {main}
+2012-08-06 01:39:28 Error: [MissingActionException] Action DistrictsController::getByArea() could not be found.
+#0 /Applications/MAMP/htdocs/poundcake/lib/Cake/Routing/Dispatcher.php(186): Controller->invokeAction(Object(CakeRequest))
+#1 /Applications/MAMP/htdocs/poundcake/lib/Cake/Routing/Dispatcher.php(161): Dispatcher->_invoke(Object(DistrictsController), Object(CakeRequest), Object(CakeResponse))
+#2 /Applications/MAMP/htdocs/poundcake/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#3 {main}
+2012-08-06 01:39:30 Error: [MissingActionException] Action DistrictsController::getByArea() could not be found.
+#0 /Applications/MAMP/htdocs/poundcake/lib/Cake/Routing/Dispatcher.php(186): Controller->invokeAction(Object(CakeRequest))
+#1 /Applications/MAMP/htdocs/poundcake/lib/Cake/Routing/Dispatcher.php(161): Dispatcher->_invoke(Object(DistrictsController), Object(CakeRequest), Object(CakeResponse))
+#2 /Applications/MAMP/htdocs/poundcake/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#3 {main}
+2012-08-06 01:39:31 Error: [MissingActionException] Action DistrictsController::getByArea() could not be found.
+#0 /Applications/MAMP/htdocs/poundcake/lib/Cake/Routing/Dispatcher.php(186): Controller->invokeAction(Object(CakeRequest))
+#1 /Applications/MAMP/htdocs/poundcake/lib/Cake/Routing/Dispatcher.php(161): Dispatcher->_invoke(Object(DistrictsController), Object(CakeRequest), Object(CakeResponse))
+#2 /Applications/MAMP/htdocs/poundcake/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#3 {main}
+2012-08-06 01:39:32 Error: [MissingActionException] Action DistrictsController::getByArea() could not be found.
+#0 /Applications/MAMP/htdocs/poundcake/lib/Cake/Routing/Dispatcher.php(186): Controller->invokeAction(Object(CakeRequest))
+#1 /Applications/MAMP/htdocs/poundcake/lib/Cake/Routing/Dispatcher.php(161): Dispatcher->_invoke(Object(DistrictsController), Object(CakeRequest), Object(CakeResponse))
+#2 /Applications/MAMP/htdocs/poundcake/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#3 {main}
+2012-08-06 02:02:23 Error: [MissingViewException] View file "/Applications/MAMP/htdocs/poundcake/app/View/Catchments/view.ctp" is missing.
+#0 /Applications/MAMP/htdocs/poundcake/lib/Cake/View/View.php(472): View->_getViewFileName(NULL)
+#1 /Applications/MAMP/htdocs/poundcake/lib/Cake/Controller/Controller.php(957): View->render(NULL, NULL)
+#2 /Applications/MAMP/htdocs/poundcake/lib/Cake/Routing/Dispatcher.php(193): Controller->render()
+#3 /Applications/MAMP/htdocs/poundcake/lib/Cake/Routing/Dispatcher.php(161): Dispatcher->_invoke(Object(CatchmentsController), Object(CakeRequest), Object(CakeResponse))
+#4 /Applications/MAMP/htdocs/poundcake/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#5 {main}
+2012-08-06 02:06:05 Error: Fatal Error (1): Call to a member function find() on a non-object in [/Applications/MAMP/htdocs/poundcake/app/Controller/DistrictsController.php, line 64]
+2012-08-06 02:06:05 Error: [FatalErrorException] Call to a member function find() on a non-object
+#0 /Applications/MAMP/htdocs/poundcake/lib/Cake/Error/ErrorHandler.php(162): ErrorHandler::handleFatalError(1, 'Call to a membe...', '/Applications/M...', 64)
+#1 [internal function]: ErrorHandler::handleError(1, 'Call to a membe...', '/Applications/M...', 64, Array)
+#2 /Applications/MAMP/htdocs/poundcake/lib/Cake/Core/App.php(926): call_user_func('ErrorHandler::h...', 1, 'Call to a membe...', '/Applications/M...', 64, Array)
+#3 /Applications/MAMP/htdocs/poundcake/lib/Cake/Core/App.php(899): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2012-08-06 02:06:46 Error: Fatal Error (1): Call to a member function find() on a non-object in [/Applications/MAMP/htdocs/poundcake/app/Controller/DistrictsController.php, line 71]
+2012-08-06 02:06:46 Error: [FatalErrorException] Call to a member function find() on a non-object
+#0 /Applications/MAMP/htdocs/poundcake/lib/Cake/Error/ErrorHandler.php(162): ErrorHandler::handleFatalError(1, 'Call to a membe...', '/Applications/M...', 71)
+#1 [internal function]: ErrorHandler::handleError(1, 'Call to a membe...', '/Applications/M...', 71, Array)
+#2 /Applications/MAMP/htdocs/poundcake/lib/Cake/Core/App.php(926): call_user_func('ErrorHandler::h...', 1, 'Call to a membe...', '/Applications/M...', 71, Array)
+#3 /Applications/MAMP/htdocs/poundcake/lib/Cake/Core/App.php(899): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2012-08-06 02:07:18 Error: Fatal Error (1): Call to a member function find() on a non-object in [/Applications/MAMP/htdocs/poundcake/app/Controller/DistrictsController.php, line 86]
+2012-08-06 02:07:18 Error: [FatalErrorException] Call to a member function find() on a non-object
+#0 /Applications/MAMP/htdocs/poundcake/lib/Cake/Error/ErrorHandler.php(162): ErrorHandler::handleFatalError(1, 'Call to a membe...', '/Applications/M...', 86)
+#1 [internal function]: ErrorHandler::handleError(1, 'Call to a membe...', '/Applications/M...', 86, Array)
+#2 /Applications/MAMP/htdocs/poundcake/lib/Cake/Core/App.php(926): call_user_func('ErrorHandler::h...', 1, 'Call to a membe...', '/Applications/M...', 86, Array)
+#3 /Applications/MAMP/htdocs/poundcake/lib/Cake/Core/App.php(899): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2012-08-06 02:07:32 Error: Fatal Error (1): Call to a member function find() on a non-object in [/Applications/MAMP/htdocs/poundcake/app/Controller/DistrictsController.php, line 86]
+2012-08-06 02:07:32 Error: [FatalErrorException] Call to a member function find() on a non-object
+#0 /Applications/MAMP/htdocs/poundcake/lib/Cake/Error/ErrorHandler.php(162): ErrorHandler::handleFatalError(1, 'Call to a membe...', '/Applications/M...', 86)
+#1 [internal function]: ErrorHandler::handleError(1, 'Call to a membe...', '/Applications/M...', 86, Array)
+#2 /Applications/MAMP/htdocs/poundcake/lib/Cake/Core/App.php(926): call_user_func('ErrorHandler::h...', 1, 'Call to a membe...', '/Applications/M...', 86, Array)
+#3 /Applications/MAMP/htdocs/poundcake/lib/Cake/Core/App.php(899): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2012-08-06 02:07:49 Error: Fatal Error (1): Call to a member function find() on a non-object in [/Applications/MAMP/htdocs/poundcake/app/Controller/DistrictsController.php, line 86]
+2012-08-06 02:07:49 Error: [FatalErrorException] Call to a member function find() on a non-object
+#0 /Applications/MAMP/htdocs/poundcake/lib/Cake/Error/ErrorHandler.php(162): ErrorHandler::handleFatalError(1, 'Call to a membe...', '/Applications/M...', 86)
+#1 [internal function]: ErrorHandler::handleError(1, 'Call to a membe...', '/Applications/M...', 86, Array)
+#2 /Applications/MAMP/htdocs/poundcake/lib/Cake/Core/App.php(926): call_user_func('ErrorHandler::h...', 1, 'Call to a membe...', '/Applications/M...', 86, Array)
+#3 /Applications/MAMP/htdocs/poundcake/lib/Cake/Core/App.php(899): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2012-08-06 02:07:51 Error: Fatal Error (1): Call to a member function find() on a non-object in [/Applications/MAMP/htdocs/poundcake/app/Controller/DistrictsController.php, line 86]
+2012-08-06 02:07:51 Error: [FatalErrorException] Call to a member function find() on a non-object
+#0 /Applications/MAMP/htdocs/poundcake/lib/Cake/Error/ErrorHandler.php(162): ErrorHandler::handleFatalError(1, 'Call to a membe...', '/Applications/M...', 86)
+#1 [internal function]: ErrorHandler::handleError(1, 'Call to a membe...', '/Applications/M...', 86, Array)
+#2 /Applications/MAMP/htdocs/poundcake/lib/Cake/Core/App.php(926): call_user_func('ErrorHandler::h...', 1, 'Call to a membe...', '/Applications/M...', 86, Array)
+#3 /Applications/MAMP/htdocs/poundcake/lib/Cake/Core/App.php(899): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2012-08-06 02:08:01 Error: Fatal Error (1): Call to a member function find() on a non-object in [/Applications/MAMP/htdocs/poundcake/app/Controller/DistrictsController.php, line 94]
+2012-08-06 02:08:01 Error: [FatalErrorException] Call to a member function find() on a non-object
+#0 /Applications/MAMP/htdocs/poundcake/lib/Cake/Error/ErrorHandler.php(162): ErrorHandler::handleFatalError(1, 'Call to a membe...', '/Applications/M...', 94)
+#1 [internal function]: ErrorHandler::handleError(1, 'Call to a membe...', '/Applications/M...', 94, Array)
+#2 /Applications/MAMP/htdocs/poundcake/lib/Cake/Core/App.php(926): call_user_func('ErrorHandler::h...', 1, 'Call to a membe...', '/Applications/M...', 94, Array)
+#3 /Applications/MAMP/htdocs/poundcake/lib/Cake/Core/App.php(899): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2012-08-06 02:19:37 Error: Fatal Error (1): Call to undefined method SchoolsController::getRegions() in [/Applications/MAMP/htdocs/poundcake/app/Controller/SchoolsController.php, line 336]
+2012-08-06 02:19:37 Error: [FatalErrorException] Call to undefined method SchoolsController::getRegions()
+#0 /Applications/MAMP/htdocs/poundcake/lib/Cake/Error/ErrorHandler.php(162): ErrorHandler::handleFatalError(1, 'Call to undefin...', '/Applications/M...', 336)
+#1 [internal function]: ErrorHandler::handleError(1, 'Call to undefin...', '/Applications/M...', 336, Array)
+#2 /Applications/MAMP/htdocs/poundcake/lib/Cake/Core/App.php(926): call_user_func('ErrorHandler::h...', 1, 'Call to undefin...', '/Applications/M...', 336, Array)
+#3 /Applications/MAMP/htdocs/poundcake/lib/Cake/Core/App.php(899): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2012-08-06 02:23:07 Error: [MissingViewException] View file "/Applications/MAMP/htdocs/poundcake/app/View/Trcs/view.ctp" is missing.
+#0 /Applications/MAMP/htdocs/poundcake/lib/Cake/View/View.php(472): View->_getViewFileName(NULL)
+#1 /Applications/MAMP/htdocs/poundcake/lib/Cake/Controller/Controller.php(957): View->render(NULL, NULL)
+#2 /Applications/MAMP/htdocs/poundcake/lib/Cake/Routing/Dispatcher.php(193): Controller->render()
+#3 /Applications/MAMP/htdocs/poundcake/lib/Cake/Routing/Dispatcher.php(161): Dispatcher->_invoke(Object(TrcsController), Object(CakeRequest), Object(CakeResponse))
+#4 /Applications/MAMP/htdocs/poundcake/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#5 {main}
+2012-08-06 04:44:25 Error: Fatal Error (1): Call to a member function find() on a non-object in [/Applications/MAMP/htdocs/poundcake/app/Controller/ContactsController.php, line 37]
+2012-08-06 04:44:25 Error: [FatalErrorException] Call to a member function find() on a non-object
+#0 /Applications/MAMP/htdocs/poundcake/lib/Cake/Error/ErrorHandler.php(162): ErrorHandler::handleFatalError(1, 'Call to a membe...', '/Applications/M...', 37)
+#1 [internal function]: ErrorHandler::handleError(1, 'Call to a membe...', '/Applications/M...', 37, Array)
+#2 /Applications/MAMP/htdocs/poundcake/lib/Cake/Core/App.php(926): call_user_func('ErrorHandler::h...', 1, 'Call to a membe...', '/Applications/M...', 37, Array)
+#3 /Applications/MAMP/htdocs/poundcake/lib/Cake/Core/App.php(899): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2012-08-06 04:45:19 Error: Fatal Error (1): Call to a member function find() on a non-object in [/Applications/MAMP/htdocs/poundcake/app/Controller/ContactsController.php, line 37]
+2012-08-06 04:45:19 Error: [FatalErrorException] Call to a member function find() on a non-object
+#0 /Applications/MAMP/htdocs/poundcake/lib/Cake/Error/ErrorHandler.php(162): ErrorHandler::handleFatalError(1, 'Call to a membe...', '/Applications/M...', 37)
+#1 [internal function]: ErrorHandler::handleError(1, 'Call to a membe...', '/Applications/M...', 37, Array)
+#2 /Applications/MAMP/htdocs/poundcake/lib/Cake/Core/App.php(926): call_user_func('ErrorHandler::h...', 1, 'Call to a membe...', '/Applications/M...', 37, Array)
+#3 /Applications/MAMP/htdocs/poundcake/lib/Cake/Core/App.php(899): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2012-08-06 04:47:00 Error: Fatal Error (1): Call to a member function find() on a non-object in [/Applications/MAMP/htdocs/poundcake/app/Controller/ContactsController.php, line 37]
+2012-08-06 04:47:00 Error: [FatalErrorException] Call to a member function find() on a non-object
+#0 /Applications/MAMP/htdocs/poundcake/lib/Cake/Error/ErrorHandler.php(162): ErrorHandler::handleFatalError(1, 'Call to a membe...', '/Applications/M...', 37)
+#1 [internal function]: ErrorHandler::handleError(1, 'Call to a membe...', '/Applications/M...', 37, Array)
+#2 /Applications/MAMP/htdocs/poundcake/lib/Cake/Core/App.php(926): call_user_func('ErrorHandler::h...', 1, 'Call to a membe...', '/Applications/M...', 37, Array)
+#3 /Applications/MAMP/htdocs/poundcake/lib/Cake/Core/App.php(899): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2012-08-06 04:53:00 Error: Fatal Error (1): Call to a member function read() on a non-object in [/Applications/MAMP/htdocs/poundcake/app/Controller/ContactsController.php, line 33]
+2012-08-06 04:53:00 Error: [FatalErrorException] Call to a member function read() on a non-object
+#0 /Applications/MAMP/htdocs/poundcake/lib/Cake/Error/ErrorHandler.php(162): ErrorHandler::handleFatalError(1, 'Call to a membe...', '/Applications/M...', 33)
+#1 [internal function]: ErrorHandler::handleError(1, 'Call to a membe...', '/Applications/M...', 33, Array)
+#2 /Applications/MAMP/htdocs/poundcake/lib/Cake/Core/App.php(926): call_user_func('ErrorHandler::h...', 1, 'Call to a membe...', '/Applications/M...', 33, Array)
+#3 /Applications/MAMP/htdocs/poundcake/lib/Cake/Core/App.php(899): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2012-08-06 04:53:17 Error: Fatal Error (1): Call to a member function read() on a non-object in [/Applications/MAMP/htdocs/poundcake/app/Controller/ContactsController.php, line 33]
+2012-08-06 04:53:17 Error: [FatalErrorException] Call to a member function read() on a non-object
+#0 /Applications/MAMP/htdocs/poundcake/lib/Cake/Error/ErrorHandler.php(162): ErrorHandler::handleFatalError(1, 'Call to a membe...', '/Applications/M...', 33)
+#1 [internal function]: ErrorHandler::handleError(1, 'Call to a membe...', '/Applications/M...', 33, Array)
+#2 /Applications/MAMP/htdocs/poundcake/lib/Cake/Core/App.php(926): call_user_func('ErrorHandler::h...', 1, 'Call to a membe...', '/Applications/M...', 33, Array)
+#3 /Applications/MAMP/htdocs/poundcake/lib/Cake/Core/App.php(899): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2012-08-06 04:54:26 Error: Fatal Error (1): Call to a member function read() on a non-object in [/Applications/MAMP/htdocs/poundcake/app/Controller/ContactsController.php, line 33]
+2012-08-06 04:54:26 Error: [FatalErrorException] Call to a member function read() on a non-object
+#0 /Applications/MAMP/htdocs/poundcake/lib/Cake/Error/ErrorHandler.php(162): ErrorHandler::handleFatalError(1, 'Call to a membe...', '/Applications/M...', 33)
+#1 [internal function]: ErrorHandler::handleError(1, 'Call to a membe...', '/Applications/M...', 33, Array)
+#2 /Applications/MAMP/htdocs/poundcake/lib/Cake/Core/App.php(926): call_user_func('ErrorHandler::h...', 1, 'Call to a membe...', '/Applications/M...', 33, Array)
+#3 /Applications/MAMP/htdocs/poundcake/lib/Cake/Core/App.php(899): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2012-08-06 04:55:49 Error: Fatal Error (1): Call to a member function read() on a non-object in [/Applications/MAMP/htdocs/poundcake/app/Controller/ContactsController.php, line 33]
+2012-08-06 04:55:49 Error: [FatalErrorException] Call to a member function read() on a non-object
+#0 /Applications/MAMP/htdocs/poundcake/lib/Cake/Error/ErrorHandler.php(162): ErrorHandler::handleFatalError(1, 'Call to a membe...', '/Applications/M...', 33)
+#1 [internal function]: ErrorHandler::handleError(1, 'Call to a membe...', '/Applications/M...', 33, Array)
+#2 /Applications/MAMP/htdocs/poundcake/lib/Cake/Core/App.php(926): call_user_func('ErrorHandler::h...', 1, 'Call to a membe...', '/Applications/M...', 33, Array)
+#3 /Applications/MAMP/htdocs/poundcake/lib/Cake/Core/App.php(899): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}

@@ -9,7 +9,6 @@ class School extends AppModel {
         'Catchment',
         'Area',
         'District',
-        'Region',
         'ConnectivityType',
         'InterventionType',
         'SiteState',
@@ -20,6 +19,22 @@ class School extends AppModel {
         'Trc'
     );
     
+    public $hasMany = array(
+            'Contacts' => array(
+                    'className' => 'Contact',
+                    'foreignKey' => 'trc_id',
+                    'dependent' => false,
+                    'conditions' => '',
+                    'fields' => '',
+                    'order' => '',
+                    'limit' => '',
+                    'offset' => '',
+                    'exclusive' => '',
+                    'finderQuery' => '',
+                    'counterQuery' => ''
+            )
+    );
+
     public $validate = array(
             'primary_school' => array(
                     'notempty' => array(

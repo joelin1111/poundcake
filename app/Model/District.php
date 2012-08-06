@@ -61,9 +61,9 @@ class District extends AppModel {
  * @var array
  */
 	public $belongsTo = array(
-		'Region' => array(
-			'className' => 'Region',
-			'foreignKey' => 'region_id',
+		'Area' => array(
+			'className' => 'Area',
+			'foreignKey' => 'area_id',
 			'conditions' => '',
 			'fields' => '',
 			'order' => ''

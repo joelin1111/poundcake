@@ -26,7 +26,7 @@ class ContactsController extends AppController {
  */
 	public function view($id = null) {
 		$this->Contact->id = $id;
-		if (!$this->Contact->exists()) {
+                if (!$this->Contact->exists()) {
 			throw new NotFoundException(__('Invalid contact'));
 		}
 		$this->set('contact', $this->Contact->read(null, $id));
@@ -49,6 +49,15 @@ class ContactsController extends AppController {
 		}
 	}
 
+        // return all the TC/TRCs to allow the user to be assigned to
+        function getTrcs() {
+            $this->set('trcs',$this->Contact->Trc->find('list'));
+        }
+        
+        // return all the TC/TRCs to allow the user to be assigned to
+        function getSchools() {
+            $this->set('schools',$this->Contact->School->find('list'));
+        }
 /**
  * edit method
  *
@@ -58,6 +67,8 @@ class ContactsController extends AppController {
  */
 	public function edit($id = null) {
 		$this->Contact->id = $id;
+                $this->getTrcs();
+                $this->getSchools();
 		if (!$this->Contact->exists()) {
 			throw new NotFoundException(__('Invalid contact'));
 		}

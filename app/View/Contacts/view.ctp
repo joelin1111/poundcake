@@ -26,6 +26,28 @@
 			<?php echo h($contact['Contact']['skype']); ?>
 			&nbsp;
 		</dd>
+                <dt><?php echo __('TC/TRC'); ?></dt>
+                <?php
+                // there should only be one here, but maybe this should be
+                // in a for loop just to be safe?
+                echo "<dd>";
+                echo $this->Html->link(__($contact['Trc']['name']), array(
+                    'controller' => 'trcs',
+                    'action' => 'view',
+                    $contact['Trc']['id']));
+                echo "</dd>";
+                ?>
+                <dt><?php echo __('School'); ?></dt>
+                <?php
+                // there should only be one here, but maybe this should be
+                // in a for loop just to be safe?
+                echo "<dd>";
+                echo $this->Html->link(__($contact['School']['primary_school']), array(
+                    'controller' => 'schools',
+                    'action' => 'view',
+                    $contact['School']['id']));
+                echo "</dd>";
+                ?>
 	</dl>
 </div>
 <div class="actions">

@@ -8,6 +8,8 @@
 		echo $this->Form->input('last_name');
 		echo $this->Form->input('mobile');
 		echo $this->Form->input('skype');
+                echo $this->Form->input('trc_id');
+                echo $this->Form->input('school_id');
 	?>
 	</fieldset>
 <?php echo $this->Form->end(__('Submit')); ?>

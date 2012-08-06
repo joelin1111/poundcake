@@ -19,7 +19,6 @@
 		
                 </td>
 		<td class="actions">
-			<?php echo $this->Html->link(__('View'), array('action' => 'view', $area['Area']['id'])); ?>
 			<?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $area['Area']['id'])); ?>
 			<?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $area['Area']['id']), null, __('Are you sure you want to delete # %s?', $area['Area']['id'])); ?>
 		</td>
@@ -35,9 +34,9 @@
 
 	<div class="paging">
 	<?php
-		echo $this->Paginator->prev('< ' . __('previous'), array(), null, array('class' => 'prev disabled'));
-		echo $this->Paginator->numbers(array('separator' => ''));
-		echo $this->Paginator->next(__('next') . ' >', array(), null, array('class' => 'next disabled'));
+		echo $this->Paginator->prev('< ' . __('previous '), array(), null, array('class' => 'prev disabled'));
+		echo $this->Paginator->numbers(array('separator' => ' '));
+		echo $this->Paginator->next(__(' next') . ' >', array(), null, array('class' => 'next disabled'));
 	?>
 	</div>
 </div>
@@ -45,9 +44,5 @@
 	<h3><?php echo __('Actions'); ?></h3>
 	<ul>
 		<li><?php echo $this->Html->link(__('New Area'), array('action' => 'add')); ?></li>
-		<li><?php echo $this->Html->link(__('List Catchments'), array('controller' => 'catchments', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Catchment'), array('controller' => 'catchments', 'action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('List Districts'), array('controller' => 'districts', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Districts'), array('controller' => 'districts', 'action' => 'add')); ?> </li>
 	</ul>
 </div>

@@ -12,7 +12,6 @@
 		<td><?php echo h($powerType['PowerType']['id']); ?>&nbsp;</td>
 		<td><?php echo h($powerType['PowerType']['name']); ?>&nbsp;</td>
 		<td class="actions">
-			<?php echo $this->Html->link(__('View'), array('action' => 'view', $powerType['PowerType']['id'])); ?>
 			<?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $powerType['PowerType']['id'])); ?>
 			<?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $powerType['PowerType']['id']), null, __('Are you sure you want to delete # %s?', $powerType['PowerType']['id'])); ?>
 		</td>
@@ -29,9 +28,9 @@
 
 	<div class="paging">
 	<?php
-		echo $this->Paginator->prev('< ' . __('previous'), array(), null, array('class' => 'prev disabled'));
-		echo $this->Paginator->numbers(array('separator' => ''));
-		echo $this->Paginator->next(__('next') . ' >', array(), null, array('class' => 'next disabled'));
+		echo $this->Paginator->prev('< ' . __('previous '), array(), null, array('class' => 'prev disabled'));
+		echo $this->Paginator->numbers(array('separator' => ' '));
+		echo $this->Paginator->next(__(' next') . ' >', array(), null, array('class' => 'next disabled'));
 	?>
 	</div>
 </div>

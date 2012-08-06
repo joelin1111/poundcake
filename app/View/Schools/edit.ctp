@@ -21,7 +21,6 @@
     // drop down meny of available catchments, etc.
     echo $this->Form->input('catchment_id');
     echo $this->Form->input('area_id');
-    echo $this->Form->input('region_id');
     echo $this->Form->input('district_id');
     echo $this->Form->input('trc');
     echo $this->Form->input('school_code');

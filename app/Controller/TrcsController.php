@@ -29,19 +29,7 @@ class TrcsController extends AppController {
 		if (!$this->Trc->exists()) {
 			throw new NotFoundException(__('Invalid trc'));
 		}
-                
                 $this->set('trc', $this->Trc->read(null, $id));
-                //$contacts = $this->Trc->Contact->find('list');
-                /*
-                $contacts = $this->Trc->Contact->find('list',
-                        array(
-                            'conditions' => array('Contact.trc_id =' => $id)
-                        )
-                        );
-                */
-                //$this->set(compact('contacts'));
-                
-		$this->set('trc', $this->Trc->read(null, $id));
 	}
 
 /**

@@ -20,7 +20,6 @@
 	    <div class="col1Alt">
 	        <P><B>Catchment:</B>&nbsp;<?php echo $school['Catchment']['name']; ?></P>
                 <P><B>Area:</B>&nbsp;<?php echo $school['Area']['name']; ?></P>
-                <P><B>Region:</B>&nbsp;<?php echo $school['Region']['name']; ?></P>
                 <P><B>District:</B>&nbsp;<?php echo $school['District']['name']; ?></P>
                 <P><B>TC/TRC:</B>&nbsp;
                     <?php

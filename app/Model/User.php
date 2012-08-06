@@ -36,7 +36,10 @@ class User extends AppModel {
         )
     );
     
-    public function beforeSave() {
+    // changed parameters on beforeSave for PHP 5.4.x compatability
+    // worked as-per this suggestion:
+    // http://community.webfaction.com/questions/8397/cakephp-2-auth-failing-on-production-only
+    public function beforeSave($options = array()) {
         if (isset($this->data[$this->alias]['password'])) {
             // passworld hashing is done here
             $this->data[$this->alias]['password'] = AuthComponent::password($this->data[$this->alias]['password']);

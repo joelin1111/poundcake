@@ -11,7 +11,6 @@
 		
 		echo $this->Form->input('catchment_id');
                 echo $this->Form->input('area_id');
-                echo $this->Form->input('region_id');
                 echo $this->Form->input('name');
 	?>
 	</fieldset>

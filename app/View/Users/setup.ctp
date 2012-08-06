@@ -17,9 +17,6 @@ Click to manage:
         <?php echo $this->Html->link('Areas', '/areas/index'); ?>
     </li>
     <li>
-        <?php echo $this->Html->link('Regions', '/regions/index'); ?>
-    </li>
-    <li>
         <?php echo $this->Html->link('Districts', '/districts/index'); ?>
     </li>
     

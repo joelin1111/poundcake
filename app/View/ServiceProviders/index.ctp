@@ -12,7 +12,6 @@
 		<td><?php echo h($serviceProvider['ServiceProvider']['id']); ?>&nbsp;</td>
 		<td><?php echo h($serviceProvider['ServiceProvider']['name']); ?>&nbsp;</td>
 		<td class="actions">
-			<?php echo $this->Html->link(__('View'), array('action' => 'view', $serviceProvider['ServiceProvider']['id'])); ?>
 			<?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $serviceProvider['ServiceProvider']['id'])); ?>
 			<?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $serviceProvider['ServiceProvider']['id']), null, __('Are you sure you want to delete # %s?', $serviceProvider['ServiceProvider']['id'])); ?>
 		</td>
@@ -28,9 +27,9 @@
 
 	<div class="paging">
 	<?php
-		echo $this->Paginator->prev('< ' . __('previous'), array(), null, array('class' => 'prev disabled'));
-		echo $this->Paginator->numbers(array('separator' => ''));
-		echo $this->Paginator->next(__('next') . ' >', array(), null, array('class' => 'next disabled'));
+		echo $this->Paginator->prev('< ' . __('previous '), array(), null, array('class' => 'prev disabled'));
+		echo $this->Paginator->numbers(array('separator' => ' '));
+		echo $this->Paginator->next(__(' next') . ' >', array(), null, array('class' => 'next disabled'));
 	?>
 	</div>
 </div>

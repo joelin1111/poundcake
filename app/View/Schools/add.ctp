@@ -15,7 +15,6 @@
     echo $this->Form->input('area_id');
     //echo $this->Form->input('School.district', array('label'=>'School District')); // another syntax of labeling fields
     //echo $this->Form->input('district_id',array('disabled' => true));
-    echo $this->Form->input('region_id');
     echo $this->Form->input('district_id');
     
     echo $this->Form->input('trc_id');

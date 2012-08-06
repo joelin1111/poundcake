@@ -9,10 +9,10 @@
     // the user has changed the Area, so update the Regipon
     $this->Js->get('#DistrictAreaId')->event('change',
         $this->Js->request(array(
-            'controller' => 'regions',
+            'controller' => 'districts',
             'action'=>'getByArea'),
                 array('async' => true,
-                    'update' => '#DistrictRegionId',
+                    'update' => '#DistrictAreaId',
                     'dataExpression' => true,
                     'data'=> $this->Js->serializeForm(
                             array(

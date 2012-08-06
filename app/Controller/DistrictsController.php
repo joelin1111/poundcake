@@ -60,14 +60,7 @@ class DistrictsController extends AppController {
                 // select list with the areas for a specified catchment, let's
                 // default the list to match the first item in the
                 // Catchment list
-                $regions = $this->District->Region->find(
-                        'list',
-                        array(
-                            'conditions' => array('Region.area_id' => 1)
-                        )
-                );
-                
-                $areas = $this->District->Region->Area->find(
+                $areas = $this->District->Area->find(
                         'list',
                         array(
                             'conditions' => array('Area.catchment_id' => 1)
@@ -75,8 +68,8 @@ class DistrictsController extends AppController {
                 );
                 //echo "<pre>".print_r($areas)."</pre>";
                 // get all Catchments
-                $catchments = $this->District->Region->Area->Catchment->find('list');
-                $this->set(compact('catchments','areas','regions'));
+                $catchments = $this->District->Area->Catchment->find('list');
+                $this->set(compact('catchments','areas'));
 	}
 
 
@@ -90,14 +83,7 @@ class DistrictsController extends AppController {
 	public function edit($id = null) {
 		$this->District->id = $id;
                 
-                $regions = $this->District->Region->find(
-                        'list',
-                        array(
-                            'conditions' => array('Region.area_id' => 1)
-                        )
-                );
-                
-                $areas = $this->District->Region->Area->find(
+                $areas = $this->District->Area->find(
                         'list',
                         array(
                             'conditions' => array('Area.catchment_id' => 1)
@@ -105,8 +91,8 @@ class DistrictsController extends AppController {
                 );
                 //echo "<pre>".print_r($areas)."</pre>";
                 // get all Catchments
-                $catchments = $this->District->Region->Area->Catchment->find('list');
-                $this->set(compact('catchments','areas','regions'));
+                $catchments = $this->District->Area->Catchment->find('list');
+                $this->set(compact('catchments','areas'));
                 
                 //$this->set('regions',$this->District->Region->find('list'));
 		if (!$this->District->exists()) {
@@ -148,13 +134,13 @@ class DistrictsController extends AppController {
 		$this->redirect(array('action' => 'index'));
 	}
         
-    public function getByRegion() {
+    public function getByArea() {
             // see documenttion on Area controller
            
             if ( $this->request->data != null ) {
-                $area_id = $this->request->data['School']['region_id'];
+                $area_id = $this->request->data['School']['area_id'];
                 
-                $conditions = array('District.region_id' => $region_id);
+                $conditions = array('District.area_id' => $area_id);
                 
                 $districts = $this->District->find('list', array(
                         'conditions' => $conditions,
