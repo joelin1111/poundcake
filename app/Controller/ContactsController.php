@@ -58,6 +58,11 @@ class ContactsController extends AppController {
         function getSchools() {
             $this->set('schools',$this->Contact->School->find('list'));
         }
+        
+        // return all the districts to allow the user to be assigned to
+        function getDistricts() {
+            $this->set('districts',$this->Contact->District->find('list'));
+        }
 /**
  * edit method
  *
@@ -69,6 +74,7 @@ class ContactsController extends AppController {
 		$this->Contact->id = $id;
                 $this->getTrcs();
                 $this->getSchools();
+                $this->getDistricts();
 		if (!$this->Contact->exists()) {
 			throw new NotFoundException(__('Invalid contact'));
 		}

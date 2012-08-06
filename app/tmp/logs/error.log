@@ -6523,3 +6523,11 @@
 #3 /Applications/MAMP/htdocs/poundcake/lib/Cake/Core/App.php(899): App::_checkFatalError()
 #4 [internal function]: App::shutdown()
 #5 {main}
+2012-08-06 22:18:29 Error: Fatal Error (1): Call to a member function find() on a non-object in [/Applications/MAMP/htdocs/poundcake/app/Controller/ContactsController.php, line 64]
+2012-08-06 22:18:29 Error: [FatalErrorException] Call to a member function find() on a non-object
+#0 /Applications/MAMP/htdocs/poundcake/lib/Cake/Error/ErrorHandler.php(162): ErrorHandler::handleFatalError(1, 'Call to a membe...', '/Applications/M...', 64)
+#1 [internal function]: ErrorHandler::handleError(1, 'Call to a membe...', '/Applications/M...', 64, Array)
+#2 /Applications/MAMP/htdocs/poundcake/lib/Cake/Core/App.php(926): call_user_func('ErrorHandler::h...', 1, 'Call to a membe...', '/Applications/M...', 64, Array)
+#3 /Applications/MAMP/htdocs/poundcake/lib/Cake/Core/App.php(899): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}

@@ -17,7 +17,7 @@
     echo $this->Form->create('School', array(
         'url' => array_merge(array('action' => 'index'), $this->params['pass'])
     ));
-    echo $this->Form->input('primary_school', array('div' => false));
+    echo $this->Form->input('site_name', array('div' => false));
     //echo $this->Form->input('district', array('div' => false));
     //echo $this->Form->input('district', array('div' => false, 'options' => $schools));
     echo "<BR><BR>";
@@ -33,7 +33,7 @@
         'url' => array_merge(array('action' => 'index'), $this->params['pass'])
     ));
     echo $this->AutoComplete->input( 
-    'primary_school', 
+    'site_name', 
     array( 
         'autoCompleteUrl'=>$this->Html->url(  
             array( 
@@ -52,7 +52,7 @@
 
 <?php
 // alternate sort syntax?
-//echo $this->Paginator->sort('primary_school', 'Primary School');
+//echo $this->Paginator->sort('site_name', 'Primary School');
 ?>
 
 <BR><BR>
@@ -76,7 +76,7 @@
   */              
   ?>
    <tr>
-       <th><?php echo $this->Paginator->sort('primary_school'); ?></th>
+       <th><?php echo $this->Paginator->sort('site_name'); ?></th>
        <th><?php
             // because we've defined alternate classes in the $paginate array
             // in the controller, we can sort by name -- otherwise this would
@@ -99,7 +99,7 @@
                 //print_r($school['School']);
                 //echo $school['School']['PowerType'];
            ?>
-           <td><?php echo $this->Html->link($school['School']['primary_school'],
+           <td><?php echo $this->Html->link($school['School']['site_name'],
                    array('controller' => 'schools', 'action' => 'view', $school['School']['id']));
                 ?>
            </td>

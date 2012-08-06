@@ -36,7 +36,7 @@ class School extends AppModel {
     );
     
     public $validate = array(
-            'primary_school' => array(
+            'site_name' => array(
                     'notempty' => array(
                             'rule' => array('notempty'),
                             'message' => 'This field cannot be blank.',
@@ -85,15 +85,15 @@ class School extends AppModel {
     *
     * @var string
     */
-    public $displayField = 'primary_school';
+    public $displayField = 'site_name';
     
     public $actsAs = array('Search.Searchable');
     
     public $filterArgs = array(
         // filterTitle is defined below
-        // array('name' => 'primary_school', 'type' => 'query','method'=>'filterTitle'),
-        //array('name' => 'primary_school', 'type' => 'like', 'field' => 'School.primary_school'),
-        array('name' => 'primary_school', 'type' => 'query', 'method' => 'filterSchool'),
+        // array('name' => 'site_name', 'type' => 'query','method'=>'filterTitle'),
+        //array('name' => 'site_name', 'type' => 'like', 'field' => 'School.site_name'),
+        array('name' => 'site_name', 'type' => 'query', 'method' => 'filterSchool'),
         //array('name' => 'district', 'type' => 'string'),
         // this is used in a drop down of districts
         array('name' => 'district', 'type' => 'value'),
@@ -130,13 +130,13 @@ class School extends AppModel {
     }
 
     public function filterSchool($data, $field = null) {
-        if(empty($data['primary_school'])) {
+        if(empty($data['site_name'])) {
             return array();
         }
-        $primary_school = '%' . $data['primary_school'] . '%';
+        $site_name = '%' . $data['site_name'] . '%';
         return array(
             'OR' => array(
-                $this->alias . '.primary_school LIKE' => $primary_school,
+                $this->alias . '.site_name LIKE' => $site_name,
             ));
     }
     

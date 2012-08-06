@@ -11,7 +11,7 @@
     echo $this->Form->create('School', array(
         'url' => array_merge(array('action' => 'index'), $this->params['pass'])
     ));
-    echo $this->Form->input('primary_school', array('div' => false));
+    echo $this->Form->input('site_name', array('div' => false));
     //echo $this->Form->input('district', array('div' => false));
     //echo $this->Form->input('district', array('div' => false, 'options' => $schools));
     echo $this->Form->submit(__('Search', true), array('div' => false));
@@ -39,7 +39,7 @@
            <td><?php echo $school['School']['school_code']; ?></td>
            <td><?php echo $school['School']['type']; ?></td>
            <td><?php echo $school['School']['sn']; ?></td>
-           <td><?php echo $this->Html->link($school['School']['primary_school'],
+           <td><?php echo $this->Html->link($school['School']['site_name'],
                    array('controller' => 'schools', 'action' => 'view', $school['School']['id']));
                 ?>
            </td>

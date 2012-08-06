@@ -62,36 +62,32 @@ class District extends AppModel {
  */
 	public $belongsTo = array(
 		'Area' => array(
-			'className' => 'Area',
-			'foreignKey' => 'area_id',
-			'conditions' => '',
-			'fields' => '',
-			'order' => ''
-		)
-	);
+                    'className' => 'Area',
+                    'foreignKey' => 'area_id',
+                    'conditions' => '',
+                    'fields' => '',
+                    'order' => ''
+            )
+        );
 
 /**
  * hasMany associations
  *
  * @var array
  */
-        /*
-	public $hasMany = array(
-		'Schools' => array(
-			'className' => 'School',
-			'foreignKey' => 'district_id',
-			'dependent' => false,
-			'conditions' => '',
-			'fields' => '',
-			'order' => '',
-			'limit' => '',
-			'offset' => '',
-			'exclusive' => '',
-			'finderQuery' => '',
-			'counterQuery' => ''
-		)
-	);
-        
-        */
-
+        public $hasMany = array(
+            'Contacts' => array(
+                'className' => 'Contact',
+                'foreignKey' => 'district_id',
+                'dependent' => false,
+                'conditions' => '',
+                'fields' => '',
+                'order' => '',
+                'limit' => '',
+                'offset' => '',
+                'exclusive' => '',
+                'finderQuery' => '',
+                'counterQuery' => ''
+            )
+    );
 }

@@ -49,6 +49,10 @@ class Contact extends AppModel {
 				//'on' => 'create', // Limit validation to 'create' or 'update' operations
 			),
 		),
+                'email' => array(
+                    'rule'    => array('email', true),
+                    'message' => 'Please supply a valid email address.'
+                )
 	);
         
         public $belongsTo = array(
@@ -62,6 +66,13 @@ class Contact extends AppModel {
                 'School' => array(
 			'className' => 'School',
 			'foreignKey' => 'school_id',
+			'conditions' => '',
+			'fields' => '',
+			'order' => ''
+		),
+                'District' => array(
+			'className' => 'District',
+			'foreignKey' => 'district_id',
 			'conditions' => '',
 			'fields' => '',
 			'order' => ''

@@ -14,7 +14,7 @@
     //echo $this->Form->create('School', array('action' => 'edit'));
     echo $this->Form->create('School');
     echo $this->Form->input('id', array('type'=>'hidden'));
-    echo $this->Form->input('primary_school');
+    echo $this->Form->input('site_name');
     
     //echo "<pre>".print_r($this->request->data)."</pre>";
      

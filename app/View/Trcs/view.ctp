@@ -30,7 +30,7 @@
                     echo "None";
                 } else {
                     foreach ($trc['Schools'] as $school) {
-                        echo $this->Html->link(__($school['primary_school']), array(
+                        echo $this->Html->link(__($school['site_name']), array(
                             'controller' => 'schools',
                             'action' => 'view',
                             $school['id']));

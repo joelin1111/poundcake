@@ -51,7 +51,7 @@
     //echo $this->AltGoogleMapV3->map();  
 
     if ($schools != null) {
-        //echo '<LI>'.$schools[$i]['School']['primary_school'].'</LI>';
+        //echo '<LI>'.$schools[$i]['School']['site_name'].'</LI>';
         //echo '<pre> LAT ' . $lat . '</pre>';
         //echo '<pre> LON ' .  $lon . '</pre>';
         //echo '<pre> defaultLat ' . $defaultLat . '</pre>';
@@ -61,7 +61,7 @@
        foreach ($schools as $school) {
            /*
            echo '<LI>';
-           echo $schools[$i]['School']['primary_school'] . ' - ';
+           echo $schools[$i]['School']['site_name'] . ' - ';
            echo $schools[$i]['School']['id'] . ' - ';
            echo $schools[$i]['School']['location']['lat'] . ' ';
            echo $schools[$i]['School']['location']['lon'];
@@ -73,13 +73,13 @@
            //$lon = $schools[$i]['School']['location']['lon'];
            $lat = $school['School']['location']['lat'];
            $lon = $school['School']['location']['lon'];
-           $primary_school = $school['School']['primary_school'];
+           $site_name = $school['School']['site_name'];
            
             // this is sort of a guess
             $link = "http://" . $_SERVER['HTTP_HOST'] ."/schools/view/" . $school['School']['id'];
 
             // text for the popup over the placemarker
-            $windowText = $primary_school."<br>Lorem ipsum dolor sit amet<BR><A HREF=\"".$link."\">More Detail</A>";
+            $windowText = $site_name."<br>Lorem ipsum dolor sit amet<BR><A HREF=\"".$link."\">More Detail</A>";
             // echo $link;
             // See all options:
             // https://github.com/marcferna/CakePHP-Google-Maps-V3-Helper/blob/master/google_map_v3.php
@@ -118,7 +118,7 @@
     );
 
      if ($schools != null) {
-        //echo '<LI>'.$schools[$i]['School']['primary_school'].'</LI>';
+        //echo '<LI>'.$schools[$i]['School']['site_name'].'</LI>';
         //echo '<pre> LAT ' . $lat . '</pre>';
         //echo '<pre> LON ' .  $lon . '</pre>';
         //echo '<pre> defaultLat ' . $defaultLat . '</pre>';
@@ -128,7 +128,7 @@
        foreach ($schools as $school) {
            /*
            echo '<LI>';
-           echo $schools[$i]['School']['primary_school'] . ' - ';
+           echo $schools[$i]['School']['site_name'] . ' - ';
            echo $schools[$i]['School']['id'] . ' - ';
            echo $schools[$i]['School']['location']['lat'] . ' ';
            echo $schools[$i]['School']['location']['lon'];
@@ -139,7 +139,7 @@
            //$lon = $schools[$i]['School']['location']['lon'];
            $lat = $school['School']['location']['lat'];
            $lon = $school['School']['location']['lon'];
-           $primary_school = $school['School']['primary_school'];
+           $site_name = $school['School']['site_name'];
            // this is sort of a guess
            $link = "http://" . $_SERVER['HTTP_HOST'] ."/schools/view/" . $school['School']['id'];
 
@@ -147,8 +147,8 @@
                 'lat' => $lat,
                 'lng' => $lon,
                 'marker'=>true,
-                'title' => $primary_school,
-                'content' => '<b>'.$primary_school.'</b><BR>Lorem ipsum dolor sit amet<BR><a href="'.$link.'">More Detail</a>', # optional
+                'title' => $site_name,
+                'content' => '<b>'.$site_name.'</b><BR>Lorem ipsum dolor sit amet<BR><a href="'.$link.'">More Detail</a>', # optional
                 'infoWindow'=> true // show an information window when you click the marker
             );
             echo $this->GoogleMapV3->addMarker($options);

@@ -16,7 +16,7 @@ class SchoolsController extends AppController
     
     public $presetVars = array(
         // field names for the form itself , 'model' => 'School'
-        array('field' => 'primary_school', 'type' => 'value'),
+        array('field' => 'site_name', 'type' => 'value'),
         //array('field' => 'district', 'type' => 'value'),
         array('field' => 'district', 'type' => 'lookup', 'formField' => 'district_input', 'modelField' => 'district', 'model' => 'School'),
     );
@@ -26,7 +26,7 @@ class SchoolsController extends AppController
         parent::beforeFilter();
         //$this->Auth->allow('home');
         
-        $this->set('primary_school', $this->School->primary_school);
+        $this->set('site_name', $this->School->site_name);
         $this->set('district', $this->School->district);    
         //parent::beforeFilter();
     }
@@ -48,7 +48,7 @@ class SchoolsController extends AppController
                 'limit' => 10,
                 'conditions' => $this->School->parseCriteria($this->passedArgs),
                 'order' => array(
-                    'School.primary_school' => 'asc'
+                    'School.site_name' => 'asc'
                 ),
             ),
             // revisit: do other fields (columns) in view
@@ -228,6 +228,11 @@ class SchoolsController extends AppController
         $this->set('roadtypes',$this->School->RoadType->find('list'));
     }
     
+    function getDistrictContacts() {
+        // identical to getCatchments
+        $this->set('contacts',$this->School->District->Contact->find('list'));
+    }
+    
     function add() {
         // Note prior to adding the belongsTo relationship (school belongs to
         // region) I had this if in advance of actually calling the save method
@@ -246,7 +251,7 @@ class SchoolsController extends AppController
         $this->getSiteStates();
         $this->getPowerTypes();
         $this->getRoadTypes();
-
+        
         // return all areas that match the default catchment
         $areas = $this->School->District->Area->find(
                         'list',
@@ -413,13 +418,13 @@ class SchoolsController extends AppController
     function auto_complete() {
         $schools = $this->School->find('all', array( 
             'conditions' => array( 
-                'School.primary_school LIKE' => $this->params['url']['autoCompleteText'].'%' 
+                'School.site_name LIKE' => $this->params['url']['autoCompleteText'].'%' 
             ), 
-            'fields' => array('primary_school'), 
+            'fields' => array('site_name'), 
             'limit' => 3, 
             'recursive'=>-1, 
         )); 
-        $schools = Set::Extract($schools,'{n}.School.primary_school'); 
+        $schools = Set::Extract($schools,'{n}.School.site_name'); 
         $this->set('schools', $schools); 
         $this->layout = 'ajax';     
     } 

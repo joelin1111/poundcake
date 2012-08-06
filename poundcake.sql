@@ -329,7 +329,7 @@ CREATE TABLE `linktypes` (
 
 LOCK TABLES `linktypes` WRITE;
 /*!40000 ALTER TABLE `linktypes` DISABLE KEYS */;
-INSERT INTO `linktypes` VALUES (1,'V - Vsat'),(2,'G - GSM'),(3,'P - P2P Wireless'),(4,'C - CDMA ');
+INSERT INTO `linktypes` VALUES (1,'Vsat'),(2,'GSM'),(3,'P2P Wireless'),(4,'CDMA ');
 /*!40000 ALTER TABLE `linktypes` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -425,8 +425,10 @@ CREATE TABLE `contacts` (
   `last_name` varchar(255) NOT NULL,
   `mobile` varchar(255) NOT NULL,
   `skype` varchar(255),
+  `email` varchar(255),
   `trc_id` int(10),
   `school_id` int(10),
+  `district_id` int(10),
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -434,9 +436,9 @@ CREATE TABLE `contacts` (
 LOCK TABLES `contacts` WRITE;
 /*!40000 ALTER TABLE `contacts` DISABLE KEYS */;
 INSERT INTO `contacts` VALUES
-(1,'Clark','Ritchie','+1 (503) 936-2575','clarkritchie',5,4),
-(2,'Andris','Bjornson','+1 (415) 205-7802','andris.bjornson',2,1),
-(3,'Jen','Overgaag','+1 (805) 440-9423','wyojeno',2,5);
+(1,'Clark','Ritchie','+1 (503) 936-2575','clarkritchie','critchie@inveneo.org',5,4,NULL),
+(2,'Andris','Bjornson','+1 (415) 205-7802','andris.bjornson','abjornson@inveneo.org',2,1,NULL),
+(3,'Jen','Overgaag','+1 (805) 440-9423','wyojeno','jovergaag@inveneo.org',2,5,NULL);
 /*!40000 ALTER TABLE `contacts` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -476,7 +478,7 @@ DROP TABLE IF EXISTS `schools`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `schools` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `primary_school` varchar(50) NOT NULL,
+  `site_name` varchar(50) NOT NULL,
   `school_code` varchar(10) NOT NULL,
   `type` varchar(1) NOT NULL,
   `sn` varchar(3) NOT NULL,
@@ -594,8 +596,9 @@ LOCK TABLES `users` WRITE;
 INSERT INTO `users` VALUES (1,'admin','c37948de525341d871f0550a1e0140752a95316a',1,'2012-07-18 20:09:51','2012-07-20 00:25:41'),
 (2,'joe','acf16862470d5ca028de17722a5b72090d6259f4',1,'2012-07-18 21:52:44','2012-07-18 21:52:44'),
 (3,'sue','ae1a12b6e634352e2a52bdc721da548b713f6cbb',2,'2012-07-18 21:56:14','2012-07-18 21:56:14'),
-(4,'zview','b22cad3fb0a92d967353abbb3ef7399ca5a3034b',12,'2012-08-06 18:01:38','2012-08-06 18:01:38'),
-(5,'zedit','6f0cfe47e87ae75ad5fd224e23656e546791b714',13,'2012-08-06 18:01:38','2012-08-06 18:01:38');
+(4,'z
+','b22cad3fb0a92d967353abbb3ef7399ca5a3034b',2,'2012-08-06 18:01:38','2012-08-06 18:01:38'),
+(5,'zedit','6f0cfe47e87ae75ad5fd224e23656e546791b714',8,'2012-08-06 18:01:38','2012-08-06 18:01:38');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -620,22 +623,15 @@ LOCK TABLES `roles` WRITE;
 /*!40000 ALTER TABLE `roles` DISABLE KEYS */;
 INSERT INTO `roles` VALUES
 (1,'admin','admin'),
-(2,'Inveneo Viewer','view'),
-(3,'Inveneo Editor','edit'),
-(4,'Kicheko Viewer','view'),
-(5,'Kicheko Editor','edit'),
-(6,'Creative Associates Viewer','view'),
-(7,'Creative Associates Editor','edit'),
-(8,'TZ MoE Viewer','view'),
-(9,'TZ MoE Editor','edit'),
-(10,'UhuruOne Viewer','view'),
-(11,'UhuruOne Editor','edit'),
-(12,'Zantel Viewer','view'),
-(13,'Zantel Editor','edit'),
-(14,'Agile Learning Viewer','view'),
-(15,'Agile Learning Editor','edit'),
-(16,'IYF Viewer','view'),
-(17,'IYF Editor','edit');
+(2,'View Only User','view'),
+(3,'Inveneo','edit'),
+(4,'Kicheko','edit'),
+(5,'Creative Associates','edit'),
+(6,'TZ MoE','edit'),
+(7,'UhuruOne','edit'),
+(8,'Zantel','edit'),
+(9,'Agile Learning','edit'),
+(10,'IYF','edit');
 
 /*!40000 ALTER TABLE `roles` ENABLE KEYS */;
 UNLOCK TABLES;

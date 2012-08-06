@@ -9,7 +9,7 @@
 
     <div class="maskAlt">
     <div class="headerAlt">
-	         <h1><?php echo $school['School']['primary_school']?></h1>
+	         <h1><?php echo $school['School']['site_name']?></h1>
     </div>
     <?php
         echo $this->Html->link('Edit School', array('action'=>'edit', $school['School']['id']));
@@ -21,6 +21,24 @@
 	        <P><B>Catchment:</B>&nbsp;<?php echo $school['Catchment']['name']; ?></P>
                 <P><B>Area:</B>&nbsp;<?php echo $school['Area']['name']; ?></P>
                 <P><B>District:</B>&nbsp;<?php echo $school['District']['name']; ?></P>
+                <P><B>District contacts:</B>&nbsp;
+                    <?php
+                        //print_r($school['Contacts']);
+                        $c = count($school['Contacts']);
+                        //echo "c is".$c;
+                        if ($c == 0) {
+                            echo "None";
+                        } else {
+                            foreach ($school['Contacts'] as $contact) {
+                                echo $this->Html->link(__($contact['first_name']." ".$contact['last_name']), array(
+                                    'controller' => 'contacts',
+                                    'action' => 'view',
+                                    $contact['id']));
+                            }
+                        }
+                    ?>
+                </P>
+                
                 <P><B>TC/TRC:</B>&nbsp;
                     <?php
                         // link to the TRC view
@@ -33,7 +51,7 @@
                     ?>
                 
                 </P>
-                <P><B>Contact(s):</B>&nbsp;
+                <P><B>School contacts:</B>&nbsp;
                     <?php
                         //print_r($school);
                         $c = count($school['Contacts']);
@@ -49,7 +67,6 @@
                             }
                         }
                     ?>
-                
                 </P>
                 <P><B>Type:</B>&nbsp;<?php echo $school['School']['type']; ?></P>
                 <P><B>School code:</B>&nbsp;<?php echo $school['School']['school_code']; ?></P>
@@ -104,7 +121,7 @@
                     echo $this->AltGoogleMapV3->map($mapOptions); //To add a map that localizes you
 
                     // text for the popup over the placemarker
-                    $windowText = $school['School']['primary_school'];
+                    $windowText = $school['School']['site_name'];
 
                     $markerOptions= array(
                         'id' => 1, // Id of the marker, on this page we only have 1 so we can hardcode that
