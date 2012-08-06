@@ -29,6 +29,7 @@ class UsersController extends AppController {
     }
     
     public function add() {
+        $this->getRoles();
         if ($this->request->is('post')) {
             $this->User->create();
             if ($this->User->save($this->request->data)) {
@@ -119,11 +120,11 @@ class UsersController extends AppController {
         // override isAuthorized in AppController by allowing specific functionality
         // All registered users can add posts
         // remember to comment this out!
-        
+        /*
         if ($this->action === 'add') {
             // for testing
             return true;
-        }
+        }*/
         if ($this->action === 'logout') {
             // for testing
             return true;

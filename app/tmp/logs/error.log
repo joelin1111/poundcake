@@ -6245,3 +6245,281 @@
 #3 /Applications/MAMP/htdocs/poundcake/lib/Cake/Core/App.php(899): App::_checkFatalError()
 #4 [internal function]: App::shutdown()
 #5 {main}
+2012-08-06 06:39:57 Error: Fatal Error (64): Can't use function return value in write context in [/Applications/MAMP/htdocs/poundcake/app/View/Trcs/view.ctp, line 17]
+2012-08-06 06:39:57 Error: [FatalErrorException] Can't use function return value in write context
+#0 /Applications/MAMP/htdocs/poundcake/lib/Cake/Error/ErrorHandler.php(162): ErrorHandler::handleFatalError(64, 'Can't use funct...', '/Applications/M...', 17)
+#1 [internal function]: ErrorHandler::handleError(64, 'Can't use funct...', '/Applications/M...', 17, Array)
+#2 /Applications/MAMP/htdocs/poundcake/lib/Cake/Core/App.php(926): call_user_func('ErrorHandler::h...', 64, 'Can't use funct...', '/Applications/M...', 17, Array)
+#3 /Applications/MAMP/htdocs/poundcake/lib/Cake/Core/App.php(899): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2012-08-06 06:40:43 Error: Fatal Error (64): Can't use function return value in write context in [/Applications/MAMP/htdocs/poundcake/app/View/Trcs/view.ctp, line 17]
+2012-08-06 06:40:43 Error: [FatalErrorException] Can't use function return value in write context
+#0 /Applications/MAMP/htdocs/poundcake/lib/Cake/Error/ErrorHandler.php(162): ErrorHandler::handleFatalError(64, 'Can't use funct...', '/Applications/M...', 17)
+#1 [internal function]: ErrorHandler::handleError(64, 'Can't use funct...', '/Applications/M...', 17, Array)
+#2 /Applications/MAMP/htdocs/poundcake/lib/Cake/Core/App.php(926): call_user_func('ErrorHandler::h...', 64, 'Can't use funct...', '/Applications/M...', 17, Array)
+#3 /Applications/MAMP/htdocs/poundcake/lib/Cake/Core/App.php(899): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2012-08-06 06:42:07 Error: Fatal Error (64): Can't use function return value in write context in [/Applications/MAMP/htdocs/poundcake/app/View/Trcs/view.ctp, line 18]
+2012-08-06 06:42:07 Error: [FatalErrorException] Can't use function return value in write context
+#0 /Applications/MAMP/htdocs/poundcake/lib/Cake/Error/ErrorHandler.php(162): ErrorHandler::handleFatalError(64, 'Can't use funct...', '/Applications/M...', 18)
+#1 [internal function]: ErrorHandler::handleError(64, 'Can't use funct...', '/Applications/M...', 18, Array)
+#2 /Applications/MAMP/htdocs/poundcake/lib/Cake/Core/App.php(926): call_user_func('ErrorHandler::h...', 64, 'Can't use funct...', '/Applications/M...', 18, Array)
+#3 /Applications/MAMP/htdocs/poundcake/lib/Cake/Core/App.php(899): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2012-08-06 06:50:16 Error: Fatal Error (1): Call to a member function find() on a non-object in [/Applications/MAMP/htdocs/poundcake/app/Controller/TrcsController.php, line 64]
+2012-08-06 06:50:16 Error: [FatalErrorException] Call to a member function find() on a non-object
+#0 /Applications/MAMP/htdocs/poundcake/lib/Cake/Error/ErrorHandler.php(162): ErrorHandler::handleFatalError(1, 'Call to a membe...', '/Applications/M...', 64)
+#1 [internal function]: ErrorHandler::handleError(1, 'Call to a membe...', '/Applications/M...', 64, Array)
+#2 /Applications/MAMP/htdocs/poundcake/lib/Cake/Core/App.php(926): call_user_func('ErrorHandler::h...', 1, 'Call to a membe...', '/Applications/M...', 64, Array)
+#3 /Applications/MAMP/htdocs/poundcake/lib/Cake/Core/App.php(899): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2012-08-06 06:53:15 Error: Fatal Error (1): Call to a member function find() on a non-object in [/Applications/MAMP/htdocs/poundcake/app/Controller/TrcsController.php, line 54]
+2012-08-06 06:53:15 Error: [FatalErrorException] Call to a member function find() on a non-object
+#0 /Applications/MAMP/htdocs/poundcake/lib/Cake/Error/ErrorHandler.php(162): ErrorHandler::handleFatalError(1, 'Call to a membe...', '/Applications/M...', 54)
+#1 [internal function]: ErrorHandler::handleError(1, 'Call to a membe...', '/Applications/M...', 54, Array)
+#2 /Applications/MAMP/htdocs/poundcake/lib/Cake/Core/App.php(926): call_user_func('ErrorHandler::h...', 1, 'Call to a membe...', '/Applications/M...', 54, Array)
+#3 /Applications/MAMP/htdocs/poundcake/lib/Cake/Core/App.php(899): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2012-08-06 06:54:40 Error: Fatal Error (1): Call to a member function find() on a non-object in [/Applications/MAMP/htdocs/poundcake/app/Controller/TrcsController.php, line 54]
+2012-08-06 06:54:40 Error: [FatalErrorException] Call to a member function find() on a non-object
+#0 /Applications/MAMP/htdocs/poundcake/lib/Cake/Error/ErrorHandler.php(162): ErrorHandler::handleFatalError(1, 'Call to a membe...', '/Applications/M...', 54)
+#1 [internal function]: ErrorHandler::handleError(1, 'Call to a membe...', '/Applications/M...', 54, Array)
+#2 /Applications/MAMP/htdocs/poundcake/lib/Cake/Core/App.php(926): call_user_func('ErrorHandler::h...', 1, 'Call to a membe...', '/Applications/M...', 54, Array)
+#3 /Applications/MAMP/htdocs/poundcake/lib/Cake/Core/App.php(899): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2012-08-06 06:54:45 Error: Fatal Error (1): Call to a member function find() on a non-object in [/Applications/MAMP/htdocs/poundcake/app/Controller/TrcsController.php, line 54]
+2012-08-06 06:54:45 Error: [FatalErrorException] Call to a member function find() on a non-object
+#0 /Applications/MAMP/htdocs/poundcake/lib/Cake/Error/ErrorHandler.php(162): ErrorHandler::handleFatalError(1, 'Call to a membe...', '/Applications/M...', 54)
+#1 [internal function]: ErrorHandler::handleError(1, 'Call to a membe...', '/Applications/M...', 54, Array)
+#2 /Applications/MAMP/htdocs/poundcake/lib/Cake/Core/App.php(926): call_user_func('ErrorHandler::h...', 1, 'Call to a membe...', '/Applications/M...', 54, Array)
+#3 /Applications/MAMP/htdocs/poundcake/lib/Cake/Core/App.php(899): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2012-08-06 06:55:04 Error: Fatal Error (1): Call to a member function find() on a non-object in [/Applications/MAMP/htdocs/poundcake/app/Controller/TrcsController.php, line 54]
+2012-08-06 06:55:04 Error: [FatalErrorException] Call to a member function find() on a non-object
+#0 /Applications/MAMP/htdocs/poundcake/lib/Cake/Error/ErrorHandler.php(162): ErrorHandler::handleFatalError(1, 'Call to a membe...', '/Applications/M...', 54)
+#1 [internal function]: ErrorHandler::handleError(1, 'Call to a membe...', '/Applications/M...', 54, Array)
+#2 /Applications/MAMP/htdocs/poundcake/lib/Cake/Core/App.php(926): call_user_func('ErrorHandler::h...', 1, 'Call to a membe...', '/Applications/M...', 54, Array)
+#3 /Applications/MAMP/htdocs/poundcake/lib/Cake/Core/App.php(899): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2012-08-06 06:55:38 Error: Fatal Error (1): Call to a member function find() on a non-object in [/Applications/MAMP/htdocs/poundcake/app/Controller/TrcsController.php, line 54]
+2012-08-06 06:55:38 Error: [FatalErrorException] Call to a member function find() on a non-object
+#0 /Applications/MAMP/htdocs/poundcake/lib/Cake/Error/ErrorHandler.php(162): ErrorHandler::handleFatalError(1, 'Call to a membe...', '/Applications/M...', 54)
+#1 [internal function]: ErrorHandler::handleError(1, 'Call to a membe...', '/Applications/M...', 54, Array)
+#2 /Applications/MAMP/htdocs/poundcake/lib/Cake/Core/App.php(926): call_user_func('ErrorHandler::h...', 1, 'Call to a membe...', '/Applications/M...', 54, Array)
+#3 /Applications/MAMP/htdocs/poundcake/lib/Cake/Core/App.php(899): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2012-08-06 06:56:52 Error: Fatal Error (1): Call to a member function find() on a non-object in [/Applications/MAMP/htdocs/poundcake/app/Controller/TrcsController.php, line 54]
+2012-08-06 06:56:52 Error: [FatalErrorException] Call to a member function find() on a non-object
+#0 /Applications/MAMP/htdocs/poundcake/lib/Cake/Error/ErrorHandler.php(162): ErrorHandler::handleFatalError(1, 'Call to a membe...', '/Applications/M...', 54)
+#1 [internal function]: ErrorHandler::handleError(1, 'Call to a membe...', '/Applications/M...', 54, Array)
+#2 /Applications/MAMP/htdocs/poundcake/lib/Cake/Core/App.php(926): call_user_func('ErrorHandler::h...', 1, 'Call to a membe...', '/Applications/M...', 54, Array)
+#3 /Applications/MAMP/htdocs/poundcake/lib/Cake/Core/App.php(899): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2012-08-06 06:58:08 Error: Fatal Error (1): Call to a member function find() on a non-object in [/Applications/MAMP/htdocs/poundcake/app/Controller/TrcsController.php, line 54]
+2012-08-06 06:58:08 Error: [FatalErrorException] Call to a member function find() on a non-object
+#0 /Applications/MAMP/htdocs/poundcake/lib/Cake/Error/ErrorHandler.php(162): ErrorHandler::handleFatalError(1, 'Call to a membe...', '/Applications/M...', 54)
+#1 [internal function]: ErrorHandler::handleError(1, 'Call to a membe...', '/Applications/M...', 54, Array)
+#2 /Applications/MAMP/htdocs/poundcake/lib/Cake/Core/App.php(926): call_user_func('ErrorHandler::h...', 1, 'Call to a membe...', '/Applications/M...', 54, Array)
+#3 /Applications/MAMP/htdocs/poundcake/lib/Cake/Core/App.php(899): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2012-08-06 06:58:48 Error: Fatal Error (1): Call to a member function find() on a non-object in [/Applications/MAMP/htdocs/poundcake/app/Controller/TrcsController.php, line 54]
+2012-08-06 06:58:48 Error: [FatalErrorException] Call to a member function find() on a non-object
+#0 /Applications/MAMP/htdocs/poundcake/lib/Cake/Error/ErrorHandler.php(162): ErrorHandler::handleFatalError(1, 'Call to a membe...', '/Applications/M...', 54)
+#1 [internal function]: ErrorHandler::handleError(1, 'Call to a membe...', '/Applications/M...', 54, Array)
+#2 /Applications/MAMP/htdocs/poundcake/lib/Cake/Core/App.php(926): call_user_func('ErrorHandler::h...', 1, 'Call to a membe...', '/Applications/M...', 54, Array)
+#3 /Applications/MAMP/htdocs/poundcake/lib/Cake/Core/App.php(899): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2012-08-06 07:01:38 Error: Fatal Error (1): Call to a member function find() on a non-object in [/Applications/MAMP/htdocs/poundcake/app/Controller/TrcsController.php, line 54]
+2012-08-06 07:01:38 Error: [FatalErrorException] Call to a member function find() on a non-object
+#0 /Applications/MAMP/htdocs/poundcake/lib/Cake/Error/ErrorHandler.php(162): ErrorHandler::handleFatalError(1, 'Call to a membe...', '/Applications/M...', 54)
+#1 [internal function]: ErrorHandler::handleError(1, 'Call to a membe...', '/Applications/M...', 54, Array)
+#2 /Applications/MAMP/htdocs/poundcake/lib/Cake/Core/App.php(926): call_user_func('ErrorHandler::h...', 1, 'Call to a membe...', '/Applications/M...', 54, Array)
+#3 /Applications/MAMP/htdocs/poundcake/lib/Cake/Core/App.php(899): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2012-08-06 07:02:36 Error: Fatal Error (1): Call to a member function find() on a non-object in [/Applications/MAMP/htdocs/poundcake/app/Controller/TrcsController.php, line 54]
+2012-08-06 07:02:36 Error: [FatalErrorException] Call to a member function find() on a non-object
+#0 /Applications/MAMP/htdocs/poundcake/lib/Cake/Error/ErrorHandler.php(162): ErrorHandler::handleFatalError(1, 'Call to a membe...', '/Applications/M...', 54)
+#1 [internal function]: ErrorHandler::handleError(1, 'Call to a membe...', '/Applications/M...', 54, Array)
+#2 /Applications/MAMP/htdocs/poundcake/lib/Cake/Core/App.php(926): call_user_func('ErrorHandler::h...', 1, 'Call to a membe...', '/Applications/M...', 54, Array)
+#3 /Applications/MAMP/htdocs/poundcake/lib/Cake/Core/App.php(899): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2012-08-06 16:35:58 Error: Fatal Error (1): Call to a member function find() on a non-object in [/Applications/MAMP/htdocs/poundcake/app/Controller/TrcsController.php, line 54]
+2012-08-06 16:35:58 Error: [FatalErrorException] Call to a member function find() on a non-object
+#0 /Applications/MAMP/htdocs/poundcake/lib/Cake/Error/ErrorHandler.php(162): ErrorHandler::handleFatalError(1, 'Call to a membe...', '/Applications/M...', 54)
+#1 [internal function]: ErrorHandler::handleError(1, 'Call to a membe...', '/Applications/M...', 54, Array)
+#2 /Applications/MAMP/htdocs/poundcake/lib/Cake/Core/App.php(926): call_user_func('ErrorHandler::h...', 1, 'Call to a membe...', '/Applications/M...', 54, Array)
+#3 /Applications/MAMP/htdocs/poundcake/lib/Cake/Core/App.php(899): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2012-08-06 16:36:44 Error: Fatal Error (1): Call to a member function find() on a non-object in [/Applications/MAMP/htdocs/poundcake/app/Controller/TrcsController.php, line 54]
+2012-08-06 16:36:44 Error: [FatalErrorException] Call to a member function find() on a non-object
+#0 /Applications/MAMP/htdocs/poundcake/lib/Cake/Error/ErrorHandler.php(162): ErrorHandler::handleFatalError(1, 'Call to a membe...', '/Applications/M...', 54)
+#1 [internal function]: ErrorHandler::handleError(1, 'Call to a membe...', '/Applications/M...', 54, Array)
+#2 /Applications/MAMP/htdocs/poundcake/lib/Cake/Core/App.php(926): call_user_func('ErrorHandler::h...', 1, 'Call to a membe...', '/Applications/M...', 54, Array)
+#3 /Applications/MAMP/htdocs/poundcake/lib/Cake/Core/App.php(899): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2012-08-06 16:47:37 Error: Fatal Error (1): Call to a member function find() on a non-object in [/Applications/MAMP/htdocs/poundcake/app/Controller/TrcsController.php, line 54]
+2012-08-06 16:47:37 Error: [FatalErrorException] Call to a member function find() on a non-object
+#0 /Applications/MAMP/htdocs/poundcake/lib/Cake/Error/ErrorHandler.php(162): ErrorHandler::handleFatalError(1, 'Call to a membe...', '/Applications/M...', 54)
+#1 [internal function]: ErrorHandler::handleError(1, 'Call to a membe...', '/Applications/M...', 54, Array)
+#2 /Applications/MAMP/htdocs/poundcake/lib/Cake/Core/App.php(926): call_user_func('ErrorHandler::h...', 1, 'Call to a membe...', '/Applications/M...', 54, Array)
+#3 /Applications/MAMP/htdocs/poundcake/lib/Cake/Core/App.php(899): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2012-08-06 16:49:11 Error: Fatal Error (1): Call to a member function find() on a non-object in [/Applications/MAMP/htdocs/poundcake/app/Controller/TrcsController.php, line 54]
+2012-08-06 16:49:11 Error: [FatalErrorException] Call to a member function find() on a non-object
+#0 /Applications/MAMP/htdocs/poundcake/lib/Cake/Error/ErrorHandler.php(162): ErrorHandler::handleFatalError(1, 'Call to a membe...', '/Applications/M...', 54)
+#1 [internal function]: ErrorHandler::handleError(1, 'Call to a membe...', '/Applications/M...', 54, Array)
+#2 /Applications/MAMP/htdocs/poundcake/lib/Cake/Core/App.php(926): call_user_func('ErrorHandler::h...', 1, 'Call to a membe...', '/Applications/M...', 54, Array)
+#3 /Applications/MAMP/htdocs/poundcake/lib/Cake/Core/App.php(899): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2012-08-06 16:56:09 Error: Fatal Error (1): Class 'School' not found in [/Applications/MAMP/htdocs/poundcake/app/Controller/TrcsController.php, line 55]
+2012-08-06 16:56:09 Error: [FatalErrorException] Class 'School' not found
+#0 /Applications/MAMP/htdocs/poundcake/lib/Cake/Error/ErrorHandler.php(162): ErrorHandler::handleFatalError(1, 'Class 'School' ...', '/Applications/M...', 55)
+#1 [internal function]: ErrorHandler::handleError(1, 'Class 'School' ...', '/Applications/M...', 55, Array)
+#2 /Applications/MAMP/htdocs/poundcake/lib/Cake/Core/App.php(926): call_user_func('ErrorHandler::h...', 1, 'Class 'School' ...', '/Applications/M...', 55, Array)
+#3 /Applications/MAMP/htdocs/poundcake/lib/Cake/Core/App.php(899): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2012-08-06 17:04:48 Error: [MissingViewException] View file "/Applications/MAMP/htdocs/poundcake/app/View/Trcs/e_d_i_t.ctp" is missing.
+#0 /Applications/MAMP/htdocs/poundcake/lib/Cake/View/View.php(472): View->_getViewFileName(NULL)
+#1 /Applications/MAMP/htdocs/poundcake/lib/Cake/Controller/Controller.php(957): View->render(NULL, NULL)
+#2 /Applications/MAMP/htdocs/poundcake/lib/Cake/Routing/Dispatcher.php(193): Controller->render()
+#3 /Applications/MAMP/htdocs/poundcake/lib/Cake/Routing/Dispatcher.php(161): Dispatcher->_invoke(Object(TrcsController), Object(CakeRequest), Object(CakeResponse))
+#4 /Applications/MAMP/htdocs/poundcake/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#5 {main}
+2012-08-06 17:05:08 Error: [MissingHelperException] Helper class TrcHelper could not be found.
+#0 /Applications/MAMP/htdocs/poundcake/lib/Cake/View/HelperCollection.php(62): HelperCollection->load('Trc')
+#1 /Applications/MAMP/htdocs/poundcake/lib/Cake/View/View.php(812): HelperCollection->__isset('Trc')
+#2 /Applications/MAMP/htdocs/poundcake/app/View/Trcs/edit.ctp(8): View->__get('Trc')
+#3 /Applications/MAMP/htdocs/poundcake/lib/Cake/View/View.php(920): include('/Applications/M...')
+#4 /Applications/MAMP/htdocs/poundcake/lib/Cake/View/View.php(883): View->_evaluate('/Applications/M...', Array)
+#5 /Applications/MAMP/htdocs/poundcake/lib/Cake/View/View.php(475): View->_render('/Applications/M...')
+#6 /Applications/MAMP/htdocs/poundcake/lib/Cake/Controller/Controller.php(957): View->render(NULL, NULL)
+#7 /Applications/MAMP/htdocs/poundcake/lib/Cake/Routing/Dispatcher.php(193): Controller->render()
+#8 /Applications/MAMP/htdocs/poundcake/lib/Cake/Routing/Dispatcher.php(161): Dispatcher->_invoke(Object(TrcsController), Object(CakeRequest), Object(CakeResponse))
+#9 /Applications/MAMP/htdocs/poundcake/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#10 {main}
+2012-08-06 17:05:25 Error: [MissingHelperException] Helper class TrcHelper could not be found.
+#0 /Applications/MAMP/htdocs/poundcake/lib/Cake/View/HelperCollection.php(62): HelperCollection->load('Trc')
+#1 /Applications/MAMP/htdocs/poundcake/lib/Cake/View/View.php(812): HelperCollection->__isset('Trc')
+#2 /Applications/MAMP/htdocs/poundcake/app/View/Trcs/edit.ctp(8): View->__get('Trc')
+#3 /Applications/MAMP/htdocs/poundcake/lib/Cake/View/View.php(920): include('/Applications/M...')
+#4 /Applications/MAMP/htdocs/poundcake/lib/Cake/View/View.php(883): View->_evaluate('/Applications/M...', Array)
+#5 /Applications/MAMP/htdocs/poundcake/lib/Cake/View/View.php(475): View->_render('/Applications/M...')
+#6 /Applications/MAMP/htdocs/poundcake/lib/Cake/Controller/Controller.php(957): View->render(NULL, NULL)
+#7 /Applications/MAMP/htdocs/poundcake/lib/Cake/Routing/Dispatcher.php(193): Controller->render()
+#8 /Applications/MAMP/htdocs/poundcake/lib/Cake/Routing/Dispatcher.php(161): Dispatcher->_invoke(Object(TrcsController), Object(CakeRequest), Object(CakeResponse))
+#9 /Applications/MAMP/htdocs/poundcake/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#10 {main}
+2012-08-06 17:05:31 Error: [MissingHelperException] Helper class TrcHelper could not be found.
+#0 /Applications/MAMP/htdocs/poundcake/lib/Cake/View/HelperCollection.php(62): HelperCollection->load('Trc')
+#1 /Applications/MAMP/htdocs/poundcake/lib/Cake/View/View.php(812): HelperCollection->__isset('Trc')
+#2 /Applications/MAMP/htdocs/poundcake/app/View/Trcs/edit.ctp(9): View->__get('Trc')
+#3 /Applications/MAMP/htdocs/poundcake/lib/Cake/View/View.php(920): include('/Applications/M...')
+#4 /Applications/MAMP/htdocs/poundcake/lib/Cake/View/View.php(883): View->_evaluate('/Applications/M...', Array)
+#5 /Applications/MAMP/htdocs/poundcake/lib/Cake/View/View.php(475): View->_render('/Applications/M...')
+#6 /Applications/MAMP/htdocs/poundcake/lib/Cake/Controller/Controller.php(957): View->render(NULL, NULL)
+#7 /Applications/MAMP/htdocs/poundcake/lib/Cake/Routing/Dispatcher.php(193): Controller->render()
+#8 /Applications/MAMP/htdocs/poundcake/lib/Cake/Routing/Dispatcher.php(161): Dispatcher->_invoke(Object(TrcsController), Object(CakeRequest), Object(CakeResponse))
+#9 /Applications/MAMP/htdocs/poundcake/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#10 {main}
+2012-08-06 17:07:35 Error: [MissingHelperException] Helper class TrcHelper could not be found.
+#0 /Applications/MAMP/htdocs/poundcake/lib/Cake/View/HelperCollection.php(62): HelperCollection->load('Trc')
+#1 /Applications/MAMP/htdocs/poundcake/lib/Cake/View/View.php(812): HelperCollection->__isset('Trc')
+#2 /Applications/MAMP/htdocs/poundcake/app/View/Trcs/edit.ctp(8): View->__get('Trc')
+#3 /Applications/MAMP/htdocs/poundcake/lib/Cake/View/View.php(920): include('/Applications/M...')
+#4 /Applications/MAMP/htdocs/poundcake/lib/Cake/View/View.php(883): View->_evaluate('/Applications/M...', Array)
+#5 /Applications/MAMP/htdocs/poundcake/lib/Cake/View/View.php(475): View->_render('/Applications/M...')
+#6 /Applications/MAMP/htdocs/poundcake/lib/Cake/Controller/Controller.php(957): View->render(NULL, NULL)
+#7 /Applications/MAMP/htdocs/poundcake/lib/Cake/Routing/Dispatcher.php(193): Controller->render()
+#8 /Applications/MAMP/htdocs/poundcake/lib/Cake/Routing/Dispatcher.php(161): Dispatcher->_invoke(Object(TrcsController), Object(CakeRequest), Object(CakeResponse))
+#9 /Applications/MAMP/htdocs/poundcake/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#10 {main}
+2012-08-06 17:07:50 Error: [MissingHelperException] Helper class TrcHelper could not be found.
+#0 /Applications/MAMP/htdocs/poundcake/lib/Cake/View/HelperCollection.php(62): HelperCollection->load('Trc')
+#1 /Applications/MAMP/htdocs/poundcake/lib/Cake/View/View.php(812): HelperCollection->__isset('Trc')
+#2 /Applications/MAMP/htdocs/poundcake/app/View/Trcs/edit.ctp(9): View->__get('Trc')
+#3 /Applications/MAMP/htdocs/poundcake/lib/Cake/View/View.php(920): include('/Applications/M...')
+#4 /Applications/MAMP/htdocs/poundcake/lib/Cake/View/View.php(883): View->_evaluate('/Applications/M...', Array)
+#5 /Applications/MAMP/htdocs/poundcake/lib/Cake/View/View.php(475): View->_render('/Applications/M...')
+#6 /Applications/MAMP/htdocs/poundcake/lib/Cake/Controller/Controller.php(957): View->render(NULL, NULL)
+#7 /Applications/MAMP/htdocs/poundcake/lib/Cake/Routing/Dispatcher.php(193): Controller->render()
+#8 /Applications/MAMP/htdocs/poundcake/lib/Cake/Routing/Dispatcher.php(161): Dispatcher->_invoke(Object(TrcsController), Object(CakeRequest), Object(CakeResponse))
+#9 /Applications/MAMP/htdocs/poundcake/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#10 {main}
+2012-08-06 17:08:44 Error: [MissingHelperException] Helper class TrcHelper could not be found.
+#0 /Applications/MAMP/htdocs/poundcake/lib/Cake/View/HelperCollection.php(62): HelperCollection->load('Trc')
+#1 /Applications/MAMP/htdocs/poundcake/lib/Cake/View/View.php(812): HelperCollection->__isset('Trc')
+#2 /Applications/MAMP/htdocs/poundcake/app/View/Trcs/edit.ctp(8): View->__get('Trc')
+#3 /Applications/MAMP/htdocs/poundcake/lib/Cake/View/View.php(920): include('/Applications/M...')
+#4 /Applications/MAMP/htdocs/poundcake/lib/Cake/View/View.php(883): View->_evaluate('/Applications/M...', Array)
+#5 /Applications/MAMP/htdocs/poundcake/lib/Cake/View/View.php(475): View->_render('/Applications/M...')
+#6 /Applications/MAMP/htdocs/poundcake/lib/Cake/Controller/Controller.php(957): View->render(NULL, NULL)
+#7 /Applications/MAMP/htdocs/poundcake/lib/Cake/Routing/Dispatcher.php(193): Controller->render()
+#8 /Applications/MAMP/htdocs/poundcake/lib/Cake/Routing/Dispatcher.php(161): Dispatcher->_invoke(Object(TrcsController), Object(CakeRequest), Object(CakeResponse))
+#9 /Applications/MAMP/htdocs/poundcake/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#10 {main}
+2012-08-06 17:39:25 Error: Fatal Error (4): syntax error, unexpected '}' in [/Applications/MAMP/htdocs/poundcake/app/View/Contacts/view.ctp, line 51]
+2012-08-06 17:39:25 Error: [FatalErrorException] syntax error, unexpected '}'
+#0 /Applications/MAMP/htdocs/poundcake/lib/Cake/Error/ErrorHandler.php(162): ErrorHandler::handleFatalError(4, 'syntax error, u...', '/Applications/M...', 51)
+#1 [internal function]: ErrorHandler::handleError(4, 'syntax error, u...', '/Applications/M...', 51, Array)
+#2 /Applications/MAMP/htdocs/poundcake/lib/Cake/Core/App.php(926): call_user_func('ErrorHandler::h...', 4, 'syntax error, u...', '/Applications/M...', 51, Array)
+#3 /Applications/MAMP/htdocs/poundcake/lib/Cake/Core/App.php(899): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2012-08-06 17:39:50 Error: [NotFoundException] Invalid contact
+#0 [internal function]: ContactsController->view('5')
+#1 /Applications/MAMP/htdocs/poundcake/lib/Cake/Controller/Controller.php(485): ReflectionMethod->invokeArgs(Object(ContactsController), Array)
+#2 /Applications/MAMP/htdocs/poundcake/lib/Cake/Routing/Dispatcher.php(186): Controller->invokeAction(Object(CakeRequest))
+#3 /Applications/MAMP/htdocs/poundcake/lib/Cake/Routing/Dispatcher.php(161): Dispatcher->_invoke(Object(ContactsController), Object(CakeRequest), Object(CakeResponse))
+#4 /Applications/MAMP/htdocs/poundcake/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#5 {main}
+2012-08-06 17:41:09 Error: Fatal Error (4): syntax error, unexpected '{' in [/Applications/MAMP/htdocs/poundcake/app/View/Contacts/view.ctp, line 43]
+2012-08-06 17:41:09 Error: [FatalErrorException] syntax error, unexpected '{'
+#0 /Applications/MAMP/htdocs/poundcake/lib/Cake/Error/ErrorHandler.php(162): ErrorHandler::handleFatalError(4, 'syntax error, u...', '/Applications/M...', 43)
+#1 [internal function]: ErrorHandler::handleError(4, 'syntax error, u...', '/Applications/M...', 43, Array)
+#2 /Applications/MAMP/htdocs/poundcake/lib/Cake/Core/App.php(926): call_user_func('ErrorHandler::h...', 4, 'syntax error, u...', '/Applications/M...', 43, Array)
+#3 /Applications/MAMP/htdocs/poundcake/lib/Cake/Core/App.php(899): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2012-08-06 17:41:19 Error: Fatal Error (1): Call to undefined function isempty() in [/Applications/MAMP/htdocs/poundcake/app/View/Contacts/view.ctp, line 43]
+2012-08-06 17:41:19 Error: [FatalErrorException] Call to undefined function isempty()
+#0 /Applications/MAMP/htdocs/poundcake/lib/Cake/Error/ErrorHandler.php(162): ErrorHandler::handleFatalError(1, 'Call to undefin...', '/Applications/M...', 43)
+#1 [internal function]: ErrorHandler::handleError(1, 'Call to undefin...', '/Applications/M...', 43, Array)
+#2 /Applications/MAMP/htdocs/poundcake/lib/Cake/Core/App.php(926): call_user_func('ErrorHandler::h...', 1, 'Call to undefin...', '/Applications/M...', 43, Array)
+#3 /Applications/MAMP/htdocs/poundcake/lib/Cake/Core/App.php(899): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2012-08-06 18:14:50 Error: Fatal Error (4): syntax error, unexpected '?>', expecting function (T_FUNCTION) in [/Applications/MAMP/htdocs/poundcake/app/Controller/SchoolsController.php, line 426]
+2012-08-06 18:14:50 Error: [FatalErrorException] syntax error, unexpected '?>', expecting function (T_FUNCTION)
+#0 /Applications/MAMP/htdocs/poundcake/lib/Cake/Error/ErrorHandler.php(162): ErrorHandler::handleFatalError(4, 'syntax error, u...', '/Applications/M...', 426)
+#1 [internal function]: ErrorHandler::handleError(4, 'syntax error, u...', '/Applications/M...', 426, Array)
+#2 /Applications/MAMP/htdocs/poundcake/lib/Cake/Core/App.php(926): call_user_func('ErrorHandler::h...', 4, 'syntax error, u...', '/Applications/M...', 426, Array)
+#3 /Applications/MAMP/htdocs/poundcake/lib/Cake/Core/App.php(899): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2012-08-06 18:22:54 Error: Fatal Error (4): syntax error, unexpected '*' in [/Applications/MAMP/htdocs/poundcake/app/View/Schools/view.ctp, line 43]
+2012-08-06 18:22:54 Error: [FatalErrorException] syntax error, unexpected '*'
+#0 /Applications/MAMP/htdocs/poundcake/lib/Cake/Error/ErrorHandler.php(162): ErrorHandler::handleFatalError(4, 'syntax error, u...', '/Applications/M...', 43)
+#1 [internal function]: ErrorHandler::handleError(4, 'syntax error, u...', '/Applications/M...', 43, Array)
+#2 /Applications/MAMP/htdocs/poundcake/lib/Cake/Core/App.php(926): call_user_func('ErrorHandler::h...', 4, 'syntax error, u...', '/Applications/M...', 43, Array)
+#3 /Applications/MAMP/htdocs/poundcake/lib/Cake/Core/App.php(899): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}

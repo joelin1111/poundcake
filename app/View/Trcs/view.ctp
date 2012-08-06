@@ -1,11 +1,6 @@
 <div class="trcs view">
 <h2><?php  echo __('Trc'); ?></h2>
 	<dl>
-		<dt><?php echo __('Id'); ?></dt>
-		<dd>
-			<?php echo h($trc['Trc']['id']); ?>
-			&nbsp;
-		</dd>
 		<dt><?php echo __('Name'); ?></dt>
 		<dd>
 			<?php echo h($trc['Trc']['name']); ?>
@@ -13,25 +8,35 @@
 		</dd>
                 <dt><?php echo __('Contact(s)'); ?></dt>
                 <?php
-                
                 //echo "<pre>".print_r($trc['Contacts'])."</pre>";
-                foreach ($trc['Contacts'] as $contact) { 
-                    echo "<dd>".$contact['first_name']." ".$contact['last_name']."</dd>";
+                //echo "<pre> Count: ".count($trc['Contacts'])."</pre>";
+                echo "<dd>";
+                $c = count($trc['Contacts']);
+                if ($c == 0) {
+                    echo "None";
+                } else {
+                    foreach ($trc['Contacts'] as $contact) { 
+                        echo $contact['first_name']." ".$contact['last_name'];
+                    }
                 }
+                echo "</dd>";
                 ?>
                 
                 <dt><?php echo __('School(s)'); ?></dt>
                 <?php
-                
-                //echo "<pre>".print_r($trc['Contacts'])."</pre>";
-                foreach ($trc['Schools'] as $school) {
-                    echo "<dd>";
-                    echo $this->Html->link(__($school['primary_school']), array(
-                        'controller' => 'schools',
-                        'action' => 'view',
-                        $school['id']));
-                    echo "</dd>";
+                echo "<dd>";
+                $c = count($trc['Schools']);
+                if ($c == 0) {
+                    echo "None";
+                } else {
+                    foreach ($trc['Schools'] as $school) {
+                        echo $this->Html->link(__($school['primary_school']), array(
+                            'controller' => 'schools',
+                            'action' => 'view',
+                            $school['id']));
+                    }
                 }
+                echo "</dd>";
                 ?>
 	</dl>
 </div>

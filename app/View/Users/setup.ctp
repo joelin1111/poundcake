@@ -22,18 +22,14 @@ Click to manage:
     
     <HR>
     
-    <LI>
-        <?php echo $this->Html->link('Service Providers', '/serviceProviders/index'); ?>
+    <li>
+        <?php echo $this->Html->link('Connectivity Types', '/connectivityTypes/index'); ?>       
     </li>
     <li>
         <?php echo $this->Html->link('Installation States', '/installationStates/index'); ?>
-            
     </li>
     <li>
-        <?php echo $this->Html->link('Connectivity Types', '/connectivityTypes/index'); ?>
-    </li>
-    <li>
-        <?php echo $this->Html->link('Intervention Types', '/interventionTypes/index'); ?>
+        <?php echo $this->Html->link('Intervention Types', '/interventionTypes/index'); ?>        
     </li>
     <li>
         <?php echo $this->Html->link('Power Types', '/powerTypes/index'); ?>
@@ -41,17 +37,8 @@ Click to manage:
     <li>
         <?php echo $this->Html->link('Road Types', '/roadTypes/index'); ?>
     </li>
-    
-    <HR>
-    
     <li>
-        <?php echo $this->Html->link('Contacts', '/contacts/index'); ?>
-    </li>
-    
-    <HR>
-    
-    <li>
-        <?php echo $this->Html->link('TCs/TRCs', '/trcs/index'); ?>
+        <?php echo $this->Html->link('Service Providers', '/serviceProviders/index'); ?>
     </li>
     
 </UL>

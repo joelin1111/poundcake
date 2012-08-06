@@ -96,4 +96,9 @@ class InstallationStatesController extends AppController {
 		$this->Session->setFlash(__('Installation state was not deleted'));
 		$this->redirect(array('action' => 'index'));
 	}
+        
+        // check the ACL
+        public function isAuthorized($user) {
+            return parent::isAuthorized($user);
+        }
 }

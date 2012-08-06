@@ -22,7 +22,7 @@ class School extends AppModel {
     public $hasMany = array(
             'Contacts' => array(
                     'className' => 'Contact',
-                    'foreignKey' => 'trc_id',
+                    'foreignKey' => 'school_id',
                     'dependent' => false,
                     'conditions' => '',
                     'fields' => '',
@@ -32,9 +32,9 @@ class School extends AppModel {
                     'exclusive' => '',
                     'finderQuery' => '',
                     'counterQuery' => ''
-            )
+                )
     );
-
+    
     public $validate = array(
             'primary_school' => array(
                     'notempty' => array(

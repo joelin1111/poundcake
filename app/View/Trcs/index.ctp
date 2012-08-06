@@ -12,6 +12,7 @@
 		<td><?php echo h($trc['Trc']['id']); ?>&nbsp;</td>
 		<td><?php echo h($trc['Trc']['name']); ?>&nbsp;</td>
 		<td class="actions">
+			<?php echo $this->Html->link(__('View'), array('action' => 'view', $trc['Trc']['id'])); ?>
 			<?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $trc['Trc']['id'])); ?>
 			<?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $trc['Trc']['id']), null, __('Are you sure you want to delete # %s?', $trc['Trc']['id'])); ?>
 		</td>

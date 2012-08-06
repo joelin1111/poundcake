@@ -395,31 +395,17 @@ class SchoolsController extends AppController
         }
     }
     
-    // allow staff  to create schools but prevent the editing schools if
-    // the staff id does not match.
     public function isAuthorized($user) {
-        
-        // revisit: if the user is logged in then permit any action
-        // on the schools controller except delete
-        // to do
-        if ($user != null)
-            return true;
-        /*
-        return true;
-        echo "<pre>".$this->action."</pre>";
-        //// all registered users can add schools
-        if ($this->action === 'add') {
-            return true;
-        }
-
-        // only the owner of a school can edit or delete it
-        if (in_array($this->action, array('edit', 'delete'))) {
-            $schoolID = $this->request->params['pass'][0];
-            if ($this->School->isOwnedBy($schoolID, $user['id'])) {
+            // everyone can see the list and view individual Schools
+            if ($this->action === 'index' || $this->action === 'view') {
                 return true;
             }
-        }
-        */
+            // allow users with the rolealias of "edit" to add/edit/delete
+            if ($this->action === 'add' || $this->action === 'edit' || $this->action === 'delete') {
+                if (isset($user['Role']['rolealias']) && $user['Role']['rolealias'] === 'edit') {
+                    return true;
+                }
+            }
         
         return parent::isAuthorized($user);
     }

@@ -33,6 +33,24 @@
                     ?>
                 
                 </P>
+                <P><B>Contact(s):</B>&nbsp;
+                    <?php
+                        //print_r($school);
+                        $c = count($school['Contacts']);
+                        //echo "c is".$c;
+                        if ($c == 0) {
+                            echo "None";
+                        } else {
+                            foreach ($school['Contacts'] as $contact) {
+                                echo $this->Html->link(__($contact['first_name']." ".$contact['last_name']), array(
+                                    'controller' => 'contacts',
+                                    'action' => 'view',
+                                    $contact['id']));
+                            }
+                        }
+                    ?>
+                
+                </P>
                 <P><B>Type:</B>&nbsp;<?php echo $school['School']['type']; ?></P>
                 <P><B>School code:</B>&nbsp;<?php echo $school['School']['school_code']; ?></P>
                 <P><B>GPS Coordinates:</B>&nbsp;<?php echo $lat . ' ' . $lon . '<br>'; ?> </P>

@@ -593,7 +593,9 @@ LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
 INSERT INTO `users` VALUES (1,'admin','c37948de525341d871f0550a1e0140752a95316a',1,'2012-07-18 20:09:51','2012-07-20 00:25:41'),
 (2,'joe','acf16862470d5ca028de17722a5b72090d6259f4',1,'2012-07-18 21:52:44','2012-07-18 21:52:44'),
-(3,'sue','ae1a12b6e634352e2a52bdc721da548b713f6cbb',2,'2012-07-18 21:56:14','2012-07-18 21:56:14');
+(3,'sue','ae1a12b6e634352e2a52bdc721da548b713f6cbb',2,'2012-07-18 21:56:14','2012-07-18 21:56:14'),
+(4,'zview','b22cad3fb0a92d967353abbb3ef7399ca5a3034b',12,'2012-08-06 18:01:38','2012-08-06 18:01:38'),
+(5,'zedit','6f0cfe47e87ae75ad5fd224e23656e546791b714',13,'2012-08-06 18:01:38','2012-08-06 18:01:38');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -605,6 +607,7 @@ DROP TABLE IF EXISTS `roles`;
 CREATE TABLE `roles` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(50) DEFAULT NULL,
+  `rolealias` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -616,15 +619,23 @@ CREATE TABLE `roles` (
 LOCK TABLES `roles` WRITE;
 /*!40000 ALTER TABLE `roles` DISABLE KEYS */;
 INSERT INTO `roles` VALUES
-(1,'admin'),
-(2,'Inveneo'),
-(3,'Kicheko'),
-(4,'Creative Associates'),
-(5,'TZ MoE'),
-(6,'UhuruOne'),
-(7,'Zantel'),
-(8,'Agile Learning'),
-(9,'IYF');
+(1,'admin','admin'),
+(2,'Inveneo Viewer','view'),
+(3,'Inveneo Editor','edit'),
+(4,'Kicheko Viewer','view'),
+(5,'Kicheko Editor','edit'),
+(6,'Creative Associates Viewer','view'),
+(7,'Creative Associates Editor','edit'),
+(8,'TZ MoE Viewer','view'),
+(9,'TZ MoE Editor','edit'),
+(10,'UhuruOne Viewer','view'),
+(11,'UhuruOne Editor','edit'),
+(12,'Zantel Viewer','view'),
+(13,'Zantel Editor','edit'),
+(14,'Agile Learning Viewer','view'),
+(15,'Agile Learning Editor','edit'),
+(16,'IYF Viewer','view'),
+(17,'IYF Editor','edit');
 
 /*!40000 ALTER TABLE `roles` ENABLE KEYS */;
 UNLOCK TABLES;

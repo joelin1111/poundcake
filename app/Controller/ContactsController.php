@@ -54,7 +54,7 @@ class ContactsController extends AppController {
             $this->set('trcs',$this->Contact->Trc->find('list'));
         }
         
-        // return all the TC/TRCs to allow the user to be assigned to
+        // return all the schools to allow the user to be assigned to
         function getSchools() {
             $this->set('schools',$this->Contact->School->find('list'));
         }
@@ -109,6 +109,17 @@ class ContactsController extends AppController {
 	}
         
     public function isAuthorized($user) {
+            // everyone can see the list and view individual Contacts
+            if ($this->action === 'index' || $this->action === 'view') {
+                return true;
+            }
+            // allow users with the rolealias of "edit" to add/edit/delete
+            if ($this->action === 'add' || $this->action === 'edit' || $this->action === 'delete') {
+                if (isset($user['Role']['rolealias']) && $user['Role']['rolealias'] === 'edit') {
+                    return true;
+                }
+            }
+        
         return parent::isAuthorized($user);
     }
 }

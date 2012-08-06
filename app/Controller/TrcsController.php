@@ -49,6 +49,17 @@ class TrcsController extends AppController {
 		}
 	}
 
+        /*
+        // return all the schools to allow the TRC to be assigned to
+        function getSchools() {
+            // this get function is a little different than others, since we
+            // don't have the kind of relationship (Trc to School) that allows
+            // us to pull up all Schools, we have to explicitly load the model
+            // first
+            $this->loadModel('School');
+            $this->set('schools',$this->School->find('list'));
+        }
+        */
 /**
  * edit method
  *
@@ -58,10 +69,11 @@ class TrcsController extends AppController {
  */
 	public function edit($id = null) {
 		$this->Trc->id = $id;
-		if (!$this->Trc->exists()) {
+                //$this->getSchools();
+                if (!$this->Trc->exists()) {
 			throw new NotFoundException(__('Invalid trc'));
 		}
-		if ($this->request->is('post') || $this->request->is('put')) {
+                if ($this->request->is('post') || $this->request->is('put')) {
 			if ($this->Trc->save($this->request->data)) {
 				$this->Session->setFlash(__('The trc has been saved'));
 				$this->redirect(array('action' => 'index'));
@@ -70,6 +82,7 @@ class TrcsController extends AppController {
 			}
 		} else {
 			$this->request->data = $this->Trc->read(null, $id);
+                        
 		}
 	}
 
@@ -96,4 +109,19 @@ class TrcsController extends AppController {
 		$this->Session->setFlash(__('Trc was not deleted'));
 		$this->redirect(array('action' => 'index'));
 	}
+        
+        public function isAuthorized($user) {
+            // everyone can see the list and view individual TRCs
+            if ($this->action === 'index' || $this->action === 'view') {
+                return true;
+            }
+            // allow users with the rolealias of "edit" to add/edit/delete
+            if ($this->action === 'add' || $this->action === 'edit' || $this->action === 'delete') {
+                if (isset($user['Role']['rolealias']) && $user['Role']['rolealias'] === 'edit') {
+                    return true;
+                }
+            }
+        
+        return parent::isAuthorized($user);
+    }
 }
