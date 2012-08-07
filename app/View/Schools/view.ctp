@@ -9,7 +9,10 @@
 
     <div class="maskAlt">
     <div class="headerAlt">
-	         <h1><?php echo $school['School']['site_name']?></h1>
+	         <h1><?php
+                    echo $school['School']['school_code']." - ".$school['School']['site_name'];
+                 ?>
+                 </h1>
     </div>
     <?php
         echo $this->Html->link('Edit School', array('action'=>'edit', $school['School']['id']));
@@ -69,7 +72,6 @@
                     ?>
                 </P>
                 <P><B>Type:</B>&nbsp;<?php echo $school['School']['type']; ?></P>
-                <P><B>School code:</B>&nbsp;<?php echo $school['School']['school_code']; ?></P>
                 <P><B>GPS Coordinates:</B>&nbsp;<?php echo $lat . ' ' . $lon . '<br>'; ?> </P>
 	    </div>
         
@@ -168,6 +170,31 @@
                         echo "<pre>".print_r($results)."</pre>";
                         */
                     ?>
+                    
+                    <P><B>Nearby schools:</B>&nbsp;
+                    <UL>
+                    <?php
+                        //echo "<pre>".print_r($nearby)."</pre>";
+                        $c = count($nearby);
+                        //echo "c is".$c;
+                        if ($c == 0) {
+                            echo "<LI>None</LI>";
+                        } else {
+                            foreach ($nearby as $s) {
+                                //echo $s['distance'];
+                                echo "<LI>";
+                                $distance = sprintf ("%01.2f", $s[0]['distance']);;
+                                $label = $s['schools']['school_code'] . " " . $s['schools']['site_name'] . " (".$distance." Km)";
+                                echo $this->Html->link(
+                                    $label,
+                                    array('controller' => 'schools', 'action' => 'view', $s['schools']['id'])
+                                );
+                                echo "</LI>";
+                            }
+                        }
+                    ?>
+                    </UL>
+                </P>
             </div>
     </div>
 </div>

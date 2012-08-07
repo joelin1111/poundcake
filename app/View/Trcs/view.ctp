@@ -1,16 +1,21 @@
-<div class="trcs view">
-<h2><?php  echo __('Trc'); ?></h2>
-	<dl>
-		<dt><?php echo __('Name'); ?></dt>
-		<dd>
-			<?php echo h($trc['Trc']['name']); ?>
-			&nbsp;
-		</dd>
-                <dt><?php echo __('Contact(s)'); ?></dt>
-                <?php
+
+    <div class="maskAlt">
+    <div class="headerAlt">
+    <h1>TC/TRC</h1>
+    </div>
+        <P><B>Name</B></P>
+            <UL>
+                <LI>
+                    <?php echo h($trc['Trc']['name']); ?>
+                </LI>
+            </UL>
+        
+        <P><B>Contacts</B></P>
+        <UL>
+            <?php
                 //echo "<pre>".print_r($trc['Contacts'])."</pre>";
                 //echo "<pre> Count: ".count($trc['Contacts'])."</pre>";
-                echo "<dd>";
+                echo "<LI>";
                 $c = count($trc['Contacts']);
                 if ($c == 0) {
                     echo "None";
@@ -19,12 +24,16 @@
                         echo $contact['first_name']." ".$contact['last_name'];
                     }
                 }
-                echo "</dd>";
+                echo "</LI>";
                 ?>
-                
-                <dt><?php echo __('School(s)'); ?></dt>
-                <?php
-                echo "<dd>";
+        </UL>
+        
+        <P><B>Schools</B></P>
+        <UL>
+            <?php
+                //echo "<pre>".print_r($trc['Contacts'])."</pre>";
+                //echo "<pre> Count: ".count($trc['Contacts'])."</pre>";
+                echo "<LI>";
                 $c = count($trc['Schools']);
                 if ($c == 0) {
                     echo "None";
@@ -36,16 +45,15 @@
                             $school['id']));
                     }
                 }
-                echo "</dd>";
+                echo "</LI>";
                 ?>
-	</dl>
-</div>
-<div class="actions">
+        </UL>
+  
 	<h3><?php echo __('Actions'); ?></h3>
 	<ul>
-		<li><?php echo $this->Html->link(__('Edit Trc'), array('action' => 'edit', $trc['Trc']['id'])); ?> </li>
-		<li><?php echo $this->Form->postLink(__('Delete Trc'), array('action' => 'delete', $trc['Trc']['id']), null, __('Are you sure you want to delete # %s?', $trc['Trc']['id'])); ?> </li>
-		<li><?php echo $this->Html->link(__('List Trcs'), array('action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Trc'), array('action' => 'add')); ?> </li>
+		<li><?php echo $this->Html->link(__('Edit TC/TRC'), array('action' => 'edit', $trc['Trc']['id'])); ?> </li>
+		<li><?php echo $this->Form->postLink(__('Delete TC/TRC'), array('action' => 'delete', $trc['Trc']['id']), null, __('Are you sure you want to delete # %s?', $trc['Trc']['id'])); ?> </li>
+		<li><?php echo $this->Html->link(__('List TCs/TRCs'), array('action' => 'index')); ?> </li>
+		<li><?php echo $this->Html->link(__('New TC/TRC'), array('action' => 'add')); ?> </li>
 	</ul>
 </div>

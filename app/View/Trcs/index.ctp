@@ -1,5 +1,7 @@
-<div class="trcs index">
-	<h2><?php echo __('Trcs'); ?></h2>
+    <div class="maskAlt">
+    <div class="headerAlt">
+    <h1>TC/TRC</h1>
+    </div>
 	<table cellpadding="0" cellspacing="0">
 	<tr>
 			<th><?php echo $this->Paginator->sort('id'); ?></th>
@@ -17,7 +19,8 @@
 			<?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $trc['Trc']['id']), null, __('Are you sure you want to delete # %s?', $trc['Trc']['id'])); ?>
 		</td>
 	</tr>
-<?php endforeach; ?>
+    <?php endforeach; ?>
+        
 	</table>
 	<p>
 	<?php
@@ -33,8 +36,8 @@
 		echo $this->Paginator->next(__(' next') . ' >', array(), null, array('class' => 'next disabled'));
 	?>
 	</div>
-</div>
-<div class="actions">
+
+
 	<h3><?php echo __('Actions'); ?></h3>
 	<ul>
 		<li><?php echo $this->Html->link(__('New Trc'), array('action' => 'add')); ?></li>

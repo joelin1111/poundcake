@@ -74,15 +74,15 @@
            $lat = $school['School']['location']['lat'];
            $lon = $school['School']['location']['lon'];
            $site_name = $school['School']['site_name'];
-           
-            // this is sort of a guess
-            $link = "http://" . $_SERVER['HTTP_HOST'] ."/schools/view/" . $school['School']['id'];
 
-            // text for the popup over the placemarker
-            $windowText = $site_name."<br>Lorem ipsum dolor sit amet<BR><A HREF=\"".$link."\">More Detail</A>";
-            // echo $link;
-            // See all options:
-            // https://github.com/marcferna/CakePHP-Google-Maps-V3-Helper/blob/master/google_map_v3.php
+           // this is sort of a guess
+           $link = "http://" . $_SERVER["HTTP_HOST"] ."/poundcake/schools/view/" . $school['School']['id'];
+
+           // text for the popup over the placemarker
+           $windowText = $site_name."<br>Lorem ipsum dolor sit amet<BR><A HREF=\"".$link."\">More Detail</A>";
+           // echo $link;
+           // See all options:
+           // https://github.com/marcferna/CakePHP-Google-Maps-V3-Helper/blob/master/google_map_v3.php
 
            $markerOptions= array(
                 'id' => $i, //Id of the marker

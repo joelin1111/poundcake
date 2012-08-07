@@ -650,3 +650,24 @@ UNLOCK TABLES;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
 -- Dump completed on 2012-07-20 17:06:07
+
+
+DROP PROCEDURE IF EXISTS sp_nearby;
+
+-- Switch delimiter so the ; will work in the function body
+DELIMITER $$
+-- Create the procedure
+-- GLength returns in degrees -- so multiply by 111.2 for Kms (69 for miles)
+CREATE PROCEDURE sp_nearby(school_id int(10), max_schools int(10))
+    BEGIN 
+        SELECT id, school_code, site_name, 
+        111.2*(GLength(LineStringFromWKB(LineString(location,(select location from schools where ID=school_id)))))
+		AS distance FROM schools
+		ORDER BY distance ASC
+		-- limit 1 here to exclude the school we're getting a distance from
+		LIMIT 1, max_schools; 
+    END $$
+-- Switch the delimiter back to ;
+DELIMITER ;
+
+--call sp_nearby(3,7);

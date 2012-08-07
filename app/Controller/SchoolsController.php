@@ -107,6 +107,41 @@ class SchoolsController extends AppController
         $this->set('schools', $schools);
     }
     
+    function getSchoolsNearby($id = null, $max_schools = 5)
+    {
+        // return the nearest schools using the MySQL stored procedure
+        // sp_nearby
+        if ($id != null && $max_schools != null) {
+            $query = 'call sp_nearby('.$id.','.$max_schools.')';
+            $nearby = $this->School->query( $query );
+//            echo $query;
+//            echo "<pre>";
+//            echo print_r($nearby);
+//            echo "</pre>";
+//            die;
+            /* not really sure why the distance comes back in its own array here,
+             example:
+             
+                [2] => Array
+                    (
+                        [schools] => Array
+                            (
+                                [id] => 2
+                                [site_name] => CHITANDI
+                            )
+
+                        [0] => Array
+                            (
+                                [distance] => 5.8482689198309625
+                            )
+
+                    )
+
+             */
+            $this->set('nearby', $nearby);
+        }
+    }
+    
     function setLatLon($id = null) {
         // this function sets the decoded latitude and logitude for a school to
         // a varaible on the School model
@@ -168,6 +203,8 @@ class SchoolsController extends AppController
     
     function view($id = null) {
         $this->School->id = $id;
+        $this->getSchoolsNearby($id,5);
+        
         if (!$this->School->exists()) {
             throw new NotFoundException(__('Invalid school'));
         }
