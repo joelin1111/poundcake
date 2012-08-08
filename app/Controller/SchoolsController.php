@@ -31,14 +31,90 @@ class SchoolsController extends AppController
         //parent::beforeFilter();
     }
     
+    /*
     public function find() {
         //Debugger::dump($this->School);
         $this->Prg->commonProcess();
         $this->set('schools', $this->paginate());
     }
     // end Search plugin
+    */
+    
+    public $paginate = array(
+        'fields' => array('School.school_code', 'School.site_name'),
+        'limit' => 25,
+        'order' => array(
+            'School.school_code' => 'asc'
+        )
+    );
+    
+    function about() {
+        // show the about page
+    }
     
     function index($id = null) {
+        
+        $conditions = "";
+
+        // if arrguments are passed to the index page, e.g. from the search
+        // build a conditions clause
+        // pretty sure this is always true, even if passedArgs is empty
+        if (isset($this->passedArgs)) {
+            //echo "Args:<pre>".print_r($this->passedArgs)."</pre>";
+            //echo "Args:<pre>".print_r($this->School->parseCriteria($this->passedArgs))."</pre>";
+            //echo "School code 1:<pre>".$this->passedArgs['School.school_code']."</pre>";
+            
+            // revisit -- there's probaby a tidier way to do this
+            // if either of the search parameters (9)school_code, site_name) are
+            // blank, replace them with a % wildcard for the eventual SQL query
+            // if the user used * then replace that, too
+            
+            // if there is nothing in the search field, default to a wildcard
+            if ($this->passedArgs['School.school_code'] === "") {
+                $this->passedArgs['School.school_code'] = '%';
+            }
+            if ($this->passedArgs['School.site_name'] === "") {
+                $this->passedArgs['School.site_name'] = '%';
+            }
+            
+            //if (isset($this->passedArgs['School.school_code'])) {
+            if ($this->passedArgs['School.school_code'] != "") {
+                $this->passedArgs['School.school_code'] = str_replace('*','%',$this->passedArgs['School.school_code']);
+            }
+            if ($this->passedArgs['School.site_name'] != "" ) {
+                $this->passedArgs['School.site_name'] = str_replace('*','%',$this->passedArgs['School.site_name']);
+            }
+            
+            //echo "School code 2:<pre>".$this->passedArgs['School.school_code']."</pre>";
+            
+            $conditions = array(
+                'AND' => array(
+                    'School.school_code LIKE' => $this->passedArgs['School.school_code'],
+                    'School.site_name LIKE' => $this->passedArgs['School.site_name'],
+                )
+            );
+            // echo "Conditions: ".print_r($conditions);
+
+        }
+        
+        $this->paginate = array(
+            'School' => array(
+                // limit is the number per page 
+                'limit' => 10,
+                //'conditions' => $this->School->parseCriteria($this->passedArgs),
+                'conditions' => $conditions,
+                'order' => array(
+                    'School.school_code' => 'asc',
+                    'School.school_name' => 'asc',
+                ),
+            ));
+        
+        $data = $this->paginate('School');
+        $this->set('schools',$data);
+            
+    }
+    
+    function index_old($id = null) {
         // begin Search
         $this->Prg->commonProcess();
         
@@ -48,15 +124,16 @@ class SchoolsController extends AppController
                 'limit' => 10,
                 'conditions' => $this->School->parseCriteria($this->passedArgs),
                 'order' => array(
-                    'School.site_name' => 'asc'
+                    'School.school_code' => 'asc'
                 ),
             ),
-            // revisit: do other fields (columns) in view
+            /*
             'RoadType' => array(
                 'order' => array(
                     'RoadType.name' => 'asc'
                 ),
             )
+            */
             );
         
         if ( $id != null ) {
@@ -75,12 +152,7 @@ class SchoolsController extends AppController
             // without pagination:
             //$allSchools = $this->School->find('all');
             //$this->set('schools', $allSchools);
-            
         }
-    }
-    
-    public function about() {
-        // do nothing
     }
     
     // for testing alternate Google Maps search/filter
@@ -452,18 +524,35 @@ class SchoolsController extends AppController
         return parent::isAuthorized($user);
     }
     
-    function auto_complete() {
-        $schools = $this->School->find('all', array( 
-            'conditions' => array( 
-                'School.site_name LIKE' => $this->params['url']['autoCompleteText'].'%' 
-            ), 
-            'fields' => array('site_name'), 
-            'limit' => 3, 
-            'recursive'=>-1, 
-        )); 
-        $schools = Set::Extract($schools,'{n}.School.site_name'); 
-        $this->set('schools', $schools); 
-        $this->layout = 'ajax';     
-    } 
+//    function auto_complete() {
+//        $schools = $this->School->find('all', array( 
+//            'conditions' => array( 
+//                'School.site_name LIKE' => $this->params['url']['autoCompleteText'].'%' 
+//            ), 
+//            'fields' => array('site_name'), 
+//            'limit' => 3, 
+//            'recursive'=>-1, 
+//        )); 
+//        $schools = Set::Extract($schools,'{n}.School.site_name'); 
+//        $this->set('schools', $schools); 
+//        $this->layout = 'ajax';     
+//    }
+    
+    function search() {
+        // the page we will redirect to at the end
+        $url['action'] = 'index';
+
+        // build a URL will all the search elements in it
+        // the resulting URL will be 
+        // example.com/cake/posts/index/Search.keywords:mykeyword/Search.tag_id:3
+        foreach ($this->data as $k=>$v){ 
+                foreach ($v as $kk=>$vv){ 
+                        $url[$k.'.'.$kk]=$vv; 
+                } 
+        }
+
+        // redirect the user to the url
+        $this->redirect($url, null, true);
+    }
 }
 ?>

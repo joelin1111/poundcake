@@ -12,43 +12,45 @@
 ?>
 <BR><BR>
 <fieldset>
-    <legend><?php echo __('Search'); ?></legend>
-<?php
-    echo $this->Form->create('School', array(
-        'url' => array_merge(array('action' => 'index'), $this->params['pass'])
-    ));
-    echo $this->Form->input('site_name', array('div' => false));
-    //echo $this->Form->input('district', array('div' => false));
-    //echo $this->Form->input('district', array('div' => false, 'options' => $schools));
-    echo "<BR><BR>";
-    echo $this->Form->submit(__('Search', true), array('div' => false));
-    echo $this->Form->end();
-?>
+    <legend><?php echo __('Search'); ?></legend>  
+    <?php
+        echo $this->Form->create(
+                'School',
+                //array('url' => array_merge(array('action' => 'index'), $this->params['pass']))
+                // calls the search function on the SchoolsController
+                array('action'=>'search')
+        );
+
+        //echo $this->Form->input('school_code', array('label' => 'School Code'), array('div' => false));
+
+        echo $this->Form->input('school_code' /*, array('after'=>__(' Wildcard is *',true))*/);
+        echo $this->Form->input('site_name' /*, array('after'=>__(' Wildcard is *',true))*/);
+
+        //echo $this->Form->input('district', array('div' => false));
+        //echo $this->Form->input('district', array('div' => false, 'options' => $schools));
+        echo "";
+
+    //    echo $this->AutoComplete->input( 
+    //        'site_name', 
+    //        //array('label' => 'School Name'),
+    //        array( 
+    //        'autoCompleteUrl'=>$this->Html->url(  
+    //            array( 
+    //                'controller'=>'Schools', 
+    //                'action'=>'auto_complete', 
+    //            ) 
+    //        ), 
+    //        'autoCompleteRequestItem'=>'autoCompleteText', 
+    //        ) 
+    //    );
+    //    echo "<BR>";
+        echo "<P>You may use \"*\" as a wildcard in school code or school name.</p>";
+        echo $this->Form->submit(__('Search', true), array('div' => false));
+        echo $this->Form->end();    
+    ?>
+    
 </fieldset>
 
-<fieldset>
-    <legend><?php echo __('Search w/ auto-complete'); ?></legend>
-<?php
-    echo $this->Form->create('School', array(
-        'url' => array_merge(array('action' => 'index'), $this->params['pass'])
-    ));
-    echo $this->AutoComplete->input( 
-    'site_name', 
-    array( 
-        'autoCompleteUrl'=>$this->Html->url(  
-            array( 
-                'controller'=>'Schools', 
-                'action'=>'auto_complete', 
-            ) 
-        ), 
-        'autoCompleteRequestItem'=>'autoCompleteText', 
-    ) 
-);
-    echo "<BR>";
-    echo $this->Form->submit(__('Search', true), array('div' => false));
-    echo $this->Form->end();    
-?>
-</fieldset>
 
 <?php
 // alternate sort syntax?
@@ -76,6 +78,7 @@
   */              
   ?>
    <tr>
+       <th><?php echo $this->Paginator->sort('school_code'); ?></th>
        <th><?php echo $this->Paginator->sort('site_name'); ?></th>
        <th><?php
             // because we've defined alternate classes in the $paginate array
@@ -99,8 +102,15 @@
                 //print_r($school['School']);
                 //echo $school['School']['PowerType'];
            ?>
-           <td><?php echo $this->Html->link($school['School']['site_name'],
-                   array('controller' => 'schools', 'action' => 'view', $school['School']['id']));
+           <td><?php
+                    echo $this->Html->link($school['School']['school_code'],
+                    array('controller' => 'schools', 'action' => 'view', $school['School']['id']));
+                ?>
+           </td>
+           <td>
+               <?
+                    echo $this->Html->link($school['School']['site_name'],
+                    array('controller' => 'schools', 'action' => 'view', $school['School']['id']));
                 ?>
            </td>
            <td><?php echo $school['Catchment']['name']; ?></td>
