@@ -6612,3 +6612,156 @@
 2012-08-07 20:38:55 Error: [MissingControllerException] Controller class CssController could not be found.
 #0 /Applications/MAMP/htdocs/poundcake/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
 #1 {main}
+2012-08-08 17:31:41 Error: [MissingControllerException] Controller class Schoolsabout:homeController could not be found.
+#0 /Applications/MAMP/htdocs/poundcake/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2012-08-08 17:40:30 Error: Fatal Error (1): Call to a member function link() on a non-object in [/Applications/MAMP/htdocs/poundcake/app/View/Schools/find.ctp, line 1]
+2012-08-08 17:40:30 Error: [FatalErrorException] Call to a member function link() on a non-object
+#0 /Applications/MAMP/htdocs/poundcake/lib/Cake/Error/ErrorHandler.php(162): ErrorHandler::handleFatalError(1, 'Call to a membe...', '/Applications/M...', 1)
+#1 [internal function]: ErrorHandler::handleError(1, 'Call to a membe...', '/Applications/M...', 1, Array)
+#2 /Applications/MAMP/htdocs/poundcake/lib/Cake/Core/App.php(926): call_user_func('ErrorHandler::h...', 1, 'Call to a membe...', '/Applications/M...', 1, Array)
+#3 /Applications/MAMP/htdocs/poundcake/lib/Cake/Core/App.php(899): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2012-08-08 17:40:49 Error: Fatal Error (64): Cannot redeclare SchoolsController::find() in [/Applications/MAMP/htdocs/poundcake/app/Controller/SchoolsController.php, line 466]
+2012-08-08 17:40:49 Error: [FatalErrorException] Cannot redeclare SchoolsController::find()
+#0 /Applications/MAMP/htdocs/poundcake/lib/Cake/Error/ErrorHandler.php(162): ErrorHandler::handleFatalError(64, 'Cannot redeclar...', '/Applications/M...', 466)
+#1 [internal function]: ErrorHandler::handleError(64, 'Cannot redeclar...', '/Applications/M...', 466, Array)
+#2 /Applications/MAMP/htdocs/poundcake/lib/Cake/Core/App.php(926): call_user_func('ErrorHandler::h...', 64, 'Cannot redeclar...', '/Applications/M...', 466, Array)
+#3 /Applications/MAMP/htdocs/poundcake/lib/Cake/Core/App.php(899): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2012-08-08 17:41:17 Error: [MissingComponentException] Component class BuildConditionsComponent could not be found.
+#0 /Applications/MAMP/htdocs/poundcake/lib/Cake/Controller/ComponentCollection.php(52): ComponentCollection->load('BuildConditions', Array)
+#1 /Applications/MAMP/htdocs/poundcake/lib/Cake/Controller/Controller.php(635): ComponentCollection->init(Object(SchoolsController))
+#2 /Applications/MAMP/htdocs/poundcake/lib/Cake/Routing/Dispatcher.php(182): Controller->constructClasses()
+#3 /Applications/MAMP/htdocs/poundcake/lib/Cake/Routing/Dispatcher.php(161): Dispatcher->_invoke(Object(SchoolsController), Object(CakeRequest), Object(CakeResponse))
+#4 /Applications/MAMP/htdocs/poundcake/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#5 {main}
+2012-08-08 17:41:53 Error: [MissingComponentException] Component class BuildConditionsComponent could not be found.
+#0 /Applications/MAMP/htdocs/poundcake/lib/Cake/Controller/ComponentCollection.php(52): ComponentCollection->load('BuildConditions', Array)
+#1 /Applications/MAMP/htdocs/poundcake/lib/Cake/Controller/Controller.php(635): ComponentCollection->init(Object(SchoolsController))
+#2 /Applications/MAMP/htdocs/poundcake/lib/Cake/Routing/Dispatcher.php(182): Controller->constructClasses()
+#3 /Applications/MAMP/htdocs/poundcake/lib/Cake/Routing/Dispatcher.php(161): Dispatcher->_invoke(Object(SchoolsController), Object(CakeRequest), Object(CakeResponse))
+#4 /Applications/MAMP/htdocs/poundcake/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#5 {main}
+2012-08-08 17:42:13 Error: Fatal Error (1): Call to a member function link() on a non-object in [/Applications/MAMP/htdocs/poundcake/app/View/Schools/find.ctp, line 1]
+2012-08-08 17:42:13 Error: [FatalErrorException] Call to a member function link() on a non-object
+#0 /Applications/MAMP/htdocs/poundcake/lib/Cake/Error/ErrorHandler.php(162): ErrorHandler::handleFatalError(1, 'Call to a membe...', '/Applications/M...', 1)
+#1 [internal function]: ErrorHandler::handleError(1, 'Call to a membe...', '/Applications/M...', 1, Array)
+#2 /Applications/MAMP/htdocs/poundcake/lib/Cake/Core/App.php(926): call_user_func('ErrorHandler::h...', 1, 'Call to a membe...', '/Applications/M...', 1, Array)
+#3 /Applications/MAMP/htdocs/poundcake/lib/Cake/Core/App.php(899): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2012-08-08 17:43:02 Error: Fatal Error (1): Call to a member function link() on a non-object in [/Applications/MAMP/htdocs/poundcake/app/View/Schools/find.ctp, line 1]
+2012-08-08 17:43:02 Error: [FatalErrorException] Call to a member function link() on a non-object
+#0 /Applications/MAMP/htdocs/poundcake/lib/Cake/Error/ErrorHandler.php(162): ErrorHandler::handleFatalError(1, 'Call to a membe...', '/Applications/M...', 1)
+#1 [internal function]: ErrorHandler::handleError(1, 'Call to a membe...', '/Applications/M...', 1, Array)
+#2 /Applications/MAMP/htdocs/poundcake/lib/Cake/Core/App.php(926): call_user_func('ErrorHandler::h...', 1, 'Call to a membe...', '/Applications/M...', 1, Array)
+#3 /Applications/MAMP/htdocs/poundcake/lib/Cake/Core/App.php(899): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2012-08-08 17:45:14 Error: [MissingActionException] Action SchoolsController::indexAjax() could not be found.
+#0 /Applications/MAMP/htdocs/poundcake/lib/Cake/Routing/Dispatcher.php(186): Controller->invokeAction(Object(CakeRequest))
+#1 /Applications/MAMP/htdocs/poundcake/lib/Cake/Routing/Dispatcher.php(161): Dispatcher->_invoke(Object(SchoolsController), Object(CakeRequest), Object(CakeResponse))
+#2 /Applications/MAMP/htdocs/poundcake/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#3 {main}
+2012-08-08 17:45:19 Error: Fatal Error (1): Call to a member function link() on a non-object in [/Applications/MAMP/htdocs/poundcake/app/View/Schools/index_ajax.ctp, line 1]
+2012-08-08 17:45:19 Error: [FatalErrorException] Call to a member function link() on a non-object
+#0 /Applications/MAMP/htdocs/poundcake/lib/Cake/Error/ErrorHandler.php(162): ErrorHandler::handleFatalError(1, 'Call to a membe...', '/Applications/M...', 1)
+#1 [internal function]: ErrorHandler::handleError(1, 'Call to a membe...', '/Applications/M...', 1, Array)
+#2 /Applications/MAMP/htdocs/poundcake/lib/Cake/Core/App.php(926): call_user_func('ErrorHandler::h...', 1, 'Call to a membe...', '/Applications/M...', 1, Array)
+#3 /Applications/MAMP/htdocs/poundcake/lib/Cake/Core/App.php(899): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2012-08-08 17:46:29 Error: [MissingViewException] View file "/Applications/MAMP/htdocs/poundcake/app/View/Schools/index_ajax.ctp" is missing.
+#0 /Applications/MAMP/htdocs/poundcake/lib/Cake/View/View.php(472): View->_getViewFileName(NULL)
+#1 /Applications/MAMP/htdocs/poundcake/lib/Cake/Controller/Controller.php(957): View->render(NULL, NULL)
+#2 /Applications/MAMP/htdocs/poundcake/lib/Cake/Routing/Dispatcher.php(193): Controller->render()
+#3 /Applications/MAMP/htdocs/poundcake/lib/Cake/Routing/Dispatcher.php(161): Dispatcher->_invoke(Object(SchoolsController), Object(CakeRequest), Object(CakeResponse))
+#4 /Applications/MAMP/htdocs/poundcake/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#5 {main}
+2012-08-08 17:46:32 Error: Fatal Error (1): Call to a member function link() on a non-object in [/Applications/MAMP/htdocs/poundcake/app/View/Schools/find.ctp, line 1]
+2012-08-08 17:46:32 Error: [FatalErrorException] Call to a member function link() on a non-object
+#0 /Applications/MAMP/htdocs/poundcake/lib/Cake/Error/ErrorHandler.php(162): ErrorHandler::handleFatalError(1, 'Call to a membe...', '/Applications/M...', 1)
+#1 [internal function]: ErrorHandler::handleError(1, 'Call to a membe...', '/Applications/M...', 1, Array)
+#2 /Applications/MAMP/htdocs/poundcake/lib/Cake/Core/App.php(926): call_user_func('ErrorHandler::h...', 1, 'Call to a membe...', '/Applications/M...', 1, Array)
+#3 /Applications/MAMP/htdocs/poundcake/lib/Cake/Core/App.php(899): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2012-08-08 17:48:23 Error: Fatal Error (1): Call to a member function link() on a non-object in [/Applications/MAMP/htdocs/poundcake/app/View/Schools/find.ctp, line 1]
+2012-08-08 17:48:23 Error: [FatalErrorException] Call to a member function link() on a non-object
+#0 /Applications/MAMP/htdocs/poundcake/lib/Cake/Error/ErrorHandler.php(162): ErrorHandler::handleFatalError(1, 'Call to a membe...', '/Applications/M...', 1)
+#1 [internal function]: ErrorHandler::handleError(1, 'Call to a membe...', '/Applications/M...', 1, Array)
+#2 /Applications/MAMP/htdocs/poundcake/lib/Cake/Core/App.php(926): call_user_func('ErrorHandler::h...', 1, 'Call to a membe...', '/Applications/M...', 1, Array)
+#3 /Applications/MAMP/htdocs/poundcake/lib/Cake/Core/App.php(899): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2012-08-08 17:48:43 Error: Fatal Error (1): Call to a member function link() on a non-object in [/Applications/MAMP/htdocs/poundcake/app/View/Schools/find.ctp, line 1]
+2012-08-08 17:48:43 Error: [FatalErrorException] Call to a member function link() on a non-object
+#0 /Applications/MAMP/htdocs/poundcake/lib/Cake/Error/ErrorHandler.php(162): ErrorHandler::handleFatalError(1, 'Call to a membe...', '/Applications/M...', 1)
+#1 [internal function]: ErrorHandler::handleError(1, 'Call to a membe...', '/Applications/M...', 1, Array)
+#2 /Applications/MAMP/htdocs/poundcake/lib/Cake/Core/App.php(926): call_user_func('ErrorHandler::h...', 1, 'Call to a membe...', '/Applications/M...', 1, Array)
+#3 /Applications/MAMP/htdocs/poundcake/lib/Cake/Core/App.php(899): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2012-08-08 17:52:08 Error: [MissingComponentException] Component class BuildConditionsComponent could not be found.
+#0 /Applications/MAMP/htdocs/poundcake/lib/Cake/Controller/ComponentCollection.php(52): ComponentCollection->load('BuildConditions', Array)
+#1 /Applications/MAMP/htdocs/poundcake/lib/Cake/Controller/Controller.php(635): ComponentCollection->init(Object(SchoolsController))
+#2 /Applications/MAMP/htdocs/poundcake/lib/Cake/Routing/Dispatcher.php(182): Controller->constructClasses()
+#3 /Applications/MAMP/htdocs/poundcake/lib/Cake/Routing/Dispatcher.php(161): Dispatcher->_invoke(Object(SchoolsController), Object(CakeRequest), Object(CakeResponse))
+#4 /Applications/MAMP/htdocs/poundcake/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#5 {main}
+2012-08-08 18:11:24 Error: Fatal Error (1): Call to a member function options() on a non-object in [/Applications/MAMP/htdocs/poundcake/app/Controller/SchoolsController.php, line 77]
+2012-08-08 18:11:24 Error: [FatalErrorException] Call to a member function options() on a non-object
+#0 /Applications/MAMP/htdocs/poundcake/lib/Cake/Error/ErrorHandler.php(162): ErrorHandler::handleFatalError(1, 'Call to a membe...', '/Applications/M...', 77)
+#1 [internal function]: ErrorHandler::handleError(1, 'Call to a membe...', '/Applications/M...', 77, Array)
+#2 /Applications/MAMP/htdocs/poundcake/lib/Cake/Core/App.php(926): call_user_func('ErrorHandler::h...', 1, 'Call to a membe...', '/Applications/M...', 77, Array)
+#3 /Applications/MAMP/htdocs/poundcake/lib/Cake/Core/App.php(899): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2012-08-08 18:16:06 Error: Fatal Error (1): Call to a member function options() on a non-object in [/Applications/MAMP/htdocs/poundcake/app/Controller/SchoolsController.php, line 77]
+2012-08-08 18:16:06 Error: [FatalErrorException] Call to a member function options() on a non-object
+#0 /Applications/MAMP/htdocs/poundcake/lib/Cake/Error/ErrorHandler.php(162): ErrorHandler::handleFatalError(1, 'Call to a membe...', '/Applications/M...', 77)
+#1 [internal function]: ErrorHandler::handleError(1, 'Call to a membe...', '/Applications/M...', 77, Array)
+#2 /Applications/MAMP/htdocs/poundcake/lib/Cake/Core/App.php(926): call_user_func('ErrorHandler::h...', 1, 'Call to a membe...', '/Applications/M...', 77, Array)
+#3 /Applications/MAMP/htdocs/poundcake/lib/Cake/Core/App.php(899): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2012-08-08 18:16:07 Error: Fatal Error (1): Call to a member function options() on a non-object in [/Applications/MAMP/htdocs/poundcake/app/Controller/SchoolsController.php, line 77]
+2012-08-08 18:16:07 Error: [FatalErrorException] Call to a member function options() on a non-object
+#0 /Applications/MAMP/htdocs/poundcake/lib/Cake/Error/ErrorHandler.php(162): ErrorHandler::handleFatalError(1, 'Call to a membe...', '/Applications/M...', 77)
+#1 [internal function]: ErrorHandler::handleError(1, 'Call to a membe...', '/Applications/M...', 77, Array)
+#2 /Applications/MAMP/htdocs/poundcake/lib/Cake/Core/App.php(926): call_user_func('ErrorHandler::h...', 1, 'Call to a membe...', '/Applications/M...', 77, Array)
+#3 /Applications/MAMP/htdocs/poundcake/lib/Cake/Core/App.php(899): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2012-08-08 18:17:06 Error: Fatal Error (1): Call to a member function options() on a non-object in [/Applications/MAMP/htdocs/poundcake/app/Controller/SchoolsController.php, line 83]
+2012-08-08 18:17:06 Error: [FatalErrorException] Call to a member function options() on a non-object
+#0 /Applications/MAMP/htdocs/poundcake/lib/Cake/Error/ErrorHandler.php(162): ErrorHandler::handleFatalError(1, 'Call to a membe...', '/Applications/M...', 83)
+#1 [internal function]: ErrorHandler::handleError(1, 'Call to a membe...', '/Applications/M...', 83, Array)
+#2 /Applications/MAMP/htdocs/poundcake/lib/Cake/Core/App.php(926): call_user_func('ErrorHandler::h...', 1, 'Call to a membe...', '/Applications/M...', 83, Array)
+#3 /Applications/MAMP/htdocs/poundcake/lib/Cake/Core/App.php(899): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2012-08-08 18:38:44 Error: [MissingActionException] Action SchoolsController::about() could not be found.
+#0 /Applications/MAMP/htdocs/poundcake/lib/Cake/Routing/Dispatcher.php(186): Controller->invokeAction(Object(CakeRequest))
+#1 /Applications/MAMP/htdocs/poundcake/lib/Cake/Routing/Dispatcher.php(161): Dispatcher->_invoke(Object(SchoolsController), Object(CakeRequest), Object(CakeResponse))
+#2 /Applications/MAMP/htdocs/poundcake/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#3 {main}
+2012-08-08 18:55:45 Error: Fatal Error (4): syntax error, unexpected ';', expecting ')' in [/Applications/MAMP/htdocs/poundcake/app/Controller/SchoolsController.php, line 85]
+2012-08-08 18:55:45 Error: [FatalErrorException] syntax error, unexpected ';', expecting ')'
+#0 /Applications/MAMP/htdocs/poundcake/lib/Cake/Error/ErrorHandler.php(162): ErrorHandler::handleFatalError(4, 'syntax error, u...', '/Applications/M...', 85)
+#1 [internal function]: ErrorHandler::handleError(4, 'syntax error, u...', '/Applications/M...', 85, Array)
+#2 /Applications/MAMP/htdocs/poundcake/lib/Cake/Core/App.php(926): call_user_func('ErrorHandler::h...', 4, 'syntax error, u...', '/Applications/M...', 85, Array)
+#3 /Applications/MAMP/htdocs/poundcake/lib/Cake/Core/App.php(899): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2012-08-08 19:05:20 Error: Fatal Error (4): syntax error, unexpected '===' (T_IS_IDENTICAL) in [/Applications/MAMP/htdocs/poundcake/app/Controller/SchoolsController.php, line 73]
+2012-08-08 19:05:20 Error: [FatalErrorException] syntax error, unexpected '===' (T_IS_IDENTICAL)
+#0 /Applications/MAMP/htdocs/poundcake/lib/Cake/Error/ErrorHandler.php(162): ErrorHandler::handleFatalError(4, 'syntax error, u...', '/Applications/M...', 73)
+#1 [internal function]: ErrorHandler::handleError(4, 'syntax error, u...', '/Applications/M...', 73, Array)
+#2 /Applications/MAMP/htdocs/poundcake/lib/Cake/Core/App.php(926): call_user_func('ErrorHandler::h...', 4, 'syntax error, u...', '/Applications/M...', 73, Array)
+#3 /Applications/MAMP/htdocs/poundcake/lib/Cake/Core/App.php(899): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
