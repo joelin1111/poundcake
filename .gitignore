@@ -70,3 +70,5 @@ Thumbs.db
 /app/tmp/logs/*
 !/app/tmp/logs/
 !/app/tmp/logs/empty
+
+*.log

@@ -55,47 +55,37 @@ class SchoolsController extends AppController
     function index($id = null) {
         
         $conditions = "";
-
-        // if arrguments are passed to the index page, e.g. from the search
-        // build a conditions clause
-        // pretty sure this is always true, even if passedArgs is empty
-        if (isset($this->passedArgs)) {
-            //echo "Args:<pre>".print_r($this->passedArgs)."</pre>";
-            //echo "Args:<pre>".print_r($this->School->parseCriteria($this->passedArgs))."</pre>";
-            //echo "School code 1:<pre>".$this->passedArgs['School.school_code']."</pre>";
-            
-            // revisit -- there's probaby a tidier way to do this
-            // if either of the search parameters (9)school_code, site_name) are
-            // blank, replace them with a % wildcard for the eventual SQL query
-            // if the user used * then replace that, too
-            
-            // if there is nothing in the search field, default to a wildcard
-            if ($this->passedArgs['School.school_code'] === "") {
-                $this->passedArgs['School.school_code'] = '%';
-            }
-            if ($this->passedArgs['School.site_name'] === "") {
-                $this->passedArgs['School.site_name'] = '%';
-            }
-            
-            //if (isset($this->passedArgs['School.school_code'])) {
-            if ($this->passedArgs['School.school_code'] != "") {
-                $this->passedArgs['School.school_code'] = str_replace('*','%',$this->passedArgs['School.school_code']);
-            }
-            if ($this->passedArgs['School.site_name'] != "" ) {
-                $this->passedArgs['School.site_name'] = str_replace('*','%',$this->passedArgs['School.site_name']);
-            }
-            
-            //echo "School code 2:<pre>".$this->passedArgs['School.school_code']."</pre>";
-            
-            $conditions = array(
-                'AND' => array(
-                    'School.school_code LIKE' => $this->passedArgs['School.school_code'],
-                    'School.site_name LIKE' => $this->passedArgs['School.site_name'],
-                )
-            );
-            // echo "Conditions: ".print_r($conditions);
-
+        $school_code_arg = "";
+        $site_name_arg = "";
+        
+        if (isset($this->passedArgs['School.school_code'])) {
+            $school_code_arg = str_replace('*','%',$this->passedArgs['School.school_code']);
         }
+        
+        if (isset($this->passedArgs['School.site_name'])) {
+            $site_name_arg = str_replace('*','%',$this->passedArgs['School.site_name']);
+        }
+        
+        // if neither argument was passed, default to a wildcard
+        if ($school_code_arg == "") {
+            $school_code_arg = '%';
+        }
+        if ($site_name_arg == "") {
+            $site_name_arg = '%';
+        }
+        
+        echo "School code arg: " . $school_code_arg;
+        echo "<BR>Site name arg: " . $site_name_arg;
+        echo "<BR>";
+        
+        //echo "School code 2:<pre>".$this->passedArgs['School.school_code']."</pre>";            
+        $conditions = array(
+            'AND' => array(
+                'School.school_code LIKE' => $school_code_arg,
+                'School.site_name LIKE' => $site_name_arg,
+            )
+        );
+        // echo "Conditions: ".print_r($conditions);
         
         $this->paginate = array(
             'School' => array(
@@ -114,46 +104,46 @@ class SchoolsController extends AppController
             
     }
     
-    function index_old($id = null) {
-        // begin Search
-        $this->Prg->commonProcess();
-        
-        $this->paginate = array(
-            'School' => array(
-                // limit is the number per page 
-                'limit' => 10,
-                'conditions' => $this->School->parseCriteria($this->passedArgs),
-                'order' => array(
-                    'School.school_code' => 'asc'
-                ),
-            ),
-            /*
-            'RoadType' => array(
-                'order' => array(
-                    'RoadType.name' => 'asc'
-                ),
-            )
-            */
-            );
-        
-        if ( $id != null ) {
-            // this gets executed when we've searched on a school
-            // pagination unclear here:
-            $this->set('school', $this->School->read(null, $id));
-        } else {
-            // this gets executed after add school, when there is no School passed in
-            
-            //$log = $this->School->getDataSource()->getLog(false, false);
-            //debug($log);
-            
-            // with pagination:
-            $data = $this->paginate('School');
-            $this->set('schools', $data);
-            // without pagination:
-            //$allSchools = $this->School->find('all');
-            //$this->set('schools', $allSchools);
-        }
-    }
+//    function index_old($id = null) {
+//        // begin Search
+//        $this->Prg->commonProcess();
+//        
+//        $this->paginate = array(
+//            'School' => array(
+//                // limit is the number per page 
+//                'limit' => 10,
+//                'conditions' => $this->School->parseCriteria($this->passedArgs),
+//                'order' => array(
+//                    'School.school_code' => 'asc'
+//                ),
+//            ),
+//            /*
+//            'RoadType' => array(
+//                'order' => array(
+//                    'RoadType.name' => 'asc'
+//                ),
+//            )
+//            */
+//            );
+//        
+//        if ( $id != null ) {
+//            // this gets executed when we've searched on a school
+//            // pagination unclear here:
+//            $this->set('school', $this->School->read(null, $id));
+//        } else {
+//            // this gets executed after add school, when there is no School passed in
+//            
+//            //$log = $this->School->getDataSource()->getLog(false, false);
+//            //debug($log);
+//            
+//            // with pagination:
+//            $data = $this->paginate('School');
+//            $this->set('schools', $data);
+//            // without pagination:
+//            //$allSchools = $this->School->find('all');
+//            //$this->set('schools', $allSchools);
+//        }
+//    }
     
     // for testing alternate Google Maps search/filter
     public function overviewfilter() {

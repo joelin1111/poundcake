@@ -1,12 +1,14 @@
 <?php
     echo $this->Html->script('jquery-1.7.2');
 ?>
-
-<h2>TZ21 Schools</h2>
+<div class="maskAlt">
+    <div class="headerAlt">
+        <h1>TZ21 Schools</h1>
+    </div>
 <?php
     echo $this->Html->link('Add school',array('controller' => 'schools','action' => 'add'));
 ?>
-
+<div class="bodyAlt">
 <?php
     //echo ("<pre>"); print_r($schools); echo("</pre>");
 ?>
@@ -51,12 +53,6 @@
     
 </fieldset>
 
-
-<?php
-// alternate sort syntax?
-//echo $this->Paginator->sort('site_name', 'Primary School');
-?>
-
 <BR><BR>
 <table width="100%">
     <?php
@@ -80,18 +76,11 @@
    <tr>
        <th><?php echo $this->Paginator->sort('school_code'); ?></th>
        <th><?php echo $this->Paginator->sort('site_name'); ?></th>
-       <th><?php
-            // because we've defined alternate classes in the $paginate array
-            // in the controller, we can sort by name -- otherwise this would
-            // sort by ID
-            echo $this->Paginator->sort('catchment_id','Catchment');
-       ?></th>
+       <th><?php echo $this->Paginator->sort('catchment_id','Catchment');?></th>
        <th><?php echo $this->Paginator->sort('area_id','Area'); ?></th>
        <th><?php echo $this->Paginator->sort('district_id','District'); ?></th>
-       <th><?php echo $this->Paginator->sort('type','Type'); ?></th>
        <th><?php echo $this->Paginator->sort('power_type_id','Power'); ?></th>
        <th><?php echo $this->Paginator->sort('connectivity_type_id','Connectivity'); ?></th>
-       <th><?php echo $this->Paginator->sort('road_type_id','Road'); ?></th>
        <th>Actions</th>
    </tr>
    
@@ -116,10 +105,8 @@
            <td><?php echo $school['Catchment']['name']; ?></td>
            <td><?php echo $school['Area']['name']; ?></td>
            <td><?php echo $school['District']['name']; ?></td>
-           <td><?php echo '(No Data)' ?></td>
            <td><?php echo $school['PowerType']['name']; ?></td>
            <td><?php echo $school['ConnectivityType']['name']; ?></td>
-           <td><?php echo $school['RoadType']['name']; ?></td>
            <td align="center">
             <?php echo $this->Html->link('Edit', array('action'=>'edit', $school['School']['id']));?>
             <?php echo $this->Html->link('Delete', array('action' => 'delete', $school['School']['id']), null, 'Are you sure?' )?>
@@ -146,3 +133,4 @@
 ?>
 
 
+</div>
