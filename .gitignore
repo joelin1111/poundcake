@@ -72,5 +72,7 @@ Thumbs.db
 !/app/tmp/logs/empty
 
 *.log
+
 *.log
+
 app/tmp/logs/error.log
