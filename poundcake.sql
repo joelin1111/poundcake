@@ -164,79 +164,6 @@ LOCK TABLES `installation_states` WRITE;
 INSERT INTO `installation_states` VALUES (1,'Install Need Identified'),(2,'Prerequisites Verified'),(3,'ISP Installation Complete'),(4,'Work Order Created'),(5,'Installation Scheduled/Team Assigned'),(6,'Team Pulls Equipment from Regional Hub'),(7,'Install in Progress'),(8,'Install Complete'),(9,'Spot-check by Inveneo'),(10,'School Accepted'),(11,'Site Complete'),(12,'Open Support Issue'),(13,'Third Tier Support From ICT IPs');
 /*!40000 ALTER TABLE `installation_states` ENABLE KEYS */;
 UNLOCK TABLES;
-
---
--- Table structure for table `installation_types`
---
-
-DROP TABLE IF EXISTS `installation_types`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `installation_types` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `installation_types`
---
-
-LOCK TABLES `installation_types` WRITE;
-/*!40000 ALTER TABLE `installation_types` DISABLE KEYS */;
-INSERT INTO `installation_types` VALUES (1,'B - Bridge IT'),(2,'E- EMIS Only'),(3,'M - Mobile Lab'),(4,'Bp - Unknown'),(5,'?? - Desktop Lab'),(6,'?? - District Office'),(7,'?? - Regional Office');
-/*!40000 ALTER TABLE `installation_types` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `installationtypes`
---
-
-DROP TABLE IF EXISTS `installationtypes`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `installationtypes` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `installationtypes`
---
-
-LOCK TABLES `installationtypes` WRITE;
-/*!40000 ALTER TABLE `installationtypes` DISABLE KEYS */;
-INSERT INTO `installationtypes` VALUES (1,'B - Bridge IT'),(2,'E- EMIS Only'),(3,'M - Mobile Lab'),(4,'Bp - Unknown'),(5,'?? - Desktop Lab'),(6,'?? - District Office'),(7,'?? - Regional Office');
-/*!40000 ALTER TABLE `installationtypes` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `installtypes`
---
-
-DROP TABLE IF EXISTS `installtypes`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `installtypes` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `installtypes`
---
-
-LOCK TABLES `installtypes` WRITE;
-/*!40000 ALTER TABLE `installtypes` DISABLE KEYS */;
-INSERT INTO `installtypes` VALUES (1,'B - Bridge IT'),(2,'E- EMIS Only'),(3,'M - Mobile Lab'),(4,'Bp - Uknown'),(5,'?? - Desktop Lab'),(6,'?? - District Office'),(7,'?? - Regional Office');
-/*!40000 ALTER TABLE `installtypes` ENABLE KEYS */;
-UNLOCK TABLES;
-
 --
 -- Table structure for table `intervention_types`
 --
@@ -257,7 +184,14 @@ CREATE TABLE `intervention_types` (
 
 LOCK TABLES `intervention_types` WRITE;
 /*!40000 ALTER TABLE `intervention_types` DISABLE KEYS */;
-INSERT INTO `intervention_types` VALUES (1,'B - Bridge IT'),(2,'E- EMIS Only'),(3,'M - Mobile Lab'),(4,'Bp - Unknown'),(5,'?? - Desktop Lab'),(6,'?? - District Office'),(7,'?? - Regional Office');
+INSERT INTO `intervention_types` VALUES
+(1,'Bridge IT (B)'),
+(2,'EMIS Only (E)'),
+(3,'Mobile Lab (M)'),
+(4,'Unknown (Bp)'),
+(5,'Desktop Lab (?)'),
+(6,'District Office (?)'),
+(7,'Regional Office (?)');
 /*!40000 ALTER TABLE `intervention_types` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -480,8 +414,6 @@ CREATE TABLE `schools` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `site_name` varchar(50) NOT NULL,
   `school_code` varchar(10) NOT NULL,
-  `type` varchar(1) NOT NULL,
-  `sn` varchar(3) NOT NULL,
   `location` point DEFAULT NULL,
   `install_date` datetime DEFAULT NULL,
   `access_instruction` TEXT DEFAULT NULL,
@@ -507,17 +439,15 @@ CREATE TABLE `schools` (
 LOCK TABLES `schools` WRITE;
 /*!40000 ALTER TABLE `schools` DISABLE KEYS */;
 INSERT INTO `schools` VALUES
-(2,'CHITANDI','MT.04/008','E','2','\0\0\0\0\0\0\02•ñïsÀÞqŠŽäÒC@','01/01/2012','',2,1,3,12,4,4,3,2,2,2,NULL),
-(3,'JULIA','MT.04/091','E','3','\0\0\0\0\0\0\0gÕçj+vÀôÃáÑÒC@','01/01/2012','',1,1,6,5,2,6,1,2,2,2,NULL),
-(4,'KARUME','MT.04/014','E','4','\0\0\0\0\0\0\0R¸…ë±ÀÀ!T©ÙÓC@','01/01/2012','',1,1,14,7,1,2,7,1,1,1,NULL),
-(5,'CHIKOI','MT.04/005','E','1','\0\0\0\0\0\0\0}Ëœ.‹©ÀÚ|a2ÝC@','01/01/2012','',1,1,9,2,4,7,12,1,1,1,NULL),
-(6,'KUNGUNI','MT.04/005','E','1','\0\0\0\0\0\0\0LÃð1…ÀÅÉýEÙC@','01/01/2012','',2,1,30,2,3,3,11,1,1,6,NULL),
-(7,'NG\'OMBENI \' A\'','MT.04/005','E','1','\0\0\0\0\0\0\0—wJ‡Àž^)ËƒC@','01/01/2012','',2,1,30,2,3,3,11,1,1,6,NULL),
-(8,'NG\'OMBENI \' B\'','','M','1','\0\0\0\0\0\0\0‚9zü¾À!<Ú8ÞC@','01/01/2012','',2,1,10,4,4,4,5,1,1,3,NULL),
-(9,'CHOKOCHO','','B','1','\0\0\0\0\0\0\0N—ÅÄæcÀKÍhâC@','01/01/2012','',2,1,1,5,1,1,4,1,2,4,NULL),
-(10,'BUTIAMA','MT.04/093','E','1','\0\0\0\0\0\0\0%#gaO›ÀçãÚP1ÒC@','01/01/2012','',1,1,6,5,2,2,6,1,1,1,NULL),
-(11,'CHITANDI','MT.04/008','E','2','\0\0\0\0\0\0\0—‹øNÌ:À«[=\'½×C@','01/01/2012','01/01/2012',1,1,4,5,1,5,7,2,1,2,NULL),
-(12,'JULIA','MT.04/091','E','3','\0\0\0\0\0\0\0_^€}tJÀÐ\nYÝÞC@','01/01/2012','',1,1,26,1,4,3,4,1,2,4,NULL);
+(2,'Chitandi','MT.04/008','\0\0\0\0\0\0\02•ñïsÀÞqŠŽäÒC@','01/01/2012','',2,1,3,12,4,4,3,2,2,2,NULL),
+(3,'Julia','MT.04/091','\0\0\0\0\0\0\0gÕçj+vÀôÃáÑÒC@','01/01/2012','',1,1,6,5,2,6,1,2,2,2,NULL),
+(4,'Karume','MT.04/014','\0\0\0\0\0\0\0R¸…ë±ÀÀ!T©ÙÓC@','01/01/2012','',1,1,14,7,1,2,7,1,1,1,NULL),
+(5,'Chikoi','MT.04/005','\0\0\0\0\0\0\0}Ëœ.‹©ÀÚ|a2ÝC@','01/01/2012','',1,1,9,2,4,7,12,1,1,1,NULL),
+(6,'Kunguni','MT.04/005','\0\0\0\0\0\0\0LÃð1…ÀÅÉýEÙC@','01/01/2012','',2,1,30,2,3,3,11,1,1,6,NULL),
+(7,'Ng\'ombeni \'A\'','MT.04/005','\0\0\0\0\0\0\0—wJ‡Àž^)ËƒC@','01/01/2012','',2,1,30,2,3,3,11,1,1,6,NULL),
+(8,'Ng\'ombeni \'B\'','AA.00/001','\0\0\0\0\0\0\0‚9zü¾À!<Ú8ÞC@','01/01/2012','',2,1,10,4,4,4,5,1,1,3,NULL),
+(9,'Chokocho','BB.00/001','\0\0\0\0\0\0\0N—ÅÄæcÀKÍhâC@','01/01/2012','',2,1,1,5,1,1,4,1,2,4,NULL),
+(10,'Butiama','MT.04/093','\0\0\0\0\0\0\0%#gaO›ÀçãÚP1ÒC@','01/01/2012','',1,1,6,5,2,2,6,1,1,1,NULL);
 /*!40000 ALTER TABLE `schools` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -670,4 +600,4 @@ CREATE PROCEDURE sp_nearby(school_id int(10), max_schools int(10))
 -- Switch the delimiter back to ;
 DELIMITER ;
 
---call sp_nearby(3,7);
+-- call sp_nearby(3,7);

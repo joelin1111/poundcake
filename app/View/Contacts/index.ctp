@@ -13,13 +13,9 @@
                 // calls the search function on the SchoolsController
                 array('action'=>'search')
         );
-
-        //echo $this->Form->input('school_code', array('label' => 'School Code'), array('div' => false));
-
-        echo $this->Form->input('first_name' /*, array('after'=>__(' Wildcard is *',true))*/);
-        echo $this->Form->input('last_name' /*, array('after'=>__(' Wildcard is *',true))*/);
+        echo $this->Form->input('first_name');
+        echo $this->Form->input('last_name');
         echo $this->Form->submit(__('Search', true), array('div' => false));
-        echo "<P><I>* is a search wildcard operator</I></p>";
         echo $this->Form->end();    
     ?>
 </fieldset>
@@ -63,8 +59,7 @@
 		echo $this->Paginator->next(__(' next') . ' >', array(), null, array('class' => 'next disabled'));
 	?>
 	</div>
-</div>
-<div class="actions">
+        </div>
 	<h3><?php echo __('Actions'); ?></h3>
 	<ul>
 		<li><?php echo $this->Html->link(__('New Contact'), array('action' => 'add')); ?></li>

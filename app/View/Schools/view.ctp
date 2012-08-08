@@ -9,15 +9,12 @@
 
     <div class="maskAlt">
     <div class="headerAlt">
-	         <h1><?php
-                    echo $school['School']['school_code']." - ".$school['School']['site_name'];
-                 ?>
-                 </h1>
+            <h1><?php
+               echo $school['School']['school_code']." - ".$school['School']['site_name'];
+            ?>
+            </h1>
     </div>
-    <?php
-        echo $this->Html->link('Edit School', array('action'=>'edit', $school['School']['id']));
-    ?>
-        <HR>
+
     <div class="colleftAlt">
 	    	  
 	    <div class="col1Alt">
@@ -71,12 +68,10 @@
                         }
                     ?>
                 </P>
-                <P><B>Type:</B>&nbsp;<?php echo $school['School']['type']; ?></P>
                 <P><B>GPS Coordinates:</B>&nbsp;<?php echo $lat . ' ' . $lon . '<br>'; ?> </P>
 	    </div>
         
 	    <div class="col2Alt">
-                <P><B>SN:</B>&nbsp;<?php echo $school['School']['sn']; ?></P>
                 <P><B>Install Date:</B>&nbsp;<?php echo $school['School']['install_date']; ?></P>
                 <P><B>Connectivity Type:</B>&nbsp;<?php echo $school['ConnectivityType']['name']; ?></P>
                 <P><B>Intervention Type:</B>&nbsp;<?php echo $school['InterventionType']['name']; ?></P>
@@ -203,6 +198,11 @@
                     ?>
                     </UL>
                 </P>
-            </div>
+            
+    
+    <h3><?php echo __('Actions'); ?></h3>
+    <?php
+        echo $this->Html->link('Edit School', array('action'=>'edit', $school['School']['id']));
+    ?>
     </div>
 </div>

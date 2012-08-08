@@ -9,16 +9,11 @@
     <?php
         echo $this->Form->create(
                 'Trc',
-                //array('url' => array_merge(array('action' => 'index'), $this->params['pass']))
-                // calls the search function on the SchoolsController
+                // calls the search function on the Trc controller
                 array('action'=>'search')
         );
-
-        //echo $this->Form->input('school_code', array('label' => 'School Code'), array('div' => false));
-
-        echo $this->Form->input('name' /*, array('after'=>__(' Wildcard is *',true))*/);
+        echo $this->Form->input('name');
         echo $this->Form->submit(__('Search', true), array('div' => false));
-        echo "<P><I>* is a search wildcard operator</I></p>";
         echo $this->Form->end();    
     ?>
 </fieldset>
@@ -56,9 +51,9 @@
 	?>
 	</div>
 
-
+</div>
 	<h3><?php echo __('Actions'); ?></h3>
 	<ul>
-		<li><?php echo $this->Html->link(__('New Trc'), array('action' => 'add')); ?></li>
+		<li><?php echo $this->Html->link(__('New TC/TRC'), array('action' => 'add')); ?></li>
 	</ul>
 </div>

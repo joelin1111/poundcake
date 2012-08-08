@@ -44,6 +44,7 @@ class SchoolsController extends AppController
         $conditions = "";
         $school_code_arg = "";
         $site_name_arg = "";
+        //echo $this->passedArgs['School.school_code'];
         
         if (isset($this->passedArgs['School.school_code'])) {
             $school_code_arg = str_replace('*','%',$this->passedArgs['School.school_code']);
@@ -61,10 +62,6 @@ class SchoolsController extends AppController
             $site_name_arg = '%';
         }
         
-//        echo "School code arg: " . $school_code_arg;
-//        echo "<BR>Site name arg: " . $site_name_arg;
-//        echo "<BR>";
-        
         //echo "School code 2:<pre>".$this->passedArgs['School.school_code']."</pre>";            
         $conditions = array(
             'AND' => array(
@@ -72,13 +69,12 @@ class SchoolsController extends AppController
                 'School.site_name LIKE' => $site_name_arg,
             )
         );
-        // echo "Conditions: ".print_r($conditions);
+        //echo "Conditions: ".print_r($conditions);
         
         $this->paginate = array(
             'School' => array(
                 // limit is the number per page 
                 'limit' => 10,
-                //'conditions' => $this->School->parseCriteria($this->passedArgs),
                 'conditions' => $conditions,
                 'order' => array(
                     'School.school_code' => 'asc',
@@ -88,49 +84,8 @@ class SchoolsController extends AppController
         
         $data = $this->paginate('School');
         $this->set('schools',$data);
-            
     }
-    
-//    function index_old($id = null) {
-//        // begin Search
-//        $this->Prg->commonProcess();
-//        
-//        $this->paginate = array(
-//            'School' => array(
-//                // limit is the number per page 
-//                'limit' => 10,
-//                'conditions' => $this->School->parseCriteria($this->passedArgs),
-//                'order' => array(
-//                    'School.school_code' => 'asc'
-//                ),
-//            ),
-//            /*
-//            'RoadType' => array(
-//                'order' => array(
-//                    'RoadType.name' => 'asc'
-//                ),
-//            )
-//            */
-//            );
-//        
-//        if ( $id != null ) {
-//            // this gets executed when we've searched on a school
-//            // pagination unclear here:
-//            $this->set('school', $this->School->read(null, $id));
-//        } else {
-//            // this gets executed after add school, when there is no School passed in
-//            
-//            //$log = $this->School->getDataSource()->getLog(false, false);
-//            //debug($log);
-//            
-//            // with pagination:
-//            $data = $this->paginate('School');
-//            $this->set('schools', $data);
-//            // without pagination:
-//            //$allSchools = $this->School->find('all');
-//            //$this->set('schools', $allSchools);
-//        }
-//    }
+ 
     
     // for testing alternate Google Maps search/filter
     public function overviewfilter() {
@@ -163,11 +118,6 @@ class SchoolsController extends AppController
         if ($id != null && $max_schools != null) {
             $query = 'call sp_nearby('.$id.','.$max_schools.')';
             $nearby = $this->School->query( $query );
-//            echo $query;
-//            echo "<pre>";
-//            echo print_r($nearby);
-//            echo "</pre>";
-//            die;
             /* not really sure why the distance comes back in its own array here,
              example:
              
@@ -443,7 +393,7 @@ class SchoolsController extends AppController
         if ($this->request->is('post') || $this->request->is('put')) {
             //echo "<pre> New Lat:".print_r( $this->request )."</pre>";
             //echo '<pre>' . print_r($this->request->data) . '</pre>';
-            echo '<pre> New Lat: ' . $this->request->data['School']['lat'] . '</pre>';            
+            //echo '<pre> New Lat: ' . $this->request->data['School']['lat'] . '</pre>';            
             //$loc = "GeomFromText('POINT(".$this->request->data['School']['lat'];
             //$loc .= " ".$this->request->data['School']['lon'].")') ";
             //$this->request->data['School']['location'] = $loc;
@@ -476,13 +426,6 @@ class SchoolsController extends AppController
         } else {
             // show edit page
             $this->request->data = $this->School->read(null, $id);
-            /*
-            debug($this->School->id);
-            debug($this->School->catchment_id);
-            debug($this->School->area_id);
-            debug($this->School->district_id);
-            debug($this->School->school_code);
-            */
         }
     }
     

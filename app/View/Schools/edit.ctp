@@ -23,10 +23,7 @@
     echo $this->Form->input('area_id');
     echo $this->Form->input('district_id');
     echo $this->Form->input('trc');
-    echo $this->Form->input('school_code');
-    echo $this->Form->input('type');
-    echo $this->Form->input('sn');
-     
+    echo $this->Form->input('school_code');     
     // drop down menu of available link types
     echo $this->Form->input('School.connectivity_type_id', array('type'=>'select','options' => $connectivitytypes));
     // drop down menu of available intervention types

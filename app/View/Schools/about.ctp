@@ -22,3 +22,18 @@ Welcome to "Poundcake"
 <P>
     To add a TC/TRC to a School, find and edit the School record, choose the appropriate TC/TRC, then Save.
 </P>
+
+<H3>
+    Searching
+</H3>
+<UL>
+    <LI>Search (Schools, Contacts, TCs/TRCs) is case-insensitive.</LI>
+    <LI> Use "*" as a wildcard character.</LI>
+    <LI>If a search box is left blank, it is ignored</LI>
+    <LI>If a multiple search boxes are used, they are combined.</LI>
+    <LI>"Butiama" - Return schools with the site name of Butiama</LI>
+    <LI>"MAKONGA" - Return schools with the site name of Makonga or MAKONGA</LI>
+    <LI>"K*" - Return all schools that begin with the letter K</LI>
+    <LI>"C*A" - Return all schools that begin with the letter C, ending in A
+</UL>
+</P>

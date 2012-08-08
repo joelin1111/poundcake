@@ -75,8 +75,8 @@ $cakeDescription = __d('cake_dev', 'CakePHP: the rapid development php framework
                     Copyright © <?php echo date("Y"); ?>. All Rights Reserved.
                 </div>
 	</div>
-        Debugging info:
-	<?php echo $this->element('sql_dump'); ?>
+<!--        Debugging info:-->
+	<?php //echo $this->element('sql_dump'); ?>
         
         <?php //echo $scripts_for_layout; ?>
 	<!-- Js writeBuffer -->
