@@ -82,5 +82,22 @@ class AppController extends Controller {
         // In the views $user['User']['username'] would display the logged in users username
         $this->set('user', $this->Auth->user());
     }
+    
+    function search() {
+        // the page we will redirect to at the end
+        $url['action'] = 'index';
+
+        // build a URL will all the search elements in it
+        // the resulting URL will be 
+        // example.com/cake/posts/index/Search.keywords:mykeyword/Search.tag_id:3
+        foreach ($this->data as $k=>$v){ 
+                foreach ($v as $kk=>$vv){ 
+                        $url[$k.'.'.$kk]=$vv; 
+                } 
+        }
+
+        // redirect the user to the url
+        $this->redirect($url, null, true);
+    }
 }
 ?>

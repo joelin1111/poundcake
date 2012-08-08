@@ -12,10 +12,47 @@ class TrcsController extends AppController {
  *
  * @return void
  */
-	public function index() {
-		$this->Trc->recursive = 0;
-		$this->set('trcs', $this->paginate());
-	}
+    function index($id = null) {
+        
+        $conditions = "";
+        $name_arg = "";
+        
+        if (isset($this->passedArgs['Trc.name'])) {
+            $name_arg = str_replace('*','%',$this->passedArgs['Trc.name']);
+        }
+        
+        // if neither argument was passed, default to a wildcard
+        if ($name_arg == "") {
+            $name_arg = '%';
+        }
+        
+//        echo "School code arg: " . $school_code_arg;
+//        echo "<BR>Site name arg: " . $site_name_arg;
+//        echo "<BR>";
+        
+        //echo "School code 2:<pre>".$this->passedArgs['School.school_code']."</pre>";            
+        $conditions = array(
+            'AND' => array(
+                'Trc.name LIKE' => $name_arg
+            )
+        );
+        // echo "Conditions: ".print_r($conditions);
+        
+        $this->paginate = array(
+            'Trc' => array(
+                // limit is the number per page 
+                'limit' => 10,
+                //'conditions' => $this->School->parseCriteria($this->passedArgs),
+                'conditions' => $conditions,
+                'order' => array(
+                    'Trc.name' => 'asc'
+                ),
+            ));
+        
+        $this->Trc->recursive = 0;
+        $this->set('trcs', $this->paginate());
+            
+    }
 
 /**
  * view method

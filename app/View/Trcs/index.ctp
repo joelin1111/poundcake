@@ -1,23 +1,42 @@
-    <div class="maskAlt">
+<div class="maskAlt">
     <div class="headerAlt">
-    <h1>TC/TRC</h1>
+        <h1>TCs/TRCs</h1>
     </div>
-	<table cellpadding="0" cellspacing="0">
+<div class="bodyAlt">
+<BR><BR>
+<fieldset>
+    <legend><?php echo __('Search'); ?></legend>  
+    <?php
+        echo $this->Form->create(
+                'Trc',
+                //array('url' => array_merge(array('action' => 'index'), $this->params['pass']))
+                // calls the search function on the SchoolsController
+                array('action'=>'search')
+        );
+
+        //echo $this->Form->input('school_code', array('label' => 'School Code'), array('div' => false));
+
+        echo $this->Form->input('name' /*, array('after'=>__(' Wildcard is *',true))*/);
+        echo $this->Form->submit(__('Search', true), array('div' => false));
+        echo "<P><I>* is a search wildcard operator</I></p>";
+        echo $this->Form->end();    
+    ?>
+</fieldset>
+<BR>
+	<table>
 	<tr>
-			<th><?php echo $this->Paginator->sort('id'); ?></th>
-			<th><?php echo $this->Paginator->sort('name'); ?></th>
-			<th class="actions"><?php echo __('Actions'); ?></th>
+            <th><?php echo $this->Paginator->sort('name'); ?></th>
+            <th class="actions"><?php echo __('Actions'); ?></th>
 	</tr>
 	<?php
 	foreach ($trcs as $trc): ?>
 	<tr>
-		<td><?php echo h($trc['Trc']['id']); ?>&nbsp;</td>
-		<td><?php echo h($trc['Trc']['name']); ?>&nbsp;</td>
-		<td class="actions">
-			<?php echo $this->Html->link(__('View'), array('action' => 'view', $trc['Trc']['id'])); ?>
-			<?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $trc['Trc']['id'])); ?>
-			<?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $trc['Trc']['id']), null, __('Are you sure you want to delete # %s?', $trc['Trc']['id'])); ?>
-		</td>
+            <td><?php echo h($trc['Trc']['name']); ?>&nbsp;</td>
+            <td class="actions">
+                    <?php echo $this->Html->link(__('View'), array('action' => 'view', $trc['Trc']['id'])); ?>
+                    <?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $trc['Trc']['id'])); ?>
+                    <?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $trc['Trc']['id']), null, __('Are you sure you want to delete # %s?', $trc['Trc']['id'])); ?>
+            </td>
 	</tr>
     <?php endforeach; ?>
         

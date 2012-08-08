@@ -84,7 +84,7 @@ bodyAlt {
    background-color: #fff /* #e7e7de */
 }
 
-/* used by auto-complete helper */
+/* used by auto-complete helper
 
 .autoCompleteDiv    { 
      position: absolute; 
@@ -108,5 +108,15 @@ bodyAlt {
     padding: 2px; 
     margin: 0px; 
     display: block; 
-} 
+}
+*/
+
 /* testing */
+table { 
+  border:0; 
+  border-collpase:collpase;
+} 
+
+tr { 
+  border-bottom:1px solid #000; 
+}

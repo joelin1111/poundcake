@@ -93,13 +93,20 @@
                     $defaultLat = -5.6;
                     $defaultLng = 36;
                     
+//                    echo "<pre>";
+//                    echo "defaultLat".$defaultLat."<br>";
+//                    echo "lat".$lat."<br>";
+//                    echo "defaultLng".$defaultLng."<br>";
+//                    echo "lon".$lon."<br>";
+//                    echo "</pre>";
+                    
                     // map should center around the coordinates that are passed to the view
                     // otherwise it should default to "about Tanzania"
                     if ( $lat != null && $lon != null ) {
                         $defaultLat = $lat;
                         $defaultLng = $lon;
                     }
-
+                    
                     // https://github.com/marcferna/CakePHP-Google-Maps-V3-Helper
                     // http://marcferna.tumblr.com/post/3580268729/google-maps-api-v3-cakephp-helper
                     // http://plugins.cakephp.org/package/marcferna/CakePHP-Google-Maps-V3-Helper
@@ -108,27 +115,28 @@
                             'width'=>'800px', // Width of the map
                             'height'=>'800px', //Height of the map
                             'style' => 'width: 100%; height:300px;', //CSS style for the map canvas
-                            //'zoom'=>7, //Zoom
+                            'zoom'=>10, // zoom, lower number is further away
                             'type'=>'ROADMAP', // Type of map (ROADMAP, SATELLITE, HYBRID or TERRAIN)
                             //'custom'=>null, // Any other map option not mentioned before and available for the map. For example 'mapTypeControl: true' (http://code.google.com/apis/maps/documentation/javascript/controls.html)
                             'latitude'=> $defaultLat,	// default latitude if the browser doesn't support localization or you don't want localization (Latitude & Langitude have priority versus Address)
                             'longitude'=> $defaultLng,	// default longitude if the browser doesn't support localization or you don't want localization (Latitude & Langitude have priority versus Address)
                             //'address'=>"1 Infinite Loop, Cupertino", //Default address if the browser doesn't support localization or you don't want localization (Latitude & Langitude have priority versus Address)
                             'localize'=> false, // boolean to localize your position or not
-                            'marker' => false, // boolean to put a marker in the position or not
+                            'marker' => true, // boolean to put a marker in the position or not
                             //'markerIcon'=>'http://google-maps-icons.googlecode.com/files/home.png',	//Default icon of the marker
                             //'infoWindow'=>true,				//Boolean to show an information window when you click the marker or not
                             //'windowText'=>'My Position'		//Default text inside the information window
                     );
+                    //echo "<pre>".print_r($mapOptions)."</pre>";
                     echo $this->AltGoogleMapV3->map($mapOptions); //To add a map that localizes you
 
                     // text for the popup over the placemarker
-                    $windowText = $school['School']['site_name'];
+                    $windowText = $school['School']['school_code']."<BR>".$school['School']['site_name'];
 
                     $markerOptions= array(
                         'id' => 1, // Id of the marker, on this page we only have 1 so we can hardcode that
-                        'latitude' => $lat,
-                        'longitude' => $lon,
+                        'latitude' => $defaultLat,
+                        'longitude' => $defaultLng,
                         'markerIcon' => 'http://google-maps-icons.googlecode.com/files/home.png', //Custom icon
                         'shadowIcon' => 'http://google-maps-icons.googlecode.com/files/home.png', //Custom shadow
                         'infoWindow' => true, // Boolean to show an information window when you click the marker or not

@@ -46,15 +46,14 @@
     //        ) 
     //    );
     //    echo "<BR>";
-        echo "<P>You may use \"*\" as a wildcard in school code or school name.</p>";
         echo $this->Form->submit(__('Search', true), array('div' => false));
+        echo "<P><I>* is a search wildcard operator</I></p>";
         echo $this->Form->end();    
     ?>
-    
 </fieldset>
 
 <BR><BR>
-<table width="100%">
+<table>
     <?php
      /*
      Revisit the HTML in this view and replace with Html helper, e.g.
@@ -79,8 +78,8 @@
        <th><?php echo $this->Paginator->sort('catchment_id','Catchment');?></th>
        <th><?php echo $this->Paginator->sort('area_id','Area'); ?></th>
        <th><?php echo $this->Paginator->sort('district_id','District'); ?></th>
-       <th><?php echo $this->Paginator->sort('power_type_id','Power'); ?></th>
-       <th><?php echo $this->Paginator->sort('connectivity_type_id','Connectivity'); ?></th>
+       <th><?php //echo $this->Paginator->sort('power_type_id','Power'); ?></th>
+       <th><?php //echo $this->Paginator->sort('connectivity_type_id','Connectivity'); ?></th>
        <th>Actions</th>
    </tr>
    
@@ -105,8 +104,8 @@
            <td><?php echo $school['Catchment']['name']; ?></td>
            <td><?php echo $school['Area']['name']; ?></td>
            <td><?php echo $school['District']['name']; ?></td>
-           <td><?php echo $school['PowerType']['name']; ?></td>
-           <td><?php echo $school['ConnectivityType']['name']; ?></td>
+<!--           <td><?php //echo $school['PowerType']['name']; ?></td>
+           <td><?php //echo $school['ConnectivityType']['name']; ?></td>-->
            <td align="center">
             <?php echo $this->Html->link('Edit', array('action'=>'edit', $school['School']['id']));?>
             <?php echo $this->Html->link('Delete', array('action' => 'delete', $school['School']['id']), null, 'Are you sure?' )?>

@@ -1,27 +1,51 @@
-<div class="contacts index">
-	<h2><?php echo __('Contacts'); ?></h2>
-	<table cellpadding="0" cellspacing="0">
+<div class="maskAlt">
+    <div class="headerAlt">
+        <h1>Contacts</h1>
+    </div>
+<div class="bodyAlt">
+<BR><BR>
+<fieldset>
+    <legend><?php echo __('Search'); ?></legend>  
+    <?php
+        echo $this->Form->create(
+                'Contact',
+                //array('url' => array_merge(array('action' => 'index'), $this->params['pass']))
+                // calls the search function on the SchoolsController
+                array('action'=>'search')
+        );
+
+        //echo $this->Form->input('school_code', array('label' => 'School Code'), array('div' => false));
+
+        echo $this->Form->input('first_name' /*, array('after'=>__(' Wildcard is *',true))*/);
+        echo $this->Form->input('last_name' /*, array('after'=>__(' Wildcard is *',true))*/);
+        echo $this->Form->submit(__('Search', true), array('div' => false));
+        echo "<P><I>* is a search wildcard operator</I></p>";
+        echo $this->Form->end();    
+    ?>
+</fieldset>
+<BR>
+	<table>
 	<tr>
-			<th><?php echo $this->Paginator->sort('id'); ?></th>
-			<th><?php echo $this->Paginator->sort('first_name'); ?></th>
-			<th><?php echo $this->Paginator->sort('last_name'); ?></th>
-			<th><?php echo $this->Paginator->sort('mobile'); ?></th>
-			<th><?php echo $this->Paginator->sort('skype'); ?></th>
-			<th class="actions"><?php echo __('Actions'); ?></th>
+            <th><?php echo $this->Paginator->sort('first_name'); ?></th>
+            <th><?php echo $this->Paginator->sort('last_name'); ?></th>
+            <th><?php echo $this->Paginator->sort('mobile'); ?></th>
+            <th><?php echo $this->Paginator->sort('skype'); ?></th>
+            <th><?php echo $this->Paginator->sort('email'); ?></th>
+            <th class="actions"><?php echo __('Actions'); ?></th>
 	</tr>
 	<?php
 	foreach ($contacts as $contact): ?>
 	<tr>
-		<td><?php echo h($contact['Contact']['id']); ?>&nbsp;</td>
-		<td><?php echo h($contact['Contact']['first_name']); ?>&nbsp;</td>
-		<td><?php echo h($contact['Contact']['last_name']); ?>&nbsp;</td>
-		<td><?php echo h($contact['Contact']['mobile']); ?>&nbsp;</td>
-		<td><?php echo h($contact['Contact']['skype']); ?>&nbsp;</td>
-		<td class="actions">
-			<?php echo $this->Html->link(__('View'), array('action' => 'view', $contact['Contact']['id'])); ?>
-			<?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $contact['Contact']['id'])); ?>
-			<?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $contact['Contact']['id']), null, __('Are you sure you want to delete # %s?', $contact['Contact']['id'])); ?>
-		</td>
+            <td><?php echo h($contact['Contact']['first_name']); ?>&nbsp;</td>
+            <td><?php echo h($contact['Contact']['last_name']); ?>&nbsp;</td>
+            <td><?php echo h($contact['Contact']['mobile']); ?>&nbsp;</td>
+            <td><?php echo h($contact['Contact']['skype']); ?>&nbsp;</td>
+            <td><?php echo h($contact['Contact']['email']); ?>&nbsp;</td>
+            <td class="actions">
+                    <?php echo $this->Html->link(__('View'), array('action' => 'view', $contact['Contact']['id'])); ?>
+                    <?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $contact['Contact']['id'])); ?>
+                    <?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $contact['Contact']['id']), null, __('Are you sure you want to delete # %s?', $contact['Contact']['id'])); ?>
+            </td>
 	</tr>
 <?php endforeach; ?>
 	</table>

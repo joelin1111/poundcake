@@ -7,7 +7,8 @@ class SchoolsController extends AppController
 {
     // AjaxMultiUpload is used for the file upload plugin
     // AltGoogleMapV3 is the Marc Fernandez Google Map helper, just renamed
-    var $helpers = array('AjaxMultiUpload.Upload','Html','AltGoogleMapV3','AutoComplete','Js');
+    // AutoCompleteHelper removed -- not used
+    var $helpers = array('AjaxMultiUpload.Upload','Html','AltGoogleMapV3');
     
     // pagination of results ($paginate) is down in the index function
 
@@ -22,24 +23,10 @@ class SchoolsController extends AppController
     );
     
     public function beforeFilter() {
-        
         parent::beforeFilter();
-        //$this->Auth->allow('home');
-        
         $this->set('site_name', $this->School->site_name);
-        $this->set('district', $this->School->district);    
-        //parent::beforeFilter();
+        $this->set('district', $this->School->district);
     }
-    
-    /*
-    public function find() {
-        //Debugger::dump($this->School);
-        $this->Prg->commonProcess();
-        $this->set('schools', $this->paginate());
-    }
-    // end Search plugin
-    */
-    
     public $paginate = array(
         'fields' => array('School.school_code', 'School.site_name'),
         'limit' => 25,
@@ -74,9 +61,9 @@ class SchoolsController extends AppController
             $site_name_arg = '%';
         }
         
-        echo "School code arg: " . $school_code_arg;
-        echo "<BR>Site name arg: " . $site_name_arg;
-        echo "<BR>";
+//        echo "School code arg: " . $school_code_arg;
+//        echo "<BR>Site name arg: " . $site_name_arg;
+//        echo "<BR>";
         
         //echo "School code 2:<pre>".$this->passedArgs['School.school_code']."</pre>";            
         $conditions = array(
@@ -527,22 +514,8 @@ class SchoolsController extends AppController
 //        $this->set('schools', $schools); 
 //        $this->layout = 'ajax';     
 //    }
+
     
-    function search() {
-        // the page we will redirect to at the end
-        $url['action'] = 'index';
-
-        // build a URL will all the search elements in it
-        // the resulting URL will be 
-        // example.com/cake/posts/index/Search.keywords:mykeyword/Search.tag_id:3
-        foreach ($this->data as $k=>$v){ 
-                foreach ($v as $kk=>$vv){ 
-                        $url[$k.'.'.$kk]=$vv; 
-                } 
-        }
-
-        // redirect the user to the url
-        $this->redirect($url, null, true);
-    }
 }
+
 ?>
