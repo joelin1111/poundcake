@@ -414,7 +414,7 @@ CREATE TABLE `schools` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `site_name` varchar(50) NOT NULL,
   `school_code` varchar(10) NOT NULL,
-  `location` point DEFAULT NULL,
+  `location` point NOT NULL,
   `install_date` datetime DEFAULT NULL,
   `access_instruction` TEXT DEFAULT NULL,
   `catchment_id` int(10) NOT NULL,
@@ -428,7 +428,8 @@ CREATE TABLE `schools` (
   `power_type_id` int(10) NOT NULL,
   `road_type_id` int(10) NOT NULL,
   `user_id` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  SPATIAL INDEX(location)
 ) ENGINE=MyISAM AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 

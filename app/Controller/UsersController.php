@@ -89,6 +89,12 @@ class UsersController extends AppController {
     }
     
     public function login() {
+        // if the user is already logged in (maybe opening the site in a new tab)
+        // don't send them to the login page
+        if ( $this->Auth->user() != null) {
+            $this->redirect(array('controller' => 'schools', 'action' => 'about'));
+        }
+        
         if ($this->request->is('post')) {
             if ($this->Auth->login()) {
                 $this->redirect($this->Auth->redirect());
