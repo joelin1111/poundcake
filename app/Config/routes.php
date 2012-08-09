@@ -31,8 +31,8 @@
 
         //Router::connect('/schools/index/School.school_code*', array('controller' => 'schools'));
         //Router::connect('/schools/index/*0%2F*', array('controller' => 'schools', 'action' => 'index'));
-        Router::connect('/schools/index/*', array('controller' => 'schools', 'action' => 'index'));
-        
+        //Router::connect('/schools/index/*', array('controller' => 'schools', 'action' => 'index'));
+        Router::connect('/', array('controller' => 'users', 'action' => 'login'));
 /**
  * ...and connect the rest of 'Pages' controller's urls.
  */

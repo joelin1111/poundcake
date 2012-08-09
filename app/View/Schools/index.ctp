@@ -1,14 +1,3 @@
-<script type="text/javascript">
-function doEscapeSlash(obj) {
-    //alert("testing");
-    var form = document.forms['SchoolSearchForm'];
-    form.foo.value="A*";
-    //obj.select();
-    //obj.focus();
-    return false;
-}
-</script>
-    
 <?php
     echo $this->Html->script('jquery-1.7.2');
 ?>
@@ -27,13 +16,9 @@ function doEscapeSlash(obj) {
     <?php
         echo $this->Form->create(
             'School',
-            //array('url' => array_merge(array('action' => 'index'), $this->params['pass']))
             // calls the search function on the SchoolsController
             array('action'=>'search')
-            //array('action'=>'search', 'onsubmit' => 'doEscapeSlash(this.foo);')
-            //array('action'=>'search','type' => 'get')
         );
-        //echo $this->Form->input('school_code',array('escape' => true, 'name'=>'foo'));
         echo $this->Form->input('school_code',array('escape' => true));
         echo $this->Form->input('site_name');
         echo $this->Form->submit(__('Search', true), array('div' => false));

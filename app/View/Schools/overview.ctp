@@ -71,25 +71,27 @@
            //echo "<pre>".print_r($school['School'])."</pre>";
            //$lat = $schools[$i]['School']['location']['lat'];
            //$lon = $schools[$i]['School']['location']['lon'];
+           
+           $schoolImage = '/img/school.png';
+           
            $lat = $school['School']['location']['lat'];
            $lon = $school['School']['location']['lon'];
            $site_name = $school['School']['site_name'];
 
-           // this is sort of a guess
-           $link = "http://" . $_SERVER["HTTP_HOST"] ."/poundcake/schools/view/" . $school['School']['id'];
-
+           $schoolUrl = $this->Html->link(
+                $school['School']['school_code'],
+                array('controller' => 'schools', 'action' => 'view', $s['schools']['id'])
+            );
            // text for the popup over the placemarker
-           $windowText = $site_name."<br>Lorem ipsum dolor sit amet<BR><A HREF=\"".$link."\">More Detail</A>";
-           // echo $link;
-           // See all options:
-           // https://github.com/marcferna/CakePHP-Google-Maps-V3-Helper/blob/master/google_map_v3.php
-
-           $markerOptions= array(
+           $windowText = $schoolUrl."<BR>".$school['School']['site_name'];
+           
+            // https://github.com/marcferna/CakePHP-Google-Maps-V3-Helper/blob/master/google_map_v3.php
+            $markerOptions= array(
                 'id' => $i, //Id of the marker
                 'latitude' => $lat,
                 'longitude' => $lon,
-                'markerIcon' => 'http://google-maps-icons.googlecode.com/files/home.png', //Custom icon
-                'shadowIcon' => 'http://google-maps-icons.googlecode.com/files/home.png', //Custom shadow
+                'markerIcon' => $schoolImage,
+                //'shadowIcon' => 'http://google-maps-icons.googlecode.com/files/home.png', //Custom shadow
                 'infoWindow' => true, // Boolean to show an information window when you click the marker or not
                 'windowText' => $windowText // Text inside the information window
             );

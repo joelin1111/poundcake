@@ -444,8 +444,8 @@ INSERT INTO `schools` VALUES
 (4,'Karume','MT.04/014','\0\0\0\0\0\0\0R¸…ë±ÀÀ!T©ÙÓC@','01/01/2012','',1,1,14,7,1,2,7,1,1,1,NULL),
 (5,'Chikoi','MT.04/005','\0\0\0\0\0\0\0}Ëœ.‹©ÀÚ|a2ÝC@','01/01/2012','',1,1,9,2,4,7,12,1,1,1,NULL),
 (6,'Kunguni','MT.04/005','\0\0\0\0\0\0\0LÃð1…ÀÅÉýEÙC@','01/01/2012','',2,1,30,2,3,3,11,1,1,6,NULL),
-(7,'Ng\'ombeni \'A\'','MT.04/005','\0\0\0\0\0\0\0—wJ‡Àž^)ËƒC@','01/01/2012','',2,1,30,2,3,3,11,1,1,6,NULL),
-(8,'Ng\'ombeni \'B\'','AA.00/001','\0\0\0\0\0\0\0‚9zü¾À!<Ú8ÞC@','01/01/2012','',2,1,10,4,4,4,5,1,1,3,NULL),
+(7,'Ngombeni A','MT.04/005','\0\0\0\0\0\0\0—wJ‡Àž^)ËƒC@','01/01/2012','',2,1,30,2,3,3,11,1,1,6,NULL),
+(8,'Ngombeni B','AA.00/001','\0\0\0\0\0\0\0‚9zü¾À!<Ú8ÞC@','01/01/2012','',2,1,10,4,4,4,5,1,1,3,NULL),
 (9,'Chokocho','BB.00/001','\0\0\0\0\0\0\0N—ÅÄæcÀKÍhâC@','01/01/2012','',2,1,1,5,1,1,4,1,2,4,NULL),
 (10,'Butiama','MT.04/093','\0\0\0\0\0\0\0%#gaO›ÀçãÚP1ÒC@','01/01/2012','',1,1,6,5,2,2,6,1,1,1,NULL);
 /*!40000 ALTER TABLE `schools` ENABLE KEYS */;
@@ -592,7 +592,10 @@ CREATE PROCEDURE sp_nearby(school_id int(10), max_schools int(10))
     BEGIN 
         SELECT id, school_code, site_name, 
         111.2*(GLength(LineStringFromWKB(LineString(location,(select location from schools where ID=school_id)))))
-		AS distance FROM schools
+		AS distance,
+		X(location) as lat,
+		Y(location) as lon
+		FROM schools
 		ORDER BY distance ASC
 		-- limit 1 here to exclude the school we're getting a distance from
 		LIMIT 1, max_schools; 
