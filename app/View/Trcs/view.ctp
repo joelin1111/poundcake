@@ -33,19 +33,20 @@
             <?php
                 //echo "<pre>".print_r($trc['Contacts'])."</pre>";
                 //echo "<pre> Count: ".count($trc['Contacts'])."</pre>";
-                echo "<LI>";
+                
                 $c = count($trc['Schools']);
                 if ($c == 0) {
-                    echo "None";
+                    echo "<LI>None</LI>";
                 } else {
                     foreach ($trc['Schools'] as $school) {
+                        echo "<LI>";
                         echo $this->Html->link(__($school['site_name']), array(
                             'controller' => 'schools',
                             'action' => 'view',
                             $school['id']));
+                        echo "</LI>";
                     }
                 }
-                echo "</LI>";
                 ?>
         </UL>
   
