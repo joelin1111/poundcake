@@ -1,5 +1,14 @@
-<P>
-Click to manage:
+<div class="row">
+<div class="span3">
+<!--    <H3>Actions</H3>-->
+<!--    <ul>
+        <li></li>
+    </ul>-->
+Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+</div><!-- /.span3 .sb-fixed -->
+
+<div class="span9">
+<h2>Setup</h2>
 <UL>
     <li>
         <?php echo $this->Html->link('Users', '/users/index'); ?>
@@ -42,4 +51,5 @@ Click to manage:
     </li>
     
 </UL>
-</P>
+</div> <!-- /.span9 -->
+</div> <!-- /.row -->

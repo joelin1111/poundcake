@@ -7,6 +7,7 @@
     // with the view code defined in Areas/get_by_catchment.ctp
     
     // the user has changed the Area, so update the Regipon
+    /*
     $this->Js->get('#DistrictAreaId')->event('change',
         $this->Js->request(array(
             'controller' => 'districts',
@@ -24,6 +25,7 @@
                     )
                 )
     );
+    */
     //echo $this->Html->scriptBlock($("#DistrictAreaId").trigger("change"););
     
     // the user has changed the District, so update the Area

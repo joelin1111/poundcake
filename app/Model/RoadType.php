@@ -22,7 +22,7 @@ class RoadType extends AppModel {
                             //'required' => false,
                             //'last' => false, // Stop validation after this rule
                             //'on' => 'create', // Limit validation to 'create' or 'update' operations
-                    ),
+                    )/*,
                     'alphanumeric' => array(
                             'rule' => array('alphanumeric'),
                             'message' => 'Only letters and numbers are allowed.',
@@ -30,7 +30,7 @@ class RoadType extends AppModel {
                             //'required' => false,
                             //'last' => false, // Stop validation after this rule
                             //'on' => 'create', // Limit validation to 'create' or 'update' operations
-                    ),
+                    ),*/
             ),
 	);
 }

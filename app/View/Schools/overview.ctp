@@ -1,3 +1,47 @@
+//<script type="text/javascript">
+//function myFunction()
+//{
+//alert("Hello World!");
+//}
+//// A function to create the marker and set up the event window
+//function createMarker(point,name,html,category) {
+//  var marker = new GMarker(point,gicons[category]);
+//  // === Store the category and name info as a marker properties ===
+//  marker.mycategory = category;                                 
+//  marker.myname = name;
+//  GEvent.addListener(marker, "click", function() {
+//    marker.openInfoWindowHtml(html);
+//  });
+//  gmarkers.push(marker);
+//  return marker;
+//}
+//      
+//// == shows all markers of a particular category, and ensures the checkbox is checked ==
+//function show(category) {
+//  for (var i=0; i<gmarkers.length; i++) {
+//    if (gmarkers[i].mycategory == category) {
+//      gmarkers[i].show();
+//    }
+//  }
+//  // == check the checkbox ==
+//  document.getElementById(category+"box").checked = true;
+//}
+//
+//// == hides all markers of a particular category, and ensures the checkbox is cleared ==
+//function hide(category) {
+//  for (var i=0; i<gmarkers.length; i++) {
+//    if (gmarkers[i].mycategory == category) {
+//      gmarkers[i].hide();
+//    }
+//  }
+//  // == clear the checkbox ==
+//  document.getElementById(category+"box").checked = false;
+//  // == close the info window, in case its open on a marker that we just hid
+//  map.closeInfoWindow();
+//}
+//
+//</script>
+
 <?php
     # include Jquery
     echo $this->Html->script('jquery-1.7.2');
@@ -17,6 +61,11 @@
 <P>
     Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 </P>
+
+<?php
+    // http://econym.org.uk/gmap/categories.htm
+    //echo $this->Html->link('Schools', 'http://example.com', array('onclick' => 'myFunction()'));
+?>
 
 <P>
     <I>Note: This version of overview map uses the Marc Fernandez map helper, version 2.0.</I>
@@ -50,6 +99,9 @@
     echo $this->AltGoogleMapV3->map($mapOptions); //To add a map that localizes you
     //echo $this->AltGoogleMapV3->map();  
 
+    // too many markers?
+    // https://developers.google.com/maps/articles/toomanymarkers
+    
     if ($schools != null) {
         //echo '<LI>'.$schools[$i]['School']['site_name'].'</LI>';
         //echo '<pre> LAT ' . $lat . '</pre>';
@@ -57,17 +109,16 @@
         //echo '<pre> defaultLat ' . $defaultLat . '</pre>';
         //echo '<pre> defaultLon ' .  $defaultLng . '</pre>';
      
+        
        $i = 0; 
        foreach ($schools as $school) {
-           /*
-           echo '<LI>';
-           echo $schools[$i]['School']['site_name'] . ' - ';
-           echo $schools[$i]['School']['id'] . ' - ';
-           echo $schools[$i]['School']['location']['lat'] . ' ';
-           echo $schools[$i]['School']['location']['lon'];
-           ////echo print_r($schools[$i]);
-           echo '</LI>';
-           */
+//           echo '<LI>';
+//           echo $schools[$i]['School']['site_name'] . ' - ';
+//           echo $schools[$i]['School']['id'] . ' - ';
+//           echo $schools[$i]['School']['location']['lat'] . ' ';
+//           echo $schools[$i]['School']['location']['lon'];
+//           ////echo print_r($schools[$i]);
+//           echo '</LI>';
            //echo "<pre>".print_r($school['School'])."</pre>";
            //$lat = $schools[$i]['School']['location']['lat'];
            //$lon = $schools[$i]['School']['location']['lon'];
@@ -77,26 +128,31 @@
            $lat = $school['School']['location']['lat'];
            $lon = $school['School']['location']['lon'];
            $site_name = $school['School']['site_name'];
-
-           $schoolUrl = $this->Html->link(
-                $school['School']['school_code'],
-                array('controller' => 'schools', 'action' => 'view', $s['schools']['id'])
-            );
-           // text for the popup over the placemarker
-           $windowText = $schoolUrl."<BR>".$school['School']['site_name'];
            
-            // https://github.com/marcferna/CakePHP-Google-Maps-V3-Helper/blob/master/google_map_v3.php
-            $markerOptions= array(
-                'id' => $i, //Id of the marker
-                'latitude' => $lat,
-                'longitude' => $lon,
-                'markerIcon' => $schoolImage,
-                //'shadowIcon' => 'http://google-maps-icons.googlecode.com/files/home.png', //Custom shadow
-                'infoWindow' => true, // Boolean to show an information window when you click the marker or not
-                'windowText' => $windowText // Text inside the information window
-            );
-            echo $this->AltGoogleMapV3->addMarker("map_canvas", ++$i, $markerOptions);
-        }
+            $schoolUrl = $this->Html->link(
+                 $school['School']['school_code'],
+                 array(
+                    'controller' => 'schools',
+                    'action' => 'view',
+                    $school['School']['id']
+                 )
+             );
+            
+            // text for the popup over the placemarker
+            $windowText = $schoolUrl."<BR>".$school['School']['site_name'];
+
+             // https://github.com/marcferna/CakePHP-Google-Maps-V3-Helper/blob/master/google_map_v3.php
+             $markerOptions= array(
+                 'id' => $i, //Id of the marker
+                 'latitude' => $lat,
+                 'longitude' => $lon,
+                 'markerIcon' => $schoolImage,
+                 //'shadowIcon' => 'http://google-maps-icons.googlecode.com/files/home.png', //Custom shadow
+                 'infoWindow' => true, // Boolean to show an information window when you click the marker or not
+                 'windowText' => $windowText // Text inside the information window
+             );
+             echo $this->AltGoogleMapV3->addMarker("map_canvas", ++$i, $markerOptions);
+           }
     }
 ?>
 </P>

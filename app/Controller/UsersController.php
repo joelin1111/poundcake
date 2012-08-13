@@ -41,6 +41,24 @@ class UsersController extends AppController {
         }
     }
 
+    /*
+    public function password($id = null) {
+        // this is just simple form allowing users to change their own password
+        // so delegate to the edit function
+         if ($this->request->is('post') || $this->request->is('put')) {
+             $this->edit($id);
+         }
+    }
+    */
+    
+    public function password($id = null) {
+        $this->User->id = $id;
+        $this->Session->setFlash(''); // not working 
+        if ($this->User->save($this->request->data)) {
+            $this->Session->setFlash(__('Password updated.'));
+        }
+    }
+    
     public function edit($id = null) {
         $this->User->id = $id;
         $this->getRoles();
@@ -50,7 +68,7 @@ class UsersController extends AppController {
         }
         if ($this->request->is('post') || $this->request->is('put')) {
             if ($this->User->save($this->request->data)) {
-                $this->Session->setFlash(__('The user has been saved'));
+                $this->Session->setFlash(__('The user has been saved.'));
                 $this->redirect(array('action' => 'index'));
             } else {
                 $this->Session->setFlash(__('The user could not be saved. Please, try again.'));
@@ -60,7 +78,7 @@ class UsersController extends AppController {
             unset($this->request->data['User']['password']);
         }
     }
-
+    
     public function delete($id = null) {
         if (!$this->request->is('post')) {
             throw new MethodNotAllowedException();
@@ -91,7 +109,10 @@ class UsersController extends AppController {
     public function login() {
         // if the user is already logged in (maybe opening the site in a new tab)
         // don't send them to the login page
+        //echo print_r($this->Auth->user());
+       
         if ( $this->Auth->user() != null) {
+            //echo "user logged in, send to about page";
             $this->redirect(array('controller' => 'schools', 'action' => 'about'));
         }
         
@@ -131,10 +152,12 @@ class UsersController extends AppController {
             // for testing
             return true;
         }*/
-        if ($this->action === 'logout') {
+        // allow users to logout, change their own password
+        if ($this->action === 'logout' || $this->action === 'password') {
             // for testing
             return true;
         }
+        
         /*
         from the sample code:
         // The owner of a post can edit and delete it

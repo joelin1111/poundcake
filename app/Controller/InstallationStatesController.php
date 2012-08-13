@@ -7,14 +7,21 @@ App::uses('AppController', 'Controller');
  */
 class InstallationStatesController extends AppController {
 
+    public $paginate = array(
+        'limit' => 25,
+//        'order' => array(
+//            'Post.title' => 'asc'
+//        )
+    );
+    
 /**
  * index method
  *
  * @return void
  */
 	public function index() {
-		$this->InstallationState->recursive = 0;
-		$this->set('installationStates', $this->paginate());
+            $this->InstallationState->recursive = 0;
+            $this->set('installationStates', $this->paginate());
 	}
 
 /**

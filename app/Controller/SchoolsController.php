@@ -27,6 +27,7 @@ class SchoolsController extends AppController
         $this->set('site_name', $this->School->site_name);
         $this->set('district', $this->School->district);
     }
+    
     public $paginate = array(
         'fields' => array('School.school_code', 'School.site_name'),
         'limit' => 25,
@@ -92,14 +93,16 @@ class SchoolsController extends AppController
        $this->getCatchments();
        $this->overview();
     }
-
-    // for testing alternate Google Maps helper
-    public function overviewalt() {
-       $this->overview();
-    }
     
     public function overview() {
-        $schools = $this->School->find('all');
+        // find('all') would return all schools, no matter what
+        //$schools = $this->School->find('all');
+        
+        // filter out ones w/o a location (since we can't display them on the
+        // map without coordinates)
+        
+        $conditions = array ("NOT" => array ("School.location" => null));
+        $schools = $this->School->find('all', array('conditions' => $conditions));
         for($i = 0; $i < sizeof($schools); ++$i) {
             // for each school, decode the lat/lon and save it back to the
             // array of schools
@@ -431,7 +434,7 @@ class SchoolsController extends AppController
     
     public function isAuthorized($user) {
             // everyone can see the list and view individual Schools
-            if ($this->action === 'index' || $this->action === 'view') {
+            if ($this->action === 'index' || $this->action === 'view' || $this->action === 'about') {
                 return true;
             }
             // allow users with the rolealias of "edit" to add/edit/delete

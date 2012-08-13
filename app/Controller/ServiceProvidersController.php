@@ -13,8 +13,8 @@ class ServiceProvidersController extends AppController {
  * @return void
  */
 	public function index() {
-		$this->ServiceProvider->recursive = 0;
-		$this->set('serviceProviders', $this->paginate());
+            $this->ServiceProvider->recursive = 0;
+            $this->set('serviceProviders', $this->paginate());
 	}
 
 /**
@@ -25,11 +25,11 @@ class ServiceProvidersController extends AppController {
  * @return void
  */
 	public function view($id = null) {
-		$this->ServiceProvider->id = $id;
-		if (!$this->ServiceProvider->exists()) {
-			throw new NotFoundException(__('Invalid service provider'));
-		}
-		$this->set('serviceProvider', $this->ServiceProvider->read(null, $id));
+            $this->ServiceProvider->id = $id;
+            if (!$this->ServiceProvider->exists()) {
+                    throw new NotFoundException(__('Invalid service provider'));
+            }
+            $this->set('serviceProvider', $this->ServiceProvider->read(null, $id));
 	}
 
 /**
@@ -38,15 +38,15 @@ class ServiceProvidersController extends AppController {
  * @return void
  */
 	public function add() {
-		if ($this->request->is('post')) {
-			$this->ServiceProvider->create();
-			if ($this->ServiceProvider->save($this->request->data)) {
-				$this->Session->setFlash(__('The service provider has been saved'));
-				$this->redirect(array('action' => 'index'));
-			} else {
-				$this->Session->setFlash(__('The service provider could not be saved. Please, try again.'));
-			}
-		}
+            if ($this->request->is('post')) {
+                    $this->ServiceProvider->create();
+                    if ($this->ServiceProvider->save($this->request->data)) {
+                            $this->Session->setFlash(__('The service provider has been saved'));
+                            $this->redirect(array('action' => 'index'));
+                    } else {
+                            $this->Session->setFlash(__('The service provider could not be saved. Please, try again.'));
+                    }
+            }
 	}
 
 /**

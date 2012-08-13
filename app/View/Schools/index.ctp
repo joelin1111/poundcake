@@ -1,35 +1,50 @@
 <?php
     echo $this->Html->script('jquery-1.7.2');
+    echo $this->Html->script('poundcake');
 ?>
-<div class="maskAlt">
-    <div class="headerAlt">
-        <h1>Schools</h1>
-    </div>
 
-<div class="bodyAlt">
-<?php
-    //echo ("<pre>"); print_r($schools); echo("</pre>");
-?>
-<BR><BR>
-<fieldset>
-    <legend><?php echo __('Search'); ?></legend>  
+<div class="row">
+<div class="span3">
     <?php
-        echo $this->Form->create(
-            'School',
-            // calls the search function on the SchoolsController
-            array('action'=>'search')
-        );
-        echo $this->Form->input('school_code',array('escape' => true));
-        echo $this->Form->input('site_name');
+      echo $this->Form->create(
+          'School',
+          // calls the search function on the SchoolsController
+          array('action'=>'search','class' => 'well')
+      );
+      echo $this->Form->input('school_code',array('escape' => true,'class' => 'span2'));
+      echo $this->Form->input('site_name',array('class' => 'span2'));
+      ?>
+<!--        <span class="help-block">Example block-level help text here.</span>-->
+    <?php
         echo $this->Form->submit(__('Search', true), array('div' => false));
-        echo $this->Form->end();    
+        echo $this->Form->end(); 
     ?>
-</fieldset>
+</div><!-- /.span3 .sb-fixed -->
+
+<div class="span9">
+    
+    <h1>Schools</h1>
+    <h4>Actions</h4>
+   <div class="btn-toolbar">
+       <div class="btn-group">
+<!--           <a href="/schools/add"><button class="btn btn-mini">Add</button></A>-->
+        <?php echo $this->Html->link(__('New School'), array('action' => 'add')); ?>
+<!--    <div class="btn-toolbar">
+    <div class="btn-group">
+        <button class="btn btn-mini">Add</button>
+        <button class="btn btn-mini">Edit</button>
+        <button class="btn btn-mini">Delete</button>
+    </div>
+    <div class="btn-group">
+      <button class="btn btn-mini">Export</button>
+      <button class="btn btn-mini">Import</button>
+ -->
+    </div>
+    </div> <!--/.btn-toolbar -->
 
 <BR><BR>
-<?php
- /*
- Revisit the HTML in this view and replace with Html helper, e.g.
+
+<!-- Revisit the HTML in this view and replace with Html helper, e.g.
     echo $this->Html->tableHeaders(
             array (
                 'School',
@@ -42,10 +57,9 @@
                 'Actions'
             )
      );
-    this->html->tableCells...
-*/              
-?>
-<table>
+    this->html->tableCells...-->
+<table class="table table-condensed table-striped">
+<thead>
    <tr>
        <th><?php echo $this->Paginator->sort('school_code'); ?></th>
        <th><?php echo $this->Paginator->sort('site_name'); ?></th>
@@ -54,7 +68,8 @@
        <th><?php echo $this->Paginator->sort('district_id','District'); ?></th>
        <th>Actions</th>
    </tr>
-   
+</thead>
+<tbody>
     <?php
     foreach ($schools as $school): ?>
        <tr>
@@ -77,6 +92,7 @@
            <td><?php echo $school['Area']['name']; ?></td>
            <td><?php echo $school['District']['name']; ?></td>
            <td>
+<!--               <button class="btn btn-mini"></button>-->
             <?php echo $this->Html->link('Edit', array('action'=>'edit', $school['School']['id']));?>
             <?php echo $this->Html->link('Delete', array('action' => 'delete', $school['School']['id']), null, 'Are you sure?' )?>
            </td>
@@ -84,25 +100,13 @@
     <?php
     endforeach;
     ?>
+<tbody>
 </table>
 
 <?php
-    echo $this->Paginator->prev('<< Previous', null, null, array('class' => 'disabled'));
-    ?>
-    <?php
-    // shows the page numbers
-    echo $this->Paginator->numbers();
-    ?>
-    <?php
-    echo $this->Paginator->next('Next >>', null, null, array('class' => 'disabled'));
-    ?>
-    <?php
-    //prints X of Y, where X is current page and Y is number of pages -->
-    echo $this->Paginator->counter();
+    // include pagination
+    echo $this->element('Common/pagination');
 ?>
-	<h3><?php echo __('Actions'); ?></h3>
-	<ul>
-		<li><?php echo $this->Html->link(__('New School'), array('action' => 'add')); ?></li>
-	</ul>
+
 </div>
-</div>
+</div> <!-- /row -->

@@ -16,7 +16,7 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 
-$cakeDescription = __d('cake_dev', 'CakePHP: the rapid development php framework');
+$cakeDescription = __d('cake_dev', 'TZ21 Schools');
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -29,60 +29,144 @@ $cakeDescription = __d('cake_dev', 'CakePHP: the rapid development php framework
 	<?php
 		//echo $this->Html->script('jquery-1.7.2');
                 echo $this->Html->meta('icon');
-		echo $this->Html->css('poundcake');
 		echo $this->fetch('meta');
 		echo $this->fetch('css');
 		echo $this->fetch('script');
-                //echo $this->Html->script('jquery-1.7.2');
+                echo $this->Html->css('poundcake'); // Our custom CSS file
+                echo $this->Html->css('bootstrap'); // Bootstrap's CSS file
+                
+                echo $this->Html->script('jquery-1.7.2');
+                echo $this->Html->script('bootstrap-dropdown');
+                echo $this->Html->script('poundcake');
+                /*
+                <script src="js/bootstrap-transition.js"></script>
+                <script src="js/bootstrap-alert.js"></script>
+                <script src="js/bootstrap-modal.js"></script>
+                <script src="js/bootstrap-dropdown.js"></script>
+                <script src="js/bootstrap-scrollspy.js"></script>
+                <script src="js/bootstrap-tab.js"></script>
+                <script src="js/bootstrap-tooltip.js"></script>
+                <script src="js/bootstrap-popover.js"></script>
+                <script src="js/bootstrap-button.js"></script>
+                <script src="js/bootstrap-collapse.js"></script>
+                <script src="js/bootstrap-carousel.js"></script>
+                <script src="js/bootstrap-typeahead.js"></script>
+                */
 	?>
+        <style>
+          body {
+            padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+          }
+
+          @media (min-width: 768px) { 
+            .sb-fixed{
+                    position: fixed;
+                    } 
+                 }
+
+            .box{
+                min-height: 20px;
+                padding: 19px;
+                margin-bottom: 20px;
+                background-color: whiteSmoke;
+                border: 1px solid #EEE;
+                border: 1px solid rgba(0, 0, 0, 0.05);
+                -webkit-border-radius: 4px;
+                -moz-border-radius: 4px;
+                border-radius: 4px;
+                -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
+                -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
+                box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
+            }
+        </style>
+        <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+        <!--[if lt IE 9]>
+          <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
 </head>
 <body>
-<div id="wrap">
-		<div id="navigation">
-                    <?php
-                        // $user is set in AppController's beforeRender
-                        //echo "<pre>".print_r($user)."</pre>";
-                        
-                        // may want to use:  $this->Session->read('User.id')));
-                        // 
-                        // if the user is logged in, show their name and role
-                        // near the top
-                        if ( isset($user) ) {
-                            echo "<small>Logged in as: ".$user['username']."<br>";
-                            echo "Role: ".$user['Role']['name']."</small><br><br><br>";
-                            //echo $this->Html->link('Pages Home', array('controller' => 'pages', 'action' => 'index'));
-                            echo $this->Html->link('About', array('controller' => 'schools', 'action' => 'about'));
-                            echo $this->Html->link('Map', array('controller' => 'schools', 'action' => 'overview'));
-                            echo $this->Html->link('Schools', array('controller' => 'schools', 'action' => 'index'));
-                            echo $this->Html->link('TCs/TRCs', array('controller' => 'trcs', 'action' => 'index'));
-                            echo $this->Html->link('Contacts', array('controller' => 'contacts', 'action' => 'index'));
-                            // this doesn't really belong here, should probably serve up a different
-                            // view for admins
-                            if ($user['Role']['name'] === 'admin'  ) {
-                                echo $this->Html->link('Setup', array('controller' => 'users', 'action' => 'setup'));
-                                }
-                            echo $this->Html->link('Logout', array('controller' => 'users', 'action' => 'logout'));
-                            
-                        }
-                        else {
-                            // otherwise show a login box
-                            echo $this->Html->link('Login', array('controller' => 'users', 'action' => 'login'));
-                        }
-                    ?>
-		</div>
-		<div id="content"><?php echo $content_for_layout; ?></div>
-		<div id="footer">
-                    Copyright © <?php echo date("Y"); ?>. All Rights Reserved.
-                </div>
-	</div>
+
+<div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <a class="brand" href="#">TZ21 Schools</a>
+          <div class="nav-collapse">
+            <ul class="nav pull-left">
+            <?php
+                // may want to use:  $this->Session->read('User.id')));
+                // 
+                // if the user is logged in, show their name and role
+                // near the top
+                if ( isset($user) ) {
+                    //echo "<small>Logged in as: ".$user['username']."<br>";
+                    //echo "Role: ".$user['Role']['name']."</small><br><br><br>";
+                    echo "<LI>";
+                    echo $this->Html->link('About', array('controller' => 'schools', 'action' => 'about'));
+                    echo "</LI>";
+                    
+                    echo "<LI>";
+                    echo $this->Html->link('Map', array('controller' => 'schools', 'action' => 'overview'));
+                    echo "</LI>";                    
+                    echo "<LI>";
+                    echo $this->Html->link('Schools', array('controller' => 'schools', 'action' => 'index'));
+                    echo "</LI>";
+                    
+                    echo "<LI>";
+                    echo $this->Html->link('TCs/TRCs', array('controller' => 'trcs', 'action' => 'index'));
+                    echo "</LI>";
+                    
+                    echo "<LI>";
+                    echo $this->Html->link('Contacts', array('controller' => 'contacts', 'action' => 'index'));
+                    echo "</LI>";
+                    
+                    // this doesn't really belong here, should probably serve up a different
+                    // view for admins
+                    if ($user['Role']['name'] === 'admin') {
+                        echo "<LI>";
+                        echo $this->Html->link('Setup', array('controller' => 'users', 'action' => 'setup'));
+                        echo "</LI>";
+                    }
+                    
+                    echo "<LI>";
+                    echo $this->Html->link('Logout', array('controller' => 'users', 'action' => 'logout'));
+                    echo "</LI>";
+                }
+            ?>
+            </ul><!--/.nav .pull-left -->
+            
+            <?php
+            // if the user is logged in, show a button on the right side with
+            // links to change their password, etc.
+            if ( isset($user) ) {
+                include 'user.ctp';
+            }
+            ?>
+          </div><!--/.nav-collapse  -->
+        </div>
+      </div>
+    </div> <!--/.navbar -->
+    
+    <div class="container">
+    	<?php
+                echo $content_for_layout;
+            ?>
+        <div id="footer" align="center"><BR><BR><BR>
+            Copyright © <?php echo date("Y"); ?>. All Rights Reserved.
+        </div> <!-- /footer -->
 <!--        Debugging info:-->
-	<?php //echo $this->element('sql_dump'); ?>
-        
-        <?php //echo $scripts_for_layout; ?>
-	<!-- Js writeBuffer -->
-	<?php
-	//if (class_exists('JsHelper') && method_exists($this->Js, 'writeBuffer')) echo $this->Js->writeBuffer();
-	// Writes cached scripts
-	?>
+    <?php //echo $this->element('sql_dump'); ?>
+
+    <?php //echo $scripts_for_layout; ?>
+    <!-- Js writeBuffer -->
+    <?php
+    //if (class_exists('JsHelper') && method_exists($this->Js, 'writeBuffer')) echo $this->Js->writeBuffer();
+    // Writes cached scripts
+    ?>
+    </div> <!-- /.container --> 
 </body>
 </html>
