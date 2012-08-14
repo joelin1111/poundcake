@@ -31,6 +31,7 @@
                         } else {
                             foreach ($school['Contacts'] as $contact) {
                                 echo $this->Html->link(__($contact['first_name']." ".$contact['last_name']), array(
+                                //echo $this->Html->link(__($contact['full_name']), array(    
                                     'controller' => 'contacts',
                                     'action' => 'view',
                                     $contact['id']));

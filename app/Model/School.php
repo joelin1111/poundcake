@@ -20,19 +20,19 @@ class School extends AppModel {
     );
     
     public $hasMany = array(
-            'Contacts' => array(
-                    'className' => 'Contact',
-                    'foreignKey' => 'school_id',
-                    'dependent' => false,
-                    'conditions' => '',
-                    'fields' => '',
-                    'order' => '',
-                    'limit' => '',
-                    'offset' => '',
-                    'exclusive' => '',
-                    'finderQuery' => '',
-                    'counterQuery' => ''
-                )
+        'Contacts' => array(
+                'className' => 'Contact',
+                'foreignKey' => 'school_id',
+                'dependent' => false,
+                'conditions' => '',
+                'fields' => '',
+                'order' => '',
+                'limit' => '',
+                'offset' => '',
+                'exclusive' => '',
+                'finderQuery' => '',
+                'counterQuery' => ''
+            )
     );
     
     public $validate = array(
@@ -85,7 +85,15 @@ class School extends AppModel {
     *
     * @var string
     */
-    public $displayField = 'site_name';
+    //public $displayField = 'site_name';
+    // not working as I'd like!
+    var $virtualFields = array('school_vf' => 'CONCAT(school_code, " ", site_name)');
+    
+    // The displayField attribute specifies which database field should be used as a
+    // label for the record. The label is used in scaffolding and in find('list') calls.
+    // The model will use name or title, by default.
+    public $displayField = 'school_vf';
+    
     
     public $actsAs = array('Search.Searchable');
     
