@@ -1,9 +1,18 @@
 <?php
-    echo $this->Html->script('jquery-1.7.2');
+    echo $this->Html->script('jquery-1.7.2.min'); // min only works with Bootstrap dropdown?
+    //echo $this->Html->script('poundcake');
 ?>
 
-<fieldset>
-    <legend><?php echo __('Add School'); ?></legend>
+<div class="row">
+<div class="span3">
+    <H3>Actions</H3>
+    <ul>
+        <li><?php echo $this->Html->link(__('List Schools'), array('action' => 'index')); ?></li>
+    </ul>
+</div><!-- /.span3 .sb-fixed -->
+
+<div class="span9">
+    <h3>Add School</h3>
 <?php
     echo $this->Form->create('School', array('action'=>'add'));
     echo $this->Form->input('School.site_name');
@@ -21,7 +30,6 @@
     
     echo $this->Form->input('School.school_code');
     echo $this->Form->input('School.type');
-    echo $this->Form->input('School.sn');
     
     // drop down menu of available connectivity types
     echo $this->Form->input('School.connectivity_type_id', array('type'=>'select','options' => $connectivitytypes));
@@ -52,7 +60,7 @@
 </fieldset>
 
 <?php
-    //$this->Js->get('#SchoolCatchmentId')->event('change', $this->Js->alert('catchment changed!'));
+    //$this->Js->get('#SchoolCatchmentId')->event('change', $this->Js->alert('catchment changed, again!'));
     //$this->Js->get('#catchment_id')->event('change', $this->Js->alert('hey you!'));
 
     // this creates the Javascript to refresh the Areas select box after a user
@@ -97,6 +105,10 @@
                         )
                     )
     );
+    
     echo $this->Js->writeBuffer(); // Write cached scripts
     
+    //In client side JS, onchange is dependant upon onfocus() and onblur().
+    //So when you simply change the value of a select element, niehter focus
+    //nor blur happens to that element so onchange is never evoked.
 ?>

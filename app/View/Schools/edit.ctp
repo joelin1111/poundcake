@@ -8,9 +8,18 @@
     echo $this->Html->script('datepicker');
 ?>
 
-<fieldset>
-    <legend><?php echo __('Edit School'); ?></legend>
-<?php
+<div class="row">
+<div class="span3">
+    <H3>Actions</H3>
+    <ul>
+        <li><?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $this->Form->value('School.id')), null, __('Are you sure you want to delete School %s?', $this->Form->value('School.site_id'))); ?></li>
+        <li><?php echo $this->Html->link(__('List Schools'), array('action' => 'index')); ?></li>
+    </ul>
+</div><!-- /.span3 .sb-fixed -->
+
+<div class="span9">
+    <?php echo __('Edit School');
+
     //echo $this->Form->create('School', array('action' => 'edit'));
     echo $this->Form->create('School');
     echo $this->Form->input('id', array('type'=>'hidden'));

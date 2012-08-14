@@ -40,22 +40,38 @@ class UsersController extends AppController {
             }
         }
     }
-
-    /*
-    public function password($id = null) {
-        // this is just simple form allowing users to change their own password
-        // so delegate to the edit function
-         if ($this->request->is('post') || $this->request->is('put')) {
-             $this->edit($id);
-         }
-    }
-    */
     
-    public function password($id = null) {
+    function password($id = null) {
         $this->User->id = $id;
-        $this->Session->setFlash(''); // not working 
-        if ($this->User->save($this->request->data)) {
-            $this->Session->setFlash(__('Password updated.'));
+        
+        if ($this->request->is('post') || $this->request->is('put')) {
+            $this->User->set($this->request->data);
+            if ($this->User->validates(array('fieldList' => array('pwd_current')))) {
+                //echo "pwd_current validated<br>";
+                if ($this->User->validates(array('fieldList' => array('pwd_current','password')))) {
+                    //echo "<pre>";
+                    //print_r($this->data['User']['password']);
+                    //echo "New PW:".$this->data['User']['password']."<br><br>";
+                    // save new password back to the User model
+                    $this->User->data['User']['password'] = $this->data['User']['password'];
+                    //print_r($this->User->data);
+                    //echo "</pre>";
+                    //echo "attempting save...";
+                    if ($this->User->save()) {
+                        // success flash/redirect
+                        //echo "Saved";
+                        $this->Session->setFlash('Password succssfully updated.  Please logout and login again.');
+                        
+                    } else {
+                        $this->Session->setFlash('Error updating password.');
+                        //debug($this->User->validationErrors);
+                    }
+                } else {
+                     //echo "pwd FAILED validation<br>";
+                }
+            } else {
+                 //echo "pwd_current FAILED validation<br>";
+            }
         }
     }
     
@@ -97,9 +113,6 @@ class UsersController extends AppController {
     
     public function beforeFilter() {
         parent::beforeFilter();
-        // this needs to be removed before going into production
-        // basically bypass authentication for:  /users/add 
-        $this->Auth->allow('add');
     }
     
     public function setup() {
@@ -158,6 +171,10 @@ class UsersController extends AppController {
             return true;
         }
         
+        if ($this->action === 'logout' || $this->action === 'change_password') {
+            // for testing
+            return true;
+        }
         /*
         from the sample code:
         // The owner of a post can edit and delete it

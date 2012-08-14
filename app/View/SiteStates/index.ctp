@@ -2,7 +2,7 @@
 <div class="span3">
     <H3>Actions</H3>
     <ul>
-        <li><?php echo $this->Html->link(__('New Installation State'), array('action' => 'add')); ?></li>
+        <li><?php echo $this->Html->link(__('New Site State'), array('action' => 'add')); ?></li>
     </ul>
 </div><!-- /.span3 .sb-fixed -->
 
@@ -17,12 +17,12 @@
             </thead>
             <tbody>
 	<?php
-	foreach ($installationStates as $installationState): ?>
+	foreach ($siteStates as $siteState): ?>
 	<tr>
-            <td><?php echo h($installationState['InstallationState']['name']);?></td>
+            <td><?php echo h($siteState['SiteState']['name']);?></td>
             <td>
-                    <?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $installationState['InstallationState']['id'])); ?>
-                    <?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $installationState['InstallationState']['id']), null, __('Are you sure you want to delete Installation State %s?', $installationState['InstallationState']['name'])); ?>
+                    <?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $siteState['SiteState']['id'])); ?>
+                    <?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $siteState['SiteState']['id']), null, __('Are you sure you want to delete Site State %s?', $siteState['SiteState']['name'])); ?>
             </td>
 	</tr>
         <?php endforeach; ?>

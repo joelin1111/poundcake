@@ -159,7 +159,7 @@ $cakeDescription = __d('cake_dev', 'TZ21 Schools');
             Copyright © <?php echo date("Y"); ?>. All Rights Reserved.
         </div> <!-- /footer -->
 <!--        Debugging info:-->
-    <?php //echo $this->element('sql_dump'); ?>
+    <?php echo $this->element('sql_dump'); ?>
 
     <?php //echo $scripts_for_layout; ?>
     <!-- Js writeBuffer -->

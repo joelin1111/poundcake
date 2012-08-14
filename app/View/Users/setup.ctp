@@ -35,9 +35,6 @@ Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor 
         <?php echo $this->Html->link('Connectivity Types', '/connectivityTypes/index'); ?>       
     </li>
     <li>
-        <?php echo $this->Html->link('Installation States', '/installationStates/index'); ?>
-    </li>
-    <li>
         <?php echo $this->Html->link('Intervention Types', '/interventionTypes/index'); ?>        
     </li>
     <li>
@@ -48,6 +45,9 @@ Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor 
     </li>
     <li>
         <?php echo $this->Html->link('Service Providers', '/serviceProviders/index'); ?>
+    </li>
+    <li>
+        <?php echo $this->Html->link('Site States', '/siteStates/index'); ?>
     </li>
     
 </UL>

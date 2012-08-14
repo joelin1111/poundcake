@@ -1,6 +1,6 @@
-<!--
+
 <option value="">Select one</option>
--->
+
 <?php
 // we are basically following the example given here:
 // http://www.willis-owen.co.uk/2011/11/dynamic-select-box-with-cakephp-2-0/

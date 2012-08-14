@@ -1,10 +1,15 @@
 <?php
-    echo $this->Html->script('jquery-1.7.2');
-    echo $this->Html->script('poundcake');
+    //echo $this->Html->script('jquery-1.7.2');
+    //echo $this->Html->script('poundcake');
 ?>
 
 <div class="row">
 <div class="span3">
+    <H3>Actions</H3>
+    <ul>
+        <li><?php echo $this->Html->link(__('New School'), array('action' => 'add')); ?></li>
+    </ul>
+    <H3>Search</H3>
     <?php
       echo $this->Form->create(
           'School',
@@ -14,7 +19,7 @@
       echo $this->Form->input('school_code',array('escape' => true,'class' => 'span2'));
       echo $this->Form->input('site_name',array('class' => 'span2'));
       ?>
-<!--        <span class="help-block">Example block-level help text here.</span>-->
+    <span class="help-block">Use * as a wildcard</span>
     <?php
         echo $this->Form->submit(__('Search', true), array('div' => false));
         echo $this->Form->end(); 
@@ -23,12 +28,10 @@
 
 <div class="span9">
     
-    <h1>Schools</h1>
-    <h4>Actions</h4>
+    <h3>Schools</h3>
    <div class="btn-toolbar">
        <div class="btn-group">
 <!--           <a href="/schools/add"><button class="btn btn-mini">Add</button></A>-->
-        <?php echo $this->Html->link(__('New School'), array('action' => 'add')); ?>
 <!--    <div class="btn-toolbar">
     <div class="btn-group">
         <button class="btn btn-mini">Add</button>
@@ -39,8 +42,6 @@
       <button class="btn btn-mini">Export</button>
       <button class="btn btn-mini">Import</button>
  -->
-    </div>
-    </div> <!--/.btn-toolbar -->
 
 <BR><BR>
 
@@ -83,9 +84,9 @@
                 ?>
            </td>
            <td>
-               <?
-                    echo $this->Html->link($school['School']['site_name'],
-                    array('controller' => 'schools', 'action' => 'view', $school['School']['id']));
+               <?php
+                echo $this->Html->link($school['School']['site_name'],
+                array('controller' => 'schools', 'action' => 'view', $school['School']['id']));
                 ?>
            </td>
            <td><?php echo $school['Catchment']['name']; ?></td>

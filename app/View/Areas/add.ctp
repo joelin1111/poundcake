@@ -7,14 +7,12 @@
 </div><!-- /.span3 .sb-fixed -->
 
 <div class="span9">
-    <?php echo $this->Form->create('Area');
-    //echo $this->element('sql_dump'); ?>
+    <?php echo $this->Form->create('Area'); ?>
     <h2>Add Area</h2>
     <?php
-            echo $this->Form->input('name');
-            echo $this->Form->input('catchment_id');
+        echo $this->Form->input('name');
+        echo $this->Form->input('catchment_id');
     ?>
-    </fieldset>
     <?php echo $this->Form->end(__('Submit')); ?>
 </div> <!-- /.span9 -->
 </div> <!-- /.row -->

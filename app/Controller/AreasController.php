@@ -61,22 +61,22 @@ class AreasController extends AppController {
  * @return void
  */
 	public function edit($id = null) {
-		$this->Area->id = $id;
-		if (!$this->Area->exists()) {
-			throw new NotFoundException(__('Invalid area'));
-		}
-		if ($this->request->is('post') || $this->request->is('put')) {
-			if ($this->Area->save($this->request->data)) {
-				$this->Session->setFlash(__('The area has been saved'));
-				$this->redirect(array('action' => 'index'));
-			} else {
-				$this->Session->setFlash(__('The area could not be saved. Please, try again.'));
-			}
-		} else {
-			$this->request->data = $this->Area->read(null, $id);
-		}
-		$catchments = $this->Area->Catchment->find('list');
-		$this->set(compact('catchments'));
+            $this->Area->id = $id;
+            if (!$this->Area->exists()) {
+                    throw new NotFoundException(__('Invalid area'));
+            }
+            if ($this->request->is('post') || $this->request->is('put')) {
+                    if ($this->Area->save($this->request->data)) {
+                            $this->Session->setFlash(__('The area has been saved'));
+                            $this->redirect(array('action' => 'index'));
+                    } else {
+                            $this->Session->setFlash(__('The area could not be saved. Please, try again.'));
+                    }
+            } else {
+                    $this->request->data = $this->Area->read(null, $id);
+            }
+            $catchments = $this->Area->Catchment->find('list');
+            $this->set(compact('catchments'));
 	}
 
 /**

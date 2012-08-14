@@ -11,8 +11,11 @@ class Contact extends AppModel {
  *
  * @var string
  */
-	public $displayField = 'first_name';
+    public $displayField = 'first_name';
 
+//    public $virtualFields = array(
+//        'full_name' => 'CONCAT(Contact.first_name, " ", Contact.last_name)'
+//    );
 /**
  * Validation rules
  *

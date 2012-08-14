@@ -23,10 +23,3 @@
     <?php echo $this->Form->end(__('Submit')); ?>
 </div> <!-- /.span9 -->
 </div> <!-- /.row -->
-
-
-<?php
-    // include the Javascript which handles Ajax refresh of the
-    // catchment/area/region select lists
-    include 'district_form_js.php';
-?>

@@ -11,54 +11,59 @@ class User extends AppModel {
         'Role',
     );
     
+//    public $virtualFields = array(
+//        'full_name' => 'CONCAT(User.first_name, " ", User.last_name)'
+//    );
+    
     // used on saving new user
+    /*
     public $validate = array(
         'username' => array(
             'required' => array(
                 'rule' => array('notEmpty'),
-                'message' => 'Username is required'
+                'message' => 'Username is required.'
+                //'last' => true
             )
         ),
-        /*
-        'password' => array(
-            'required' => array(
-                //'rule' => array('notEmpty'),
-                'rule'    => array('between', 5, 15),
-                'message' => 'Passwords must be between 5 and 15 characters long.'
-            )
-        ),
-        */
-        /*
-        'role' => array(
-            'valid' => array(
-                // staff or supportstaff?
-                'rule' => array('inList', array('admin', 'staff')),
-                'message' => 'Please enter a valid role',
-                'allowEmpty' => false
-            )
-        )
-        */
         'current_password' => array(
             'required' => array(
-                //'rule' => array('notEmpty'),
                 'rule'    => 'checkCurrentPassword',
                 'message' => 'Current password does not match.'
+                //'last' => true
             )
         ),
         'password' => array(
             'required' => array(
-                //'rule' => array('notEmpty'),
-                'rule'    => array('between', 1, 15),
-                'message' => 'Passwords must be between 5 and 15 characters long.'
+                'rule' => array('notEmpty'),
+                'message' => 'Password is required.'
+                //'last' => true
             )
         ),
         'password_verify' => array(
             'required' => array(
-                //'rule' => array('notEmpty'),
-                'rule'    => 'checkPasswordsMatch',
+                'rule'    => array('checkPasswordsMatch'), 
                 'message' => 'New passwords do not match.'
+                //'last' => true
             )
         )
+    );
+    */
+    public $validate = array(
+        'username' => array(
+            'rule'     => 'alphaNumeric',
+            'required' => true,
+            'message' => 'Username is required.'
+        ),
+        'pwd_current' => array(
+            'rule'     => array('checkCurrentPassword'),
+            'required' => false,
+            'message' => 'Current password does not match.'
+        ),
+        'password' => array(
+            'rule'     => 'alphaNumeric',
+            'required' => true,
+            'message' => 'Password must be alphanumeric.'
+        ),
     );
     
     // changed parameters on beforeSave for PHP 5.4.x compatability
@@ -73,18 +78,41 @@ class User extends AppModel {
         }
         return true;
     }
-    
-    function checkCurrentPassword($current_password) {
-        $user = $this->find('first', array('id' => $this->id));
-        return AuthComponent::password($current_password['current_password']) == $user[$this->alias]['password'];
+   
+    public function checkCurrentPassword($check) {
+        //print_r($check);
+        $pwd_current = $check['pwd_current'];
+        
+        // return true if the hash of the password the user thinks is their current
+        // password (from the change password form) versus what's in the database
+        
+        $this->id = AuthComponent::user('id');;
+        $this->read();
+        //echo "<pre>".print_r($this->data)."</pre>";
+        $db_pass = $this->data['User']['password'];
+        //echo "Current (pw) in db: " . $db_pass."<BR>";
+        //echo "Current (pw) in form: " . AuthComponent::password($pwd_current)."<BR>";
+        
+        return (AuthComponent::password($pwd_current) == $db_pass);
     }
-    
-    function checkPasswordsMatch() {
+
+    /*
+    public function checkPasswordsMatch($check) {
+        print_r($check);
+        echo "<pre> checkPasswordsMatch ".print_r($check)."</pre>";
+        //echo "New 1 " . $check['password'];
+        echo "New 2 " . $check['verify'];
+        echo $user[$this->alias]['password'];
+        die;
+        return false;
+        //return false;
+        //return $check['password'] === $check['password_verify'];
         //echo "New 1 " . $this->data[$this->alias]['password'];
         //echo "New 2 " . $this->data[$this->alias]['password_verify'];
-        return $this->data[$this->alias]['password'] === $this->data[$this->alias]['password_verify'];
+        //return $this->data[$this->alias]['password'] === $this->data[$this->alias]['password_verify'];
         // return AuthComponent::password($current_password['current_password']) == $user[$this->alias]['password'];
         //return false;
     }
+     */
 }
 ?>
