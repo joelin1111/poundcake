@@ -36,6 +36,11 @@ class AppController extends Controller {
     //public $helpers = array('Js' => array('Jquery'));
     //public $helpers = array('Js');
     
+    // default pagination
+    public $paginate = array(
+        'limit' => 20
+    );
+    
     // used for the login/ACL
     public $components = array(
         'Session',

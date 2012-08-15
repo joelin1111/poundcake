@@ -60,7 +60,7 @@ function cakebootstrap()
     });
     $('form[class*="form-horizontal"] div.control-group > input ~ label').insertBefore();
     $('div.pagination ul li a.disabled').parent().addClass('disabled');
-    $('div.pagination ul li.active').wrapInner('<a href="#" />');
+    //$('div.pagination ul li.active').wrapInner('<a href="#" />');
 }
 
 //Default CakePHP Error inputs are converted to twitter bootstrap style

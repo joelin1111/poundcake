@@ -10,8 +10,6 @@ class SchoolsController extends AppController
     // AutoCompleteHelper removed -- not used
     var $helpers = array('AjaxMultiUpload.Upload','Html','AltGoogleMapV3');
     
-    // pagination of results ($paginate) is down in the index function
-
     public $components = array('AjaxMultiUpload.Upload'); //,'DebugKit.Toolbar'
     
     public $presetVars = array(
@@ -27,6 +25,7 @@ class SchoolsController extends AppController
         $this->set('district', $this->School->district);
     }
     
+    /*
     public $paginate = array(
         'fields' => array('School.school_code', 'School.site_name'),
         'limit' => 25,
@@ -34,7 +33,7 @@ class SchoolsController extends AppController
             'School.school_code' => 'asc'
         )
     );
-    
+    */
     function about() {
         // show the about page
     }
@@ -74,7 +73,7 @@ class SchoolsController extends AppController
         $this->paginate = array(
             'School' => array(
                 // limit is the number per page 
-                'limit' => 10,
+                'limit' => 20,
                 'conditions' => $conditions,
                 'order' => array(
                     'School.school_code' => 'asc',

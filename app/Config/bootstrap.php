@@ -191,7 +191,6 @@ CakeLog::config('error', array(
  * http://bakery.cakephp.org/articles/srs2012/2012/03/12/ajaxmultiupload_plugin_for_cake_2_0_x_and_2_1
  */
 CakePlugin::load('AjaxMultiUpload');
-// CakePlugin::load('CakePHP-AjaxMultiUpload');
 CakePlugin::load('Search');
 //CakePlugin::load('DebugKit');
 

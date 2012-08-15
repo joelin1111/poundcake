@@ -6,7 +6,18 @@ App::uses('AppController', 'Controller');
  * @property SiteState $SiteState
  */
 class SiteStatesController extends AppController {
-
+    
+    
+    
+    /*
+    public $paginate = array(
+        'fields' => array('School.school_code', 'School.site_name'),
+        'limit' => 25,
+        'order' => array(
+            'School.school_code' => 'asc'
+        )
+    );
+     */    
 /**
  * index method
  *

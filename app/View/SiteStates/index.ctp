@@ -7,7 +7,7 @@
 </div><!-- /.span3 .sb-fixed -->
 
 <div class="span9">
-	<h2>Installation States</h2>
+	<h2>Site States</h2>
 	<table class="table table-condensed table-striped">
             <thead>
                 <tr>
@@ -32,6 +32,7 @@
 	
 	<?php
             // include pagination
+            // file is in ./View/Elements/Common/pagination.ctp
             echo $this->element('Common/pagination');
         ?>
 </div> <!-- /.span9 -->

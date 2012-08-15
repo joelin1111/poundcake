@@ -1,31 +1,62 @@
+<?php
+    // debug($this->Paginator);
+    // this pagination solution taken from:
+    // https://gist.github.com/2137554
+?>
+
+<?php $span = isset($span) ? $span : 8; ?>
+<?php $page = isset($this->request->params['named']['page']) ? $this->request->params['named']['page'] : 1; ?>
 <div class="pagination pagination-centered">
-    <ul>
-        <LI>
-        <?php
-            // Shows the next and previous links
-            echo $this->Paginator->next('<< Previous', array('tag'=>'li'), null, array('class' => 'disabled','tag'=>'li'));
-            //echo $this->Paginator->prev('<< Previous', array('tag' => 'li'), array('class' => 'disabled'));
-             // Shows the page numbers
-            // 'tag' => 'li'
-            // currentClass
-            // http://stackoverflow.com/questions/989959/styling-pagination-cakephp
-            // http://www.startutorial.com/articles/view/9
-            //echo $this->Paginator->numbers(array('separator' => '','tag'=>'li'));
-            
-            // bootstrap - https://groups.google.com/forum/#!topic/cake-php/K_bXXQvtxaM[1-25]
-            echo $this->Paginator->numbers(array('separator' => '','tag'=>'li','currentClass' => 'active'));
-            //echo $this->Paginator->numbers(array('separator' => ''));
-            
-            echo $this->Paginator->next('Next >>', array('tag'=>'li'), null, array('class' => 'disabled','tag'=>'li'));
-            // prints X of Y, where X is current page and Y is number of pages            
-        ?>
-        </LI>
-    </ul>
-    <BR><BR>
-    <?php
-        echo $this->Paginator->counter(array(
-            'format' => 'Page {:page} of {:pages}<BR>{:count} records total'
-        ));
-        ?>
+	<ul>
+		<?php echo $this->Paginator->prev(
+			'&larr; ' . __('Previous'),
+			array(
+				'escape' => false,
+				'tag' => 'li'
+			),
+			'<a onclick="return false;">&larr; Previous</a>',
+			array(
+				'class'=>'disabled prev',
+				'escape' => false,
+				'tag' => 'li'
+			)
+		);?>
+		
+		<?php $count = $page + $span; ?>
+		<?php $i = $page - $span; ?>
+		<?php while ($i < $count): ?>
+			<?php $options = ''; ?>
+			<?php if ($i == $page): ?>
+				<?php $options = ' class="active"'; ?>
+			<?php endif; ?>
+			<?php if ($this->Paginator->hasPage($i) && $i > 0): ?>
+				<li<?php echo $options; ?>><?php echo $this->Html->link($i, array("page" => $i)); ?></li>
+			<?php endif; ?>
+			<?php $i += 1; ?>
+		<?php endwhile; ?>
+		
+		<?php echo $this->Paginator->next(
+			__('Next') . ' &rarr;',
+			array(
+				'escape' => false,
+				'tag' => 'li'
+			),
+			'<a onclick="return false;">Next &rarr;</a>',
+			array(
+				'class' => 'disabled next',
+				'escape' => false,
+				'tag' => 'li'
+			)
+		);?>
+	</ul>
 </div><!-- /.pagination .pagination-centered -->
+<div align="center">
+        <?php
+            echo $this->Paginator->counter(array(
+                'format' => 'Page {:page} of {:pages}<BR>{:count} records total'
+            ));
+        ?>
+</div>
+
+
 
