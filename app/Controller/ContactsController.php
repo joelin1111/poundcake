@@ -101,13 +101,25 @@ class ContactsController extends AppController {
 
         // return all the TC/TRCs to allow the user to be assigned to
         function getTrcs() {
+            // see comment in getSchools
             $this->set('trcs',$this->Contact->Trc->find('list'));
+            /* To-Do PC-64
+            $this->set('trcs',$this->Contact->Trc->find('list',
+                    array(
+                        'order' => array('Trc.name', 'School.site_name ASC'))));
+            */
         }
         
         // return all the schools to allow the user to be assigned to
         function getSchools() {
+            // because the school listing is so long, by default find would
+            // return a list of school names -- we actually want this list sorted
+            // by school code then name
+            // furthermore, we want the list itself to be a virtual field of
+            // site id + school code -- so we've defined a virtual field on the
+            // school model and we've modified the query here to do the sorting
             
-            
+            /*
             $data = $this->Contact->School->find(
                 'list',
                 array(
@@ -115,16 +127,24 @@ class ContactsController extends AppController {
                     'fields' => array('School.id','School.school_code', 'School.site_name')
                     )
                 );
-            //echo "<pre>";
-            //print_r($data);
-            //echo "</pre>";
-            //die;
-            $this->set('schools',$this->Contact->School->find('list',array('order' => array('School.school_code', 'School.site_name ASC'))));
+            echo "<pre>";
+            print_r($data);
+            echo "</pre>";
+            */
+            $this->set('schools',$this->Contact->School->find('list',
+                    array(
+                        'order' => array('School.school_code', 'School.site_name ASC'))));
         }
         
         // return all the districts to allow the user to be assigned to
         function getDistricts() {
-            $this->set('districts',$this->Contact->District->find('list'));
+            // see comment in getSchools
+            // Districts don';'t have site_id like Schools or TRCs, so we can only
+            // sort by name here
+            // $this->set('districts',$this->Contact->District->find('list'));
+            $this->set('districts',$this->Contact->District->find('list',
+                    array(
+                        'order' => array('District.name'))));
         }
 /**
  * edit method
