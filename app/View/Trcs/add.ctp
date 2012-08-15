@@ -1,17 +1,17 @@
-<div class="trcs form">
-<?php echo $this->Form->create('Trc'); ?>
-	<fieldset>
-		<legend><?php echo __('Add Trc'); ?></legend>
-	<?php
-		echo $this->Form->input('name');
-	?>
-	</fieldset>
-<?php echo $this->Form->end(__('Submit')); ?>
-</div>
-<div class="actions">
-	<h3><?php echo __('Actions'); ?></h3>
-	<ul>
+<div class="row">
+<div class="span3">
+    <H3>Actions</H3>
+    <ul>
+        <li><?php echo $this->Html->link(__('List TCs/TRCs'), array('action' => 'index')); ?>
+    </ul>
+</div><!-- /.span3 .sb-fixed -->
 
-		<li><?php echo $this->Html->link(__('List Trcs'), array('action' => 'index')); ?></li>
-	</ul>
-</div>
+<div class="span9">
+    <?php echo $this->Form->create('Trc'); ?>
+    <h2>Add TC/TRC</h2>
+    <?php
+        echo $this->Form->input('trc_name',array('label' => 'Name'));
+        echo $this->Form->end(__('Submit'));
+    ?>
+</div> <!-- /.span9 -->
+</div> <!-- /.row -->

@@ -57,10 +57,10 @@
                 <dt><?php echo __('School (Optional)'); ?></dt>
                 <?php
                 echo "<dd>";
-                if (empty($contact['School']['site_name'])) {
+                if (empty($contact['School']['school_name'])) {
                     echo "None";
                 } else {
-                    echo $this->Html->link(__($contact['School']['site_name']), array(
+                    echo $this->Html->link(__($contact['School']['school_name']), array(
                         'controller' => 'schools',
                         'action' => 'view',
                         $contact['School']['id']));

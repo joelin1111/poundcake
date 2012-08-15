@@ -23,7 +23,7 @@
     //echo $this->Form->create('School', array('action' => 'edit'));
     echo $this->Form->create('School');
     echo $this->Form->input('id', array('type'=>'hidden'));
-    echo $this->Form->input('site_name');
+    echo $this->Form->input('school_name');
     
     //echo "<pre>".print_r($this->request->data)."</pre>";
      
@@ -76,7 +76,7 @@
     // this is the upload field
     echo $this->Upload->edit('School', $this->Form->fields['School.id']); 
     
-    echo $this->Form->end('Save School');
+    echo $this->Form->end('Save');
     
     $this->Js->get('#SchoolCatchmentId');
     $this->Js->event('change',

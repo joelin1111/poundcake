@@ -39,7 +39,7 @@ class ContactsController extends AppController {
         }
         
 //        echo "School code arg: " . $school_code_arg;
-//        echo "<BR>Site name arg: " . $site_name_arg;
+//        echo "<BR>Site name arg: " . $school_name_arg;
 //        echo "<BR>";
         
         //echo "School code 2:<pre>".$this->passedArgs['School.school_code']."</pre>";            
@@ -106,7 +106,7 @@ class ContactsController extends AppController {
             /* To-Do PC-64
             $this->set('trcs',$this->Contact->Trc->find('list',
                     array(
-                        'order' => array('Trc.name', 'School.site_name ASC'))));
+                        'order' => array('Trc.name', 'School.school_name ASC'))));
             */
         }
         
@@ -123,8 +123,8 @@ class ContactsController extends AppController {
             $data = $this->Contact->School->find(
                 'list',
                 array(
-                    'order' => array('School.id','School.school_code', 'School.site_name ASC'),
-                    'fields' => array('School.id','School.school_code', 'School.site_name')
+                    'order' => array('School.id','School.school_code', 'School.school_name ASC'),
+                    'fields' => array('School.id','School.school_code', 'School.school_name')
                     )
                 );
             echo "<pre>";
@@ -133,7 +133,7 @@ class ContactsController extends AppController {
             */
             $this->set('schools',$this->Contact->School->find('list',
                     array(
-                        'order' => array('School.school_code', 'School.site_name ASC'))));
+                        'order' => array('School.school_code', 'School.school_name ASC'))));
         }
         
         // return all the districts to allow the user to be assigned to

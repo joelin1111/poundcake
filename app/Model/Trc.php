@@ -11,8 +11,20 @@ class Trc extends AppModel {
  *
  * @var string
  */
-	public $displayField = 'name';
+    var $virtualFields = array('trc_vf' => 'CONCAT(trc_code, " ", trc_name)');
+    
+    public $displayField = 'trc_vf';
+    //public $displayField = 'trc_name';
 
+    var $belongsTo = array(
+        'ConnectivityType',
+        'InterventionType',
+        'SiteState',
+        'ServiceProvider',
+        'PowerType',
+        'RoadType',
+    );
+            
 /**
  * Validation rules
  *

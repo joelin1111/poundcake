@@ -17,7 +17,7 @@
           array('action'=>'search','class' => 'well')
       );
       echo $this->Form->input('school_code',array('escape' => true,'class' => 'span2'));
-      echo $this->Form->input('site_name',array('class' => 'span2'));
+      echo $this->Form->input('school_name',array('class' => 'span2'));
       ?>
     <span class="help-block">Use * as a wildcard</span>
     <?php
@@ -29,8 +29,8 @@
 <div class="span9">
     
     <h3>Schools</h3>
-   <div class="btn-toolbar">
-       <div class="btn-group">
+<!--   <div class="btn-toolbar">
+       <div class="btn-group">-->
 <!--           <a href="/schools/add"><button class="btn btn-mini">Add</button></A>-->
 <!--    <div class="btn-toolbar">
     <div class="btn-group">
@@ -42,9 +42,6 @@
       <button class="btn btn-mini">Export</button>
       <button class="btn btn-mini">Import</button>
  -->
-
-<BR><BR>
-
 <!-- Revisit the HTML in this view and replace with Html helper, e.g.
     echo $this->Html->tableHeaders(
             array (
@@ -63,7 +60,7 @@
 <thead>
    <tr>
        <th><?php echo $this->Paginator->sort('school_code'); ?></th>
-       <th><?php echo $this->Paginator->sort('site_name'); ?></th>
+       <th><?php echo $this->Paginator->sort('school_name'); ?></th>
        <th><?php echo $this->Paginator->sort('catchment_id','Catchment');?></th>
        <th><?php echo $this->Paginator->sort('area_id','Area'); ?></th>
        <th><?php echo $this->Paginator->sort('district_id','District'); ?></th>
@@ -85,7 +82,7 @@
            </td>
            <td>
                <?php
-                echo $this->Html->link($school['School']['site_name'],
+                echo $this->Html->link($school['School']['school_name'],
                 array('controller' => 'schools', 'action' => 'view', $school['School']['id']));
                 ?>
            </td>

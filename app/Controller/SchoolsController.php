@@ -8,26 +8,26 @@ class SchoolsController extends AppController
     // AjaxMultiUpload is used for the file upload plugin
     // AltGoogleMapV3 is the Marc Fernandez Google Map helper, just renamed
     // AutoCompleteHelper removed -- not used
-    var $helpers = array('AjaxMultiUpload.Upload','Html','AltGoogleMapV3');
+    var $helpers = array('AjaxMultiUpload.Upload','AltGoogleMapV3');
     
     public $components = array('AjaxMultiUpload.Upload'); //,'DebugKit.Toolbar'
     
     public $presetVars = array(
         // field names for the form itself , 'model' => 'School'
-        array('field' => 'site_name', 'type' => 'value'),
+        array('field' => 'school_name', 'type' => 'value'),
         //array('field' => 'district', 'type' => 'value'),
         array('field' => 'district', 'type' => 'lookup', 'formField' => 'district_input', 'modelField' => 'district', 'model' => 'School'),
     );
     
     public function beforeFilter() {
         parent::beforeFilter();
-        $this->set('site_name', $this->School->site_name);
+        $this->set('school_name', $this->School->school_name);
         $this->set('district', $this->School->district);
     }
     
     /*
     public $paginate = array(
-        'fields' => array('School.school_code', 'School.site_name'),
+        'fields' => array('School.school_code', 'School.school_name'),
         'limit' => 25,
         'order' => array(
             'School.school_code' => 'asc'
@@ -42,30 +42,30 @@ class SchoolsController extends AppController
         
         $conditions = "";
         $school_code_arg = "";
-        $site_name_arg = "";
+        $school_name_arg = "";
         //echo $this->passedArgs['School.school_code'];
         
         if (isset($this->passedArgs['School.school_code'])) {
             $school_code_arg = str_replace('*','%',$this->passedArgs['School.school_code']);
         }
         
-        if (isset($this->passedArgs['School.site_name'])) {
-            $site_name_arg = str_replace('*','%',$this->passedArgs['School.site_name']);
+        if (isset($this->passedArgs['School.school_name'])) {
+            $school_name_arg = str_replace('*','%',$this->passedArgs['School.school_name']);
         }
         
         // if neither argument was passed, default to a wildcard
         if ($school_code_arg == "") {
             $school_code_arg = '%';
         }
-        if ($site_name_arg == "") {
-            $site_name_arg = '%';
+        if ($school_name_arg == "") {
+            $school_name_arg = '%';
         }
         
         //echo "School code 2:<pre>".$this->passedArgs['School.school_code']."</pre>";            
         $conditions = array(
             'AND' => array(
                 'School.school_code LIKE' => $school_code_arg,
-                'School.site_name LIKE' => $site_name_arg,
+                'School.school_name LIKE' => $school_name_arg,
             )
         );
         //echo "Conditions: ".print_r($conditions);
@@ -85,13 +85,6 @@ class SchoolsController extends AppController
         $this->set('schools',$data);
     }
  
-    
-    // for testing alternate Google Maps search/filter
-    public function overviewfilter() {
-       $this->getCatchments();
-       $this->overview();
-    }
-    
     public function overview() {
         // find('all') would return all schools, no matter what
         //$schools = $this->School->find('all');
@@ -112,8 +105,7 @@ class SchoolsController extends AppController
         $this->set('schools', $schools);
     }
     
-    function getSchoolsNearby($id = null, $max_schools = 5)
-    {
+    function getSchoolsNearby($id = null, $max_schools = 5) {
         // return the nearest schools using the MySQL stored procedure
         // sp_nearby
         if ($id != null && $max_schools != null) {
@@ -127,7 +119,7 @@ class SchoolsController extends AppController
                         [schools] => Array
                             (
                                 [id] => 2
-                                [site_name] => CHITANDI
+                                [school_name] => CHITANDI
                             )
 
                         [0] => Array
@@ -448,13 +440,13 @@ class SchoolsController extends AppController
 //    function auto_complete() {
 //        $schools = $this->School->find('all', array( 
 //            'conditions' => array( 
-//                'School.site_name LIKE' => $this->params['url']['autoCompleteText'].'%' 
+//                'School.school_name LIKE' => $this->params['url']['autoCompleteText'].'%' 
 //            ), 
-//            'fields' => array('site_name'), 
+//            'fields' => array('school_name'), 
 //            'limit' => 3, 
 //            'recursive'=>-1, 
 //        )); 
-//        $schools = Set::Extract($schools,'{n}.School.site_name'); 
+//        $schools = Set::Extract($schools,'{n}.School.school_name'); 
 //        $this->set('schools', $schools); 
 //        $this->layout = 'ajax';     
 //    }

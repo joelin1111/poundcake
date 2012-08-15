@@ -11,7 +11,7 @@ class SiteStatesController extends AppController {
     
     /*
     public $paginate = array(
-        'fields' => array('School.school_code', 'School.site_name'),
+        'fields' => array('School.school_code', 'School.school_name'),
         'limit' => 25,
         'order' => array(
             'School.school_code' => 'asc'

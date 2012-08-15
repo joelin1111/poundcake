@@ -1,47 +1,3 @@
-//<script type="text/javascript">
-//function myFunction()
-//{
-//alert("Hello World!");
-//}
-//// A function to create the marker and set up the event window
-//function createMarker(point,name,html,category) {
-//  var marker = new GMarker(point,gicons[category]);
-//  // === Store the category and name info as a marker properties ===
-//  marker.mycategory = category;                                 
-//  marker.myname = name;
-//  GEvent.addListener(marker, "click", function() {
-//    marker.openInfoWindowHtml(html);
-//  });
-//  gmarkers.push(marker);
-//  return marker;
-//}
-//      
-//// == shows all markers of a particular category, and ensures the checkbox is checked ==
-//function show(category) {
-//  for (var i=0; i<gmarkers.length; i++) {
-//    if (gmarkers[i].mycategory == category) {
-//      gmarkers[i].show();
-//    }
-//  }
-//  // == check the checkbox ==
-//  document.getElementById(category+"box").checked = true;
-//}
-//
-//// == hides all markers of a particular category, and ensures the checkbox is cleared ==
-//function hide(category) {
-//  for (var i=0; i<gmarkers.length; i++) {
-//    if (gmarkers[i].mycategory == category) {
-//      gmarkers[i].hide();
-//    }
-//  }
-//  // == clear the checkbox ==
-//  document.getElementById(category+"box").checked = false;
-//  // == close the info window, in case its open on a marker that we just hid
-//  map.closeInfoWindow();
-//}
-//
-//</script>
-
 <?php
     # include Jquery
     echo $this->Html->script('jquery-1.7.2');
@@ -49,13 +5,7 @@
     echo $this->Html->script('http://maps.google.com/maps/api/js?sensor=true',false);
     //$this->Html->script('http://code.google.com/apis/gears/gears_init.js',false);
     echo $this->Html->script('gears_init');
-    
-/*
-    if (Configure::read('debug') == 0):
-	throw new NotFoundException();
-    endif;
-    App::uses('Debugger', 'Utility');
-    */
+
 ?>
 
 <P>
@@ -103,7 +53,7 @@
     // https://developers.google.com/maps/articles/toomanymarkers
     
     if ($schools != null) {
-        //echo '<LI>'.$schools[$i]['School']['site_name'].'</LI>';
+        //echo '<LI>'.$schools[$i]['School']['school_name'].'</LI>';
         //echo '<pre> LAT ' . $lat . '</pre>';
         //echo '<pre> LON ' .  $lon . '</pre>';
         //echo '<pre> defaultLat ' . $defaultLat . '</pre>';
@@ -113,7 +63,7 @@
        $i = 0; 
        foreach ($schools as $school) {
 //           echo '<LI>';
-//           echo $schools[$i]['School']['site_name'] . ' - ';
+//           echo $schools[$i]['School']['school_name'] . ' - ';
 //           echo $schools[$i]['School']['id'] . ' - ';
 //           echo $schools[$i]['School']['location']['lat'] . ' ';
 //           echo $schools[$i]['School']['location']['lon'];
@@ -127,7 +77,7 @@
            
            $lat = $school['School']['location']['lat'];
            $lon = $school['School']['location']['lon'];
-           $site_name = $school['School']['site_name'];
+           $school_name = $school['School']['school_name'];
            
             $schoolUrl = $this->Html->link(
                  $school['School']['school_code'],
@@ -139,7 +89,7 @@
              );
             
             // text for the popup over the placemarker
-            $windowText = $schoolUrl."<BR>".$school['School']['site_name'];
+            $windowText = $schoolUrl."<BR>".$school['School']['school_name'];
 
              // https://github.com/marcferna/CakePHP-Google-Maps-V3-Helper/blob/master/google_map_v3.php
              $markerOptions= array(
@@ -147,6 +97,7 @@
                  'latitude' => $lat,
                  'longitude' => $lon,
                  'markerIcon' => $schoolImage,
+                 'address'=> "", # mysteriously started complaining about this field not being present
                  //'shadowIcon' => 'http://google-maps-icons.googlecode.com/files/home.png', //Custom shadow
                  'infoWindow' => true, // Boolean to show an information window when you click the marker or not
                  'windowText' => $windowText // Text inside the information window
@@ -176,7 +127,7 @@
     );
 
      if ($schools != null) {
-        //echo '<LI>'.$schools[$i]['School']['site_name'].'</LI>';
+        //echo '<LI>'.$schools[$i]['School']['school_name'].'</LI>';
         //echo '<pre> LAT ' . $lat . '</pre>';
         //echo '<pre> LON ' .  $lon . '</pre>';
         //echo '<pre> defaultLat ' . $defaultLat . '</pre>';
@@ -186,7 +137,7 @@
        foreach ($schools as $school) {
            /*
            echo '<LI>';
-           echo $schools[$i]['School']['site_name'] . ' - ';
+           echo $schools[$i]['School']['school_name'] . ' - ';
            echo $schools[$i]['School']['id'] . ' - ';
            echo $schools[$i]['School']['location']['lat'] . ' ';
            echo $schools[$i]['School']['location']['lon'];
@@ -197,7 +148,7 @@
            //$lon = $schools[$i]['School']['location']['lon'];
            $lat = $school['School']['location']['lat'];
            $lon = $school['School']['location']['lon'];
-           $site_name = $school['School']['site_name'];
+           $school_name = $school['School']['school_name'];
            // this is sort of a guess
            $link = "http://" . $_SERVER['HTTP_HOST'] ."/schools/view/" . $school['School']['id'];
 
@@ -205,8 +156,8 @@
                 'lat' => $lat,
                 'lng' => $lon,
                 'marker'=>true,
-                'title' => $site_name,
-                'content' => '<b>'.$site_name.'</b><BR>Lorem ipsum dolor sit amet<BR><a href="'.$link.'">More Detail</a>', # optional
+                'title' => $school_name,
+                'content' => '<b>'.$school_name.'</b><BR>Lorem ipsum dolor sit amet<BR><a href="'.$link.'">More Detail</a>', # optional
                 'infoWindow'=> true // show an information window when you click the marker
             );
             echo $this->GoogleMapV3->addMarker($options);

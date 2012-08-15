@@ -280,7 +280,7 @@ class AltGoogleMapV3Helper extends Helper {
 	function addMarker($map_id,$id,$options){
 		if($options==null || $id == null || $map_id==null) return null;
 		extract($options);
-		if((!isset($latitude) || !isset($longitude)) && !($address)) return null;	
+                if((!isset($latitude) || !isset($longitude)) && !($address)) return null;	
 		if(!isset($infoWindow)) $infoWindow=$this->defaultInfoWindowM;
 		if(!isset($windowText)) $windowText=$this->defaultWindowTextM;
 		if(!isset($markerTitle)) $markerTitle=$this->defaultmarkerTitleM;

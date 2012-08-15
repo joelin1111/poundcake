@@ -15,7 +15,7 @@
     <h3>Add School</h3>
 <?php
     echo $this->Form->create('School', array('action'=>'add'));
-    echo $this->Form->input('School.site_name');
+    echo $this->Form->input('School.school_name');
     
     // drop down meny of available catchments, etc.
     //echo $this->Form->input('School.catchment_id', array('type'=>'select','options' => $catchments));

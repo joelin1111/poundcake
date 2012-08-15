@@ -21,9 +21,9 @@
         echo $this->Form->input('school_id', array('empty' => '(No School)'));
         echo $this->Form->input('trc_id', array('empty' => '(No TC/TRC)'));
  
-        //echo $this->Form->input('school_code_site_name');
+        //echo $this->Form->input('school_code_school_name');
         echo $this->Form->input('school_code');
-        /*echo $this->Form->input('school_code_site_name', array(
+        /*echo $this->Form->input('school_code_school_name', array(
             'options' => $schools,
             'empty' => '(choose one)'
         ));*/

@@ -36,7 +36,7 @@ class School extends AppModel {
     );
     
     public $validate = array(
-            'site_name' => array(
+            'school_name' => array(
                     'notempty' => array(
                             'rule' => array('notempty'),
                             'message' => 'This field cannot be blank.',
@@ -85,9 +85,9 @@ class School extends AppModel {
     *
     * @var string
     */
-    //public $displayField = 'site_name';
+    //public $displayField = 'school_name';
     // not working as I'd like!
-    var $virtualFields = array('school_vf' => 'CONCAT(school_code, " ", site_name)');
+    var $virtualFields = array('school_vf' => 'CONCAT(school_code, " ", school_name)');
     
     // The displayField attribute specifies which database field should be used as a
     // label for the record. The label is used in scaffolding and in find('list') calls.
@@ -99,9 +99,9 @@ class School extends AppModel {
     
     public $filterArgs = array(
         // filterTitle is defined below
-        // array('name' => 'site_name', 'type' => 'query','method'=>'filterTitle'),
-        //array('name' => 'site_name', 'type' => 'like', 'field' => 'School.site_name'),
-        array('name' => 'site_name', 'type' => 'query', 'method' => 'filterSchool'),
+        // array('name' => 'school_name', 'type' => 'query','method'=>'filterTitle'),
+        //array('name' => 'school_name', 'type' => 'like', 'field' => 'School.school_name'),
+        array('name' => 'school_name', 'type' => 'query', 'method' => 'filterSchool'),
         //array('name' => 'district', 'type' => 'string'),
         // this is used in a drop down of districts
         array('name' => 'district', 'type' => 'value'),
@@ -138,13 +138,13 @@ class School extends AppModel {
     }
 
     public function filterSchool($data, $field = null) {
-        if(empty($data['site_name'])) {
+        if(empty($data['school_name'])) {
             return array();
         }
-        $site_name = '%' . $data['site_name'] . '%';
+        $school_name = '%' . $data['school_name'] . '%';
         return array(
             'OR' => array(
-                $this->alias . '.site_name LIKE' => $site_name,
+                $this->alias . '.school_name LIKE' => $school_name,
             ));
     }
     
