@@ -12,8 +12,7 @@ class SchoolsController extends AppController
     
     // pagination of results ($paginate) is down in the index function
 
-    // make Schools visible to the search plugin
-    public $components = array('Search.Prg','AjaxMultiUpload.Upload'); //,'DebugKit.Toolbar'
+    public $components = array('AjaxMultiUpload.Upload'); //,'DebugKit.Toolbar'
     
     public $presetVars = array(
         // field names for the form itself , 'model' => 'School'
