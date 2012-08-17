@@ -94,7 +94,7 @@ $cakeDescription = __d('cake_dev', 'TZ21 Schools');
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </a>
-          <a class="brand" href="#">TZ21 Schools</a>
+          <a class="brand" href="#">Tz21 Schools</a>
           <div class="nav-collapse">
             <ul class="nav pull-left">
             <?php
@@ -159,7 +159,7 @@ $cakeDescription = __d('cake_dev', 'TZ21 Schools');
             Copyright © <?php echo date("Y"); ?>. All Rights Reserved.
         </div> <!-- /footer -->
 <!--        Debugging info:-->
-    <?php echo $this->element('sql_dump'); ?>
+    <?php //echo $this->element('sql_dump'); ?>
 
     <?php //echo $scripts_for_layout; ?>
     <!-- Js writeBuffer -->

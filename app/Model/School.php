@@ -80,13 +80,8 @@ class School extends AppModel {
     var $lat = 0;
     var $lon = 0;
     
-    /**
-    * Display field
-    *
-    * @var string
-    */
-    //public $displayField = 'school_name';
-    // not working as I'd like!
+    // this virtualField is also defined in the sp_nearby stored procedure - that version
+    // is used to place placemarkers for nearby schools on the school view page map
     var $virtualFields = array('school_vf' => 'CONCAT(school_code, " ", school_name)');
     
     // The displayField attribute specifies which database field should be used as a

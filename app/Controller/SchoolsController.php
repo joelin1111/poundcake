@@ -92,6 +92,9 @@ class SchoolsController extends AppController
         // filter out ones w/o a location (since we can't display them on the
         // map without coordinates)
         
+        // get all the schools for display on the map, and deal with their lat/lon
+        
+        // skip any that don't have coordinates in the db
         $conditions = array ("NOT" => array ("School.location" => null));
         $schools = $this->School->find('all', array('conditions' => $conditions));
         for($i = 0; $i < sizeof($schools); ++$i) {
@@ -100,9 +103,18 @@ class SchoolsController extends AppController
             //echo "<pre> School ID = ".$schools[$i]['School']['id']."</pre>";
             // we're actually overwriting the School's "location" field (which
             // comes back as a binary object) with the decoded lat/lon
-            $schools[$i]['School']['location'] = $this->getLatLon( $schools[$i]['School']['id'] );
+            $schools[$i]['School']['location'] = $this->getLatLon( $schools[$i]['School']['id'], 'schools' );
         }
         $this->set('schools', $schools);
+        
+        // same for TRCs
+        $conditions = array ("NOT" => array ("Trc.location" => null));
+        $trcs = $this->School->Trc->find('all', array('conditions' => $conditions));
+        for($i = 0; $i < sizeof($trcs); ++$i) {
+            $trcs[$i]['Trc']['location'] = $this->getLatLon( $trcs[$i]['Trc']['id'], 'trcs' );
+        }
+        $this->set('trcs', $trcs);
+        
     }
     
     function getSchoolsNearby($id = null, $max_schools = 5) {
@@ -170,13 +182,13 @@ class SchoolsController extends AppController
         }
     }
     
-    function getLatLon($id = null) {
+    function getLatLon($id = null, $table) {
         // this function is basically like setLatLong except that it returns the 
         // lat/lon as an array
         //echo '<pre> (getLatLon) ID: ' . $id . '</pre>';
         $latlon = null;
         if ($id <> null) {
-            $query = 'SELECT X(location) AS lat, Y(location) AS lon FROM schools WHERE id = ' . $id;
+            $query = 'SELECT X(location) AS lat, Y(location) AS lon FROM '.$table.' WHERE id = ' . $id;
             $location = $this->School->query( $query );
             //echo '<pre> (getLatLon)  Latitude: ' . $location[0][0]['lat'] . '</pre>';
             //echo '<pre> (getLatLon) Longitude: ' . $location[0][0]['lon'] . '</pre>';
@@ -196,12 +208,24 @@ class SchoolsController extends AppController
     function view($id = null) {
         $this->School->id = $id;
         $this->getSchoolsNearby($id,5);
-        
+         
         if (!$this->School->exists()) {
             throw new NotFoundException(__('Invalid school'));
         }
         // get the school's coordinates
         $this->setLatLon( $id );
+        
+        // get the associated TRC
+        $conditions = "";
+        $trc = $this->School->Trc->find('first', array('conditions' => $conditions));
+        // get the decoded lat/lon for the TRC
+        $trc_latlon = $this->getLatLon( $trc['Trc']['id'], 'trcs' );
+        //$this->set('trc', $this->School->Trc->find('first', array('conditions' => $conditions)));
+        //print_r($trc_latlon);
+        
+        // just take the easy way out and save the lat/lon for the TRC to a variable
+        $this->set('trc_lat', $trc_latlon['lat']);
+        $this->set('trc_lon', $trc_latlon['lon']);
         $this->set('school', $this->School->read(null, $id));
         
     }
@@ -424,7 +448,7 @@ class SchoolsController extends AppController
     
     public function isAuthorized($user) {
             // everyone can see the list and view individual Schools
-            if ($this->action === 'index' || $this->action === 'view' || $this->action === 'about') {
+            if ($this->action === 'index' || $this->action === 'view' || $this->action === 'overview' || $this->action === 'about') {
                 return true;
             }
             // allow users with the rolealias of "edit" to add/edit/delete

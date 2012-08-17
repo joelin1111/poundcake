@@ -1,9 +1,6 @@
 <?php
-    # include Jquery
     echo $this->Html->script('jquery-1.7.2');
-    // Marc Fernandez map helper 
     echo $this->Html->script('http://maps.google.com/maps/api/js?sensor=true',false);
-    //$this->Html->script('http://code.google.com/apis/gears/gears_init.js',false);
     echo $this->Html->script('gears_init');
 ?>
 
@@ -11,13 +8,14 @@
 <div class="span3">
     <H3>Actions</H3>
     <ul>
-        <li><?php echo $this->Html->link(__('Edit TCs/TRCs'), array('action' => 'edit',$trc['Trc']['id'] )); ?>
+        <li><?php echo $this->Html->link(__('Edit TCs/TRCs'), array('action' => 'edit',$trc['Trc']['id'] )); ?></li>
     </ul>
+    <?php echo $this->element('Common/legend'); ?>
 </div><!-- /.span3 .sb-fixed -->
 
 <div class="span9">
     <h2><?php echo $trc['Trc']['trc_code'] . " " . $trc['Trc']['trc_name']; ?></h2>
-    <P><B>GPS Coordinates:</B>&nbsp;<?php echo $lat . ' ' . $lon . '<br>'; ?> </P>
+    <P><B>GPS Coordinates:</B>&nbsp;<?php echo sprintf("%01.5f",$lat) . ' ' . sprintf("%01.5f",$lon) . '<br>'; ?> </P>
     <P><B>Install Date:</B>&nbsp;<?php echo $trc['Trc']['install_date']; ?></P>
     <P><B>Connectivity Type:</B>&nbsp;<?php echo $trc['ConnectivityType']['name']; ?></P>
     <P><B>Intervention Type:</B>&nbsp;<?php echo $trc['InterventionType']['name']; ?></P>
@@ -28,11 +26,17 @@
     
     <P><B>Map:</B></P>
     <?php
-        $windowText = $trc['Trc']['trc_code']."<BR>".$trc['Trc']['trc_name'];
+        $windowText = $trc['Trc']['trc_vf'];
         // draw the main map
         // lat lon already set (hopefull1y)
-        //echo $this->element('Common/map');
-        echo $this->element('Common/map',     array("windowText" => $windowText, "lat" => $lat, "lon" => "lon"));
+        echo $this->element('Common/map',
+                array(
+                    'windowText' => $windowText,
+                    'lat' => $lat,
+                    'lon' => $lon,
+                    'icon' => '/img/trc.png'
+                    )
+                );
     ?>
     
     <P><B>Access Instructions:</B>&nbsp;
@@ -89,23 +93,23 @@
     <P><B>Schools</B></P>
     <UL>
         <?php
-            //echo "<pre>".print_r($trc['Contacts'])."</pre>";
-            //echo "<pre> Count: ".count($trc['Contacts'])."</pre>";
+        //echo "<pre>".print_r($trc['Schools'])."</pre>";
+        //echo "<pre> Count: ".count($trc['Contacts'])."</pre>";
 
-            $c = count($trc['Schools']);
-            if ($c == 0) {
-                echo "<LI>None</LI>";
-            } else {
-                foreach ($trc['Schools'] as $school) {
-                    echo "<LI>";
-                    echo $this->Html->link(__($school['school_name']), array(
-                        'controller' => 'schools',
-                        'action' => 'view',
-                        $school['id']));
-                    echo "</LI>";
-                }
+        $c = count($trc['Schools']);
+        if ($c == 0) {
+            echo "<LI>None</LI>";
+        } else {
+            foreach ($trc['Schools'] as $school) {
+                echo "<LI>";
+                echo $this->Html->link(__($school['school_name']), array(
+                    'controller' => 'schools',
+                    'action' => 'view',
+                    $school['id']));
+                echo "</LI>";
             }
-            ?>
+        }
+        ?>
     </UL>
 </div> <!-- /.span9 -->
 </div> <!-- /.row -->

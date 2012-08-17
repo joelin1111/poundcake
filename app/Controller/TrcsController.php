@@ -63,22 +63,47 @@ class TrcsController extends AppController {
         $this->getRoadTypes();
 
         if (!$this->Trc->exists()) {
-                throw new NotFoundException(__('Invalid trc'));
+            throw new NotFoundException(__('Invalid trc'));
         }
-        
-        // get the school's coordinates
-        $this->setLatLon( $id );
         $this->set('trc', $this->Trc->read(null, $id));
+        // get the TRC's coordinates
+        $this->setLatLon( $id );
+        
+        echo "<pre>";
+         /*
+        $conditions = '';
+        $data = $this->Trc->find('all', $conditions);
+        $schools = $data[0]['Schools'];
+        $i = 0;
+        foreach ($schools as $school) {
+            $id = $school['id'];
+            //echo $school['school_name'];
+            $latlon = $this->getLatLon($school['id'],'schools');
+            //echo $latlon['lat'];
+            //$data[0]['Schools'][$i] = $latlon;
+            //array_push($schools[$i],$latlon);
+            $i++;
+        }
+        */
+        $data = $this->Trc->School->find('list', array('conditions' => array('School.trc_id' => $id))); 
+        
+        print_r($data);
+        echo "</pre>";
+        
+        $this->set('trc[Schools]', $schools);
+     
+        $this->set('trc', $this->Trc->read(null, $id));
+        
     }
 
     public function add() {
         if ($this->request->is('post')) {
             $this->Trc->create();
             if ($this->Trc->save($this->request->data)) {
-                    $this->Session->setFlash(__('The trc has been saved'));
-                    $this->redirect(array('action' => 'index'));
+                $this->Session->setFlash(__('The trc has been saved'));
+                $this->redirect(array('action' => 'index'));
             } else {
-                    $this->Session->setFlash(__('The trc could not be saved. Please, try again.'));
+                $this->Session->setFlash(__('The trc could not be saved. Please, try again.'));
             }
         }
     }
@@ -96,7 +121,7 @@ class TrcsController extends AppController {
 
         //$this->getSchools();
         if (!$this->Trc->exists()) {
-                throw new NotFoundException(__('Invalid trc'));
+            throw new NotFoundException(__('Invalid trc'));
         }
         if ($this->request->is('post') || $this->request->is('put')) {
                 if ($this->Trc->save($this->request->data)) {
@@ -182,11 +207,11 @@ class TrcsController extends AppController {
         }
     }
     
-    function getLatLon($id = null) {
+    function getLatLon($id = null,$table) {
         // see documentation under Schools
         $latlon = null;
         if ($id <> null) {
-            $query = 'SELECT X(location) AS lat, Y(location) AS lon FROM trcs WHERE id = ' . $id;
+            $query = 'SELECT X(location) AS lat, Y(location) AS lon FROM '.$table.' WHERE id = ' . $id;
             $location = $this->Trc->query( $query );
             $latlon = array (
                 'lat' => $location[0][0]['lat'],

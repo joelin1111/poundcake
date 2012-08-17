@@ -277,11 +277,12 @@ class AltGoogleMapV3Helper extends Helper {
      * @return string - will return all the javascript script to add the marker to the map
      * 
      */ 
+        
 	function addMarker($map_id,$id,$options){
 		if($options==null || $id == null || $map_id==null) return null;
 		extract($options);
                 if((!isset($latitude) || !isset($longitude)) && !($address)) return null;	
-		if(!isset($infoWindow)) $infoWindow=$this->defaultInfoWindowM;
+                if(!isset($infoWindow)) $infoWindow=$this->defaultInfoWindowM;
 		if(!isset($windowText)) $windowText=$this->defaultWindowTextM;
 		if(!isset($markerTitle)) $markerTitle=$this->defaultmarkerTitleM;
 		if(!isset($markerIcon)) $markerIcon=$this->defaultmarkerIconM;
