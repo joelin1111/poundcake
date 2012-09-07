@@ -117,10 +117,6 @@ $cakeDescription = __d('cake_dev', 'TZ21 Schools');
                     echo "</LI>";
                     
                     echo "<LI>";
-                    echo $this->Html->link('TCs/TRCs', array('controller' => 'trcs', 'action' => 'index'));
-                    echo "</LI>";
-                    
-                    echo "<LI>";
                     echo $this->Html->link('Contacts', array('controller' => 'contacts', 'action' => 'index'));
                     echo "</LI>";
                     

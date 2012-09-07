@@ -20,15 +20,9 @@ Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor 
     <HR>
     
     <li>
-        <?php echo $this->Html->link('Catchments', '/catchments/index'); ?>
+        <?php echo $this->Html->link('Zones', '/zones/index'); ?>
     </li>
-    <li>
-        <?php echo $this->Html->link('Areas', '/areas/index'); ?>
-    </li>
-    <li>
-        <?php echo $this->Html->link('Districts', '/districts/index'); ?>
-    </li>
-    
+
     <HR>
     
     <li>

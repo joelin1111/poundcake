@@ -4,7 +4,7 @@ App::uses('AppModel', 'Model');
  * Catchment Model
  *
  */
-class Catchment extends AppModel {
+class Zone extends AppModel {
 
 /**
  * Display field

@@ -61,9 +61,7 @@
    <tr>
        <th><?php echo $this->Paginator->sort('school_code'); ?></th>
        <th><?php echo $this->Paginator->sort('school_name'); ?></th>
-       <th><?php echo $this->Paginator->sort('catchment_id','Catchment');?></th>
-       <th><?php echo $this->Paginator->sort('area_id','Area'); ?></th>
-       <th><?php echo $this->Paginator->sort('district_id','District'); ?></th>
+       <th><?php echo $this->Paginator->sort('zone_id','Zone');?></th>
        <th>Actions</th>
    </tr>
 </thead>
@@ -86,9 +84,7 @@
                 array('controller' => 'schools', 'action' => 'view', $school['School']['id']));
                 ?>
            </td>
-           <td><?php echo $school['Catchment']['name']; ?></td>
-           <td><?php echo $school['Area']['name']; ?></td>
-           <td><?php echo $school['District']['name']; ?></td>
+           <td><?php echo $school['Zone']['name']; ?></td>
            <td>
 <!--               <button class="btn btn-mini"></button>-->
             <?php echo $this->Html->link('Edit', array('action'=>'edit', $school['School']['id']));?>

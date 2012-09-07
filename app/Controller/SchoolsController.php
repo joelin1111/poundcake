@@ -15,14 +15,12 @@ class SchoolsController extends AppController
     public $presetVars = array(
         // field names for the form itself , 'model' => 'School'
         array('field' => 'school_name', 'type' => 'value'),
-        //array('field' => 'district', 'type' => 'value'),
-        array('field' => 'district', 'type' => 'lookup', 'formField' => 'district_input', 'modelField' => 'district', 'model' => 'School'),
+        //?? revisit:  array('field' => 'district', 'type' => 'lookup', 'formField' => 'district_input', 'modelField' => 'district', 'model' => 'School'),
     );
     
     public function beforeFilter() {
         parent::beforeFilter();
         $this->set('school_name', $this->School->school_name);
-        $this->set('district', $this->School->district);
     }
     
     /*
@@ -106,15 +104,6 @@ class SchoolsController extends AppController
             $schools[$i]['School']['location'] = $this->getLatLon( $schools[$i]['School']['id'], 'schools' );
         }
         $this->set('schools', $schools);
-        
-        // same for TRCs
-        $conditions = array ("NOT" => array ("Trc.location" => null));
-        $trcs = $this->School->Trc->find('all', array('conditions' => $conditions));
-        for($i = 0; $i < sizeof($trcs); ++$i) {
-            $trcs[$i]['Trc']['location'] = $this->getLatLon( $trcs[$i]['Trc']['id'], 'trcs' );
-        }
-        $this->set('trcs', $trcs);
-        
     }
     
     function getSchoolsNearby($id = null, $max_schools = 5) {
@@ -214,76 +203,44 @@ class SchoolsController extends AppController
         }
         // get the school's coordinates
         $this->setLatLon( $id );
-        
-        // get the associated TRC
-        $conditions = "";
-        $trc = $this->School->Trc->find('first', array('conditions' => $conditions));
-        // get the decoded lat/lon for the TRC
-        $trc_latlon = $this->getLatLon( $trc['Trc']['id'], 'trcs' );
-        //$this->set('trc', $this->School->Trc->find('first', array('conditions' => $conditions)));
-        //print_r($trc_latlon);
-        
-        // just take the easy way out and save the lat/lon for the TRC to a variable
-        $this->set('trc_lat', $trc_latlon['lat']);
-        $this->set('trc_lon', $trc_latlon['lon']);
         $this->set('school', $this->School->read(null, $id));
         
     }
     
-    function getCatchments() {
-        // return a list of catchments (which will be put into a drop-down menu
+    function getZones() {
+        // return a list of zones (which will be put into a drop-down menu
         // on the add/edit forms)
-        $this->set('catchments',$this->School->Catchment->find('list'));
-    }
-    
-    function getAreas() {
-        // identical to getCatchments
-        $this->set('areas',$this->School->Area->find('list'));
-    }
-    
-    function getDistricts() {
-        // identical to getCatchments
-        $this->set('districts',$this->School->District->find('list'));
-    }
-    
-    function getTrcs() {
-        // identical to getCatchments
-        $this->set('trcs',$this->School->Trc->find('list'));
+        $this->set('zones',$this->School->Zone->find('list'));
     }
     
     function getConnectivityTypes() {
-        // identical to getCatchments
+        // identical to getZones
         $this->set('connectivitytypes',$this->School->ConnectivityType->find('list'));
     }
     
     function getInterventionTypes() {
-        // identical to getCatchments
+        // identical to getZones
         $this->set('interventiontypes',$this->School->InterventionType->find('list'));
     }
     
     function getServiceProviders() {
-        // identical to getCatchments
+        // identical to getZones
         $this->set('serviceproviders',$this->School->ServiceProvider->find('list'));
     }
     
     function getSiteStates() {
-        // identical to getCatchments
+        // identical to getZones
         $this->set('sitestates',$this->School->SiteState->find('list'));
     }
     
     function getPowerTypes() {
-        // identical to getCatchments
+        // identical to getZones
         $this->set('powertypes',$this->School->PowerType->find('list'));
     }
     
     function getRoadTypes() {
-        // identical to getCatchments
+        // identical to getZones
         $this->set('roadtypes',$this->School->RoadType->find('list'));
-    }
-    
-    function getDistrictContacts() {
-        // identical to getCatchments
-        $this->set('contacts',$this->School->District->Contact->find('list'));
     }
     
     function add() {
@@ -305,6 +262,7 @@ class SchoolsController extends AppController
         $this->getPowerTypes();
         $this->getRoadTypes();
         
+        /*
         // return all areas that match the default catchment
         $areas = $this->School->District->Area->find(
                         'list',
@@ -319,13 +277,12 @@ class SchoolsController extends AppController
                             'conditions' => array('District.area_id' => 1)
                         )
                 );
-        // get all Catchments
-        $catchments = $this->School->District->Area->Catchment->find('list');
+        */
         
-        // get all TRCs
-        $trcs = $this->School->Trc->find('list');
-
-        $this->set(compact('catchments','areas','districts','trcs'));
+        // get all Zones
+        $zones = $this->School->Zone->find('list');
+        
+        $this->set(compact('zones'));
                 
         // should I wrap all the following with?
         // if ($this->request->is('post')) {        
@@ -389,11 +346,7 @@ class SchoolsController extends AppController
         
         // get a list of regions, link and installation types
         // the School may belong to
-        $this->getCatchments();
-        $this->getAreas();
-        $this->getDistricts();
-        
-        $this->getTrcs();
+        $this->getZones();
         $this->getConnectivityTypes();
         $this->getInterventionTypes();
         $this->getServiceProviders();

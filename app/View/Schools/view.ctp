@@ -15,40 +15,8 @@
 
 <div class="span9">
     <h2><?php echo $school['School']['school_code']." ".$school['School']['school_name']; ?></h2>
-    <P><B>Catchment:</B>&nbsp;<?php echo $school['Catchment']['name']; ?></P>
-    <P><B>Area:</B>&nbsp;<?php echo $school['Area']['name']; ?></P>
-    <P><B>District:</B>&nbsp;<?php echo $school['District']['name']; ?></P>
-    <P><B>District contacts:</B>&nbsp;
-        <?php
-            //print_r($school['Contacts']);
-            $c = count($school['Contacts']);
-            //echo "c is".$c;
-            if ($c == 0) {
-                echo "None";
-            } else {
-                foreach ($school['Contacts'] as $contact) {
-                    echo $this->Html->link(__($contact['first_name']." ".$contact['last_name']), array(
-                    //echo $this->Html->link(__($contact['full_name']), array(    
-                        'controller' => 'contacts',
-                        'action' => 'view',
-                        $contact['id']));
-                }
-            }
-        ?>
-    </P>
-
-    <P><B>TC/TRC:</B>&nbsp;
-        <?php
-            // link to the TRC view
-            // echo $school['Trc']['name'];
-            echo $this->Html->link(__($school['Trc']['trc_name']),
-                    array(
-                        'controller' => 'trcs',
-                        'action' => 'view',
-                        $school['Trc']['id']));
-        ?>
-
-    </P>
+    <P><B>Zone:</B>&nbsp;<?php echo $school['Zone']['name']; ?></P>
+    
     <P><B>School contacts:</B>&nbsp;
         <?php
             //print_r($school);

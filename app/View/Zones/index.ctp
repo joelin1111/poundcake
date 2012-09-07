@@ -3,12 +3,12 @@
 <div class="span3">
     <H3>Actions</H3>
     <ul>
-        <li><?php echo $this->Html->link(__('New Catchment'), array('action' => 'add')); ?></li>
+        <li><?php echo $this->Html->link(__('New Zone'), array('action' => 'add')); ?></li>
     </ul>
 </div><!-- /.span3 .sb-fixed -->
 
 <div class="span9">
-	<h2>Catchments</h2>
+	<h2>Zones</h2>
 	<table class="table table-condensed table-striped">
             <thead>
                 <tr>
@@ -18,12 +18,12 @@
             </thead>
             <tbody>
 	<?php
-	foreach ($catchments as $catchment): ?>
+	foreach ($zones as $zone): ?>
 	<tr>
-            <td><?php echo h($catchment['Catchment']['name']);?></td>
+            <td><?php echo h($zone['Zone']['name']);?></td>
             <td>
-                    <?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $catchment['Catchment']['id'])); ?>
-                    <?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $catchment['Catchment']['id']), null, __('Are you sure you want to delete Catchment %s?', $catchment['Catchment']['name'])); ?>
+                    <?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $zone['Zone']['id'])); ?>
+                    <?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $zone['Zone']['id']), null, __('Are you sure you want to delete Zone %s?', $zone['Zone']['name'])); ?>
             </td>
 	</tr>
         <?php endforeach; ?>

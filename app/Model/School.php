@@ -6,17 +6,13 @@ class School extends AppModel {
     // schools for a region, would need to define the relationship the other
     // way to do that
     var $belongsTo = array(
-        'Catchment',
-        'Area',
-        'District',
+        'Zone',
         'ConnectivityType',
         'InterventionType',
         'SiteState',
         'ServiceProvider',
         'PowerType',
-        'District',
         'RoadType',
-        'Trc'
     );
     
     public $hasMany = array(
