@@ -27,24 +27,21 @@
     
     //echo "<pre>".print_r($this->request->data)."</pre>";
      
-    // drop down meny of available catchments, etc.
-    echo $this->Form->input('catchment_id');
-    echo $this->Form->input('area_id');
-    echo $this->Form->input('district_id');
-    echo $this->Form->input('trc');
-    echo $this->Form->input('school_code');     
+    // drop down meny of available zones, etc.
+    echo $this->Form->input('zone_id');
+    echo $this->Form->input('site_code');     
     // drop down menu of available link types
-    echo $this->Form->input('School.connectivity_type_id', array('type'=>'select','options' => $connectivitytypes));
+    echo $this->Form->input('Site.connectivity_type_id', array('type'=>'select','options' => $connectivitytypes));
     // drop down menu of available intervention types
-    echo $this->Form->input('School.intervention_type_id', array('type'=>'select','options' => $interventiontypes));
+    echo $this->Form->input('Site.intervention_type_id', array('type'=>'select','options' => $interventiontypes));
     // drop down menu of available intervention types
-    echo $this->Form->input('School.service_provider_id', array('type'=>'select','options' => $serviceproviders));
+    echo $this->Form->input('Site.service_provider_id', array('type'=>'select','options' => $serviceproviders));
     // drop down menu of available intervention types
-    echo $this->Form->input('School.site_state_id', array('type'=>'select','options' => $sitestates));
+    echo $this->Form->input('Site.site_state_id', array('type'=>'select','options' => $sitestates));
     // drop down menu of available power types
-    echo $this->Form->input('School.power_type_id', array('type'=>'select','options' => $powertypes));
+    echo $this->Form->input('Site.power_type_id', array('type'=>'select','options' => $powertypes));
     // drop down menu of available power types
-    echo $this->Form->input('School.road_type_id', array('type'=>'select','options' => $roadtypes));
+    echo $this->Form->input('Site.road_type_id', array('type'=>'select','options' => $roadtypes));
     
     // again, we're treating the latitude and longitude values special here,
     // accessing them by a vaiarable since we have to save them to the model
@@ -74,10 +71,10 @@
    echo "<BR><BR><BR><BR><BR><BR><BR><BR><BR><BR><BR>";
     
     // this is the upload field
-    echo $this->Upload->edit('School', $this->Form->fields['School.id']); 
+    echo $this->Upload->edit('Site', $this->Form->fields['Site.id']); 
     
     echo $this->Form->end('Save');
-    
+    /*
     $this->Js->get('#SchoolCatchmentId');
     $this->Js->event('change',
         $this->Js->request(array(
@@ -116,5 +113,5 @@
                     )
     );
     echo $this->Js->writeBuffer(); // Write cached scripts
-    
+    */
 ?>

@@ -1,10 +1,10 @@
 <H1 align="center">
 Welcome to "Poundcake"
 </h1>
-<H2 align="center">TZ21 Schools Database<BR>
+<H2 align="center">Sites Database<BR>
 </h2>
 
-<H3 align="center">(About page in Schools Controller)</H3>
+<H3 align="center">(About page in Sites Controller)</H3>
 
 <P>
     Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
@@ -15,23 +15,15 @@ Welcome to "Poundcake"
     sunt in culpa qui officia deserunt mollit anim id est laborum.
 </P>
 
-<P>
-    To add a Contact to a TC/TRC or School, find and edit the Contact record, choose the appropriate TC/TRC or School, then Save.
-</P>
-
-<P>
-    To add a TC/TRC to a School, find and edit the School record, choose the appropriate TC/TRC, then Save.
-</P>
-
 <H3>
     Searching
 </H3>
 <UL>
-    <LI>Search (Schools, Contacts, TCs/TRCs) is case-insensitive.</LI>
+    <LI>Search is case-insensitive.</LI>
     <LI> Use "*" as a wildcard character.</LI>
     <LI>If a search box is left blank, it is ignored</LI>
     <LI>If a multiple search boxes are used, they are combined.</LI>
-    <LI>"Butiama" - Return schools with the site name of Butiama</LI>
+    <LI>"Butiama" - Return sites with the site name of Butiama</LI>
     <LI>"MAKONGA" - Return schools with the site name of Makonga or MAKONGA</LI>
     <LI>"K*" - Return all schools that begin with the letter K</LI>
     <LI>"C*A" - Return all schools that begin with the letter C, ending in A

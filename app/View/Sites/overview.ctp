@@ -56,18 +56,18 @@
     //$c = count($nearby);
     $i = 1; // the map helper doesn't like this to start at 0
     //echo "c is".$c;
-    if ($schools != null) {
-        foreach ($schools as $school) {
-            ///echo "<pre>".print_r($school['School']['location'])."</pre>";
-            $lat = $school['School']['location']['lat'];
-            $lon = $school['School']['location']['lon'];
+    if ($sites != null) {
+        foreach ($sites as $site) {
+            ///echo "<pre>".print_r($site['Site']['location'])."</pre>";
+            $lat = $site['Site']['location']['lat'];
+            $lon = $site['Site']['location']['lon'];
             
             // this result set comes from a stored procedure, and makes the same
-            // school_vf virtual field that's defined in the School
+            // site_vf virtual field that's defined in the Site
             // model -- but technically this is not the same field, so FYI
             $windowText = $this->Html->link(
-                $school['School']['school_vf'],
-                array('controller' => 'schools', 'action' => 'view', $school['School']['id'])
+                $site['Site']['site_vf'],
+                array('controller' => 'sites', 'action' => 'view', $site['Site']['id'])
             );
             
             $markerOptions= array(
@@ -86,40 +86,7 @@
             unset($markerOptions); // lame attempt to free memory for the map
         }
     }
-    unset($schools); // lame attempt to free memory for the map
-    
-    $icon = '/img/trc.png';
-    $i = 1;
-    if ($trcs != null) {
-        foreach ($trcs as $trc) {
-            //echo "<pre>".print_r($trc['Trc']['location'])."</pre>";
-            $lat = $trc['Trc']['location']['lat'];
-            $lon = $trc['Trc']['location']['lon'];
-            
-            // this result set comes from a stored procedure, and makes the same
-            // school_vf virtual field that's defined in the School
-            // model -- but technically this is not the same field, so FYI
-            $windowText = $this->Html->link(
-                $trc['Trc']['trc_vf'],
-                array('controller' => 'trcs', 'action' => 'view', $trc['Trc']['id'])
-            );
-            
-            $markerOptions= array(
-                'id' => $i, // Id of the marker
-                'latitude' => $lat,
-                'longitude' => $lon,
-                'markerIcon' => $icon, //Custom icon
-                'address' => null, // mysteriously started complaining about this field not being present
-                //'shadowIcon' => 'http://google-maps-icons.googlecode.com/files/home.png', //Custom shadow
-                'infoWindow' => true, // Boolean to show an information window when you click the marker or not
-                'windowText' => $windowText // Text inside the information window
-            );
-            //echo "<pre>".print_r($markerOptions)."</pre>";
-            echo $this->AltGoogleMapV3->addMarker('overview_map_canvas', $i, $markerOptions);
-            $i++;
-        }
-    }
-    unset($trcs); // lame attempt to free memory for the map
+    unset($sites); // lame attempt to free memory for the map
     
 ?>
 </div> <!-- /.span9 -->

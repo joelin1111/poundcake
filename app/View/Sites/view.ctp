@@ -8,24 +8,24 @@
 <div class="span3">
     <H3>Actions</H3>
     <ul>
-        <li><?php echo $this->Html->link('Edit School', array('action'=>'edit', $school['School']['id']));?></li>
+        <li><?php echo $this->Html->link('Edit Site', array('action'=>'edit', $site['Site']['id']));?></li>
     </ul>
     <?php echo $this->element('Common/legend'); ?>
 </div><!-- /.span3 .sb-fixed -->
 
 <div class="span9">
-    <h2><?php echo $school['School']['school_code']." ".$school['School']['school_name']; ?></h2>
-    <P><B>Zone:</B>&nbsp;<?php echo $school['Zone']['name']; ?></P>
+    <h2><?php echo $site['Site']['site_code']." ".$site['Site']['site_name']; ?></h2>
+    <P><B>Zone:</B>&nbsp;<?php echo $site['Zone']['name']; ?></P>
     
-    <P><B>School contacts:</B>&nbsp;
+    <P><B>Site contacts:</B>&nbsp;
         <?php
-            //print_r($school);
-            $c = count($school['Contacts']);
+            //print_r($site);
+            $c = count($site['Contacts']);
             //echo "c is".$c;
             if ($c == 0) {
                 echo "None";
             } else {
-                foreach ($school['Contacts'] as $contact) {
+                foreach ($site['Contacts'] as $contact) {
                     echo $this->Html->link(__($contact['first_name']." ".$contact['last_name']), array(
                         'controller' => 'contacts',
                         'action' => 'view',
@@ -35,17 +35,17 @@
         ?>
     </P>
     <P><B>GPS Coordinates:</B>&nbsp;<?php echo sprintf("%01.5f",$lat) . ' ' . sprintf("%01.5f",$lon) . '<br>'; ?> </P>
-    <P><B>Install Date:</B>&nbsp;<?php echo $school['School']['install_date']; ?></P>
-    <P><B>Connectivity Type:</B>&nbsp;<?php echo $school['ConnectivityType']['name']; ?></P>
-    <P><B>Intervention Type:</B>&nbsp;<?php echo $school['InterventionType']['name']; ?></P>
-    <P><B>Site State:</B>&nbsp;<?php echo $school['SiteState']['name']; ?></P>
-    <P><B>Service Provider:</B>&nbsp;<?php echo $school['ServiceProvider']['name']; ?></P>
-    <P><B>Power Type:</B>&nbsp;<?php echo $school['PowerType']['name']; ?></P>
-    <P><B>Road Condition:</B>&nbsp;<?php echo $school['RoadType']['name']; ?></P>
+    <P><B>Install Date:</B>&nbsp;<?php echo $site['Site']['install_date']; ?></P>
+    <P><B>Connectivity Type:</B>&nbsp;<?php echo $site['ConnectivityType']['name']; ?></P>
+    <P><B>Intervention Type:</B>&nbsp;<?php echo $site['InterventionType']['name']; ?></P>
+    <P><B>Site State:</B>&nbsp;<?php echo $site['SiteState']['name']; ?></P>
+    <P><B>Service Provider:</B>&nbsp;<?php echo $site['ServiceProvider']['name']; ?></P>
+    <P><B>Power Type:</B>&nbsp;<?php echo $site['PowerType']['name']; ?></P>
+    <P><B>Road Condition:</B>&nbsp;<?php echo $site['RoadType']['name']; ?></P>
 
     <P><B>Map:</B></P>
     <?php
-        $windowText = $school['School']['school_vf'];
+        $windowText = $site['Site']['site_vf'];
         // draw the main map
         // lat lon already set (hopefull1y)
         //echo $this->element('Common/map');
@@ -73,14 +73,14 @@
             $lon = $s[0]['lon'];
 
             // this result set comes from a stored procedure, and makes the same
-            // school_vf virtual field that's defined in the School
+            // site_vf virtual field that's defined in the Site
             // model -- but technically this is not the same field, so FYI
-            $schoolUrl = $this->Html->link(
-                $s[0]['school_vf'],
-                array('controller' => 'schools', 'action' => 'view', $s['schools']['id'])
+            $siteUrl = $this->Html->link(
+                $s[0]['site_vf'],
+                array('controller' => 'sites', 'action' => 'view', $s['sites']['id'])
             );
-            //$windowText = $schoolUrl."<BR>".$s['schools']['school_name']. "<BR>Distance: ".$distance." Km";
-            $windowText = $schoolUrl."<BR>Distance: ".$distance." Km";
+            //$windowText = $siteUrl."<BR>".$s['schools']['site_name']. "<BR>Distance: ".$distance." Km";
+            $windowText = $siteUrl."<BR>Distance: ".$distance." Km";
             
             
             $markerOptions= array(
@@ -97,30 +97,13 @@
             $i++;
         }
     }
-    
-    //echo "x";
-    // finally, put a placemarker for the TRC
-    if ($trc_lat != null && $trc_lon != null) {
-        $icon = '/img/trc.png';
-        $markerOptions= array(
-            'id' => $i, // Id of the marker, on this page we only have 1 so we can hardcode that
-            'latitude' => $trc_lat,
-            'longitude' => $trc_lon,
-            'markerIcon' => $icon, //Custom icon
-            //'address'=> "", # mysteriously started complaining about this field not being present
-            //'shadowIcon' => 'http://google-maps-icons.googlecode.com/files/home.png', //Custom shadow
-            'infoWindow' => true, // Boolean to show an information window when you click the marker or not
-            'windowText' => $windowText // Text inside the information window
-        );
-        echo $this->AltGoogleMapV3->addMarker('map_canvas', $i, $markerOptions);
-    }
     ?>
     </p>
 
     <P><B>Access Instructions:</B>&nbsp;
         <?php
-            if ($school['School']['access_instruction'] != "") {
-                echo $school['School']['access_instruction'];
+            if ($site['Site']['access_instruction'] != "") {
+                echo $site['Site']['access_instruction'];
             } else {
                 echo "None";
             }
@@ -130,18 +113,18 @@
     <P><B>Files:</B>&nbsp;
         <?php
             // get any attached files
-            $results = $this->Upload->listing('School', $school['School']['id']);
+            $results = $this->Upload->listing('Site', $site['Site']['id']);
             // echo print_r($results['files']);
             // maybe test if the file exists here?
             if ($results['files'] != null) {
                 // list any uploaded files
-                echo $this->Upload->view('School', $school['School']['id']);
+                echo $this->Upload->view('Site', $site['Site']['id']);
             } else {
                 echo "None";
             }
 
             /* in case we want to do something more interesting with the list of files?
-            $results = $this->Upload->listing('School', $school['School']['id']);
+            $results = $this->Upload->listing('Site', $site['Site']['id']);
             $directory = $results['directory'];
             $baseUrl = $results['baseUrl'];
             $files = $results['files'];

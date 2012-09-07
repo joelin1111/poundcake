@@ -1,9 +1,9 @@
 <?php
-class School extends AppModel {
+class Site extends AppModel {
     
-    // A school belongs to a region, etc.
+    // A site belongs to a region, etc.
     // this is a one-way relationship, e.g. at the moment you cannot get all
-    // schools for a region, would need to define the relationship the other
+    // sites for a region, would need to define the relationship the other
     // way to do that
     var $belongsTo = array(
         'Zone',
@@ -18,7 +18,7 @@ class School extends AppModel {
     public $hasMany = array(
         'Contacts' => array(
                 'className' => 'Contact',
-                'foreignKey' => 'school_id',
+                'foreignKey' => 'site_id',
                 'dependent' => false,
                 'conditions' => '',
                 'fields' => '',
@@ -32,7 +32,7 @@ class School extends AppModel {
     );
     
     public $validate = array(
-            'school_name' => array(
+            'site_name' => array(
                     'notempty' => array(
                             'rule' => array('notempty'),
                             'message' => 'This field cannot be blank.',
@@ -71,28 +71,28 @@ class School extends AppModel {
 	);
     
     
-    // we'll eventually save the school's latitude/longitude here -- but only
+    // we'll eventually save the site's latitude/longitude here -- but only
     // after decoding it from the spatial data type in the db
     var $lat = 0;
     var $lon = 0;
     
     // this virtualField is also defined in the sp_nearby stored procedure - that version
-    // is used to place placemarkers for nearby schools on the school view page map
-    var $virtualFields = array('school_vf' => 'CONCAT(school_code, " ", school_name)');
+    // is used to place placemarkers for nearby sites on the site view page map
+    var $virtualFields = array('site_vf' => 'CONCAT(site_code, " ", site_name)');
     
     // The displayField attribute specifies which database field should be used as a
     // label for the record. The label is used in scaffolding and in find('list') calls.
     // The model will use name or title, by default.
-    public $displayField = 'school_vf';
+    public $displayField = 'site_vf';
     
     
     public $actsAs = array('Search.Searchable');
     
     public $filterArgs = array(
         // filterTitle is defined below
-        // array('name' => 'school_name', 'type' => 'query','method'=>'filterTitle'),
-        //array('name' => 'school_name', 'type' => 'like', 'field' => 'School.school_name'),
-        array('name' => 'school_name', 'type' => 'query', 'method' => 'filterSchool'),
+        // array('name' => 'site_name', 'type' => 'query','method'=>'filterTitle'),
+        //array('name' => 'site_name', 'type' => 'like', 'field' => 'School.site_name'),
+        array('name' => 'site_name', 'type' => 'query', 'method' => 'filterSchool'),
         //array('name' => 'district', 'type' => 'string'),
         // this is used in a drop down of districts
         array('name' => 'district', 'type' => 'value'),
@@ -129,19 +129,19 @@ class School extends AppModel {
     }
 
     public function filterSchool($data, $field = null) {
-        if(empty($data['school_name'])) {
+        if(empty($data['site_name'])) {
             return array();
         }
-        $school_name = '%' . $data['school_name'] . '%';
+        $site_name = '%' . $data['site_name'] . '%';
         return array(
             'OR' => array(
-                $this->alias . '.school_name LIKE' => $school_name,
+                $this->alias . '.site_name LIKE' => $site_name,
             ));
     }
     
-    // return true if a school is owned by a user (was created by)
-    public function isOwnedBy($school, $user) {
-        return $this->field('id', array('id' => $school, 'user_id' => $user)) === $school;
+    // return true if a site is owned by a user (was created by)
+    public function isOwnedBy($site, $user) {
+        return $this->field('id', array('id' => $site, 'user_id' => $user)) === $site;
     }
 }
 ?>

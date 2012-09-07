@@ -106,14 +106,14 @@ $cakeDescription = __d('cake_dev', 'TZ21 Schools');
                     //echo "<small>Logged in as: ".$user['username']."<br>";
                     //echo "Role: ".$user['Role']['name']."</small><br><br><br>";
                     echo "<LI>";
-                    echo $this->Html->link('About', array('controller' => 'schools', 'action' => 'about'));
+                    echo $this->Html->link('About', array('controller' => 'sites', 'action' => 'about'));
                     echo "</LI>";
                     
                     echo "<LI>";
-                    echo $this->Html->link('Map', array('controller' => 'schools', 'action' => 'overview'));
+                    echo $this->Html->link('Map', array('controller' => 'sites', 'action' => 'overview'));
                     echo "</LI>";                    
                     echo "<LI>";
-                    echo $this->Html->link('Schools', array('controller' => 'schools', 'action' => 'index'));
+                    echo $this->Html->link('Sites', array('controller' => 'sites', 'action' => 'index'));
                     echo "</LI>";
                     
                     echo "<LI>";

@@ -7,40 +7,33 @@
 <div class="span3">
     <H3>Actions</H3>
     <ul>
-        <li><?php echo $this->Html->link(__('List Schools'), array('action' => 'index')); ?></li>
+        <li><?php echo $this->Html->link(__('List Sites'), array('action' => 'index')); ?></li>
     </ul>
 </div><!-- /.span3 .sb-fixed -->
 
 <div class="span9">
-    <h3>Add School</h3>
+    <h3>Add Site</h3>
 <?php
-    echo $this->Form->create('School', array('action'=>'add'));
-    echo $this->Form->input('School.school_name');
+    echo $this->Form->create('Site', array('action'=>'add'));
+    echo $this->Form->input('Site.school_name');
     
-    // drop down meny of available catchments, etc.
-    //echo $this->Form->input('School.catchment_id', array('type'=>'select','options' => $catchments));
-    echo $this->Form->input('catchment_id');
-    //echo $this->Form->input('School.area_id', array('type'=>'select','options' => $areas));
-    echo $this->Form->input('area_id');
-    //echo $this->Form->input('School.district', array('label'=>'School District')); // another syntax of labeling fields
-    //echo $this->Form->input('district_id',array('disabled' => true));
-    echo $this->Form->input('district_id');
+    // drop down meny of available zones, etc.
+    //echo $this->Form->input('Site.catchment_id', array('type'=>'select','options' => $catchments));
+    echo $this->Form->input('zone_id');
     
-    echo $this->Form->input('trc_id');
-    
-    echo $this->Form->input('School.school_code');
-    echo $this->Form->input('School.type');
+    echo $this->Form->input('Site.site_code');
+    echo $this->Form->input('Site.type');
     
     // drop down menu of available connectivity types
-    echo $this->Form->input('School.connectivity_type_id', array('type'=>'select','options' => $connectivitytypes));
+    echo $this->Form->input('Site.connectivity_type_id', array('type'=>'select','options' => $connectivitytypes));
     // drop down menu of available intervention types
-    echo $this->Form->input('School.intervention_type_id', array('type'=>'select','options' => $interventiontypes));
+    echo $this->Form->input('Site.intervention_type_id', array('type'=>'select','options' => $interventiontypes));
     // drop down menu of available service providers
-    echo $this->Form->input('School.service_provider_id', array('type'=>'select','options' => $serviceproviders));
+    echo $this->Form->input('Site.service_provider_id', array('type'=>'select','options' => $serviceproviders));
     // drop down menu of available installation states
-    echo $this->Form->input('School.site_state_id', array('type'=>'select','options' => $sitestates));
+    echo $this->Form->input('Site.site_state_id', array('type'=>'select','options' => $sitestates));
     // drop down menu of available power types
-    echo $this->Form->input('School.power_type_id', array('type'=>'select','options' => $powertypes));
+    echo $this->Form->input('Site.power_type_id', array('type'=>'select','options' => $powertypes));
     
     // see documentation on Edit page
     echo $this->Form->input('lat', array (
@@ -54,12 +47,13 @@
         'value' => ''
         )
     );
-    // no upload field since we don't have a School.id until after save
-    echo $this->Form->end('Save school');
+    // no upload field since we don't have a Site.id until after save
+    echo $this->Form->end('Save site');
 ?>
 </fieldset>
 
 <?php
+    /*
     //$this->Js->get('#SchoolCatchmentId')->event('change', $this->Js->alert('catchment changed, again!'));
     //$this->Js->get('#catchment_id')->event('change', $this->Js->alert('hey you!'));
 
@@ -107,7 +101,7 @@
     );
     
     echo $this->Js->writeBuffer(); // Write cached scripts
-    
+    */
     //In client side JS, onchange is dependant upon onfocus() and onblur().
     //So when you simply change the value of a select element, niehter focus
     //nor blur happens to that element so onchange is never evoked.
