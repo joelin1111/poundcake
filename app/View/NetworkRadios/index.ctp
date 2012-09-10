@@ -2,12 +2,12 @@
 <div class="span3">
     <H3>Actions</H3>
     <ul>
-        <li><?php echo $this->Html->link(__('New Intervention Type'), array('action' => 'add')); ?></li>
+        <li><?php echo $this->Html->link(__('New Road Type'), array('action' => 'add')); ?></li>
     </ul>
 </div><!-- /.span3 .sb-fixed -->
 
 <div class="span9">
-	<h2>Intervention Types</h2>
+	<h2>Road Types</h2>
 	<table class="table table-condensed table-striped">
             <thead>
                 <tr>
@@ -17,12 +17,12 @@
             </thead>
             <tbody>
 	<?php
-	foreach ($interventionTypes as $interventionType): ?>
+	foreach ($roadTypes as $roadType): ?>
 	<tr>
-            <td><?php echo h($interventionType['InterventionType']['name']);?></td>
+            <td><?php echo h($roadType['RoadType']['name']);?></td>
             <td>
-                    <?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $interventionType['InterventionType']['id'])); ?>
-                    <?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $interventionType['InterventionType']['id']), null, __('Are you sure you want to delete Intervention Type %s?', $interventionType['InterventionType']['name'])); ?>
+                    <?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $roadType['RoadType']['id'])); ?>
+                    <?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $roadType['RoadType']['id']), null, __('Are you sure you want to delete Road Type %s?', $roadType['RoadType']['name'])); ?>
             </td>
 	</tr>
         <?php endforeach; ?>
