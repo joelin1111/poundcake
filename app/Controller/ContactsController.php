@@ -7,15 +7,6 @@ App::uses('AppController', 'Controller');
  */
 class ContactsController extends AppController {
 
-/**
- * index method
- *
- * @return void
- */
-//	public function index() {
-//		$this->Contact->recursive = 0;
-//		$this->set('contacts', $this->paginate());
-//	}
     function index($id = null) {
         
         $conditions = "";
@@ -37,19 +28,13 @@ class ContactsController extends AppController {
         if ($last_name_arg == "") {
             $last_name_arg = '%';
         }
-        
-//        echo "School code arg: " . $school_code_arg;
-//        echo "<BR>Site name arg: " . $school_name_arg;
-//        echo "<BR>";
-        
-        //echo "School code 2:<pre>".$this->passedArgs['School.school_code']."</pre>";            
+                 
         $conditions = array(
             'AND' => array(
                 'Contact.first_name LIKE' => $first_name_arg,
                 'Contact.last_name LIKE' => $last_name_arg,
             )
         );
-        // echo "Conditions: ".print_r($conditions);
         
         $this->paginate = array(
             'Contact' => array(
@@ -77,46 +62,33 @@ class ContactsController extends AppController {
     }
 
     public function add() {
-        if ($this->request->is('post')) {
+       $this->getTowerOwners();
+        $this->setContactTypeOptions();
+       if ($this->request->is('post')) {
             $this->Contact->create();
             if ($this->Contact->save($this->request->data)) {
-                    $this->Session->setFlash(__('The contact has been saved'));
-                    $this->redirect(array('action' => 'index'));
+                $this->Session->setFlash(__('The contact has been saved'));
+                $this->redirect(array('action' => 'index'));
             } else {
-                    $this->Session->setFlash(__('The contact could not be saved. Please, try again.'));
+                $this->Session->setFlash(__('The contact could not be saved. Please, try again.'));
             }
         }
     }
 
-    // return all the schools to allow the user to be assigned to
-    function getSchools() {
-        // because the school listing is so long, by default find would
-        // return a list of school names -- we actually want this list sorted
-        // by school code then name
-        // furthermore, we want the list itself to be a virtual field of
-        // site id + school code -- so we've defined a virtual field on the
-        // school model and we've modified the query here to do the sorting
-
-        /*
-        $data = $this->Contact->School->find(
-            'list',
-            array(
-                'order' => array('School.id','School.school_code', 'School.school_name ASC'),
-                'fields' => array('School.id','School.school_code', 'School.school_name')
-                )
-            );
-        echo "<pre>";
-        print_r($data);
-        echo "</pre>";
-        */
-        $this->set('schools',$this->Contact->School->find('list',
-                array(
-                    'order' => array('School.school_code', 'School.school_name ASC'))));
+    // return all the towers to allow the user to be assigned to
+    function getTowerOwners() {
+        $this->set('towerowners',$this->Contact->TowerOwner->find('list'));
+    }
+    
+    function setContactTypeOptions() {
+        $type_options = array('0' => 'Commercial Contact', '1' => 'Technical Contact');
+        $this->set('type_options',$type_options);
     }
 
     public function edit($id = null) {
         $this->Contact->id = $id;
-        $this->getSchools();
+        $this->getTowerOwners();
+        $this->setContactTypeOptions();
         if (!$this->Contact->exists()) {
             throw new NotFoundException(__('Invalid contact'));
         }
@@ -129,6 +101,7 @@ class ContactsController extends AppController {
             }
         } else {
             $this->request->data = $this->Contact->read(null, $id);
+            //$this->getSites();
         }
     }
 

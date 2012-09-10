@@ -2,13 +2,13 @@
 <div class="span3">
     <H3>Actions</H3>
     <ul>
-        <li><?php echo $this->Html->link(__('List Service Providers'), array('action' => 'index')); ?>
+        <li><?php echo $this->Html->link(__('List Tower Owners'), array('action' => 'index')); ?>
     </ul>
 </div><!-- /.span3 .sb-fixed -->
 
 <div class="span9">
-    <?php echo $this->Form->create('ServiceProvider'); ?>
-    <h2>Add Service Provider</h2>
+    <?php echo $this->Form->create('TowerOwner'); ?>
+    <h2>Add Tower Owner</h2>
     <?php
         echo $this->Form->input('name');
     ?>

@@ -2,27 +2,27 @@
 <div class="span3">
     <H3>Actions</H3>
     <ul>
-        <li><?php echo $this->Html->link(__('New Service Provider'), array('action' => 'add')); ?></li>
+        <li><?php echo $this->Html->link(__('New Tower Owner'), array('action' => 'add')); ?></li>
     </ul>
 </div><!-- /.span3 .sb-fixed -->
 
 <div class="span9">
-	<h2>Service Providers</h2>
+	<h2>Tower Owners</h2>
 	<table class="table table-condensed table-striped">
-            <thead>
-                <tr>
-                    <th><?php echo $this->Paginator->sort('name'); ?></th>
-                    <th><?php echo __('Actions'); ?></th>
-                </tr>
-            </thead>
-            <tbody>
+        <thead>
+            <tr>
+                <th><?php echo $this->Paginator->sort('name'); ?></th>
+                <th><?php echo __('Actions'); ?></th>
+            </tr>
+        </thead>
+        <tbody>
 	<?php
-	foreach ($serviceProviders as $serviceProvider): ?>
+	foreach ($towerOwners as $towerOwner): ?>
 	<tr>
-            <td><?php echo h($serviceProvider['ServiceProvider']['name']);?></td>
+            <td><?php echo h($towerOwner['TowerOwner']['name']);?></td>
             <td>
-                    <?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $serviceProvider['ServiceProvider']['id'])); ?>
-                    <?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $serviceProvider['ServiceProvider']['id']), null, __('Are you sure you want to delete Service Provider %s?', $serviceProvider['ServiceProvider']['name'])); ?>
+                    <?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $towerOwner['TowerOwner']['id'])); ?>
+                    <?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $towerOwner['TowerOwner']['id']), null, __('Are you sure you want to delete Tower Owner %s?', $towerOwner['TowerOwner']['name'])); ?>
             </td>
 	</tr>
         <?php endforeach; ?>

@@ -12,55 +12,41 @@
 <div class="span3">
     <H3>Actions</H3>
     <ul>
-        <li><?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $this->Form->value('School.id')), null, __('Are you sure you want to delete School %s?', $this->Form->value('School.site_id'))); ?></li>
-        <li><?php echo $this->Html->link(__('List Schools'), array('action' => 'index')); ?></li>
+        <li><?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $this->Form->value('Site.id')), null, __('Are you sure you want to delete Site %s?', $this->Form->value('Site.site_id'))); ?></li>
+        <li><?php echo $this->Html->link(__('List Sites'), array('action' => 'index')); ?></li>
     </ul>
 </div><!-- /.span3 .sb-fixed -->
 
 <div class="span9">
-    <?php echo __('Edit School');
+    <?php echo __('Edit Site');
 
     //echo $this->Form->create('School', array('action' => 'edit'));
-    echo $this->Form->create('School');
+    echo $this->Form->create('Site');
     echo $this->Form->input('id', array('type'=>'hidden'));
-    echo $this->Form->input('school_name');
+    echo $this->Form->input('site_name');
     
     //echo "<pre>".print_r($this->request->data)."</pre>";
      
     // drop down meny of available zones, etc.
     echo $this->Form->input('zone_id');
     echo $this->Form->input('site_code');     
-    // drop down menu of available link types
-    echo $this->Form->input('Site.connectivity_type_id', array('type'=>'select','options' => $connectivitytypes));
-    // drop down menu of available intervention types
-    echo $this->Form->input('Site.intervention_type_id', array('type'=>'select','options' => $interventiontypes));
-    // drop down menu of available intervention types
-    echo $this->Form->input('Site.service_provider_id', array('type'=>'select','options' => $serviceproviders));
-    // drop down menu of available intervention types
+    echo $this->Form->input('Site.tower_owner_id', array('type'=>'select','options' => $towerowners));
     echo $this->Form->input('Site.site_state_id', array('type'=>'select','options' => $sitestates));
-    // drop down menu of available power types
     echo $this->Form->input('Site.power_type_id', array('type'=>'select','options' => $powertypes));
-    // drop down menu of available power types
-    echo $this->Form->input('Site.road_type_id', array('type'=>'select','options' => $roadtypes));
+    //echo $this->Form->input('Site.road_type_id', array('type'=>'select','options' => $roadtypes));
+    echo $this->Form->input('Site.network_switch_id', array('type'=>'select','options' => $networkswitches));
+
+    echo $this->Form->input( 'lat', array( 'label' => 'Latitude' ) );
+    echo $this->Form->input( 'lon', array( 'label' => 'Longitude' ) );
     
-    // again, we're treating the latitude and longitude values special here,
-    // accessing them by a vaiarable since we have to save them to the model
-    // in a special way so that MySQL treats it as spatial data
-    //echo "<pre>".$lat."</pre>";
-    
-    echo $this->Form->input('lat', array (
-        'label' => 'Latitude',
-        'value' => $lat
-        )
-    );
-    
-    echo $this->Form->input('lon', array (
-        'label' => 'Longitude',
-        'value' => $lon
-        )
-    );
-    
-    echo $this->Form->input('access_instruction', array('type'=>'textarea','label' => 'Access Instructions', 'rows' => 15, 'cols' => 35));
+    echo $this->Form->input('Site.tower_guard',array('style' => 'width:100%','label'=>'Tower Guard Contact Info'));
+    echo $this->Form->input('Site.structure_type',array('style' => 'width:100%'));
+    echo $this->Form->input('Site.description',array('style' => 'width:100%'));
+    echo $this->Form->input('Site.mounting',array('style' => 'width:100%'));
+    echo $this->Form->input('Site.access',array('style' => 'width:100%'));
+    echo $this->Form->input('Site.storage',array('style' => 'width:100%'));
+    echo $this->Form->input('Site.accommodations',array('style' => 'width:100%'));
+    echo $this->Form->input('Site.notes',array('style' => 'width:100%'));
     
     echo $this->Form->input('install_date', 
         array(

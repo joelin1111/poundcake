@@ -93,8 +93,9 @@ class SitesController extends AppController
         // get all the sites for display on the map, and deal with their lat/lon
         
         // skip any that don't have coordinates in the db
-        $conditions = array ("NOT" => array ("Site.location" => null));
+        $conditions = array ("NOT" => array ("Site.lat" => null));
         $sites = $this->Site->find('all', array('conditions' => $conditions));
+        /*
         for($i = 0; $i < sizeof($sites); ++$i) {
             // for each site, decode the lat/lon and save it back to the
             // array of sites
@@ -103,6 +104,7 @@ class SitesController extends AppController
             // comes back as a binary object) with the decoded lat/lon
             $sites[$i]['Site']['location'] = $this->getLatLon( $sites[$i]['Site']['id'], 'sites' );
         }
+        */
         $this->set('sites', $sites);
     }
     
@@ -135,74 +137,12 @@ class SitesController extends AppController
         }
     }
     
-    function setLatLon($id = null) {
-        // this function sets the decoded latitude and logitude for a site to
-        // a varaible on the Site model
-        
-        //echo '<pre> (setLatLon) ID: ' . $id . '</pre>';
-        if ($id <> null) {
-            // normally this would be $this->Site->Location->find() but since
-            // the location table has a column that is not in text (e.g. MySQL
-            // spatial extensions, type POINT) we have to override it and use
-            // to the GPS coordinates back as text
-            // calling X(location) returns the latitude coordinate, Y(location)
-            // returns the longitude coordinate
-            // for future reference?  Note AsText(location)
-            $query = 'SELECT X(location) AS lat, Y(location) AS lon FROM sites WHERE id = ' . $id;
-            $location = $this->Site->query( $query );
-            /*
-            echo '<pre>' . print_r( $location ) . '</pre>';
-            echo '<pre>' . print_r($location[0]) . '</pre>';
-            echo '<pre>' . print_r($location[0][0]) . '</pre>';
-            */
-            //echo '<pre> (setLatLon)  Latitude: ' . $location[0][0]['lat'] . '</pre>';
-            //echo '<pre> (setLatLon) Longitude: ' . $location[0][0]['lon'] . '</pre>';
-            
-            // not sure if this is the best way to do this, but I'm having a
-            // hard time unpacking the spatial data type in the view, so saving
-            // lat/lon to a variable on the Site model
-            $this->set('lat', $location[0][0]['lat']);
-            $this->set('lon', $location[0][0]['lon']);
-            //Debugger::dump($this->Site->Location);
-            //$this->Site->Location->set('lat',$location[0][0]['lat']);
-            //$this->set('lon',$location[0][0]['lon']);
-            //$this->set('location',$location[0][0]);
-            //$this->set('location',$location[0][0]);
-        }
-    }
-    
-    function getLatLon($id = null, $table) {
-        // this function is basically like setLatLong except that it returns the 
-        // lat/lon as an array
-        //echo '<pre> (getLatLon) ID: ' . $id . '</pre>';
-        $latlon = null;
-        if ($id <> null) {
-            $query = 'SELECT X(location) AS lat, Y(location) AS lon FROM '.$table.' WHERE id = ' . $id;
-            $location = $this->Site->query( $query );
-            //echo '<pre> (getLatLon)  Latitude: ' . $location[0][0]['lat'] . '</pre>';
-            //echo '<pre> (getLatLon) Longitude: ' . $location[0][0]['lon'] . '</pre>';
-            $latlon = array (
-                'lat' => $location[0][0]['lat'],
-                'lon' => $location[0][0]['lon']
-            );
-            //Debugger::dump($this->Site->Location);
-            //$this->Site->Location->set('lat',$location[0][0]['lat']);
-            //$this->set('lon',$location[0][0]['lon']);
-            //$this->set('location',$location[0][0]);
-            //$this->set('location',$location[0][0]);
-        }
-        return $latlon;
-    }
-    
     function view($id = null) {
         $this->Site->id = $id;
         $this->getSitesNearby($id,5);
-         
         if (!$this->Site->exists()) {
             throw new NotFoundException(__('Invalid site'));
         }
-        // get the site's coordinates
-        $this->setLatLon( $id );
         $this->set('site', $this->Site->read(null, $id));
         
     }
@@ -218,14 +158,9 @@ class SitesController extends AppController
         $this->set('connectivitytypes',$this->Site->ConnectivityType->find('list'));
     }
     
-    function getInterventionTypes() {
+    function getTowerOwners() {
         // identical to getZones
-        $this->set('interventiontypes',$this->Site->InterventionType->find('list'));
-    }
-    
-    function getServiceProviders() {
-        // identical to getZones
-        $this->set('serviceproviders',$this->Site->ServiceProvider->find('list'));
+        $this->set('towerowners',$this->Site->TowerOwner->find('list'));
     }
     
     function getSiteStates() {
@@ -243,6 +178,16 @@ class SitesController extends AppController
         $this->set('roadtypes',$this->Site->RoadType->find('list'));
     }
     
+    function getNetworkSwitches() {
+        // identical to getZones
+        $this->set('networkswitches',$this->Site->NetworkSwitch->find('list'));
+    }
+    
+    function getNetworkRadios() {
+        // identical to getZones
+        $this->set('networkradios',$this->Site->NetworkSwitch->find('list'));
+    }
+    
     function add() {
         // Note prior to adding the belongsTo relationship (site belongs to
         // region) I had this if in advance of actually calling the save method
@@ -255,12 +200,13 @@ class SitesController extends AppController
         // the Site may belong to
         // Catchments/Areas/Districts now handled by Ajax due to their new
         // relationships
-        $this->getConnectivityTypes();
-        $this->getInterventionTypes();
-        $this->getServiceProviders();
+        //$this->getConnectivityTypes();
+        $this->getTowerOwners();
         $this->getSiteStates();
         $this->getPowerTypes();
-        $this->getRoadTypes();
+        //$this->getRoadTypes();
+        $this->getNetworkSwitches();
+        $this->getNetworkRadios();
         
         /*
         // return all areas that match the default catchment
@@ -299,14 +245,6 @@ class SitesController extends AppController
         //$this->request->data['Site']['user_id'] = $this->Auth->user('id');
 
         if ($this->Site->save($this->request->data)) {
-            // see comments in edit()
-            $query =  "UPDATE sites SET location=";
-            $query .= "GeomFromText('POINT(".$this->request->data['Site']['lat'];
-            $query .= " ".$this->request->data['Site']['lon'].")') ";
-            $query .= " WHERE id = " . $this->Site->id;
-            //print $query;
-            $this->Site->query($query);
-
             $this->Session->setFlash(__('The site has been saved'));
             $this->redirect(array('action' => 'index'));
         }
@@ -347,47 +285,20 @@ class SitesController extends AppController
         // get a list of regions, link and installation types
         // the Site may belong to
         $this->getZones();
-        $this->getConnectivityTypes();
-        $this->getInterventionTypes();
-        $this->getServiceProviders();
+        //$this->getConnectivityTypes();
+        $this->getTowerOwners();
         $this->getSiteStates();
         $this->getPowerTypes();
-        $this->getRoadTypes();
-        
-        $this->setLatLon( $id );
+        //$this->getRoadTypes();
+        $this->getNetworkSwitches();
+        $this->getNetworkRadios();
         
         if (!$this->Site->exists()) {
             throw new NotFoundException(__('Invalid site'));
         }
         
         if ($this->request->is('post') || $this->request->is('put')) {
-            //echo "<pre> New Lat:".print_r( $this->request )."</pre>";
-            //echo '<pre>' . print_r($this->request->data) . '</pre>';
-            //echo '<pre> New Lat: ' . $this->request->data['Site']['lat'] . '</pre>';            
-            //$loc = "GeomFromText('POINT(".$this->request->data['Site']['lat'];
-            //$loc .= " ".$this->request->data['Site']['lon'].")') ";
-            //$this->request->data['Site']['location'] = $loc;
-            ////Debugger::dump($this->Site);
-            
             if ($this->Site->save($this->request->data)) {
-                // now that the site data is saved, we have to actually do
-                // an update on the same record to effectively re-save the same
-                // lat/lon -- only now as MySQL spatial data types
-                // see also add()
-                $query =  "UPDATE sites SET location=";
-                $query .= "GeomFromText('POINT(".$this->request->data['Site']['lat'];
-                $query .= " ".$this->request->data['Site']['lon'].")') ";
-                $query .= " WHERE id = " . $id;
-                print $query;
-                $this->Site->query($query);
-                
-                // and save the lat/long back to the variables on Site
-                $this->set('lat', $this->request->data['Site']['lat']);
-                $this->set('lon', $this->request->data['Site']['lon']);
-            
-                //$gLat = 42.450071;
-                //$gLong = -76.487664;
-                //$this->Site->query("UPDATE sites SET location = GeomFromText('POINT({$gLat} {$gLong})')");
                 $this->Session->setFlash(__('The site has been saved'));
                 $this->redirect(array('action' => 'index'));
             } else {
@@ -400,16 +311,16 @@ class SitesController extends AppController
     }
     
     public function isAuthorized($user) {
-            // everyone can see the list and view individual Sites
-            if ($this->action === 'index' || $this->action === 'view' || $this->action === 'overview' || $this->action === 'about') {
+        // everyone can see the list and view individual Sites
+        if ($this->action === 'index' || $this->action === 'view' || $this->action === 'overview' || $this->action === 'about') {
+            return true;
+        }
+        // allow users with the rolealias of "edit" to add/edit/delete
+        if ($this->action === 'add' || $this->action === 'edit' || $this->action === 'delete') {
+            if (isset($user['Role']['rolealias']) && $user['Role']['rolealias'] === 'edit') {
                 return true;
             }
-            // allow users with the rolealias of "edit" to add/edit/delete
-            if ($this->action === 'add' || $this->action === 'edit' || $this->action === 'delete') {
-                if (isset($user['Role']['rolealias']) && $user['Role']['rolealias'] === 'edit') {
-                    return true;
-                }
-            }
+        }
         
         return parent::isAuthorized($user);
     }

@@ -1,6 +1,12 @@
 <?php
-    echo $this->Html->script('jquery-1.7.2.min'); // min only works with Bootstrap dropdown?
-    //echo $this->Html->script('poundcake');
+    # include Jquery
+    echo $this->Html->script('jquery-1.7.2');
+    # jquery UI - for the date picker
+    echo $this->Html->script('jquery-ui-1.8.21.custom.min');
+    # other date picker stuff is in poundcake and datepicker js files
+    echo $this->Html->script('poundcake');
+    echo $this->Html->script('datepicker');
+    //echo $this->Html->script('jquery-1.7.2.min'); // min only works with Bootstrap dropdown?
 ?>
 
 <div class="row">
@@ -15,7 +21,7 @@
     <h3>Add Site</h3>
 <?php
     echo $this->Form->create('Site', array('action'=>'add'));
-    echo $this->Form->input('Site.school_name');
+    echo $this->Form->input('Site.site_name');
     
     // drop down meny of available zones, etc.
     //echo $this->Form->input('Site.catchment_id', array('type'=>'select','options' => $catchments));
@@ -24,16 +30,13 @@
     echo $this->Form->input('Site.site_code');
     echo $this->Form->input('Site.type');
     
-    // drop down menu of available connectivity types
-    echo $this->Form->input('Site.connectivity_type_id', array('type'=>'select','options' => $connectivitytypes));
-    // drop down menu of available intervention types
-    echo $this->Form->input('Site.intervention_type_id', array('type'=>'select','options' => $interventiontypes));
-    // drop down menu of available service providers
-    echo $this->Form->input('Site.service_provider_id', array('type'=>'select','options' => $serviceproviders));
-    // drop down menu of available installation states
+    // drop down menus of available items
+    echo $this->Form->input('Site.tower_owner_id', array('type'=>'select','options' => $towerowners));
     echo $this->Form->input('Site.site_state_id', array('type'=>'select','options' => $sitestates));
-    // drop down menu of available power types
     echo $this->Form->input('Site.power_type_id', array('type'=>'select','options' => $powertypes));
+    //echo $this->Form->input('Site.road_type_id', array('type'=>'select','options' => $roadtypes));
+    echo $this->Form->input('Site.network_switch_id', array('type'=>'select','options' => $networkswitches));
+    echo $this->Form->input('Site.network_radio_id', array('type'=>'select','options' => $networkradios));
     
     // see documentation on Edit page
     echo $this->Form->input('lat', array (
@@ -47,6 +50,22 @@
         'value' => ''
         )
     );
+    
+    echo $this->Form->input('Site.tower_guard',array('style' => 'width:100%','label'=>'Tower Guard Contact Info'));
+    echo $this->Form->input('Site.structure_type',array('style' => 'width:100%'));
+    echo $this->Form->input('Site.description',array('style' => 'width:100%'));
+    echo $this->Form->input('Site.mounting',array('style' => 'width:100%'));
+    echo $this->Form->input('Site.access',array('style' => 'width:100%'));
+    echo $this->Form->input('Site.storage',array('style' => 'width:100%'));
+    echo $this->Form->input('Site.accommodations',array('style' => 'width:100%'));
+    echo $this->Form->input('Site.notes',array('style' => 'width:100%'));
+    echo $this->Form->input('install_date', 
+        array(
+           'class'=>'datepicker', 
+           'type'=>'text'
+        )
+    );
+     
     // no upload field since we don't have a Site.id until after save
     echo $this->Form->end('Save site');
 ?>

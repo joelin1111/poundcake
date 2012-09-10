@@ -20,9 +20,10 @@
     // is bigger with different options, and so it might take just as much code
     // to do that as it is to just do it again manually
 
-    $defaultLat = -5.6;
-    $defaultLng = 36;
-
+    $defaultLat = 19;
+    $defaultLng = -72.25;
+    
+    
     // https://github.com/marcferna/CakePHP-Google-Maps-V3-Helper
     // http://marcferna.tumblr.com/post/3580268729/google-maps-api-v3-cakephp-helper
     // http://plugins.cakephp.org/package/marcferna/CakePHP-Google-Maps-V3-Helper
@@ -34,7 +35,6 @@
         'width' => '300px', // Width of the map
         'height'=>'300px', // Height of the map
         'style' => 'width: 100%; height:700px;', // CSS style for the map canvas
-        
         'zoom' => 6, // lower = further out
         'type' => 'TERRAIN', // Type of map (ROADMAP, SATELLITE, HYBRID or TERRAIN)
         //'custom'=>null, // Any other map option not mentioned before and available for the map. For example 'mapTypeControl: true' (http://code.google.com/apis/maps/documentation/javascript/controls.html)
@@ -52,15 +52,15 @@
     // too many markers?
     // https://developers.google.com/maps/articles/toomanymarkers
     
-    $icon = '/img/school.png';
+    $icon = '/img/site.png';
     //$c = count($nearby);
     $i = 1; // the map helper doesn't like this to start at 0
     //echo "c is".$c;
     if ($sites != null) {
         foreach ($sites as $site) {
             ///echo "<pre>".print_r($site['Site']['location'])."</pre>";
-            $lat = $site['Site']['location']['lat'];
-            $lon = $site['Site']['location']['lon'];
+            $lat = $site['Site']['lat'];
+            $lon = $site['Site']['lon'];
             
             // this result set comes from a stored procedure, and makes the same
             // site_vf virtual field that's defined in the Site

@@ -2,12 +2,12 @@
 <div class="span3">
     <H3>Actions</H3>
     <ul>
-        <li><?php echo $this->Html->link(__('New Road Type'), array('action' => 'add')); ?></li>
+        <li><?php echo $this->Html->link(__('New Switch'), array('action' => 'add')); ?></li>
     </ul>
 </div><!-- /.span3 .sb-fixed -->
 
 <div class="span9">
-	<h2>Road Types</h2>
+	<h2>Switches</h2>
 	<table class="table table-condensed table-striped">
             <thead>
                 <tr>
@@ -17,12 +17,12 @@
             </thead>
             <tbody>
 	<?php
-	foreach ($roadTypes as $roadType): ?>
+	foreach ($networkSwitches as $networkSwitch): ?>
 	<tr>
-            <td><?php echo h($roadType['RoadType']['name']);?></td>
+            <td><?php echo h($networkSwitch['NetworkSwitch']['name']);?></td>
             <td>
-                    <?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $roadType['RoadType']['id'])); ?>
-                    <?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $roadType['RoadType']['id']), null, __('Are you sure you want to delete Road Type %s?', $roadType['RoadType']['name'])); ?>
+                    <?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $networkSwitch['NetworkSwitch']['id'])); ?>
+                    <?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $networkSwitch['NetworkSwitch']['id']), null, __('Are you sure you want to delete Switch %s?', $networkSwitch['NetworkSwitch']['name'])); ?>
             </td>
 	</tr>
         <?php endforeach; ?>

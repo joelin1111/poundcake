@@ -17,17 +17,10 @@
         echo $this->Form->input('mobile');
         echo $this->Form->input('skype');
         echo $this->Form->input('email');
-        echo $this->Form->input('district_id', array('empty' => '(No District)'));
-        echo $this->Form->input('school_id', array('empty' => '(No School)'));
-        echo $this->Form->input('trc_id', array('empty' => '(No TC/TRC)'));
  
         //echo $this->Form->input('school_code_school_name');
-        echo $this->Form->input('school_code');
-        /*echo $this->Form->input('school_code_school_name', array(
-            'options' => $schools,
-            'empty' => '(choose one)'
-        ));*/
-        //print_r($schools);
+        echo $this->Form->input('tower_owner_id', array('type'=>'select','options' => $towerowners));
+        echo $this->Form->select('type', $type_options,array('empty' => false));
         
         echo $this->Form->end(__('Submit'));
     ?>

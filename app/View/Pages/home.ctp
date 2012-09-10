@@ -1,7 +1,7 @@
 <H1 align="center">
 Welcome to "Poundcake"
 </h1>
-<H2 align="center">TZ21 Schools Database<BR>
+<H2 align="center">Inveneo Site Database<BR>
 </h2>
 
 <H3 align="center">(Main landing page in Pages Controller)</H3>

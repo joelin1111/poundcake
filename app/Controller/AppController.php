@@ -50,7 +50,7 @@ class AppController extends Controller {
             // if the user is not logged in, 
             // if the logged in user accesses a page they are not supposed to (by 
             // typing in the URL manually), send them here
-            'loginRedirect' => array('controller' => 'schools', 'action' => 'about'),
+            'loginRedirect' => array('controller' => 'sites', 'action' => 'about'),
             'logoutRedirect' => array('controller' => 'users', 'action' => 'login'),
             //'logoutRedirect' => array('controller' => 'pages', 'action' => 'display', ''),
             'authorize' => array('Controller')

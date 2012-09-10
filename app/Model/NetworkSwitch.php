@@ -1,10 +1,10 @@
 <?php
 App::uses('AppModel', 'Model');
 /**
- * PowerType Model
+ * RoadType Model
  *
  */
-class PowerType extends AppModel {
+class NetworkSwitch extends AppModel {
 
 /**
  * Display field
@@ -12,12 +12,7 @@ class PowerType extends AppModel {
  * @var string
  */
 	public $displayField = 'name';
-
-/**
- * Validation rules
- *
- * @var array
- */
+        
         public $validate = array(
             'name' => array(
                     'notempty' => array(

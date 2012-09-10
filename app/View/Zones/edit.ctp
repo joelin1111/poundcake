@@ -9,12 +9,11 @@
 
 <div class="span9">
     <?php echo $this->Form->create('Zone'); ?>
-    <h2>Edit Catchment</h2>
+    <h2>Edit Zone</h2>
     <?php
             echo $this->Form->input('id');
             echo $this->Form->input('name');
     ?>
-    </fieldset>
     <?php echo $this->Form->end(__('Submit')); ?>
 </div> <!-- /.span9 -->
 </div> <!-- /.row -->

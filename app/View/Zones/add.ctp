@@ -8,7 +8,7 @@
 
 <div class="span9">
     <?php echo $this->Form->create('Zone'); ?>
-    <h2>Add Catchment</h2>
+    <h2>Add Zone</h2>
     <?php
         echo $this->Form->input('name');
     ?>

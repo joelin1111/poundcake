@@ -8,27 +8,40 @@ class Site extends AppModel {
     var $belongsTo = array(
         'Zone',
         'ConnectivityType',
-        'InterventionType',
         'SiteState',
-        'ServiceProvider',
+        'TowerOwner',
         'PowerType',
         'RoadType',
+        'NetworkSwitch'
     );
     
     public $hasMany = array(
+        'NetworkRadios' => array(
+            'className' => 'NetworkRadio',
+            'foreignKey' => 'site_id',
+            'dependent' => false,
+            'conditions' => '',
+            'fields' => '',
+            'order' => '',
+            'limit' => '',
+            'offset' => '',
+            'exclusive' => '',
+            'finderQuery' => '',
+            'counterQuery' => ''
+        )/*,
         'Contacts' => array(
-                'className' => 'Contact',
-                'foreignKey' => 'site_id',
-                'dependent' => false,
-                'conditions' => '',
-                'fields' => '',
-                'order' => '',
-                'limit' => '',
-                'offset' => '',
-                'exclusive' => '',
-                'finderQuery' => '',
-                'counterQuery' => ''
-            )
+            'className' => 'Contact',
+            'foreignKey' => 'site_id',
+            'dependent' => false,
+            'conditions' => '',
+            'fields' => '',
+            'order' => '',
+            'limit' => '',
+            'offset' => '',
+            'exclusive' => '',
+            'finderQuery' => '',
+            'counterQuery' => ''
+        )*/
     );
     
     public $validate = array(
@@ -40,7 +53,7 @@ class Site extends AppModel {
                             //'required' => false,
                             //'last' => false, // Stop validation after this rule
                             //'on' => 'create', // Limit validation to 'create' or 'update' operations
-                    ),
+                    )/*,
                     'alphanumeric' => array(
                             'rule' => array('alphanumeric'),
                             'message' => 'Only letters and numbers are allowed.',
@@ -48,7 +61,7 @@ class Site extends AppModel {
                             //'required' => false,
                             //'last' => false, // Stop validation after this rule
                             //'on' => 'create', // Limit validation to 'create' or 'update' operations
-                    ),
+                    ),*/
             ),
             'lat' => array(
                 /* RegEx for GPS field:
@@ -60,12 +73,12 @@ class Site extends AppModel {
                 (repeat the first 5 bullets)
                 $ anchors at the end of input
                  */
-                'rule' => '/^-?\d{1,2}\.\d{1,10}$/',
+                'rule' => '/^-?\d{1,2}\.\d{1,14}$/',
                 'message' => 'Bad latutide data, expecting XX.XXXXX or -XX.XXXXX'
             ),
             'lon' => array(
                     // same as above
-                    'rule' => '/^-?\d{1,2}\.\d{1,10}$/',
+                    'rule' => '/^-?\d{1,2}\.\d{1,14}$/',
                     'message' => 'Bad longitude data, expecting XX.XXXXX or -XX.XXXXX'
                 )
 	);

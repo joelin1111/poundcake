@@ -14,7 +14,7 @@ class Contact extends AppModel {
     public $displayField = 'first_name';
 
     public $virtualFields = array(
-        'full_name' => 'CONCAT(first_name, " ", last_name)'
+        'name_vf' => 'CONCAT(first_name, " ", last_name)'
     );
 /**
  * Validation rules
@@ -58,13 +58,17 @@ class Contact extends AppModel {
                 )
 	);
         
+         public $belongsTo = 'TowerOwner';
+         
+        /*
         public $belongsTo = array(
-            'School' => array(
-                'className' => 'School',
-                'foreignKey' => 'school_id',
+            'TowerOwner' => array(
+                'className' => 'Contact',
+                'foreignKey' => 'towerowner_id',
                 'conditions' => '',
                 'fields' => '',
                 'order' => ''
             ),
 	);
+        */
 }

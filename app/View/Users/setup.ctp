@@ -24,24 +24,24 @@ Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor 
     </li>
 
     <HR>
-    
+    <!--
     <li>
-        <?php echo $this->Html->link('Connectivity Types', '/connectivityTypes/index'); ?>       
+        <?php //echo $this->Html->link('Connectivity Types', '/connectivityTypes/index'); ?>       
     </li>
-    <li>
-        <?php echo $this->Html->link('Intervention Types', '/interventionTypes/index'); ?>        
-    </li>
+    -->
     <li>
         <?php echo $this->Html->link('Power Types', '/powerTypes/index'); ?>
     </li>
+    <!--
     <li>
-        <?php echo $this->Html->link('Road Types', '/roadTypes/index'); ?>
+        <?php //echo $this->Html->link('Road Types', '/roadTypes/index'); ?>
     </li>
-    <li>
-        <?php echo $this->Html->link('Service Providers', '/serviceProviders/index'); ?>
-    </li>
+    -->
     <li>
         <?php echo $this->Html->link('Site States', '/siteStates/index'); ?>
+    </li>
+    <li>
+        <?php echo $this->Html->link('Tower Owners', '/towerowners/index'); ?>
     </li>
     
 </UL>

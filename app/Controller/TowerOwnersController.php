@@ -3,102 +3,76 @@ App::uses('AppController', 'Controller');
 /**
  * ServiceProviders Controller
  *
- * @property ServiceProvider $ServiceProvider
+ * @property TowerOwner $TowerOwner
  */
-class ServiceProvidersController extends AppController {
+class TowerOwnersController extends AppController {
 
-/**
- * index method
- *
- * @return void
- */
-	public function index() {
-            $this->ServiceProvider->recursive = 0;
-            $this->set('serviceProviders', $this->paginate());
-	}
+    public function index() {
+        $this->TowerOwner->recursive = 0;
+        $this->set('towerOwners', $this->paginate());
+    }
+    
+    function getContacts() {
+        $this->set('contacts',$this->TowerOwner->Contact->find('list'));        
+    }
 
-/**
- * view method
- *
- * @throws NotFoundException
- * @param string $id
- * @return void
- */
-	public function view($id = null) {
-            $this->ServiceProvider->id = $id;
-            if (!$this->ServiceProvider->exists()) {
-                    throw new NotFoundException(__('Invalid service provider'));
-            }
-            $this->set('serviceProvider', $this->ServiceProvider->read(null, $id));
-	}
-
-/**
- * add method
- *
- * @return void
- */
-	public function add() {
-            if ($this->request->is('post')) {
-                    $this->ServiceProvider->create();
-                    if ($this->ServiceProvider->save($this->request->data)) {
-                            $this->Session->setFlash(__('The service provider has been saved'));
-                            $this->redirect(array('action' => 'index'));
-                    } else {
-                            $this->Session->setFlash(__('The service provider could not be saved. Please, try again.'));
-                    }
-            }
-	}
-
-/**
- * edit method
- *
- * @throws NotFoundException
- * @param string $id
- * @return void
- */
-	public function edit($id = null) {
-		$this->ServiceProvider->id = $id;
-		if (!$this->ServiceProvider->exists()) {
-			throw new NotFoundException(__('Invalid service provider'));
-		}
-		if ($this->request->is('post') || $this->request->is('put')) {
-			if ($this->ServiceProvider->save($this->request->data)) {
-				$this->Session->setFlash(__('The service provider has been saved'));
-				$this->redirect(array('action' => 'index'));
-			} else {
-				$this->Session->setFlash(__('The service provider could not be saved. Please, try again.'));
-			}
-		} else {
-			$this->request->data = $this->ServiceProvider->read(null, $id);
-		}
-	}
-
-/**
- * delete method
- *
- * @throws MethodNotAllowedException
- * @throws NotFoundException
- * @param string $id
- * @return void
- */
-	public function delete($id = null) {
-		if (!$this->request->is('post')) {
-			throw new MethodNotAllowedException();
-		}
-		$this->ServiceProvider->id = $id;
-		if (!$this->ServiceProvider->exists()) {
-			throw new NotFoundException(__('Invalid service provider'));
-		}
-		if ($this->ServiceProvider->delete()) {
-			$this->Session->setFlash(__('Service provider deleted'));
-			$this->redirect(array('action' => 'index'));
-		}
-		$this->Session->setFlash(__('Service provider was not deleted'));
-		$this->redirect(array('action' => 'index'));
-	}
+    public function view($id = null) {
+        $this->TowerOwner->id = $id;
         
-        // check the ACL
-        public function isAuthorized($user) {
-            return parent::isAuthorized($user);
+        if (!$this->TowerOwner->exists()) {
+                throw new NotFoundException(__('Invalid tower owner'));
         }
+        $this->set('towerowner', $this->TowerOwner->read(null, $id));
+        
+    }
+
+    public function add() {
+        if ($this->request->is('post')) {
+            $this->TowerOwner->create();
+            if ($this->TowerOwner->save($this->request->data)) {
+                $this->Session->setFlash(__('The tower owner has been saved'));
+                $this->redirect(array('action' => 'index'));
+            } else {
+                $this->Session->setFlash(__('The tower owner could not be saved. Please, try again.'));
+            }
+        }
+    }
+
+    public function edit($id = null) {
+        $this->TowerOwner->id = $id;
+        if (!$this->TowerOwner->exists()) {
+            throw new NotFoundException(__('Invalid tower owner'));
+        }
+        if ($this->request->is('post') || $this->request->is('put')) {
+            if ($this->TowerOwner->save($this->request->data)) {
+                $this->Session->setFlash(__('The tower owner has been saved'));
+                $this->redirect(array('action' => 'index'));
+            } else {
+                $this->Session->setFlash(__('The tower owner could not be saved. Please, try again.'));
+            }
+        } else {
+            $this->request->data = $this->TowerOwner->read(null, $id);
+        }
+    }
+
+    public function delete($id = null) {
+        if (!$this->request->is('post')) {
+            throw new MethodNotAllowedException();
+        }
+        $this->TowerOwner->id = $id;
+        if (!$this->TowerOwner->exists()) {
+            throw new NotFoundException(__('Invalid tower owner'));
+        }
+        if ($this->TowerOwner->delete()) {
+            $this->Session->setFlash(__('Tower owner deleted'));
+            $this->redirect(array('action' => 'index'));
+        }
+        $this->Session->setFlash(__('Tower owner was not deleted'));
+        $this->redirect(array('action' => 'index'));
+    }
+
+    // check the ACL
+    public function isAuthorized($user) {
+        return parent::isAuthorized($user);
+    }
 }

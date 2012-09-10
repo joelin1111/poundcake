@@ -16,7 +16,7 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 
-$cakeDescription = __d('cake_dev', 'TZ21 Schools');
+$cakeDescription = __d('cake_dev', 'Inveneo Site Database');
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -94,7 +94,7 @@ $cakeDescription = __d('cake_dev', 'TZ21 Schools');
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </a>
-          <a class="brand" href="#">Tz21 Schools</a>
+          <a class="brand" href="#">Inveneo Site Database</a>
           <div class="nav-collapse">
             <ul class="nav pull-left">
             <?php
@@ -118,6 +118,14 @@ $cakeDescription = __d('cake_dev', 'TZ21 Schools');
                     
                     echo "<LI>";
                     echo $this->Html->link('Contacts', array('controller' => 'contacts', 'action' => 'index'));
+                    echo "</LI>";
+                    
+                    echo "<LI>";
+                    echo $this->Html->link('Switches', array('controller' => 'networkswitches', 'action' => 'index'));
+                    echo "</LI>";
+                    
+                    echo "<LI>";
+                    echo $this->Html->link('Radios', array('controller' => 'networkradios', 'action' => 'index'));
                     echo "</LI>";
                     
                     // this doesn't really belong here, should probably serve up a different

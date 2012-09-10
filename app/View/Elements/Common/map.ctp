@@ -1,14 +1,14 @@
 <?php
     // if there is no lat/long, we still need one so pick something that is
-    // about the center of Tanzania
+    // about the center of Haiti
     // set the zoom way out (lower value)
     // don't set a placemarker
     //if ( isset($lat == null && $lon == null ) {
     // if ( !isset($lat) && !isset($lon) ) {
-
+    
     if ( !is_numeric($lat) && !is_numeric($lon) ) {
-        $lat = -5.6;
-        $lon = 36;
+        $lat = 19;
+        $lon = -72.25;
         $zoom = 5;
         $marker = false;
     } else {

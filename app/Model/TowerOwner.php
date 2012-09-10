@@ -4,7 +4,7 @@ App::uses('AppModel', 'Model');
  * ServiceProvider Model
  *
  */
-class ServiceProvider extends AppModel {
+class TowerOwner extends AppModel {
 
 /**
  * Display field
@@ -34,4 +34,5 @@ class ServiceProvider extends AppModel {
             ),
 	);
 
+        public $hasMany = 'Contact';
 }
