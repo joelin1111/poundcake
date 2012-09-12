@@ -1,10 +1,10 @@
 <?php
 App::uses('AppModel', 'Model');
 /**
- * ConnectivityType Model
+ * RoadType Model
  *
  */
-class ConnectivityType extends AppModel {
+class NetworkRadio extends AppModel {
 
 /**
  * Display field
@@ -12,12 +12,7 @@ class ConnectivityType extends AppModel {
  * @var string
  */
 	public $displayField = 'name';
-
-/**
- * Validation rules
- *
- * @var array
- */
+        
         public $validate = array(
             'name' => array(
                     'notempty' => array(
@@ -27,7 +22,7 @@ class ConnectivityType extends AppModel {
                             //'required' => false,
                             //'last' => false, // Stop validation after this rule
                             //'on' => 'create', // Limit validation to 'create' or 'update' operations
-                    ),
+                    )/*,
                     'alphanumeric' => array(
                             'rule' => array('alphanumeric'),
                             'message' => 'Only letters and numbers are allowed.',
@@ -35,7 +30,19 @@ class ConnectivityType extends AppModel {
                             //'required' => false,
                             //'last' => false, // Stop validation after this rule
                             //'on' => 'create', // Limit validation to 'create' or 'update' operations
-                    ),
+                    ),*/
             ),
 	);
+        /*
+        public $belongsTo = array(
+            'Site' => array(
+                'className' => 'Site',
+                'foreignKey' => 'site_id',
+                'conditions' => '',
+                'fields' => '',
+                'order' => ''
+            ),
+	);
+        */
+        public $belongsTo = 'Site';
 }
