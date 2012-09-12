@@ -1,16 +1,12 @@
 <?php
-    echo $this->Html->script('jquery-1.7.2');
+    //echo $this->Html->script('jquery-1.7.2');
     echo $this->Html->script('http://maps.google.com/maps/api/js?sensor=true',false);
     echo $this->Html->script('gears_init');
 ?>
 
 <div class="row">
 <div class="span3">
-<!--    <H3>Lorem Ipsum</H3>
-    <ul>
-        <li><?php //echo $this->Html->link(__('Edit TCs/TRCs'), array('action' => 'edit',$trc['Trc']['id'] )); ?></li>
-    </ul>-->
-    <?php echo $this->element('Common/legend'); ?>
+    <?php echo $this->element('Common/overview-legend'); ?>
 </div><!-- /.span3 .sb-fixed -->
 
 <div class="span9">
@@ -23,19 +19,16 @@
     $defaultLat = 19;
     $defaultLng = -72.25;
     
-    
-    // https://github.com/marcferna/CakePHP-Google-Maps-V3-Helper
+    // https://github.com/marcferna/CakePHP-GoogleMapHelper
     // http://marcferna.tumblr.com/post/3580268729/google-maps-api-v3-cakephp-helper
     // http://plugins.cakephp.org/package/marcferna/CakePHP-Google-Maps-V3-Helper
     $mapOptions = array(
-        'id' => 'overview_map_canvas', // Map canvas ID
-//        'width' => '300px',
-//        'height' => '700px',
-//        'style' => 'width: 98%; height:700px;', // CSS style for the map canvas
+        'id' => 'map_canvas', // Map canvas ID
         'width' => '300px', // Width of the map
-        'height'=>'300px', // Height of the map
-        'style' => 'width: 100%; height:700px;', // CSS style for the map canvas
-        'zoom' => 6, // lower = further out
+        'height'=>'500px', // Height of the map
+        //'style' => '', // CSS style for the map canvas
+        'style' => '98%; height:500px;', // CSS style for the map canvas
+        'zoom' => 8, // lower = further out
         'type' => 'TERRAIN', // Type of map (ROADMAP, SATELLITE, HYBRID or TERRAIN)
         //'custom'=>null, // Any other map option not mentioned before and available for the map. For example 'mapTypeControl: true' (http://code.google.com/apis/maps/documentation/javascript/controls.html)
         'latitude' => $defaultLat,	// default latitude if the browser doesn't support localization or you don't want localization (Latitude & Langitude have priority versus Address)
@@ -52,7 +45,7 @@
     // too many markers?
     // https://developers.google.com/maps/articles/toomanymarkers
     
-    $icon = '/img/site.png';
+    
     //$c = count($nearby);
     $i = 1; // the map helper doesn't like this to start at 0
     //echo "c is".$c;
@@ -61,6 +54,12 @@
             ///echo "<pre>".print_r($site['Site']['location'])."</pre>";
             $lat = $site['Site']['lat'];
             $lon = $site['Site']['lon'];
+            
+            if ($site['Site']['site_state_id'] == 1) {
+                $icon = '/img/tower-r.png';
+            } else {
+                $icon = '/img/tower-o.png';
+            }
             
             // this result set comes from a stored procedure, and makes the same
             // site_vf virtual field that's defined in the Site
@@ -81,13 +80,12 @@
                 'windowText' => $windowText // Text inside the information window
             );
             //echo "<pre>".print_r($markerOptions)."</pre>";
-            echo $this->AltGoogleMapV3->addMarker('overview_map_canvas', $i, $markerOptions);
+            echo $this->AltGoogleMapV3->addMarker('map_canvas', $i, $markerOptions);
             $i++;
             unset($markerOptions); // lame attempt to free memory for the map
         }
     }
     unset($sites); // lame attempt to free memory for the map
-    
 ?>
 </div> <!-- /.span9 -->
 </div> <!-- /.row -->

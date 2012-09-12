@@ -94,7 +94,7 @@ $cakeDescription = __d('cake_dev', 'Inveneo Site Database');
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </a>
-          <a class="brand" href="#">Inveneo Site Database</a>
+          <a class="brand" href="/">Tower Database</a>
           <div class="nav-collapse">
             <ul class="nav pull-left">
             <?php

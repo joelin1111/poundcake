@@ -2,12 +2,12 @@
 <div class="span3">
     <H3>Actions</H3>
     <ul>
-        <li><?php echo $this->Html->link(__('New Road Type'), array('action' => 'add')); ?></li>
+        <li><?php echo $this->Html->link(__('New Contact Type'), array('action' => 'add')); ?></li>
     </ul>
 </div><!-- /.span3 .sb-fixed -->
 
 <div class="span9">
-	<h2>Road Types</h2>
+	<h2>Contact Types</h2>
 	<table class="table table-condensed table-striped">
             <thead>
                 <tr>
@@ -17,12 +17,12 @@
             </thead>
             <tbody>
 	<?php
-	foreach ($roadTypes as $roadType): ?>
+	foreach ($contactTypes as $contactType): ?>
 	<tr>
-            <td><?php echo h($roadType['RoadType']['name']);?></td>
+            <td><?php echo h($contactType['ContactType']['name']);?></td>
             <td>
-                    <?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $roadType['RoadType']['id'])); ?>
-                    <?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $roadType['RoadType']['id']), null, __('Are you sure you want to delete Road Type %s?', $roadType['RoadType']['name'])); ?>
+                    <?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $contactType['ContactType']['id'])); ?>
+                    <?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $contactType['ContactType']['id']), null, __('Are you sure you want to delete Contact Type %s?', $contactType['ContactType']['name'])); ?>
             </td>
 	</tr>
         <?php endforeach; ?>

@@ -24,6 +24,10 @@ Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor 
     </li>
 
     <HR>
+    <li>
+        <?php echo $this->Html->link('Contact Types', '/contactTypes/index'); ?>       
+    </li>
+
     <!--
     <li>
         <?php //echo $this->Html->link('Connectivity Types', '/connectivityTypes/index'); ?>       

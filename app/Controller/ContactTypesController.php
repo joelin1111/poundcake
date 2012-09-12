@@ -1,51 +1,47 @@
 <?php
 App::uses('AppController', 'Controller');
-/**
- * RoadTypes Controller
- *
- * @property RoadType $RoadType
- */
-class RoadTypesController extends AppController {
+
+class ContactTypesController extends AppController {
 
     public function index() {
-        $this->RoadType->recursive = 0;
-        $this->set('roadTypes', $this->paginate());
+        $this->ContactType->recursive = 0;
+        $this->set('contactTypes', $this->paginate());
     }
 
     public function view($id = null) {
-        $this->RoadType->id = $id;
-        if (!$this->RoadType->exists()) {
-                throw new NotFoundException(__('Invalid road type'));
+        $this->ContactType->id = $id;
+        if (!$this->ContactType->exists()) {
+                throw new NotFoundException(__('Invalid contact type'));
         }
-        $this->set('roadType', $this->RoadType->read(null, $id));
+        $this->set('roadType', $this->ContactType->read(null, $id));
     }
 
     public function add() {
         if ($this->request->is('post')) {
-            $this->RoadType->create();
-            if ($this->RoadType->save($this->request->data)) {
-                    $this->Session->setFlash(__('The road type has been saved'));
+            $this->ContactType->create();
+            if ($this->ContactType->save($this->request->data)) {
+                    $this->Session->setFlash(__('The contact type has been saved'));
                     $this->redirect(array('action' => 'index'));
             } else {
-                    $this->Session->setFlash(__('The road type could not be saved. Please, try again.'));
+                    $this->Session->setFlash(__('The contact type could not be saved. Please, try again.'));
             }
         }
     }
 
     public function edit($id = null) {
-        $this->RoadType->id = $id;
-        if (!$this->RoadType->exists()) {
-                throw new NotFoundException(__('Invalid road type'));
+        $this->ContactType->id = $id;
+        if (!$this->ContactType->exists()) {
+                throw new NotFoundException(__('Invalid contact type'));
         }
         if ($this->request->is('post') || $this->request->is('put')) {
-                if ($this->RoadType->save($this->request->data)) {
-                        $this->Session->setFlash(__('The road type has been saved'));
-                        $this->redirect(array('action' => 'index'));
-                } else {
-                        $this->Session->setFlash(__('The road type could not be saved. Please, try again.'));
-                }
+            if ($this->ContactType->save($this->request->data)) {
+                $this->Session->setFlash(__('The contact type has been saved'));
+                $this->redirect(array('action' => 'index'));
+            } else {
+                $this->Session->setFlash(__('The contact type could not be saved. Please, try again.'));
+            }
         } else {
-                $this->request->data = $this->RoadType->read(null, $id);
+            $this->request->data = $this->ContactType->read(null, $id);
         }
     }
 
@@ -53,15 +49,15 @@ class RoadTypesController extends AppController {
         if (!$this->request->is('post')) {
                 throw new MethodNotAllowedException();
         }
-        $this->RoadType->id = $id;
-        if (!$this->RoadType->exists()) {
-                throw new NotFoundException(__('Invalid road type'));
+        $this->ContactType->id = $id;
+        if (!$this->ContactType->exists()) {
+                throw new NotFoundException(__('Invalid contact type'));
         }
-        if ($this->RoadType->delete()) {
-                $this->Session->setFlash(__('Road type deleted'));
+        if ($this->ContactType->delete()) {
+                $this->Session->setFlash(__('Contact type deleted'));
                 $this->redirect(array('action' => 'index'));
         }
-        $this->Session->setFlash(__('Road type was not deleted'));
+        $this->Session->setFlash(__('Contact type was not deleted'));
         $this->redirect(array('action' => 'index'));
     }
 

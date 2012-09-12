@@ -17,7 +17,8 @@
         echo $this->Form->input('skype');
         echo $this->Form->input('email');
         echo $this->Form->input('tower_owner_id', array('type'=>'select','options' => $towerowners));
-        echo $this->Form->select('type', $type_options,array('empty' => false));
+        //echo $this->Form->select('type', $type_options,array('empty' => false));
+        echo $this->Form->input('contact_type_id', array('type'=>'select','options' => $contacttypes));
     ?>
     </fieldset>
     <?php echo $this->Form->end(__('Submit')); ?>

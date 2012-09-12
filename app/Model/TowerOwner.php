@@ -13,6 +13,11 @@ class TowerOwner extends AppModel {
  */
 	public $displayField = 'name';
         
+        public $hasMany = array(
+            'Contact',
+            'Site'
+        );
+                
         public $validate = array(
             'name' => array(
                     'notempty' => array(
@@ -34,5 +39,5 @@ class TowerOwner extends AppModel {
             ),
 	);
 
-        public $hasMany = 'Contact';
+        
 }

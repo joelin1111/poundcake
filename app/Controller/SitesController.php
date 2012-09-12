@@ -137,13 +137,37 @@ class SitesController extends AppController
         }
     }
     
+    function getContacts($id = null) {
+        // sometimes I think my head is going to explode - I had a haard time finding
+        // contacts for this site's tower owner, this is the model setup:
+        // 
+        // Site belongsTo TowerOwner
+        // TowerOwner hasMany Sites
+        // TowerOwner hasMany Contacts
+        // Contact belongsTo TowerOwner
+        
+        // get the ID of the current site's tower owner
+        $id = $this->Site->data['Site']['tower_owner_id'];
+        //echo "ID is" . $id;
+        $conditions = array(
+            'id' => $id // tower_owner.id = site.tower_owner_id
+        );
+        //$this->set('contacts',$this->Site->TowerOwner->find('all', array('contain' => false, 'conditions' => $conditions)));
+        
+        $contacts = $this->Site->TowerOwner->find('all', array('conditions' => $conditions));
+        $this->set(compact('contacts'));
+        
+    }
+    
     function view($id = null) {
         $this->Site->id = $id;
         $this->getSitesNearby($id,5);
+        
         if (!$this->Site->exists()) {
             throw new NotFoundException(__('Invalid site'));
         }
         $this->set('site', $this->Site->read(null, $id));
+        $this->getContacts($id);
         
     }
     
@@ -188,6 +212,13 @@ class SitesController extends AppController
         $this->set('networkradios',$this->Site->NetworkSwitch->find('list'));
     }
     
+    /*
+    function setSiteLiveOptions() {
+        $live_options = array('0' => 'Planned', '1' => 'In Priduction');
+        $this->set('live_options',$live_options);
+    }
+    */
+    
     function add() {
         // Note prior to adding the belongsTo relationship (site belongs to
         // region) I had this if in advance of actually calling the save method
@@ -207,6 +238,7 @@ class SitesController extends AppController
         //$this->getRoadTypes();
         $this->getNetworkSwitches();
         $this->getNetworkRadios();
+        //$this->setSiteLiveOptions();
         
         /*
         // return all areas that match the default catchment
@@ -292,6 +324,7 @@ class SitesController extends AppController
         //$this->getRoadTypes();
         $this->getNetworkSwitches();
         $this->getNetworkRadios();
+        //$this->setSiteLiveOptions();
         
         if (!$this->Site->exists()) {
             throw new NotFoundException(__('Invalid site'));

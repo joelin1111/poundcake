@@ -5,7 +5,9 @@
     // don't set a placemarker
     //if ( isset($lat == null && $lon == null ) {
     // if ( !isset($lat) && !isset($lon) ) {
-    
+    // 
+    // Map icons:  http://mapicons.nicolasmollet.com/markers/restaurants-bars/wi-fi/
+
     if ( !is_numeric($lat) && !is_numeric($lon) ) {
         $lat = 19;
         $lon = -72.25;
@@ -28,8 +30,8 @@
     $mapOptions = array(
         'id' => 'map_canvas', // Map canvas ID
         'width' => '300px', // Width of the map
-        'height'=>'300px', // Height of the map
-        'style' => 'width: 98%; height:300px;', // CSS style for the map canvas
+        'height'=>'500px', // Height of the map
+        'style' => 'width: 98%; height:500px;', // CSS style for the map canvas
         'zoom' => $zoom,
         'type' => 'TERRAIN', // Type of map (ROADMAP, SATELLITE, HYBRID or TERRAIN)
         //'custom'=>null, // Any other map option not mentioned before and available for the map. For example 'mapTypeControl: true' (http://code.google.com/apis/maps/documentation/javascript/controls.html)

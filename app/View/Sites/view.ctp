@@ -15,27 +15,34 @@
 
 <div class="span9">
     <h2><?php echo $site['Site']['site_code']." ".$site['Site']['site_name']; ?></h2>
-    <P><B>Zone:</B>&nbsp;<?php echo $site['Zone']['name']; ?></P>
-    
+    <P><B>Site State:</B>&nbsp;<?php echo $site['SiteState']['name']; ?></P>
     <P><B>Site contacts:</B>&nbsp;
         <?php
-            //print_r($site);
-            $c = count($site['Contacts']);
-            //echo "c is".$c;
-            if ($c == 0) {
+            //echo "<pre>";
+            //echo print_r($site);
+            //echo print_r($contacts);
+            //echo "</pre>";
+            //die;
+            if (!isset($contacts[0])) {
                 echo "None";
             } else {
-                foreach ($site['Contacts'] as $contact) {
-                    echo $this->Html->link(__($contact['first_name']." ".$contact['last_name']), array(
+                $c = count($contacts[0]['Contact']);
+                echo "<UL>";
+                foreach ($contacts[0]['Contact'] as $contact) {
+                    //echo $this->Html->link(__($contact['first_name']." ".$contact['last_name']), array(
+                    echo "<LI>";
+                    echo $this->Html->link(($contact['name_vf']), array(
                         'controller' => 'contacts',
                         'action' => 'view',
                         $contact['id']));
+                    echo "&nbsp;".$contact['mobile']."</LI>";
                 }
+                echo "</UL>";
             }
         ?>
     </P>
     <P><B>GPS Coordinates:</B>&nbsp;<?php echo sprintf("%01.5f",$site['Site']['lat']) . ' ' . sprintf("%01.5f",$site['Site']['lon']) . '<br>'; ?> </P>
-
+    <P><B>Zone:</B>&nbsp;<?php echo $site['Zone']['name']; ?></P>
     <P><B>Map:</B></P>
     <?php
         $windowText = $site['Site']['site_vf'];
@@ -104,7 +111,6 @@
     <P><B>Accommodations</B>:&nbsp;<?php echo $site['Site']['accommodations'];?></P>
     <P><B>Notes</B>:&nbsp;<?php echo $site['Site']['notes'];?></P>
     <P><B>Install Date:</B>&nbsp;<?php echo $site['Site']['install_date']; ?></P>
-    <P><B>Site State:</B>&nbsp;<?php echo $site['SiteState']['name']; ?></P>
     <P><B>Tower Owner:</B>&nbsp;<?php
         echo $this->Html->link(
                 $site['TowerOwner']['name'],
@@ -124,6 +130,7 @@
             if ($c == 0) {
                 echo "None";
             } else {
+                echo "<UL>";
                 foreach ($site['NetworkRadios'] as $radio) {
                     echo "<LI>";
                     echo $this->Html->link(__($radio['name']), array(
@@ -132,6 +139,7 @@
                         $radio['id']));
                     echo "</LI>";
                 }
+                echo "</UL>";
             }
         ?>
     </P>

@@ -24,20 +24,34 @@
     echo $this->Form->create('Site');
     echo $this->Form->input('id', array('type'=>'hidden'));
     echo $this->Form->input('site_name');
+    echo $this->Form->input('Site.site_state_id', array('type'=>'select','options' => $sitestates));
+    
+    /*echo $this->Form->input(
+        'live',
+        array(
+            'options' => $live_options,
+            'type' => 'select',
+            'empty' => false,
+            'label' => 'Site Status'
+        )
+    );*/
+    
     
     //echo "<pre>".print_r($this->request->data)."</pre>";
      
     // drop down meny of available zones, etc.
-    echo $this->Form->input('zone_id');
-    echo $this->Form->input('site_code');     
+    
+    echo $this->Form->input('site_code');
     echo $this->Form->input('Site.tower_owner_id', array('type'=>'select','options' => $towerowners));
-    echo $this->Form->input('Site.site_state_id', array('type'=>'select','options' => $sitestates));
+    
     echo $this->Form->input('Site.power_type_id', array('type'=>'select','options' => $powertypes));
     //echo $this->Form->input('Site.road_type_id', array('type'=>'select','options' => $roadtypes));
     echo $this->Form->input('Site.network_switch_id', array('type'=>'select','options' => $networkswitches));
 
     echo $this->Form->input( 'lat', array( 'label' => 'Latitude' ) );
     echo $this->Form->input( 'lon', array( 'label' => 'Longitude' ) );
+    
+    echo $this->Form->input('zone_id');
     
     echo $this->Form->input('Site.tower_guard',array('style' => 'width:100%','label'=>'Tower Guard Contact Info'));
     echo $this->Form->input('Site.structure_type',array('style' => 'width:100%'));
@@ -54,12 +68,21 @@
            'type'=>'text'
         )
     );
-   echo "<BR><BR><BR><BR><BR><BR><BR><BR><BR><BR><BR>";
     
     // this is the upload field
     echo $this->Upload->edit('Site', $this->Form->fields['Site.id']); 
     
     echo $this->Form->end('Save');
+    /*
+    $options = array(
+        'label' => 'Save 2',
+        'div' => array(
+        'class' => 'btn',
+        )
+    );
+    echo $this->Form->end($options);
+    */
+
     /*
     $this->Js->get('#SchoolCatchmentId');
     $this->Js->event('change',

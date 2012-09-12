@@ -58,8 +58,7 @@ class Contact extends AppModel {
                 )
 	);
         
-         public $belongsTo = 'TowerOwner';
-         
+    public $belongsTo = array('TowerOwner','ContactType');
         /*
         public $belongsTo = array(
             'TowerOwner' => array(

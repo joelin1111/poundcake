@@ -19,11 +19,23 @@ class UploadComponent extends Component {
 
 		$lastDir = $this->last_dir ($model, $id);
 		$dirPath = WWW_ROOT . DS . $dir . DS . $lastDir . DS;
+                
+                // Inveneo mod:
+                //echo $dirPath;
+                //echo "<Br>";
+                // There seems to be an extra slash in dirPath, so let's remove it
+                // e.g. /Applications/MAMP/htdocs/poundcake/app/webroot//files/Site/44/
+                $dirPath = preg_replace('~/+~', '/', $dirPath);
+                //echo $dirPath;
+                //die;
+                
 		$files = glob($dirPath . '*', GLOB_MARK);
 		foreach ($files as $file) {
 			unlink($file);
 		}
-		rmdir($dirPath);
+                // prefix rmdir with @ to disable PHP warning -- which it will do
+                // if the directory doesn't exist
+		@rmdir($dirPath);
 	}
 
 	// The "last mile" of the directory path for where the files get uploaded

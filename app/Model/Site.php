@@ -11,10 +11,14 @@ class Site extends AppModel {
         'SiteState',
         'TowerOwner',
         'PowerType',
-        'RoadType',
-        'NetworkSwitch'
+        'NetworkSwitch',
+        'TowerOwner'
     );
-    
+/*  
+    var $hasOne = array(
+        'TowerOwner'
+    );
+*/    
     public $hasMany = array(
         'NetworkRadios' => array(
             'className' => 'NetworkRadio',

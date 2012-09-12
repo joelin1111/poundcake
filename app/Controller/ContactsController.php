@@ -58,12 +58,12 @@ class ContactsController extends AppController {
         if (!$this->Contact->exists()) {
                 throw new NotFoundException(__('Invalid contact'));
         }
-        $this->set('contact', $this->Contact->read(null, $id));
+        $this->set('contact', $this->Contact->read(null, $id));        
     }
 
     public function add() {
        $this->getTowerOwners();
-        $this->setContactTypeOptions();
+        $this->getContactTypeOptions();
        if ($this->request->is('post')) {
             $this->Contact->create();
             if ($this->Contact->save($this->request->data)) {
@@ -80,15 +80,16 @@ class ContactsController extends AppController {
         $this->set('towerowners',$this->Contact->TowerOwner->find('list'));
     }
     
-    function setContactTypeOptions() {
-        $type_options = array('0' => 'Commercial Contact', '1' => 'Technical Contact');
-        $this->set('type_options',$type_options);
+    function getContactTypeOptions() {
+        //$type_options = array('0' => 'Commercial Contact', '1' => 'Technical Contact');
+        //$type_options = array('0' => $contactType0, '1' => $contactType1);
+        $this->set('contacttypes',$this->Contact->ContactType->find('list'));
     }
 
     public function edit($id = null) {
         $this->Contact->id = $id;
         $this->getTowerOwners();
-        $this->setContactTypeOptions();
+        $this->getContactTypeOptions();
         if (!$this->Contact->exists()) {
             throw new NotFoundException(__('Invalid contact'));
         }

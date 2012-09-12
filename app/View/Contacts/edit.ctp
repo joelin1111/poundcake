@@ -20,7 +20,7 @@
  
         //echo $this->Form->input('school_code_school_name');
         echo $this->Form->input('tower_owner_id', array('type'=>'select','options' => $towerowners));
-        echo $this->Form->select('type', $type_options,array('empty' => false));
+        echo $this->Form->select('contact_type_id', $contacttypes,array('empty' => false));
         
         echo $this->Form->end(__('Submit'));
     ?>

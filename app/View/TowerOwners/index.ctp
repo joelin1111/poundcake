@@ -21,8 +21,8 @@
 	<tr>
             <td><?php echo h($towerOwner['TowerOwner']['name']);?></td>
             <td>
-                    <?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $towerOwner['TowerOwner']['id'])); ?>
-                    <?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $towerOwner['TowerOwner']['id']), null, __('Are you sure you want to delete Tower Owner %s?', $towerOwner['TowerOwner']['name'])); ?>
+                <?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $towerOwner['TowerOwner']['id'])); ?>
+                <?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $towerOwner['TowerOwner']['id']), null, __('Are you sure you want to delete Tower Owner %s?', $towerOwner['TowerOwner']['name'])); ?>
             </td>
 	</tr>
         <?php endforeach; ?>

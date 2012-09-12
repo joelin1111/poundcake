@@ -12,6 +12,6 @@
     <P><B>Mobile:</B>&nbsp;<?php echo $contact['Contact']['mobile']; ?></P>
     <P><B>Skype:</B>&nbsp;<?php echo $contact['Contact']['skype']; ?></P>
     <P><B>Email:</B>&nbsp;<?php echo $contact['Contact']['email']; ?></P>
-    
+    <P><B>Contact Type:</B>&nbsp;<?php echo $contact['ContactType']['name']; ?></P>
 </div> <!-- /.span9 -->
 </div> <!-- /.row -->
