@@ -18,11 +18,6 @@
     <P><B>Site State:</B>&nbsp;<?php echo $site['SiteState']['name']; ?></P>
     <P><B>Site contacts:</B>&nbsp;
         <?php
-            echo "<pre>";
-            //echo print_r($site);
-            echo print_r($contacts);
-            echo "</pre>";
-            //die;
             if (!isset($contacts[0])) {
                 echo "None";
             } else {
@@ -35,9 +30,10 @@
                         'controller' => 'contacts',
                         'action' => 'view',
                         $contact['id']));
-                    echo "&nbsp;".$contact['mobile']."</LI>";
+                    echo " ".$contact['mobile'];
+                    echo " - ".$contact['ContactType']['name'];
+                    echo "</LI>";
                 }
-                
                 echo "</UL>";
             }
         ?>

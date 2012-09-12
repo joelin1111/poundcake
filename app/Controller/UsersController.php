@@ -125,8 +125,8 @@ class UsersController extends AppController {
         //echo print_r($this->Auth->user());
        
         if ( $this->Auth->user() != null) {
-            //echo "user logged in, send to about page";
-            $this->redirect(array('controller' => 'sites', 'action' => 'about'));
+            // user logged in, send to overview page
+            $this->redirect(array('controller' => 'sites', 'action' => 'overview'));
         }
         
         if ($this->request->is('post')) {

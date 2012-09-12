@@ -23,19 +23,6 @@ class SitesController extends AppController
         $this->set('site_name', $this->Site->site_name);
     }
     
-    /*
-    public $paginate = array(
-        'fields' => array('Site.site_code', 'Site.site_name'),
-        'limit' => 25,
-        'order' => array(
-            'Site.site_code' => 'asc'
-        )
-    );
-    */
-    function about() {
-        // show the about page
-    }
-    
     function index($id = null) {
         
         $conditions = "";
@@ -108,34 +95,35 @@ class SitesController extends AppController
         $this->set('sites', $sites);
     }
     
+    /*
     function getSitesNearby($id = null, $max_sites = 5) {
         // return the nearest sites using the MySQL stored procedure
         // sp_nearby
         if ($id != null && $max_sites != null) {
             $query = 'call sp_nearby('.$id.','.$max_sites.')';
             $nearby = $this->Site->query( $query );
-            /* not really sure why the distance comes back in its own array here,
-             example:
+//            not really sure why the distance comes back in its own array here,
+//             example:
+//             
+//                [2] => Array
+//                    (
+//                        [sites] => Array
+//                            (
+//                                [id] => 2
+//                                [site_name] => CHITANDI
+//                            )
+//
+//                        [0] => Array
+//                            (
+//                                [distance] => 5.8482689198309625
+//                            )
+//
+//                    )
              
-                [2] => Array
-                    (
-                        [sites] => Array
-                            (
-                                [id] => 2
-                                [site_name] => CHITANDI
-                            )
-
-                        [0] => Array
-                            (
-                                [distance] => 5.8482689198309625
-                            )
-
-                    )
-
-             */
             $this->set('nearby', $nearby);
         }
     }
+    */
     
     function getContacts($id = null) {
         // sometimes I think my head is going to explode - I had a haard time finding
@@ -154,6 +142,7 @@ class SitesController extends AppController
         );
         //$this->set('contacts',$this->Site->TowerOwner->find('all', array('contain' => false, 'conditions' => $conditions)));
         
+        $this->Site->TowerOwner->recursive = 2; // set recursive to 2 to get the data related to Contacts
         $contacts = $this->Site->TowerOwner->find('all', array('conditions' => $conditions));
         $this->set(compact('contacts'));
         
@@ -161,7 +150,7 @@ class SitesController extends AppController
     
     function view($id = null) {
         $this->Site->id = $id;
-        $this->getSitesNearby($id,5);
+        //$this->getSitesNearby($id,5);
         
         if (!$this->Site->exists()) {
             throw new NotFoundException(__('Invalid site'));
@@ -261,10 +250,6 @@ class SitesController extends AppController
     }
     
     function delete($id) {
-        // this came from one of the search examples, not sure why it's here
-        // if (!$this->request->is('post')) {
-        //      throw new MethodNotAllowedException();
-        //}
         $this->Site->id = $id;
         if (!$this->Site->exists()) {
             throw new NotFoundException(__('Invalid site'));
@@ -284,8 +269,7 @@ class SitesController extends AppController
     function edit($id = null) {
         $this->Site->id = $id;
         
-        // get a list of regions, link and installation types
-        // the Site may belong to
+        // get a list of zones, etc. the site may belong to
         $this->getZones();
         $this->getTowerOwners();
         $this->getSiteStates();
@@ -325,26 +309,6 @@ class SitesController extends AppController
         
         return parent::isAuthorized($user);
     }
-    
-    /*
-    public function getSiteStateIcon($site_state) {
-        switch ($site_state){
-            case 0:
-                $icon = '/img/tower-b.png';
-                break;
-            case 15:
-                $icon = '/img/tower-g.png';
-                break;
-            case 20:
-                $icon = '/img/tower-r.png';
-                break;
-            default:
-                $icon = '/img/tower-o.png';
-                break;
-            }
-        return $icon;
-    }
-    */
     
 //    function auto_complete() {
 //        $sites = $this->Site->find('all', array( 
