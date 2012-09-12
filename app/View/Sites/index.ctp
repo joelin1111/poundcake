@@ -6,9 +6,11 @@
 <div class="row">
 <div class="span3">
     <H3>Actions</H3>
+    <div class="well well-large">
     <ul>
         <li><?php echo $this->Html->link(__('New Site'), array('action' => 'add')); ?></li>
     </ul>
+   </div>
     <H3>Search</H3>
     <?php
       echo $this->Form->create(
@@ -61,6 +63,8 @@
    <tr>
        <th><?php echo $this->Paginator->sort('site_code'); ?></th>
        <th><?php echo $this->Paginator->sort('site_name'); ?></th>
+       <th><?php echo $this->Paginator->sort('tower_owner_id'); ?></th>
+       <th><?php echo $this->Paginator->sort('site_state_id'); ?></th>
        <th><?php echo $this->Paginator->sort('zone_id','Zone');?></th>
        <th>Actions</th>
    </tr>
@@ -84,6 +88,8 @@
                 array('controller' => 'sites', 'action' => 'view', $site['Site']['id']));
                 ?>
            </td>
+           <td><?php echo $site['TowerOwner']['name']; ?></td>
+           <td><?php echo $site['SiteState']['name']; ?></td>
            <td><?php echo $site['Zone']['name']; ?></td>
            <td>
 <!--               <button class="btn btn-mini"></button>-->

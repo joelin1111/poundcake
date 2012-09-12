@@ -68,8 +68,19 @@ class NetworkSwitchesController extends AppController {
         $this->redirect(array('action' => 'index'));
     }
 
-    // check the ACL
     public function isAuthorized($user) {
+        // everyone can see the list and view individual Contacts
+        if ($this->action === 'index' || $this->action === 'view') {
+            return true;
+        }
+        
+        // allow users with the rolealias of "edit" to add/edit/delete
+        if ($this->action === 'add' || $this->action === 'edit' || $this->action === 'delete') {
+            if (isset($user['Role']['rolealias']) && $user['Role']['rolealias'] === 'edit') {
+                return true;
+            }
+        }
+        
         return parent::isAuthorized($user);
     }
 }

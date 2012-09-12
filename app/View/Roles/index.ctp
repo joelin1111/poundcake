@@ -1,9 +1,11 @@
 <div class="row">
 <div class="span3">
     <H3>Actions</H3>
+    <div class="well well-large">
     <ul>
         <li><?php echo $this->Html->link(__('New Role'), array('action' => 'add')); ?></li>
     </ul>
+    </div>
 </div><!-- /.span3 .sb-fixed -->
 
 <div class="span9">
@@ -22,8 +24,8 @@
             <td><?php echo h($role['Role']['name']);?></td>
             <td>
                 <?php
-                    // no edit or delete for admin role
-                    if($role['Role']['name'] != 'admin') { ?>
+                    // no edit or delete for admin or view roles
+                    if(($role['Role']['name'] != 'admin') && ($role['Role']['name'] != 'view')) { ?>
                     <?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $role['Role']['id'])); ?>
                     <?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $role['Role']['id']), null, __('Are you sure you want to delete role %s?', $role['Role']['name'])); ?>
                 <?php } ?>

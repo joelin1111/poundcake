@@ -12,9 +12,11 @@
 <div class="row">
 <div class="span3">
     <H3>Actions</H3>
-    <ul>
-        <li><?php echo $this->Html->link(__('List Sites'), array('action' => 'index')); ?></li>
-    </ul>
+    <div class="well well-large">
+        <ul>
+            <li><?php echo $this->Html->link(__('List Sites'), array('action' => 'index')); ?></li>
+        </ul>
+    </div>
 </div><!-- /.span3 .sb-fixed -->
 
 <div class="span9">

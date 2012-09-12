@@ -1,9 +1,11 @@
 <div class="row">
 <div class="span3">
     <H3>Actions</H3>
+    <div class="well well-large">
     <ul>
         <li><?php echo $this->Html->link(__('New User'), array('action' => 'add')); ?></li>
     </ul>
+    </div>
 </div><!-- /.span3 .sb-fixed -->
 
 <div class="span9">

@@ -1,9 +1,11 @@
 <div class="row">
 <div class="span3">
     <H3>Actions</H3>
+    <div class="well well-large">
     <ul>
         <li><?php echo $this->Html->link(__('New Site State'), array('action' => 'add')); ?></li>
     </ul>
+    </div>
     Note that site states and related icons are not dynamic.  New site states will default to a yellow icon.  There likely exists a need to manually modify the map code to reflect other changes.  
 </div><!-- /.span3 .sb-fixed -->
 

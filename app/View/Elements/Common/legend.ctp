@@ -1,4 +1,6 @@
-<H3>Legend</H3>
+
+    <H3>Legend</H3>
+    <div class="well well-large">
 <?php
 /*
     Active: Green 
@@ -20,3 +22,4 @@
 <?php echo $this->Html->image('tower-y.png', array('alt' => 'Equipment Recovered')); ?>&nbsp;Equipment Recovered<BR>
 <?php echo $this->Html->image('tower-r.png', array('alt' => 'Decommissioned')); ?>&nbsp;Decommissioned<BR>
 
+</div>

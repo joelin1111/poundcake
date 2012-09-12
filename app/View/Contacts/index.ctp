@@ -1,9 +1,11 @@
 <div class="row">
 <div class="span3">
     <H3>Actions</H3>
+    <div class="well well-large">
     <ul>
         <li><?php echo $this->Html->link(__('New Contact'), array('action' => 'add')); ?></li>
     </ul>
+    </div>
     <H3>Search</H3>
     <?php
       echo $this->Form->create(

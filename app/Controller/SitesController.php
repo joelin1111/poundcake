@@ -158,16 +158,38 @@ class SitesController extends AppController
         $this->set('site', $this->Site->read(null, $id));
         $this->getContacts($id);
         
+        switch ($this->Site->data['Site']['site_state_id']){
+            case 0:
+                $label = 'label label-warning';
+                break;
+            case 15:
+                $label = 'label label-success';
+                break;
+            case 20:
+                $label = 'label label-important';
+                break;
+            default:
+                $label = 'label label-warning';
+                break;
+            }
+        // label-success - green
+        // label-important - red
+        // label-warning - yellow
+        $this->set('state_class',$label);
+        
     }
     
     function getZones() {
         // return a list of zones (which will be put into a drop-down menu
         // on the add/edit forms)
         $this->set('zones',$this->Site->Zone->find('list'));
+        $this->set('zones',$this->Site->Zone->find('list',array('order' => array('Zone.name ASC'))));
+            
     }
     
     function getConnectivityTypes() {
         // identical to getZones
+        $this->Site->ConnectivityType->
         $this->set('connectivitytypes',$this->Site->ConnectivityType->find('list'));
     }
     
@@ -224,6 +246,7 @@ class SitesController extends AppController
         // should I wrap all the following with?
         // if ($this->request->is('post')) {        
 
+        // I don't think this is needed anymore?!
         if ( $this->request->data != null ) {
             $this->set('lat',$this->request->data['Site']['lat']);
             $this->set('lon',$this->request->data['Site']['lon']);
@@ -296,10 +319,15 @@ class SitesController extends AppController
     }
     
     public function isAuthorized($user) {
-        // everyone can see the list and view individual Sites
-        if ($this->action === 'index' || $this->action === 'view' || $this->action === 'overview') {
+        // everyone can see the list and view individual Contacts
+        if ($this->action === 'index' || $this->action === 'view') {
             return true;
         }
+        
+        if ($this->action === 'overview') {
+            return true;
+        }
+        
         // allow users with the rolealias of "edit" to add/edit/delete
         if ($this->action === 'add' || $this->action === 'edit' || $this->action === 'delete') {
             if (isset($user['Role']['rolealias']) && $user['Role']['rolealias'] === 'edit') {

@@ -84,12 +84,12 @@ class AppController extends Controller {
         // the resulting URL will be 
         // example.com/cake/posts/index/Search.keywords:mykeyword/Search.tag_id:3
         foreach ($this->data as $k=>$v){ 
-                foreach ($v as $kk=>$vv){
-                        //echo "<BR>VV is".print_r($vv);
-                        // remove forward slashes -- school codes can have them!
-                        $vv = str_replace('/','*',$vv);
-                        $url[$k.'.'.$kk]=$vv; 
-                } 
+            foreach ($v as $kk=>$vv){
+                //echo "<BR>VV is".print_r($vv);
+                // remove forward slashes -- school codes can have them!
+                $vv = str_replace('/','*',$vv);
+                $url[$k.'.'.$kk]=$vv; 
+            } 
         }
         // redirect the user to the url
         $this->redirect($url, null, true);

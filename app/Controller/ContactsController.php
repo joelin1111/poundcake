@@ -127,6 +127,7 @@ class ContactsController extends AppController {
         if ($this->action === 'index' || $this->action === 'view') {
             return true;
         }
+        
         // allow users with the rolealias of "edit" to add/edit/delete
         if ($this->action === 'add' || $this->action === 'edit' || $this->action === 'delete') {
             if (isset($user['Role']['rolealias']) && $user['Role']['rolealias'] === 'edit') {

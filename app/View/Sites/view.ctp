@@ -7,15 +7,20 @@
 <div class="row">
 <div class="span3">
     <H3>Actions</H3>
+    <div class="well well-large">
     <ul>
         <li><?php echo $this->Html->link('Edit Site', array('action'=>'edit', $site['Site']['id']));?></li>
     </ul>
-    <?php echo $this->element('Common/legend'); ?>
+    </div>
 </div><!-- /.span3 .sb-fixed -->
 
 <div class="span9">
-    <h2><?php echo $site['Site']['site_code']." ".$site['Site']['site_name']; ?></h2>
-    <P><B>Site State:</B>&nbsp;<?php echo $site['SiteState']['name']; ?></P>
+    <h2><?php echo $site['Site']['site_code']." ".$site['Site']['site_name']; ?>
+        <span style="vertical-align:middle" class="<?php echo $state_class?>">
+            <?php echo $site['SiteState']['name']; ?>
+        </span>
+    </h2>
+    
     <P><B>Site contacts:</B>&nbsp;
         <?php
             if (!isset($contacts[0])) {
