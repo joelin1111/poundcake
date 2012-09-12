@@ -25,7 +25,7 @@
             <td>
                 <?php
                     // no edit or delete for admin or view roles
-                    if(($role['Role']['name'] != 'admin') && ($role['Role']['name'] != 'view')) { ?>
+                    if(($role['Role']['rolealias'] != 'admin') && ($role['Role']['rolealias'] != 'view')) { ?>
                     <?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $role['Role']['id'])); ?>
                     <?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $role['Role']['id']), null, __('Are you sure you want to delete role %s?', $role['Role']['name'])); ?>
                 <?php } ?>
