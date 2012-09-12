@@ -18,10 +18,10 @@
     <P><B>Site State:</B>&nbsp;<?php echo $site['SiteState']['name']; ?></P>
     <P><B>Site contacts:</B>&nbsp;
         <?php
-            //echo "<pre>";
+            echo "<pre>";
             //echo print_r($site);
-            //echo print_r($contacts);
-            //echo "</pre>";
+            echo print_r($contacts);
+            echo "</pre>";
             //die;
             if (!isset($contacts[0])) {
                 echo "None";
@@ -37,32 +37,48 @@
                         $contact['id']));
                     echo "&nbsp;".$contact['mobile']."</LI>";
                 }
+                
                 echo "</UL>";
             }
         ?>
     </P>
     <P><B>GPS Coordinates:</B>&nbsp;<?php echo sprintf("%01.5f",$site['Site']['lat']) . ' ' . sprintf("%01.5f",$site['Site']['lon']) . '<br>'; ?> </P>
     <P><B>Zone:</B>&nbsp;<?php echo $site['Zone']['name']; ?></P>
-    <P><B>Map:</B></P>
+    
     <?php
         $windowText = $site['Site']['site_vf'];
         // draw the main map
         // lat lon already set (hopefull1y)
         //echo $site['Site']['lon'];
-        
+        //
+        // this is duplicated in the site>overview page
+        switch ($site['Site']['site_state_id']){
+            case 0:
+                $icon = '/img/tower-b.png';
+                break;
+            case 15:
+                $icon = '/img/tower-g.png';
+                break;
+            case 20:
+                $icon = '/img/tower-r.png';
+                break;
+            default:
+                $icon = '/img/tower-o.png';
+                break;
+            }
         //echo $this->element('Common/map');
         echo $this->element('Common/map',
                 array(
                     'windowText' => $windowText,
                     'lat' => $site['Site']['lat'],
                     'lon' => $site['Site']['lon'],
-                    'icon' => '/img/site.png'
+                    'icon' => $icon
                     )
                 );
-        
+        /*
         // placemarkers for nearby sites
-        // print_r($nearby);
-        $icon = '/img/site_nearby.png';
+        print_r($nearby);
+        $icon = '';
         $c = count($nearby);
         $i = 2;
         //echo "c is".$c;
@@ -73,7 +89,6 @@
                 $distance = sprintf ("%01.2f", $s[0]['distance']);
                 $lat = $s[0]['lat'];
                 $lon = $s[0]['lon'];
-
                 // this result set comes from a stored procedure, and makes the same
                 // site_vf virtual field that's defined in the Site
                 // model -- but technically this is not the same field, so FYI
@@ -99,6 +114,7 @@
                 $i++;
             }
         }
+         */
     ?>
     </p>
 
@@ -121,7 +137,23 @@
     ?></P>
     <P><B>Power Type:</B>&nbsp;<?php echo $site['PowerType']['name']; ?></P>
 <!--    <P><B>Road Condition:</B>&nbsp;<?php //echo $site['RoadType']['name']; ?></P>-->
-    <P><B>Switch:</B>&nbsp;<?php echo $site['NetworkSwitch']['name']; ?></P>
+    <P><B>Switch:</B>&nbsp;<?php
+        echo $this->Html->link(
+                $site['NetworkSwitch']['name'],
+                array(
+                    'controller' => 'networkswitches',
+                    'action' => 'view',
+                    $site['NetworkSwitch']['id']));
+    ?></P>
+    <P><B>Router:</B>&nbsp;<?php
+        echo $this->Html->link(
+                $site['NetworkRouter']['name'],
+                array(
+                    'controller' => 'networkrouters',
+                    'action' => 'view',
+                    $site['NetworkRouter']['id']));
+    ?></P>
+    
     <P><B>Radios:</B>&nbsp;
         <?php
             //print_r($site);

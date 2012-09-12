@@ -17,12 +17,12 @@
             </thead>
             <tbody>
 	<?php
-	foreach ($networkSwitches as $networkSwitch): ?>
+	foreach ($networkswitches as $networkswitch): ?>
 	<tr>
-            <td><?php echo h($networkSwitch['NetworkSwitch']['name']);?></td>
+            <td><?php echo h($networkswitch['NetworkSwitch']['name']);?></td>
             <td>
-                    <?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $networkSwitch['NetworkSwitch']['id'])); ?>
-                    <?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $networkSwitch['NetworkSwitch']['id']), null, __('Are you sure you want to delete Switch %s?', $networkSwitch['NetworkSwitch']['name'])); ?>
+                    <?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $networkswitch['NetworkSwitch']['id'])); ?>
+                    <?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $networkswitch['NetworkSwitch']['id']), null, __('Are you sure you want to delete switch %s?', $networkswitch['NetworkSwitch']['name'])); ?>
             </td>
 	</tr>
         <?php endforeach; ?>

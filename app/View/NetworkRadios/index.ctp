@@ -24,7 +24,7 @@
             <td><?php echo $networkradio['Site']['site_vf'];?></td>
             <td>
                 <?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $networkradio['NetworkRadio']['id'])); ?>
-                <?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $networkradio['NetworkRadio']['id']), null, __('Are you sure you want to delete Radio %s?', $networkradio['NetworkRadio']['name'])); ?>
+                <?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $networkradio['NetworkRadio']['id']), null, __('Are you sure you want to delete radio %s?', $networkradio['NetworkRadio']['name'])); ?>
             </td>
 	</tr>
         <?php endforeach; ?>

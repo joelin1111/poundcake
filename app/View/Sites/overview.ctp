@@ -6,7 +6,7 @@
 
 <div class="row">
 <div class="span3">
-    <?php echo $this->element('Common/overview-legend'); ?>
+    <?php echo $this->element('Common/legend'); ?>
 </div><!-- /.span3 .sb-fixed -->
 
 <div class="span9">
@@ -55,12 +55,45 @@
             $lat = $site['Site']['lat'];
             $lon = $site['Site']['lon'];
             
-            if ($site['Site']['site_state_id'] == 1) {
-                $icon = '/img/tower-r.png';
-            } else {
-                $icon = '/img/tower-o.png';
-            }
-            
+            /*
+
+            mysql> select * from site_states order by id;
+            +----+------------------------+
+            | id | name                   |
+            +----+------------------------+
+            |  0 | Planned                |
+            | 15 | Active                 |
+            | 16 | Power Install Complete |
+            | 17 | HRBN Install Complete  |
+            | 18 | Deactivated            |
+            | 19 | Equipment Recovered    |
+            | 20 | Decommissioned         |
+            +----+------------------------+
+
+            Active: Green 
+            Planned: Light blue 
+            Power Install Complete: Orange 
+            HRBN Install Complete: Orange 
+            Deactivated: Orange 
+            Equipment Recovered: Orange 
+            Decommissioned: Red
+            */
+            // this is duplicated in the site>view page
+            switch ($site['Site']['site_state_id']){
+                case 0:
+                    $icon = '/img/tower-b.png';
+                    break;
+                case 15:
+                    $icon = '/img/tower-g.png';
+                    break;
+                case 20:
+                    $icon = '/img/tower-r.png';
+                    break;
+                default:
+                    $icon = '/img/tower-o.png';
+                    break;
+                }
+
             // this result set comes from a stored procedure, and makes the same
             // site_vf virtual field that's defined in the Site
             // model -- but technically this is not the same field, so FYI

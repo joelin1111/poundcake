@@ -2,7 +2,7 @@
 <div class="span3">
     <H3>Actions</H3>
     <ul>
-        <li><?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $this->Form->value('Role.id')), null, __('Are you sure you want to delete Role %s?', $this->Form->value('Role.name'))); ?></li>
+        <li><?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $this->Form->value('Role.id')), null, __('Are you sure you want to delete role %s?', $this->Form->value('Role.name'))); ?></li>
         <li><?php echo $this->Html->link(__('List Roles'), array('action' => 'index')); ?></li>
     </ul>
 </div><!-- /.span3 .sb-fixed -->

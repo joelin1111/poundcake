@@ -2,7 +2,7 @@
 <div class="span3">
     <H3>Actions</H3>
     <ul>
-        <li><?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $this->Form->value('NetworkRadio.id')), null, __('Are you sure you want to delete Radio %s?', $this->Form->value('NetworkRadio.name'))); ?></li>
+        <li><?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $this->Form->value('NetworkRadio.id')), null, __('Are you sure you want to delete radio %s?', $this->Form->value('NetworkRadio.name'))); ?></li>
         <li><?php echo $this->Html->link(__('List Radios'), array('action' => 'index')); ?></li>
     </ul>
 </div><!-- /.span3 .sb-fixed -->

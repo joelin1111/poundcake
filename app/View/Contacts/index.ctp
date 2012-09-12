@@ -45,7 +45,7 @@
             <td><?php echo h($contact['Contact']['email']);?></td>
             <td>
             <?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $contact['Contact']['id'])); ?>
-            <?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $contact['Contact']['id']), null, __('Are you sure you want to delete Contact %s?', $contact['Contact']['first_name'])); ?>
+            <?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $contact['Contact']['id']), null, __('Are you sure you want to delete contact %s?', $contact['Contact']['first_name'])); ?>
             </td>
 	</tr>
         <?php endforeach; ?>

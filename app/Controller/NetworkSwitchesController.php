@@ -9,7 +9,7 @@ class NetworkSwitchesController extends AppController {
 
     public function index() {
         $this->NetworkSwitch->recursive = 0;
-        $this->set('networkSwitches', $this->paginate());
+        $this->set('networkswitches', $this->paginate());
     }
 
     public function view($id = null) {
@@ -17,7 +17,7 @@ class NetworkSwitchesController extends AppController {
         if (!$this->NetworkSwitch->exists()) {
                 throw new NotFoundException(__('Invalid switch'));
         }
-        $this->set('networkSwitch', $this->NetworkSwitch->read(null, $id));
+        $this->set('networkswitch', $this->NetworkSwitch->read(null, $id));
     }
 
     public function add() {

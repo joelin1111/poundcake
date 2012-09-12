@@ -12,7 +12,7 @@
 <div class="span3">
     <H3>Actions</H3>
     <ul>
-        <li><?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $this->Form->value('Site.id')), null, __('Are you sure you want to delete Site %s?', $this->Form->value('Site.site_id'))); ?></li>
+        <li><?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $this->Form->value('Site.id')), null, __('Are you sure you want to delete site %s?', $this->Form->value('Site.site_id'))); ?></li>
         <li><?php echo $this->Html->link(__('List Sites'), array('action' => 'index')); ?></li>
     </ul>
 </div><!-- /.span3 .sb-fixed -->
@@ -47,6 +47,7 @@
     echo $this->Form->input('Site.power_type_id', array('type'=>'select','options' => $powertypes));
     //echo $this->Form->input('Site.road_type_id', array('type'=>'select','options' => $roadtypes));
     echo $this->Form->input('Site.network_switch_id', array('type'=>'select','options' => $networkswitches));
+    echo $this->Form->input('Site.network_router_id', array('type'=>'select','options' => $networkrouters));
 
     echo $this->Form->input( 'lat', array( 'label' => 'Latitude' ) );
     echo $this->Form->input( 'lon', array( 'label' => 'Longitude' ) );

@@ -22,7 +22,7 @@
             <td><?php echo h($powerType['PowerType']['name']);?></td>
             <td>
                     <?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $powerType['PowerType']['id'])); ?>
-                    <?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $powerType['PowerType']['id']), null, __('Are you sure you want to delete Power Type %s?', $powerType['PowerType']['name'])); ?>
+                    <?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $powerType['PowerType']['id']), null, __('Are you sure you want to delete power type %s?', $powerType['PowerType']['name'])); ?>
             </td>
 	</tr>
         <?php endforeach; ?>

@@ -23,7 +23,7 @@
             <td><?php echo h($zone['Zone']['name']);?></td>
             <td>
                     <?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $zone['Zone']['id'])); ?>
-                    <?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $zone['Zone']['id']), null, __('Are you sure you want to delete Zone %s?', $zone['Zone']['name'])); ?>
+                    <?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $zone['Zone']['id']), null, __('Are you sure you want to delete zone %s?', $zone['Zone']['name'])); ?>
             </td>
 	</tr>
         <?php endforeach; ?>

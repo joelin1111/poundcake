@@ -4,6 +4,7 @@
     <ul>
         <li><?php echo $this->Html->link(__('New Site State'), array('action' => 'add')); ?></li>
     </ul>
+    Note that site states and related icons are not dynamic.  New site states will default to a yellow icon.  There likely exists a need to manually modify the map code to reflect other changes.  
 </div><!-- /.span3 .sb-fixed -->
 
 <div class="span9">
@@ -22,7 +23,7 @@
             <td><?php echo h($siteState['SiteState']['name']);?></td>
             <td>
                     <?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $siteState['SiteState']['id'])); ?>
-                    <?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $siteState['SiteState']['id']), null, __('Are you sure you want to delete Site State %s?', $siteState['SiteState']['name'])); ?>
+                    <?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $siteState['SiteState']['id']), null, __('Are you sure you want to delete site state %s?', $siteState['SiteState']['name'])); ?>
             </td>
 	</tr>
         <?php endforeach; ?>

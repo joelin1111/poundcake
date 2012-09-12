@@ -207,57 +207,27 @@ class SitesController extends AppController
         $this->set('networkswitches',$this->Site->NetworkSwitch->find('list'));
     }
     
+    function getNetworkRouters() {
+        // identical to getZones
+        $this->set('networkrouters',$this->Site->NetworkRouter->find('list'));
+    }
+    
     function getNetworkRadios() {
         // identical to getZones
         $this->set('networkradios',$this->Site->NetworkSwitch->find('list'));
     }
     
-    /*
-    function setSiteLiveOptions() {
-        $live_options = array('0' => 'Planned', '1' => 'In Priduction');
-        $this->set('live_options',$live_options);
-    }
-    */
-    
     function add() {
-        // Note prior to adding the belongsTo relationship (site belongs to
-        // region) I had this if in advance of actually calling the save method
-        // -- this failed after I added belongsTo and I'm not sure why
-        // commenting out for now
-        // if ($this->request->is('site')) {
         $this->Site->create();
 
-        // get a list of regions, link and intervention types
-        // the Site may belong to
-        // Catchments/Areas/Districts now handled by Ajax due to their new
-        // relationships
-        //$this->getConnectivityTypes();
+        // get a list of things the Site may belong to
         $this->getTowerOwners();
         $this->getSiteStates();
         $this->getPowerTypes();
-        //$this->getRoadTypes();
         $this->getNetworkSwitches();
+        $this->getNetworkRouters();
         $this->getNetworkRadios();
-        //$this->setSiteLiveOptions();
         
-        /*
-        // return all areas that match the default catchment
-        $areas = $this->Site->District->Area->find(
-                        'list',
-                        array(
-                            'conditions' => array('Area.catchment_id' => 1)
-                        )
-                );
-        // return all districts that match the default area
-        $districts = $this->Site->District->find(
-                        'list',
-                        array(
-                            'conditions' => array('District.area_id' => 1)
-                        )
-                );
-        */
-        
-        // get all Zones
         $zones = $this->Site->Zone->find('list');
         
         $this->set(compact('zones'));
@@ -317,14 +287,12 @@ class SitesController extends AppController
         // get a list of regions, link and installation types
         // the Site may belong to
         $this->getZones();
-        //$this->getConnectivityTypes();
         $this->getTowerOwners();
         $this->getSiteStates();
         $this->getPowerTypes();
-        //$this->getRoadTypes();
         $this->getNetworkSwitches();
+        $this->getNetworkRouters();
         $this->getNetworkRadios();
-        //$this->setSiteLiveOptions();
         
         if (!$this->Site->exists()) {
             throw new NotFoundException(__('Invalid site'));
@@ -357,6 +325,26 @@ class SitesController extends AppController
         
         return parent::isAuthorized($user);
     }
+    
+    /*
+    public function getSiteStateIcon($site_state) {
+        switch ($site_state){
+            case 0:
+                $icon = '/img/tower-b.png';
+                break;
+            case 15:
+                $icon = '/img/tower-g.png';
+                break;
+            case 20:
+                $icon = '/img/tower-r.png';
+                break;
+            default:
+                $icon = '/img/tower-o.png';
+                break;
+            }
+        return $icon;
+    }
+    */
     
 //    function auto_complete() {
 //        $sites = $this->Site->find('all', array( 

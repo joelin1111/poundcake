@@ -22,7 +22,7 @@
             <td><?php echo h($contactType['ContactType']['name']);?></td>
             <td>
                     <?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $contactType['ContactType']['id'])); ?>
-                    <?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $contactType['ContactType']['id']), null, __('Are you sure you want to delete Contact Type %s?', $contactType['ContactType']['name'])); ?>
+                    <?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $contactType['ContactType']['id']), null, __('Are you sure you want to delete contact type %s?', $contactType['ContactType']['name'])); ?>
             </td>
 	</tr>
         <?php endforeach; ?>

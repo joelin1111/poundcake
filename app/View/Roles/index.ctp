@@ -25,7 +25,7 @@
                     // no edit or delete for admin role
                     if($role['Role']['name'] != 'admin') { ?>
                     <?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $role['Role']['id'])); ?>
-                    <?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $role['Role']['id']), null, __('Are you sure you want to delete Role %s?', $role['Role']['name'])); ?>
+                    <?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $role['Role']['id']), null, __('Are you sure you want to delete role %s?', $role['Role']['name'])); ?>
                 <?php } ?>
             </td>
 	</tr>
