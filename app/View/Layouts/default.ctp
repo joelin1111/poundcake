@@ -105,11 +105,7 @@ $cakeDescription = __d('cake_dev', 'Inveneo Site Database');
                 if ( isset($user) ) {
                     //echo "<small>Logged in as: ".$user['username']."<br>";
                     //echo "Role: ".$user['Role']['name']."</small><br><br><br>";
-                    /*
-                    echo "<LI>";
-                    echo $this->Html->link('About', array('controller' => 'sites', 'action' => 'about'));
-                    echo "</LI>";
-                    */
+                    
                     echo "<LI>";
                     echo $this->Html->link('Map', array('controller' => 'sites', 'action' => 'overview'));
                     echo "</LI>";                    

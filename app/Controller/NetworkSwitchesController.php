@@ -1,12 +1,15 @@
 <?php
 App::uses('AppController', 'Controller');
-/**
- * Switchs Controller
- *
- * @property NetworkSwitch $NetworkSwitch
- */
+
 class NetworkSwitchesController extends AppController {
 
+    public $paginate = array(
+        'limit' => 20, // default limit also defined in AppController
+        'order' => array(
+            'NetworkSwitch.name' => 'asc'
+        )
+    );
+    
     public function index() {
         $this->NetworkSwitch->recursive = 0;
         $this->set('networkswitches', $this->paginate());

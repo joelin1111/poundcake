@@ -1,12 +1,15 @@
 <?php
 App::uses('AppController', 'Controller');
-/**
- * Switchs Controller
- *
- * @property NetworkRadio $NetworkRadio
- */
+
 class NetworkRadiosController extends AppController {
 
+    public $paginate = array(
+        'limit' => 20, // default limit also defined in AppController
+        'order' => array(
+            'NetworkRadio.name' => 'asc'
+        )
+    );
+    
     public function index() {
         $this->NetworkRadio->recursive = 0;
         $this->set('networkradios', $this->paginate());

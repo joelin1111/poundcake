@@ -297,7 +297,7 @@ class SitesController extends AppController
     
     public function isAuthorized($user) {
         // everyone can see the list and view individual Sites
-        if ($this->action === 'index' || $this->action === 'view' || $this->action === 'overview' || $this->action === 'about') {
+        if ($this->action === 'index' || $this->action === 'view' || $this->action === 'overview') {
             return true;
         }
         // allow users with the rolealias of "edit" to add/edit/delete

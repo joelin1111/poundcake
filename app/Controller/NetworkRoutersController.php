@@ -1,12 +1,15 @@
 <?php
 App::uses('AppController', 'Controller');
-/**
- * Routers Controller
- *
- * @property NetworkRouter $NetworkRouter
- */
+
 class NetworkRoutersController extends AppController {
 
+    public $paginate = array(
+        'limit' => 20, // default limit also defined in AppController
+        'order' => array(
+            'NetworkRouter.name' => 'asc'
+        )
+    );
+    
     public function index() {
         $this->NetworkRouter->recursive = 0;
         $this->set('networkrouters', $this->paginate());
