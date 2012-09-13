@@ -25,16 +25,16 @@
     </li>
     <HR>
     <li>
-        <?php echo $this->Html->link('Contact Types', '/contacttypes/index'); ?>       
+        <?php echo $this->Html->link('Contact Types', '/contactTypes/index'); ?>       
     </li>
     <li>
-        <?php echo $this->Html->link('Power Types', '/powertypes/index'); ?>
+        <?php echo $this->Html->link('Power Types', '/powerTypes/index'); ?>
     </li>
     <li>
-        <?php echo $this->Html->link('Site States', '/sitestates/index'); ?>
+        <?php echo $this->Html->link('Site States', '/siteStates/index'); ?>
     </li>
     <li>
-        <?php echo $this->Html->link('Tower Owners', '/towerowners/index'); ?>
+        <?php echo $this->Html->link('Tower Owners', '/towerOwners/index'); ?>
     </li>
     
 </UL>

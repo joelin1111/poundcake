@@ -3,6 +3,13 @@ App::uses('AppController', 'Controller');
 
 class ZonesController extends AppController {
 
+    public $paginate = array(
+        'limit' => 20, // default limit also defined in AppController
+        'order' => array(
+            'Zone.name' => 'asc'
+        )
+    );
+    
     public function index() {
         $this->Zone->recursive = 0;
         $this->set('zones', $this->paginate());

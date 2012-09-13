@@ -1,10 +1,14 @@
 <?php
 
-// following this example:
-// http://book.cakephp.org/2.0/en/tutorials-and-examples/blog-auth-example/auth.html
-
 class UsersController extends AppController {
 
+    public $paginate = array(
+        'limit' => 20, // default limit also defined in AppController
+        'order' => array(
+            'User.username' => 'asc'
+        )
+    );
+    
     public function index() {
         $this->User->recursive = 0;
         $this->set('users', $this->paginate());

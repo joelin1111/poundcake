@@ -118,15 +118,15 @@ $cakeDescription = __d('cake_dev', 'Inveneo Site Database');
                     echo "</LI>";
                     
                     echo "<LI>";
-                    echo $this->Html->link('Radios', array('controller' => 'networkradios', 'action' => 'index'));
+                    echo $this->Html->link('Radios', array('controller' => 'networkRadios', 'action' => 'index'));
                     echo "</LI>";
                     
                     echo "<LI>";
-                    echo $this->Html->link('Routers', array('controller' => 'networkrouters', 'action' => 'index'));
+                    echo $this->Html->link('Routers', array('controller' => 'networkRouters', 'action' => 'index'));
                     echo "</LI>";
                     
                     echo "<LI>";
-                    echo $this->Html->link('Switches', array('controller' => 'networkswitches', 'action' => 'index'));
+                    echo $this->Html->link('Switches', array('controller' => 'networkSwitches', 'action' => 'index'));
                     echo "</LI>";
                     
                     
