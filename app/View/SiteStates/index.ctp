@@ -6,7 +6,14 @@
         <li><?php echo $this->Html->link(__('New Site State'), array('action' => 'add')); ?></li>
     </ul>
     </div>
-    Note that site states and related icons are not dynamic.  New site states will default to a yellow icon.  There likely exists a need to manually modify the map code to reflect other changes.  
+    
+    <P>
+    Grab site icons from <a href="http://mapicons.nicolasmollet.com/markers/restaurants-bars/wi-fi/" target="_blank">here</a>.    
+    </p>
+    <P>
+    Generally "wi-fi unsecured", first row 3rd icon over, pick a color then Save As.
+    </P>
+    
 </div><!-- /.span3 .sb-fixed -->
 
 <div class="span9">
@@ -22,7 +29,7 @@
 	<?php
 	foreach ($siteStates as $siteState): ?>
 	<tr>
-            <td><?php echo h($siteState['SiteState']['name']);?></td>
+            <td><?php echo $this->Html->link(($siteState['SiteState']['name']), array('action' => 'view', $siteState['SiteState']['id'])); ?></td>
             <td>
                     <?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $siteState['SiteState']['id'])); ?>
                     <?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $siteState['SiteState']['id']), null, __('Are you sure you want to delete site state %s?', $siteState['SiteState']['name'])); ?>

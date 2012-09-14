@@ -70,18 +70,21 @@ class SitesController extends AppController
         $this->set('sites',$data);
     }
  
+    public function buildLegend() {
+        $allSiteStates = $this->Site->SiteState->find('all');
+        $this->set('allSiteStates', $allSiteStates);
+        //echo print_r($allSiteStates);
+    }
     public function overview() {
         // find('all') would return all sites, no matter what
         //$sites = $this->Site->find('all');
         
-        // filter out ones w/o a location (since we can't display them on the
-        // map without coordinates)
-        
-        // get all the sites for display on the map, and deal with their lat/lon
+        // get all the sites for display on the map - ignor any without lat/lon
         
         // skip any that don't have coordinates in the db
         $conditions = array ("NOT" => array ("Site.lat" => null));
         $sites = $this->Site->find('all', array('conditions' => $conditions));
+        //print_r($sites);
         /*
         for($i = 0; $i < sizeof($sites); ++$i) {
             // for each site, decode the lat/lon and save it back to the
@@ -93,6 +96,7 @@ class SitesController extends AppController
         }
         */
         $this->set('sites', $sites);
+        $this->buildLegend();
     }
     
     /*

@@ -52,6 +52,8 @@
         // lat lon already set (hopefull1y)
         //echo $site['Site']['lon'];
         //
+        $icon = 'data:'.$site['SiteState']['img_type'].';base64,'.base64_encode( $site['SiteState']['img_data'] );
+        /*
         // this is duplicated in the site>overview page
         switch ($site['Site']['site_state_id']){
             case 0:
@@ -67,6 +69,7 @@
                 $icon = '/img/tower-o.png';
                 break;
             }
+        */
         //echo $this->element('Common/map');
         echo $this->element('Common/map',
                 array(

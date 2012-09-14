@@ -10,11 +10,12 @@
 </div><!-- /.span3 .sb-fixed -->
 
 <div class="span9">
-    <?php echo $this->Form->create('SiteState'); ?>
+    <?php echo $this->Form->create('SiteState', array('type' => 'file')); ?>
     <h2>Edit Installation State</h2>
     <?php
         echo $this->Form->input('id');
         echo $this->Form->input('name');
+        echo $this->Form->file('File');
         echo $this->Form->end(__('Submit'));
     ?>
 </div> <!-- /.span9 -->

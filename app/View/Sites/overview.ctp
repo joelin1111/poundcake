@@ -78,6 +78,9 @@
             Equipment Recovered: Orange 
             Decommissioned: Red
             */
+            
+            $icon = 'data:'.$site['SiteState']['img_type'].';base64,'.base64_encode( $site['SiteState']['img_data'] );
+            /*
             // this is duplicated in the site>view page
             switch ($site['Site']['site_state_id']){
                 case 0:
@@ -93,7 +96,8 @@
                     $icon = '/img/tower-o.png';
                     break;
                 }
-
+            */
+                
             // this result set comes from a stored procedure, and makes the same
             // site_vf virtual field that's defined in the Site
             // model -- but technically this is not the same field, so FYI
