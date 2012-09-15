@@ -32,24 +32,17 @@ class Site extends AppModel {
         )
     );
     
+    
     public $validate = array(
         'site_name' => array(
-                'notempty' => array(
-                        'rule' => array('notempty'),
-                        'message' => 'This field cannot be blank.',
-                        //'allowEmpty' => false,
-                        //'required' => false,
-                        //'last' => false, // Stop validation after this rule
-                        //'on' => 'create', // Limit validation to 'create' or 'update' operations
-                )/*,
-                'alphanumeric' => array(
-                        'rule' => array('alphanumeric'),
-                        'message' => 'Only letters and numbers are allowed.',
-                        //'allowEmpty' => false,
-                        //'required' => false,
-                        //'last' => false, // Stop validation after this rule
-                        //'on' => 'create', // Limit validation to 'create' or 'update' operations
-                ),*/
+            'notempty' => array(
+                'rule' => array('notempty'),
+                'message' => 'This field cannot be blank',
+                //'allowEmpty' => false,
+                //'required' => false,
+                //'last' => false, // Stop validation after this rule
+                //'on' => 'create', // Limit validation to 'create' or 'update' operations
+            )
         ),
         'lat' => array(
             /* RegEx for GPS field:
@@ -62,12 +55,12 @@ class Site extends AppModel {
             $ anchors at the end of input
              */
             'rule' => '/^-?\d{1,2}\.\d{1,14}$/',
-            'message' => 'Bad latutide data, expecting XX.XXXXX or -XX.XXXXX'
+            'message' => 'Expecting XX.XXXXX or -XX.XXXXX'
         ),
         'lon' => array(
-                // same as above
-                'rule' => '/^-?\d{1,2}\.\d{1,14}$/',
-                'message' => 'Bad longitude data, expecting XX.XXXXX or -XX.XXXXX'
+            // same as above
+            'rule' => '/^-?\d{1,2}\.\d{1,14}$/',
+            'message' => 'Expecting XX.XXXXX or -XX.XXXXX'
             )
     );
     

@@ -25,7 +25,10 @@
     //echo $this->Form->create('School', array('action' => 'edit'));
     echo $this->Form->create('Site');
     echo $this->Form->input('id', array('type'=>'hidden'));
-    echo $this->Form->input('site_name');
+    //echo $this->Form->input('site_name');
+    echo $this->Form->input('site_name',
+            array('error' => array('attributes' => array('wrap' => 'span', 'class' => 'label label-important'))));
+    
     echo $this->Form->input('Site.site_state_id', array('type'=>'select','options' => $sitestates));
     
     /*echo $this->Form->input(

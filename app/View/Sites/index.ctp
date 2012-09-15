@@ -63,9 +63,9 @@
    <tr>
        <th><?php echo $this->Paginator->sort('site_code'); ?></th>
        <th><?php echo $this->Paginator->sort('site_name'); ?></th>
-       <th><?php echo $this->Paginator->sort('tower_owner_id'); ?></th>
+       <th><?php echo $this->Paginator->sort('TowerOwner.name','Tower Owner'); ?></th>
        <th><?php echo $this->Paginator->sort('site_state_id'); ?></th>
-       <th><?php echo $this->Paginator->sort('zone_id','Zone');?></th>
+       <th><?php echo $this->Paginator->sort('Zone.name','Zone');?></th> <!-- zone_id -->
        <th>Actions</th>
    </tr>
 </thead>

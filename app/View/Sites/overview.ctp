@@ -1,6 +1,13 @@
 <?php
     //echo $this->Html->script('jquery-1.7.2');
-    echo $this->Html->script('http://maps.google.com/maps/api/js?sensor=true',false);
+    // if we're under SSL we have to give the Google stuff under SSL, too, or
+    // else the browser is likely to complain or just not render SSL/non-SSL
+    // content together
+    if (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) {
+        echo $this->Html->script('https://maps.google.com/maps/api/js?sensor=true',false);
+    } else {
+        echo $this->Html->script('http://maps.google.com/maps/api/js?sensor=true',false);
+    }
     echo $this->Html->script('gears_init');
 ?>
 

@@ -1,6 +1,13 @@
 <?php
-    echo $this->Html->script('jquery-1.7.2');
-    echo $this->Html->script('http://maps.google.com/maps/api/js?sensor=true',false);
+    echo $this->Html->script('jquery-1.7.2');    
+    // if we're under SSL we have to give the Google stuff under SSL, too, or
+    // else the browser is likely to complain or just not render SSL/non-SSL
+    // content together
+    if (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) {
+        echo $this->Html->script('https://maps.google.com/maps/api/js?sensor=true',false);
+    } else {
+        echo $this->Html->script('http://maps.google.com/maps/api/js?sensor=true',false);
+    }
     echo $this->Html->script('gears_init');
 ?>
 
@@ -135,7 +142,7 @@
         echo $this->Html->link(
                 $site['TowerOwner']['name'],
                 array(
-                    'controller' => 'towerowners',
+                    'controller' => 'towerOwners',
                     'action' => 'view',
                     $site['TowerOwner']['id']));
     ?></P>
@@ -145,7 +152,7 @@
         echo $this->Html->link(
                 $site['NetworkSwitch']['name'],
                 array(
-                    'controller' => 'networkswitches',
+                    'controller' => 'networkSwitches',
                     'action' => 'view',
                     $site['NetworkSwitch']['id']));
     ?></P>
@@ -153,7 +160,7 @@
         echo $this->Html->link(
                 $site['NetworkRouter']['name'],
                 array(
-                    'controller' => 'networkrouters',
+                    'controller' => 'networkRouters',
                     'action' => 'view',
                     $site['NetworkRouter']['id']));
     ?></P>
