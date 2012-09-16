@@ -1,7 +1,7 @@
 <?php
 App::uses('AppModel', 'Model');
 
-class PowerType extends AppModel {
+class AntennaType extends AppModel {
 
     public $displayField = 'name';
 

@@ -3,14 +3,14 @@
     <H3>Actions</H3>
     <div class="well well-large">
     <ul>
-        <li><?php echo $this->Html->link(__('List Power Types'), array('action' => 'index')); ?>
+        <li><?php echo $this->Html->link(__('List Antenna Types'), array('action' => 'index')); ?>
     </ul>
     </div>
 </div><!-- /.span3 .sb-fixed -->
 
 <div class="span9">
-    <?php echo $this->Form->create('PowerType'); ?>
-    <h2>Add Power Type</h2>
+    <?php echo $this->Form->create('AntennaType'); ?>
+    <h2>Add Antenna Type</h2>
     <?php
             echo $this->Form->input('name');
     ?>

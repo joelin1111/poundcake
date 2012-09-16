@@ -25,6 +25,9 @@
     </li>
     <HR>
     <li>
+        <?php echo $this->Html->link('Antenna Types', '/antennaTypes/index'); ?>       
+    </li>
+    <li>
         <?php echo $this->Html->link('Contact Types', '/contactTypes/index'); ?>       
     </li>
     <li>
