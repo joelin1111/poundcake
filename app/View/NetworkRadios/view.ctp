@@ -10,6 +10,7 @@
 <div class="span9">
     <h2>View Radio</h2>
     <P><B>Name:</B>&nbsp;<?php echo $networkradio['NetworkRadio']['name']; ?></P>
+    <P><B>Radio Type:</B>&nbsp;<?php echo $networkradio['RadioType']['name']; ?></P>
     <P><B>Antenna:</B>&nbsp;<?php echo $networkradio['AntennaType']['name']; ?></P>
 </div> <!-- /.span9 -->
 </div> <!-- /.row -->

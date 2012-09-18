@@ -34,6 +34,9 @@
         <?php echo $this->Html->link('Power Types', '/powerTypes/index'); ?>
     </li>
     <li>
+        <?php echo $this->Html->link('Radio Types', '/radioTypes/index'); ?>       
+    </li>
+    <li>
         <?php echo $this->Html->link('Site States', '/siteStates/index'); ?>
     </li>
     <li>
