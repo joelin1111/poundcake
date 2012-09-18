@@ -34,8 +34,19 @@ class NetworkRadiosController extends AppController {
         );
     }
     
+    function getAntennaTypes() {
+        $this->set('antennatypes',$this->NetworkRadio->AntennaType->find('list',
+            array(
+                'order' => array(
+                    'AntennaType.name ASC'
+            )))
+        );
+    }
+    
     public function add() {
         $this->getSites();
+        $this->getAntennaTypes();
+        
         if ($this->request->is('post')) {
             $this->NetworkRadio->create();
             if ($this->NetworkRadio->save($this->request->data)) {
@@ -50,6 +61,8 @@ class NetworkRadiosController extends AppController {
     public function edit($id = null) {
         $this->NetworkRadio->id = $id;
         $this->getSites();
+        $this->getAntennaTypes();
+        
         if (!$this->NetworkRadio->exists()) {
             throw new NotFoundException(__('Invalid radio'));
         }

@@ -14,7 +14,8 @@
     <?php
         echo $this->Form->input('name');
         echo $this->Form->input('site_id');
-        //echo $this->Form->input('site_name');
+        echo $this->Form->input('antenna_type_id', array('type'=>'select','options' => $antennatypes));
+        ////echo $this->Form->input('site_name');
         //echo $this->Form->input('Site.site_name', array('type'=>'select','options' => $sites));
         echo $this->Form->end(__('Submit'));
     ?>

@@ -36,22 +36,21 @@
     echo $this->Form->input('Site.tower_owner_id', array('type'=>'select','options' => $towerowners));
     echo $this->Form->input('Site.site_state_id', array('type'=>'select','options' => $sitestates));
     echo $this->Form->input('Site.power_type_id', array('type'=>'select','options' => $powertypes));
-    //echo $this->Form->input('Site.road_type_id', array('type'=>'select','options' => $roadtypes));
+    
     echo $this->Form->input('Site.network_switch_id', array('type'=>'select','options' => $networkswitches));
-    echo $this->Form->input('Site.network_radio_id', array('type'=>'select','options' => $networkradios));
+    ?>
     
-    // see documentation on Edit page
-    echo $this->Form->input('lat', array (
-        'label' => 'Latitude',
-        'value' => ''
-        )
-    );
+    <?php echo $this->element('Common/radio_builder'); ?>
     
-    echo $this->Form->input('lon', array (
-        'label' => 'Longitude',
-        'value' => ''
-        )
-    );
+    <div class="row">
+        <div class="span4">
+            <?php echo $this->Form->input('lat', array ('label' => 'Latitude','value' => '')); ?>
+        </div>
+        <div class="span4">
+            <?php echo $this->Form->input('lon', array ('label' => 'Longitude','value' => '')); ?>
+        </div>
+    </div>
+    <?php
     
     echo $this->Form->input('Site.tower_guard',array('style' => 'width:100%','label'=>'Tower Guard Contact Info'));
     echo $this->Form->input('Site.structure_type',array('style' => 'width:100%'));

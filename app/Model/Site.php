@@ -43,32 +43,33 @@ class Site extends AppModel {
                 //'last' => false, // Stop validation after this rule
                 //'on' => 'create', // Limit validation to 'create' or 'update' operations
             )
-        ),
-        'lat' => array(
-            /* RegEx for GPS field:
-            -? allows for, but does not require, a negative sign
-            \d{1,2} requires 1 or 2 decimal digits
-            \. requires a decimal point
-            \d{5} requires exactly 5 decimal digits
-            , matches a single comma
-            (repeat the first 5 bullets)
-            $ anchors at the end of input
-             */
-            'rule' => '/^-?\d{1,2}\.\d{1,14}$/',
-            'message' => 'Expecting XX.XXXXX or -XX.XXXXX'
-        ),
-        'lon' => array(
-            // same as above
-            'rule' => '/^-?\d{1,2}\.\d{1,14}$/',
-            'message' => 'Expecting XX.XXXXX or -XX.XXXXX'
-            )
+        )
+//        ,
+//        'lat' => array(
+//            /* RegEx for GPS field:
+//            -? allows for, but does not require, a negative sign
+//            \d{1,2} requires 1 or 2 decimal digits
+//            \. requires a decimal point
+//            \d{5} requires exactly 5 decimal digits
+//            , matches a single comma
+//            (repeat the first 5 bullets)
+//            $ anchors at the end of input
+//             */
+//            'rule' => '/^-?\d{1,2}\.\d{1,14}$/',
+//            'message' => 'Expecting XX.XXXXX or -XX.XXXXX'
+//        ),
+//        'lon' => array(
+//            // same as above
+//            'rule' => '/^-?\d{1,2}\.\d{1,14}$/',
+//            'message' => 'Expecting XX.XXXXX or -XX.XXXXX'
+//            )
     );
     
     
     // we'll eventually save the site's latitude/longitude here -- but only
     // after decoding it from the spatial data type in the db
-    var $lat = 0;
-    var $lon = 0;
+    //var $lat = 0;
+    //var $lon = 0;
     
     // this virtualField is also defined in the sp_nearby stored procedure - that version
     // is used to place placemarkers for nearby sites on the site view page map

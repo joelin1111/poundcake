@@ -75,6 +75,7 @@ class SitesController extends AppController
         $this->set('allSiteStates', $allSiteStates);
         //echo print_r($allSiteStates);
     }
+    
     public function overview() {
         // find('all') would return all sites, no matter what
         //$sites = $this->Site->find('all');
@@ -186,9 +187,8 @@ class SitesController extends AppController
     function getZones() {
         // return a list of zones (which will be put into a drop-down menu
         // on the add/edit forms)
-        $this->set('zones',$this->Site->Zone->find('list'));
+        //$this->set('zones',$this->Site->Zone->find('list'));
         $this->set('zones',$this->Site->Zone->find('list',array('order' => array('Zone.name ASC'))));
-            
     }
     
     function getConnectivityTypes() {
@@ -229,11 +229,29 @@ class SitesController extends AppController
     
     function getNetworkRadios() {
         // identical to getZones
-        $this->set('networkradios',$this->Site->NetworkSwitch->find('list'));
+        //$this->Site->recursive = 2;
+        $this->Site->bindModel(array('hasMany' => array('NetworkRadio' => 
+                             array('foreignKey' => 'site_id'))));
+        $this->set('networkradios',$this->Site->NetworkRadio->find('list'));
+    }
+    
+    function getAntennaTypes() {
+        //$this->set('antennatypes',$this->Site->NetworkSwitch->find('list'));
+        $this->set('antennatypes',$this->Site->NetworkRadio->AntennaType->find('list',
+            array(
+                'order' => array(
+                    'AntennaType.name ASC'
+            )))
+        );
     }
     
     function add() {
         $this->Site->create();
+        
+        // Cake has lazy model binding -- it seems we have to do this to allow
+        // the saveAssociated bit to work
+        $this->Site->bindModel(array('hasMany' => array('NetworkRadio' => 
+                             array('foreignKey' => 'site_id'))));
 
         // get a list of things the Site may belong to
         $this->getTowerOwners();
@@ -241,40 +259,79 @@ class SitesController extends AppController
         $this->getPowerTypes();
         $this->getNetworkSwitches();
         $this->getNetworkRouters();
-        $this->getNetworkRadios();
+        $this->getAntennaTypes();
         
         $zones = $this->Site->Zone->find('list');
-        
         $this->set(compact('zones'));
                 
         // should I wrap all the following with?
         // if ($this->request->is('post')) {        
 
-        // I don't think this is needed anymore?!
+        /* I don't think this is needed anymore?!
         if ( $this->request->data != null ) {
             $this->set('lat',$this->request->data['Site']['lat']);
             $this->set('lon',$this->request->data['Site']['lon']);
         }
-
-        // store the currently logged in user as a reference for the created site
-        // The user() function provided by the component returns any column from
-        // the currently logged in user.  We used this method to add the data into
-        // the request info that is saved.
-        //$this->request->data['Site']['user_id'] = $this->Auth->user('id');
-
-        if ($this->Site->save($this->request->data)) {
-            $this->Session->setFlash(__('The site has been saved'));
-            $this->redirect(array('action' => 'index'));
-        }
-        // as above, before adding the belongsTo this caluse was in here, but this
-        // no longer works -- this gets called on opening the add view
-        // commenting out for now
-        /*
-        else {
-            //$this->Session->setFlash(__('The site could not be saved. [Error 001]'));
-        }
         */
+        
+        // the user clicked Save on Add screen
+        if ($this->request->is('post')) {
+            // normally we'd just save here, e.g.
+            // if ($this->Site->save($this->request->data)) {
+            // saveAssociated allows us to save Radios (Site hasMany Radio) from the
+            // site add page
+//            echo "<pre>";
+//            print_r($this->request->data);
+//            echo "</pre>";
+            
+            //ß$this->Site->bindModel('hasMany' => array('NetworkRadio.site_id' => 'Site.id'));
+            
+            
+            // array_filter is a PHP function to remove empty elements from an array
+            // in this case, don't save NetworkRadios if the user didn't specify them
+            //$this->request->data = array_filter($this->request->data);
+//            echo "<pre>";
+//            print_r($this->request->data['NetworkRadio']);
+//            //$this->request->data['NetworkRadio'] = $this->array_non_empty_items($this->request->data['NetworkRadio']);
+//            
+//            //$this->request->data = array_values($this->request->data);  
+//            
+//            //print_r($this->request->data['NetworkRadio']);
+//            
+//            echo "</pre>";
+            
+            
+            unset($this->Site->NetworkRadio->validate['site_id']);
+            $this->data = Set::filter($this->data);
+            
+            if ($this->Site->saveAssociated($this->request->data)) {
+                $this->Session->setFlash(__('The site has been saved'));
+                $this->redirect(array('action' => 'index'));
+            }
+        }
     }
+    
+    
+    /*
+    private function array_non_empty_items($input) {
+        // If it is an element, then just return it
+        if (!is_array($input)) {
+            return $input;
+        }
+        $non_empty_items = array();
+
+        foreach ($input as $key => $value) {
+            // Ignore empty cells
+            if ($value) {
+                // Use recursion to evaluate cells 
+                $non_empty_items[$key] = $this->array_non_empty_items($value);
+            }
+        }
+
+        // Finally return the array without empty items
+        return $non_empty_items;
+      }
+    */
     
     function delete($id) {
         $this->Site->id = $id;
@@ -304,6 +361,7 @@ class SitesController extends AppController
         $this->getNetworkSwitches();
         $this->getNetworkRouters();
         $this->getNetworkRadios();
+//        $this->getAntennaTypes();
         
         if (!$this->Site->exists()) {
             throw new NotFoundException(__('Invalid site'));
@@ -319,6 +377,9 @@ class SitesController extends AppController
         } else {
             // show edit page
             $this->request->data = $this->Site->read(null, $id);
+            //print_r($this->request->data);
+            $this->getNetworkRadios();
+            $this->getAntennaTypes();
         }
     }
     

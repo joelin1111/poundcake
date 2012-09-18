@@ -54,8 +54,19 @@
     echo $this->Form->input('Site.network_switch_id', array('type'=>'select','options' => $networkswitches));
     echo $this->Form->input('Site.network_router_id', array('type'=>'select','options' => $networkrouters));
 
-    echo $this->Form->input( 'lat', array( 'label' => 'Latitude' ) );
-    echo $this->Form->input( 'lon', array( 'label' => 'Longitude' ) );
+    echo $this->element('Common/radio_builder');
+    ?>
+    
+    <div class="row">
+        <div class="span4">
+            <?php echo $this->Form->input('lat', array ('label' => 'Latitude','value' => '')); ?>
+        </div>
+        <div class="span4">
+            <?php echo $this->Form->input('lon', array ('label' => 'Longitude','value' => '')); ?>
+        </div>
+    </div>
+    
+    <?php
     
     echo $this->Form->input('zone_id');
     
