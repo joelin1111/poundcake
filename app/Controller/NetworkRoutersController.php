@@ -18,7 +18,7 @@ class NetworkRoutersController extends AppController {
     public function view($id = null) {
         $this->NetworkRouter->id = $id;
         if (!$this->NetworkRouter->exists()) {
-                throw new NotFoundException(__('Invalid router'));
+            throw new NotFoundException(__('Invalid router'));
         }
         $this->set('networkrouter', $this->NetworkRouter->read(null, $id));
     }
@@ -27,10 +27,10 @@ class NetworkRoutersController extends AppController {
         if ($this->request->is('post')) {
             $this->NetworkRouter->create();
             if ($this->NetworkRouter->save($this->request->data)) {
-                    $this->Session->setFlash(__('The router has been saved'));
-                    $this->redirect(array('action' => 'index'));
+                $this->Session->setFlash(__('The router has been saved'));
+                $this->redirect(array('action' => 'index'));
             } else {
-                    $this->Session->setFlash(__('The router could not be saved. Please, try again.'));
+                $this->Session->setFlash(__('The router could not be saved. Please, try again.'));
             }
         }
     }

@@ -16,6 +16,7 @@
     <H3>Actions</H3>
     <div class="well well-large">
     <ul>
+        <li><?php echo $this->Html->link('List Sites', array('action'=>'index')); ?></li>
         <li><?php echo $this->Html->link('Edit Site', array('action'=>'edit', $site['Site']['id']));?></li>
     </ul>
     </div>
@@ -56,28 +57,7 @@
     <?php
         $windowText = $site['Site']['site_vf'];
         // draw the main map
-        // lat lon already set (hopefull1y)
-        //echo $site['Site']['lon'];
-        //
         $icon = 'data:'.$site['SiteState']['img_type'].';base64,'.base64_encode( $site['SiteState']['img_data'] );
-        /*
-        // this is duplicated in the site>overview page
-        switch ($site['Site']['site_state_id']){
-            case 0:
-                $icon = '/img/tower-b.png';
-                break;
-            case 15:
-                $icon = '/img/tower-g.png';
-                break;
-            case 20:
-                $icon = '/img/tower-r.png';
-                break;
-            default:
-                $icon = '/img/tower-o.png';
-                break;
-            }
-        */
-        //echo $this->element('Common/map');
         echo $this->element('Common/map',
                 array(
                     'windowText' => $windowText,
@@ -147,7 +127,6 @@
                     $site['TowerOwner']['id']));
     ?></P>
     <P><B>Power Type:</B>&nbsp;<?php echo $site['PowerType']['name']; ?></P>
-<!--    <P><B>Road Condition:</B>&nbsp;<?php //echo $site['RoadType']['name']; ?></P>-->
     <P><B>Switch:</B>&nbsp;<?php
         echo $this->Html->link(
                 $site['NetworkSwitch']['name'],
@@ -167,23 +146,44 @@
     
     <P><B>Radios:</B>&nbsp;
         <?php
-            //print_r($site);
-            $c = count($site['NetworkRadios']);
-            //echo "c is".$c;
-            if ($c == 0) {
-                echo "None";
-            } else {
-                echo "<UL>";
-                foreach ($site['NetworkRadios'] as $radio) {
-                    echo "<LI>";
-                    echo $this->Html->link(__($radio['name']), array(
-                        'controller' => 'networkRadios',
-                        'action' => 'view',
-                        $radio['id']));
-                    echo "</LI>";
+        //print_r($site);
+        $c = count($site['NetworkRadios']);
+        //echo "c is".$c;
+        if ($c == 0) {
+            echo "None";
+        } else {
+            echo "<table class=\"table table-condensed table-striped\">";
+            echo "<th>Radio</th>";
+            echo "<th>Frequency</th>";
+            echo "<th>SSID</th>";
+            foreach ($site['NetworkRadios'] as $radio) {
+                echo "<tr><td>";
+                echo $this->Html->link(__($radio['name']), array(
+                    'controller' => 'networkRadios',
+                    'action' => 'view',
+                    $radio['id']));
+                echo "</td>";
+                
+                echo "<td>";
+                if (!empty($radio['frequency'])) {
+                     echo $radio['frequency'];
+                } else {
+                    echo "-";
                 }
-                echo "</UL>";
+                echo "</td>";
+                
+                echo "<td>";
+                if (!empty($radio['ssid'])) {
+                     echo $radio['ssid'];
+                } else {
+                    echo "-";
+                }
+                echo "</td>";
+                
+                echo "</tr>";
             }
+            echo "</table>";
+        }
         ?>
     </P>
     

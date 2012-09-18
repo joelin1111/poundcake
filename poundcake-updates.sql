@@ -27,3 +27,11 @@ alter table network_radios add mag_azimuth int(10);
 alter table network_radios add elevation SMALLINT;
 alter table network_radios add frequency int(10);
 alter table network_radios add ssid varchar(255);
+
+DROP TABLE IF EXISTS `change_log`;
+CREATE TABLE `change_log` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `version` varchar(255) NOT NULL,
+  `description` text NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;

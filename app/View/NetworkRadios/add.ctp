@@ -17,9 +17,9 @@
         echo $this->Form->input('radio_type_id', array('type'=>'select','options' => $radiotypes));
         echo $this->Form->input('antenna_type_id', array('type'=>'select','options' => $antennatypes));
         
-        echo $this->Form->input('link_distance', array('label'=>'Link Distance (Km)'));
-        echo $this->Form->input('true_azimuth');
-        echo $this->Form->input('mag_azimuth');
+        echo $this->Form->input('link_distance', array('label'=>'Link Distance'));
+        echo $this->Form->input('true_azimuth', array('label'=>'True Azimuth'));
+        echo $this->Form->input('mag_azimuth', array('label'=>'Magnetic Azimuth'));
         echo $this->Form->input('elevation');
         echo $this->Form->input('frequency');
         echo $this->Form->input('ssid', array('label'=>'SSID'));

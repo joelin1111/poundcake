@@ -24,33 +24,24 @@
 <?php
     echo $this->Form->create('Site', array('action'=>'add'));
     echo $this->Form->input('Site.site_name');
-    
-    // drop down meny of available zones, etc.
-    //echo $this->Form->input('Site.catchment_id', array('type'=>'select','options' => $catchments));
-    echo $this->Form->input('zone_id');
-    
     echo $this->Form->input('Site.site_code');
-    echo $this->Form->input('Site.type');
+    echo $this->Form->input('zone_id');
+    echo $this->Form->input('lat', array ('label' => 'Latitude','value' => ''));
+    echo $this->Form->input('lon', array ('label' => 'Longitude','value' => ''));
+    echo $this->Form->input('install_date', 
+        array(
+           'class'=>'datepicker', 
+           'type'=>'text'
+        )
+    );
     
     // drop down menus of available items
-    echo $this->Form->input('Site.tower_owner_id', array('type'=>'select','options' => $towerowners));
     echo $this->Form->input('Site.site_state_id', array('type'=>'select','options' => $sitestates));
+    echo $this->Form->input('Site.tower_owner_id', array('type'=>'select','options' => $towerowners));
     echo $this->Form->input('Site.power_type_id', array('type'=>'select','options' => $powertypes));
-    
-    echo $this->Form->input('Site.network_switch_id', array('type'=>'select','options' => $networkswitches));
-    ?>
-    
-    <?php echo $this->element('Common/radio_builder'); ?>
-    
-    <div class="row">
-        <div class="span4">
-            <?php echo $this->Form->input('lat', array ('label' => 'Latitude','value' => '')); ?>
-        </div>
-        <div class="span4">
-            <?php echo $this->Form->input('lon', array ('label' => 'Longitude','value' => '')); ?>
-        </div>
-    </div>
-    <?php
+    echo $this->Form->input('NetworkSwitch.name',array('label' => 'Add New Switch'));
+    echo $this->Form->input('NetworkRouter.name',array('label' => 'Add New Router'));
+    echo $this->element('Common/radio_builder');
     
     echo $this->Form->input('Site.tower_guard',array('style' => 'width:100%','label'=>'Tower Guard Contact Info'));
     echo $this->Form->input('Site.structure_type',array('style' => 'width:100%'));
@@ -60,13 +51,7 @@
     echo $this->Form->input('Site.storage',array('style' => 'width:100%'));
     echo $this->Form->input('Site.accommodations',array('style' => 'width:100%'));
     echo $this->Form->input('Site.notes',array('style' => 'width:100%'));
-    echo $this->Form->input('install_date', 
-        array(
-           'class'=>'datepicker', 
-           'type'=>'text'
-        )
-    );
-     
+    
     // no upload field since we don't have a Site.id until after save
     echo $this->Form->end('Save site');
 ?>

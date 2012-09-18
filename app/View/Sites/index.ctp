@@ -31,33 +31,6 @@
 <div class="span9">
     
     <h3>Sites</h3>
-<!--   <div class="btn-toolbar">
-       <div class="btn-group">-->
-<!--           <a href="/sites/add"><button class="btn btn-mini">Add</button></A>-->
-<!--    <div class="btn-toolbar">
-    <div class="btn-group">
-        <button class="btn btn-mini">Add</button>
-        <button class="btn btn-mini">Edit</button>
-        <button class="btn btn-mini">Delete</button>
-    </div>
-    <div class="btn-group">
-      <button class="btn btn-mini">Export</button>
-      <button class="btn btn-mini">Import</button>
- -->
-<!-- Revisit the HTML in this view and replace with Html helper, e.g.
-    echo $this->Html->tableHeaders(
-            array (
-                'Site',
-                'Province',
-                'District',
-                'Site Type',
-                'Power',
-                'Internet',
-                'Road',
-                'Actions'
-            )
-     );
-    this->html->tableCells...-->
 <table class="table table-condensed table-striped">
 <thead>
    <tr>

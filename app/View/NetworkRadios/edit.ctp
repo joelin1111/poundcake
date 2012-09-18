@@ -3,8 +3,8 @@
     <H3>Actions</H3>
     <div class="well well-large">
     <ul>
-        <li><?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $this->Form->value('NetworkRadio.id')), null, __('Are you sure you want to delete radio %s?', $this->Form->value('NetworkRadio.name'))); ?></li>
         <li><?php echo $this->Html->link(__('List Radios'), array('action' => 'index')); ?></li>
+        <li><?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $this->Form->value('NetworkRadio.id')), null, __('Are you sure you want to delete radio %s?', $this->Form->value('NetworkRadio.name'))); ?></li>        
     </ul>
     </div>
 </div><!-- /.span3 .sb-fixed -->
@@ -19,9 +19,9 @@
         echo $this->Form->input('site_id');
         echo $this->Form->input('radio_type_id', array('type'=>'select','options' => $radiotypes));
         echo $this->Form->input('antenna_type_id', array('type'=>'select','options' => $antennatypes));
-        echo $this->Form->input('link_distance', array('label'=>'Link Distance (Km)'));
-        echo $this->Form->input('true_azimuth');
-        echo $this->Form->input('mag_azimuth');
+        echo $this->Form->input('link_distance', array('label'=>'Link Distance'));
+        echo $this->Form->input('true_azimuth', array('label'=>'True Azimuth'));
+        echo $this->Form->input('mag_azimuth', array('label'=>'Magnetic Azimuth'));
         echo $this->Form->input('elevation');
         echo $this->Form->input('frequency');
         echo $this->Form->input('ssid', array('label'=>'SSID'));

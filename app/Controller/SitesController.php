@@ -235,6 +235,16 @@ class SitesController extends AppController
         $this->set('networkradios',$this->Site->NetworkRadio->find('list'));
     }
     
+    function getRadioTypes() {
+        //$this->set('antennatypes',$this->Site->NetworkSwitch->find('list'));
+        $this->set('radiotypes',$this->Site->NetworkRadio->RadioType->find('list',
+            array(
+                'order' => array(
+                    'RadioType.name ASC'
+            )))
+        );
+    }
+    
     function getAntennaTypes() {
         //$this->set('antennatypes',$this->Site->NetworkSwitch->find('list'));
         $this->set('antennatypes',$this->Site->NetworkRadio->AntennaType->find('list',
@@ -259,20 +269,11 @@ class SitesController extends AppController
         $this->getPowerTypes();
         $this->getNetworkSwitches();
         $this->getNetworkRouters();
+        $this->getRadioTypes();
         $this->getAntennaTypes();
         
         $zones = $this->Site->Zone->find('list');
         $this->set(compact('zones'));
-                
-        // should I wrap all the following with?
-        // if ($this->request->is('post')) {        
-
-        /* I don't think this is needed anymore?!
-        if ( $this->request->data != null ) {
-            $this->set('lat',$this->request->data['Site']['lat']);
-            $this->set('lon',$this->request->data['Site']['lon']);
-        }
-        */
         
         // the user clicked Save on Add screen
         if ($this->request->is('post')) {
@@ -280,28 +281,14 @@ class SitesController extends AppController
             // if ($this->Site->save($this->request->data)) {
             // saveAssociated allows us to save Radios (Site hasMany Radio) from the
             // site add page
-//            echo "<pre>";
-//            print_r($this->request->data);
-//            echo "</pre>";
             
-            //ß$this->Site->bindModel('hasMany' => array('NetworkRadio.site_id' => 'Site.id'));
-            
-            
-            // array_filter is a PHP function to remove empty elements from an array
-            // in this case, don't save NetworkRadios if the user didn't specify them
-            //$this->request->data = array_filter($this->request->data);
-//            echo "<pre>";
-//            print_r($this->request->data['NetworkRadio']);
-//            //$this->request->data['NetworkRadio'] = $this->array_non_empty_items($this->request->data['NetworkRadio']);
-//            
-//            //$this->request->data = array_values($this->request->data);  
-//            
-//            //print_r($this->request->data['NetworkRadio']);
-//            
-//            echo "</pre>";
-            
-            
+            // this allows us to save these attached items even though we don't yet
+            // have a site ID
+            unset($this->Site->NetworkSwitch->validate['site_id']);
+            unset($this->Site->NetworkRouter->validate['site_id']);
             unset($this->Site->NetworkRadio->validate['site_id']);
+            
+            // remove any blank entries from the array of NetworkRadios
             $this->data = Set::filter($this->data);
             
             if ($this->Site->saveAssociated($this->request->data)) {
@@ -310,28 +297,6 @@ class SitesController extends AppController
             }
         }
     }
-    
-    
-    /*
-    private function array_non_empty_items($input) {
-        // If it is an element, then just return it
-        if (!is_array($input)) {
-            return $input;
-        }
-        $non_empty_items = array();
-
-        foreach ($input as $key => $value) {
-            // Ignore empty cells
-            if ($value) {
-                // Use recursion to evaluate cells 
-                $non_empty_items[$key] = $this->array_non_empty_items($value);
-            }
-        }
-
-        // Finally return the array without empty items
-        return $non_empty_items;
-      }
-    */
     
     function delete($id) {
         $this->Site->id = $id;
@@ -361,25 +326,72 @@ class SitesController extends AppController
         $this->getNetworkSwitches();
         $this->getNetworkRouters();
         $this->getNetworkRadios();
-//        $this->getAntennaTypes();
+        $this->getRadioTypes();
+        $this->getAntennaTypes();
         
         if (!$this->Site->exists()) {
             throw new NotFoundException(__('Invalid site'));
         }
         
         if ($this->request->is('post') || $this->request->is('put')) {
-            if ($this->Site->save($this->request->data)) {
+            // see comments in add
+            unset($this->Site->NetworkRadio->validate['site_id']);
+            $this->data = Set::filter($this->data);
+            //echo '<pre>';print_r($this->request->data);echo '</pre>';
+            
+            // it appears that on edit, we should save the related data using
+            // the right controller
+            // http://book.cakephp.org/2.0/en/models/saving-your-data.html
+            //echo '<pre>';print_r($this->request->data);echo '</pre>';
+            // The ID of the newly created user has been set
+            // as $this->User->id.
+            //$this->request->data['NetworkRadio'][0]['name'] = 'foo';
+            //$this->request->data['NetworkRadio'][0]['site_id'] = $this->Site->id;
+            
+            // before we can save any radios on this site we have to set the site_id
+            // so walk throug that array here and save that
+            
+            if ($this->Site->saveAll($this->request->data, array('deep' => true))) {
+                
+                // if the specified a new switch
+                if (isset($this->request->data['NetworkSwitch'])) {
+                    // thre is only 1 switch per site, so set the site_id before save
+                    $this->request->data['NetworkSwitch']['site_id'] = $this->Site->id;
+                    $this->Site->NetworkSwitch->save($this->request->data['NetworkSwitch']);
+                }
+                
+                // if they specified a router
+                if (isset($this->request->data['NetworkRouter'])) {
+                    // as above
+                    $this->request->data['NetworkRouter']['site_id'] = $this->Site->id;
+                    $this->Site->NetworkRouter->save($this->request->data['NetworkRouter']);
+                }
+                
+                // keeping this loop code for now -- previously we had the ability to add many
+                // radios on the add/edit page
+                if (isset($this->request->data['NetworkRadio'])) {
+                    foreach ($this->request->data['NetworkRadio'] as $key => $value) {
+                        //echo "Key: $key; Value: $value<br />\n";
+                        $this->request->data['NetworkRadio'][$key]['site_id'] = $this->Site->id;
+                    }
+                    $this->Site->NetworkRadio->saveAll($this->request->data['NetworkRadio']);
+                }
+                
                 $this->Session->setFlash(__('The site has been saved'));
-                $this->redirect(array('action' => 'index'));
+                //$this->redirect(array('action' => 'index'));
+                // keep the user on the edit page
+                $this->redirect(array('action' => 'edit', $this->Site->id));
+
+
             } else {
                 $this->Session->setFlash(__('The site could not be saved. [Error 002]'));
             }
         } else {
             // show edit page
             $this->request->data = $this->Site->read(null, $id);
-            //print_r($this->request->data);
-            $this->getNetworkRadios();
-            $this->getAntennaTypes();
+//            echo '<pre>';
+//            print_r($this->request->data);
+//            echo '</pre>';
         }
     }
     
@@ -416,7 +428,25 @@ class SitesController extends AppController
 //        $this->set('sites', $sites); 
 //        $this->layout = 'ajax';     
 //    }
-
+    
+//    private function array_non_empty_items($input) {
+//        // If it is an element, then just return it
+//        if (!is_array($input)) {
+//            return $input;
+//        }
+//        $non_empty_items = array();
+//
+//        foreach ($input as $key => $value) {
+//            // Ignore empty cells
+//            if ($value) {
+//                // Use recursion to evaluate cells 
+//                $non_empty_items[$key] = $this->array_non_empty_items($value);
+//            }
+//        }
+//
+//        // Finally return the array without empty items
+//        return $non_empty_items;
+//      }
     
 }
 

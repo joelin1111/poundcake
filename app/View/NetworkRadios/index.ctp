@@ -14,8 +14,8 @@
             <thead>
                 <tr>
                     <th><?php echo $this->Paginator->sort('name'); ?></th>
-                    <th><?php echo $this->Paginator->sort('radio_type_id'); ?></th>
                     <th><?php echo $this->Paginator->sort('site_id'); ?></th>
+                    <th><?php echo $this->Paginator->sort('radio_type_id'); ?></th>
                     <th><?php echo __('Actions'); ?></th>
                 </tr>
             </thead>
@@ -25,6 +25,7 @@
 	<tr>
             <td><?php echo $this->Html->link(__($networkradio['NetworkRadio']['name']), array('action' => 'view', $networkradio['NetworkRadio']['id']))?></td>
             <td><?php echo $networkradio['Site']['site_vf'];?></td>
+            <td><?php echo $networkradio['RadioType']['name'];?></td>
             <td>
                 <?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $networkradio['NetworkRadio']['id'])); ?>
                 <?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $networkradio['NetworkRadio']['id']), null, __('Are you sure you want to delete radio %s?', $networkradio['NetworkRadio']['name'])); ?>

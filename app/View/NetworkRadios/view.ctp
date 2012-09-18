@@ -3,7 +3,9 @@
     <H3>Actions</H3>
     <div class="well well-large">
     <ul>
-        <li><?php echo $this->Html->link(__('List Radios'), array('action' => 'index')); ?>
+        <li><?php echo $this->Html->link(__('List Radios'), array('action' => 'index')); ?></li>
+        <li><?php echo $this->Html->link(__('Edit Radio'), array('action' => 'edit', $networkradio['NetworkRadio']['id']))?></li>
+        <li><?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $networkradio['NetworkRadio']['id']), null, __('Are you sure you want to delete radio %s?', $networkradio['NetworkRadio']['name'])); ?></li>
     </ul>
     </div>
 </div><!-- /.span3 .sb-fixed -->
