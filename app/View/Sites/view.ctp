@@ -177,7 +177,7 @@
                 foreach ($site['NetworkRadios'] as $radio) {
                     echo "<LI>";
                     echo $this->Html->link(__($radio['name']), array(
-                        'controller' => 'networkradios',
+                        'controller' => 'networkRadios',
                         'action' => 'view',
                         $radio['id']));
                     echo "</LI>";

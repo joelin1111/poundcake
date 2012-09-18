@@ -20,3 +20,10 @@ insert into radio_types(name) values ('RocketM5 Titanium');
 insert into radio_types(name) values ('RocketM2 Titanium');
 
 alter table network_radios add radio_type_id int(10) after site_id;
+
+alter table network_radios add link_distance int(10);
+alter table network_radios add true_azimuth int(10);
+alter table network_radios add mag_azimuth int(10);
+alter table network_radios add elevation SMALLINT;
+alter table network_radios add frequency int(10);
+alter table network_radios add ssid varchar(255);

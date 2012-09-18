@@ -11,7 +11,14 @@
     <h2>View Radio</h2>
     <P><B>Name:</B>&nbsp;<?php echo $networkradio['NetworkRadio']['name']; ?></P>
     <P><B>Radio Type:</B>&nbsp;<?php echo $networkradio['RadioType']['name']; ?></P>
-    <P><B>Antenna:</B>&nbsp;<?php echo $networkradio['AntennaType']['name']; ?></P>
+    <P><B>Antenna:</B>&nbsp;<?php echo $networkradio['AntennaType']['name']; ?></P>    
+    <P><B>Link Distance:</B>&nbsp;<?php echo $networkradio['NetworkRadio']['link_distance']; ?></P>
+    <P><B>True Azimuth:</B>&nbsp;<?php echo $networkradio['NetworkRadio']['true_azimuth']; ?></P>
+    <P><B>Magnetic Azimuth:</B>&nbsp;<?php echo $networkradio['NetworkRadio']['mag_azimuth']; ?></P>
+    <P><B>Elevation:</B>&nbsp;<?php echo $networkradio['NetworkRadio']['elevation']; ?></P>
+    <P><B>Frequency:</B>&nbsp;<?php echo $networkradio['NetworkRadio']['frequency']; ?></P>
+    <P><B>SSID:</B>&nbsp;<?php echo $networkradio['NetworkRadio']['ssid']; ?></P>
+    
 </div> <!-- /.span9 -->
 </div> <!-- /.row -->
 
