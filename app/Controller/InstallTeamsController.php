@@ -1,41 +1,31 @@
 <?php
 App::uses('AppController', 'Controller');
 
-class BuildItemsController extends AppController {
+class InstallTeamsController extends AppController {
 
     public $paginate = array(
         'limit' => 20, // default limit also defined in AppController
         'order' => array(
-            'BuildItem.name' => 'asc'
+            'InstallTeam.name' => 'asc'
         )
     );
     
     public function index() {
-        $this->BuildItem->recursive = 0;
-        $this->set('builditems', $this->paginate());
+        $this->InstallTeam->recursive = 0;
+        $this->set('installteams', $this->paginate());
     }
 
     public function view($id = null) {
-        $this->BuildItem->id = $id;
-        if (!$this->BuildItem->exists()) {
-            throw new NotFoundException(__('Invalid radio'));
+        $this->InstallTeam->id = $id;
+        if (!$this->InstallTeam->exists()) {
+            throw new NotFoundException(__('Invalid install team'));
         }
-        $this->set('builditem', $this->BuildItem->read(null, $id));
+        $this->set('installteam', $this->InstallTeam->read(null, $id));
     }
 
-    // return all the sites to allow the radio to be assigned to
-    function getSites() {
-        $this->set('sites',$this->BuildItem->Site->find('list',
-            array(
-                'order' => array(
-                    'Site.site_code',
-                    'Site.site_name ASC'
-            )))
-        );
-    }
     /*
     function getRadioTypes() {
-        $this->set('radiotypes',$this->BuildItem->RadioType->find('list',
+        $this->set('install teamtypes',$this->InstallTeam->RadioType->find('list',
             array(
                 'order' => array(
                     'RadioType.name ASC'
@@ -44,7 +34,7 @@ class BuildItemsController extends AppController {
     }
     
     function getAntennaTypes() {
-        $this->set('antennatypes',$this->BuildItem->AntennaType->find('list',
+        $this->set('antennatypes',$this->InstallTeam->AntennaType->find('list',
             array(
                 'order' => array(
                     'AntennaType.name ASC'
@@ -58,34 +48,34 @@ class BuildItemsController extends AppController {
 //        $this->getAntennaTypes();
         
         if ($this->request->is('post')) {
-            $this->BuildItem->create();
-            if ($this->BuildItem->save($this->request->data)) {
-                $this->Session->setFlash(__('The radio has been saved'));
+            $this->InstallTeam->create();
+            if ($this->InstallTeam->save($this->request->data)) {
+                $this->Session->setFlash(__('The install team has been saved'));
                 $this->redirect(array('action' => 'index'));
             } else {
-                $this->Session->setFlash(__('The radio could not be saved. Please, try again.'));
+                $this->Session->setFlash(__('The install team could not be saved. Please, try again.'));
             }
         }
     }
 
     public function edit($id = null) {
-        $this->BuildItem->id = $id;
+        $this->InstallTeam->id = $id;
 //        $this->getSites();
 //        $this->getRadioTypes();
 //        $this->getAntennaTypes();
         
-        if (!$this->BuildItem->exists()) {
-            throw new NotFoundException(__('Invalid radio'));
+        if (!$this->InstallTeam->exists()) {
+            throw new NotFoundException(__('Invalid install team'));
         }
         if ($this->request->is('post') || $this->request->is('put')) {
-            if ($this->BuildItem->save($this->request->data)) {
-                    $this->Session->setFlash(__('The radio has been saved'));
+            if ($this->InstallTeam->save($this->request->data)) {
+                    $this->Session->setFlash(__('The install team has been saved'));
                     $this->redirect(array('action' => 'index'));
             } else {
-                    $this->Session->setFlash(__('The radio could not be saved. Please, try again.'));
+                    $this->Session->setFlash(__('The install team could not be saved. Please, try again.'));
             }
         } else {
-            $this->request->data = $this->BuildItem->read(null, $id);
+            $this->request->data = $this->InstallTeam->read(null, $id);
         }
     }
     
@@ -93,11 +83,11 @@ class BuildItemsController extends AppController {
         if (!$this->request->is('post')) {
             throw new MethodNotAllowedException();
         }
-        $this->BuildItem->id = $id;
-        if (!$this->BuildItem->exists()) {
-            throw new NotFoundException(__('Invalid radio'));
+        $this->InstallTeam->id = $id;
+        if (!$this->InstallTeam->exists()) {
+            throw new NotFoundException(__('Invalid install team'));
         }
-        if ($this->BuildItem->delete()) {
+        if ($this->InstallTeam->delete()) {
             $this->Session->setFlash(__('Radio deleted'));
             $this->redirect(array('action' => 'index'));
         }

@@ -69,6 +69,15 @@ class SitesController extends AppController
         
         $data = $this->paginate('Site');
         $this->set('sites',$data);
+        
+        
+        $this->set('installteams',$this->Site->InstallTeam->find('list'));
+        $yy = $this->Site->InstallTeam->find('all');
+//        echo '<pre>';
+//        print_r($yy);
+//        echo '</pre>';
+//        die;
+        
     }
  
     public function buildLegend() {
@@ -173,18 +182,28 @@ class SitesController extends AppController
        // then re-creates a power source I can't assume the primary key is 24 or 48v
        
        
-       echo '<pre>';
-       print_r($this->Site->data['PowerType']);
-       if (preg_match("/48/", $this->Site->data['PowerType']['name'], $matches)) {
-            echo "Match was found <br />";
-            echo $matches[0];
-      }
-       echo '</pre>';
-       die;
+//       echo '<pre>';
+//       print_r($this->Site->data['PowerType']);
+//       if (preg_match("/48/", $this->Site->data['PowerType']['name'], $matches)) {
+//            echo "Match was found <br />";
+//            echo $matches[0];
+//      }
+//       echo '</pre>';
+//       die;
        
         //echo print_r($allSiteStates);
     }
     
+    function schedule($id) {
+        if ($id != null) {
+            $query = 'call sp_schedule('.$id.')';
+            $this->set('schedule',$this->Site->InstallTeam->query( $query ));
+            // results not paginated
+//            print_r($XX);
+//            echo '</pre>';
+        }
+        
+    }
     function view($id = null) {
         $this->Site->id = $id;
         //$this->getSitesNearby($id,5);
@@ -195,6 +214,7 @@ class SitesController extends AppController
         $this->set('site', $this->Site->read(null, $id));
         $this->getContacts($id);
         $this->getBuildItems();
+        //$this->getInstallTeams();
         
         switch ($this->Site->data['Site']['site_state_id']){
             case 0:
@@ -288,6 +308,16 @@ class SitesController extends AppController
         );
     }
     
+    function getInstallTeams() {
+        //$this->set('antennatypes',$this->Site->NetworkSwitch->find('list'));
+        $this->set('installteams',$this->Site->InstallTeam->find('list',
+            array(
+                'order' => array(
+                    'InstallTeam.name ASC'
+            )))
+        );
+    }
+    
     function add() {
         $this->Site->create();
         
@@ -304,6 +334,7 @@ class SitesController extends AppController
         $this->getNetworkRouters();
         $this->getRadioTypes();
         $this->getAntennaTypes();
+        $this->getInstallTeams();
         
         $zones = $this->Site->Zone->find('list');
         $this->set(compact('zones'));
@@ -361,6 +392,7 @@ class SitesController extends AppController
         $this->getNetworkRadios();
         $this->getRadioTypes();
         $this->getAntennaTypes();
+        $this->getInstallTeams();
         
         if (!$this->Site->exists()) {
             throw new NotFoundException(__('Invalid site'));

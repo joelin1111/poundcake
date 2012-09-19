@@ -18,12 +18,12 @@ class BuildItemsController extends AppController {
     public function view($id = null) {
         $this->BuildItem->id = $id;
         if (!$this->BuildItem->exists()) {
-            throw new NotFoundException(__('Invalid radio'));
+            throw new NotFoundException(__('Invalid build item'));
         }
         $this->set('builditem', $this->BuildItem->read(null, $id));
     }
 
-    // return all the sites to allow the radio to be assigned to
+    // return all the sites to allow the build item to be assigned to
     function getSites() {
         $this->set('sites',$this->BuildItem->Site->find('list',
             array(
@@ -33,56 +33,32 @@ class BuildItemsController extends AppController {
             )))
         );
     }
-    /*
-    function getRadioTypes() {
-        $this->set('radiotypes',$this->BuildItem->RadioType->find('list',
-            array(
-                'order' => array(
-                    'RadioType.name ASC'
-            )))
-        );
-    }
     
-    function getAntennaTypes() {
-        $this->set('antennatypes',$this->BuildItem->AntennaType->find('list',
-            array(
-                'order' => array(
-                    'AntennaType.name ASC'
-            )))
-        );
-    }
-    */
     public function add() {
-//        $this->getSites();
-//        $this->getRadioTypes();
-//        $this->getAntennaTypes();
         
         if ($this->request->is('post')) {
             $this->BuildItem->create();
             if ($this->BuildItem->save($this->request->data)) {
-                $this->Session->setFlash(__('The radio has been saved'));
+                $this->Session->setFlash(__('The build item has been saved'));
                 $this->redirect(array('action' => 'index'));
             } else {
-                $this->Session->setFlash(__('The radio could not be saved. Please, try again.'));
+                $this->Session->setFlash(__('The build item could not be saved. Please, try again.'));
             }
         }
     }
 
     public function edit($id = null) {
         $this->BuildItem->id = $id;
-//        $this->getSites();
-//        $this->getRadioTypes();
-//        $this->getAntennaTypes();
         
         if (!$this->BuildItem->exists()) {
-            throw new NotFoundException(__('Invalid radio'));
+            throw new NotFoundException(__('Invalid build item'));
         }
         if ($this->request->is('post') || $this->request->is('put')) {
             if ($this->BuildItem->save($this->request->data)) {
-                    $this->Session->setFlash(__('The radio has been saved'));
+                    $this->Session->setFlash(__('The build item has been saved'));
                     $this->redirect(array('action' => 'index'));
             } else {
-                    $this->Session->setFlash(__('The radio could not be saved. Please, try again.'));
+                    $this->Session->setFlash(__('The build item could not be saved. Please, try again.'));
             }
         } else {
             $this->request->data = $this->BuildItem->read(null, $id);
@@ -95,7 +71,7 @@ class BuildItemsController extends AppController {
         }
         $this->BuildItem->id = $id;
         if (!$this->BuildItem->exists()) {
-            throw new NotFoundException(__('Invalid radio'));
+            throw new NotFoundException(__('Invalid build item'));
         }
         if ($this->BuildItem->delete()) {
             $this->Session->setFlash(__('Radio deleted'));

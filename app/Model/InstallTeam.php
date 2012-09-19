@@ -1,7 +1,7 @@
 <?php
 App::uses('AppModel', 'Model');
 
-class BuildItem extends AppModel {
+class InstallTeam extends AppModel {
 
     public $displayField = 'name';
 

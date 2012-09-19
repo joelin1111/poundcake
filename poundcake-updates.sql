@@ -1,5 +1,33 @@
+DROP TABLE IF EXISTS `build_items`;
+CREATE TABLE `build_items` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `quantity` int(10),
+  `name` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+
+insert into build_items(quantity,name) values (100,'RJ45, Indoor');
+insert into build_items(quantity,name) values (100,'RJ45, Shielded, Toughconnector');
+insert into build_items(quantity,name) values (25,'Ring Connectors');
+insert into build_items(quantity,name) values (50,'Fork Connectors');
 
 
+
+DROP TABLE IF EXISTS `install_teams`;
+CREATE TABLE `install_teams` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+
+insert into install_teams(id,name) values (1,'Not Assigned');
+insert into install_teams(id,name) values (2,'Red Team');
+insert into install_teams(id,name) values (3,'Blue Team');
+insert into install_teams(id,name) values (4,'Green Team');
+
+alter table sites add install_team_id int(10) after tower_guard;
+
+-- TO-DO:  Add a default install_team_id of 1 to sites table using PHPMyAdmin
 
 
 

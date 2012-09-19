@@ -10,7 +10,7 @@
     <ul>
         <li><?php echo $this->Html->link(__('New Site'), array('action' => 'add')); ?></li>
     </ul>
-   </div>
+    </div>
     <H3>Search</H3>
     <?php
       echo $this->Form->create(
@@ -26,6 +26,20 @@
         echo $this->Form->submit(__('Search', true), array('div' => false));
         echo $this->Form->end(); 
     ?>
+    <H3>Install Teams</H3>
+    <div class="well well-large">
+    <ul>
+        <?php
+            foreach ($installteams as $key => $value) {
+//                print_r($key);
+//                print_r($value);
+                echo '<LI>';
+                echo $this->Html->link(($value), array('action' => 'schedule',$key));
+                echo '</LI>';
+            }
+        ?>
+    </ul>
+    </div>
 </div><!-- /.span3 .sb-fixed -->
 
 <div class="span9">

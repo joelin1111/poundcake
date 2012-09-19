@@ -118,6 +118,7 @@
     <P><B>Storage</B>:&nbsp;<?php echo $site['Site']['storage'];?></P>
     <P><B>Accommodations</B>:&nbsp;<?php echo $site['Site']['accommodations'];?></P>
     <P><B>Notes</B>:&nbsp;<?php echo $site['Site']['notes'];?></P>
+    <P><B>Install Team:</B>&nbsp;<?php echo $site['InstallTeam']['name']; ?></P>
     <P><B>Install Date:</B>&nbsp;<?php echo $site['Site']['install_date']; ?></P>
     <P><B>Tower Owner:</B>&nbsp;<?php
         echo $this->Html->link(

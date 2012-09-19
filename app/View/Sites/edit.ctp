@@ -31,6 +31,8 @@
     echo $this->Form->input('zone_id');
     echo $this->Form->input('lat', array ('label' => 'Latitude','value' => ''));
     echo $this->Form->input('lon', array ('label' => 'Longitude','value' => ''));
+    echo $this->Form->input('install_team_id', array('type'=>'select','options' => $installteams,'label' => 'Install Team'));
+    
     echo $this->Form->input('install_date', 
         array(
            'class'=>'datepicker', 
