@@ -160,17 +160,17 @@ class SitesController extends AppController
         $this->Site->TowerOwner->recursive = 2; // set recursive to 2 to get the data related to Contacts
         $contacts = $this->Site->TowerOwner->find('all', array('conditions' => $conditions));
         $this->set(compact('contacts'));
-        
     }
     
     function getBuildItems() {
        $this->loadModel('BuildItems');
        $builditems = $this->BuildItems->find('all');
+       $this->set('builditems', $builditems);
 //       echo "<pre>";
 //       print_r($buildItems);
 //       echo '</pre>';
 //       die;
-       $this->set('builditems', $builditems);
+       
        
        // sum up all the radios, antennas for this site
        $query = 'call sp_count_radios('.$this->Site->id.')';
@@ -179,19 +179,16 @@ class SitesController extends AppController
        $this->set('antenna_counts', $this->Site->query( $query ));
        
        // this is probably not hte best way to do this, but if an admin deletes
-       // then re-creates a power source I can't assume the primary key is 24 or 48v
-       
-       
-//       echo '<pre>';
-//       print_r($this->Site->data['PowerType']);
-//       if (preg_match("/48/", $this->Site->data['PowerType']['name'], $matches)) {
-//            echo "Match was found <br />";
-//            echo $matches[0];
-//      }
-//       echo '</pre>';
-//       die;
-       
-        //echo print_r($allSiteStates);
+       // then re-creates a power source I can't assume the primary key for the
+       // 24/48 volt PowerType
+        if (preg_match("/48/", $this->Site->data['PowerType']['name'], $matches)) {
+             $board = array('quantity' => '1','name' => '48V Board');
+        } elseif (preg_match("/24/", $this->Site->data['PowerType']['name'], $matches)) {
+            $board = array('quantity' => '1','name' => '48V Board');
+        } else {
+            $board = array('quantity' => '1','name' => 'Other Board');
+        }
+        $this->set('board', $board);
     }
     
     function schedule($id) {
@@ -355,10 +352,21 @@ class SitesController extends AppController
             // remove any blank entries from the array of NetworkRadios
             $this->data = Set::filter($this->data);
             
-            if ($this->Site->saveAssociated($this->request->data)) {
+//            echo '<pre>';
+//            print_r($this->request->data);
+//            echo '</pre>';
+//            
+//            if ($this->Site->NetworkRadio->validate) {
+//                echo "Validates";
+//            } else {
+//                echo "Failed validation"; die;               
+//            }
+            
+            if ($this->Site->saveAssociated($this->request->data, array('validate'=>true))) {
                 $this->Session->setFlash(__('The site has been saved'));
                 $this->redirect(array('action' => 'index'));
             }
+            
         }
     }
     
@@ -459,33 +467,6 @@ class SitesController extends AppController
 //            echo '</pre>';
         }
     }
-    
-    /*
-    function build($id = null) {
-        // http://stackoverflow.com/questions/8728200/creating-pdf-helper-for-cakephp-2-0-using-tcpdf
-        // http://www.startutorial.com/articles/view/how-to-create-pdf-helper-with-tcpdf
-        $this->Site->id = $id;
-        //$this->data = $this->Site->read(null, $id);
-        $this->set('site', $this->Site->read(null, $id));
-        
-        $this->getBuildItems();
-        
-        $x = 0;
-        if ($x) {
-            echo '<pre>';
-            print_r($this->Site->data);
-            echo '</pre>';
-        } else {
-            //$content_for_layout = $this->Site->data['Site']['site_code'];
-        }
-        
-        
-        $this->Site->id = $id;
-        $this->layout = 'pdf'; 
-        //$this->Site->bindModel(array('hasMany' => array('NetworkRadio' => array('foreignKey' => 'site_id'))));
-
-    }
-    */
     
     public function isAuthorized($user) {
         // everyone can see the list and view individual Contacts

@@ -19,10 +19,11 @@
         echo $this->Form->input('mobile');
         echo $this->Form->input('skype');
         echo $this->Form->input('email');
- 
-        //echo $this->Form->input('school_code_school_name');
         echo $this->Form->input('tower_owner_id', array('type'=>'select','options' => $towerowners));
-        echo $this->Form->select('contact_type_id', $contacttypes,array('empty' => false));
+        echo $this->Form->input('install_team_id', array('type'=>'select','options' => $installteams));
+        echo $this->Form->input('contact_type_id', array('type'=>'select','label' => 'Contact Type','options' => $contacttypes));
+        
+        
         
         echo $this->Form->end(__('Submit'));
     ?>

@@ -55,6 +55,13 @@ ANTENNAS
     }
     echo '</UL>';
 ?>
+<h3>
+
+BOARD
+</h3>
+<UL>
+    <LI><?php echo '('.$board['quantity'].')&nbsp;'.$board['name']; ?>
+</UL>
 
 <h3>
 OTHER

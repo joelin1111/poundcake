@@ -12,6 +12,9 @@ class InstallTeam extends AppModel {
         'AntennaType'
     );
     */
+    public $hasMany = array(
+        'Contact'
+    );
     
     public $validate = array(
         'name' => array(

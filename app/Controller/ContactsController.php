@@ -63,7 +63,8 @@ class ContactsController extends AppController {
 
     public function add() {
        $this->getTowerOwners();
-        $this->getContactTypeOptions();
+       $this->getInstallTeams();
+       $this->getContactTypeOptions();
        if ($this->request->is('post')) {
             $this->Contact->create();
             if ($this->Contact->save($this->request->data)) {
@@ -80,6 +81,11 @@ class ContactsController extends AppController {
         $this->set('towerowners',$this->Contact->TowerOwner->find('list'));
     }
     
+    // as above
+    function getInstallTeams() {
+        $this->set('installteams',$this->Contact->InstallTeam->find('list'));
+    }
+    
     function getContactTypeOptions() {
         //$type_options = array('0' => 'Commercial Contact', '1' => 'Technical Contact');
         //$type_options = array('0' => $contactType0, '1' => $contactType1);
@@ -89,6 +95,7 @@ class ContactsController extends AppController {
     public function edit($id = null) {
         $this->Contact->id = $id;
         $this->getTowerOwners();
+        $this->getInstallTeams();
         $this->getContactTypeOptions();
         if (!$this->Contact->exists()) {
             throw new NotFoundException(__('Invalid contact'));

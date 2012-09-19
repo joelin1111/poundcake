@@ -21,7 +21,7 @@
 	<?php
 	foreach ($installteams as $team): ?>
 	<tr>
-            <td><?php echo h($team['InstallTeam']['name']);?></td>
+            <td><?php echo $this->Html->link($team['InstallTeam']['name'], array('action' => 'view', $team['InstallTeam']['id'])); ?></td>
             <td>
             <?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $team['InstallTeam']['id'])); ?>
             <?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $team['InstallTeam']['id']), null, __('Are you sure you want to delete install team %s?', $team['InstallTeam']['name'])); ?>

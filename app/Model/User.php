@@ -60,7 +60,8 @@ class User extends AppModel {
             'message' => 'Current password does not match.'
         ),
         'password' => array(
-            'rule'     => 'alphaNumeric',
+            //'rule'     => 'alphaNumeric',
+            'rule'    => array('minLength', 6),
             'required' => true,
             'message' => 'Password must be alphanumeric.'
         ),

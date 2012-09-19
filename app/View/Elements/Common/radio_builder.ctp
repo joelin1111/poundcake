@@ -12,7 +12,8 @@
                     'type' => 'select',
                     'label' => 'Radio Type',
                     'options' => $radiotypes,
-                    'empty' => true
+                    'empty' => true,
+                    'default'=>'3'
                     )
         );
         ?>

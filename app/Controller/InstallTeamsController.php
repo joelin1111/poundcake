@@ -17,11 +17,13 @@ class InstallTeamsController extends AppController {
 
     public function view($id = null) {
         $this->InstallTeam->id = $id;
+        
         if (!$this->InstallTeam->exists()) {
             throw new NotFoundException(__('Invalid install team'));
         }
         $this->set('installteam', $this->InstallTeam->read(null, $id));
     }
+
 
     /*
     function getRadioTypes() {

@@ -10,6 +10,16 @@
 
 <div class="span9">
     <h2>View Install Team</h2>
-    <P><B>Name:</B>&nbsp;<?php echo $contact['InstallTeam']['name']; ?></P>
+    <P><B>Name:</B>&nbsp;<?php echo $installteam['InstallTeam']['name']; ?></P>
+    
+    <?php
+    //echo '<pre>';
+    foreach ($installteam['Contact'] as $key => $value) {
+        //print_r($installteam['Contact']);
+        echo $this->Html->link($installteam['Contact'][$key]['name_vf'], array('action' => 'view', 'controller' => 'contacts',$installteam['Contact'][$key]['id']));
+    }
+    //echo '</pre>';  
+?>
+    
 </div> <!-- /.span9 -->
 </div> <!-- /.row -->
