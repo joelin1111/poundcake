@@ -18,6 +18,7 @@
     <ul>
         <li><?php echo $this->Html->link('List Sites', array('action'=>'index')); ?></li>
         <li><?php echo $this->Html->link('Edit Site', array('action'=>'edit', $site['Site']['id']));?></li>
+        <li><?php echo $this->Html->link('Equipment List', array('action'=>'view', 'ext'=>'pdf', $site['Site']['id']));?></li>
     </ul>
     </div>
 </div><!-- /.span3 .sb-fixed -->

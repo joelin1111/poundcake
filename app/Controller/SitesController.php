@@ -9,8 +9,9 @@ class SitesController extends AppController
     // AltGoogleMapV3 is the Marc Fernandez Google Map helper, just renamed
     // AutoCompleteHelper removed -- not used
     var $helpers = array('AjaxMultiUpload.Upload','AltGoogleMapV3');
-    
-    public $components = array('AjaxMultiUpload.Upload'); //,'DebugKit.Toolbar'
+    //var  $uses = null; // needed by Pdf helper?
+
+    public $components = array('AjaxMultiUpload.Upload','RequestHandler'); //,'DebugKit.Toolbar'
     
     public $presetVars = array(
         // field names for the form itself , 'model' => 'Site'
@@ -153,6 +154,37 @@ class SitesController extends AppController
         
     }
     
+    function getBuildItems() {
+       $this->loadModel('BuildItems');
+       $builditems = $this->BuildItems->find('all');
+//       echo "<pre>";
+//       print_r($buildItems);
+//       echo '</pre>';
+//       die;
+       $this->set('builditems', $builditems);
+       
+       // sum up all the radios, antennas for this site
+       $query = 'call sp_count_radios('.$this->Site->id.')';
+       $this->set('radio_counts', $this->Site->query( $query ));
+       $query = 'call sp_count_antennas('.$this->Site->id.')';
+       $this->set('antenna_counts', $this->Site->query( $query ));
+       
+       // this is probably not hte best way to do this, but if an admin deletes
+       // then re-creates a power source I can't assume the primary key is 24 or 48v
+       
+       
+       echo '<pre>';
+       print_r($this->Site->data['PowerType']);
+       if (preg_match("/48/", $this->Site->data['PowerType']['name'], $matches)) {
+            echo "Match was found <br />";
+            echo $matches[0];
+      }
+       echo '</pre>';
+       die;
+       
+        //echo print_r($allSiteStates);
+    }
+    
     function view($id = null) {
         $this->Site->id = $id;
         //$this->getSitesNearby($id,5);
@@ -162,6 +194,7 @@ class SitesController extends AppController
         }
         $this->set('site', $this->Site->read(null, $id));
         $this->getContacts($id);
+        $this->getBuildItems();
         
         switch ($this->Site->data['Site']['site_state_id']){
             case 0:
@@ -394,6 +427,33 @@ class SitesController extends AppController
 //            echo '</pre>';
         }
     }
+    
+    /*
+    function build($id = null) {
+        // http://stackoverflow.com/questions/8728200/creating-pdf-helper-for-cakephp-2-0-using-tcpdf
+        // http://www.startutorial.com/articles/view/how-to-create-pdf-helper-with-tcpdf
+        $this->Site->id = $id;
+        //$this->data = $this->Site->read(null, $id);
+        $this->set('site', $this->Site->read(null, $id));
+        
+        $this->getBuildItems();
+        
+        $x = 0;
+        if ($x) {
+            echo '<pre>';
+            print_r($this->Site->data);
+            echo '</pre>';
+        } else {
+            //$content_for_layout = $this->Site->data['Site']['site_code'];
+        }
+        
+        
+        $this->Site->id = $id;
+        $this->layout = 'pdf'; 
+        //$this->Site->bindModel(array('hasMany' => array('NetworkRadio' => array('foreignKey' => 'site_id'))));
+
+    }
+    */
     
     public function isAuthorized($user) {
         // everyone can see the list and view individual Contacts

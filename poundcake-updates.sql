@@ -1,4 +1,10 @@
--- To be run on waldorf
+
+
+
+
+
+-- Old
+
 alter table sites engine=INNODB;
 alter table network_radios engine=INNODB;
 alter table network_radios add column antenna_type_id int(10);
@@ -28,8 +34,8 @@ alter table network_radios add elevation SMALLINT;
 alter table network_radios add frequency int(10);
 alter table network_radios add ssid varchar(255);
 
-DROP TABLE IF EXISTS `change_log`;
-CREATE TABLE `change_log` (
+DROP TABLE IF EXISTS `change_logs`;
+CREATE TABLE `change_logs` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `version` varchar(255) NOT NULL,
   `description` text NOT NULL,

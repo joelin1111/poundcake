@@ -1,4 +1,10 @@
 <?php
+
+    // for serving views as files
+    // http://www.dereuromark.de/2011/11/21/serving-views-as-files-in-cake2/
+    //Router::parseExtensions('pdf');
+    Router::parseExtensions();
+
 /**
  * Routes configuration
  *
@@ -30,6 +36,7 @@
  * ...and connect the rest of 'Pages' controller's urls.
  */
 	Router::connect('/pages/*', array('controller' => 'pages', 'action' => 'display'));
+        
         
          
 

@@ -16,6 +16,13 @@ class Site extends AppModel {
         'TowerOwner'
     );
     
+    /*
+    var $hasOne = array (
+        'NetworkSwitch',
+        'NetworkRouter'
+    );
+    */
+    
     public $hasMany = array(
         'NetworkRadios' => array(
             'className' => 'NetworkRadio',
