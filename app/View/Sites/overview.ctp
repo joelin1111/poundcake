@@ -13,7 +13,10 @@
 
 <div class="row">
 <div class="span3">
+    
+    <?php echo $this->element('Common/search'); ?>
     <?php echo $this->element('Common/legend'); ?>
+    
 </div><!-- /.span3 .sb-fixed -->
 
 <div class="span9">

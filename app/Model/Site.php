@@ -97,25 +97,11 @@ class Site extends AppModel {
         //array('name' => 'district', 'type' => 'value'),
     );
     
-    /**
-    construct *
-    * @return void
-    */
-     public function __construct($id = false,$table = null,$ids = null) {
-        /*$this->statuses = array(
-            'open' => __('Open',true),
-            'closed' => __('Closed',true),
-        );
-        $this->categories = array(
-            'bug' => __('bug',true),
-            'support' => __('support',true),
-            'technical' => __('technical',true),
-            'other' => __('other',true),
-        );
-        */
+    public function __construct($id = false,$table = null,$ids = null) {
         parent::__construct($id,$table,$ids);
     }
 
+    /*
     public function filterSite($data, $field = null) {
         if(empty($data['site_name'])) {
             return array();
@@ -126,6 +112,7 @@ class Site extends AppModel {
                 $this->alias . '.site_name LIKE' => $site_name,
             ));
     }
+    */
     
     // return true if a site is owned by a user (was created by)
     public function isOwnedBy($site, $user) {

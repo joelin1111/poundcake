@@ -1,3 +1,5 @@
+-- Old
+
 DROP TABLE IF EXISTS `build_items`;
 CREATE TABLE `build_items` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -27,11 +29,13 @@ insert into install_teams(id,name) values (4,'Green Team');
 
 alter table sites add install_team_id int(10) after tower_guard;
 
+alter table contacts add install_team_id int(10) after tower_owner_id;
+
 -- TO-DO:  Add a default install_team_id of 1 to sites table using PHPMyAdmin
 
+insert into tower_owners('name') values ('N/A');
 
 
--- Old
 
 alter table sites engine=INNODB;
 alter table network_radios engine=INNODB;

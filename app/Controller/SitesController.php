@@ -192,6 +192,11 @@ class SitesController extends AppController
     }
     
     function schedule($id) {
+        //echo '<pre>';
+        $this->Site->InstallTeam->id=$id;
+        //$this->set('installteams',$this->Site->InstallTeam->find('first'));
+        //print_r ($this->Site->InstallTeam);
+        $this->set('teamname',$this->Site->InstallTeam->field('name'));
         if ($id != null) {
             $query = 'call sp_schedule('.$id.')';
             $this->set('schedule',$this->Site->InstallTeam->query( $query ));

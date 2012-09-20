@@ -86,7 +86,7 @@ class AppController extends Controller {
         foreach ($this->data as $k=>$v){ 
             foreach ($v as $kk=>$vv){
                 //echo "<BR>VV is".print_r($vv);
-                // remove forward slashes -- school codes can have them!
+                // remove forward slashes -- site codes may have them!
                 $vv = str_replace('/','*',$vv);
                 $url[$k.'.'.$kk]=$vv; 
             } 

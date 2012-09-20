@@ -11,8 +11,8 @@
 <div class="span9">
     <h3>
         <?php
-        //print_r($schedule);
-        echo $schedule[0]['install_teams']['name'];
+        //print_r($teamname);
+        echo $teamname;
         ?>
     </h3>
 <table class="table table-condensed table-striped">
