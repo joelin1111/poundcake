@@ -191,6 +191,25 @@ class SitesController extends AppController
         $this->set('board', $board);
     }
     
+//    function getBearing() {
+//        //  78.3 deg N, 104.0 deg W
+//        $lat1 = 45.5352835;
+//        $lon1 = -122.6037536;
+//        //$lat2 = 78.3;
+//        //$lon2 = 104.0;
+//        $lat2 = 0;
+//        $lon2 = 0;
+//        
+//        $bearing = (rad2deg(atan2(sin(deg2rad($lon2) - deg2rad($lon1)) * cos(deg2rad($lat2)), cos(deg2rad($lat1)) * sin(deg2rad($lat2)) - sin(deg2rad($lat1)) * cos(deg2rad($lat2)) * cos(deg2rad($lon2) - deg2rad($lon1)))) + 360) % 360;
+//        
+//        echo '<pre>';
+//        echo 'Bearing: ';
+//        print_r($bearing);
+//        echo '</pre>';
+//        die;
+//        
+//    }
+    
     function schedule($id) {
         //echo '<pre>';
         $this->Site->InstallTeam->id=$id;
@@ -207,6 +226,8 @@ class SitesController extends AppController
         
     }
     function view($id = null) {
+        //$this->getBearing();
+        
         $this->Site->id = $id;
         //$this->getSitesNearby($id,5);
         
@@ -492,6 +513,8 @@ class SitesController extends AppController
         
         return parent::isAuthorized($user);
     }
+    
+    
     
 //    function auto_complete() {
 //        $sites = $this->Site->find('all', array( 

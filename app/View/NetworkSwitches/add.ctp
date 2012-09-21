@@ -12,7 +12,8 @@
     <?php echo $this->Form->create('NetworkSwitch'); ?>
     <h2>Add Switch</h2>
     <?php
-            echo $this->Form->input('name');
+        echo $this->Form->input('name');
+        echo $this->Form->input('num_ports', array('type'=>'select','label'=>'Ports','options' => $num_ports));
     ?>
     </fieldset>
     <?php echo $this->Form->end(__('Submit')); ?>

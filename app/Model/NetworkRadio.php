@@ -8,19 +8,19 @@ class NetworkRadio extends AppModel {
     var $belongsTo = array(
         'Site',
         'RadioType',
-        'AntennaType'
+        'AntennaType',
+        'NetworkSwitch'
     );
-    
     
     public $validate = array(
         'name' => array(
             'notempty' => array(
-                    'rule' => array('notempty'),
-                    'message' => 'This field cannot be blank.',
-                    'allowEmpty' => false,
-                    'required' => true,
-                    //'last' => false, // Stop validation after this rule
-                    'on' => 'create', // Limit validation to 'create' or 'update' operations
+                'rule' => array('notempty'),
+                'message' => 'This field cannot be blank.',
+                'allowEmpty' => false,
+                'required' => true,
+                //'last' => false, // Stop validation after this rule
+                'on' => 'create', // Limit validation to 'create' or 'update' operations
             )
         ),
     );

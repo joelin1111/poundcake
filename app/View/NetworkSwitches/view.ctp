@@ -11,6 +11,35 @@
 <div class="span9">
     <h2>View Switch</h2>
     <P><B>Name:</B>&nbsp;<?php echo $networkswitch['NetworkSwitch']['name']; ?></P>
+    <P><B>Ports:</B>&nbsp;<?php echo $networkswitch['NetworkSwitch']['num_ports']; ?></P>
+    
+    <P><B>Attached Radios:</B>&nbsp;
+    <?php
+//        echo '<pre>';
+//        print_r($networkswitch);
+//        echo '</pre>';
+//        
+        if (!isset($networkswitch['NetworkRadio'])) {
+            echo "None";
+        } else {
+            echo "<UL>";
+            foreach ($networkswitch['NetworkRadio'] as $radio) {
+                //print_r($radio);
+                //echo $this->Html->link(__($contact['first_name']." ".$contact['last_name']), array(
+                echo "<LI>";
+                echo 'Port '.$radio['switch_port'].' - ';
+                echo $this->Html->link(($radio['name']), array(
+                    'controller' => 'networkRadios',
+                    'action' => 'view',
+                    $radio['id']));
+                echo " ".$radio['name'];
+                
+                echo "</LI>";
+            }
+            echo "</UL>";
+        }
+    ?>
+    </P>
 </div> <!-- /.span9 -->
 </div> <!-- /.row -->
 

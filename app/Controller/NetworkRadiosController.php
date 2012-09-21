@@ -52,10 +52,21 @@ class NetworkRadiosController extends AppController {
         );
     }
     
+    function getNetworkSwitches() {
+        $this->set('networkswitches',$this->NetworkRadio->NetworkSwitch->find('list',
+            array(
+                'order' => array(
+                    'NetworkSwitch.name ASC'
+            )))
+        );
+    }
+    
     public function add() {
         $this->getSites();
         $this->getRadioTypes();
         $this->getAntennaTypes();
+        $this->getFrequencies(); // for the frequency dropdown
+        $this->getNetworkSwitches();
         
         if ($this->request->is('post')) {
             $this->NetworkRadio->create();
@@ -73,6 +84,8 @@ class NetworkRadiosController extends AppController {
         $this->getSites();
         $this->getRadioTypes();
         $this->getAntennaTypes();
+        $this->getFrequencies(); // for the frequency dropdown
+        $this->getNetworkSwitches();
         
         if (!$this->NetworkRadio->exists()) {
             throw new NotFoundException(__('Invalid radio'));
@@ -103,6 +116,18 @@ class NetworkRadiosController extends AppController {
         }
         $this->Session->setFlash(__('Radio was not deleted'));
         $this->redirect(array('action' => 'index'));
+    }
+    
+    function getFrequencies() {
+        $frequencies = array();
+        $frequency = 4920;
+        // Ubiquity devices support 4920 MHz to 6100 MHz in 5 MHz increments
+        for ($i = 0; $i <= 236; ++$i) {
+            // we want the key and value in this array be the same here
+            $frequencies[$frequency] = $frequency;
+            $frequency += 5;
+        }
+        $this->set('frequencies',$frequencies);
     }
 
     public function isAuthorized($user) {

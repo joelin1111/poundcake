@@ -1,3 +1,6 @@
+alter table network_switches add num_ports int(10);
+alter table network_radios add switch_port int(10);
+
 -- Old
 
 DROP TABLE IF EXISTS `build_items`;
