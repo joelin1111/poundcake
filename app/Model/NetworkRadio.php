@@ -8,6 +8,7 @@ class NetworkRadio extends AppModel {
     var $belongsTo = array(
         'Site',
         'RadioType',
+        'NetworkLink',
         'NetworkSwitch',
         'AntennaType'
     );

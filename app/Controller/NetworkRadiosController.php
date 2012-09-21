@@ -11,7 +11,7 @@ class NetworkRadiosController extends AppController {
     );
     
     public function index() {
-        $this->NetworkRadio->recursive = 0;
+        $this->NetworkRadio->recursive = 1;
         $this->set('networkradios', $this->paginate());
     }
 
@@ -67,12 +67,12 @@ class NetworkRadiosController extends AppController {
     
     function getNetworkSwitchPorts() {
         // this function is only called when the add/edit page is first loaded
-        // we want to set the number of available ports equal to the number of
-        // ports on the switch type of the switch associated
-        // with the radio at the time the page loads
+        // we want to set the number of available ports on the switch equal
+        // to the number of ports on the switch's SwitchType
         
-        // anytime a user changes the switch, the select is updated via AJAX
-        // see NetworkSwitchesController getPortsBySwitchType
+        // anytime a user changes the switch, the select (the listing of ports
+        // for the SwitchType) is updated via AJAX -- see NetworkSwitchesController
+        // getPortsBySwitchType
         
         // and really, I'm dying today -- my brain is not working
         // this is hideous, but seems functional

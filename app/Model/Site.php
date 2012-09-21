@@ -7,7 +7,7 @@ class Site extends AppModel {
     // way to do that
     var $belongsTo = array(
         'Zone',
-        'ConnectivityType',
+        //'ConnectivityType',
         'SiteState',
         'TowerOwner',
         'PowerType',

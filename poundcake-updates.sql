@@ -1,7 +1,7 @@
 -- alter table network_switches drop num_ports;
 -- alter table network_switches add num_ports int(10) default '8';
 alter table network_radios add switch_port int(10);
-
+alter table sites drop column connectivity_type_id;
 alter table network_radios add network_switch_id int(10) after site_id;
 
 DROP TABLE IF EXISTS `switch_types`;
@@ -17,6 +17,9 @@ insert into switch_types(ports,name) values (16,'16-Port Switch');
 insert into switch_types(ports,name) values (24,'24-Port Switch');
 
 alter table network_switches add switch_type_id int(10) default '1' after name;
+
+
+
 -- Old
 
 DROP TABLE IF EXISTS `build_items`;
