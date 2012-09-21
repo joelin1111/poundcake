@@ -24,7 +24,7 @@ class NetworkSwitchesController extends AppController {
     }
 
     public function add() {
-        $this->getNumPorts();
+        $this->getSwitchTypes();
         
         if ($this->request->is('post')) {
             $this->NetworkSwitch->create();
@@ -38,8 +38,8 @@ class NetworkSwitchesController extends AppController {
     }
 
     public function edit($id = null) {
-        $this->getNumPorts();
-        
+        $this->getSwitchTypes();
+               
         $this->NetworkSwitch->id = $id;
         if (!$this->NetworkSwitch->exists()) {
                 throw new NotFoundException(__('Invalid switch'));
@@ -73,14 +73,33 @@ class NetworkSwitchesController extends AppController {
         $this->redirect(array('action' => 'index'));
     }
     
+    function getSwitchTypes() {
+        $this->set('switchtypes',$this->NetworkSwitch->SwitchType->find('list',
+            array(
+                'order' => array(
+                    'SwitchType.ports ASC'
+            )))
+        );
+    }
     
-    function getNumPorts() {
-        // hard coded for now -- we only use switches with 8, 16 or 24 ports
-        // would be nice to make a Switch have a NetworkSwitchType
-        $num_ports[8] = '8';
-        $num_ports[16] = '16';
-        $num_ports[24] = '24';
-        $this->set('num_ports', $num_ports);
+    public function getPortsBySwitchType() {
+        // this ID of the switch the user has selected (from the Radio add/edit page)
+        $switch_id = $this->request->data['NetworkRadio']['network_switch_id'];
+        $this->loadModel('NetworkSwitch', $switch_id);
+        $switch_data = $this->NetworkSwitch->find('all', array('conditions' => array('NetworkSwitch.id' => $switch_id)));
+        $ports = $switch_data[0]['SwitchType']['ports'];
+        ////$ports = $this->NetworkSwitch->SwitchType->field('ports');
+        //$switch_data = $this->NetworkSwitch->SwitchType->find('all', array('conditions' => array('NetworkSwitch.id' => $switch_id)));
+        //$ports = 4;
+        
+        // sadly, switches are labeled 1 to N
+        for ($i = 1; $i <= $ports; $i++) {
+            //$switchports[$i] = $i . " switch id: ".$switch_id ." ports ".$ports."";
+            $switchports[$i] = 'Port #'.$i;
+        }
+        //$switchports[0] = 'foo';
+        $this->set('switchports',$switchports);
+        $this->layout = 'ajax';
     }
 
     public function isAuthorized($user) {

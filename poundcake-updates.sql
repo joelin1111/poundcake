@@ -1,6 +1,22 @@
-alter table network_switches add num_ports int(10);
+-- alter table network_switches drop num_ports;
+-- alter table network_switches add num_ports int(10) default '8';
 alter table network_radios add switch_port int(10);
 
+alter table network_radios add network_switch_id int(10) after site_id;
+
+DROP TABLE IF EXISTS `switch_types`;
+CREATE TABLE `switch_types` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `ports` int(10) default '8',
+  `name` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+
+insert into switch_types(ports,name) values (8,'8-Port Switch');
+insert into switch_types(ports,name) values (16,'16-Port Switch');
+insert into switch_types(ports,name) values (24,'24-Port Switch');
+
+alter table network_switches add switch_type_id int(10) default '1' after name;
 -- Old
 
 DROP TABLE IF EXISTS `build_items`;

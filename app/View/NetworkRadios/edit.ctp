@@ -1,3 +1,8 @@
+<?php
+    # include Jquery
+    echo $this->Html->script('jquery-1.7.2');
+?>
+    
 <div class="row">
 <div class="span3">
     <H3>Actions</H3>
@@ -25,10 +30,15 @@
         echo $this->Form->input('elevation');
         echo $this->Form->input('frequency', array('type'=>'select','options' => $frequencies));
         echo $this->Form->input('ssid', array('label'=>'SSID'));
-        echo $this->Form->input('network_switch_id', array('type'=>'select','options' => $networkswitches));
-        echo $this->Form->input('switch_port', array('label'=>'Switch Port'));
+        echo $this->Form->input('network_switch_id', array('type'=>'select','options' => $networkswitches,'empty' => true));
+        echo $this->Form->input('switch_port', array('type'=>'select','options' => $switchports));
     ?>
     </fieldset>
     <?php echo $this->Form->end(__('Submit')); ?>
 </div> <!-- /.span9 -->
 </div> <!-- /.row -->
+
+<?php
+    // include the JQuery to handle updating the list of available ports for the selected switch
+    echo $this->element('Common/switch_change');
+?>

@@ -61,14 +61,69 @@ class NetworkRadiosController extends AppController {
         );
     }
     
+    function getNumPorts() {
+        return $this->NetworkRadio->NetworkSwitch->SwitchType->field('ports');
+    }
+    
+    function getNetworkSwitchPorts() {
+        // this function is only called when the add/edit page is first loaded
+        // we want to set the number of available ports equal to the number of
+        // ports on the switch type of the switch associated
+        // with the radio at the time the page loads
+        
+        // anytime a user changes the switch, the select is updated via AJAX
+        // see NetworkSwitchesController getPortsBySwitchType
+        
+        // and really, I'm dying today -- my brain is not working
+        // this is hideous, but seems functional
+        
+        
+        $id = $this->NetworkRadio->id;
+        // if there is a switch associated with this radio (this would only happen
+        // on edit), get the number of ports associated with that switch
+        if (isset($id)) {
+            //echo '<pre>';
+            $network_switch_id = $this->NetworkRadio->field('network_switch_id');
+            //echo "Network Switch ID ".$network_switch_id;
+            
+            //$this->NetworkRadio->NetworkSwitch->recursive = 2; // set recursive to 2 to get the data related to Contacts
+            $switch_data = $this->NetworkRadio->NetworkSwitch->find('all', array('conditions' => array('NetworkSwitch.id' => $network_switch_id)));
+            //print_r($switch_data);
+            $ports = $switch_data[0]['SwitchType']['ports'];
+            //echo "NetworkRadio ID ".$id."<BR>";
+            //echo "NetworkSwitch ID ".$network_switch_id."<BR>";
+            //echo "Ports ".$ports;
+            //echo '</pre>';
+            
+            //$this->request->data = $this->NetworkRadio->NetworkSwitch->read(null, $network_switch_id);
+            //$ports = $this->request->data['SwitchType']['ports'];
+            //print_r($this->request->data );
+            
+            // SEE ALSO NetworkSwitchesController getPortsBySwitchType
+            if (isset($ports)) {
+                for ($i = 1; $i <= $ports; $i++) {
+                    $switchports[$i] = 'Port #'.$i;
+                }
+            }
+        } else {
+            // there is no switch yet, so we don't know how many ports to list as
+            // being available
+            $switchports = '';
+        }
+        $this->set('switchports',$switchports);
+    }
+    
     public function add() {
         $this->getSites();
         $this->getRadioTypes();
         $this->getAntennaTypes();
         $this->getFrequencies(); // for the frequency dropdown
-        $this->getNetworkSwitches();
         
         if ($this->request->is('post')) {
+//            echo '<pre>';
+//            echo 'Request:<BR>';
+//            print_r($this->request->data);
+//            echo '</pre>';
             $this->NetworkRadio->create();
             if ($this->NetworkRadio->save($this->request->data)) {
                 $this->Session->setFlash(__('The radio has been saved'));
@@ -77,6 +132,9 @@ class NetworkRadiosController extends AppController {
                 $this->Session->setFlash(__('The radio could not be saved. Please, try again.'));
             }
         }
+        
+        $this->getNetworkSwitches();
+        $this->getNetworkSwitchPorts();
     }
 
     public function edit($id = null) {
@@ -85,7 +143,8 @@ class NetworkRadiosController extends AppController {
         $this->getRadioTypes();
         $this->getAntennaTypes();
         $this->getFrequencies(); // for the frequency dropdown
-        $this->getNetworkSwitches();
+//        $this->getNetworkSwitches();
+//        $this->getNetworkSwitchPorts();
         
         if (!$this->NetworkRadio->exists()) {
             throw new NotFoundException(__('Invalid radio'));
@@ -100,6 +159,8 @@ class NetworkRadiosController extends AppController {
         } else {
             $this->request->data = $this->NetworkRadio->read(null, $id);
         }
+        $this->getNetworkSwitches();
+        $this->getNetworkSwitchPorts();
     }
     
     public function delete($id = null) {

@@ -8,6 +8,10 @@ class NetworkSwitch extends AppModel {
     public $hasMany = array(
         'NetworkRadio'
     );
+    
+    var $belongsTo = array(
+        'SwitchType'
+    );
 
     public $validate = array(
         'name' => array(
