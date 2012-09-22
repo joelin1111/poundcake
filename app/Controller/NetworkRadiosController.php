@@ -20,6 +20,7 @@ class NetworkRadiosController extends AppController {
         if (!$this->NetworkRadio->exists()) {
             throw new NotFoundException(__('Invalid radio'));
         }
+        $this->set('link_name',$this->getLinkName($this->NetworkRadio->field('link_id')));
         $this->set('networkradio', $this->NetworkRadio->read(null, $id));
     }
 
@@ -79,6 +80,7 @@ class NetworkRadiosController extends AppController {
         
         
         $id = $this->NetworkRadio->id;
+        $switchports = '';
         // if there is a switch associated with this radio (this would only happen
         // on edit), get the number of ports associated with that switch
         if (isset($id)) {
@@ -89,26 +91,24 @@ class NetworkRadiosController extends AppController {
             //$this->NetworkRadio->NetworkSwitch->recursive = 2; // set recursive to 2 to get the data related to Contacts
             $switch_data = $this->NetworkRadio->NetworkSwitch->find('all', array('conditions' => array('NetworkSwitch.id' => $network_switch_id)));
             //print_r($switch_data);
-            $ports = $switch_data[0]['SwitchType']['ports'];
-            //echo "NetworkRadio ID ".$id."<BR>";
-            //echo "NetworkSwitch ID ".$network_switch_id."<BR>";
-            //echo "Ports ".$ports;
-            //echo '</pre>';
-            
-            //$this->request->data = $this->NetworkRadio->NetworkSwitch->read(null, $network_switch_id);
-            //$ports = $this->request->data['SwitchType']['ports'];
-            //print_r($this->request->data );
-            
-            // SEE ALSO NetworkSwitchesController getPortsBySwitchType
-            if (isset($ports)) {
-                for ($i = 1; $i <= $ports; $i++) {
-                    $switchports[$i] = 'Port #'.$i;
+            if (count($switch_data) > 0) {
+                $ports = $switch_data[0]['SwitchType']['ports'];
+                //echo "NetworkRadio ID ".$id."<BR>";
+                //echo "NetworkSwitch ID ".$network_switch_id."<BR>";
+                //echo "Ports ".$ports;
+                //echo '</pre>';
+
+                //$this->request->data = $this->NetworkRadio->NetworkSwitch->read(null, $network_switch_id);
+                //$ports = $this->request->data['SwitchType']['ports'];
+                //print_r($this->request->data );
+
+                // SEE ALSO NetworkSwitchesController getPortsBySwitchType
+                if (isset($ports)) {
+                    for ($i = 1; $i <= $ports; $i++) {
+                        $switchports[$i] = 'Port #'.$i;
+                    }
                 }
             }
-        } else {
-            // there is no switch yet, so we don't know how many ports to list as
-            // being available
-            $switchports = '';
         }
         $this->set('switchports',$switchports);
     }
@@ -126,21 +126,22 @@ class NetworkRadiosController extends AppController {
 //            echo '</pre>';
             $this->NetworkRadio->create();
             if ($this->NetworkRadio->save($this->request->data)) {
-                $last = $this->NetworkRadio->read(null,$this->Model->id);
-                $new_id = $last['NetworkRadio']['id']; 
-                $link_id = $this->NetworkRadio->read(null, $id);
-                $back = $link_id['NetworkRadio']['link_id'];
                 
-                //echo '<pre>';
-                echo "ID of radio just saved: " . $new_id."<br>";
-                echo "Link back to " . $back;
-                //print_r($link_id);
-                //echo '</pre>';
-                //die;
-                
-                $query = 'call sp_link_back('.$new_id.','.$back.')';
-                $nearby = $this->NetworkRadio->query( $query );
-                
+                $last = $this->NetworkRadio->read(null,$this->NetworkRadio->id);
+                $new_id = $last['NetworkRadio']['id'];
+                $link_id = $last['NetworkRadio']['link_id']; //$this->NetworkRadio->read(null, $id);
+                if ( $link_id > 0 ) {
+                    //echo '<pre>';
+                    //echo "New ID:".$new_id."<br>";
+                    //echo "Link ID:".$link_id."<br>";
+                    //echo '</pre>';
+                    //
+                    // need to verify these values before passing them to the sp
+                    // 
+                    // update the link_id on the corresponding radio
+                    $query = 'call sp_add_link_id('.$new_id.','.$link_id.')';
+                    $this->NetworkRadio->query( $query );
+                }
                 
                 $this->Session->setFlash(__('The radio has been saved'));
                 $this->redirect(array('action' => 'index'));
@@ -161,16 +162,27 @@ class NetworkRadiosController extends AppController {
         $this->getFrequencies(); // for the frequency dropdown
 //        $this->getNetworkSwitches();
 //        $this->getNetworkSwitchPorts();
+        $this->set('link_name',$this->getLinkName($this->NetworkRadio->field('link_id')));
         
         if (!$this->NetworkRadio->exists()) {
             throw new NotFoundException(__('Invalid radio'));
         }
         if ($this->request->is('post') || $this->request->is('put')) {
             if ($this->NetworkRadio->save($this->request->data)) {
-                    $this->Session->setFlash(__('The radio has been saved'));
-                    $this->redirect(array('action' => 'index'));
+//                echo '<pre>';
+//                print_r($this->NetworkRadio->field('link_id'));
+//                echo '</pre>';
+//                die;
+                $link_id = $this->NetworkRadio->field('link_id');
+                if ($link_id > 0) {
+                    //echo "link_to: ".$link_to;
+                    $query = 'call sp_add_link_id('.$id.','.$link_id.')';
+                    $this->NetworkRadio->query( $query );
+                }
+                $this->Session->setFlash(__('The radio has been saved'));
+                $this->redirect(array('action' => 'index'));
             } else {
-                    $this->Session->setFlash(__('The radio could not be saved. Please, try again.'));
+                $this->Session->setFlash(__('The radio could not be saved. Please, try again.'));
             }
         } else {
             $this->request->data = $this->NetworkRadio->read(null, $id);
@@ -187,7 +199,20 @@ class NetworkRadiosController extends AppController {
         if (!$this->NetworkRadio->exists()) {
             throw new NotFoundException(__('Invalid radio'));
         }
+        
+        $link_to = $this->NetworkRadio->field('link_id');
+        //echo "Radio ".$id." links to ".$link_to."<br>";
+        //die;
         if ($this->NetworkRadio->delete()) {
+            // cleanup the link_id on the corresponding radio
+            // we have to pass something into the sp, parameters are not optional
+            if (!(isset($link_to))) {
+                $link_to = 'NULL';
+            }
+            //echo "link_to: ".$link_to;
+            $query = 'call sp_rm_link_id('.$link_to.')';
+            $this->NetworkRadio->query( $query );
+            
             $this->Session->setFlash(__('Radio deleted'));
             $this->redirect(array('action' => 'index'));
         }
@@ -205,6 +230,22 @@ class NetworkRadiosController extends AppController {
             $frequency += 5;
         }
         $this->set('frequencies',$frequencies);
+    }
+    
+    // return the logical name of a linked radio
+    function getLinkName($id) {
+        $link_name = '';
+        if ($id > 0) {
+            $link_name = $this->NetworkRadio->read('name', $id);
+            $link_name = $link_name['NetworkRadio']['name'];
+//            echo '<pre>';
+//            echo 'ID of link '.$id;
+//            //echo "Linked to: " . $link_radio['NetworkRadio']['name'];
+//            //echo "Link name: ".print_r($link_name);
+//            echo "Link name: ".$link_name;
+//            echo '</pre>';
+        }
+        return $link_name;
     }
 
     public function isAuthorized($user) {

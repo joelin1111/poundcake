@@ -1,8 +1,7 @@
 <?php
-    echo "<pre>";
-    print_r($networkradio);
-    echo "</pre>";
-    
+//    echo "<pre>";
+//    print_r($networkradio);
+//    echo "</pre>";
 ?>
 
 <div class="row">
@@ -29,9 +28,9 @@
     <P><B>SSID:</B>&nbsp;<?php echo $networkradio['NetworkRadio']['ssid']; ?></P>
     <P><B>Switch:</B>&nbsp;<?php echo $networkradio['NetworkSwitch']['name']; ?></P>
     <P><B>Switch Port:</B>&nbsp;<?php echo $networkradio['NetworkRadio']['switch_port']; ?></P>
-    <P><B>Linked To:</B>&nbsp;<?php echo $networkradio['NetworkRadio']['link_id']; ?></P>
-    
-    
+    <P><B>Linked To:</B>&nbsp;<?php echo $link_name; ?></P>    
+    <P><B>Linked To:</B>&nbsp;<?php echo $networkradio['NetworkRadio']['link_id']; ?></P> 
+    <P><B>Linked To:</B>&nbsp;<?php echo $this->Html->link($link_name, array('action' => 'view', $networkradio['NetworkRadio']['link_id'])) ?>
 </div> <!-- /.span9 -->
 </div> <!-- /.row -->
 
