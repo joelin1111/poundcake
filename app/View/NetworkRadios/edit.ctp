@@ -32,7 +32,7 @@
         echo $this->Form->input('ssid', array('label'=>'SSID'));
         echo $this->Form->input('network_switch_id', array('type'=>'select','options' => $networkswitches,'empty' => true));
         echo $this->Form->input('switch_port', array('type'=>'select','options' => $switchports));
-
+        echo $this->Form->hidden('link_id');
     ?>
     </fieldset>
     <?php echo $this->Form->end(__('Submit')); ?>

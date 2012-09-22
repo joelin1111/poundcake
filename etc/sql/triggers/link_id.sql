@@ -44,6 +44,8 @@ BEGIN
 	-- link the two radios
 	IF ( @dest_radio_id > 0 ) THEN
 		SET NEW.link_id = @dest_radio_id;
+	ELSE
+		SET NEW.link_id = NULL;
 	END IF;
 END $$
 DELIMITER ;

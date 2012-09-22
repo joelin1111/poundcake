@@ -168,16 +168,31 @@ class NetworkRadiosController extends AppController {
             throw new NotFoundException(__('Invalid radio'));
         }
         if ($this->request->is('post') || $this->request->is('put')) {
+//            echo '<pre>:';
+//            print_r($this->request->data);
+//            echo '</pre>';
+            $data = $this->request->data;
+            $old_link_id = $data['NetworkRadio']['link_id'];
             if ($this->NetworkRadio->save($this->request->data)) {
-//                echo '<pre>';
-//                print_r($this->NetworkRadio->field('link_id'));
+//                echo '<pre>:';
+//                print_r($this->request->data);
 //                echo '</pre>';
-//                die;
+                //die;
+                // update the link_id and possible clear out the old
+                // link_id on related radio
                 $link_id = $this->NetworkRadio->field('link_id');
                 if ($link_id > 0) {
-                    //echo "link_to: ".$link_to;
+                    //echo "link ".$id." to ".$link_id;
                     $query = 'call sp_add_link_id('.$id.','.$link_id.')';
                     $this->NetworkRadio->query( $query );
+                } else {
+                    //echo "old link: ".$old_link_id;
+                    if (!isset($old_link_id)) {
+                        $old_link_id = 'NULL';
+                    }
+                    $query = 'call sp_rm_link_id('.$old_link_id.')';
+                    $this->NetworkRadio->query( $query );
+                    
                 }
                 $this->Session->setFlash(__('The radio has been saved'));
                 $this->redirect(array('action' => 'index'));
