@@ -8,10 +8,39 @@ class NetworkRadio extends AppModel {
     var $belongsTo = array(
         'Site',
         'RadioType',
-        'NetworkLink',
         'NetworkSwitch',
-        'AntennaType'
+        'AntennaType',
+        //'NetworkLink'
+        //'NetworkLink' => array('foreignKey' => 'zipcode')
+
     );
+    
+    /*
+    var $virtualFields = array(
+        'target' => "NetworkLink.radio_dest_id"
+    );    
+    */
+    
+    /*
+    var $hasAndBelongsToMany = array(
+        'Tag' =>
+            array(
+                'className'              => 'NetworkRadio',
+                'joinTable'              => 'radios_radios',
+                'foreignKey'             => 'src_id',
+                'associationForeignKey'  => 'dest_id',
+                'unique'                 => true,
+                'conditions'             => '',
+                'fields'                 => '',
+                'order'                  => '',
+                'limit'                  => '',
+                'offset'                 => '',
+                'finderQuery'            => '',
+                'deleteQuery'            => '',
+                'insertQuery'            => ''
+            )
+    );
+    */
     
     public $validate = array(
         'name' => array(

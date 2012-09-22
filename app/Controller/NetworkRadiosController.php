@@ -126,6 +126,22 @@ class NetworkRadiosController extends AppController {
 //            echo '</pre>';
             $this->NetworkRadio->create();
             if ($this->NetworkRadio->save($this->request->data)) {
+                $last = $this->NetworkRadio->read(null,$this->Model->id);
+                $new_id = $last['NetworkRadio']['id']; 
+                $link_id = $this->NetworkRadio->read(null, $id);
+                $back = $link_id['NetworkRadio']['link_id'];
+                
+                //echo '<pre>';
+                echo "ID of radio just saved: " . $new_id."<br>";
+                echo "Link back to " . $back;
+                //print_r($link_id);
+                //echo '</pre>';
+                //die;
+                
+                $query = 'call sp_link_back('.$new_id.','.$back.')';
+                $nearby = $this->NetworkRadio->query( $query );
+                
+                
                 $this->Session->setFlash(__('The radio has been saved'));
                 $this->redirect(array('action' => 'index'));
             } else {
