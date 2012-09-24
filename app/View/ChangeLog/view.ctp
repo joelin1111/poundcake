@@ -11,7 +11,13 @@
 <div class="span9">
     <h2>View Change</h2>
     <P><B>Version:</B>&nbsp;<?php echo $changeLog['ChangeLog']['version']; ?></P>
-    <P><B>Date:</B>&nbsp;<?php echo $changeLog['ChangeLog']['release_date']; ?></P>
+    <P><B>Date:</B>&nbsp;
+        <?php
+        //echo $changeLog['ChangeLog']['release_date'];
+        $date = new DateTime($changeLog['ChangeLog']['release_date']);
+        echo $date->format('Y-m-d');
+        ?>
+    </P>
     <P><B>Description:</B>&nbsp;<?php echo $changeLog['ChangeLog']['description']; ?></P>
 </div> <!-- /.span9 -->
 </div> <!-- /.row -->

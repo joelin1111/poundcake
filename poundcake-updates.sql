@@ -1,3 +1,5 @@
+-- Old
+
 -- alter table network_switches drop num_ports;
 -- alter table network_switches add num_ports int(10) default '8';
 alter table network_radios add switch_port int(10);
@@ -18,17 +20,7 @@ insert into switch_types(ports,name) values (24,'24-Port Switch');
 
 alter table network_switches add switch_type_id int(10) default '1' after name;
 
-DROP TABLE IF EXISTS `network_links`;
-CREATE TABLE `network_links` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `radio_src_id` int(10),
-  `radio_dest_id` int(10),
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
-
-alter table network_radios add network_link_id int(10);
-
--- Old
+alter table network_radios add link_id int(10);
 
 DROP TABLE IF EXISTS `build_items`;
 CREATE TABLE `build_items` (

@@ -51,7 +51,17 @@ class NetworkRadio extends AppModel {
                 'required' => true,
                 //'last' => false, // Stop validation after this rule
                 'on' => 'create', // Limit validation to 'create' or 'update' operations
-            )
+            ),
+            'isUnique' => array(
+                'rule' => array('isUnique', array('name')),
+                'message' => 'This field need must be unique!'
+            ),
+            /*,
+            'checkUnique' => array(
+                'rule' => array('checkUnique', array('field1', 'field2')),
+                'message' => 'This field need to be non-empty and the row need to be unique'
+            ),
+            */
         ),
     );
 }

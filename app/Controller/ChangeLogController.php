@@ -11,9 +11,14 @@ class ChangeLogController extends AppController {
     public function view($id = null) {
         $this->ChangeLog->id = $id;
         if (!$this->ChangeLog->exists()) {
-                throw new NotFoundException(__('Invalid change log'));
+            throw new NotFoundException(__('Invalid change log'));
         }
-        $this->set('changeLog', $this->ChangeLog->read(null, $id));
+        //$changeLog = $this->ChangeLog->read(null, $id);
+        //$changeLog = str_replace('-','<li>',$this->ChangeLog->read(null, $id));
+        $changeLog = $this->ChangeLog->read(null, $id);
+        $changeLog['ChangeLog']['description'] =nl2br( $changeLog['ChangeLog']['description'] );
+        $this->set('changeLog', $changeLog);
+        //$this->set('changeLog', $this->ChangeLog->read(null, $id));
     }
 
     public function add() {
@@ -63,6 +68,11 @@ class ChangeLogController extends AppController {
 
     // check the ACL
     public function isAuthorized($user) {
+        // allow users to view the changelog
+        if ($this->action === 'index' || $this->action === 'view') {
+            // for testing
+            return true;
+        }
         return parent::isAuthorized($user);
     }
         

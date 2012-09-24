@@ -258,6 +258,12 @@ class SitesController extends AppController
         // label-warning - yellow
         $this->set('state_class',$label);
         
+        //$this->set('ip_addresses',$this->getAddress($this->Site->field('site_code')));
+        
+        $ip_addresses = $this->getAddress($this->Site->field('site_code'));
+        $this->set(compact('ip_addresses'));
+        
+        
     }
     
     function getZones() {

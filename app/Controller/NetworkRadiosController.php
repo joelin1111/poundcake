@@ -22,6 +22,8 @@ class NetworkRadiosController extends AppController {
         }
         $this->set('link_name',$this->getLinkName($this->NetworkRadio->field('link_id')));
         $this->set('networkradio', $this->NetworkRadio->read(null, $id));
+        $ip_addresses = $this->getAddress($this->NetworkRadio->field('name'));
+        $this->set(compact('ip_addresses'));
     }
 
     // return all the sites to allow the radio to be assigned to
@@ -187,10 +189,12 @@ class NetworkRadiosController extends AppController {
                     $this->NetworkRadio->query( $query );
                 } else {
                     //echo "old link: ".$old_link_id;
-                    if (!isset($old_link_id)) {
-                        $old_link_id = 'NULL';
+                    if ($old_link_id == "") {
+                        $old_link_id = 0;
                     }
                     $query = 'call sp_rm_link_id('.$old_link_id.')';
+//                    echo $query;
+//                    die;
                     $this->NetworkRadio->query( $query );
                     
                 }

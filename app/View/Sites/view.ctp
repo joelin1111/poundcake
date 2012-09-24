@@ -189,6 +189,8 @@
         ?>
     </P>
     
+    <?php echo $this->element('Common/addrpool_data'); ?>
+    
     <P><B>Files:</B>&nbsp;
         <?php
             // get any attached files

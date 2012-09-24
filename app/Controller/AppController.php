@@ -94,5 +94,42 @@ class AppController extends Controller {
         // redirect the user to the url
         $this->redirect($url, null, true);
     }
+    
+      // this would check for uniqueness among fields in the same instance
+//    function checkUnique($data, $fields) {
+//        if (!is_array($fields)) {
+//                $fields = array($fields);
+//            }
+//            foreach($fields as $key) {
+//                $tmp[$key] = $this->data[$this->name][$key];
+//            }
+//        if (isset($this->data[$this->name][$this->primaryKey]) && $this->data[$this->name][$this->primaryKey] > 0) {
+//                $tmp[$this->primaryKey." !="] = $this->data[$this->name][$this->primaryKey];
+//            }
+//        //return false;
+//        return $this->isUnique($tmp, false); 
+//    }
+    
+    public function getAddress($name) {
+        $addresses = '';
+//        if (isset($name)) {
+//            // current model can be accessed via: $this->modelClass;
+//            //$name = $this->{$this->modelClass}->field('name');
+//            $query = 'call sp_get_address('.$name.')';
+//            $addresses = $this->Site->query( $query );            
+//        }
+//        return $addresses;
+    
+        //$IPAddress = $this->loadModel('IPAddress')->getAddress($name);
+        $addresses = ClassRegistry::init('IPAddress')->getAddress($name);
+        //$this->set(compact('addresses'));
+
+//        if ($IPAddress!==false) {
+//            $IPAddress->getAddress($name);
+//        } else {
+//            debug('Oh no!');
+//        }
+        return $addresses;
+    }
 }
 ?>

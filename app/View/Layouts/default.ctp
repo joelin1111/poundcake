@@ -16,6 +16,8 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 
+//$banner = 'Tower DB system upgrade Sept 24, 2012 at 1:00 PM (13:00) Pacific';
+
 $cakeDescription = __d('poundcake', 'Tower DB');
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -94,7 +96,7 @@ $cakeDescription = __d('poundcake', 'Tower DB');
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </a>
-          <a class="brand" href="/">Tower DB v1.3</a>
+          <a class="brand" href="/">Tower DB v1.4</a>
           <div class="nav-collapse">
             <ul class="nav pull-left">
             <?php
@@ -156,13 +158,29 @@ $cakeDescription = __d('poundcake', 'Tower DB');
         </div>
       </div>
     </div> <!--/.navbar -->
-    
+    <div align="center">
+    <?php 
+        if (isset($banner) && strlen($banner) > 0 ) {
+            //echo '<div class="row">';
+            //echo '<div class="span9" align="center">';
+            echo '<div align="center">';
+            echo '<span style="vertical-align:middle" class="label label-warning">';       
+            echo  $banner; 
+            echo '</span></div><br>';
+        }
+        
+    ?>
+    </div>
     <div class="container">
     	<?php
                 echo $content_for_layout;
             ?>
         <div id="footer" align="center"><BR><BR><BR>
-            Copyright © <?php echo date("Y"); ?>. All Rights Reserved.
+                        Copyright © <?php echo date("Y"); ?>. All Rights Reserved.<BR>
+        <?php
+            echo $this->Html->link(('Version History'), array('action' => 'index', 'controller' => 'changeLog'));
+        ?>
+
         </div> <!-- /footer -->
 <!--        Debugging info:-->
     <?php //echo $this->element('sql_dump'); ?>

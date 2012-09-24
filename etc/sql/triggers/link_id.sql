@@ -1,5 +1,9 @@
 -- **************************************************************************************
--- 
+-- This trigger looks for a radio that corresponds to the newly inserted radio, then
+-- links them via the link_id field -- since a trigger cannot update rows in the same
+-- table, the procedure sp_add_link_id is also called immediately after this -- that
+-- links the other radio back to the new radio
+-- Radios are named in the format XXXXX-YYYYY; a corresponding radio would be YYYYY-XXXXX
 -- **************************************************************************************
 
 DROP TRIGGER IF EXISTS network_radio_insert;
@@ -25,6 +29,11 @@ BEGIN
 	END IF;
 END $$
 DELIMITER ;
+
+-- **************************************************************************************
+-- This trigger updates the link_id for an updated radio, or clears it if there's
+-- no match
+-- **************************************************************************************
 
 DROP TRIGGER IF EXISTS network_radio_update;
 DELIMITER $$ 
