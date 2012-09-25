@@ -86,6 +86,10 @@ class PagesController extends AppController {
         // show logout page
     }
     
+    public function test() {
+        
+    }
+    
     public function isAuthorized($user) {
         // this doesn't get called until after the login function
         //return true;

@@ -3,7 +3,7 @@
     <H3>Actions</H3>
     <div class="well well-large">
     <ul>
-        <li><?php echo $this->Html->link(__('New Router'), array('action' => 'add')); ?></li>
+        <li><?php echo $this->MyHTML->linkIfAllowed(__('New Router'), array('action' => 'add')); ?></li>
     </ul>
     </div>
 </div><!-- /.span3 .sb-fixed -->
@@ -23,8 +23,8 @@
 	<tr>
             <td><?php echo h($networkrouter['NetworkRouter']['name']);?></td>
             <td>
-                    <?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $networkrouter['NetworkRouter']['id'])); ?>
-                    <?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $networkrouter['NetworkRouter']['id']), null, __('Are you sure you want to delete router %s?', $networkrouter['NetworkRouter']['name'])); ?>
+                    <?php echo $this->MyHTML->linkIfAllowed(__('Edit'), array('action' => 'edit', $networkrouter['NetworkRouter']['id'])); ?>
+                    <?php echo $this->MyHTML->linkIfAllowed(__('Delete'), array('action' => 'delete', $networkrouter['NetworkRouter']['id']), null, __('Are you sure you want to delete router %s?', $networkrouter['NetworkRouter']['name'])); ?>
             </td>
 	</tr>
         <?php endforeach; ?>

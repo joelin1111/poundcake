@@ -9,9 +9,9 @@
     <H3>Actions</H3>
     <div class="well well-large">
     <ul>
+        <li><?php echo $this->MyHTML->linkIfAllowed(__('Edit Radio'), array('action' => 'edit', $networkradio['NetworkRadio']['id']))?></li>
         <li><?php echo $this->Html->link(__('List Radios'), array('action' => 'index')); ?></li>
-        <li><?php echo $this->Html->link(__('Edit Radio'), array('action' => 'edit', $networkradio['NetworkRadio']['id']))?></li>
-        <li><?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $networkradio['NetworkRadio']['id']), null, __('Are you sure you want to delete radio %s?', $networkradio['NetworkRadio']['name'])); ?></li>
+        <li><?php echo $this->MyHTML->linkIfAllowed(__('Delete'), array('action' => 'delete', $networkradio['NetworkRadio']['id']), null, __('Are you sure you want to delete radio %s?', $networkradio['NetworkRadio']['name'])); ?></li>
     </ul>
     </div>
 </div><!-- /.span3 .sb-fixed -->
@@ -22,7 +22,11 @@
     <P><B>Antenna:</B>&nbsp;<?php echo $networkradio['AntennaType']['name']; ?></P>    
     <P><B>Link Distance:</B>&nbsp;<?php echo $networkradio['NetworkRadio']['link_distance']; ?></P>
     <P><B>True Azimuth:</B>&nbsp;<?php echo $networkradio['NetworkRadio']['true_azimuth']; ?></P>
-    <P><B>Magnetic Azimuth:</B>&nbsp;<?php echo $networkradio['NetworkRadio']['mag_azimuth']; ?></P>
+    <P><B>Magnetic Azimuth:</B>&nbsp;
+        <?php //echo $networkradio['NetworkRadio']['mag_azimuth'];
+            echo sprintf("%01.5f",$mag_azimuth);
+        ?>
+    </P>
     <P><B>Elevation:</B>&nbsp;<?php echo $networkradio['NetworkRadio']['elevation']; ?></P>
     <P><B>Frequency:</B>&nbsp;<?php echo $networkradio['NetworkRadio']['frequency']; ?></P>
     <P><B>SSID:</B>&nbsp;<?php echo $networkradio['NetworkRadio']['ssid']; ?></P>

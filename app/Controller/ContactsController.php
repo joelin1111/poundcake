@@ -7,6 +7,8 @@ App::uses('AppController', 'Controller');
  */
 class ContactsController extends AppController {
 
+    var $helpers = array('MyHTML');
+    
     function index($id = null) {
         
         $conditions = "";

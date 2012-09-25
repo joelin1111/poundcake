@@ -8,7 +8,7 @@
   echo $this->Form->input('site_code',array('escape' => true,'class' => 'span2'));
   echo $this->Form->input('site_name',array('class' => 'span2'));
   ?>
-<span class="help-block">Use * as a wildcard</span>
+<span class="help-block">Use * to wildcard</span>
 <?php
     echo $this->Form->submit(__('Search', true), array('div' => false));
     echo $this->Form->end(); 

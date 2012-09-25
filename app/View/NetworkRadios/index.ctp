@@ -3,7 +3,7 @@
     <H3>Actions</H3>
     <div class="well well-large">
     <ul>
-        <li><?php echo $this->Html->link(__('New Radio'), array('action' => 'add')); ?></li>
+        <li><?php echo $this->MyHTML->linkIfAllowed(__('New Radio'), array('action' => 'add')); ?></li>
     </ul>
     </div>
 </div><!-- /.span3 .sb-fixed -->
@@ -27,8 +27,8 @@
         <td><?php echo $networkradio['Site']['site_vf'];?></td>
         <td><?php echo $networkradio['RadioType']['name'];?></td>
         <td>
-            <?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $networkradio['NetworkRadio']['id'])); ?>
-            <?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $networkradio['NetworkRadio']['id']), null, __('Are you sure you want to delete radio %s?', $networkradio['NetworkRadio']['name'])); ?>
+            <?php echo $this->MyHTML->linkIfAllowed(__('Edit'), array('action' => 'edit', $networkradio['NetworkRadio']['id'])); ?>
+            <?php echo $this->MyHTML->linkIfAllowed(__('Delete'), array('action' => 'delete', $networkradio['NetworkRadio']['id']), null, __('Are you sure you want to delete radio %s?', $networkradio['NetworkRadio']['name'])); ?>
         </td>
     </tr>
     <?php endforeach; ?>

@@ -3,7 +3,7 @@
     <H3>Actions</H3>
     <div class="well well-large">
     <ul>
-        <li><?php echo $this->Html->link(__('New Switch'), array('action' => 'add')); ?></li>
+        <li><?php echo $this->MyHTML->linkIfAllowed('New Switch', array('action' => 'add')); ?></li>
     </ul>
     </div>
 </div><!-- /.span3 .sb-fixed -->
@@ -23,8 +23,8 @@
     <tr>
         <td><?php echo $this->Html->link($networkswitch['NetworkSwitch']['name'], array('action' => 'view', $networkswitch['NetworkSwitch']['id'])); ?></td>
         <td>
-            <?php echo $this->Html->link(('Edit'), array('action' => 'edit', $networkswitch['NetworkSwitch']['id'])); ?>
-            <?php echo $this->Form->postLink(('Delete'), array('action' => 'delete', $networkswitch['NetworkSwitch']['id']), null, __('Are you sure you want to delete switch %s?', $networkswitch['NetworkSwitch']['name'])); ?>
+            <?php echo $this->MyHTML->linkIfAllowed(('Edit'), array('action' => 'edit', $networkswitch['NetworkSwitch']['id'])); ?>
+            <?php echo $this->MyHTML->linkIfAllowed(('Delete'), array('action' => 'delete', $networkswitch['NetworkSwitch']['id']), null, __('Are you sure you want to delete switch %s?', $networkswitch['NetworkSwitch']['name'])); ?>
         </td>
     </tr>
     <?php endforeach; ?>

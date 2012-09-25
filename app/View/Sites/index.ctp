@@ -8,7 +8,7 @@
     <H3>Actions</H3>
     <div class="well well-large">
     <ul>
-        <li><?php echo $this->Html->link(__('New Site'), array('action' => 'add')); ?></li>
+        <li><?php echo $this->MyHTML->linkIfAllowed(__('New Site'), array('action' => 'add')); ?></li>
     </ul>
     </div>
     
@@ -68,8 +68,9 @@
            <td><?php echo $site['Zone']['name']; ?></td>
            <td>
 <!--               <button class="btn btn-mini"></button>-->
-            <?php echo $this->Html->link('Edit', array('action'=>'edit', $site['Site']['id']));?>
-            <?php echo $this->Html->link('Delete', array('action' => 'delete', $site['Site']['id']), null, 'Are you sure?' )?>
+            <?php //echo $this->Html->link('Edit', array('action'=>'edit', $site['Site']['id']));?>
+            <?php echo $this->MyHTML->linkIfAllowed('Edit', array('action'=>'edit', $site['Site']['id']));?>
+            <?php echo $this->MyHTML->linkIfAllowed('Delete', array('action' => 'delete', $site['Site']['id']), null, 'Are you sure?' )?>
            </td>
        </tr>
     <?php

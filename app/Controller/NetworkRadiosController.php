@@ -3,6 +3,8 @@ App::uses('AppController', 'Controller');
 
 class NetworkRadiosController extends AppController {
 
+    var $helpers = array('MyHTML');
+    
     public $paginate = array(
         'limit' => 20, // default limit also defined in AppController
         'order' => array(
@@ -24,6 +26,20 @@ class NetworkRadiosController extends AppController {
         $this->set('networkradio', $this->NetworkRadio->read(null, $id));
         $ip_addresses = $this->getAddress($this->NetworkRadio->field('name'));
         $this->set(compact('ip_addresses'));
+        
+        $true_azimuth = $this->NetworkRadio->field('true_azimuth');
+        $declination = $this->NetworkRadio->Site->field('declination');
+        
+        // Converting azimuths with easterly G-M angle
+        // To convert a grid azimuth to a magnetic azimuth, subtract the G-M angle from the grid azimuth.
+        // 
+        // Converting azimuths with westerly G-M angle
+        // To convert a grid azimuth to a magnetic azimuth, add the value of the G-M angle to the grid azimuth.
+        // 
+        // http://www.armystudyguide.com/content/SMCT_CTT_Tasks/Skill_Level_1/land-nav-task-9-convert-a.shtml
+
+        //echo "Declination  ".$declination; die;
+        $this->set('mag_azimuth', $true_azimuth - $declination);
     }
 
     // return all the sites to allow the radio to be assigned to

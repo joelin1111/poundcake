@@ -1,3 +1,7 @@
+alter table sites add bearing decimal(17,14) after lon;
+
+
+
 -- Old
 
 -- alter table network_switches drop num_ports;

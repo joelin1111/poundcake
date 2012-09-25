@@ -3,6 +3,8 @@ App::uses('AppController', 'Controller');
 
 class NetworkRoutersController extends AppController {
 
+    var $helpers = array('MyHTML');
+    
     public $paginate = array(
         'limit' => 20, // default limit also defined in AppController
         'order' => array(

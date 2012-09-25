@@ -8,7 +8,7 @@ class SitesController extends AppController
     // AjaxMultiUpload is used for the file upload plugin
     // AltGoogleMapV3 is the Marc Fernandez Google Map helper, just renamed
     // AutoCompleteHelper removed -- not used
-    var $helpers = array('AjaxMultiUpload.Upload','AltGoogleMapV3');
+    var $helpers = array('AjaxMultiUpload.Upload','AltGoogleMapV3','MyHTML');
     //var  $uses = null; // needed by Pdf helper?
 
     public $components = array('AjaxMultiUpload.Upload','RequestHandler'); //,'DebugKit.Toolbar'
@@ -72,7 +72,7 @@ class SitesController extends AppController
         
         
         $this->set('installteams',$this->Site->InstallTeam->find('list'));
-        $yy = $this->Site->InstallTeam->find('all');
+//        $yy = $this->Site->InstallTeam->find('all');
 //        echo '<pre>';
 //        print_r($yy);
 //        echo '</pre>';
@@ -95,17 +95,6 @@ class SitesController extends AppController
         // skip any that don't have coordinates in the db
         $conditions = array ("NOT" => array ("Site.lat" => null));
         $sites = $this->Site->find('all', array('conditions' => $conditions));
-        //print_r($sites);
-        /*
-        for($i = 0; $i < sizeof($sites); ++$i) {
-            // for each site, decode the lat/lon and save it back to the
-            // array of sites
-            //echo "<pre> Site ID = ".$sites[$i]['Site']['id']."</pre>";
-            // we're actually overwriting the Site's "location" field (which
-            // comes back as a binary object) with the decoded lat/lon
-            $sites[$i]['Site']['location'] = $this->getLatLon( $sites[$i]['Site']['id'], 'sites' );
-        }
-        */
         $this->set('sites', $sites);
         $this->buildLegend();
     }
@@ -190,25 +179,6 @@ class SitesController extends AppController
         }
         $this->set('board', $board);
     }
-    
-//    function getBearing() {
-//        //  78.3 deg N, 104.0 deg W
-//        $lat1 = 45.5352835;
-//        $lon1 = -122.6037536;
-//        //$lat2 = 78.3;
-//        //$lon2 = 104.0;
-//        $lat2 = 0;
-//        $lon2 = 0;
-//        
-//        $bearing = (rad2deg(atan2(sin(deg2rad($lon2) - deg2rad($lon1)) * cos(deg2rad($lat2)), cos(deg2rad($lat1)) * sin(deg2rad($lat2)) - sin(deg2rad($lat1)) * cos(deg2rad($lat2)) * cos(deg2rad($lon2) - deg2rad($lon1)))) + 360) % 360;
-//        
-//        echo '<pre>';
-//        echo 'Bearing: ';
-//        print_r($bearing);
-//        echo '</pre>';
-//        die;
-//        
-//    }
     
     function schedule($id) {
         //echo '<pre>';
@@ -394,6 +364,9 @@ class SitesController extends AppController
 //                echo "Failed validation"; die;               
 //            }
             
+            // compute the declination then save it back to the request object
+            $this->request->data['Site']['declination'] = $this->getDeclination($this->request->data['Site']['lat'],$this->request->data['Site']['lon']);
+            
             if ($this->Site->saveAssociated($this->request->data, array('validate'=>true))) {
                 $this->Session->setFlash(__('The site has been saved'));
                 $this->redirect(array('action' => 'index'));
@@ -456,6 +429,9 @@ class SitesController extends AppController
             // before we can save any radios on this site we have to set the site_id
             // so walk throug that array here and save that
             
+            // compute the declination then save it back to the request object
+            $this->request->data['Site']['declination'] = $this->getDeclination($this->request->data['Site']['lat'],$this->request->data['Site']['lon']);
+            
             if ($this->Site->saveAll($this->request->data, array('deep' => true))) {
                 
                 // if the specified a new switch
@@ -498,6 +474,26 @@ class SitesController extends AppController
 //            print_r($this->request->data);
 //            echo '</pre>';
         }
+    }
+    
+    function getDeclination($lat, $lon) {
+        $dec = null;
+        if (isset($lat) && isset($lon)) {
+            #$lat=45.53704;
+            #$lon=-122.599793;
+            $url='http://www.ngdc.noaa.gov/geomag-web/calculators/calculateDeclination?lat1='.$lat.'&lon1='.$lon.'&resultFormat=csv';
+            //http://www.ngdc.noaa.gov/geomag-web/calculators/calculateDeclination?lat1=45.53704&lon1=122.599793&resultFormat=csv
+            //$x = readfile ("http://www.ngdc.noaa.gov/geomag-web/calculators/calculateDeclination?lat1='.$lat.'&lon1='.$lon.'&resultFormat=xml");
+            #echo "URL is ".$url.'<br><br>';
+            //$x = readfile($url);
+            $x = file_get_contents($url);
+            $y = str_getcsv($x);
+            //echo '<br><br><pre>';
+            //print_r($y[3]);
+            $dec = $y[3];
+            //echo '</pre>';
+        }
+        return $dec;
     }
     
     public function isAuthorized($user) {
