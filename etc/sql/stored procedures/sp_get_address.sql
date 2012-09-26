@@ -5,12 +5,9 @@ DELIMITER ENDSPDEF
 -- Create the procedure
 CREATE PROCEDURE sp_get_address(site_code varchar(255)  character set utf8) -- otherwise latin1
     BEGIN
-    	-- IF (NULLIF(site_code,''))
-    	-- THEN
-        	SELECT base
-        	FROM addrpool_subnet
-        	WHERE name = site_code;
-        -- END IF;
+        SELECT base, name, slash
+        FROM addrpool_subnet
+        WHERE name = site_code;
     END ENDSPDEF
 -- Switch the delimiter back to ;
 DELIMITER ;

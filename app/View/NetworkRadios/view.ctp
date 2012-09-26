@@ -20,8 +20,12 @@
     <P><B>Name:</B>&nbsp;<?php echo $networkradio['NetworkRadio']['name']; ?></P>
     <P><B>Radio Type:</B>&nbsp;<?php echo $networkradio['RadioType']['name']; ?></P>
     <P><B>Antenna:</B>&nbsp;<?php echo $networkradio['AntennaType']['name']; ?></P>    
-    <P><B>Link Distance:</B>&nbsp;<?php echo $networkradio['NetworkRadio']['link_distance']; ?></P>
-    <P><B>True Azimuth:</B>&nbsp;<?php echo $networkradio['NetworkRadio']['true_azimuth']; ?></P>
+    <P><B>Link Distance:</B>&nbsp;<?php echo sprintf("%01.2f",$link_distance). ' Km'; ?></P>
+    <P><B>True Azimuth:</B>&nbsp;
+        <?php //echo $networkradio['NetworkRadio']['true_azimuth'];
+            echo sprintf("%01.5f",$true_azimuth);
+        ?>
+    </P>
     <P><B>Magnetic Azimuth:</B>&nbsp;
         <?php //echo $networkradio['NetworkRadio']['mag_azimuth'];
             echo sprintf("%01.5f",$mag_azimuth);

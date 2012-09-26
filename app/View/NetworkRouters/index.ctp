@@ -24,7 +24,7 @@
             <td><?php echo h($networkrouter['NetworkRouter']['name']);?></td>
             <td>
                     <?php echo $this->MyHTML->linkIfAllowed(__('Edit'), array('action' => 'edit', $networkrouter['NetworkRouter']['id'])); ?>
-                    <?php echo $this->MyHTML->linkIfAllowed(__('Delete'), array('action' => 'delete', $networkrouter['NetworkRouter']['id']), null, __('Are you sure you want to delete router %s?', $networkrouter['NetworkRouter']['name'])); ?>
+                    <?php echo $this->MyHTML->postLinkIfAllowed(__('Delete'), array('action' => 'delete', $networkrouter['NetworkRouter']['id']), null, __('Are you sure you want to delete router %s?', $networkrouter['NetworkRouter']['name'])); ?>
             </td>
 	</tr>
         <?php endforeach; ?>

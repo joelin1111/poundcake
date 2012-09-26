@@ -20,7 +20,7 @@
     
         echo $this->Form->input('name');
         echo $this->Form->input('site_id');
-        echo $this->Form->input('radio_type_id', array('type'=>'select','options' => $radiotypes));
+        echo $this->Form->input('radio_type_id', array('type'=>'select','options' => $radiotypes,'default'=>'1'));
         echo $this->Form->input('antenna_type_id', array('type'=>'select','options' => $antennatypes));
         echo $this->Form->input('link_distance', array('label'=>'Link Distance'));
         echo $this->Form->input('true_azimuth', array('label'=>'True Azimuth'));

@@ -1,6 +1,8 @@
-alter table sites add bearing decimal(17,14) after lon;
-
-
+alter table sites add declination decimal(17,14) after lon;
+alter table network_radios drop link_distance;
+alter table network_radios drop true_azimuth;
+alter table network_radios drop mag_azimuth;
+update network_radios set ssid='';
 
 -- Old
 

@@ -70,7 +70,7 @@
 <!--               <button class="btn btn-mini"></button>-->
             <?php //echo $this->Html->link('Edit', array('action'=>'edit', $site['Site']['id']));?>
             <?php echo $this->MyHTML->linkIfAllowed('Edit', array('action'=>'edit', $site['Site']['id']));?>
-            <?php echo $this->MyHTML->linkIfAllowed('Delete', array('action' => 'delete', $site['Site']['id']), null, 'Are you sure?' )?>
+            <?php echo $this->MyHTML->postLinkIfAllowed('Delete', array('action' => 'delete', $site['Site']['id']), null, 'Are you sure?' )?>
            </td>
        </tr>
     <?php

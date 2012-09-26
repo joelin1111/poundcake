@@ -13,7 +13,10 @@
             foreach ($ip_addresses as $subnet) {
                 //echo $this->Html->link(__($contact['first_name']." ".$contact['last_name']), array(
                 echo "<LI>";
-                echo $subnet['addrpool_subnet']['base'];
+                echo $subnet['addrpool_subnet']['name'];
+                echo '&nbsp;'.$subnet['addrpool_subnet']['base'];
+                echo '/'.$subnet['addrpool_subnet']['slash'];
+                
                 echo "</LI>";
             }
             echo "</UL>";
