@@ -17,13 +17,6 @@ class Site extends AppModel {
         'InstallTeam'
     );
     
-    /*
-    var $hasOne = array (
-        'NetworkSwitch',
-        'NetworkRouter'
-    );
-    */
-    
     public $hasMany = array(
         'NetworkRadios' => array(
             'className' => 'NetworkRadio',
@@ -88,14 +81,17 @@ class Site extends AppModel {
     // The model will use name or title, by default.
     public $displayField = 'site_vf';
     
-    public $actsAs = array('Search.Searchable');
+    //public $actsAs = array('Search.Searchable');   // not sure if this is used anymore
     
+    /*
+    // used by search?
     public $filterArgs = array(
         // filterTitle is defined below
         array('name' => 'site_name', 'type' => 'query', 'method' => 'filterSite'),
         // this is used in a drop down of districts
         //array('name' => 'district', 'type' => 'value'),
     );
+    */
     
     public function __construct($id = false,$table = null,$ids = null) {
         parent::__construct($id,$table,$ids);

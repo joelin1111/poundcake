@@ -31,10 +31,11 @@ class SitesController extends AppController
         $site_name_arg = "";
         //echo $this->passedArgs['Site.site_code'];
         
+        // used by search
         if (isset($this->passedArgs['Site.site_code'])) {
             $site_code_arg = str_replace('*','%',$this->passedArgs['Site.site_code']);
         }
-        
+        // used by search
         if (isset($this->passedArgs['Site.site_name'])) {
             $site_name_arg = str_replace('*','%',$this->passedArgs['Site.site_name']);
         }
@@ -209,31 +210,10 @@ class SitesController extends AppController
         $this->getBuildItems();
         //$this->getInstallTeams();
         
-        switch ($this->Site->data['Site']['site_state_id']){
-            case 0:
-                $label = 'label label-warning';
-                break;
-            case 15:
-                $label = 'label label-success';
-                break;
-            case 20:
-                $label = 'label label-important';
-                break;
-            default:
-                $label = 'label label-warning';
-                break;
-            }
-        // label-success - green
-        // label-important - red
-        // label-warning - yellow
-        $this->set('state_class',$label);
-        
         //$this->set('ip_addresses',$this->getAddress($this->Site->field('site_code')));
         
         $ip_addresses = $this->getAddress($this->Site->field('site_code'));
         $this->set(compact('ip_addresses'));
-        
-        
     }
     
     function getZones() {

@@ -13,8 +13,34 @@ class NetworkRadiosController extends AppController {
     );
     
     public function index() {
+        // begin search stuff
+        $name_arg = "";
+        if (isset($this->passedArgs['NetworkRadio.name'])) {
+            $name_arg = str_replace('*','%',$this->passedArgs['NetworkRadio.name']);
+        }
+        // if no argument was passed, default to a wildcard
+        if ($name_arg == "") {
+            $name_arg = '%';
+        }
+        $conditions = array(
+            'AND' => array(
+                'NetworkRadio.name LIKE' => $name_arg
+            )
+        );
+        $this->paginate = array(
+            'NetworkRadio' => array(
+                // limit is the number per page 
+                'limit' => 20,
+                'conditions' => $conditions,
+                'order' => array(
+                    'NetworkRadio.name' => 'asc',
+                ),
+            ));
         $this->NetworkRadio->recursive = 1;
-        $this->set('networkradios', $this->paginate());
+        $data = $this->paginate('NetworkRadio');
+        $this->set('networkradios',$data);
+        // end search stuff
+        // $this->set('networkradios', $this->paginate());
     }
 
     public function view($id = null) {

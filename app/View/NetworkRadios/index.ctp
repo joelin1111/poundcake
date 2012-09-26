@@ -6,6 +6,21 @@
         <li><?php echo $this->MyHTML->linkIfAllowed(__('New Radio'), array('action' => 'add')); ?></li>
     </ul>
     </div>
+    
+    <H3>Search</H3>
+    <?php
+      echo $this->Form->create(
+          'NetworkRadio',
+          // calls the search function on the SitesController
+          array('action'=>'search','class' => 'well')
+      );
+      echo $this->Form->input('name',array('escape' => true,'class' => 'span2'));
+      ?>
+    <span class="help-block">Use * to wildcard</span>
+    <?php
+        echo $this->Form->submit(__('Search', true), array('div' => false));
+        echo $this->Form->end(); 
+    ?>
 </div><!-- /.span3 .sb-fixed -->
 
 <div class="span9">
