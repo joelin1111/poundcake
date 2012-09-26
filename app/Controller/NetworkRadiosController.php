@@ -353,11 +353,11 @@ class NetworkRadiosController extends AppController {
     function getBearing($id, $link_id) {
         $radio1 = $this->NetworkRadio->findById($id);
         $radio2 = $this->NetworkRadio->findById($link_id);
-
-        $lat1 = $radio1['Site']['lat'];
-        $lon1 = $radio1['Site']['lon'];
-        $lat2 = $radio2['Site']['lat'];
-        $lon2 = $radio2['Site']['lon'];
+        
+        $lat1 = deg2rad($radio1['Site']['lat']);
+        $lon1 = deg2rad($radio1['Site']['lon']);
+        $lat2 = deg2rad($radio2['Site']['lat']);
+        $lon2 = deg2rad($radio2['Site']['lon']);
 
         // http://mathforum.org/library/drmath/view/60398.html
         // http://mathforum.org/library/drmath/view/55417.html
@@ -374,15 +374,15 @@ class NetworkRadiosController extends AppController {
         // these coordinates for point B and your own location for point A when using the formula on the page above.
     
         //$b  = atan2(sin($lon2-$lon1)*cos($lat2),cos($lat1)*sin($lat2)-sin($lat1)*cos($lat2)*cos($lon2-$lon1)) % (2*pi());
-        $b  = atan2(sin($lon2-$lon1)*cos($lat2),cos($lat1)*sin($lat2)-sin($lat1)*cos($lat2)*cos($lon2-$lon1));
         // http://www.ig.utexas.edu/outreach/googleearth/latlong.html
-        $b = $b * (180/pi());
+        $b  = atan2(sin($lon2-$lon1)*cos($lat2),cos($lat1)*sin($lat2)-sin($lat1)*cos($lat2)*cos($lon2-$lon1));
+        $b = rad2deg($b);
+        //$b = $b * (180/pi());
+        //$b = ($b + 360) % 360;
         if ($b < 0) {
             $b += 360;
         }
-        //$b = ($b+360);// % 360;
-        
-        echo "B is $b";
+        //echo "B is $b";
         return $b;
         
         

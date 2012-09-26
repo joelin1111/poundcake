@@ -24,11 +24,8 @@
 </div><!-- /.span3 .sb-fixed -->
 
 <div class="span9">
-    <h2><?php echo $site['Site']['site_code']." ".$site['Site']['site_name']; ?>
-        <span style="vertical-align:middle" class="<?php echo $state_class?>">
-            <?php echo $site['SiteState']['name']; ?>
-        </span>
-    </h2>
+    <h2><?php echo $site['Site']['site_code']." ".$site['Site']['site_name'].' ('.$site['SiteState']['name'].')'?> </h2>
+    <h3><?php //echo $site['SiteState']['name']; ?></h3>
     
     <P><B>Site contacts:</B>&nbsp;
         <?php
