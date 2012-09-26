@@ -20,7 +20,17 @@ class ChangeLogController extends AppController {
         $this->set('changeLog', $changeLog);
         //$this->set('changeLog', $this->ChangeLog->read(null, $id));
     }
-
+    
+    /*
+    public function sslTest() {
+        $link = mysql_connect("10.0.2.6","addrpool-viewer","addrpool-viewer",false,MYSQL_CLIENT_SSL) 
+                or die(mysql_error());
+        $res = mysql_query("SHOW STATUS LIKE 'ssl_cipher';",$link);
+        print_r(mysql_fetch_row($res));
+        echo "Finished.";
+    }
+    */
+    
     public function add() {
         if ($this->request->is('post')) {
             $this->ChangeLog->create();

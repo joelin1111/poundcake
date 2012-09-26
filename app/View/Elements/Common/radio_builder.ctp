@@ -13,7 +13,7 @@
                     'label' => 'Radio Type',
                     'options' => $radiotypes,
                     'empty' => true,
-                    'default'=>'3'
+                    'default'=>'1'
                     )
         );
         ?>

@@ -11,7 +11,7 @@
     <ul>
         <li><?php echo $this->MyHTML->linkIfAllowed(__('Edit Radio'), array('action' => 'edit', $networkradio['NetworkRadio']['id']))?></li>
         <li><?php echo $this->Html->link(__('List Radios'), array('action' => 'index')); ?></li>
-        <li><?php echo $this->MyHTML->linkIfAllowed(__('Delete'), array('action' => 'delete', $networkradio['NetworkRadio']['id']), null, __('Are you sure you want to delete radio %s?', $networkradio['NetworkRadio']['name'])); ?></li>
+        <li><?php echo $this->MyHTML->postLinkIfAllowed(__('Delete'), array('action' => 'delete', $networkradio['NetworkRadio']['id']), null, __('Are you sure you want to delete radio %s?', $networkradio['NetworkRadio']['name'])); ?></li>
     </ul>
     </div>
 </div><!-- /.span3 .sb-fixed -->

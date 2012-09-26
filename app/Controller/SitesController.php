@@ -244,10 +244,26 @@ class SitesController extends AppController
         $this->set('powertypes',$this->Site->PowerType->find('list'));
     }
     
-    function getRoadTypes() {
+    function getTowerTypes() {
         // identical to getZones
-        $this->set('roadtypes',$this->Site->RoadType->find('list'));
+        $this->set('towertypes',$this->Site->TowerType->find('list'));
     }
+    
+    function getTowerMembers() {
+        // identical to getZones
+        $this->set('towermembers',$this->Site->TowerMember->find('list'));
+    }
+    
+    function getTowerEquipment() {
+        // identical to getZones
+        $this->set('towerequipment',$this->Site->TowerEquipment->find('list'));
+    }
+    
+    function getTowerMounts() {
+        // identical to getZones
+        $this->set('towermounts',$this->Site->TowerMount->find('list'));
+    }
+   
     
     function getNetworkSwitches() {
         // identical to getZones
@@ -309,6 +325,12 @@ class SitesController extends AppController
         $this->getTowerOwners();
         $this->getSiteStates();
         $this->getPowerTypes();
+        
+        $this->getTowerTypes();
+        $this->getTowerMembers();
+        $this->getTowerEquipment();
+        $this->getTowerMounts();
+        
         $this->getNetworkSwitches();
         $this->getNetworkRouters();
         $this->getRadioTypes();
@@ -380,6 +402,12 @@ class SitesController extends AppController
         $this->getTowerOwners();
         $this->getSiteStates();
         $this->getPowerTypes();
+        
+        $this->getTowerTypes();
+        $this->getTowerMembers();
+        $this->getTowerEquipment();
+        $this->getTowerMounts();
+        
         $this->getNetworkSwitches();
         $this->getNetworkRouters();
         $this->getNetworkRadios();

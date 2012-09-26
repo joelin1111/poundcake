@@ -21,27 +21,6 @@ class NetworkRadio extends AppModel {
     );    
     */
     
-    /*
-    var $hasAndBelongsToMany = array(
-        'Tag' =>
-            array(
-                'className'              => 'NetworkRadio',
-                'joinTable'              => 'radios_radios',
-                'foreignKey'             => 'src_id',
-                'associationForeignKey'  => 'dest_id',
-                'unique'                 => true,
-                'conditions'             => '',
-                'fields'                 => '',
-                'order'                  => '',
-                'limit'                  => '',
-                'offset'                 => '',
-                'finderQuery'            => '',
-                'deleteQuery'            => '',
-                'insertQuery'            => ''
-            )
-    );
-    */
-    
     public $validate = array(
         'name' => array(
             'notempty' => array(
@@ -56,12 +35,10 @@ class NetworkRadio extends AppModel {
                 'rule' => array('isUnique', array('name')),
                 'message' => 'This field need must be unique!'
             ),
-            /*,
-            'checkUnique' => array(
-                'rule' => array('checkUnique', array('field1', 'field2')),
-                'message' => 'This field need to be non-empty and the row need to be unique'
+            'format' => array(
+                'rule' => '/^[a-z0-9]{1,}\-[a-z0-9]{1,}$/i',
+                'message' => 'Wrong format, should be: [Letters, Numbers]-[Letters, Numbers]'
             ),
-            */
         ),
     );
 }

@@ -27,7 +27,7 @@ CREATE PROCEDURE sp_rm_link_id(radio_id int(10))
     BEGIN 
         UPDATE network_radios
         SET link_id = NULL
-        WHERE id = radio_id;
+        WHERE id = id;
     END ENDSPDEF
 -- Switch the delimiter back to ;
 DELIMITER ;

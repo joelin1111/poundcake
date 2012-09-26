@@ -3,6 +3,52 @@ alter table network_radios drop link_distance;
 alter table network_radios drop true_azimuth;
 alter table network_radios drop mag_azimuth;
 update network_radios set ssid='';
+alter table sites drop road_type_id;
+alter table sites add tower_type_id int(10) after tower_owner_id;
+alter table sites add tower_member_id int(10) after tower_type_id;
+alter table sites add tower_equipment_id int(10) after tower_member_id;
+alter table sites add tower_mount_id int(10) after tower_equipment_id;
+
+DROP TABLE IF EXISTS `tower_equipment`;
+CREATE TABLE `tower_equipment` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `tower_members`;
+CREATE TABLE `tower_members` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `tower_mounts`;
+CREATE TABLE `tower_mounts` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `tower_types`;
+CREATE TABLE `tower_types` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+
+insert into tower_equipment(name) values ('Freestanding');
+insert into tower_equipment(name) values ('Guyed');
+
+insert into tower_members(name) values ('L-Bar');
+insert into tower_members(name) values ('Round Bar');
+
+insert into tower_mounts(name) values ('Existing Standoffs');
+insert into tower_mounts(name) values ('Beam Clamps');
+
+insert into tower_types(name) values ('Space Cabinet');
+insert into tower_types(name) values ('Equipment Room');
+
 
 -- Old
 

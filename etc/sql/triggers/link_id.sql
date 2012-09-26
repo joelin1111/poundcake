@@ -12,13 +12,19 @@ CREATE TRIGGER network_radio_insert
 BEFORE INSERT ON network_radios
 FOR EACH ROW
 BEGIN
-	-- the user just entered a radio name "BAYCT-BELDR"
-	-- grab "BAYCT" into @src
-	SELECT SUBSTRING(NEW.name,1,5) INTO @src;
-	-- now grab "BELDR" into @dest
-	SELECT SUBSTRING(NEW.name,7,5) INTO @dest;
-	-- now make @dest_name "BELDR-BAYCT"
+	-- Radios are named XXXXX-YYYYY however there can be
+	-- a different number of characters on each, e.g.
+	-- XXXX-YYYYY
+	-- YY-XXXXX
+	-- Etc.
+	
+	 -- returns everything to the right of the '-'
+	SELECT SUBSTRING_INDEX(NEW.name,'-',-1) INTO @dest;
+	-- returns everything to the left of the '-'
+	SELECT SUBSTRING_INDEX(NEW.name,'-',+1) INTO @src;
+	-- now swap them to find the opposite radio name as per our naming convention
 	SELECT CONCAT(@dest, '-', @src) INTO @dest_name;
+
 	-- get the ID of the corresponding radio
 	SELECT id INTO @dest_radio_id
 	FROM network_radios
@@ -42,8 +48,8 @@ BEFORE UPDATE ON network_radios
 FOR EACH ROW
 BEGIN
 	-- see notes in trigger network_radio_insert
-	SELECT SUBSTRING(NEW.name,1,5) INTO @src;
-	SELECT SUBSTRING(NEW.name,7,5) INTO @dest;
+	SELECT SUBSTRING_INDEX(NEW.name,'-',-1) INTO @dest;
+	SELECT SUBSTRING_INDEX(NEW.name,'-',+1) INTO @src;
 	SELECT CONCAT(@dest, '-', @src) INTO @dest_name;
 	
 	-- get the ID of the corresponding radio

@@ -56,16 +56,21 @@ class NetworkRadiosController extends AppController {
         //$true_azimuth = $this->NetworkRadio->field('true_azimuth');
         $declination = $this->NetworkRadio->Site->field('declination');
         
+        $true_azimuth = 0;
+        $link_distance = 0;
+        $mag_azimuth = 0;
+        
         if ($this->NetworkRadio->field('link_id') > 0) {
             $id = $this->NetworkRadio->field('id');
             $link_id = $this->NetworkRadio->field('link_id');
-            $this->set('link_distance',$this->getLinkDistance($id, $link_id));
+            $link_distance = $this->getLinkDistance($id, $link_id);
             
             $true_azimuth = $this->getBearing($id, $link_id);
-            $this->set('true_azimuth',$true_azimuth);
-            $this->set('mag_azimuth', $true_azimuth - $declination);
-            
+            $mag_azimuth = $true_azimuth - $declination;
         }
+        $this->set('link_distance',$link_distance);
+        $this->set('true_azimuth',$true_azimuth);
+        $this->set('mag_azimuth', $mag_azimuth);
         
         // Converting azimuths with easterly G-M angle
         // To convert a grid azimuth to a magnetic azimuth, subtract the G-M angle from the grid azimuth.
@@ -246,8 +251,8 @@ class NetworkRadiosController extends AppController {
                         $old_link_id = 0;
                     }
                     $query = 'call sp_rm_link_id('.$old_link_id.')';
-//                    echo $query;
-//                    die;
+                    //echo $query;
+                    //die;
                     $this->NetworkRadio->query( $query );
                     
                 }

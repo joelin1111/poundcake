@@ -69,8 +69,19 @@ class DATABASE_CONFIG {
 		'prefix' => '',
 		'encoding' => 'utf8',
 	);
-
+        /*
 	public $addrpool = array(
+		'datasource' => 'Database/Mysql',
+		'persistent' => false,
+		'host' => '10.0.2.6',
+		'login' => 'addrpool-viewer',
+		'password' => '{*6<j0:fLV<k,93',
+		'database' => 'addrpool',
+		'prefix' => '',
+		//'encoding' => 'utf8',
+	);
+        */
+        public $addrpool = array(
 		'datasource' => 'Database/Mysql',
 		'persistent' => false,
 		'host' => 'localhost',
@@ -80,4 +91,5 @@ class DATABASE_CONFIG {
 		'prefix' => '',
 		//'encoding' => 'utf8',
 	);
+        
 }

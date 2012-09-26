@@ -13,7 +13,10 @@ class Site extends AppModel {
         'PowerType',
         'NetworkSwitch',
         'NetworkRouter',
-        'TowerOwner',
+        'TowerType',
+        'TowerMember',
+        'TowerEquipment',
+        'TowerMount',
         'InstallTeam'
     );
     
