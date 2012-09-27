@@ -511,6 +511,7 @@ class SitesController extends AppController
         $towercontacts = $this->Site->TowerOwner->Contact->findAllByContactTypeId(2); // 2 is the technical contact
         $switch = $this->Site->NetworkSwitch->findBySwitchTypeId($sites['NetworkSwitch']['switch_type_id']);
         $radios = $this->Site->NetworkRadios->findAllBySiteId($id);
+        //
         
         // this seems kind of crazy -- and it is -- but since I'm not saving the link distance or bearing on the
         // NetworkRadio object (they are computed at view time), and really I can't do that since
@@ -539,7 +540,7 @@ class SitesController extends AppController
             $n++;
         }
 //        echo '<pre>';
-//        print_r($);
+//        print_r($radios);
 //        echo '</pre>';
 //        die;
         $this->set('site', $sites);

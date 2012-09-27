@@ -17,9 +17,15 @@
 </div><!-- /.span3 .sb-fixed -->
 <div class="span9">
     <h2>View Radio</h2>
+    <?php
+//    echo "<pre>";
+//    print_r( $networkradio );
+//    echo "</pre>";
+    ?>
     <P><B>Name:</B>&nbsp;<?php echo $networkradio['NetworkRadio']['name']; ?></P>
     <P><B>Radio Type:</B>&nbsp;<?php echo $networkradio['RadioType']['name']; ?></P>
-    <P><B>Antenna:</B>&nbsp;<?php echo $networkradio['AntennaType']['name']; ?></P>    
+    <P><B>Antenna:</B>&nbsp;<?php echo $networkradio['AntennaType']['name']; ?></P>
+    <P><B>Radio Mode:</B>&nbsp;<?php echo $networkradio['RadioMode']['name']; ?></P>    
     <P><B>Link Distance:</B>&nbsp;<?php echo sprintf("%01.2f",$link_distance). ' Km'; ?></P>
     <P><B>True Azimuth:</B>&nbsp;
         <?php //echo $networkradio['NetworkRadio']['true_azimuth'];

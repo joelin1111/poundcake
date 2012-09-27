@@ -213,8 +213,12 @@ foreach ($radios as $radio) {
     $sheet1->writeString($row,1,'Azimuth (Magnetic)',$fmt3);
     $d = sprintf("%01.2f",$mag_azimuth);
     $sheet1->writeString($row,2,$d."°",$fmt4);
-    $sheet1->writeString($row,4,'Elevaton',$fmt3);
-    $sheet1->writeString($row,5,$radio['NetworkRadios']['elevation'],$fmt4);
+    $sheet1->writeString($row,4,'Mode',$fmt3);
+    $sheet1->writeString($row,5,$radio['RadioMode']['name'],$fmt4);
+    $row++;
+    
+    $sheet1->writeString($row,1,'Elevaton',$fmt3);
+    $sheet1->writeString($row,2,$radio['NetworkRadios']['elevation'],$fmt4);
     
     $row += 2;    
 }

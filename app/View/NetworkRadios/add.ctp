@@ -22,7 +22,7 @@
         echo $this->Form->input('site_id');
         echo $this->Form->input('radio_type_id', array('type'=>'select','options' => $radiotypes,'default'=>'1'));
         echo $this->Form->input('antenna_type_id', array('type'=>'select','options' => $antennatypes));
-        echo $this->Form->input('radio_mode', array('type'=>'select','options' => $radiomodes));
+        echo $this->Form->input('radio_mode_id', array('type'=>'select','options' => $radiomodes));
         echo $this->Form->input('elevation');
         echo $this->Form->input('frequency', array('type'=>'select','options' => $frequencies));
         echo $this->Form->input('ssid', array('label'=>'SSID'));
