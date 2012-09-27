@@ -1,3 +1,8 @@
+alter table network_radios add link_distance DECIMAL(5,2);
+
+-- Old
+
+
 alter table sites add declination decimal(17,14) after lon;
 alter table network_radios drop link_distance;
 alter table network_radios drop true_azimuth;
@@ -49,8 +54,6 @@ insert into tower_mounts(name) values ('Beam Clamps');
 insert into tower_types(name) values ('Space Cabinet');
 insert into tower_types(name) values ('Equipment Room');
 
-
--- Old
 
 -- alter table network_switches drop num_ports;
 -- alter table network_switches add num_ports int(10) default '8';

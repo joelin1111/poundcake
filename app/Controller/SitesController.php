@@ -505,11 +505,76 @@ class SitesController extends AppController
     }
     
     public function workorder($id) {
+        $conditions = '';
+        $sites = $this->Site->findById($id);
+        // this Cake query is like magic, total effing magic
+        $towercontacts = $this->Site->TowerOwner->Contact->findAllByContactTypeId(2); // 2 is the technical contact
+        $switch = $this->Site->NetworkSwitch->findBySwitchTypeId($sites['NetworkSwitch']['switch_type_id']);
+        $radios = $this->Site->NetworkRadios->findAllBySiteId($id);
+        
+        // this seems kind of crazy -- and it is -- but since I'm not saving the link distance or bearing on the
+        // NetworkRadio object (they are computed at view time), and really I can't do that since
+        // link_id isn't set until after save (by a trigger), now I have to go compute those values again and save them
+        // back to my array
+        $n = 0;
+        foreach ($radios as $radio) {
+            //echo $radio['NetworkRadios']['name']."<br>";
+            $this->loadModel('NetworkRadio');
+            $d = $this->NetworkRadio->getLinkDistance($radio['NetworkRadios']['id'],$radio['NetworkRadios']['link_id']);
+            $radio['NetworkRadios']['distance'] = $d;
+            
+            $b = $this->NetworkRadio->getBearing($radio['NetworkRadios']['id'],$radio['NetworkRadios']['link_id']);
+            $radio['NetworkRadios']['true_azimuth'] = $b;
+            //$this->Product->findByOrderStatus(‘3’);
+                    
+//            $s = $this->Site->findById($radio['NetworkRadios']['site_id']);
+//            echo "S is ".$s['Site']['declination']."<br>";
+
+            //$d = $this->NetworkRadio->Site->getLinkDistance($radio['NetworkRadios']['id'],$radio['NetworkRadios']['link_id']);
+            //$radio['NetworkRadios']['mag_azimuth'] = $b - ;
+            
+            
+            //print_r($radio);
+            $radios[$n] = $radio;
+            $n++;
+        }
+//        echo '<pre>';
+//        print_r($);
+//        echo '</pre>';
+//        die;
+        $this->set('site', $sites);
+        $this->set('towercontacts', $towercontacts);
+        $this->set('switch', $switch);
+        $this->set('radios', $radios);
+        
+        // generate the Excel file but without all the other stuff
+        // in the layout -- so set the layout to null then set it back
+        //$layout = $this->layout;
+        $this->layout = 'blank';
+        //$this->layout = null;
+        //$this->layout = 'ajax'; // anything other than default
+        //$this->autoLayout = false; 
+        //$this->render('workorder');
+        //$this->layout = null; 
+        //$this->render('workorder','blank',null);
+        $this->render('workorder');
+        //$this->autoLayout = true; 
+        $this->layout = 'default';
+    }
+    
+    public function workorder2($id) {
         // generate the Excel file but without all the other stuff
         // in the layout -- so set the layout to null then set it back
         $layout = $this->layout;
         $this->layout = null;
-        $this->render('workorder');
+        
+        $conditions = '';
+        //$sites = $this->Site->find('all', array('conditions' => $conditions));
+        $sites = $this->Site->findById($id);
+        
+        $this->set('site', $sites);
+        
+        //$this->render('workorder');
         $this->layout = $layout;
     }
     

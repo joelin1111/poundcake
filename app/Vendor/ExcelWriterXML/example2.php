@@ -37,13 +37,13 @@ $format1->alignRotate(60);
 $format1->alignHorizontal('Left');
 $format1->fontSize('18');
 
-$format2 = $xml->addStyle('verticaltext_left');
-$format2->alignVerticaltext(45);
-$format2->alignHorizontal('Left');
+$format3 = $xml->addStyle('verticaltext_left');
+$format3->alignVerticaltext(45);
+$format3->alignHorizontal('Left');
 
-$format3 = $xml->addStyle('wraptext_top');
-$format3->alignWraptext();
-$format3->alignVertical('Top');
+$format4 = $xml->addStyle('wraptext_top');
+$format4->alignWraptext();
+$format4->alignVertical('Top');
 
 /**
  * Create a new sheet with the XML document

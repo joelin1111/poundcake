@@ -59,13 +59,12 @@ class NetworkRadiosController extends AppController {
         $true_azimuth = 0;
         $link_distance = 0;
         $mag_azimuth = 0;
-        
         if ($this->NetworkRadio->field('link_id') > 0) {
             $id = $this->NetworkRadio->field('id');
             $link_id = $this->NetworkRadio->field('link_id');
-            $link_distance = $this->getLinkDistance($id, $link_id);
+            $link_distance = $this->NetworkRadio->getLinkDistance($id, $link_id);
             
-            $true_azimuth = $this->getBearing($id, $link_id);
+            $true_azimuth = $this->NetworkRadio->getBearing($id, $link_id);
             $mag_azimuth = $true_azimuth - $declination;
         }
         $this->set('link_distance',$link_distance);
@@ -325,6 +324,8 @@ class NetworkRadiosController extends AppController {
         return $link_name;
     }
     
+    /*  Moving these to model functions
+     
     // return the distance between two radios
     function getLinkDistance($id, $link_id) {
         // uses Haversine formula
@@ -389,11 +390,8 @@ class NetworkRadiosController extends AppController {
         }
         //echo "B is $b";
         return $b;
-        
-        
     }
-    
-    
+    */
 
     public function isAuthorized($user) {
         // everyone can see the list and view individual Contacts

@@ -23,12 +23,12 @@
     <P><B>Link Distance:</B>&nbsp;<?php echo sprintf("%01.2f",$link_distance). ' Km'; ?></P>
     <P><B>True Azimuth:</B>&nbsp;
         <?php //echo $networkradio['NetworkRadio']['true_azimuth'];
-            echo sprintf("%01.5f",$true_azimuth);
+            echo sprintf("%01.5f",$true_azimuth).'°';
         ?>
     </P>
     <P><B>Magnetic Azimuth:</B>&nbsp;
         <?php //echo $networkradio['NetworkRadio']['mag_azimuth'];
-            echo sprintf("%01.5f",$mag_azimuth);
+            echo sprintf("%01.5f",$mag_azimuth).'°';
         ?>
     </P>
     <P><B>Elevation:</B>&nbsp;<?php echo $networkradio['NetworkRadio']['elevation']; ?></P>

@@ -1,49 +1,23 @@
 <?php
-
-
 /**
  * Include the required Class file
  */
 //include('ExcelWriterXML.php');
 App::import('Vendor','ExcelWriterXML/ExcelWriterXML');
-?>
 
-<?php
-/**
- * Example 1
- */
-//$xml = new ExcelWriterXML;
-//$xml->docAuthor('Tower DB');
-//
-//$format = $xml->addStyle('StyleHeader');
-//$format->fontBold();
-//$format->alignRotate(45);
-//$sheet = $xml->addSheet('My Sheet');
-//
-//$sheet->writeString(1,1,'Header','StyleHeader');
-//$sheet->writeString(2,1,'Test String','StyleHeader');
-//
-//$xml->sendHeaders();
-//$xml->writeData();
-?>
-
-<?php
-/**
- * Example 2
- */
 
 /**
  * Create a new instance of the Excel Writer
  */
-$xml = new ExcelWriterXML('my file.xml');
+$xml = new ExcelWriterXML( $site['Site']['site_code'].' '.$site['Site']['site_name'].'.xml');
 
 /**
  * Add some general properties to the document
  */
-$xml->docTitle('My Demo Doc');
-$xml->docAuthor('Robert F Greer');
-$xml->docCompany('Greers.Org');
-$xml->docManager('Wife');
+$xml->docTitle('Inveneo Work Order');
+$xml->docAuthor('Tower DB');
+$xml->docCompany('Inveneo');
+$xml->docManager('');
 
 /**
  * Choose to show any formatting/input errors on a seperate sheet
@@ -53,74 +27,198 @@ $xml->showErrorSheet(true);
 /**
  * Show the style options
  */
-$format1 = $xml->addStyle('left_rotate60_big');
-$format1->alignRotate(60);
-$format1->alignHorizontal('Left');
-$format1->fontSize('18');
+$fmt1 = $xml->addStyle('format1-header');
+$fmt1->alignHorizontal('Left');
+$fmt1->fontSize('24');
 
-$format2 = $xml->addStyle('verticaltext_left');
-$format2->alignVerticaltext(45);
-$format2->alignHorizontal('Left');
+$fmt2 = $xml->addStyle('format2');
+$fmt2->alignHorizontal('Left');
+$fmt2->fontSize('12');
+$fmt2->fontBold();
 
-$format3 = $xml->addStyle('wraptext_top');
-$format3->alignWraptext();
-$format3->alignVertical('Top');
+$fmt3 = $xml->addStyle('format3');
+$fmt3->alignHorizontal('Right');
+$fmt3->fontSize('12');
+$fmt3->fontBold();
 
-/**
- * Create a new sheet with the XML document
- */
+$fmt4 = $xml->addStyle('value');
+$fmt4->alignHorizontal('Left');
+$fmt4->fontSize('12');
+$fmt4->alignWraptext();
+
+// Excel color picker:
+// http://dmcritchie.mvps.org/excel/colors.htm#colorindex
+$fmtBanner = $xml->addStyle('banner');
+$fmtBanner->bgColor('#BEBEBE');
+$fmtBanner->alignHorizontal('Right');
+$fmtBanner->fontBold();
+$fmtBanner->fontSize('12');
+
+// Create a new sheet with the XML document
 $sheet1 = $xml->addSheet('Alignment');
-/**
- * Add three new cells of type String with difference alignment values.
- * Notice that the style of the each cell can be explicity named or the style
- * reference can be passed.
- */
-$sheet1->writeString(1,1,'left_rotate45',$format1);
-$sheet1->writeString(1,2,'vertical left','verticaltext_left');
-$sheet1->writeString(1,3,'this text has been wrapped and is aligned at the top','wraptext_top');
-$sheet1->writeString(1,4,'No style applied');
 
+$row = 1;
+$sheet1->writeString($row,1,'Inveneo Site Install Work Order',$fmt1);
+$sheet1->columnWidth(1,'150'); // Column A
+$sheet1->columnWidth(2,'200'); // Column B
+$sheet1->columnWidth(3,'20'); // Column C
+$sheet1->columnWidth(4,'150'); // Column D
+$sheet1->columnWidth(5,'200'); // Column E
 
-$sheet2 = $xml->addSheet('Formulas');
-/**
- * Wrote three numbers.
- * Rows 4 and 5 show the formulas in R1C1 notation using the writeFormula()
- * function.
- * Also see how comments are added.
- */
-$sheet2->columnWidth(1,'100');
-$sheet2->writeString(1,1,'Number');
-$sheet2->writeNumber(1,2,50);
-$sheet2->writeString(2,1,'Number');
-$sheet2->writeNumber(2,2,30);
-$sheet2->writeString(3,1,'Number');
-$sheet2->writeNumber(3,2,20);
-$sheet2->writeString(4,1,'=SUM(R[-3]C:R[-1]C)');
-$sheet2->writeFormula('Number',4,2,'=SUM(R[-3]C:R[-1]C)');
-$sheet2->addComment(4,2,'Here is my formula: =SUM(R[-3]C:R[-1]C)','My NAME');
-$sheet2->writeString(5,1,'=SUM(R1C2:R3C2)');
-$sheet2->writeFormula('Number',5,2,'=SUM(R1C1:R3C2)');
-$sheet2->addComment(5,2,'Here is my formula: =SUM(R1C1:R3C2)');
+$today = date("D M j G:i:s T Y");
+$sheet1->writeString($row,5,'Work Order generated: '.$today,$fmt3);
 
-$sheet4 = $xml->addSheet('more formatting');
-$format4 = $xml->addStyle('my style');
-$format4->fontBold();
-$format4->fontItalic();
-$format4->fontUnderline('DoubleAccounting');
-$format4->bgColor('Black');
-$format4->fontColor('White');
-$format4->numberFormatDateTime();
-$mydate = $sheet4->convertMysqlDateTime('2008-02-14 19:30:00');
-$sheet4->writeDateTime(1,1,$mydate,$format4);
-// Change the row1 height to 30 pixels
-$sheet4->rowHeight(1,'30');
-$sheet4->writeString(2,1,'formatted text + cell color + merged + underlined',$format4);
-// Merge (2,1) with 4 columns to the right and 2 rows down
-$sheet4->cellMerge(2,1,4,2);
+$row += 2;
+// col 1
+$sheet1->writeString($row,1,'Install Team',$fmt3);
+$sheet1->writeString($row,2,$site['InstallTeam']['name'],$fmt4);
+// col 2
+$sheet1->writeString(4,4,'GPS Coordinates',$fmt3);
+$coordinates = sprintf("%01.5f",$site['Site']['lat']).' '.sprintf("%01.5f",$site['Site']['lon']);
+$sheet1->writeString(4,5,$coordinates,$fmt4);
+$row++;
 
-/**
- * Send the headers, then output the data
- */
+// col 1
+$sheet1->writeString($row,1,'Install Date',$fmt3);
+$date = new DateTime($site['Site']['install_date']);
+$sheet1->writeString($row,2,$date->format('Y-m-d'),$fmt4);
+// col 2
+$sheet1->writeString($row,4,'Tower Type',$fmt3);
+$sheet1->writeString($row,5,$site['TowerType']['name'],$fmt4);
+$row++;
+
+// col 1
+$sheet1->writeString($row,1,'Site Name (Code)',$fmt3);
+$sheet1->writeString($row,2,$site['Site']['site_name'].' ('.$site['Site']['site_name'].')',$fmt4);
+// col 2
+$sheet1->writeString($row,4,'Tower Member',$fmt3);
+$sheet1->writeString($row,5,$site['TowerMember']['name'],$fmt4);
+$row++;
+
+// col 1
+$sheet1->writeString($row,1,'Tower Owner',$fmt3);
+$sheet1->writeString($row,2,$site['TowerOwner']['name'],$fmt4);
+// col 2
+$sheet1->writeString($row,4,'Install Team',$fmt3);
+$sheet1->writeString($row,5,$site['InstallTeam']['name'],$fmt4);
+$row++;
+
+// col 1
+$sheet1->writeString($row,1,'Technical Contact(s)',$fmt3);
+$n = count($towercontacts);
+$i = 0;
+$c = '';
+foreach ($towercontacts as $contact) {
+    $c .= $contact['Contact']['name_vf'];
+    if ($i < $n-1) {
+        $c .= ', ';
+    }
+    $i++;
+}
+$sheet1->writeString($row,2,$c,$fmt4);
+// col 2
+$sheet1->writeString($row,4,'Tower Equipment',$fmt3);
+$sheet1->writeString($row,5,$site['TowerEquipment']['name'],$fmt4);
+$row++;
+
+// col 1
+$sheet1->writeString($row,1,'Tower Mount',$fmt3);
+$sheet1->writeString($row,2,$site['TowerMount']['name'],$fmt4);
+$row++;
+
+// ****************************************************************************
+// Router
+// ****************************************************************************
+$row++;
+$sheet1->writeString($row,1,'Router',$fmtBanner);
+$sheet1->writeString($row,2,'',$fmtBanner);
+$sheet1->writeString($row,3,'',$fmtBanner);
+$sheet1->writeString($row,4,'',$fmtBanner);
+$sheet1->writeString($row,5,'',$fmtBanner);
+$row++;
+
+$sheet1->writeString($row,2,$site['NetworkRouter']['name'],$fmt4);
+$row++;
+
+// ****************************************************************************
+// Switch
+// ****************************************************************************
+$row++;
+$sheet1->writeString($row,1,'Switch',$fmtBanner);
+$sheet1->writeString($row,2,'',$fmtBanner);
+$sheet1->writeString($row,3,'',$fmtBanner);
+$sheet1->writeString($row,4,'',$fmtBanner);
+$sheet1->writeString($row,5,'',$fmtBanner);
+$row++;
+
+$sheet1->writeString($row,1,'Name',$fmt3);
+$sheet1->writeString($row,2,$switch['SwitchType']['name'],$fmt4);
+$row++;
+
+$sheet1->writeString($row,1,'Ports',$fmt3);
+$sheet1->writeString($row,2,$switch['SwitchType']['ports'],$fmt4);
+$row++;
+
+// ****************************************************************************
+// Radios
+// ****************************************************************************
+$row++;
+$sheet1->writeString($row,1,'Radios',$fmtBanner);
+$sheet1->writeString($row,2,'',$fmtBanner);
+$sheet1->writeString($row,3,'',$fmtBanner);
+$sheet1->writeString($row,4,'',$fmtBanner);
+$sheet1->writeString($row,5,'',$fmtBanner);
+
+$row++;
+//$n = count($radios);
+//$i = 0;
+//$c = '';
+foreach ($radios as $radio) {
+    $sheet1->writeString($row,1,'Name',$fmt3);
+    $sheet1->writeString($row,2,$radio['NetworkRadios']['name'],$fmt4);
+    $sheet1->writeString($row,4,'Frequency',$fmt3);
+    $sheet1->writeString($row,5,$radio['NetworkRadios']['frequency'],$fmt4);
+    $row++;
+    
+    $sheet1->writeString($row,1,'Radio Type',$fmt3);
+    $sheet1->writeString($row,2,$radio['RadioType']['name'],$fmt4);
+    $sheet1->writeString($row,4,'SSID',$fmt3);
+    $sheet1->writeString($row,5,$radio['NetworkRadios']['ssid'],$fmt4);
+    $row++;
+    
+    $sheet1->writeString($row,1,'Antenna Type',$fmt3);
+    $sheet1->writeString($row,2,$radio['AntennaType']['name'],$fmt4);
+    $sheet1->writeString($row,4,'Switch Port',$fmt3);
+    $sheet1->writeString($row,5,$radio['NetworkRadios']['switch_port'],$fmt4);
+    $row++;
+    
+    $sheet1->writeString($row,1,'Link Distance',$fmt3);
+    $d = sprintf("%01.2f",$radio['NetworkRadios']['distance']);
+    $sheet1->writeString($row,2,$d." Km",$fmt4);
+    $sheet1->writeString($row,4,'IP',$fmt3);
+    $sheet1->writeString($row,5,'[addrpool or manual?]',$fmt4);
+    $row++;
+    
+    $sheet1->writeString($row,1,'Azimuth (True)',$fmt3);
+    $d = sprintf("%01.2f",$radio['NetworkRadios']['true_azimuth']);
+    $sheet1->writeString($row,2,$d."°",$fmt4);
+    $sheet1->writeString($row,4,'Gateway',$fmt3);
+    $sheet1->writeString($row,5,'[addrpool or manual?]',$fmt4);
+    $row++;
+    
+    $mag_azimuth = $radio['NetworkRadios']['true_azimuth'] - $site['Site']['declination'];
+    $sheet1->writeString($row,1,'Azimuth (Magnetic)',$fmt3);
+    $d = sprintf("%01.2f",$mag_azimuth);
+    $sheet1->writeString($row,2,$d."°",$fmt4);
+    $sheet1->writeString($row,4,'Elevaton',$fmt3);
+    $sheet1->writeString($row,5,$radio['NetworkRadios']['elevation'],$fmt4);
+    
+    $row += 2;    
+}
+
+// $sheet1->writeString($row ,2,$site['NetworkSwitch']['name'],$fmtBanner);
+// 
+// Send the headers, then output the data
 $xml->sendHeaders();
 $xml->writeData();
 
