@@ -10,6 +10,7 @@ class NetworkRadio extends AppModel {
         'RadioType',
         'NetworkSwitch',
         'AntennaType',
+        'RadioMode',
         //'NetworkLink'
         //'NetworkLink' => array('foreignKey' => 'zipcode')
 

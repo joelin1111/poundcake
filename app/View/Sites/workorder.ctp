@@ -9,7 +9,10 @@ App::import('Vendor','ExcelWriterXML/ExcelWriterXML');
 /**
  * Create a new instance of the Excel Writer
  */
-$xml = new ExcelWriterXML( $site['Site']['site_code'].' '.$site['Site']['site_name'].'.xml');
+
+$filename = 'Work Order '.$site['Site']['site_code'].' '.$site['Site']['site_name'].'.xml';
+
+$xml = new ExcelWriterXML( $filename );
 
 /**
  * Add some general properties to the document

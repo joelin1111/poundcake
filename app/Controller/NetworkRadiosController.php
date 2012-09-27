@@ -112,6 +112,15 @@ class NetworkRadiosController extends AppController {
         );
     }
     
+    function getRadioModes() {
+        $this->set('radiomodes',$this->NetworkRadio->RadioMode->find('list',
+            array(
+                'order' => array(
+                    'RadioMode.name ASC'
+            )))
+        );
+    }
+    
     function getNetworkSwitches() {
         $this->set('networkswitches',$this->NetworkRadio->NetworkSwitch->find('list',
             array(
@@ -176,6 +185,7 @@ class NetworkRadiosController extends AppController {
         $this->getSites();
         $this->getRadioTypes();
         $this->getAntennaTypes();
+        $this->getRadioModes();
         $this->getFrequencies(); // for the frequency dropdown
         
         if ($this->request->is('post')) {
@@ -218,6 +228,7 @@ class NetworkRadiosController extends AppController {
         $this->getSites();
         $this->getRadioTypes();
         $this->getAntennaTypes();
+        $this->getRadioModes();
         $this->getFrequencies(); // for the frequency dropdown
 //        $this->getNetworkSwitches();
 //        $this->getNetworkSwitchPorts();

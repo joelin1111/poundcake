@@ -22,6 +22,7 @@
 <H3>Radio Related</H3>
 <UL>
     <li><?php echo $this->Html->link('Antenna Types', '/antennaTypes/index'); ?></li>
+    <li><?php echo $this->Html->link('Radio Modes', '/radioModes/index'); ?> </li>
     <li><?php echo $this->Html->link('Radio Types', '/radioTypes/index'); ?> </li>
 </UL>
 
