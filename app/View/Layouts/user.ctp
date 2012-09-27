@@ -4,7 +4,7 @@
         <a class="btn btn-primary" href="#"><i class="icon-user icon-white"></i>
             <?php echo $user['username'];?></a>
         <!-- button height hack -- see PC-56 -->
-        <a class="btn btn-primary dropdown-toggle" style="height:18px;" data-toggle="dropdown" href="#"><span class="caret"></span></a>
+        <a class="btn btn-primary dropdown-toggle" style="height:20px;" data-toggle="dropdown" href="#"><span class="caret"></span></a>
         <ul class="dropdown-menu">
 <!--            <li><a href="#"><i class="icon-trash"></i> Delete</a></li>-->
 <!--          <li>
