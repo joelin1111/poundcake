@@ -19,6 +19,7 @@
         <li><?php echo $this->MyHTML->linkIfAllowed('Edit Site', array('action'=>'edit', $site['Site']['id']),1);?></li>
         <li><?php echo $this->Html->link('List Sites', array('action'=>'index')); ?></li>
         <li><?php echo $this->Html->link('Equipment List', array('action'=>'view', 'ext'=>'pdf', $site['Site']['id']));?></li>
+        <li><?php echo $this->Html->link('Work Order', array('action'=>'workorder',$site['Site']['id']));?></li>
     </ul>
     </div>
 </div><!-- /.span3 .sb-fixed -->

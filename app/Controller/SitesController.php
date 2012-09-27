@@ -504,6 +504,15 @@ class SitesController extends AppController
         return $dec;
     }
     
+    public function workorder($id) {
+        // generate the Excel file but without all the other stuff
+        // in the layout -- so set the layout to null then set it back
+        $layout = $this->layout;
+        $this->layout = null;
+        $this->render('workorder');
+        $this->layout = $layout;
+    }
+    
     public function isAuthorized($user) {
         // everyone can see the list and view individual Contacts
         if ($this->action === 'index' || $this->action === 'view') {
