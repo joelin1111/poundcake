@@ -29,6 +29,10 @@
     color: #FF0000;
 }
 
+.legend {
+  font-size: 12px;
+}
+
 /*!
  * jQuery UI CSS Framework 1.8.23
  *

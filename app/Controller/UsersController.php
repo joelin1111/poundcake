@@ -32,6 +32,12 @@ class UsersController extends AppController {
         $this->set('roles',$roles);
     }
     
+    function getProjects() {
+        // identical to getRegions
+        $projects = $this->User->Project->find('list',array('fields'=>array('id','name')));
+        $this->set(compact('projects'));
+    }
+    
     public function add() {
         $this->getRoles();
         if ($this->request->is('post')) {
@@ -43,6 +49,7 @@ class UsersController extends AppController {
                 $this->Session->setFlash(__('The user could not be saved. Please, try again.'));
             }
         }
+        $this->getProjects();
     }
     
     function password($id = null) {
@@ -82,6 +89,7 @@ class UsersController extends AppController {
     public function edit($id = null) {
         $this->User->id = $id;
         $this->getRoles();
+        $this->getProjects();
         
         if (!$this->User->exists()) {
             throw new NotFoundException(__('Invalid user'));

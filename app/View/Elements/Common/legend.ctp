@@ -1,6 +1,6 @@
 
 <H3>Legend</H3>
-<div class="well well-large">
+<div class="well well-large legend">
     <?php
     //print_r($allSiteStates);
     for($i = 0; $i < sizeof($allSiteStates); ++$i) {
@@ -9,5 +9,4 @@
         echo '<BR>';
     }
         ?>
-
 </div>

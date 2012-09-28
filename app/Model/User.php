@@ -11,6 +11,16 @@ class User extends AppModel {
         'Role',
     );
     
+    var $hasAndBelongsToMany = array(
+        'Project' => array(
+            'className' => 'Project',
+            'joinTable' => 'user_to_projects',
+            'foreignKey' => 'user_id',
+            'associationForeignKey' => 'project_id',
+            'with' => 'UserToProject',
+        ),
+    ); 
+    
 //    public $virtualFields = array(
 //        'full_name' => 'CONCAT(User.first_name, " ", User.last_name)'
 //    );
