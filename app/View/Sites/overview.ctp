@@ -35,9 +35,9 @@
     $mapOptions = array(
         'id' => 'map_canvas', // Map canvas ID
         'width' => '300px', // Width of the map
-        'height'=>'500px', // Height of the map
+        'height'=>'700px', // Height of the map
         //'style' => '', // CSS style for the map canvas
-        'style' => '98%; height:500px;', // CSS style for the map canvas
+        'style' => '98%; height:700px;', // CSS style for the map canvas
         'zoom' => 8, // lower = further out
         'type' => 'TERRAIN', // Type of map (ROADMAP, SATELLITE, HYBRID or TERRAIN)
         //'custom'=>null, // Any other map option not mentioned before and available for the map. For example 'mapTypeControl: true' (http://code.google.com/apis/maps/documentation/javascript/controls.html)
@@ -65,56 +65,20 @@
             $lat = $site['Site']['lat'];
             $lon = $site['Site']['lon'];
             
-            /*
-
-            mysql> select * from site_states order by id;
-            +----+------------------------+
-            | id | name                   |
-            +----+------------------------+
-            |  0 | Planned                |
-            | 15 | Active                 |
-            | 16 | Power Install Complete |
-            | 17 | HRBN Install Complete  |
-            | 18 | Deactivated            |
-            | 19 | Equipment Recovered    |
-            | 20 | Decommissioned         |
-            +----+------------------------+
-
-            Active: Green 
-            Planned: Light blue 
-            Power Install Complete: Orange 
-            HRBN Install Complete: Orange 
-            Deactivated: Orange 
-            Equipment Recovered: Orange 
-            Decommissioned: Red
-            */
-            
             $icon = 'data:'.$site['SiteState']['img_type'].';base64,'.base64_encode( $site['SiteState']['img_data'] );
-            /*
-            // this is duplicated in the site>view page
-            switch ($site['Site']['site_state_id']){
-                case 0:
-                    $icon = '/img/tower-b.png';
-                    break;
-                case 15:
-                    $icon = '/img/tower-g.png';
-                    break;
-                case 20:
-                    $icon = '/img/tower-r.png';
-                    break;
-                default:
-                    $icon = '/img/tower-o.png';
-                    break;
-                }
-            */
                 
             // this result set comes from a stored procedure, and makes the same
             // site_vf virtual field that's defined in the Site
             // model -- but technically this is not the same field, so FYI
+            
+            
             $windowText = $this->Html->link(
                 $site['Site']['site_vf'],
                 array('controller' => 'sites', 'action' => 'view', $site['Site']['id'])
             );
+            
+            $windowText .= '<BR>'.$site['Zone']['name'];
+            $windowText .= '<BR>'.$site['TowerOwner']['name'];
             
             $markerOptions= array(
                 'id' => $i, // Id of the marker
@@ -129,7 +93,7 @@
             //echo "<pre>".print_r($markerOptions)."</pre>";
             echo $this->AltGoogleMapV3->addMarker('map_canvas', $i, $markerOptions);
             $i++;
-            unset($markerOptions); // lame attempt to free memory for the map
+            //unset($markerOptions); // lame attempt to free memory for the map
         }
     }
     unset($sites); // lame attempt to free memory for the map
