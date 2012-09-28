@@ -12,13 +12,15 @@
 <div class="span9">
 <H2>Site Administration</H2>
     <div class="span4">
-        <H3>Site Users, Groups</H3>
+        <H3>Projects, Groups, Users</H3>
         <UL>
-            <li><?php echo $this->Html->link('Users', '/users/index'); ?></li>
+            <li><?php echo $this->Html->link('Projects', '/projects/index'); ?></li>
             <li><?php echo $this->Html->link('Roles', '/roles/index'); ?></li>
+            <li><?php echo $this->Html->link('Users', '/users/index'); ?></li>
+            
         </UL>
 
-        <H3>Site/Tower Related</H3>
+        <H3>Sites/Towers</H3>
         <UL>
             <li><?php echo $this->Html->link('Power Types', '/powerTypes/index'); ?></li>
             <li><?php echo $this->Html->link('Tower Equipment', '/towerEquipment/index'); ?></li>
@@ -30,7 +32,7 @@
     </div> <!-- /.span4 -->
 
     <div class="span4">
-    <H3>Radio Related</H3>
+    <H3>Radios</H3>
         <UL>
             <li><?php echo $this->Html->link('Antenna Types', '/antennaTypes/index'); ?></li>
             <li><?php echo $this->Html->link('Radio Modes', '/radioModes/index'); ?> </li>

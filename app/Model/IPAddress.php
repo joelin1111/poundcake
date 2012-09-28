@@ -13,7 +13,7 @@ class IPAddress extends AppModel {
         if (isset($name)) {
             // current model can be accessed via: $this->modelClass;
             // $name = $this->{$this->modelClass}->field('name');
-            $query = 'call sp_get_address("'.$name.'")';
+            $query = 'call sp_get_address("'.$name.'%")';
             $addresses = ClassRegistry::init('IPAddress')->query( $query );
         }
         return $addresses;

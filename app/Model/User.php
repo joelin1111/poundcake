@@ -11,6 +11,10 @@ class User extends AppModel {
         'Role',
     );
     
+    public $hasAndBelongsToMany = array('Project');
+    
+    /*
+    // HABTM example: http://mrphp.com.au/code/working-habtm-form-data-cakephp
     var $hasAndBelongsToMany = array(
         'Project' => array(
             'className' => 'Project',
@@ -19,7 +23,8 @@ class User extends AppModel {
             'associationForeignKey' => 'project_id',
             'with' => 'UserToProject',
         ),
-    ); 
+    );
+    */
     
 //    public $virtualFields = array(
 //        'full_name' => 'CONCAT(User.first_name, " ", User.last_name)'
@@ -124,6 +129,6 @@ class User extends AppModel {
         // return AuthComponent::password($current_password['current_password']) == $user[$this->alias]['password'];
         //return false;
     }
-     */
+    */
 }
 ?>

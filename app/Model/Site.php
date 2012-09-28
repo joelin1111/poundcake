@@ -16,8 +16,11 @@ class Site extends AppModel {
         'TowerMember',
         'TowerEquipment',
         'TowerMount',
-        'InstallTeam'
+        'InstallTeam',
+        'Project'
     );
+    
+   //var $uses = array('User');
     
     public $hasMany = array(
         'NetworkRadios' => array(
@@ -68,6 +71,7 @@ class Site extends AppModel {
 //            )
     );
     
+    var $actsAs = array('Containable'); 
     
     // we'll eventually save the site's latitude/longitude here -- but only
     // after decoding it from the spatial data type in the db
@@ -83,38 +87,131 @@ class Site extends AppModel {
     // The model will use name or title, by default.
     public $displayField = 'site_vf';
     
-    //public $actsAs = array('Search.Searchable');   // not sure if this is used anymore
-    
-    /*
-    // used by search?
-    public $filterArgs = array(
-        // filterTitle is defined below
-        array('name' => 'site_name', 'type' => 'query', 'method' => 'filterSite'),
-        // this is used in a drop down of districts
-        //array('name' => 'district', 'type' => 'value'),
-    );
-    */
-    
     public function __construct($id = false,$table = null,$ids = null) {
         parent::__construct($id,$table,$ids);
     }
-
-    /*
-    public function filterSite($data, $field = null) {
-        if(empty($data['site_name'])) {
-            return array();
-        }
-        $site_name = '%' . $data['site_name'] . '%';
-        return array(
-            'OR' => array(
-                $this->alias . '.site_name LIKE' => $site_name,
-            ));
-    }
-    */
     
     // return true if a site is owned by a user (was created by)
     public function isOwnedBy($site, $user) {
         return $this->field('id', array('id' => $site, 'user_id' => $user)) === $site;
     }
+    /*
+    public function beforeFind($queryData) {
+        //print_r($this->data['Site']['projects']);
+        $uid = CakeSession::read("Auth.User.id");
+        echo "User ID ". $uid.'<br>';
+        $options = array( 
+            'conditions' => array('User.id' => $uid), 
+            'contain' => array( 
+                    'Site' => array('fields' => array('id', 'title')) 
+            ) 
+        ); 
+        $results = $this->Project->find('all', $options); 
+        print_r($results);
+        debug($query);
+        die;
+        
+        $more_conditions = array(
+            'AND' => array(
+                'Site.project_id =' => 'Project.id',
+                'Project.id =' => '10',
+            )
+        );
+        
+        die;
+        // there is probably a more graceful way to do this, but with Sites we pretty
+        // mcuh always have an AND condition coming in
+        $conditions = $queryData['conditions'];
+        $more_conditions = 
+            array(
+                'Site.project_id =' => array('1')
+        );
+        /*
+        $more_conditions = array(
+            'OR' => array(
+                'Site.id >' => '0',
+                'Site.id <' => '10',
+            )
+        );
+        
+        $conditions['AND'] = array_merge($conditions['AND'], $more_conditions);
+        $queryData['conditions'] = $conditions;
+        echo '<pre>';
+        print_r($conditions);
+        print_r($queryData['conditions']);
+        echo '</pre>';
+        die;
+        return $queryData;
+    }
+    */
+ 
+    function getUsersProjects() {
+        $uid = CakeSession::read("Auth.User.id");
+        $this->User = ClassRegistry::init('User');
+        $this->User->id = $uid;
+        $userData = $this->User->read();
+        //$projects = $this->User->Project->find('all');
+        
+//        $conditions = array(
+//            'AND' => array(
+//                'User.id =' => 'Project.id'
+//                'Site.site_name LIKE' => $site_name_arg,
+//            )
+//        );
+//        
+        //////$user = $this->User->read($this->Auth->user('id'));
+        // get all the projects this user is allowed to access
+        //$projects = $this->User->Project->find('all');
+        //$projects = $this->User->Project->findAll(); //'list',array('fields'=>array('id')));
+        
+        //echo '<pre>';
+        //print_r($userData);
+        //print_r($projects);
+        //echo '</pre>';
+        return $userData['Project'];
+    }
+    
+    /*
+    function afterFind($results, $primary = false) {
+        // make a nice tidy 
+        $projects = $this->getUsersProjects();
+        $project_ids = array();
+        foreach($projects as $key => $value) {
+             //echo "Key: ".$key."<BR>";
+            //echo "Value: ".print_r($value)."<BR>";
+            array_push($project_ids,$value['id']);
+        }
+        
+        //$project_id = 3;
+        //$project_id = array(3,4);
+        //print_r($project_ids); die;
+        $n = 1;
+        if ($primary) {
+            echo '<pre>';
+            foreach($results as $key => $value) {
+                //echo "Key: ".$key."<BR>";
+                //echo "Value: ".print_r($value)."<BR>";
+                //echo print_r($value['Site']['project_id'])."<BR>";
+                //echo $value['Site']['project_id']."<BR>";
+                
+                if (in_array($value['Site']['project_id'], $project_ids)) {
+                    echo "site_code: ".$value['Site']['site_code']."<BR>";
+                    echo "project_id: ".$value['Site']['project_id']."<BR>";
+                    $n++;
+                }
+                
+//                if ($value['Site']['project_id'] == 3 ) {
+//                    echo "site_code: ".$value['Site']['site_code']."<BR>";
+//                    echo "project_id: ".$value['Site']['project_id']."<BR>";
+//                    //echo "project_id: ".print_r($value['Site']['project_id'] )."<BR>";
+//                }
+            }
+            echo "Access to $n projects";
+            echo '</pre>';
+        }
+        die;
+        return $results;
+    }
+     */
 }
 ?>

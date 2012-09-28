@@ -5,6 +5,8 @@ class Project extends AppModel {
 
     public $displayField = 'name';
     
+    public $hasAndBelongsToMany = array('User');
+    
     public $validate = array(
         'name' => array(
             'notempty' => array(

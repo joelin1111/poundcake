@@ -24,9 +24,45 @@ class SitesController extends AppController
         $this->set('site_name', $this->Site->site_name);
     }
     
+    function getUserProjects() {
+        //$userId = $this->Auth->user('id');
+        $this->loadModel('User');
+        $user = $this->User->read($this->Auth->user('id'));
+        // get all the projects this user is allowed to access
+        $projects = $this->User->Project->find('all'); //,array('fields'=>array('id','name')));
+        
+        // return an array of project ids this user is associated with
+        // e.g. this user is associated with projects 1 and 2:
+        // Array
+        //(
+        //    [1] => 1
+        //    [2] => 2
+        //)
+        $projects = $this->User->Project->find('list',array('fields'=>array('id')));
+        //$this->set(compact('projects'));
+        $this->set('projects',$projects);
+//        echo '<pre>';
+//        print_r($projects);
+//        echo '</pre>';
+//        die;
+        return $projects;
+    }
+    
     function index($id = null) {
+        // not really sure how to save this -- the array of projects the current user
+        // has access to needs to go to the beforeFind function on the Site controller
+        // so that we only return sites this user has access to
+        //$this->Site->data['Site']['projects'] = $this->getUserProjects();
+        
+//        echo '<pre>';
+//        print_r($this->projects);
+//        echo '</pre>';
+//        die;
+
         
         $conditions = "";
+//        $projects = $this->getUserProjects()
+                
         $site_code_arg = "";
         $site_name_arg = "";
         //echo $this->passedArgs['Site.site_code'];
@@ -487,12 +523,12 @@ class SitesController extends AppController
     function getDeclination($lat, $lon) {
         $dec = null;
         if (isset($lat) && isset($lon)) {
-            #$lat=45.53704;
-            #$lon=-122.599793;
+            //$lat=45.53704;
+            //$lon=-122.599793;
             $url='http://www.ngdc.noaa.gov/geomag-web/calculators/calculateDeclination?lat1='.$lat.'&lon1='.$lon.'&resultFormat=csv';
             //http://www.ngdc.noaa.gov/geomag-web/calculators/calculateDeclination?lat1=45.53704&lon1=122.599793&resultFormat=csv
             //$x = readfile ("http://www.ngdc.noaa.gov/geomag-web/calculators/calculateDeclination?lat1='.$lat.'&lon1='.$lon.'&resultFormat=xml");
-            #echo "URL is ".$url.'<br><br>';
+            //echo "URL is ".$url.'<br><br>';
             //$x = readfile($url);
             $x = file_get_contents($url);
             $y = str_getcsv($x);
@@ -561,22 +597,6 @@ class SitesController extends AppController
         $this->render('workorder');
         //$this->autoLayout = true; 
         $this->layout = 'default';
-    }
-    
-    public function workorder2($id) {
-        // generate the Excel file but without all the other stuff
-        // in the layout -- so set the layout to null then set it back
-        $layout = $this->layout;
-        $this->layout = null;
-        
-        $conditions = '';
-        //$sites = $this->Site->find('all', array('conditions' => $conditions));
-        $sites = $this->Site->findById($id);
-        
-        $this->set('site', $sites);
-        
-        //$this->render('workorder');
-        $this->layout = $layout;
     }
     
     public function isAuthorized($user) {
