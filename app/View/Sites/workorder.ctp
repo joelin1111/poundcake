@@ -120,8 +120,8 @@ foreach ($towercontacts as $contact) {
 }
 $sheet1->writeString($row,2,$c,$fmt4);
 // col 2
-$sheet1->writeString($row,4,'Tower Equipment',$fmt3);
-$sheet1->writeString($row,5,$site['TowerEquipment']['name'],$fmt4);
+$sheet1->writeString($row,4,'Equipment Space',$fmt3);
+$sheet1->writeString($row,5,$site['EquipmentSpace']['name'],$fmt4);
 $row++;
 
 // col 1

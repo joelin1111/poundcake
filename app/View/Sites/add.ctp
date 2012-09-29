@@ -39,10 +39,12 @@
     // drop down menus of available items
     echo $this->Form->input('Site.site_state_id', array('type'=>'select','options' => $sitestates));
     echo $this->Form->input('Site.tower_owner_id', array('type'=>'select','options' => $towerowners));
+    
     echo $this->Form->input('Site.tower_type_id', array('type'=>'select','options' => $towertypes));
     echo $this->Form->input('Site.tower_member_id', array('type'=>'select','options' => $towermembers));
-    echo $this->Form->input('Site.equipment_spaces_id', array('type'=>'select','options' => $equipmentspaces));
     echo $this->Form->input('Site.tower_mount_id', array('type'=>'select','options' => $towermounts));
+    echo $this->Form->input('Site.equipment_space_id', array('type'=>'select','options' => $equipmentspace,'label' => 'Equipment Space'));
+    
     echo $this->Form->input('Site.power_type_id', array('type'=>'select','options' => $powertypes));
     echo $this->Form->input('NetworkSwitch.name',array('label' => 'Add New Switch'));
     echo $this->Form->input('NetworkRouter.name',array('label' => 'Add New Router'));

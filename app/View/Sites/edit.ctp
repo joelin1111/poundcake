@@ -52,8 +52,9 @@
     
     echo $this->Form->input('Site.tower_type_id', array('type'=>'select','options' => $towertypes));
     echo $this->Form->input('Site.tower_member_id', array('type'=>'select','options' => $towermembers));
-    echo $this->Form->input('Site.equipment_spaces_id', array('type'=>'select','options' => $equipmentspaces));
     echo $this->Form->input('Site.tower_mount_id', array('type'=>'select','options' => $towermounts));
+    echo $this->Form->input('Site.equipment_space_id', array('type'=>'select','options' => $equipmentspace,'label' => 'Equipment Space'));
+    
     
     echo $this->Form->input('Site.power_type_id', array('type'=>'select','options' => $powertypes));
     

@@ -18,6 +18,7 @@
     <ul>
         <li><?php echo $this->MyHTML->linkIfAllowed('Edit Site', array('action'=>'edit', $site['Site']['id']),1);?></li>
         <li><?php echo $this->Html->link('List Sites', array('action'=>'index')); ?></li>
+        <li><?php echo $this->MyHTML->postLinkIfAllowed(__('Delete'), array('action' => 'delete', $this->Form->value('Site.id')), null, __('Are you sure you want to delete site %s?', $this->Form->value('Site.site_id'))); ?></li>
         <li><?php echo $this->Html->link('Equipment List', array('action'=>'view', 'ext'=>'pdf', $site['Site']['id']));?></li>
         <li><?php echo $this->Html->link('Work Order', array('action'=>'workorder',$site['Site']['id']));?></li>
     </ul>
@@ -128,6 +129,12 @@
                     'action' => 'view',
                     $site['TowerOwner']['id']));
     ?></P>
+    
+    <P><B>Tower Type:</B>&nbsp;<?php echo $site['TowerType']['name']; ?></P>
+    <P><B>Tower Member:</B>&nbsp;<?php echo $site['TowerMember']['name']; ?></P>
+    <P><B>Tower Mount:</B>&nbsp;<?php echo $site['TowerMount']['name']; ?></P>
+    <P><B>Equipment Space:</B>&nbsp;<?php echo $site['EquipmentSpace']['name']; ?></P>
+    
     <P><B>Power Type:</B>&nbsp;<?php echo $site['PowerType']['name']; ?></P>
     <P><B>Switch:</B>&nbsp;<?php
         echo $this->Html->link(
