@@ -171,47 +171,42 @@ class Site extends AppModel {
         return $userData['Project'];
     }
     
-    /*
     function afterFind($results, $primary = false) {
         // make a nice tidy 
         $projects = $this->getUsersProjects();
-        $project_ids = array();
-        foreach($projects as $key => $value) {
-             //echo "Key: ".$key."<BR>";
-            //echo "Value: ".print_r($value)."<BR>";
-            array_push($project_ids,$value['id']);
-        }
-        
-        //$project_id = 3;
-        //$project_id = array(3,4);
-        //print_r($project_ids); die;
-        $n = 1;
-        if ($primary) {
-            echo '<pre>';
-            foreach($results as $key => $value) {
+        if (count($projects) > 0) {
+            $project_ids = array();
+            foreach($projects as $key => $value) {
                 //echo "Key: ".$key."<BR>";
                 //echo "Value: ".print_r($value)."<BR>";
-                //echo print_r($value['Site']['project_id'])."<BR>";
-                //echo $value['Site']['project_id']."<BR>";
-                
-                if (in_array($value['Site']['project_id'], $project_ids)) {
-                    echo "site_code: ".$value['Site']['site_code']."<BR>";
-                    echo "project_id: ".$value['Site']['project_id']."<BR>";
-                    $n++;
-                }
-                
-//                if ($value['Site']['project_id'] == 3 ) {
-//                    echo "site_code: ".$value['Site']['site_code']."<BR>";
-//                    echo "project_id: ".$value['Site']['project_id']."<BR>";
-//                    //echo "project_id: ".print_r($value['Site']['project_id'] )."<BR>";
-//                }
+                array_push($project_ids,$value['id']);
             }
-            echo "Access to $n projects";
-            echo '</pre>';
+
+            //$project_id = 3;
+            //$project_id = array(3,4);
+            //print_r($project_ids); die;
+            //$n = 1;
+            if ($primary) {
+                //echo '<pre>';
+                foreach($results as $key => $value) {
+                    //echo "Key: ".$key."<BR>";
+                    echo "Value: ".print_r($value)."<BR>";
+                    //echo print_r($value['Site']['project_id'])."<BR>";
+                    //echo $value['Site']['project_id']."<BR>";
+
+                    if (!(in_array($value['Site']['project_id'], $project_ids))) {
+                        //print_r($value['Site']);
+                        unset($results[$key]);
+                        //echo "site_code: ".$value['Site']['site_code']."<BR>";
+                        //echo "project_id: ".$value['Site']['project_id']."<BR>";
+                        //$n++;
+                    }
+                }
+                //echo '</pre>';
+            }
         }
-        die;
+        //die;
         return $results;
     }
-     */
 }
 ?>

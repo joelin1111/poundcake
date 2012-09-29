@@ -27,7 +27,7 @@
             <li><?php echo $this->Html->link('Tower Members', '/towerMembers/index'); ?></li>    
             <li><?php echo $this->Html->link('Tower Mounts', '/towerMounts/index'); ?></li>
             <li><?php echo $this->Html->link('Tower Owners', '/towerOwners/index'); ?></li>    
-            <li><?php echo $this->Html->link('Tower Types', '/towerTypes/index'); ?></li>
+            <li><?php echo $this->Html->link('Equipment Spaces', '/equipmentSpaces/index'); ?></li>
         </UL>
     </div> <!-- /.span4 -->
 

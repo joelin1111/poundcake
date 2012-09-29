@@ -1,7 +1,7 @@
 <?php
 App::uses('AppModel', 'Model');
 
-class TowerType extends AppModel {
+class EquipmentSpace extends AppModel {
 
     public $displayField = 'name';
     

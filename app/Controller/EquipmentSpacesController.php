@@ -1,47 +1,47 @@
 <?php
 App::uses('AppController', 'Controller');
 
-class TowerTypesController extends AppController {
+class EquipmentSpacesController extends AppController {
 
     public function index() {
-        $this->TowerType->recursive = 0;
+        $this->EquipmentSpace->recursive = 0;
         $this->set('towertypes', $this->paginate());
     }
 
     public function view($id = null) {
-        $this->TowerType->id = $id;
-        if (!$this->TowerType->exists()) {
-                throw new NotFoundException(__('Invalid tower type'));
+        $this->EquipmentSpace->id = $id;
+        if (!$this->EquipmentSpace->exists()) {
+                throw new NotFoundException(__('Invalid equipment space'));
         }
-        $this->set('towertype', $this->TowerType->read(null, $id));
+        $this->set('towertype', $this->EquipmentSpace->read(null, $id));
     }
 
     public function add() {
         if ($this->request->is('post')) {
-            $this->TowerType->create();
-            if ($this->TowerType->save($this->request->data)) {
-                $this->Session->setFlash(__('The tower type has been saved'));
+            $this->EquipmentSpace->create();
+            if ($this->EquipmentSpace->save($this->request->data)) {
+                $this->Session->setFlash(__('The equipment space has been saved'));
                 $this->redirect(array('action' => 'index'));
             } else {
-                $this->Session->setFlash(__('The tower type could not be saved. Please, try again.'));
+                $this->Session->setFlash(__('The equipment space could not be saved. Please, try again.'));
             }
         }
     }
 
     public function edit($id = null) {
-        $this->TowerType->id = $id;
-        if (!$this->TowerType->exists()) {
-                throw new NotFoundException(__('Invalid tower type'));
+        $this->EquipmentSpace->id = $id;
+        if (!$this->EquipmentSpace->exists()) {
+                throw new NotFoundException(__('Invalid equipment space'));
         }
         if ($this->request->is('post') || $this->request->is('put')) {
-            if ($this->TowerType->save($this->request->data)) {
-                $this->Session->setFlash(__('The tower type has been saved'));
+            if ($this->EquipmentSpace->save($this->request->data)) {
+                $this->Session->setFlash(__('The equipment space has been saved'));
                 $this->redirect(array('action' => 'index'));
             } else {
-                $this->Session->setFlash(__('The tower type could not be saved. Please, try again.'));
+                $this->Session->setFlash(__('The equipment space could not be saved. Please, try again.'));
             }
         } else {
-                $this->request->data = $this->TowerType->read(null, $id);
+                $this->request->data = $this->EquipmentSpace->read(null, $id);
         }
     }
 
@@ -49,15 +49,15 @@ class TowerTypesController extends AppController {
         if (!$this->request->is('post')) {
             throw new MethodNotAllowedException();
         }
-        $this->TowerType->id = $id;
-        if (!$this->TowerType->exists()) {
-            throw new NotFoundException(__('Invalid tower type'));
+        $this->EquipmentSpace->id = $id;
+        if (!$this->EquipmentSpace->exists()) {
+            throw new NotFoundException(__('Invalid equipment space'));
         }
-        if ($this->TowerType->delete()) {
-            $this->Session->setFlash(__('TowerType deleted'));
+        if ($this->EquipmentSpace->delete()) {
+            $this->Session->setFlash(__('EquipmentSpace deleted'));
             $this->redirect(array('action' => 'index'));
         }
-        $this->Session->setFlash(__('TowerType was not deleted'));
+        $this->Session->setFlash(__('EquipmentSpace was not deleted'));
         $this->redirect(array('action' => 'index'));
     }
         
