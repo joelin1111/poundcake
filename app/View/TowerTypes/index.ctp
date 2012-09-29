@@ -3,13 +3,13 @@
     <H3>Actions</H3>
     <div class="well well-large">
     <ul>
-        <li><?php echo $this->Html->link(__('New Tower Equipment'), array('action' => 'add')); ?></li>
+        <li><?php echo $this->Html->link(__('New Tower Type'), array('action' => 'add')); ?></li>
     </ul>
     </div>
 </div><!-- /.span3 .sb-fixed -->
 
 <div class="span9">
-	<h2>Tower Equipment</h2>
+	<h2>Tower Type</h2>
 	<table class="table table-condensed table-striped">
             <thead>
                 <tr>
@@ -21,10 +21,10 @@
 	<?php
 	foreach ($towerequipments as $towerequipment): ?>
 	<tr>
-            <td><?php echo h($towerequipment['TowerEquipment']['name']);?></td>
+            <td><?php echo h($towerequipment['TowerType']['name']);?></td>
             <td>
-                <?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $towerequipment['TowerEquipment']['id'])); ?>
-                <?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $towerequipment['TowerEquipment']['id']), null, __('Are you sure you want to delete tower equipment %s?', $towerequipment['TowerEquipment']['name'])); ?>
+                <?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $towerequipment['TowerType']['id'])); ?>
+                <?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $towerequipment['TowerType']['id']), null, __('Are you sure you want to delete tower type %s?', $towerequipment['TowerType']['name'])); ?>
             </td>
 	</tr>
         <?php endforeach; ?>

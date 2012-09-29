@@ -22,12 +22,12 @@
 
         <H3>Sites/Towers</H3>
         <UL>
+            <li><?php echo $this->Html->link('Equipment Spaces', '/equipmentSpaces/index'); ?></li>
             <li><?php echo $this->Html->link('Power Types', '/powerTypes/index'); ?></li>
-            <li><?php echo $this->Html->link('Tower Equipment', '/towerEquipment/index'); ?></li>
             <li><?php echo $this->Html->link('Tower Members', '/towerMembers/index'); ?></li>    
             <li><?php echo $this->Html->link('Tower Mounts', '/towerMounts/index'); ?></li>
             <li><?php echo $this->Html->link('Tower Owners', '/towerOwners/index'); ?></li>    
-            <li><?php echo $this->Html->link('Equipment Spaces', '/equipmentSpaces/index'); ?></li>
+            <li><?php echo $this->Html->link('Tower Type', '/towerTypes/index'); ?></li>            
         </UL>
     </div> <!-- /.span4 -->
 

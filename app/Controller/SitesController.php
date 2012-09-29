@@ -290,9 +290,9 @@ class SitesController extends AppController
         $this->set('towermembers',$this->Site->TowerMember->find('list'));
     }
     
-    function getTowerEquipment() {
+    function getEquipmentSpaces() {
         // identical to getZones
-        $this->set('towerequipment',$this->Site->TowerEquipment->find('list'));
+        $this->set('equipmentspaces',$this->Site->EquipmentSpace->find('list'));
     }
     
     function getTowerMounts() {
@@ -364,7 +364,7 @@ class SitesController extends AppController
         
         $this->getTowerTypes();
         $this->getTowerMembers();
-        $this->getTowerEquipment();
+        $this->getEquipmentSpaces();
         $this->getTowerMounts();
         
         $this->getNetworkSwitches();
@@ -441,7 +441,7 @@ class SitesController extends AppController
         
         $this->getTowerTypes();
         $this->getTowerMembers();
-        $this->getTowerEquipment();
+        $this->getEquipmentSpaces();
         $this->getTowerMounts();
         
         $this->getNetworkSwitches();

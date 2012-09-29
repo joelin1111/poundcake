@@ -1,48 +1,48 @@
 <?php
 App::uses('AppController', 'Controller');
 
-class TowerEquipmentController extends AppController {
+class TowerTypesController extends AppController {
 
     public function index() {
-        $this->TowerEquipment->recursive = 0;
+        $this->TowerType->recursive = 0;
         // yes, I do realize that the plural of equipment is equipment
         $this->set('towerequipments', $this->paginate());
     }
 
     public function view($id = null) {
-        $this->TowerEquipment->id = $id;
-        if (!$this->TowerEquipment->exists()) {
-                throw new NotFoundException(__('Invalid tower equipment'));
+        $this->TowerType->id = $id;
+        if (!$this->TowerType->exists()) {
+                throw new NotFoundException(__('Invalid tower type'));
         }
-        $this->set('towerequipment', $this->TowerEquipment->read(null, $id));
+        $this->set('towerequipment', $this->TowerType->read(null, $id));
     }
 
     public function add() {
         if ($this->request->is('post')) {
-            $this->TowerEquipment->create();
-            if ($this->TowerEquipment->save($this->request->data)) {
-                $this->Session->setFlash(__('The tower equipment has been saved'));
+            $this->TowerType->create();
+            if ($this->TowerType->save($this->request->data)) {
+                $this->Session->setFlash(__('The tower type has been saved'));
                 $this->redirect(array('action' => 'index'));
             } else {
-                $this->Session->setFlash(__('The tower equipment could not be saved. Please, try again.'));
+                $this->Session->setFlash(__('The tower type could not be saved. Please, try again.'));
             }
         }
     }
 
     public function edit($id = null) {
-        $this->TowerEquipment->id = $id;
-        if (!$this->TowerEquipment->exists()) {
-                throw new NotFoundException(__('Invalid tower equipment'));
+        $this->TowerType->id = $id;
+        if (!$this->TowerType->exists()) {
+                throw new NotFoundException(__('Invalid tower type'));
         }
         if ($this->request->is('post') || $this->request->is('put')) {
-            if ($this->TowerEquipment->save($this->request->data)) {
-                $this->Session->setFlash(__('The tower equipment has been saved'));
+            if ($this->TowerType->save($this->request->data)) {
+                $this->Session->setFlash(__('The tower type has been saved'));
                 $this->redirect(array('action' => 'index'));
             } else {
-                $this->Session->setFlash(__('The tower equipment could not be saved. Please, try again.'));
+                $this->Session->setFlash(__('The tower type could not be saved. Please, try again.'));
             }
         } else {
-                $this->request->data = $this->TowerEquipment->read(null, $id);
+                $this->request->data = $this->TowerType->read(null, $id);
         }
     }
 
@@ -50,11 +50,11 @@ class TowerEquipmentController extends AppController {
         if (!$this->request->is('post')) {
             throw new MethodNotAllowedException();
         }
-        $this->TowerEquipment->id = $id;
-        if (!$this->TowerEquipment->exists()) {
-            throw new NotFoundException(__('Invalid tower equipment'));
+        $this->TowerType->id = $id;
+        if (!$this->TowerType->exists()) {
+            throw new NotFoundException(__('Invalid tower type'));
         }
-        if ($this->TowerEquipment->delete()) {
+        if ($this->TowerType->delete()) {
             $this->Session->setFlash(__('Tower equipment deleted'));
             $this->redirect(array('action' => 'index'));
         }

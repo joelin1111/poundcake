@@ -52,7 +52,7 @@
     
     echo $this->Form->input('Site.tower_type_id', array('type'=>'select','options' => $towertypes));
     echo $this->Form->input('Site.tower_member_id', array('type'=>'select','options' => $towermembers));
-    echo $this->Form->input('Site.tower_equipment_id', array('type'=>'select','options' => $towerequipment));
+    echo $this->Form->input('Site.equipment_spaces_id', array('type'=>'select','options' => $equipmentspaces));
     echo $this->Form->input('Site.tower_mount_id', array('type'=>'select','options' => $towermounts));
     
     echo $this->Form->input('Site.power_type_id', array('type'=>'select','options' => $powertypes));

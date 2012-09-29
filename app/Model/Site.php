@@ -14,7 +14,7 @@ class Site extends AppModel {
         'NetworkRouter',
         'EquipmentSpace',
         'TowerMember',
-        'TowerEquipment',
+        'TowerType',
         'TowerMount',
         'InstallTeam',
         'Project'
@@ -145,6 +145,7 @@ class Site extends AppModel {
     }
     */
  
+    /*
     function getUsersProjects() {
         $uid = CakeSession::read("Auth.User.id");
         $this->User = ClassRegistry::init('User');
@@ -208,5 +209,6 @@ class Site extends AppModel {
         //die;
         return $results;
     }
+    */
 }
 ?>

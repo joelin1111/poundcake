@@ -1,11 +1,11 @@
 <?php
 App::uses('AppModel', 'Model');
 
-class TowerEquipment extends AppModel {
+class TowerType extends AppModel {
 
     public $displayField = 'name';
     
-    public $useTable = 'tower_equipment';
+    //public $useTable = 'tower_equipment';
     
     public $validate = array(
         'name' => array(
