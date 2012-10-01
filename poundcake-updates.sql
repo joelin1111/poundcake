@@ -1,6 +1,19 @@
 alter table switch_types add manufacturer varchar(255);
 alter table switch_types add model varchar(255);
 alter table network_routers add router_type_id int(10);
+alter table network_radios add min_height int(10) after elevation;
+
+DROP TABLE IF EXISTS `router_types`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `router_types` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL,
+  `manufacturer` varchar(255) NOT NULL,
+  `model` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 
 

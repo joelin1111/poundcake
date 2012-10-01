@@ -26,6 +26,7 @@
         echo $this->Form->input('antenna_type_id', array('type'=>'select','options' => $antennatypes));
         echo $this->Form->input('radio_mode_id', array('type'=>'select','options' => $radiomodes));
         echo $this->Form->input('elevation');
+        echo $this->Form->input('min_height', array('label'=>'Min. Height (meters)'));
         echo $this->Form->input('frequency', array('type'=>'select','options' => $frequencies));
         echo $this->Form->input('ssid', array('label'=>'SSID'));
         echo $this->Form->input('network_switch_id', array('type'=>'select','options' => $networkswitches,'empty' => true));
