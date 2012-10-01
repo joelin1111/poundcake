@@ -308,33 +308,33 @@ $row++;
 foreach ($radios as $radio) {
     $sheet1->writeString($row,1,'Name',$fmt3);
     $sheet1->writeString($row,2,$radio['NetworkRadios']['name'],$fmt4);
-    $sheet1->writeString($row,4,'Frequency',$fmt3);
-    $sheet1->writeString($row,5,$radio['NetworkRadios']['frequency'],$fmt4);
+    $sheet1->writeString($row,4,'Min. Height (meters)',$fmt3);
+    $sheet1->writeString($row,5,$radio['NetworkRadios']['min_height'],$fmt4);
     $row++;
     
     $sheet1->writeString($row,1,'Radio Type',$fmt3);
     $sheet1->writeString($row,2,$radio['RadioType']['name'],$fmt4);
-    $sheet1->writeString($row,4,'SSID',$fmt3);
-    $sheet1->writeString($row,5,$radio['NetworkRadios']['ssid'],$fmt4);
+    $sheet1->writeString($row,4,'Frequency',$fmt3);
+    $sheet1->writeString($row,5,$radio['NetworkRadios']['frequency'],$fmt4);
     $row++;
     
     $sheet1->writeString($row,1,'Antenna Type',$fmt3);
     $sheet1->writeString($row,2,$radio['AntennaType']['name'],$fmt4);
-    $sheet1->writeString($row,4,'Switch Port',$fmt3);
-    $sheet1->writeString($row,5,$radio['NetworkRadios']['switch_port'],$fmt4);
+    $sheet1->writeString($row,4,'SSID',$fmt3);
+    $sheet1->writeString($row,5,$radio['NetworkRadios']['ssid'],$fmt4);
     $row++;
     
     $sheet1->writeString($row,1,'Link Distance',$fmt3);
     $d = sprintf("%01.2f",$radio['NetworkRadios']['distance']);
     $sheet1->writeString($row,2,$d." Km",$fmt4);
-    $sheet1->writeString($row,4,'IP',$fmt3);
-    $sheet1->writeString($row,5,'[addrpool or manual?]',$fmt4);
+    $sheet1->writeString($row,4,'Switch Port',$fmt3);
+    $sheet1->writeString($row,5,$radio['NetworkRadios']['switch_port'],$fmt4);
     $row++;
     
     $sheet1->writeString($row,1,'Azimuth (True)',$fmt3);
     $d = sprintf("%01.2f",$radio['NetworkRadios']['true_azimuth']);
     $sheet1->writeString($row,2,$d."°",$fmt4);
-    $sheet1->writeString($row,4,'Gateway',$fmt3);
+    $sheet1->writeString($row,4,'IP',$fmt3);
     $sheet1->writeString($row,5,'[addrpool or manual?]',$fmt4);
     $row++;
     
@@ -342,12 +342,14 @@ foreach ($radios as $radio) {
     $sheet1->writeString($row,1,'Azimuth (Magnetic)',$fmt3);
     $d = sprintf("%01.2f",$mag_azimuth);
     $sheet1->writeString($row,2,$d."°",$fmt4);
-    $sheet1->writeString($row,4,'Mode',$fmt3);
-    $sheet1->writeString($row,5,$radio['RadioMode']['name'],$fmt4);
+    $sheet1->writeString($row,4,'Gateway',$fmt3);
+    $sheet1->writeString($row,5,'[addrpool or manual?]',$fmt4);
     $row++;
     
     $sheet1->writeString($row,1,'Elevaton',$fmt3);
     $sheet1->writeString($row,2,$radio['NetworkRadios']['elevation'],$fmt4);
+    $sheet1->writeString($row,4,'Mode',$fmt3);
+    $sheet1->writeString($row,5,$radio['RadioMode']['name'],$fmt4);
     
     $row += 2;    
 }
