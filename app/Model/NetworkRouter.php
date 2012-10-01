@@ -5,6 +5,10 @@ class NetworkRouter extends AppModel {
 
     public $displayField = 'name';
 
+    var $belongsTo = array(
+        'RouterType'
+    );
+    
     public $validate = array(
         'name' => array(
             'notempty' => array(

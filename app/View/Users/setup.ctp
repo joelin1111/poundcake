@@ -44,6 +44,7 @@
         <li><?php echo $this->Html->link('Build Items', '/buildItems/index'); ?></li>
         <li><?php echo $this->Html->link('Contact Types', '/contactTypes/index'); ?></li>
         <li><?php echo $this->Html->link('Install Teams', '/installTeams/index'); ?></li> 
+        <li><?php echo $this->Html->link('Router Types', '/routerTypes/index'); ?> </li>
         <li><?php echo $this->Html->link('Switch Types', '/switchTypes/index'); ?> </li>      
         <li><?php echo $this->Html->link('Site States', '/siteStates/index'); ?></li>
         <li><?php echo $this->Html->link('Zones', '/zones/index'); ?></li>

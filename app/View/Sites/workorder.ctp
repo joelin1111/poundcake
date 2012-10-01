@@ -10,7 +10,7 @@ App::import('Vendor','ExcelWriterXML/ExcelWriterXML');
  * Create a new instance of the Excel Writer
  */
 
-$filename = 'Work Order '.$site['Site']['site_code'].' '.$site['Site']['site_name'].'.xml';
+$filename = 'Work Order '.$site['Site']['site_vf'].'.xml';
 
 $xml = new ExcelWriterXML( $filename );
 
@@ -58,7 +58,7 @@ $fmtBanner->fontBold();
 $fmtBanner->fontSize('12');
 
 // Create a new sheet with the XML document
-$sheet1 = $xml->addSheet('Alignment');
+$sheet1 = $xml->addSheet('Work Order '.$site['Site']['site_vf']);
 
 $row = 1;
 $sheet1->writeString($row,1,'Inveneo Site Install Work Order',$fmt1);
@@ -76,9 +76,9 @@ $row += 2;
 $sheet1->writeString($row,1,'Install Team',$fmt3);
 $sheet1->writeString($row,2,$site['InstallTeam']['name'],$fmt4);
 // col 2
-$sheet1->writeString(4,4,'GPS Coordinates',$fmt3);
+$sheet1->writeString($row,4,'GPS Coordinates',$fmt3);
 $coordinates = sprintf("%01.5f",$site['Site']['lat']).' '.sprintf("%01.5f",$site['Site']['lon']);
-$sheet1->writeString(4,5,$coordinates,$fmt4);
+$sheet1->writeString($row,5,$coordinates,$fmt4);
 $row++;
 
 // col 1
@@ -86,24 +86,33 @@ $sheet1->writeString($row,1,'Install Date',$fmt3);
 $date = new DateTime($site['Site']['install_date']);
 $sheet1->writeString($row,2,$date->format('Y-m-d'),$fmt4);
 // col 2
-$sheet1->writeString($row,4,'Tower Type',$fmt3);
-$sheet1->writeString($row,5,$site['TowerType']['name'],$fmt4);
+$sheet1->writeString($row,4,'Tower Mount',$fmt3);
+$sheet1->writeString($row,5,$site['TowerMount']['name'],$fmt4);
 $row++;
 
 // col 1
-$sheet1->writeString($row,1,'Site Name (Code)',$fmt3);
-$sheet1->writeString($row,2,$site['Site']['site_name'].' ('.$site['Site']['site_name'].')',$fmt4);
+$sheet1->writeString($row,1,'Site',$fmt3);
+$sheet1->writeString($row,2,$site['Site']['site_vf'],$fmt4);
+//$sheet1->writeString($row,2,$site['Site']['site_name'].' ('.$site['Site']['site_name'].')',$fmt4);
 // col 2
-$sheet1->writeString($row,4,'Tower Member',$fmt3);
-$sheet1->writeString($row,5,$site['TowerMember']['name'],$fmt4);
+$sheet1->writeString($row,4,'Tower Type',$fmt3);
+$sheet1->writeString($row,5,$site['TowerType']['name'],$fmt4);
 $row++;
 
 // col 1
 $sheet1->writeString($row,1,'Tower Owner',$fmt3);
 $sheet1->writeString($row,2,$site['TowerOwner']['name'],$fmt4);
 // col 2
-$sheet1->writeString($row,4,'Install Team',$fmt3);
-$sheet1->writeString($row,5,$site['InstallTeam']['name'],$fmt4);
+$sheet1->writeString($row,4,'Power Type',$fmt3);
+$sheet1->writeString($row,5,$site['PowerType']['name'],$fmt4);
+$row++;
+
+// col 1
+$sheet1->writeString($row,1,'Tower Guard',$fmt3);
+$sheet1->writeString($row,2,$site['Site']['tower_guard'],$fmt4);
+// col 2
+$sheet1->writeString($row,4,'Tower Member',$fmt3);
+$sheet1->writeString($row,5,$site['TowerMember']['name'],$fmt4);
 $row++;
 
 // col 1
@@ -113,21 +122,63 @@ $i = 0;
 $c = '';
 foreach ($towercontacts as $contact) {
     $c .= $contact['Contact']['name_vf'];
+    $c .= ' '.$contact['Contact']['mobile'];
     if ($i < $n-1) {
         $c .= ', ';
     }
     $i++;
 }
 $sheet1->writeString($row,2,$c,$fmt4);
+
 // col 2
+$sheet1->writeString($row,4,'Install Team',$fmt3);
+$sheet1->writeString($row,5,$site['InstallTeam']['name'],$fmt4);
+$row++;
+
 $sheet1->writeString($row,4,'Equipment Space',$fmt3);
 $sheet1->writeString($row,5,$site['EquipmentSpace']['name'],$fmt4);
 $row++;
 
-// col 1
-$sheet1->writeString($row,1,'Tower Mount',$fmt3);
-$sheet1->writeString($row,2,$site['TowerMount']['name'],$fmt4);
+// ****************************************************************************
+// Notes
+// ****************************************************************************
 $row++;
+$sheet1->writeString($row,1,'Notes',$fmtBanner);
+$sheet1->writeString($row,2,'',$fmtBanner);
+$sheet1->writeString($row,3,'',$fmtBanner);
+$sheet1->writeString($row,4,'',$fmtBanner);
+$sheet1->writeString($row,5,'',$fmtBanner);
+$row++;
+
+// Merge (2,1) with 4 columns to the right and 2 rows down
+//$sheet1->cellMerge(2,1,4,2);
+
+$sheet1->writeString($row,1,"Description",$fmt3);
+$sheet1->writeString($row,2,"Row ".$row." ".$site['Site']['description'],$fmt4);
+//$sheet1->writeString($row,2,"Testing",$fmt4);
+$sheet1->cellMerge($row,2,3,0);
+$row++;
+
+$sheet1->writeString($row,1,"Mounting",$fmt3);
+$sheet1->writeString($row,2,$site['Site']['mounting'],$fmt4);
+$sheet1->cellMerge($row,2,3,0);
+$row++;
+
+$sheet1->writeString($row,1,"Access",$fmt3);
+$sheet1->writeString($row,2,$site['Site']['access'],$fmt4);
+$sheet1->cellMerge($row,2,3,0);
+$row++;
+
+$sheet1->writeString($row,1,"Accommodations",$fmt3);
+$sheet1->writeString($row,2,$site['Site']['accommodations'],$fmt4);
+$sheet1->cellMerge($row,2,3,0);
+$row++;
+
+$sheet1->writeString($row,1,"Notes",$fmt3);
+$sheet1->writeString($row,2,$site['Site']['notes'],$fmt4);
+$sheet1->cellMerge($row,2,3,0);
+$row++;
+
 
 // ****************************************************************************
 // Router
@@ -140,7 +191,50 @@ $sheet1->writeString($row,4,'',$fmtBanner);
 $sheet1->writeString($row,5,'',$fmtBanner);
 $row++;
 
+$sheet1->writeString($row,1,"Name",$fmt3);
 $sheet1->writeString($row,2,$site['NetworkRouter']['name'],$fmt4);
+$row++;
+
+$sheet1->writeString($row,1,"Manufacturer",$fmt3);
+$sheet1->writeString($row,2,$router['RouterType']['manufacturer'],$fmt4);
+$row++;
+
+$sheet1->writeString($row,1,"Model",$fmt3);
+$sheet1->writeString($row,2,$router['RouterType']['model'],$fmt4);
+$row++;
+
+$sheet1->writeString($row,1,"Connection",$fmt3);
+$sheet1->writeString($row,2,'Router port 1 always on switch GB uplink',$fmt4);
+$row++;
+
+$sheet1->writeString($row,1,"VLAN2 IP",$fmt3);
+$row++;
+
+$sheet1->writeString($row,1,"VLAN11 IP",$fmt3);
+$row++;
+
+$sheet1->writeString($row,1,"VLAN12 IP",$fmt3);
+$row++;
+
+$sheet1->writeString($row,1,"VLAN13 IP",$fmt3);
+$row++;
+
+$sheet1->writeString($row,1,"VLAN14 IP",$fmt3);
+$row++;
+
+$sheet1->writeString($row,1,"VLAN15 IP",$fmt3);
+$row++;
+
+$sheet1->writeString($row,1,"VLAN16 IP",$fmt3);
+$row++;
+
+$sheet1->writeString($row,1,"VLAN17 IP",$fmt3);
+$row++;
+
+$sheet1->writeString($row,1,"VLAN18 IP",$fmt3);
+$row++;
+
+$sheet1->writeString($row,1,"VLAN99 IP",$fmt3);
 $row++;
 
 // ****************************************************************************
@@ -158,9 +252,44 @@ $sheet1->writeString($row,1,'Name',$fmt3);
 $sheet1->writeString($row,2,$switch['SwitchType']['name'],$fmt4);
 $row++;
 
+$sheet1->writeString($row,1,'Manufacturer',$fmt3);
+$sheet1->writeString($row,2,$switch['SwitchType']['manufacturer'],$fmt4);
+$row++;
+
+$sheet1->writeString($row,1,'Model',$fmt3);
+$sheet1->writeString($row,2,$switch['SwitchType']['model'],$fmt4);
+$row++;
+
 $sheet1->writeString($row,1,'Ports',$fmt3);
 $sheet1->writeString($row,2,$switch['SwitchType']['ports'],$fmt4);
 $row++;
+
+$sheet1->writeString($row,1,"Power",$fmt3);
+$row++;
+
+$sheet1->writeString($row,1,"Remote Mgmt. IP",$fmt3);
+$row++;
+
+$sheet1->writeString($row,1,"Remote Mgmt. VLAN",$fmt3);
+$row++;
+
+$sheet1->writeString($row,1,"Local Mgmt. IP",$fmt3);
+$row++;
+
+$sheet1->writeString($row,1,"Local Mgmt. VLAN",$fmt3);
+$row++;
+
+$sheet1->writeString($row,1,"Local Mgmt. Port",$fmt3);
+$row++;
+
+$sheet1->writeString($row,1,"Mgmt. Gateway",$fmt3);
+$row++;
+
+$sheet1->writeString($row,1,"Bridged Ports",$fmt3);
+$row++;
+
+
+
 
 // ****************************************************************************
 // Radios
@@ -227,6 +356,7 @@ foreach ($radios as $radio) {
 // 
 // Send the headers, then output the data
 $xml->sendHeaders();
+
 $xml->writeData();
 
 

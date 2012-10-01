@@ -13,7 +13,9 @@
     <h2>Add Switch Type</h2>
     <?php
         echo $this->Form->input('name');
-        echo $this->Form->input('switch_type_id', array('type'=>'select','options' => $switchtypes));
+        echo $this->Form->input('ports');
+        echo $this->Form->input('manufacturer');
+        echo $this->Form->input('model');
     ?>
     </fieldset>
     <?php echo $this->Form->end(__('Submit')); ?>

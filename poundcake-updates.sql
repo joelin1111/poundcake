@@ -1,4 +1,13 @@
-alter table network_radios add link_distance DECIMAL(5,2);
+alter table switch_types add manufacturer varchar(255);
+alter table switch_types add model varchar(255);
+alter table network_routers add router_type_id int(10);
+
+
+
+
+alter table sites add project_id int(10);
+
+-- alter table network_radios add link_distance DECIMAL(5,2);
 
 DROP TABLE IF EXISTS `projects`;
 CREATE TABLE `projects` (
@@ -7,15 +16,15 @@ CREATE TABLE `projects` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
-DROP TABLE IF EXISTS `user_to_projects`;
-CREATE TABLE `user_to_projects` (
+DROP TABLE IF EXISTS `projects_users`;
+CREATE TABLE `projects_users` (
   `user_id` int(10) not null,
   `project_id` int(10) not null,
   PRIMARY KEY (`user_id`,`project_id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
-insert into projects('name') values ('Haiti (HRBN)');
-insert into projects('name') values ('Mfangano Island (OHR)');
+insert into projects('name') values ('Haiti \(HRBN\)');
+insert into projects('name') values ('Mfangano Island \(OHR\)');
 
 -- Old
 

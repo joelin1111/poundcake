@@ -11,6 +11,8 @@
 <div class="span9">
     <h2>View Router</h2>
     <P><B>Name:</B>&nbsp;<?php echo $networkrouter['NetworkRouter']['name']; ?></P>
+    <P><B>Manufacturer:</B>&nbsp;<?php echo $networkrouter['RouterType']['manufacturer']; ?></P>
+    <P><B>Model:</B>&nbsp;<?php echo $networkrouter['RouterType']['model']; ?></P>
 </div> <!-- /.span9 -->
 </div> <!-- /.row -->
 

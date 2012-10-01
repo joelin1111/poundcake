@@ -26,6 +26,8 @@ class NetworkRoutersController extends AppController {
     }
 
     public function add() {
+        $this->getRouterTypes();
+        
         if ($this->request->is('post')) {
             $this->NetworkRouter->create();
             if ($this->NetworkRouter->save($this->request->data)) {
@@ -39,6 +41,8 @@ class NetworkRoutersController extends AppController {
 
     public function edit($id = null) {
         $this->NetworkRouter->id = $id;
+        $this->getRouterTypes();
+        
         if (!$this->NetworkRouter->exists()) {
                 throw new NotFoundException(__('Invalid router'));
         }
@@ -54,6 +58,15 @@ class NetworkRoutersController extends AppController {
         }
     }
 
+    function getRouterTypes() {
+        $this->set('routertypes',$this->NetworkRouter->RouterType->find('list',
+            array(
+                'order' => array(
+                    'RouterType.manufacturer ASC'
+            )))
+        );
+    }
+    
     public function delete($id = null) {
         if (!$this->request->is('post')) {
                 throw new MethodNotAllowedException();

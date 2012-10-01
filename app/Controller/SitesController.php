@@ -24,6 +24,19 @@ class SitesController extends AppController
         $this->set('site_name', $this->Site->site_name);
     }
     
+    public function testworkorder() {
+        $this->layout = 'blank';
+        //$this->layout = null;
+        //$this->layout = 'ajax'; // anything other than default
+        //$this->autoLayout = false; 
+        //$this->render('workorder');
+        //$this->layout = null; 
+        //$this->render('workorder','blank',null);
+        $this->render('testworkorder');
+        //$this->autoLayout = true; 
+        $this->layout = 'default';
+    }
+    
     function getUserProjects() {
         //$userId = $this->Auth->user('id');
         $this->loadModel('User');
@@ -532,9 +545,15 @@ class SitesController extends AppController
             //$x = readfile($url);
             $x = file_get_contents($url);
             $y = str_getcsv($x);
-            //echo '<br><br><pre>';
-            //print_r($y[3]);
-            $dec = $y[3];
+            
+            // count should be > 1 unless the web service is down or some other network error
+            if (count($y) > 1) {
+                //echo '<br><br><pre>';
+                //print_r($y[3]);
+                $dec = $y[3];
+            } else {
+                $dec = 0;
+            }
             //echo '</pre>';
         }
         return $dec;
@@ -545,9 +564,14 @@ class SitesController extends AppController
         $sites = $this->Site->findById($id);
         // this Cake query is like magic, total effing magic
         $towercontacts = $this->Site->TowerOwner->Contact->findAllByContactTypeId(2); // 2 is the technical contact
+        $router = $this->Site->NetworkRouter->findByRouterTypeId($sites['NetworkRouter']['router_type_id']);
         $switch = $this->Site->NetworkSwitch->findBySwitchTypeId($sites['NetworkSwitch']['switch_type_id']);
         $radios = $this->Site->NetworkRadios->findAllBySiteId($id);
-        //
+
+//        echo '<pre>X';
+//        print_r($router);
+//        echo '</pre>';
+//        die;
         
         // this seems kind of crazy -- and it is -- but since I'm not saving the link distance or bearing on the
         // NetworkRadio object (they are computed at view time), and really I can't do that since
@@ -581,6 +605,7 @@ class SitesController extends AppController
 //        die;
         $this->set('site', $sites);
         $this->set('towercontacts', $towercontacts);
+        $this->set('router', $router);
         $this->set('switch', $switch);
         $this->set('radios', $radios);
         

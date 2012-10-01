@@ -71,13 +71,6 @@ class Site extends AppModel {
             )
     );
     
-    var $actsAs = array('Containable'); 
-    
-    // we'll eventually save the site's latitude/longitude here -- but only
-    // after decoding it from the spatial data type in the db
-    //var $lat = 0;
-    //var $lon = 0;
-    
     // this virtualField is also defined in the sp_nearby stored procedure - that version
     // is used to place placemarkers for nearby sites on the site view page map
     var $virtualFields = array('site_vf' => 'CONCAT(site_code, " ", site_name)');
