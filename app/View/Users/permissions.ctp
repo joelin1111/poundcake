@@ -4,7 +4,6 @@
     <H3>Actions</H3>
     <div class="well well-large">
     <ul>
-        <li><?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $this->Form->value('User.id')), null, __('Are you sure you want to delete user %s?', $this->Form->value('User.username'))); ?></li>
         <li><?php echo $this->Html->link(__('List Users'), array('action' => 'index')); ?></li>
     </ul>
     </div>
@@ -12,14 +11,13 @@
 
 <div class="span9">
     <?php echo $this->Form->create('User'); ?>
-    <h2>Edit User</h2>
+    <h2>Permissions</h2>
     <?php
+        //echo $this->Session->flash();
         echo $this->Form->input('id');
-        echo $this->Form->input('username');
-        echo $this->Form->input('password');
-        /*
+        echo "Username:  ".$this->Form->value('username'); //,array('disabled' => true));
         echo $this->Form->input('User.role_id', array('type'=>'select','options' => $roles));
-        echo $this->Form->input('Project.Project',array('label'=>'Project (Note: Experimental Feature)'));
+        //echo $this->Form->input('Project.Project',array('label'=>'Project (Note: Experimental Feature)'));
         echo $this->Form->input('Project.Project',array(
             'label' => __('Projects (Note: Experimental Feature)',true),
             'type' => 'select',
@@ -27,7 +25,7 @@
             'options' => $projects,
             'selected' => $this->Html->value('Project.Project'),
         ));
-        */
+
         echo $this->Form->end(__('Submit'));
     ?>
 </div> <!-- /.span9 -->

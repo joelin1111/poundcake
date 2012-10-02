@@ -86,10 +86,40 @@ class UsersController extends AppController {
         }
     }
     
-    public function edit($id = null) {
+    public function permissions($id = null) {
         $this->User->id = $id;
         $this->getRoles();
         $this->getProjects();
+        
+        if (!$this->User->exists()) {
+            throw new NotFoundException(__('Invalid user'));
+        }
+        if ($this->request->is('post') || $this->request->is('put')) {
+            //unset($this->User->validate['password']);
+//            echo '<pre>';
+//            print_r($this->data);
+//            unset($this->data['User']['password']); 
+//            print_r($this->data);
+//            echo '</pre>';
+//            die;
+            $blackList = array('password', 'username');
+            if ($this->User->save($this->request->data, true, array_diff(array_keys($this->User->schema()), $blackList))) {
+            //if ($this->User->save($this->request->data)) {
+                $this->Session->setFlash(__('The user has been saved.'));
+                $this->redirect(array('action' => 'index'));
+            } else {
+                $this->Session->setFlash(__('The user could not be saved. Please, try again.'));
+            }
+        } else {
+            $this->request->data = $this->User->read(null, $id);
+            unset($this->request->data['User']['password']);
+        }
+    }
+    
+    public function edit($id = null) {
+        $this->User->id = $id;
+        //$this->getRoles();
+        //$this->getProjects();
         
         if (!$this->User->exists()) {
             throw new NotFoundException(__('Invalid user'));

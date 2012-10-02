@@ -28,7 +28,7 @@ class User extends AppModel {
         'password' => array(
             //'rule'     => 'alphaNumeric',
             'rule'    => array('minLength', 6),
-            'required' => true,
+            //'required' => true,
             'message' => 'Password must be alphanumeric.'
         ),
     );
