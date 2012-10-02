@@ -18,7 +18,15 @@
         echo $this->Form->input('username');
         echo $this->Form->input('password');
         echo $this->Form->input('User.role_id', array('type'=>'select','options' => $roles));
-        echo $this->Form->input('Project.Project',array('label'=>'Project (Feature in Development)'));
+        //echo $this->Form->input('Project.Project',array('label'=>'Project (Note: Experimental Feature)'));
+        echo $this->Form->input('Project.Project',array(
+            'label' => __('Projects (Note: Experimental Feature)',true),
+            'type' => 'select',
+            'multiple' => 'checkbox',
+            'options' => $projects,
+            'selected' => $this->Html->value('Project.Project'),
+        ));
+
         echo $this->Form->end(__('Submit'));
     ?>
 </div> <!-- /.span9 -->

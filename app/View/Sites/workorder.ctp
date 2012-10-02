@@ -49,13 +49,20 @@ $fmt4->alignHorizontal('Left');
 $fmt4->fontSize('12');
 $fmt4->alignWraptext();
 
+$fmt5 = $xml->addStyle('border');
+$fmt5->border('Bottom',2,'Black','Continuous');
+
 // Excel color picker:
 // http://dmcritchie.mvps.org/excel/colors.htm#colorindex
 $fmtBanner = $xml->addStyle('banner');
-$fmtBanner->bgColor('#BEBEBE');
-$fmtBanner->alignHorizontal('Right');
+$fmtBanner->bgColor('#000000');
+$fmtBanner->fontColor('#FFFFFF');
+//$fmtBanner->bgColor('#BEBEBE');
+$fmtBanner->alignHorizontal('Center');
+$fmtBanner->alignVertical('Center');
 $fmtBanner->fontBold();
-$fmtBanner->fontSize('12');
+$fmtBanner->fontSize('16');
+$fmtBannerHeight = 25;
 
 // Create a new sheet with the XML document
 $sheet1 = $xml->addSheet('Work Order '.$site['Site']['site_vf']);
@@ -142,13 +149,11 @@ $row++;
 // ****************************************************************************
 // Notes
 // ****************************************************************************
-$row++;
-$sheet1->writeString($row,1,'Notes',$fmtBanner);
-$sheet1->writeString($row,2,'',$fmtBanner);
-$sheet1->writeString($row,3,'',$fmtBanner);
-$sheet1->writeString($row,4,'',$fmtBanner);
-$sheet1->writeString($row,5,'',$fmtBanner);
-$row++;
+$row += 2;
+$sheet1->writeString($row,1,'NOTES',$fmtBanner);
+$sheet1->cellMerge($row,1,4,0);
+$sheet1->rowHeight($row,$fmtBannerHeight);
+$row += 2;
 
 // Merge (2,1) with 4 columns to the right and 2 rows down
 //$sheet1->cellMerge(2,1,4,2);
@@ -183,13 +188,11 @@ $row++;
 // ****************************************************************************
 // Router
 // ****************************************************************************
-$row++;
-$sheet1->writeString($row,1,'Router',$fmtBanner);
-$sheet1->writeString($row,2,'',$fmtBanner);
-$sheet1->writeString($row,3,'',$fmtBanner);
-$sheet1->writeString($row,4,'',$fmtBanner);
-$sheet1->writeString($row,5,'',$fmtBanner);
-$row++;
+$row += 2;
+$sheet1->writeString($row,1,'ROUTER',$fmtBanner);
+$sheet1->cellMerge($row,1,4,0);
+$sheet1->rowHeight($row,$fmtBannerHeight);
+$row += 2;
 
 $sheet1->writeString($row,1,"Name",$fmt3);
 $sheet1->writeString($row,2,$site['NetworkRouter']['name'],$fmt4);
@@ -240,13 +243,11 @@ $row++;
 // ****************************************************************************
 // Switch
 // ****************************************************************************
-$row++;
-$sheet1->writeString($row,1,'Switch',$fmtBanner);
-$sheet1->writeString($row,2,'',$fmtBanner);
-$sheet1->writeString($row,3,'',$fmtBanner);
-$sheet1->writeString($row,4,'',$fmtBanner);
-$sheet1->writeString($row,5,'',$fmtBanner);
-$row++;
+$row += 2;
+$sheet1->writeString($row,1,'SWITCH',$fmtBanner);
+$sheet1->cellMerge($row,1,4,0);
+$sheet1->rowHeight($row,$fmtBannerHeight);
+$row += 2;
 
 $sheet1->writeString($row,1,'Name',$fmt3);
 $sheet1->writeString($row,2,$switch['SwitchType']['name'],$fmt4);
@@ -289,22 +290,15 @@ $sheet1->writeString($row,1,"Bridged Ports",$fmt3);
 $row++;
 
 
-
-
 // ****************************************************************************
 // Radios
 // ****************************************************************************
-$row++;
-$sheet1->writeString($row,1,'Radios',$fmtBanner);
-$sheet1->writeString($row,2,'',$fmtBanner);
-$sheet1->writeString($row,3,'',$fmtBanner);
-$sheet1->writeString($row,4,'',$fmtBanner);
-$sheet1->writeString($row,5,'',$fmtBanner);
+$row += 2;
+$sheet1->writeString($row,1,'RADIOS',$fmtBanner);
+$sheet1->cellMerge($row,1,4,0);
+$sheet1->rowHeight($row,$fmtBannerHeight);
+$row += 2;
 
-$row++;
-//$n = count($radios);
-//$i = 0;
-//$c = '';
 foreach ($radios as $radio) {
     $sheet1->writeString($row,1,'Name',$fmt3);
     $sheet1->writeString($row,2,$radio['NetworkRadios']['name'],$fmt4);
@@ -332,18 +326,21 @@ foreach ($radios as $radio) {
     $row++;
     
     $sheet1->writeString($row,1,'Azimuth (True)',$fmt3);
-    $d = sprintf("%01.2f",$radio['NetworkRadios']['true_azimuth']);
+    //$d = sprintf("%01.2f",$radio['NetworkRadios']['true_azimuth']);
+    $d = round($radio['NetworkRadios']['true_azimuth']);
     $sheet1->writeString($row,2,$d."°",$fmt4);
     $sheet1->writeString($row,4,'IP',$fmt3);
-    $sheet1->writeString($row,5,'[addrpool or manual?]',$fmt4);
+    $sheet1->writeString($row,5,$radio['NetworkRadios']['ip_address'],$fmt4);
     $row++;
     
     $mag_azimuth = $radio['NetworkRadios']['true_azimuth'] - $site['Site']['declination'];
     $sheet1->writeString($row,1,'Azimuth (Magnetic)',$fmt3);
-    $d = sprintf("%01.2f",$mag_azimuth);
+    //$d = sprintf("%01.2f",$mag_azimuth);
+    $d = round($mag_azimuth);
     $sheet1->writeString($row,2,$d."°",$fmt4);
     $sheet1->writeString($row,4,'Gateway',$fmt3);
-    $sheet1->writeString($row,5,'[addrpool or manual?]',$fmt4);
+    $sheet1->writeString($row,5,'',$fmt4);
+    //$sheet1->writeString($row,5,$radio['NetworkRadios']['gw_address'],$fmt4);
     $row++;
     
     $sheet1->writeString($row,1,'Elevaton',$fmt3);
@@ -351,15 +348,16 @@ foreach ($radios as $radio) {
     $sheet1->writeString($row,4,'Mode',$fmt3);
     $sheet1->writeString($row,5,$radio['RadioMode']['name'],$fmt4);
     
+    $row++;
+    for ($u = 1; $u <= 5; $u++) {
+        $sheet1->writeString($row,$u,'',$fmt5);
+    }
+    
     $row += 2;    
 }
 
-// $sheet1->writeString($row ,2,$site['NetworkSwitch']['name'],$fmtBanner);
-// 
 // Send the headers, then output the data
 $xml->sendHeaders();
-
 $xml->writeData();
-
 
 ?>

@@ -24,35 +24,22 @@ class SitesController extends AppController
         $this->set('site_name', $this->Site->site_name);
     }
     
-    public function testworkorder() {
-        $this->layout = 'blank';
-        //$this->layout = null;
-        //$this->layout = 'ajax'; // anything other than default
-        //$this->autoLayout = false; 
-        //$this->render('workorder');
-        //$this->layout = null; 
-        //$this->render('workorder','blank',null);
-        $this->render('testworkorder');
-        //$this->autoLayout = true; 
-        $this->layout = 'default';
-    }
-    
     function getUserProjects() {
-        //$userId = $this->Auth->user('id');
+        // return only the projects this user has access to
         $this->loadModel('User');
-        $user = $this->User->read($this->Auth->user('id'));
-        // get all the projects this user is allowed to access
-        $projects = $this->User->Project->find('all'); //,array('fields'=>array('id','name')));
-        
-        // return an array of project ids this user is associated with
-        // e.g. this user is associated with projects 1 and 2:
-        // Array
-        //(
-        //    [1] => 1
-        //    [2] => 2
-        //)
-        $projects = $this->User->Project->find('list',array('fields'=>array('id')));
-        //$this->set(compact('projects'));
+        $uid = CakeSession::read("Auth.User.id");
+        $options['joins'] = array(
+            array('table' => 'projects_users',
+                'alias' => 'ProjectsUser',
+                'type' => 'INNER',
+                'conditions' => array(
+                    //"Site.project_id  =  Project.id",
+                    'ProjectsUser.user_id =  '.$uid,
+                    'ProjectsUser.project_id = Project.id'
+                )
+            )
+        );
+        $projects = $this->User->Project->find('list', $options);
         $this->set('projects',$projects);
 //        echo '<pre>';
 //        print_r($projects);
@@ -74,7 +61,6 @@ class SitesController extends AppController
 
         
         $conditions = "";
-//        $projects = $this->getUserProjects()
                 
         $site_code_arg = "";
         $site_name_arg = "";
@@ -104,8 +90,7 @@ class SitesController extends AppController
                 'Site.site_name LIKE' => $site_name_arg,
             )
         );
-        //echo "Conditions: ".print_r($conditions);
-        
+              
         $this->paginate = array(
             'Site' => array(
                 // limit is the number per page 
@@ -120,14 +105,7 @@ class SitesController extends AppController
         $data = $this->paginate('Site');
         $this->set('sites',$data);
         
-        
         $this->set('installteams',$this->Site->InstallTeam->find('list'));
-//        $yy = $this->Site->InstallTeam->find('all');
-//        echo '<pre>';
-//        print_r($yy);
-//        echo '</pre>';
-//        die;
-        
     }
  
     public function buildLegend() {
@@ -137,11 +115,8 @@ class SitesController extends AppController
     }
     
     public function overview() {
-        // find('all') would return all sites, no matter what
-        //$sites = $this->Site->find('all');
         
         // get all the sites for display on the map - ignor any without lat/lon
-        
         // skip any that don't have coordinates in the db
         $conditions = array ("NOT" => array ("Site.lat" => null));
         $sites = $this->Site->find('all', array('conditions' => $conditions));
@@ -210,7 +185,6 @@ class SitesController extends AppController
 //       echo '</pre>';
 //       die;
        
-       
        // sum up all the radios, antennas for this site
        $query = 'call sp_count_radios('.$this->Site->id.')';
        $this->set('radio_counts', $this->Site->query( $query ));
@@ -246,8 +220,6 @@ class SitesController extends AppController
         
     }
     function view($id = null) {
-        //$this->getBearing();
-        
         $this->Site->id = $id;
         //$this->getSitesNearby($id,5);
         
@@ -259,16 +231,13 @@ class SitesController extends AppController
         $this->getBuildItems();
         //$this->getInstallTeams();
         
-        //$this->set('ip_addresses',$this->getAddress($this->Site->field('site_code')));
-        
-        $ip_addresses = $this->getAddress($this->Site->field('site_code'));
+        $ip_addresses = $this->getAllIPAddresses($this->Site->field('site_code'));
         $this->set(compact('ip_addresses'));
     }
     
     function getZones() {
         // return a list of zones (which will be put into a drop-down menu
         // on the add/edit forms)
-        //$this->set('zones',$this->Site->Zone->find('list'));
         $this->set('zones',$this->Site->Zone->find('list',array('order' => array('Zone.name ASC'))));
     }
     
@@ -463,6 +432,7 @@ class SitesController extends AppController
         $this->getRadioTypes();
         $this->getAntennaTypes();
         $this->getInstallTeams();
+        $this->getUserProjects();
         
         if (!$this->Site->exists()) {
             throw new NotFoundException(__('Invalid site'));
@@ -567,9 +537,9 @@ class SitesController extends AppController
         $router = $this->Site->NetworkRouter->findByRouterTypeId($sites['NetworkRouter']['router_type_id']);
         $switch = $this->Site->NetworkSwitch->findBySwitchTypeId($sites['NetworkSwitch']['switch_type_id']);
         $radios = $this->Site->NetworkRadios->findAllBySiteId($id);
-
-//        echo '<pre>X';
-//        print_r($router);
+        
+//        echo '<pre>';
+//        print_r($radios);
 //        echo '</pre>';
 //        die;
         
@@ -586,6 +556,22 @@ class SitesController extends AppController
             
             $b = $this->NetworkRadio->getBearing($radio['NetworkRadios']['id'],$radio['NetworkRadios']['link_id']);
             $radio['NetworkRadios']['true_azimuth'] = $b;
+            
+            $ip_address = '';
+            $ip_address = $this->getIPAddress($radio['NetworkRadios']['name']);
+            $radio['NetworkRadios']['ip_address'] = $ip_address;
+            
+            $gw_address = '';
+            $gw_address = $this->getGatewayAddress($radio['NetworkRadios']['name']);
+            $radio['NetworkRadios']['gw_address'] = $gw_address;
+            
+//            echo '<pre>';
+//            echo $radio['NetworkRadios']['name']. " ";
+//            print_r($ip_address);
+//            echo '</pre>';
+            //die;
+            
+            //$radio['NetworkRadios']['ip_address'] = 
             //$this->Product->findByOrderStatus(‘3’);
                     
 //            $s = $this->Site->findById($radio['NetworkRadios']['site_id']);
@@ -630,7 +616,7 @@ class SitesController extends AppController
             return true;
         }
         
-        if ($this->action === 'overview') {
+        if ($this->action === 'overview' || $this->action === 'workorder') {
             return true;
         }
         

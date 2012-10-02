@@ -12,57 +12,8 @@ class User extends AppModel {
     );
     
     public $hasAndBelongsToMany = array('Project');
-    
-    /*
     // HABTM example: http://mrphp.com.au/code/working-habtm-form-data-cakephp
-    var $hasAndBelongsToMany = array(
-        'Project' => array(
-            'className' => 'Project',
-            'joinTable' => 'user_to_projects',
-            'foreignKey' => 'user_id',
-            'associationForeignKey' => 'project_id',
-            'with' => 'UserToProject',
-        ),
-    );
-    */
     
-//    public $virtualFields = array(
-//        'full_name' => 'CONCAT(User.first_name, " ", User.last_name)'
-//    );
-    
-    // used on saving new user
-    /*
-    public $validate = array(
-        'username' => array(
-            'required' => array(
-                'rule' => array('notEmpty'),
-                'message' => 'Username is required.'
-                //'last' => true
-            )
-        ),
-        'current_password' => array(
-            'required' => array(
-                'rule'    => 'checkCurrentPassword',
-                'message' => 'Current password does not match.'
-                //'last' => true
-            )
-        ),
-        'password' => array(
-            'required' => array(
-                'rule' => array('notEmpty'),
-                'message' => 'Password is required.'
-                //'last' => true
-            )
-        ),
-        'password_verify' => array(
-            'required' => array(
-                'rule'    => array('checkPasswordsMatch'), 
-                'message' => 'New passwords do not match.'
-                //'last' => true
-            )
-        )
-    );
-    */
     public $validate = array(
         'username' => array(
             'rule'     => 'alphaNumeric',

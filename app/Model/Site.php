@@ -19,7 +19,8 @@ class Site extends AppModel {
         'InstallTeam',
         'Project'
     );
-    
+   
+   //public $actsAs = array('Containable');
    //var $uses = array('User');
     
     public $hasMany = array(
@@ -88,120 +89,41 @@ class Site extends AppModel {
     public function isOwnedBy($site, $user) {
         return $this->field('id', array('id' => $site, 'user_id' => $user)) === $site;
     }
-    /*
+    
     public function beforeFind($queryData) {
-        //print_r($this->data['Site']['projects']);
         $uid = CakeSession::read("Auth.User.id");
-        echo "User ID ". $uid.'<br>';
-        $options = array( 
-            'conditions' => array('User.id' => $uid), 
-            'contain' => array( 
-                    'Site' => array('fields' => array('id', 'title')) 
-            ) 
-        ); 
-        $results = $this->Project->find('all', $options); 
-        print_r($results);
-        debug($query);
-        die;
         
-        $more_conditions = array(
-            'AND' => array(
-                'Site.project_id =' => 'Project.id',
-                'Project.id =' => '10',
+        // http://stackoverflow.com/questions/2727217/cakephp-beforefind-how-do-i-add-a-join-condition-after-the-belongsto-associa
+        // The join can not reference anything in the associations, as the associations
+        // are fetched via separate queries. If you need to add a join that references
+        // an association, you will need to add the association manually in the join as well.
+        
+        $options['joins'] = array(
+            array('table' => 'projects',
+                'alias' => 'Project2',
+                'type' => 'LEFT',
+                'conditions' => array(
+                    'Project2.id = Site.project_id'
+                )
+            ),
+            array('table' => 'projects_users',
+                'alias' => 'ProjectsUser',
+                'type' => 'INNER',
+                'conditions' => array(
+                    //"Site.project_id  =  Project.id",
+                    'ProjectsUser.user_id =  '.$uid,
+                    'ProjectsUser.project_id = Project2.id'
+                )
             )
         );
+        $queryData['joins'] = $options['joins'];
         
-        die;
-        // there is probably a more graceful way to do this, but with Sites we pretty
-        // mcuh always have an AND condition coming in
-        $conditions = $queryData['conditions'];
-        $more_conditions = 
-            array(
-                'Site.project_id =' => array('1')
-        );
-        /*
-        $more_conditions = array(
-            'OR' => array(
-                'Site.id >' => '0',
-                'Site.id <' => '10',
-            )
-        );
-        
-        $conditions['AND'] = array_merge($conditions['AND'], $more_conditions);
-        $queryData['conditions'] = $conditions;
-        echo '<pre>';
-        print_r($conditions);
-        print_r($queryData['conditions']);
-        echo '</pre>';
-        die;
+//        $results = $this->Project->find('all', $options);
+//        echo '<pre>';
+//        print_r($queryData);
+//        echo '</pre>';
+//        die;
         return $queryData;
     }
-    */
- 
-    /*
-    function getUsersProjects() {
-        $uid = CakeSession::read("Auth.User.id");
-        $this->User = ClassRegistry::init('User');
-        $this->User->id = $uid;
-        $userData = $this->User->read();
-        //$projects = $this->User->Project->find('all');
-        
-//        $conditions = array(
-//            'AND' => array(
-//                'User.id =' => 'Project.id'
-//                'Site.site_name LIKE' => $site_name_arg,
-//            )
-//        );
-//        
-        //////$user = $this->User->read($this->Auth->user('id'));
-        // get all the projects this user is allowed to access
-        //$projects = $this->User->Project->find('all');
-        //$projects = $this->User->Project->findAll(); //'list',array('fields'=>array('id')));
-        
-        //echo '<pre>';
-        //print_r($userData);
-        //print_r($projects);
-        //echo '</pre>';
-        return $userData['Project'];
-    }
-    
-    function afterFind($results, $primary = false) {
-        // make a nice tidy 
-        $projects = $this->getUsersProjects();
-        if (count($projects) > 0) {
-            $project_ids = array();
-            foreach($projects as $key => $value) {
-                //echo "Key: ".$key."<BR>";
-                //echo "Value: ".print_r($value)."<BR>";
-                array_push($project_ids,$value['id']);
-            }
-
-            //$project_id = 3;
-            //$project_id = array(3,4);
-            //print_r($project_ids); die;
-            //$n = 1;
-            if ($primary) {
-                //echo '<pre>';
-                foreach($results as $key => $value) {
-                    //echo "Key: ".$key."<BR>";
-                    echo "Value: ".print_r($value)."<BR>";
-                    //echo print_r($value['Site']['project_id'])."<BR>";
-                    //echo $value['Site']['project_id']."<BR>";
-
-                    if (!(in_array($value['Site']['project_id'], $project_ids))) {
-                        //print_r($value['Site']);
-                        unset($results[$key]);
-                        //echo "site_code: ".$value['Site']['site_code']."<BR>";
-                        //echo "project_id: ".$value['Site']['project_id']."<BR>";
-                        //$n++;
-                    }
-                }
-                //echo '</pre>';
-            }
-        }
-        //die;
-        return $results;
-    }
-    */
 }
 ?>

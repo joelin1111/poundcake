@@ -50,7 +50,7 @@ class NetworkRadiosController extends AppController {
         }
         $this->set('link_name',$this->getLinkName($this->NetworkRadio->field('link_id')));
         $this->set('networkradio', $this->NetworkRadio->read(null, $id));
-        $ip_addresses = $this->getAddress($this->NetworkRadio->field('name'));
+        $ip_addresses = $this->getAllIPAddresses($this->NetworkRadio->field('name'));
         $this->set(compact('ip_addresses'));
         
         //$true_azimuth = $this->NetworkRadio->field('true_azimuth');

@@ -110,26 +110,18 @@ class AppController extends Controller {
 //        return $this->isUnique($tmp, false); 
 //    }
     
-    public function getAddress($name) {
-        $addresses = '';
-//        if (isset($name)) {
-//            // current model can be accessed via: $this->modelClass;
-//            //$name = $this->{$this->modelClass}->field('name');
-//            $query = 'call sp_get_address('.$name.')';
-//            $addresses = $this->Site->query( $query );            
-//        }
-//        return $addresses;
+    // plural
+    public function getAllIPAddresses($name) {
+        return ClassRegistry::init('IPAddress')->getAllIPAddresses($name);
+    }
     
-        //$IPAddress = $this->loadModel('IPAddress')->getAddress($name);
-        $addresses = ClassRegistry::init('IPAddress')->getAddress($name);
-        //$this->set(compact('addresses'));
-
-//        if ($IPAddress!==false) {
-//            $IPAddress->getAddress($name);
-//        } else {
-//            debug('Oh no!');
-//        }
-        return $addresses;
+    // singular
+    public function getIPAddress($name) {
+        return ClassRegistry::init('IPAddress')->getIPAddress($name);
+    }
+    
+    public function getGatewayAddress($name) {
+        return ClassRegistry::init('IPAddress')->getGatewayAddress($name);
     }
 }
 ?>
