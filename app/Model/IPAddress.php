@@ -37,6 +37,7 @@ class IPAddress extends AppModel {
     
     public function getGatewayAddress($name) {
         $address = '';
+        /*
         if (isset($name)) {
             $query = 'select sp_get_gateway("'.$name.'")';
             $address = ClassRegistry::init('IPAddress')->query( $query );
@@ -46,6 +47,7 @@ class IPAddress extends AppModel {
         }
         // note we're supressing any PHP warnings when there is no IP address
         //echo $address;
+        */
         return @$address;
     }
 }
