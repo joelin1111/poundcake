@@ -1,3 +1,13 @@
+DROP TABLE IF EXISTS `radios_radios`;
+CREATE TABLE `radios_radios` (
+  `src_radio_id` int(10) NOT NULL,
+  `dest_radio_id` int(10) NOT NULL,
+  PRIMARY KEY (`src_radio_id`,`dest_radio_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+-- Old
+
+
 alter table switch_types add manufacturer varchar(255);
 alter table switch_types add model varchar(255);
 alter table network_routers add router_type_id int(10);
@@ -39,7 +49,7 @@ CREATE TABLE `projects_users` (
 insert into projects('name') values ('Haiti \(HRBN\)');
 insert into projects('name') values ('Mfangano Island \(OHR\)');
 
--- Old
+
 
 
 alter table sites add declination decimal(17,14) after lon;

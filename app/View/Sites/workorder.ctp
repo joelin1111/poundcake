@@ -339,8 +339,8 @@ foreach ($radios as $radio) {
     $d = round($mag_azimuth);
     $sheet1->writeString($row,2,$d."°",$fmt4);
     $sheet1->writeString($row,4,'Gateway',$fmt3);
-    $sheet1->writeString($row,5,'',$fmt4);
-    //$sheet1->writeString($row,5,$radio['NetworkRadios']['gw_address'],$fmt4);
+    //$sheet1->writeString($row,5,'',$fmt4);
+    $sheet1->writeString($row,5,$radio['NetworkRadios']['gw_address'],$fmt4);
     $row++;
     
     $sheet1->writeString($row,1,'Elevaton',$fmt3);
