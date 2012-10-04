@@ -33,6 +33,13 @@ BEGIN
 	IF ( @dest_radio_id > 0 ) THEN
 		SET NEW.link_id = @dest_radio_id;
 	END IF;
+	
+	-- ******* BEGIN experimental join table
+	
+	
+	-- ******* END experimental join table
+	
+	
 END $$
 DELIMITER ;
 
