@@ -223,3 +223,52 @@
             
     </div> <!-- /.span9 -->
 </div> <!-- /.row -->
+
+<?php
+// draw links to remote sites
+// and put placemarkers there, too
+// 
+// 
+//    echo '<pre>';
+//    print_r($radios);
+//    echo '</pre>';
+    $i = 1; // markers must start at 1
+    if (count($radios) > 0) {
+        //echo '<pre>';
+        foreach ($radios as $radio) {
+            //print_r($radio);
+            //print_r();
+            $link_lat = $radio['NetworkRadio']['link_lat'];
+            $link_lon = $radio['NetworkRadio']['link_lon'];
+            $windowText = $radio['NetworkRadio']['window_text'];
+            if (($link_lat != null) && ($link_lon != null)) {
+                echo $this->GoogleMap->addPolyline("map_canvas", "polyline1",
+                        array("start" => array("latitude" =>$site['Site']['lat'] ,"longitude"=> $site['Site']['lon']),
+                            "end" => array("latitude" =>$link_lat ,"longitude"=> $link_lon)));
+                
+                $markerOptions = array (
+                   'id' => $i, // Id of the marker
+                   'latitude' => $link_lat,
+                   'longitude' => $link_lon,
+                   'markerIcon' => $radio['NetworkRadio']['link_icon'],
+                   'position' => null,
+                   'address' => null, // mysteriously started complaining about this field not being present
+                   //'shadowIcon' => 'http://google-maps-icons.googlecode.com/files/home.png', //Custom shadow
+                   'infoWindow' => true, // Boolean to show an information window when you click the marker or not
+                   'windowText' => $windowText // Text inside the information window
+               );
+
+                //echo '</pre>';
+                // position is required by addMarker
+                $position = array(
+                    'latitude' => $site['Site']['lat'],
+                    'longitude' => $site['Site']['lon']
+                );
+                //echo "<pre>".print_r($markerOptions)."</pre>";
+                echo $this->GoogleMap->addMarker('map_canvas', $i, $position, $markerOptions);
+                $i++;
+            }
+        }
+        
+    }
+?>

@@ -8,7 +8,7 @@ class SitesController extends AppController
     // AjaxMultiUpload is used for the file upload plugin
     // AltGoogleMapV3 is the Marc Fernandez Google Map helper, just renamed
     // AutoCompleteHelper removed -- not used
-    var $helpers = array('AjaxMultiUpload.Upload','AltGoogleMapV3','MyHTML');
+    var $helpers = array('AjaxMultiUpload.Upload','GoogleMap','MyHTML');
     //var  $uses = null; // needed by Pdf helper?
 
     public $components = array('AjaxMultiUpload.Upload','RequestHandler'); //,'DebugKit.Toolbar'
@@ -229,12 +229,54 @@ class SitesController extends AppController
         $this->set('site', $this->Site->read(null, $id));
         $this->getContacts($id);
         $this->getBuildItems();
-        //$this->getInstallTeams();
+        
+        //echo '<pre>';
+        $radios = $this->Site->NetworkRadios->findAllBySiteId($id);
+        $n = 0;
+        foreach ($radios as $radio) {
+            $d = $this->getLinkLatLon($radio['NetworkRadios']['link_id']);
+            $radio['NetworkRadio']['link_lat'] = $d[0];
+            $radio['NetworkRadio']['link_lon'] = $d[1];
+            $radio['NetworkRadio']['link_icon'] = $d[2];
+            $radio['NetworkRadio']['window_text'] = $d[3];
+//            print_r($d);
+            $radios[$n] = $radio;
+//            echo '<pre>';
+//            print_r($d);
+//            echo '</pre>';
+            $n++;
+        }
+//        echo '<pre>';
+//        print_r($radios);
+//        echo '</pre>';
+         $this->set('radios', $radios);
         
         $ip_addresses = $this->getAllIPAddresses($this->Site->field('site_code'));
-        $this->set(compact('ip_addresses'));
+        $this->set(compact('ip_addresses'));        
     }
     
+    // get the lat/lon of the Site for the remote radio
+    function getLinkLatLon($remote_radio_id) {
+//        echo "Remote radio ID is ".$remote_radio_id;
+        $this->loadModel('NetworkRadio',$remote_radio_id);
+        $r_radio = $this->NetworkRadio->read(null,$remote_radio_id);
+//        echo '<pre>';
+//        echo "Remote Site for that radio is ". $r_radio['NetworkRadio']['site_id'];
+//        echo '</pre>';
+        $r_site = $this->Site->read(null,$r_radio['NetworkRadio']['site_id']);     
+//        echo '<pre>';
+//        //print_r($r_site);
+//        echo $r_site['Site']['site_vf'];
+//        echo '</pre>';
+        //die;
+        return array (
+            $r_site['Site']['lat'],
+            $r_site['Site']['lon'],
+            'data:'.$r_site['SiteState']['img_type'].';base64,'.base64_encode( $r_site['SiteState']['img_data'] ),
+            $r_site['Site']['site_vf']
+        );
+        
+    }
     function getZones() {
         // return a list of zones (which will be put into a drop-down menu
         // on the add/edit forms)

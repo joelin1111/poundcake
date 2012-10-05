@@ -53,6 +53,8 @@ class NetworkRadiosController extends AppController {
         $ip_addresses = $this->getAllIPAddresses($this->NetworkRadio->field('name'));
         $this->set(compact('ip_addresses'));
         
+        
+        
         //$true_azimuth = $this->NetworkRadio->field('true_azimuth');
         $declination = $this->NetworkRadio->Site->field('declination');
         

@@ -34,7 +34,7 @@
     // http://plugins.cakephp.org/package/marcferna/CakePHP-Google-Maps-V3-Helper
     $mapOptions = array(
         'id' => 'map_canvas', // Map canvas ID
-        'width' => '300px', // Width of the map
+        'width' => '700px', // Width of the map
         'height'=>'700px', // Height of the map
         //'style' => '', // CSS style for the map canvas
         'style' => '98%; height:700px;', // CSS style for the map canvas
@@ -50,7 +50,7 @@
         //'infoWindow'=>true,				//Boolean to show an information window when you click the marker or not
         //'windowText'=>'My Position'		//Default text inside the information window
     );
-    echo $this->AltGoogleMapV3->map($mapOptions); //To add a map that localizes you
+    echo $this->GoogleMap->map($mapOptions); //To add a map that localizes you
 
     // too many markers?
     // https://developers.google.com/maps/articles/toomanymarkers
@@ -66,7 +66,7 @@
             $lon = $site['Site']['lon'];
             
             $icon = 'data:'.$site['SiteState']['img_type'].';base64,'.base64_encode( $site['SiteState']['img_data'] );
-                
+            
             // this result set comes from a stored procedure, and makes the same
             // site_vf virtual field that's defined in the Site
             // model -- but technically this is not the same field, so FYI
@@ -80,18 +80,37 @@
             $windowText .= '<BR>'.$site['Zone']['name'];
             $windowText .= '<BR>'.$site['TowerOwner']['name'];
             
-            $markerOptions= array(
+            $position = array(
+                'latitude' => $defaultLat,
+                'longitude' => $defaultLng
+            );
+            
+            $markerOptions = array(
                 'id' => $i, // Id of the marker
                 'latitude' => $lat,
                 'longitude' => $lon,
                 'markerIcon' => $icon,
+                'position' => null,
                 'address' => null, // mysteriously started complaining about this field not being present
                 //'shadowIcon' => 'http://google-maps-icons.googlecode.com/files/home.png', //Custom shadow
                 'infoWindow' => true, // Boolean to show an information window when you click the marker or not
                 'windowText' => $windowText // Text inside the information window
             );
+            
+           
             //echo "<pre>".print_r($markerOptions)."</pre>";
-            echo $this->AltGoogleMapV3->addMarker('map_canvas', $i, $markerOptions);
+            echo $this->GoogleMap->addMarker('map_canvas', $i, $position, $markerOptions);
+            
+            /* just testing addPolyline
+            if (($lastLon != null) && ($lastLon != null)) {
+                echo $this->GoogleMap->addPolyline("map_canvas", "polyline1",
+                        array("start" => array("latitude" =>$lastLat ,"longitude"=> $lastLon),
+                            "end" => array("latitude" =>$lat ,"longitude"=> $lon)));
+            }
+            //echo $this->GoogleMap->OLDaddMarker('map_canvas', $i, $markerOptions);
+            $lastLat = $lat;
+            $lastLon = $lon;
+             */
             $i++;
             //unset($markerOptions); // lame attempt to free memory for the map
         }

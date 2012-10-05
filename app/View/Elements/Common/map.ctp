@@ -29,7 +29,7 @@
     // http://plugins.cakephp.org/package/marcferna/CakePHP-Google-Maps-V3-Helper
     $mapOptions = array(
         'id' => 'map_canvas', // Map canvas ID
-        'width' => '300px', // Width of the map
+        'width' => '500px', // Width of the map
         'height'=>'500px', // Height of the map
         'style' => 'width: 98%; height:500px;', // CSS style for the map canvas
         'zoom' => $zoom,
@@ -47,5 +47,5 @@
         'windowText' => $windowText
     );
     //echo "<pre>".print_r($mapOptions)."</pre>";
-    echo $this->AltGoogleMapV3->map($mapOptions); //To add a map that localizes you
+    echo $this->GoogleMap->map($mapOptions); //To add a map that localizes you
 ?>

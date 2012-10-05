@@ -43,6 +43,17 @@ class NetworkRadio extends AppModel {
         ),
     );
     
+    /*
+    function getLinkLatLon($link_id) {
+        $this->loadModel('Site');
+        $radio = $this->findById($link_id);
+        return array (
+            $radio['Site']['lat'],
+            $radio['Site']['lon']
+        );
+    }
+    */
+    
     // return the distance between two radios
     function getLinkDistance($id, $link_id) {
         // uses Haversine formula
