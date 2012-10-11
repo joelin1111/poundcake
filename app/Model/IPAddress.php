@@ -36,23 +36,24 @@ class IPAddress extends AppModel {
     }
     
     public function getGatewayAddress($name) {
-        $address = '';
+        
         if (isset($name)) {
             $query = 'call sp_get_gw("'.$name.'")';
             $address = ClassRegistry::init('IPAddress')->query( $query );
-//            echo '<pre>';
-//            print_r($address);
-//            echo '</pre>';
-//            die;
-            if (isset($address)) {
+            if (is_array($address)) {
+                //echo "results";
                 foreach ($address[0][0] as $key => $value) {
                     $address = $value;
                 }
+            } else {
+                //echo "no results";
+                //$address = '0.0.0.0';
+                $address = '';
             }
         }
         // note we're supressing any PHP warnings when there is no IP address
 //        echo $address;
 //        die;
-        return @$address;
+        return $address;
     }
 }

@@ -36,6 +36,7 @@ BEGIN
 	-- Get the IP for the site
 	SET ip = sp_get_ip_address(site_code);
 	
+	IF ip IS NOT NULL THEN
 	-- SELECT ip;
 	-- calculate range of ips that represent the /29 of which that ip is a member
 	-- then search for an ip in that range that has the name of the src
@@ -51,6 +52,7 @@ BEGIN
 	
 	-- now look for a host that matches src in that range
 	CALL sp_cidr_to_ip_range(oct1, oct2, oct3, oct4, 29, src);
+	END IF;
 	
 END ENDSPDEF
 -- Switch the delimiter back to ;
@@ -62,6 +64,7 @@ CREATE PROCEDURE sp_cidr_to_ip_range(q1 INT, q2 INT, q3 INT, q4 INT, bitmask INT
 BEGIN
 	DECLARE hosts, c int;
 	DECLARE ret char(15);
+	SET ret = '0.0.0.0';
 	
 	-- SELECT CONCAT(q1,'.',q2,'.',q3,'.',q4);
 	-- SELECT bitmask;

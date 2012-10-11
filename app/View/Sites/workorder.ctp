@@ -65,7 +65,9 @@ $fmtBanner->fontSize('16');
 $fmtBannerHeight = 25;
 
 // Create a new sheet with the XML document
-$sheet1 = $xml->addSheet('Work Order '.$site['Site']['site_vf']);
+//$sheet1 = $xml->addSheet('Work Order '.$site['Site']['site_vf']);
+$sheet1 = $xml->addSheet('Work Order '.$site['Site']['site_code']);
+
 
 $row = 1;
 $sheet1->writeString($row,1,'Inveneo Site Install Work Order',$fmt1);
