@@ -12,7 +12,8 @@
     <?php echo $this->Form->create('PowerType'); ?>
     <h2>Add Power Type</h2>
     <?php
-            echo $this->Form->input('name');
+        echo $this->Form->input('name');
+        echo $this->Form->input('volts');
     ?>
     </fieldset>
     <?php echo $this->Form->end(__('Submit')); ?>

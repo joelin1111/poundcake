@@ -44,9 +44,11 @@ class IPAddress extends AppModel {
 //            print_r($address);
 //            echo '</pre>';
 //            die;
-            foreach ($address[0][0] as $key => $value) {
-                $address = $value;
-            }            
+            if (isset($address)) {
+                foreach ($address[0][0] as $key => $value) {
+                    $address = $value;
+                }
+            }
         }
         // note we're supressing any PHP warnings when there is no IP address
 //        echo $address;

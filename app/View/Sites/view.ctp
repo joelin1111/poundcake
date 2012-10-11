@@ -225,6 +225,7 @@
 </div> <!-- /.row -->
 
 <?php
+/*
 // draw links to remote sites
 // and put placemarkers there, too
 // 
@@ -271,4 +272,5 @@
         }
         
     }
+ */
 ?>

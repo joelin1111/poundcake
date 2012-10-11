@@ -191,17 +191,13 @@ class SitesController extends AppController
        $query = 'call sp_count_antennas('.$this->Site->id.')';
        $this->set('antenna_counts', $this->Site->query( $query ));
        
-       // this is probably not hte best way to do this, but if an admin deletes
+       // this is probably not the best way to do this, but if an admin deletes
        // then re-creates a power source I can't assume the primary key for the
        // 24/48 volt PowerType
-        if (preg_match("/48/", $this->Site->data['PowerType']['name'], $matches)) {
-             $board = array('quantity' => '1','name' => '48V Board');
-        } elseif (preg_match("/24/", $this->Site->data['PowerType']['name'], $matches)) {
-            $board = array('quantity' => '1','name' => '48V Board');
-        } else {
-            $board = array('quantity' => '1','name' => 'Other Board');
-        }
-        $this->set('board', $board);
+       
+       $board = array('quantity' => '1','name' => $this->Site->data['PowerType']['volts']. ' Volt Board');
+       
+       $this->set('board', $board);
     }
     
     function schedule($id) {
@@ -322,8 +318,7 @@ class SitesController extends AppController
     function getTowerMounts() {
         // identical to getZones
         $this->set('towermounts',$this->Site->TowerMount->find('list'));
-    }
-   
+    }   
     
     function getNetworkSwitches() {
         // identical to getZones
