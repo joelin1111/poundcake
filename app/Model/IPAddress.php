@@ -11,6 +11,8 @@ class IPAddress extends AppModel {
     // plural
     public function getAllIPAddresses($name) {
         $addresses = '';
+        echo "Name is $name";
+        //die;
         if (isset($name)) {
             // current model can be accessed via: $this->modelClass;
             // $name = $this->{$this->modelClass}->field('name');

@@ -224,7 +224,7 @@ class SitesController extends AppController
         }
         $this->set('site', $this->Site->read(null, $id));
         $this->getContacts($id);
-        $this->getBuildItems();
+        $site_code = $this->Site->data['Site']['site_code'];
         
         //echo '<pre>';
         $radios = $this->Site->NetworkRadios->findAllBySiteId($id);
@@ -246,8 +246,9 @@ class SitesController extends AppController
 //        print_r($radios);
 //        echo '</pre>';
          $this->set('radios', $radios);
+        //$ip_addresses = $this->getAllIPAddresses($this->Site->field('site_code'));
+        $ip_addresses = $this->getAllIPAddresses($site_code);
         
-        $ip_addresses = $this->getAllIPAddresses($this->Site->field('site_code'));
         $this->set(compact('ip_addresses'));        
     }
     
