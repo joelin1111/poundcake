@@ -570,7 +570,8 @@ class SitesController extends AppController
         $sites = $this->Site->findById($id);
         $conditions = array (
             "Contact.contact_type_id" => "2", // 2 is the primary key of the technical contact
-            "Contact.tower_owner_id" => $this->Site->TowerOwner->field('id')
+            //"Contact.tower_owner_id" => $this->Site->TowerOwner->field('id')
+            "Contact.tower_owner_id" => $sites['Site']['tower_owner_id']
         );
         $towercontacts = $this->Site->TowerOwner->Contact->find('list',array('conditions' => $conditions));        
         $router = $this->Site->NetworkRouter->findByRouterTypeId($sites['NetworkRouter']['router_type_id']);
@@ -578,7 +579,10 @@ class SitesController extends AppController
         $radios = $this->Site->NetworkRadios->findAllBySiteId($id);
         
 //        echo '<pre>';
-//        print_r($towercontacts);
+//        print_r($sites);
+//        print_r( $this->Site->TowerOwner->field('id') );
+//        print_r($conditions);        
+//        print_r($towercontacts);        
 //        echo '</pre>';
 //        die;
         
