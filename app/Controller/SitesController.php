@@ -577,10 +577,10 @@ class SitesController extends AppController
         $switch = $this->Site->NetworkSwitch->findBySwitchTypeId($sites['NetworkSwitch']['switch_type_id']);
         $radios = $this->Site->NetworkRadios->findAllBySiteId($id);
         
-//        echo '<pre>';
-//        print_r($radios);
-//        echo '</pre>';
-//        die;
+        echo '<pre>';
+        print_r($towercontacts);
+        echo '</pre>';
+        die;
         
         // this seems kind of crazy -- and it is -- but since I'm not saving the link distance or bearing on the
         // NetworkRadio object (they are computed at view time), and really I can't do that since

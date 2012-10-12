@@ -130,8 +130,8 @@ $n = count($towercontacts);
 $i = 0;
 $c = '';
 foreach ($towercontacts as $contact) {
-    $c .= $contact['Contact']['name_vf'];
-    $c .= ' '.$contact['Contact']['mobile'];
+    $c .= $contact['name_vf'];
+    $c .= ' '.$contact['mobile'];
     if ($i < $n-1) {
         $c .= ', ';
     }
