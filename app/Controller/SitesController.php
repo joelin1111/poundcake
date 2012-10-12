@@ -568,8 +568,11 @@ class SitesController extends AppController
     public function workorder($id) {
         $conditions = '';
         $sites = $this->Site->findById($id);
-        // this Cake query is like magic, total effing magic
-        $towercontacts = $this->Site->TowerOwner->Contact->findAllByContactTypeId(2); // 2 is the technical contact
+        $conditions = array (
+            "Contact.contact_type_id" => "2", // 2 is the primary key of the technical contact
+            "Contact.tower_owner_id" => $this->Site->TowerOwner->field('id')
+        );
+        $towercontacts = $this->Site->TowerOwner->Contact->find('list',array('conditions' => $conditions));        
         $router = $this->Site->NetworkRouter->findByRouterTypeId($sites['NetworkRouter']['router_type_id']);
         $switch = $this->Site->NetworkSwitch->findBySwitchTypeId($sites['NetworkSwitch']['switch_type_id']);
         $radios = $this->Site->NetworkRadios->findAllBySiteId($id);
