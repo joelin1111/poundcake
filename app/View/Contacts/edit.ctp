@@ -19,6 +19,7 @@
         echo $this->Form->input('mobile');
         echo $this->Form->input('skype');
         echo $this->Form->input('email');
+        echo $this->Form->input('priority');
         echo $this->Form->input('tower_owner_id', array('type'=>'select','options' => $towerowners));
         echo $this->Form->input('install_team_id', array('type'=>'select','options' => $installteams));
         echo $this->Form->input('contact_type_id', array('type'=>'select','label' => 'Contact Type','options' => $contacttypes));

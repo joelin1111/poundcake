@@ -166,13 +166,21 @@ class SitesController extends AppController
         // get the ID of the current site's tower owner
         $id = $this->Site->data['Site']['tower_owner_id'];
         //echo "ID is" . $id;
-        $conditions = array(
-            'id' => $id // tower_owner.id = site.tower_owner_id
+        $conditions = array (
+            //'id' => $id // tower_owner.id = site.tower_owner_id
+            'tower_owner_id' => $this->Site->data['Site']['tower_owner_id']
         );
-        //$this->set('contacts',$this->Site->TowerOwner->find('all', array('contain' => false, 'conditions' => $conditions)));
         
-        $this->Site->TowerOwner->recursive = 2; // set recursive to 2 to get the data related to Contacts
-        $contacts = $this->Site->TowerOwner->find('all', array('conditions' => $conditions));
+        $contacts = $this->Site->TowerOwner->Contact->find(
+                'all',
+                array('conditions' => $conditions,
+                //array('order' => $order)
+                'order' => 'priority ASC')
+        );
+//        echo '<pre>';
+//        print_r($contacts);
+//        echo '</pre>';
+//        die;
         $this->set(compact('contacts'));
     }
     
@@ -570,6 +578,7 @@ class SitesController extends AppController
         $sites = $this->Site->findById($id);
         $conditions = array (
             "Contact.contact_type_id" => "2", // 2 is the primary key of the technical contact
+            "Contact.priority" => "1", // 1 is the base priority level
             //"Contact.tower_owner_id" => $this->Site->TowerOwner->field('id')
             "Contact.tower_owner_id" => $sites['Site']['tower_owner_id']
         );

@@ -31,20 +31,18 @@
     
     <P><B>Site contacts:</B>&nbsp;
         <?php
-            if (!isset($contacts[0])) {
+            if (!isset($contacts)) {
                 echo "None";
             } else {
-                $c = count($contacts[0]['Contact']);
+                //$c = count($contacts);
                 echo "<UL>";
-                foreach ($contacts[0]['Contact'] as $contact) {
-                    //echo $this->Html->link(__($contact['first_name']." ".$contact['last_name']), array(
+                foreach ($contacts as $contact) {
                     echo "<LI>";
-                    echo $this->Html->link(($contact['name_vf']), array(
+                    echo $this->Html->link(($contact['Contact']['name_vf']), array(
                         'controller' => 'contacts',
                         'action' => 'view',
-                        $contact['id']));
-                    echo " ".$contact['mobile'];
-                    echo " - ".$contact['ContactType']['name'];
+                        $contact['Contact']['id']));
+                    echo " ".$contact['Contact']['mobile'];
                     echo "</LI>";
                 }
                 echo "</UL>";

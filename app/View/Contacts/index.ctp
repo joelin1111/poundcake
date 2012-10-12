@@ -33,6 +33,7 @@
                     <th><?php echo $this->Paginator->sort('mobile'); ?></th>
                     <th><?php echo $this->Paginator->sort('skype'); ?></th>
                     <th><?php echo $this->Paginator->sort('email'); ?></th>
+                    <th><?php echo $this->Paginator->sort('priority'); ?></th>
                     <th><?php echo __('Actions'); ?></th>
                 </tr>
             </thead>
@@ -45,6 +46,7 @@
             <td><?php echo h($contact['Contact']['mobile']);?></td>
             <td><?php echo h($contact['Contact']['skype']);?></td>
             <td><?php echo h($contact['Contact']['email']);?></td>
+            <td><?php echo h($contact['Contact']['priority']);?></td>
             <td>
             <?php echo $this->MyHTML->linkIfAllowed(('Edit'), array('action' => 'edit', $contact['Contact']['id'])); ?>
             <?php echo $this->MyHTML->postLinkIfAllowed(('Delete'), array('action' => 'delete', $contact['Contact']['id']), null, __('Are you sure you want to delete contact %s?', $contact['Contact']['first_name'])); ?>
