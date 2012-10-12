@@ -335,7 +335,11 @@ foreach ($radios as $radio) {
     $sheet1->writeString($row,5,$radio['NetworkRadios']['ip_address'],$fmt4);
     $row++;
     
-    $mag_azimuth = $radio['NetworkRadios']['true_azimuth'] - $site['Site']['declination'];
+    if ($radio['NetworkRadios']['true_azimuth'] > 0) {
+        $mag_azimuth = $radio['NetworkRadios']['true_azimuth'] - $site['Site']['declination'];
+    } else {
+        $mag_azimuth = 0;
+    }
     $sheet1->writeString($row,1,'Azimuth (Magnetic)',$fmt3);
     //$d = sprintf("%01.2f",$mag_azimuth);
     $d = round($mag_azimuth);

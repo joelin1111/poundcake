@@ -224,9 +224,7 @@ class SitesController extends AppController
         }
         $this->set('site', $this->Site->read(null, $id));
         $this->getContacts($id);
-        $site_code = $this->Site->data['Site']['site_code'];
-        
-        //echo '<pre>';
+        $site_code = $this->Site->data['Site']['site_code'];       
         $radios = $this->Site->NetworkRadios->findAllBySiteId($id);
         $n = 0;
         foreach ($radios as $radio) {
