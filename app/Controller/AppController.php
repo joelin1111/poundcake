@@ -112,7 +112,6 @@ class AppController extends Controller {
     
     // plural
     public function getAllIPAddresses($name) {
-        echo "AppController:  $name";
         return ClassRegistry::init('IPAddress')->getAllIPAddresses($name);
     }
     
