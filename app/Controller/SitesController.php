@@ -573,7 +573,7 @@ class SitesController extends AppController
             //"Contact.tower_owner_id" => $this->Site->TowerOwner->field('id')
             "Contact.tower_owner_id" => $sites['Site']['tower_owner_id']
         );
-        $towercontacts = $this->Site->TowerOwner->Contact->find('list',array('conditions' => $conditions));        
+        $towercontacts = $this->Site->TowerOwner->Contact->find('all',array('conditions' => $conditions));        
         $router = $this->Site->NetworkRouter->findByRouterTypeId($sites['NetworkRouter']['router_type_id']);
         $switch = $this->Site->NetworkSwitch->findBySwitchTypeId($sites['NetworkSwitch']['switch_type_id']);
         $radios = $this->Site->NetworkRadios->findAllBySiteId($id);
