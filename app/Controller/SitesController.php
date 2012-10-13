@@ -232,6 +232,10 @@ class SitesController extends AppController
         }
         $this->set('site', $this->Site->read(null, $id));
         $this->getContacts($id);
+        
+        
+        $this->getBuildItems();
+        
         $site_code = $this->Site->data['Site']['site_code'];       
         $radios = $this->Site->NetworkRadios->findAllBySiteId($id);
         $n = 0;
@@ -254,8 +258,7 @@ class SitesController extends AppController
          $this->set('radios', $radios);
         //$ip_addresses = $this->getAllIPAddresses($this->Site->field('site_code'));
         $ip_addresses = $this->getAllIPAddresses($site_code);
-        
-        $this->set(compact('ip_addresses'));        
+        $this->set(compact('ip_addresses'));
     }
     
     // get the lat/lon of the Site for the remote radio
