@@ -188,10 +188,6 @@ class SitesController extends AppController
        $this->loadModel('BuildItems');
        $builditems = $this->BuildItems->find('all');
        $this->set('builditems', $builditems);
-//       echo "<pre>";
-//       print_r($buildItems);
-//       echo '</pre>';
-//       die;
        
        // sum up all the radios, antennas for this site
        $query = 'call sp_count_radios('.$this->Site->id.')';

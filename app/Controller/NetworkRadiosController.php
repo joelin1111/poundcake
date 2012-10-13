@@ -65,8 +65,6 @@ class NetworkRadiosController extends AppController {
             $link_distance = $this->NetworkRadio->getLinkDistance($id, $link_id);
             
             $true_azimuth = $this->NetworkRadio->getBearing($id, $link_id);
-            echo "True azimuth".$true_azimuth;
-            die;
             if ($true_azimuth > 0) {
                 $mag_azimuth = $true_azimuth - $declination;
             }

@@ -54,6 +54,29 @@ class NetworkRadio extends AppModel {
     }
     */
     
+    function getLinkDistance($id, $link_id) {
+        // uses Haversine formula
+        // http://sgowtham.net/blog/2009/08/04/php-calculating-distance-between-two-locations-given-their-gps-coordinates/
+        
+        $distance = 0;
+        
+        $radio1 = $this->findById($id);
+        $radio2 = $this->findById($link_id);
+        
+        if (is_array($radio2)) {
+
+            $lat1 = $radio1['Site']['lat'];
+            $lon1 = $radio1['Site']['lon'];
+            $lat2 = $radio2['Site']['lat'];
+            $lon2 = $radio2['Site']['lon'];
+            
+            $distance = parent::getDistance($lat1, $lon1, $lat2, $lon2);
+        }
+        
+        return $distance;
+    }
+    
+    /*
     // return the distance between two radios
     function getLinkDistance($id, $link_id) {
         // uses Haversine formula
@@ -91,7 +114,7 @@ class NetworkRadio extends AppModel {
         
         return $distance;
     }
-    
+    */
     function getBearing($id, $link_id) {
         $radio1 = $this->findById($id);
         $radio2 = $this->findById($link_id);
