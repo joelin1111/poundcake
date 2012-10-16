@@ -53,4 +53,38 @@ class AppModel extends Model {
         // return the distance as kilometers
         return $distance * 1.60934;
     }
+    
+    function getBearing($lat1, $lon1, $lat2, $lon2) {
+        $b = 0.000;
+        $lat1 = deg2rad($lat1);
+        $lon1 = deg2rad($lon1);
+        $lat2 = deg2rad($lat2);
+        $lon2 = deg2rad($lon2);
+        
+        // http://mathforum.org/library/drmath/view/60398.html
+        // http://mathforum.org/library/drmath/view/55417.html
+        // The algorithm it gives for bearing (or course) between two points is this:
+        // tc1=mod(atan2(sin(lon2-lon1)*cos(lat2),cos(lat1)*sin(lat2)-sin(lat1)*cos(lat2)*cos(lon2-lon1)),2*pi)
+        // The formula gives the initial heading for a great-circle route from point A to point B. The heading will change in the course of the trip. The quantities in the formula have these meanings:
+        // lon1 = longitude of point A
+        // lat1 = latitude of point A
+        // lon2 = longitude of point B
+        // lat2 = latitude of point B
+        // tc1 = direction of point B from point A (angle east of north)
+        // $pi = 3.141596;
+        // The magnetic poles drift over years. The current location of the magnetic north pole is somewhere around 78.3 deg N, 104.0 deg W. Use 
+        // these coordinates for point B and your own location for point A when using the formula on the page above.
+
+        //$b  = atan2(sin($lon2-$lon1)*cos($lat2),cos($lat1)*sin($lat2)-sin($lat1)*cos($lat2)*cos($lon2-$lon1)) % (2*pi());
+        // http://www.ig.utexas.edu/outreach/googleearth/latlong.html
+        $b  = atan2(sin($lon2-$lon1)*cos($lat2),cos($lat1)*sin($lat2)-sin($lat1)*cos($lat2)*cos($lon2-$lon1));
+        $b = rad2deg($b);
+        //$b = $b * (180/pi());
+        //$b = ($b + 360) % 360;
+        if ($b < 0) {
+            $b += 360;
+        }
+        //echo "B is $b";
+        return $b;
+    }
 }

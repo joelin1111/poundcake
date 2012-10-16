@@ -1,5 +1,9 @@
 <?php
-    echo $this->Html->script('jquery-1.7.2');    
+    echo $this->Html->script('jquery-1.7.2');
+    
+    // http://www.appelsiini.net/projects/jeditable
+    // echo $this->Html->script('jquery.jeditable.mini');
+    
     // if we're under SSL we have to give the Google stuff under SSL, too, or
     // else the browser is likely to complain or just not render SSL/non-SSL
     // content together
@@ -26,31 +30,46 @@
 </div><!-- /.span3 .sb-fixed -->
 
 <div class="span9">
-    <h2><?php echo $site['Site']['site_code']." ".$site['Site']['site_name'].' ('.$site['SiteState']['name'].')'?> </h2>
-    <h3><?php //echo $site['SiteState']['name']; ?></h3>
-    
-    <P><B>Site contacts:</B>&nbsp;
+    <div class="row">
+        <h2><?php echo $site['Site']['site_code']." ".$site['Site']['site_name'].' ('.$site['SiteState']['name'].')'?> </h2>            
+        <div class="span4">
+            <P><B>Site contacts:</B>&nbsp;
+                <?php
+                    if (!isset($contacts)) {
+                        echo "None";
+                    } else {
+                        //$c = count($contacts);
+                        echo "<UL>";
+                        foreach ($contacts as $contact) {
+                            echo "<LI>";
+                            echo $this->Html->link(($contact['Contact']['name_vf']), array(
+                                'controller' => 'contacts',
+                                'action' => 'view',
+                                $contact['Contact']['id']));
+                            echo " ".$contact['Contact']['mobile'];
+                            echo "</LI>";
+                        }
+                        echo "</UL>";
+                    }
+                ?>
+            </P>
+            <P><B>GPS Coordinates:</B>&nbsp;<?php echo sprintf("%01.5f",$site['Site']['lat']) . ' ' . sprintf("%01.5f",$site['Site']['lon']) . '<br>'; ?> </P>
+            <P><B>Magnetic declination:</B>&nbsp;<?php echo sprintf("%01.5f",$site['Site']['declination']); ?></P>
+        </div>
+        <div class="well well-small span4">
+        <P><B>Quick Stats:</B>&nbsp;
         <?php
-            if (!isset($contacts)) {
-                echo "None";
-            } else {
-                //$c = count($contacts);
-                echo "<UL>";
-                foreach ($contacts as $contact) {
-                    echo "<LI>";
-                    echo $this->Html->link(($contact['Contact']['name_vf']), array(
-                        'controller' => 'contacts',
-                        'action' => 'view',
-                        $contact['Contact']['id']));
-                    echo " ".$contact['Contact']['mobile'];
-                    echo "</LI>";
-                }
-                echo "</UL>";
-            }
+            echo $this->Form->create('Site', array('action' => 'view'));
+            echo $this->Form->input('sites', array('type'=>'select','options' => $sites,'label' => ''));
+            echo $this->Form->end;
         ?>
-    </P>
-    <P><B>GPS Coordinates:</B>&nbsp;<?php echo sprintf("%01.5f",$site['Site']['lat']) . ' ' . sprintf("%01.5f",$site['Site']['lon']) . '<br>'; ?> </P>
-    <P><B>Magnetic declination:</B>&nbsp;<?php echo sprintf("%01.5f",$site['Site']['declination']); ?></P>
+        <div id="RemoteSite">
+            (Select Remote Site)
+        </div>
+    </div> <!-- ./well -->
+    </div> <!-- ./row -->
+    
+    <BR>
     
     <P><B>Zone:</B>&nbsp;<?php echo $site['Zone']['name']; ?></P>
     
@@ -271,4 +290,54 @@
         
     }
  */
+?>
+
+
+<?php
+    //$this->Js->get('#SiteSites')->event('change', $this->Js->alert('Compute Distance To Selected Site'));    
+    //$this->Js->get('#SiteSites')->event('change', $this->Js->text('bar'));
+    /*
+    $this->Js->get('#SiteSites');
+    $this->Js->get('#SiteSites')->event('change',
+        $this->Js->each('$(this).css({color: "red"});')
+    );
+    */
+    /*
+    $this->Js->get('#SiteSites')->event('change',
+        $this->Js->request(
+                array(
+                    'controller' => 'Sites',
+                    'action' => 'getRemoteSite'),
+                array(
+                    'async' => true,
+                    'update' => '#RemoteSite',
+                    'dataExpression' => false,
+                    'data'=> $this->Js->serializeForm(
+                            array(
+                                'isForm' => true,
+                                'inline'=> true
+                                )
+                            ),
+                    )
+                )
+            );
+    */
+    $this->Js->get('#SiteSites')->event('change',
+        $this->Js->request(array(
+        'controller' => 'Sites',
+            'action'=>'getRemoteSite',$id), // pass the id of the current site in as a parameter
+                array('async' => true,
+                    'update' => '#RemoteSite',
+                    'dataExpression' => true,
+                    'data'=> $this->Js->serializeForm(
+                            array(
+                                'isForm' => true,
+                                'inline'=> true
+                                )
+                            ),
+                    'method' => 'post'
+                    )
+                )
+    );
+    echo $this->Js->writeBuffer(); // Write cached scripts
 ?>

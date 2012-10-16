@@ -215,34 +215,34 @@ $sheet1->writeString($row,1,"Connection",$fmt3);
 $sheet1->writeString($row,2,'Router port 1 always on switch GB uplink',$fmt4);
 $row++;
 
-$sheet1->writeString($row,1,"VLAN2 IP",$fmt3);
+$sheet1->writeString($row,1,"VLAN2 IP",$fmt4);
 $row++;
 
-$sheet1->writeString($row,1,"VLAN11 IP",$fmt3);
+$sheet1->writeString($row,1,"VLAN11 IP",$fmt4);
 $row++;
 
-$sheet1->writeString($row,1,"VLAN12 IP",$fmt3);
+$sheet1->writeString($row,1,"VLAN12 IP",$fmt4);
 $row++;
 
-$sheet1->writeString($row,1,"VLAN13 IP",$fmt3);
+$sheet1->writeString($row,1,"VLAN13 IP",$fmt4);
 $row++;
 
-$sheet1->writeString($row,1,"VLAN14 IP",$fmt3);
+$sheet1->writeString($row,1,"VLAN14 IP",$fmt4);
 $row++;
 
-$sheet1->writeString($row,1,"VLAN15 IP",$fmt3);
+$sheet1->writeString($row,1,"VLAN15 IP",$fmt4);
 $row++;
 
-$sheet1->writeString($row,1,"VLAN16 IP",$fmt3);
+$sheet1->writeString($row,1,"VLAN16 IP",$fmt4);
 $row++;
 
-$sheet1->writeString($row,1,"VLAN17 IP",$fmt3);
+$sheet1->writeString($row,1,"VLAN17 IP",$fmt4);
 $row++;
 
-$sheet1->writeString($row,1,"VLAN18 IP",$fmt3);
+$sheet1->writeString($row,1,"VLAN18 IP",$fmt4);
 $row++;
 
-$sheet1->writeString($row,1,"VLAN99 IP",$fmt3);
+$sheet1->writeString($row,1,"VLAN99 IP",$fmt4);
 $row++;
 
 // ****************************************************************************
@@ -270,28 +270,28 @@ $sheet1->writeString($row,1,'Ports',$fmt3);
 $sheet1->writeString($row,2,$switch['SwitchType']['ports'],$fmt4);
 $row++;
 
-$sheet1->writeString($row,1,"Power",$fmt3);
+$sheet1->writeString($row,1,"Power",$fmt4);
 $row++;
 
-$sheet1->writeString($row,1,"Remote Mgmt. IP",$fmt3);
+$sheet1->writeString($row,1,"Remote Mgmt. IP",$fmt4);
 $row++;
 
-$sheet1->writeString($row,1,"Remote Mgmt. VLAN",$fmt3);
+$sheet1->writeString($row,1,"Remote Mgmt. VLAN",$fmt4);
 $row++;
 
-$sheet1->writeString($row,1,"Local Mgmt. IP",$fmt3);
+$sheet1->writeString($row,1,"Local Mgmt. IP",$fmt4);
 $row++;
 
-$sheet1->writeString($row,1,"Local Mgmt. VLAN",$fmt3);
+$sheet1->writeString($row,1,"Local Mgmt. VLAN",$fmt4);
 $row++;
 
-$sheet1->writeString($row,1,"Local Mgmt. Port",$fmt3);
+$sheet1->writeString($row,1,"Local Mgmt. Port",$fmt4);
 $row++;
 
-$sheet1->writeString($row,1,"Mgmt. Gateway",$fmt3);
+$sheet1->writeString($row,1,"Mgmt. Gateway",$fmt4);
 $row++;
 
-$sheet1->writeString($row,1,"Bridged Ports",$fmt3);
+$sheet1->writeString($row,1,"Bridged Ports",$fmt4);
 $row++;
 
 

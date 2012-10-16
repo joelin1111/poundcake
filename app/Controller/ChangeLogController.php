@@ -69,10 +69,10 @@ class ChangeLogController extends AppController {
             throw new NotFoundException(__('Invalid change log'));
         }
         if ($this->ChangeLog->delete()) {
-            $this->Session->setFlash(__('Power type deleted'));
+            $this->Session->setFlash(__('Change log deleted'));
             $this->redirect(array('action' => 'index'));
         }
-        $this->Session->setFlash(__('Power type was not deleted'));
+        $this->Session->setFlash(__('Change log was not deleted'));
         $this->redirect(array('action' => 'index'));
     }
 

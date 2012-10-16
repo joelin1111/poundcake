@@ -8,7 +8,11 @@ class SitesController extends AppController
     // AjaxMultiUpload is used for the file upload plugin
     // AltGoogleMapV3 is the Marc Fernandez Google Map helper, just renamed
     // AutoCompleteHelper removed -- not used
-    var $helpers = array('AjaxMultiUpload.Upload','GoogleMap','MyHTML');
+    var $helpers = array(
+        'AjaxMultiUpload.Upload',
+        'GoogleMap',
+        'MyHTML'
+    );
     //var  $uses = null; // needed by Pdf helper?
 
     public $components = array('AjaxMultiUpload.Upload','RequestHandler'); //,'DebugKit.Toolbar'
@@ -221,6 +225,7 @@ class SitesController extends AppController
     }
     function view($id = null) {
         $this->Site->id = $id;
+        $this->set('id',$id);
         //$this->getSitesNearby($id,5);
         
         if (!$this->Site->exists()) {
@@ -229,6 +234,7 @@ class SitesController extends AppController
         $this->set('site', $this->Site->read(null, $id));
         $this->getContacts($id);
         
+        $this->getAllSites($id);
         
         $this->getBuildItems();
         
@@ -255,13 +261,44 @@ class SitesController extends AppController
         //$ip_addresses = $this->getAllIPAddresses($this->Site->field('site_code'));
         $ip_addresses = $this->getAllIPAddresses($site_code);
         $this->set(compact('ip_addresses'));
+        
+        /*
+        // user has changed the field
+        if ($this->request->is('post') || $this->request->is('put')) {
+            $remote $this->request->data['Site']['declination'];
+            $distance = 
+        }
+        */
+    }
+    
+    function getRemoteSite($id) {
+        // get the lat/lon of the current site
+        $site = $this->Site->read(null,$id);
+        $lat = $site['Site']['lat'];
+        $lon = $site['Site']['lon'];
+        // get the lat/lon of the remote site
+        $r_site_id = $this->request->data['Site']['sites'];
+        $r_site = $this->Site->read(null,$r_site_id);
+        $r_lat = $r_site['Site']['lat'];
+        $r_lon = $r_site['Site']['lon'];
+        $r_dist = $this->Site->getDistance($lat, $lon, $r_lat,$r_lon);
+        
+        $true_azimuth = $this->Site->getBearing($lat, $lon, $r_lat, $r_lon);
+        $declination = $this->getDeclination($lat,$lon);
+        if ($true_azimuth > 0) {
+                $mag_azimuth = $true_azimuth - $declination;
+            }
+        $this->set('remote',array($r_dist,$true_azimuth,$mag_azimuth));
+        //$this->set('remote',print_r($this->request->data));
+        //$this->set('remote',$remote_site_id);
+        $this->layout = 'ajax';
     }
     
     // get the lat/lon of the Site for the remote radio
-    function getLinkLatLon($remote_radio_id) {
+    function getLinkLatLon($r_radio_id) {
 //        echo "Remote radio ID is ".$remote_radio_id;
-        $this->loadModel('NetworkRadio',$remote_radio_id);
-        $r_radio = $this->NetworkRadio->read(null,$remote_radio_id);
+        $this->loadModel('NetworkRadio',$r_radio_id);
+        $r_radio = $this->NetworkRadio->read(null,$r_radio_id);
 //        echo '<pre>';
 //        echo "Remote Site for that radio is ". $r_radio['NetworkRadio']['site_id'];
 //        echo '</pre>';
@@ -276,9 +313,9 @@ class SitesController extends AppController
             $r_site['Site']['lon'],
             'data:'.$r_site['SiteState']['img_type'].';base64,'.base64_encode( $r_site['SiteState']['img_data'] ),
             $r_site['Site']['site_vf']
-        );
-        
+        );        
     }
+    
     function getZones() {
         // return a list of zones (which will be put into a drop-down menu
         // on the add/edit forms)
@@ -374,6 +411,15 @@ class SitesController extends AppController
         );
     }
     
+    function getAllSites() {
+        //$this->set('antennatypes',$this->Site->NetworkSwitch->find('list'));
+        $this->set('sites',$this->Site->find('list',
+            array(
+                'order' => array(
+                    'Site.site_name ASC'
+            )))
+        );
+    }
     function add() {
         $this->Site->create();
         
@@ -605,7 +651,7 @@ class SitesController extends AppController
             $d = $this->NetworkRadio->getLinkDistance($radio['NetworkRadios']['id'],$radio['NetworkRadios']['link_id']);
             $radio['NetworkRadios']['distance'] = $d;
             
-            $b = $this->NetworkRadio->getBearing($radio['NetworkRadios']['id'],$radio['NetworkRadios']['link_id']);
+            $b = $this->NetworkRadio->getRadioBearing($radio['NetworkRadios']['id'],$radio['NetworkRadios']['link_id']);
             $radio['NetworkRadios']['true_azimuth'] = $b;
             
             $ip_address = '';
@@ -680,9 +726,7 @@ class SitesController extends AppController
         
         return parent::isAuthorized($user);
     }
-    
-    
-    
+        
 //    function auto_complete() {
 //        $sites = $this->Site->find('all', array( 
 //            'conditions' => array( 

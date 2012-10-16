@@ -65,18 +65,13 @@
     } else {
         echo $this->Form->input('Site.network_switch_id', array('type'=>'select','options' => $networkswitches,'label' => 'Switch'));
     }
-    
+        
     // ditto for routers
     if (empty($this->request->data['NetworkRouter']['name'])) {
         echo $this->Form->input('NetworkRouter.name',array('label' => 'Add New Router'));
     } else {
         echo $this->Form->input('Site.network_router_id', array('type'=>'select','options' => $networkrouters,'label' => 'Router'));
     }
-    
-    
-    //echo $this->Form->input('Site.network_switch_id', array('type'=>'select','options' => $networkswitches));
-    //echo $this->Form->input('Site.network_router_id', array('type'=>'select','options' => $networkrouters));
-    //echo $this->Form->input('NetworkRouter.name',array('label' => 'Add New Router'));
 
     //print_r($this->request->data['NetworkRadios']);
     $c = count($this->request->data['NetworkRadios']);
@@ -110,7 +105,6 @@
                 echo "-";
             }
             echo "</td>";
-
             echo "</tr>";
         }
         echo "</table>";
