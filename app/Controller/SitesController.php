@@ -655,10 +655,8 @@ class SitesController extends AppController
             $radio['NetworkRadios']['true_azimuth'] = $b;
             
             $ip_address = '';
-            echo "calling for ".$radio['NetworkRadios']['name'];
             $ip_address = $this->getIPAddress($radio['NetworkRadios']['name']);
             $radio['NetworkRadios']['ip_address'] = $ip_address;
-            echo "got back ".$ip_address;
             
             $gw_address = '';
             echo $radio['NetworkRadios']['name']."<BR>";
@@ -685,7 +683,6 @@ class SitesController extends AppController
             $radios[$n] = $radio;
             $n++;
         }
-        die;
 //        echo '<pre>';
 //        print_r($radios);
 //        echo '</pre>';
