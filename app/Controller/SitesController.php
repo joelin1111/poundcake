@@ -659,7 +659,6 @@ class SitesController extends AppController
             $radio['NetworkRadios']['ip_address'] = $ip_address;
             
             $gw_address = '';
-            echo $radio['NetworkRadios']['name']."<BR>";
             $gw_address = $this->getGatewayAddress($radio['NetworkRadios']['name']);
             $radio['NetworkRadios']['gw_address'] = $gw_address;
             
