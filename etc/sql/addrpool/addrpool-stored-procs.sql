@@ -5,13 +5,25 @@ DELIMITER ENDSPDEF
 -- Create the procedure
 CREATE FUNCTION sp_get_ip_address(site_code varchar(255)) RETURNS char(15)
     BEGIN
+    	DECLARE ip CHAR(15);
+    	-- SET ip = '0.0.0.0';    	
     	-- SELECT base
 		-- FROM addrpool_subnet
 		-- WHERE  ( slash = 32 AND name = site_code );
-		SELECT base INTO @base
+		-- SELECT base INTO @ip
+		-- FROM addrpool_subnet
+		-- WHERE  ( slash = 32 AND name = site_code );
+		
+		SELECT base INTO ip
 		FROM addrpool_subnet
 		WHERE  ( slash = 32 AND name = site_code );
-		RETURN @base;
+		
+		IF ip IS NULL
+		THEN
+			SET ip = '0.0.0.0';
+		END IF;
+		
+		RETURN ip;
     END ENDSPDEF
 -- Switch the delimiter back to ;
 DELIMITER ;

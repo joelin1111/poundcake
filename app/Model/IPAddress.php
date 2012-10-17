@@ -22,17 +22,24 @@ class IPAddress extends AppModel {
     
     // singular
     public function getIPAddress($name) {
-        $address = '';
-        if (isset($name)) {
-            $query = 'select sp_get_ip_address("'.$name.'")';
-            $address = ClassRegistry::init('IPAddress')->query( $query );
-            foreach ($address[0][0] as $key => $value) {
-                $address = $value;
-            }            
+        $ip_address = '';
+        $value = '';
+        if (isset($name)) {    
+            $query = 'select sp_get_ip_address("'.$name.'")';          
+            $ip_address = ClassRegistry::init('IPAddress')->query($query);
+//            echo '<pre>';
+//            echo $query;
+//            print_r($ip_address);
+//            echo '</pre>';
+            if (is_array($ip_address)) {
+                foreach ($ip_address[0][0] as $key => $value) {
+                    $ip_address = $value;
+                }
+            }
         }
         // note we're supressing any PHP warnings when there is no IP address
-        //echo $address;
-        return @$address;
+        //return @$address;
+        return $ip_address;
     }
     
     public function getGatewayAddress($name) {

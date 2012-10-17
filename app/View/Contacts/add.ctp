@@ -19,8 +19,8 @@
         echo $this->Form->input('skype');
         echo $this->Form->input('email');
         echo $this->Form->input('priority');
-        echo $this->Form->input('tower_owner_id', array('type'=>'select','options' => $towerowners));
-        //echo $this->Form->select('type', $type_options,array('empty' => false));
+        echo $this->Form->input('tower_owner_id', array('type'=>'select','options' => $towerowners,'empty' => true));
+        echo $this->Form->input('install_team_id', array('type'=>'select','options' => $installteams,'empty' => true));
         echo $this->Form->input('contact_type_id', array('type'=>'select','options' => $contacttypes));
     ?>
     </fieldset>
