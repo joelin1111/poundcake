@@ -15,6 +15,7 @@
     <?php
         echo $this->Form->input('id');
         echo $this->Form->input('name');
+        echo $this->Form->input('sequence');
         echo $this->Form->file('File');
         echo $this->Form->end(__('Submit'));
     ?>

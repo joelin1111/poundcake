@@ -22,6 +22,7 @@
             <thead>
                 <tr>
                     <th><?php echo $this->Paginator->sort('name'); ?></th>
+                    <th><?php echo $this->Paginator->sort('sequence'); ?></th>
                     <th><?php echo __('Actions'); ?></th>
                 </tr>
             </thead>
@@ -30,9 +31,10 @@
 	foreach ($siteStates as $siteState): ?>
 	<tr>
             <td><?php echo $this->Html->link(($siteState['SiteState']['name']), array('action' => 'view', $siteState['SiteState']['id'])); ?></td>
+            <td><?php echo $siteState['SiteState']['sequence']; ?></td>
             <td>
-                    <?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $siteState['SiteState']['id'])); ?>
-                    <?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $siteState['SiteState']['id']), null, __('Are you sure you want to delete site state %s?', $siteState['SiteState']['name'])); ?>
+                <?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $siteState['SiteState']['id'])); ?>
+                <?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $siteState['SiteState']['id']), null, __('Are you sure you want to delete site state %s?', $siteState['SiteState']['name'])); ?>
             </td>
 	</tr>
         <?php endforeach; ?>

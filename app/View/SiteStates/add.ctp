@@ -16,6 +16,7 @@
     <h2>Add Installation State</h2>
     <?php
         echo $this->Form->input('name');
+        echo $this->Form->input('sequence');
         echo $this->Form->file('File');
         echo $this->Form->end(__('Submit'));
     ?>

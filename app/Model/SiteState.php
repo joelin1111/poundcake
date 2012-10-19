@@ -4,6 +4,8 @@ App::uses('AppModel', 'Model');
 class SiteState extends AppModel {
 
     public $displayField = 'name';
+    
+    var $order = "SiteState.sequence asc";
 
     public $validate = array(
         'name' => array(
