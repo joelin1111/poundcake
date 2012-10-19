@@ -326,6 +326,7 @@ class NetworkRadiosController extends AppController {
         $link_name = '';
         if ($id > 0) {
             $link_name = $this->NetworkRadio->read('name', $id);
+            
             $link_name = $link_name['NetworkRadio']['name'];
 //            echo '<pre>';
 //            echo 'ID of link '.$id;

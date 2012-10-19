@@ -94,7 +94,11 @@ class SitesController extends AppController
                 'Site.site_name LIKE' => $site_name_arg,
             )
         );
-              
+        
+//        echo '<pre>';
+//        print_r($conditions);
+//        echo '</pre>';
+        
         $this->paginate = array(
             'Site' => array(
                 // limit is the number per page 
