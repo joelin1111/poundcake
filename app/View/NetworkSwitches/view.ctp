@@ -11,6 +11,7 @@
 <div class="span9">
     <h2>View Switch</h2>
     <P><B>Name:</B>&nbsp;<?php echo $networkswitch['NetworkSwitch']['name']; ?></P>
+    <P><B>Serial No:</B>&nbsp;<?php echo $networkswitch['NetworkSwitch']['serial']; ?></P>
     <P><B>Switch Type:</B>&nbsp;<?php echo $networkswitch['SwitchType']['name']; ?></P>
     <P><B>Ports:</B>&nbsp;<?php echo $networkswitch['SwitchType']['ports']; ?></P>
     <P><B>Manufacturer:</B>&nbsp;<?php echo $networkswitch['SwitchType']['manufacturer']; ?></P>

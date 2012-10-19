@@ -13,6 +13,7 @@
     <h2>Add Router</h2>
     <?php
         echo $this->Form->input('name');
+        echo $this->Form->input('serial');
         echo $this->Form->input('router_type_id', array('type'=>'select','options' => $routertypes));
     ?>
     </fieldset>

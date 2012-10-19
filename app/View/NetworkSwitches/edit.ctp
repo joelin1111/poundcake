@@ -15,6 +15,7 @@
     <?php
         echo $this->Form->input('id');
         echo $this->Form->input('name');
+        echo $this->Form->input('serial');
         echo $this->Form->input('switch_type_id', array('type'=>'select','options' => $switchtypes));
     ?>
     </fieldset>

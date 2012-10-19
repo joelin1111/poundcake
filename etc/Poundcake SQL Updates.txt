@@ -8,3 +8,7 @@ update site_states set sequence=4 where id=15;
 update site_states set sequence=5 where id=18;
 update site_states set sequence=6 where id=20;
 update site_states set sequence=7 where id=20;
+
+alter table network_radios add serial varchar(255) after name;
+alter table network_switches add serial varchar(255) after name;
+alter table network_routers add serial varchar(255) after name;

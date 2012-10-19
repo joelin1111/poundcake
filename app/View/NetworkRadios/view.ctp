@@ -23,6 +23,7 @@
 //    echo "</pre>";
     ?>
     <P><B>Name:</B>&nbsp;<?php echo $networkradio['NetworkRadio']['name']; ?></P>
+    <P><B>Serial No:</B>&nbsp;<?php echo $networkradio['NetworkRadio']['serial']; ?></P>
     <P><B>Radio Type:</B>&nbsp;<?php echo $networkradio['RadioType']['name']; ?></P>
     <P><B>Antenna:</B>&nbsp;<?php echo $networkradio['AntennaType']['name']; ?></P>
     <P><B>Radio Mode:</B>&nbsp;<?php echo $networkradio['RadioMode']['name']; ?></P>    
