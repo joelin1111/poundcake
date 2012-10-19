@@ -29,10 +29,8 @@
             <thead>
                 <tr>
                     <th><?php echo $this->Paginator->sort('first_name'); ?></th>
-                    <th><?php echo $this->Paginator->sort('last_name'); ?></th>
-                    <th><?php echo $this->Paginator->sort('mobile'); ?></th>
-                    <th><?php echo $this->Paginator->sort('skype'); ?></th>
-                    <th><?php echo $this->Paginator->sort('email'); ?></th>
+                    <th><?php echo $this->Paginator->sort('title'); ?></th>
+                    <th><?php echo $this->Paginator->sort('TowerOwner.name','Tower Owner'); ?></th>
                     <th><?php echo $this->Paginator->sort('priority'); ?></th>
                     <th><?php echo __('Actions'); ?></th>
                 </tr>
@@ -41,12 +39,15 @@
 	<?php
 	foreach ($contacts as $contact): ?>
 	<tr>
-            <td><?php echo h($contact['Contact']['first_name']);?></td>
-            <td><?php echo h($contact['Contact']['last_name']);?></td>
-            <td><?php echo h($contact['Contact']['mobile']);?></td>
-            <td><?php echo h($contact['Contact']['skype']);?></td>
-            <td><?php echo h($contact['Contact']['email']);?></td>
-            <td><?php echo h($contact['Contact']['priority']);?></td>
+            <td><?php
+                //echo $contact['Contact']['name_vf'];
+                    echo $this->Html->link($contact['Contact']['name_vf'],
+                    array('controller' => 'contacts', 'action' => 'view', $contact['Contact']['id']));
+                ?>
+            </td>
+            <td><?php echo $contact['Contact']['title'];?></td>
+            <td><?php echo $contact['TowerOwner']['name'];?></td>
+            <td><?php echo $contact['Contact']['priority'];?></td>
             <td>
             <?php echo $this->MyHTML->linkIfAllowed(('Edit'), array('action' => 'edit', $contact['Contact']['id'])); ?>
             <?php echo $this->MyHTML->postLinkIfAllowed(('Delete'), array('action' => 'delete', $contact['Contact']['id']), null, __('Are you sure you want to delete contact %s?', $contact['Contact']['first_name'])); ?>

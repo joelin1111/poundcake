@@ -41,14 +41,17 @@ class ContactsController extends AppController {
         $this->paginate = array(
             'Contact' => array(
                 // limit is the number per page 
-                'limit' => 10,
-                //'conditions' => $this->School->parseCriteria($this->passedArgs),
+                //'limit' => 10,
                 'conditions' => $conditions,
                 'order' => array(
                     'Contact.first_name' => 'asc',
                     'Contact.last_name' => 'asc',
                 ),
             ));
+//        echo '<pre>';
+//        print_r($this->Contact);
+//        echo '</pre>';
+//        die;
         
         $this->Contact->recursive = 0;
         $this->set('contacts', $this->paginate());

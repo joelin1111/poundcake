@@ -11,7 +11,8 @@
 <div class="span9">
     <h2>View Contact</h2>
     <P><B>Name:</B>&nbsp;<?php echo $contact['Contact']['name_vf']; ?></P>
-    <P><B>Mobile:</B>&nbsp;<?php echo $contact['Contact']['mobile']; ?></P>
+    <P><B>Title:</B>&nbsp;<?php echo $contact['Contact']['title']; ?></P>
+    <P><B>Number:</B>&nbsp;<?php echo $contact['Contact']['phone']; ?></P>
     <P><B>Skype:</B>&nbsp;<?php echo $contact['Contact']['skype']; ?></P>
     <P><B>Email:</B>&nbsp;<?php echo $contact['Contact']['email']; ?></P>
     <P><B>Priority:</B>&nbsp;<?php echo $contact['Contact']['priority']; ?></P>

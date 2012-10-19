@@ -15,7 +15,8 @@
     <?php
         echo $this->Form->input('first_name');
         echo $this->Form->input('last_name');
-        echo $this->Form->input('mobile');
+        echo $this->Form->input('title');
+        echo $this->Form->input('phone');
         echo $this->Form->input('skype');
         echo $this->Form->input('email');
         echo $this->Form->input('priority');

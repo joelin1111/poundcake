@@ -29,15 +29,21 @@
     <P><B>Link Distance:</B>&nbsp;<?php echo sprintf("%01.2f",$link_distance). ' Km'; ?></P>
     <P><B>True Azimuth:</B>&nbsp;
         <?php //echo $networkradio['NetworkRadio']['true_azimuth'];
+        if (isset($true_azimuth))
             echo sprintf("%01.2f",$true_azimuth).'°';
         ?>
     </P>
     <P><B>Magnetic Azimuth:</B>&nbsp;
         <?php //echo $networkradio['NetworkRadio']['mag_azimuth'];
+        if (isset($mag_azimuth))
             echo sprintf("%01.2f",$mag_azimuth).'°';
         ?>
     </P>
-    <P><B>Elevation:</B>&nbsp;<?php echo $networkradio['NetworkRadio']['elevation']; ?></P>
+    <P><B>Elevation:</B>&nbsp;<?php
+        if (isset($networkradio['NetworkRadio']['elevation']))
+            echo $networkradio['NetworkRadio']['elevation'].'°';
+    ?>
+    </P>
     <P><B>Min. Height (meters):</B>&nbsp;<?php echo $networkradio['NetworkRadio']['min_height']; ?></P>
     <P><B>Frequency:</B>&nbsp;<?php echo $networkradio['NetworkRadio']['frequency']; ?></P>
     <P><B>SSID:</B>&nbsp;<?php echo $networkradio['NetworkRadio']['ssid']; ?></P>

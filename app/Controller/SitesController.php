@@ -181,10 +181,18 @@ class SitesController extends AppController
                 //array('order' => $order)
                 'order' => 'priority ASC')
         );
+        
+        $i=0;
+        foreach ($contacts as $contact) {
+            $contacts[$i++]['Contact']['phone'] = str_replace(',', '<br/>', $contact['Contact']['phone']);
+            //$i++;
+        }
 //        echo '<pre>';
 //        print_r($contacts);
 //        echo '</pre>';
 //        die;
+        
+        // clean up the listing, since some of these can be long
         $this->set(compact('contacts'));
     }
     

@@ -45,7 +45,8 @@ class Contact extends AppModel {
                 //'on' => 'create', // Limit validation to 'create' or 'update' operations
             ),
         ),
-        'mobile' => array(
+        /*
+        'phone' => array(
             'notempty' => array(
                 'rule' => array('notempty'),
                 //'message' => 'Your custom message here',
@@ -59,6 +60,7 @@ class Contact extends AppModel {
             'rule'    => array('email', true),
             'message' => 'Please supply a valid email address.'
         )
+        */
     );
         
     public $belongsTo = array('TowerOwner','ContactType','InstallTeam');

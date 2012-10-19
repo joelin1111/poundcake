@@ -134,7 +134,7 @@ foreach ($towercontacts as $contact) {
 //    print_r($contact); 
 //    echo '</pre>';
     $c .= $contact['Contact']['name_vf'];
-    $c .= ' '.$contact['Contact']['mobile'];
+    $c .= ' '.$contact['Contact']['phone'];
     if ($i < $n-1) {
         $c .= ', ';
     }
@@ -284,27 +284,27 @@ $sheet1->writeString($row,1,"Power",$fmt3);
 $sheet1->writeString($row,2,"",$fmt4);
 $row++;
 
-$sheet1->writeString($row,1,"Remote Mgmt. IP",$fmt3);
+$sheet1->writeString($row,1,"Link Mgmt. IP",$fmt3);
 $sheet1->writeString($row,2,"",$fmt4);
 $row++;
 
-$sheet1->writeString($row,1,"Remote Mgmt. VLAN",$fmt3);
+$sheet1->writeString($row,1,"Link Mgmt. VLAN",$fmt3);
 $sheet1->writeString($row,2,"",$fmt4);
 $row++;
 
-$sheet1->writeString($row,1,"Local Mgmt. IP",$fmt3);
+$sheet1->writeString($row,1,"Admin IP",$fmt3);
 $sheet1->writeString($row,2,"",$fmt4);
 $row++;
 
-$sheet1->writeString($row,1,"Local Mgmt. VLAN",$fmt3);
+$sheet1->writeString($row,1,"Admin VLAN",$fmt3);
 $sheet1->writeString($row,2,"",$fmt4);
 $row++;
 
-$sheet1->writeString($row,1,"Local Mgmt. Port",$fmt3);
+$sheet1->writeString($row,1,"Admin Port",$fmt3);
 $sheet1->writeString($row,2,"",$fmt4);
 $row++;
 
-$sheet1->writeString($row,1,"Mgmt. Gateway",$fmt3);
+$sheet1->writeString($row,1,"Admin Gateway",$fmt3);
 $sheet1->writeString($row,2,"",$fmt4);
 $row++;
 
@@ -351,7 +351,8 @@ foreach ($radios as $radio) {
     $sheet1->writeString($row,1,'Azimuth (True)',$fmt3);
     //$d = sprintf("%01.2f",$radio['NetworkRadios']['true_azimuth']);
     $d = round($radio['NetworkRadios']['true_azimuth']);
-    $sheet1->writeString($row,2,$d."°",$fmt4);
+    if (isset($d))
+        $sheet1->writeString($row,2,$d."°",$fmt4);
     $sheet1->writeString($row,4,'IP',$fmt3);
     $sheet1->writeString($row,5,$radio['NetworkRadios']['ip_address'],$fmt4);
     $row++;
@@ -364,14 +365,16 @@ foreach ($radios as $radio) {
     $sheet1->writeString($row,1,'Azimuth (Magnetic)',$fmt3);
     //$d = sprintf("%01.2f",$mag_azimuth);
     $d = round($mag_azimuth);
-    $sheet1->writeString($row,2,$d."°",$fmt4);
+    if (isset($d))
+        $sheet1->writeString($row,2,$d."°",$fmt4);
     $sheet1->writeString($row,4,'Gateway',$fmt3);
     //$sheet1->writeString($row,5,'',$fmt4);
     $sheet1->writeString($row,5,$radio['NetworkRadios']['gw_address'],$fmt4);
     $row++;
     
     $sheet1->writeString($row,1,'Elevaton',$fmt3);
-    $sheet1->writeString($row,2,$radio['NetworkRadios']['elevation'],$fmt4);
+    if (isset($radio['NetworkRadios']['elevation']))
+        $sheet1->writeString($row,2,$radio['NetworkRadios']['elevation']."°",$fmt4);
     $sheet1->writeString($row,4,'Mode',$fmt3);
     $sheet1->writeString($row,5,$radio['RadioMode']['name'],$fmt4);
     

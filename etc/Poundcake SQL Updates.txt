@@ -1,0 +1,2 @@
+-- for 1.7
+alter table contacts change mobile phone varchar(255);

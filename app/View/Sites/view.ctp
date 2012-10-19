@@ -39,17 +39,19 @@
                         echo "None";
                     } else {
                         //$c = count($contacts);
-                        echo "<UL>";
+                        //echo "<UL>";
+                        echo "<P>";
                         foreach ($contacts as $contact) {
-                            echo "<LI>";
+                            //echo "<LI>";
+                            echo "<I>Priority ".$contact['Contact']['priority']."</I><BR>";
                             echo $this->Html->link(($contact['Contact']['name_vf']), array(
                                 'controller' => 'contacts',
                                 'action' => 'view',
                                 $contact['Contact']['id']));
-                            echo " ".$contact['Contact']['mobile'];
-                            echo "</LI>";
+                            echo "<BR>".$contact['Contact']['phone']."</P>";
+                            //echo "</LI>";
                         }
-                        echo "</UL>";
+                        //echo "</UL>";
                     }
                 ?>
             </P>
