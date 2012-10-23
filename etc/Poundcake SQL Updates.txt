@@ -1,4 +1,4 @@
--- for 1.7
+-- for pre 1.7
 alter table contacts change mobile phone varchar(255);
 alter table site_states add sequence int(10) after name;
 update site_states set sequence=1 where id=21;

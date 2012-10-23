@@ -53,22 +53,17 @@ class UsersController extends AppController {
     }
     
     function password($id = null) {
-        $this->User->id = $id;
-        
+        $this->User->id = $id;        
         if ($this->request->is('post') || $this->request->is('put')) {
-            $this->User->set($this->request->data);
+            //$this->User->set($this->request->data);
             if ($this->User->validates(array('fieldList' => array('pwd_current')))) {
                 //echo "pwd_current validated<br>";
                 if ($this->User->validates(array('fieldList' => array('pwd_current','password')))) {
-                    //echo "<pre>";
-                    //print_r($this->data['User']['password']);
-                    //echo "New PW:".$this->data['User']['password']."<br><br>";
-                    // save new password back to the User model
-                    $this->User->data['User']['password'] = $this->data['User']['password'];
-                    //print_r($this->User->data);
-                    //echo "</pre>";
-                    //echo "attempting save...";
-                    if ($this->User->save()) {
+//                    echo "<pre>";
+//                    unset($this->request->data['User']['pwd_current']);
+//                    print_r($this->request->data);
+//                    echo "</pre>";
+                    if ($this->User->save($this->request->data)) {
                         // success flash/redirect
                         //echo "Saved";
                         $this->Session->setFlash('Password succssfully updated.  Please logout and login again.');
@@ -83,6 +78,9 @@ class UsersController extends AppController {
             } else {
                  //echo "pwd_current FAILED validation<br>";
             }
+        } else {
+            $this->getProjects();
+            $this->request->data = $this->User->read(null, $id);
         }
     }
     
@@ -96,12 +94,12 @@ class UsersController extends AppController {
         }
         if ($this->request->is('post') || $this->request->is('put')) {
             //unset($this->User->validate['password']);
-//            echo '<pre>';
-//            print_r($this->data);
-//            unset($this->data['User']['password']); 
-//            print_r($this->data);
-//            echo '</pre>';
+            echo '<pre>';
+            print_r($this->request->data);
+            echo '</pre>';
 //            die;
+            
+            // $blackList is also used above
             $blackList = array('password', 'username');
             if ($this->User->save($this->request->data, true, array_diff(array_keys($this->User->schema()), $blackList))) {
             //if ($this->User->save($this->request->data)) {

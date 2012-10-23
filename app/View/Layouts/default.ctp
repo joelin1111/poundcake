@@ -183,7 +183,7 @@ $cakeDescription = __d('poundcake', 'Tower DB');
 
         </div> <!-- /footer -->
 <!--        Debugging info:-->
-    <?php //echo $this->element('sql_dump'); ?>
+    <?php echo $this->element('sql_dump'); ?>
 
     <?php //echo $scripts_for_layout; ?>
     <!-- Js writeBuffer -->

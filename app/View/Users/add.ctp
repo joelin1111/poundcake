@@ -17,7 +17,7 @@
         echo $this->Form->input('User.role_id', array('type'=>'select','options' => $roles));
         //echo $this->Form->input('Project.Project',array('label'=>'Project (Feature in Development)'));
         echo $this->Form->input('Project.Project',array(
-            'label' => __('Projects (Note: Experimental Feature)',true),
+            'label' => __('Projects',true),
             'type' => 'select',
             'multiple' => 'checkbox',
             'options' => $projects,
