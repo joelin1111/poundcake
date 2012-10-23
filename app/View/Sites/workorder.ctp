@@ -27,6 +27,9 @@ $xml->docManager('');
  */
 $xml->showErrorSheet(true);
 
+$row_height = 15;
+$long_text_length = 100;
+
 /**
  * Show the style options
  */
@@ -44,7 +47,7 @@ $fmt3->alignHorizontal('Right');
 $fmt3->fontSize('12');
 $fmt3->fontBold();
 
-$fmt4 = $xml->addStyle('value');
+$fmt4 = $xml->addStyle('format4');
 $fmt4->alignHorizontal('Left');
 $fmt4->fontSize('12');
 $fmt4->alignWraptext();
@@ -165,22 +168,30 @@ $row += 2;
 
 $sheet1->writeString($row,1,"Description",$fmt3);
 $sheet1->writeString($row,2,$site['Site']['description'],$fmt4);
-//$sheet1->writeString($row,2,"Testing",$fmt4);
+// if the text field is long, programatically adjust the height of the row
+$adj_height = $row_height * ceil(strlen($site['Site']['description'])/$long_text_length);
+$sheet1->cellHeight($row,2,$adj_height);
 $sheet1->cellMerge($row,2,3,0);
 $row++;
 
 $sheet1->writeString($row,1,"Mounting",$fmt3);
 $sheet1->writeString($row,2,$site['Site']['mounting'],$fmt4);
+$adj_height = $row_height * ceil(strlen($site['Site']['mounting'])/$long_text_length);
+$sheet1->cellHeight($row,2,$adj_height);
 $sheet1->cellMerge($row,2,3,0);
 $row++;
 
 $sheet1->writeString($row,1,"Access",$fmt3);
 $sheet1->writeString($row,2,$site['Site']['access'],$fmt4);
+$adj_height = $row_height * ceil(strlen($site['Site']['access'])/$long_text_length);
+$sheet1->cellHeight($row,2,$adj_height);
 $sheet1->cellMerge($row,2,3,0);
 $row++;
 
 $sheet1->writeString($row,1,"Accommodations",$fmt3);
 $sheet1->writeString($row,2,$site['Site']['accommodations'],$fmt4);
+$adj_height = $row_height * ceil(strlen($site['Site']['accommodations'])/$long_text_length);
+$sheet1->cellHeight($row,2,$adj_height);
 $sheet1->cellMerge($row,2,3,0);
 $row++;
 
