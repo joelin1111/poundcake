@@ -27,6 +27,7 @@ RADIOS
 </h3>
 <?php
     //print_r($radio_counts);
+    $la = 0; // keep track of the number of lightening arrestors
     echo '<UL>';
     foreach ($radio_counts as $key => $value) {
         echo '<LI>';
@@ -35,9 +36,18 @@ RADIOS
         echo $radio_counts[$key]['radio_types']['name'];
         //echo $radios[$key]['radio_types'][0]['count'];
         echo '</LI>';
+
+        $la += $radio_counts[$key][0]['count'];
     }
     echo '</UL>';
 ?>
+
+<h3>
+LIGHTENING ARRESTORS
+</h3>
+    <UL><LI>
+    <?php echo '('.$la.')'; ?> Lightening arrestors
+    </LI></UL>
 
 <h3>
 ANTENNAS
