@@ -131,6 +131,16 @@ class SitesController extends AppController
         $this->set('sites', $sites);
         $this->getSiteStates();
         $this->buildLegend();
+        
+        
+        $project = $this->Site->Project->findById($this->Site->field('project_id'));
+//        echo '<pre>';
+//        print_r($project);
+//        echo '</pre>';
+//        die;
+        
+        $this->set('default_lat', $project['Project']['default_lat']);
+        $this->set('default_lon', $project['Project']['default_lon']);
     }
     
     /*
@@ -638,7 +648,6 @@ class SitesController extends AppController
         $conditions = array (
             "Contact.contact_type_id" => "2", // 2 is the primary key of the technical contact
             "Contact.priority" => "1", // 1 is the base priority level
-            //"Contact.organization_id" => $this->Site->Organization->field('id')
             "Contact.organization_id" => $sites['Site']['organization_id']
         );
         $towercontacts = $this->Site->Organization->Contact->find('all',array('conditions' => $conditions));        
@@ -705,6 +714,20 @@ class SitesController extends AppController
         $this->set('router', $router);
         $this->set('switch', $switch);
         $this->set('radios', $radios);
+        
+//        echo '<pre>';
+//        print_r($sites['Site']['project_id']);
+//        print_r($sites['Project']);
+//        echo '</pre>';
+//        die;
+        
+        // the title on a work order is part of a project's meta-data
+        if (isset($sites['Project']['workorder_title'])) {
+            $title = $sites['Project']['workorder_title'];
+        } else {
+            $title = 'Inveneo Work Order';
+        }
+        $this->set('title',$title);
         
         // generate the Excel file but without all the other stuff
         // in the layout -- so set the layout to null then set it back

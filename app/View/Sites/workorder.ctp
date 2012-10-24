@@ -17,7 +17,9 @@ $xml = new ExcelWriterXML( $filename );
 /**
  * Add some general properties to the document
  */
-$xml->docTitle('Inveneo Work Order');
+
+
+$xml->docTitle($title);
 $xml->docAuthor('Tower DB');
 $xml->docCompany('Inveneo');
 $xml->docManager('');
@@ -71,9 +73,8 @@ $fmtBannerHeight = 25;
 //$sheet1 = $xml->addSheet('Work Order '.$site['Site']['site_vf']);
 $sheet1 = $xml->addSheet('Work Order '.$site['Site']['site_code']);
 
-
 $row = 1;
-$sheet1->writeString($row,1,'Inveneo Site Install Work Order',$fmt1);
+$sheet1->writeString($row,1,$title,$fmt1);
 $sheet1->columnWidth(1,'150'); // Column A
 $sheet1->columnWidth(2,'200'); // Column B
 $sheet1->columnWidth(3,'20'); // Column C

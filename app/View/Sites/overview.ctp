@@ -26,8 +26,12 @@
     // is bigger with different options, and so it might take just as much code
     // to do that as it is to just do it again manually
 
-    $defaultLat = 19;
-    $defaultLng = -72.25;
+    $defaultLat = 37.7750; 
+    $defaultLng = -122.4183;
+    if (isset($default_lat))
+        $defaultLat = $default_lat;
+    if (isset($default_lon))
+        $defaultLng = $default_lon;
     
     // https://github.com/marcferna/CakePHP-GoogleMapHelper
     // http://marcferna.tumblr.com/post/3580268729/google-maps-api-v3-cakephp-helper
