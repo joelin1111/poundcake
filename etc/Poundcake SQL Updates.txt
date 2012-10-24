@@ -12,3 +12,11 @@ update site_states set sequence=7 where id=20;
 alter table network_radios add serial varchar(255) after name;
 alter table network_switches add serial varchar(255) after name;
 alter table network_routers add serial varchar(255) after name;
+
+
+
+
+drop table user_to_projects;
+drop table network_links;
+rename tower_owners to organizations.
+alter table sites change tower_owner_id organization_id int (10) ;

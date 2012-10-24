@@ -3,55 +3,55 @@ App::uses('AppController', 'Controller');
 /**
  * ServiceProviders Controller
  *
- * @property TowerOwner $TowerOwner
+ * @property Organization $Organization
  */
-class TowerOwnersController extends AppController {
+class OrganizationsController extends AppController {
 
     public function index() {
-        $this->TowerOwner->recursive = 0;
-        $this->set('towerOwners', $this->paginate());
+        $this->Organization->recursive = 0;
+        $this->set('organizations', $this->paginate());
     }
     
     function getContacts() {
-        $this->set('contacts',$this->TowerOwner->Contact->find('list'));        
+        $this->set('contacts',$this->Organization->Contact->find('list'));        
     }
 
     public function view($id = null) {
-        $this->TowerOwner->id = $id;
+        $this->Organization->id = $id;
         
-        if (!$this->TowerOwner->exists()) {
-                throw new NotFoundException(__('Invalid tower owner'));
+        if (!$this->Organization->exists()) {
+                throw new NotFoundException(__('Invalid organization'));
         }
-        $this->set('towerowner', $this->TowerOwner->read(null, $id));
+        $this->set('organization', $this->Organization->read(null, $id));
         
     }
 
     public function add() {
         if ($this->request->is('post')) {
-            $this->TowerOwner->create();
-            if ($this->TowerOwner->save($this->request->data)) {
-                $this->Session->setFlash(__('The tower owner has been saved'));
+            $this->Organization->create();
+            if ($this->Organization->save($this->request->data)) {
+                $this->Session->setFlash(__('The organization has been saved'));
                 $this->redirect(array('action' => 'index'));
             } else {
-                $this->Session->setFlash(__('The tower owner could not be saved. Please, try again.'));
+                $this->Session->setFlash(__('The organization could not be saved. Please, try again.'));
             }
         }
     }
 
     public function edit($id = null) {
-        $this->TowerOwner->id = $id;
-        if (!$this->TowerOwner->exists()) {
-            throw new NotFoundException(__('Invalid tower owner'));
+        $this->Organization->id = $id;
+        if (!$this->Organization->exists()) {
+            throw new NotFoundException(__('Invalid organization'));
         }
         if ($this->request->is('post') || $this->request->is('put')) {
-            if ($this->TowerOwner->save($this->request->data)) {
-                $this->Session->setFlash(__('The tower owner has been saved'));
+            if ($this->Organization->save($this->request->data)) {
+                $this->Session->setFlash(__('The organization has been saved'));
                 $this->redirect(array('action' => 'index'));
             } else {
-                $this->Session->setFlash(__('The tower owner could not be saved. Please, try again.'));
+                $this->Session->setFlash(__('The organization could not be saved. Please, try again.'));
             }
         } else {
-            $this->request->data = $this->TowerOwner->read(null, $id);
+            $this->request->data = $this->Organization->read(null, $id);
         }
     }
 
@@ -59,11 +59,11 @@ class TowerOwnersController extends AppController {
         if (!$this->request->is('post')) {
             throw new MethodNotAllowedException();
         }
-        $this->TowerOwner->id = $id;
-        if (!$this->TowerOwner->exists()) {
-            throw new NotFoundException(__('Invalid tower owner'));
+        $this->Organization->id = $id;
+        if (!$this->Organization->exists()) {
+            throw new NotFoundException(__('Invalid organization'));
         }
-        if ($this->TowerOwner->delete()) {
+        if ($this->Organization->delete()) {
             $this->Session->setFlash(__('Tower owner deleted'));
             $this->redirect(array('action' => 'index'));
         }

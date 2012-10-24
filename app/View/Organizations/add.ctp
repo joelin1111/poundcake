@@ -3,14 +3,14 @@
     <H3>Actions</H3>
     <div class="well well-large">
     <ul>
-        <li><?php echo $this->Html->link(__('List Tower Owners'), array('action' => 'index')); ?>
+        <li><?php echo $this->Html->link(__('List Organizations'), array('action' => 'index')); ?>
     </ul>
     </div>
 </div><!-- /.span3 .sb-fixed -->
 
 <div class="span9">
-    <?php echo $this->Form->create('TowerOwner'); ?>
-    <h2>Add Tower Owner</h2>
+    <?php echo $this->Form->create('Organization'); ?>
+    <h2>Add Organization</h2>
     <?php
         echo $this->Form->input('name');
     ?>

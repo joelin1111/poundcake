@@ -1,13 +1,13 @@
 <?php
 App::uses('AppModel', 'Model');
 
-class TowerOwner extends AppModel {
+class Organization extends AppModel {
     
     // not working?
     public $paginate = array(
         'limit' => 20, // default limit also defined in AppController
         'order' => array(
-            'TowerOwners.name' => 'asc'
+            'Organizations.name' => 'asc'
         )
     );
     

@@ -78,7 +78,7 @@
             );
             
             $windowText .= '<BR>'.$site['Zone']['name'];
-            $windowText .= '<BR>'.$site['TowerOwner']['name'];
+            $windowText .= '<BR>'.$site['Organization']['name'];
             
             $position = array(
                 'latitude' => $defaultLat,

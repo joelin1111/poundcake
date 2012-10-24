@@ -30,7 +30,7 @@
                 <tr>
                     <th><?php echo $this->Paginator->sort('first_name'); ?></th>
                     <th><?php echo $this->Paginator->sort('title'); ?></th>
-                    <th><?php echo $this->Paginator->sort('TowerOwner.name','Tower Owner'); ?></th>
+                    <th><?php echo $this->Paginator->sort('Orgnanization.name'); ?></th>
                     <th><?php echo $this->Paginator->sort('priority'); ?></th>
                     <th><?php echo __('Actions'); ?></th>
                 </tr>
@@ -46,7 +46,7 @@
                 ?>
             </td>
             <td><?php echo $contact['Contact']['title'];?></td>
-            <td><?php echo $contact['TowerOwner']['name'];?></td>
+            <td><?php echo $contact['Organization']['name'];?></td>
             <td><?php echo $contact['Contact']['priority'];?></td>
             <td>
             <?php echo $this->MyHTML->linkIfAllowed(('Edit'), array('action' => 'edit', $contact['Contact']['id'])); ?>

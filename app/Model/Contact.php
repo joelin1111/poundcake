@@ -63,16 +63,6 @@ class Contact extends AppModel {
         */
     );
         
-    public $belongsTo = array('TowerOwner','ContactType','InstallTeam');
-    /*
-    public $belongsTo = array(
-        'TowerOwner' => array(
-            'className' => 'Contact',
-            'foreignKey' => 'towerowner_id',
-            'conditions' => '',
-            'fields' => '',
-            'order' => ''
-        ),
-    );
-    */
+    public $belongsTo = array('Organization','ContactType','InstallTeam');
+
 }

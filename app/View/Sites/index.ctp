@@ -20,8 +20,6 @@
     <ul>
         <?php
             foreach ($installteams as $key => $value) {
-//                print_r($key);
-//                print_r($value);
                 echo '<LI>';
                 echo $this->Html->link(($value), array('action' => 'schedule',$key));
                 echo '</LI>';
@@ -39,7 +37,7 @@
    <tr>
        <th><?php echo $this->Paginator->sort('site_code'); ?></th>
        <th><?php echo $this->Paginator->sort('site_name'); ?></th>
-       <th><?php echo $this->Paginator->sort('TowerOwner.name','Tower Owner'); ?></th>
+       <th><?php echo $this->Paginator->sort('Organization'); ?></th>
        <th><?php echo $this->Paginator->sort('site_state_id'); ?></th>
        <th><?php echo $this->Paginator->sort('Zone.name','Zone');?></th> <!-- zone_id -->
        <th>Actions</th>
@@ -64,12 +62,11 @@
                 array('controller' => 'sites', 'action' => 'view', $site['Site']['id']));
                 ?>
            </td>
-           <td><?php echo $site['TowerOwner']['name']; ?></td>
+           <td><?php echo $site['Organization']['name']; ?></td>
            <td><?php echo $site['SiteState']['name']; ?></td>
            <td><?php echo $site['Zone']['name']; ?></td>
            <td>
 <!--               <button class="btn btn-mini"></button>-->
-            <?php //echo $this->Html->link('Edit', array('action'=>'edit', $site['Site']['id']));?>
             <?php echo $this->MyHTML->linkIfAllowed('Edit', array('action'=>'edit', $site['Site']['id']));?>
             <?php echo $this->MyHTML->postLinkIfAllowed('Delete', array('action' => 'delete', $site['Site']['id']), null, 'Are you sure?' )?>
            </td>

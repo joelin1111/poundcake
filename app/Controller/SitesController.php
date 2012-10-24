@@ -11,7 +11,10 @@ class SitesController extends AppController
     var $helpers = array(
         'AjaxMultiUpload.Upload',
         'GoogleMap',
-        'MyHTML'
+        'MyHTML',
+        'PhpThumb.PhpThumb',
+        'PhpThumb'
+        
     );
     //var  $uses = null; // needed by Pdf helper?
 
@@ -53,38 +56,34 @@ class SitesController extends AppController
     }
     
     function index($id = null) {
-        // not really sure how to save this -- the array of projects the current user
-        // has access to needs to go to the beforeFind function on the Site controller
-        // so that we only return sites this user has access to
-        //$this->Site->data['Site']['projects'] = $this->getUserProjects();
         
-//        echo '<pre>';
-//        print_r($this->projects);
-//        echo '</pre>';
-//        die;
-
-        
-        $conditions = "";
-                
+        $conditions = "";                
         $site_code_arg = "";
         $site_name_arg = "";
-        //echo $this->passedArgs['Site.site_code'];
+        $site_state_id_arg = "";
+        
+        $this->getSiteStates();
         
         // used by search
         if (isset($this->passedArgs['Site.site_code'])) {
             $site_code_arg = str_replace('*','%',$this->passedArgs['Site.site_code']);
         }
-        // used by search
         if (isset($this->passedArgs['Site.site_name'])) {
             $site_name_arg = str_replace('*','%',$this->passedArgs['Site.site_name']);
         }
+        if (isset($this->passedArgs['Site.site_state_id'])) {
+            $site_state_id_arg = $this->passedArgs['Site.site_state_id'];            
+        }
         
-        // if neither argument was passed, default to a wildcard
+        // if no argument was passed, default to a wildcard
         if ($site_code_arg == "") {
             $site_code_arg = '%';
         }
         if ($site_name_arg == "") {
             $site_name_arg = '%';
+        }
+        if ($site_state_id_arg == "") {
+            $site_state_id_arg = '%';
         }
         
         //echo "Site code 2:<pre>".$this->passedArgs['Site.site_code']."</pre>";            
@@ -92,6 +91,7 @@ class SitesController extends AppController
             'AND' => array(
                 'Site.site_code LIKE' => $site_code_arg,
                 'Site.site_name LIKE' => $site_name_arg,
+                'Site.site_state_id LIKE' => $site_state_id_arg
             )
         );
         
@@ -129,6 +129,7 @@ class SitesController extends AppController
         $conditions = array ("NOT" => array ("Site.lat" => null));
         $sites = $this->Site->find('all', array('conditions' => $conditions));
         $this->set('sites', $sites);
+        $this->getSiteStates();
         $this->buildLegend();
     }
     
@@ -166,20 +167,20 @@ class SitesController extends AppController
         // sometimes I think my head is going to explode - I had a haard time finding
         // contacts for this site's tower owner, this is the model setup:
         // 
-        // Site belongsTo TowerOwner
-        // TowerOwner hasMany Sites
-        // TowerOwner hasMany Contacts
-        // Contact belongsTo TowerOwner
+        // Site belongsTo Organization
+        // Organization hasMany Sites
+        // Organization hasMany Contacts
+        // Contact belongsTo Organization
         
         // get the ID of the current site's tower owner
-        $id = $this->Site->data['Site']['tower_owner_id'];
+        $id = $this->Site->data['Site']['organization_id'];
         //echo "ID is" . $id;
         $conditions = array (
-            //'id' => $id // tower_owner.id = site.tower_owner_id
-            'tower_owner_id' => $this->Site->data['Site']['tower_owner_id']
+            //'id' => $id // tower_owner.id = site.organization_id
+            'organization_id' => $this->Site->data['Site']['organization_id']
         );
         
-        $contacts = $this->Site->TowerOwner->Contact->find(
+        $contacts = $this->Site->Organization->Contact->find(
                 'all',
                 array('conditions' => $conditions,
                 //array('order' => $order)
@@ -236,6 +237,7 @@ class SitesController extends AppController
         
     }
     function view($id = null) {
+        
         $this->Site->id = $id;
         $this->set('id',$id);
         //$this->getSitesNearby($id,5);
@@ -340,9 +342,9 @@ class SitesController extends AppController
         $this->set('connectivitytypes',$this->Site->ConnectivityType->find('list'));
     }
     
-    function getTowerOwners() {
+    function getOrganizations() {
         // identical to getZones
-        $this->set('towerowners',$this->Site->TowerOwner->find('list'));
+        $this->set('organizations',$this->Site->Organization->find('list'));
     }
     
     function getSiteStates() {
@@ -441,7 +443,7 @@ class SitesController extends AppController
                              array('foreignKey' => 'site_id'))));
 
         // get a list of things the Site may belong to
-        $this->getTowerOwners();
+        $this->getOrganizations();
         $this->getSiteStates();
         $this->getPowerTypes();
         
@@ -518,7 +520,7 @@ class SitesController extends AppController
         
         // get a list of zones, etc. the site may belong to
         $this->getZones();
-        $this->getTowerOwners();
+        $this->getOrganizations();
         $this->getSiteStates();
         $this->getPowerTypes();
         
@@ -636,17 +638,17 @@ class SitesController extends AppController
         $conditions = array (
             "Contact.contact_type_id" => "2", // 2 is the primary key of the technical contact
             "Contact.priority" => "1", // 1 is the base priority level
-            //"Contact.tower_owner_id" => $this->Site->TowerOwner->field('id')
-            "Contact.tower_owner_id" => $sites['Site']['tower_owner_id']
+            //"Contact.organization_id" => $this->Site->Organization->field('id')
+            "Contact.organization_id" => $sites['Site']['organization_id']
         );
-        $towercontacts = $this->Site->TowerOwner->Contact->find('all',array('conditions' => $conditions));        
+        $towercontacts = $this->Site->Organization->Contact->find('all',array('conditions' => $conditions));        
         $router = $this->Site->NetworkRouter->findByRouterTypeId($sites['NetworkRouter']['router_type_id']);
         $switch = $this->Site->NetworkSwitch->findBySwitchTypeId($sites['NetworkSwitch']['switch_type_id']);
         $radios = $this->Site->NetworkRadios->findAllBySiteId($id);
         
 //        echo '<pre>';
 //        print_r($sites);
-//        print_r( $this->Site->TowerOwner->field('id') );
+//        print_r( $this->Site->Organization->field('id') );
 //        print_r($conditions);        
 //        print_r($towercontacts);        
 //        echo '</pre>';

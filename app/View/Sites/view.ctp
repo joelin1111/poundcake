@@ -140,13 +140,13 @@
     <P><B>Notes</B>:&nbsp;<?php echo $site['Site']['notes'];?></P>
     <P><B>Install Team:</B>&nbsp;<?php echo $site['InstallTeam']['name']; ?></P>
     <P><B>Install Date:</B>&nbsp;<?php echo $site['Site']['install_date']; ?></P>
-    <P><B>Tower Owner:</B>&nbsp;<?php
+    <P><B>Organization:</B>&nbsp;<?php
         echo $this->Html->link(
-                $site['TowerOwner']['name'],
+                $site['Organization']['name'],
                 array(
-                    'controller' => 'towerOwners',
+                    'controller' => 'organizations',
                     'action' => 'view',
-                    $site['TowerOwner']['id']));
+                    $site['Organization']['id']));
     ?></P>
     
     <P><B>Tower Type:</B>&nbsp;<?php echo $site['TowerType']['name']; ?></P>
@@ -217,7 +217,7 @@
     
     <?php echo $this->element('Common/addrpool_data'); ?>
     
-    <P><B>Files:</B>&nbsp;
+    <P><B>Files:</B><BR>
         <?php
             // get any attached files
             $results = $this->Upload->listing('Site', $site['Site']['id']);
@@ -225,10 +225,26 @@
             // maybe test if the file exists here?
             if ($results['files'] != null) {
                 // list any uploaded files
-                echo $this->Upload->view('Site', $site['Site']['id']);
+                //echo $this->Upload->view('Site', $site['Site']['id']);
+
+                $directory = $results['directory'];
+                $baseUrl = $results['baseUrl'];
+                $files = $results['files'];
+                foreach ($files as $file) {
+                    $f = basename($file);
+                    $url = $baseUrl . "/$f";
+                    echo "<P>";
+                    echo $this->PhpThumb->thumbnail($url, array('w' => 100, 'h' => 100, 'zc' => 1));
+                    echo "<BR>";
+                    echo '<a href="'.$url.'">'.$f.'</a>';
+                    echo "</P>";
+                }
+                
             } else {
                 echo "None";
             }
+            
+            
 
             /* in case we want to do something more interesting with the list of files?
             $results = $this->Upload->listing('Site', $site['Site']['id']);

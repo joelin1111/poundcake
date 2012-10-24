@@ -67,7 +67,7 @@ class ContactsController extends AppController {
     }
 
     public function add() {
-       $this->getTowerOwners();
+       $this->getOrganizations();
        $this->getInstallTeams();
        $this->getContactTypeOptions();
        if ($this->request->is('post')) {
@@ -82,8 +82,8 @@ class ContactsController extends AppController {
     }
 
     // return all the towers to allow the user to be assigned to
-    function getTowerOwners() {
-        $this->set('towerowners',$this->Contact->TowerOwner->find('list'));
+    function getOrganizations() {
+        $this->set('organizations',$this->Contact->Organization->find('list'));
     }
     
     // as above
@@ -99,7 +99,7 @@ class ContactsController extends AppController {
 
     public function edit($id = null) {
         $this->Contact->id = $id;
-        $this->getTowerOwners();
+        $this->getOrganizations();
         $this->getInstallTeams();
         $this->getContactTypeOptions();
         if (!$this->Contact->exists()) {

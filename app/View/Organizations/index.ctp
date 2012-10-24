@@ -3,13 +3,13 @@
     <H3>Actions</H3>
     <div class="well well-large">
     <ul>
-        <li><?php echo $this->Html->link(__('New Tower Owner'), array('action' => 'add')); ?></li>
+        <li><?php echo $this->Html->link(__('New Organization'), array('action' => 'add')); ?></li>
     </ul>
     </div>
 </div><!-- /.span3 .sb-fixed -->
 
 <div class="span9">
-	<h2>Tower Owners</h2>
+	<h2>Organizations</h2>
 	<table class="table table-condensed table-striped">
         <thead>
             <tr>
@@ -19,12 +19,12 @@
         </thead>
         <tbody>
 	<?php
-	foreach ($towerOwners as $towerOwner): ?>
+	foreach ($organizations as $organization): ?>
 	<tr>
-            <td><?php echo h($towerOwner['TowerOwner']['name']);?></td>
+            <td><?php echo h($organization['Organization']['name']);?></td>
             <td>
-                <?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $towerOwner['TowerOwner']['id'])); ?>
-                <?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $towerOwner['TowerOwner']['id']), null, __('Are you sure you want to delete tower owner %s?', $towerOwner['TowerOwner']['name'])); ?>
+                <?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $organization['Organization']['id'])); ?>
+                <?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $organization['Organization']['id']), null, __('Are you sure you want to delete organization %s?', $organization['Organization']['name'])); ?>
             </td>
 	</tr>
         <?php endforeach; ?>

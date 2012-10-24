@@ -112,8 +112,8 @@ $sheet1->writeString($row,5,$site['TowerType']['name'],$fmt4);
 $row++;
 
 // col 1
-$sheet1->writeString($row,1,'Tower Owner',$fmt3);
-$sheet1->writeString($row,2,$site['TowerOwner']['name'],$fmt4);
+$sheet1->writeString($row,1,'Organization',$fmt3);
+$sheet1->writeString($row,2,$site['Organization']['name'],$fmt4);
 // col 2
 $sheet1->writeString($row,4,'Power Type',$fmt3);
 $sheet1->writeString($row,5,$site['PowerType']['name'],$fmt4);

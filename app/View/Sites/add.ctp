@@ -38,7 +38,7 @@
     
     // drop down menus of available items
     echo $this->Form->input('Site.site_state_id', array('type'=>'select','options' => $sitestates));
-    echo $this->Form->input('Site.tower_owner_id', array('type'=>'select','options' => $towerowners));
+    echo $this->Form->input('Site.organization_id', array('type'=>'select','options' => $organizations));
     
     echo $this->Form->input('Site.tower_type_id', array('type'=>'select','options' => $towertypes));
     echo $this->Form->input('Site.tower_member_id', array('type'=>'select','options' => $towermembers));
