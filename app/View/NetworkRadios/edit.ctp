@@ -1,6 +1,7 @@
 <?php
     # include Jquery
     echo $this->Html->script('jquery-1.7.2');
+    echo $this->Html->script('sector');
 ?>
     
 <div class="row">
@@ -23,6 +24,9 @@
         echo $this->Form->input('name');
         echo $this->Form->input('serial');
         echo $this->Form->input('site_id');
+        echo $this->Form->input('sector', array('label'=>'Sector Radio'));
+        echo $this->Form->input('true_azimuth', array('label'=>'True Azimuth'));
+        echo $this->Form->input('mag_azimuth', array('label'=>'Magnetic Azimuth'));
         echo $this->Form->input('radio_type_id', array('type'=>'select','options' => $radiotypes));
         echo $this->Form->input('antenna_type_id', array('type'=>'select','options' => $antennatypes));
         echo $this->Form->input('radio_mode_id', array('type'=>'select','options' => $radiomodes));
@@ -35,7 +39,7 @@
         echo $this->Form->hidden('link_id');
     ?>
     </fieldset>
-    <?php echo $this->Form->end(__('Submit')); ?>
+    <?php echo $this->Form->end(__('Save')); ?>
 </div> <!-- /.span9 -->
 </div> <!-- /.row -->
 

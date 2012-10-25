@@ -77,13 +77,19 @@ BOARD
 OTHER
 </h3>
 <?php
-    //print_r($builditems);
+    $type = '';
     echo '<UL>';
     foreach ($builditems as $key => $value) {
+
+        if ($type != $builditems[$key]['BuildItemTypes']['name']) {
+            $type = $builditems[$key]['BuildItemTypes']['name'];
+            echo '<H4>'.$type.'</H4>';
+        }
         echo '<LI>';
         echo $builditems[$key]['BuildItems']['quantity'];
         echo '&nbsp;';
         echo $builditems[$key]['BuildItems']['name'];
+        echo '&nbsp;';
         echo '</LI>';
     }
     echo '</UL>';

@@ -11,12 +11,13 @@
 <div class="span9">
     <?php echo $this->Form->create('BuildItem');
     //echo $this->element('sql_dump'); ?>
-    <h2>Add Contact</h2>
+    <h2>Add Build Item</h2>
     <?php
         echo $this->Form->input('name');
         echo $this->Form->input('quantity');
+        echo $this->Form->input('build_item_type_id', array('type'=>'select','options' => $builditemtypes)); //,'empty' => true));
     ?>
     </fieldset>
-    <?php echo $this->Form->end(__('Submit')); ?>
+    <?php echo $this->Form->end(__('Save')); ?>
 </div> <!-- /.span9 -->
 </div> <!-- /.row -->

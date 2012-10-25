@@ -11,12 +11,20 @@ $(document).ready(function() {
        altFormat: 'yy-mm-dd'
     });
     
-    /*
-    $('#SchoolAreaId').bind('click', function() {
-      alert($(this).text());
+    $("#NetworkRadioSector").click(
+    function() {
+       $("#NetworkRadioTrueAzimuth").each(
+            function() {
+               this.disabled = !this.disabled;
+            }
+        );
+       $("#NetworkRadioMagAzimuth").each(
+            function() {
+               this.disabled = !this.disabled;
+            }
+        );
     });
-    $('#SchoolAreaId').trigger('click');
-    */
+    
 });
 
 /*

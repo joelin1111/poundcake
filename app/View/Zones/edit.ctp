@@ -14,6 +14,6 @@
             echo $this->Form->input('id');
             echo $this->Form->input('name');
     ?>
-    <?php echo $this->Form->end(__('Submit')); ?>
+    <?php echo $this->Form->end('Save'); ?>
 </div> <!-- /.span9 -->
 </div> <!-- /.row -->

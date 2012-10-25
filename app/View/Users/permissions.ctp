@@ -25,7 +25,7 @@
             'selected' => $this->Html->value('Project.Project'),
         ));
 
-        echo $this->Form->end(__('Submit'));
+        echo $this->Form->end('Save');
     ?>
 </div> <!-- /.span9 -->
 </div> <!-- /.row -->

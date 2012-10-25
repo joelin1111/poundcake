@@ -119,7 +119,6 @@ class SitesController extends AppController
     public function buildLegend() {
         $allSiteStates = $this->Site->SiteState->find('all');
         $this->set('allSiteStates', $allSiteStates);
-        //echo print_r($allSiteStates);
     }
     
     public function overview() {
@@ -213,7 +212,15 @@ class SitesController extends AppController
     
     function getBuildItems() {
        $this->loadModel('BuildItems');
-       $builditems = $this->BuildItems->find('all');
+       $this->BuildItems->bindModel(array('belongsTo' => array('BuildItemTypes' => 
+                             array('foreignKey' => 'build_item_type_id'))));
+       $options = array('order' => 'BuildItems.build_item_type_id', 'recursive'=> 2); // order by item type
+       $builditems = $this->BuildItems->find('all', $options); //,array('recursive' => 2));
+//       echo '<pre>';
+//       print_r($builditems);
+//       echo '</pre>';
+//       die;
+       
        $this->set('builditems', $builditems);
        
        // sum up all the radios, antennas for this site

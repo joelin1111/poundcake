@@ -11,12 +11,12 @@
 
 <div class="span9">
     <?php echo $this->Form->create('BuildItem'); ?>
-    <h2>Edit Contact</h2>
+    <h2>Edit Build Item</h2>
     <?php
         echo $this->Form->input('name');
         echo $this->Form->input('quantity');
-        
-        echo $this->Form->end(__('Submit'));
+        echo $this->Form->input('build_item_type_id', array('type'=>'select','options' => $builditemtypes)); //,'empty' => true));
+        echo $this->Form->end('Save');
     ?>
 </div> <!-- /.span9 -->
 </div> <!-- /.row -->

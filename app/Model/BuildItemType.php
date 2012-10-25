@@ -1,13 +1,19 @@
 <?php
 App::uses('AppModel', 'Model');
 
-class BuildItem extends AppModel {
+class BuildItemType extends AppModel {
 
     public $displayField = 'name';
 
+    var $hasMany = array('BuildItems');
+    
+    /*
     var $belongsTo = array(
-        'BuildItemType'
+        'Site',
+        'RadioType',
+        'AntennaType'
     );
+    */
     
     public $validate = array(
         'name' => array(

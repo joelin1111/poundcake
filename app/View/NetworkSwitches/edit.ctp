@@ -19,6 +19,6 @@
         echo $this->Form->input('switch_type_id', array('type'=>'select','options' => $switchtypes));
     ?>
     </fieldset>
-    <?php echo $this->Form->end(__('Submit')); ?>
+    <?php echo $this->Form->end('Save'); ?>
 </div> <!-- /.span9 -->
 </div> <!-- /.row -->

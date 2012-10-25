@@ -24,10 +24,7 @@
         echo $this->Form->input('organization_id', array('type'=>'select','options' => $organizations,'empty' => true));
         echo $this->Form->input('install_team_id', array('type'=>'select','options' => $installteams,'empty' => true));
         echo $this->Form->input('contact_type_id', array('type'=>'select','label' => 'Contact Type','options' => $contacttypes));
-        
-        
-        
-        echo $this->Form->end(__('Submit'));
+        echo $this->Form->end('Save');
     ?>
 </div> <!-- /.span9 -->
 </div> <!-- /.row -->

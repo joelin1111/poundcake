@@ -18,7 +18,7 @@
         echo $this->Form->input('name');
         echo $this->Form->input('sequence');
         echo $this->Form->file('File');
-        echo $this->Form->end(__('Submit'));
+        echo $this->Form->end('Save');
     ?>
 </div> <!-- /.span9 -->
 </div> <!-- /.row -->

@@ -42,6 +42,7 @@
     <H3>Other</H3>
     <UL>    
         <li><?php echo $this->Html->link('Build Items', '/buildItems/index'); ?></li>
+        <li><?php echo $this->Html->link('Build Item Types', '/buildItemTypes/index'); ?></li>
         <li><?php echo $this->Html->link('Contact Types', '/contactTypes/index'); ?></li>
         <li><?php echo $this->Html->link('Install Teams', '/installTeams/index'); ?></li> 
         <li><?php echo $this->Html->link('Router Types', '/routerTypes/index'); ?> </li>

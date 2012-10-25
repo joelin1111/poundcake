@@ -16,7 +16,7 @@
         //echo $this->Form->input('Project',array('type'=>'hidden'));
         echo $this->Session->flash(); // show flash message
     
-        echo $this->Form->end(__('Submit'));
+        echo $this->Form->end('Save');
     ?>
 </div> <!-- /.span9 -->
 </div> <!-- /.row -->

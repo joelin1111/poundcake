@@ -53,22 +53,28 @@ class NetworkRadiosController extends AppController {
         $ip_addresses = $this->getAllIPAddresses($this->NetworkRadio->field('name'));
         $this->set(compact('ip_addresses'));
         
-        //$true_azimuth = $this->NetworkRadio->field('true_azimuth');
-        $declination = $this->NetworkRadio->Site->field('declination');
-        
-        $true_azimuth = 0;
-        $link_distance = 0;
-        $mag_azimuth = 0;
-        if ($this->NetworkRadio->field('link_id') > 0) {
-            $id = $this->NetworkRadio->field('id');
-            $link_id = $this->NetworkRadio->field('link_id');
-            $link_distance = $this->NetworkRadio->getLinkDistance($id, $link_id);
-            
-            $true_azimuth = $this->NetworkRadio->getRadioBearing($id, $link_id);
-            if ($true_azimuth > 0) {
-                $mag_azimuth = $true_azimuth - $declination;
+        if ( $this->NetworkRadio->field('sector') > 0 ) {
+            $link_distance = 0;
+            $true_azimuth = $this->NetworkRadio->field('true_azimuth');
+            $mag_azimuth = $this->NetworkRadio->field('mag_azimuth');
+        } else {
+            $declination = $this->NetworkRadio->Site->field('declination');
+
+            $true_azimuth = 0;
+            $link_distance = 0;
+            $mag_azimuth = 0;
+            if ($this->NetworkRadio->field('link_id') > 0) {
+                $id = $this->NetworkRadio->field('id');
+                $link_id = $this->NetworkRadio->field('link_id');
+                $link_distance = $this->NetworkRadio->getLinkDistance($id, $link_id);
+
+                $true_azimuth = $this->NetworkRadio->getRadioBearing($id, $link_id);
+                if ($true_azimuth > 0) {
+                    $mag_azimuth = $true_azimuth - $declination;
+                }
             }
         }
+        
         $this->set('link_distance',$link_distance);
         $this->set('true_azimuth',$true_azimuth);
         $this->set('mag_azimuth', $mag_azimuth);
