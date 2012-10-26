@@ -43,10 +43,11 @@ $(document).ready(function() {
         echo $this->Form->input('serial');
         echo $this->Form->input('site_id');
         echo $this->Form->input('sector', array('label'=>'Sector Radio'));
-        //echo $this->Form->input('true_azimuth', array('label'=>'True Azimuth','disabled' => true));
-        //echo $this->Form->input('mag_azimuth', array('label'=>'Magnetic Azimuth','disabled' => true));
-        echo $this->Form->input('true_azimuth', array('label'=>'True Azimuth'));
-        echo $this->Form->input('mag_azimuth', array('label'=>'Magnetic Azimuth'));
+        // sector will default to being un-checked, so we can disable these fields
+        echo $this->Form->input('true_azimuth', array('label'=>'True Azimuth','disabled' => true));
+        echo $this->Form->input('mag_azimuth', array('label'=>'Magnetic Azimuth','disabled' => true));
+        //echo $this->Form->input('true_azimuth', array('label'=>'True Azimuth'));
+        //echo $this->Form->input('mag_azimuth', array('label'=>'Magnetic Azimuth'));
         
         echo $this->Form->input('radio_type_id', array('type'=>'select','options' => $radiotypes,'default'=>'1'));
         echo $this->Form->input('antenna_type_id', array('type'=>'select','options' => $antennatypes));

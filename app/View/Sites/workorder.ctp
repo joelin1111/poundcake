@@ -81,8 +81,9 @@ $sheet1->columnWidth(3,'20'); // Column C
 $sheet1->columnWidth(4,'150'); // Column D
 $sheet1->columnWidth(5,'200'); // Column E
 
-$today = date("D M j G:i:s T Y");
-$sheet1->writeString($row,5,'Work Order generated: '.$today,$fmt3);
+//$today = date("D M j G:i:s T Y");
+$format = $site['Project']['datetime_format'];
+$sheet1->writeString($row,5,'Work Order generated: '.date($format),$fmt3);
 
 $row += 2;
 // col 1
