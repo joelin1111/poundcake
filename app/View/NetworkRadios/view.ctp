@@ -33,12 +33,16 @@
         <?php
         if ($networkradio['NetworkRadio']['sector'] > 0)
             echo sprintf("%01.2f",$networkradio['NetworkRadio']['true_azimuth']).'°';
+        else
+            echo 'N/A';
         ?>
     </P>
     <P><B>Magnetic Azimuth:</B>&nbsp;
         <?php
         if ($networkradio['NetworkRadio']['sector'] > 0)
             echo sprintf("%01.2f",$networkradio['NetworkRadio']['mag_azimuth']).'°';
+        else
+            echo 'N/A';
         ?>
     </P>
     <P><B>Elevation:</B>&nbsp;<?php
