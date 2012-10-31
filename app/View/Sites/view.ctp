@@ -87,9 +87,8 @@
                     'icon' => $icon
                     )
                 );
-        /*
-        // placemarkers for nearby sites
-        print_r($nearby);
+        /*/* placemarkers for nearby sites
+        //print_r($nearby);
         $icon = '';
         $c = count($nearby);
         $i = 2;
@@ -126,7 +125,7 @@
                 $i++;
             }
         }
-         */
+        */
     ?>
     </p>
 
@@ -265,7 +264,7 @@
 </div> <!-- /.row -->
 
 <?php
-/*
+
 // draw links to remote sites
 // and put placemarkers there, too
 // 
@@ -283,9 +282,19 @@
             $link_lon = $radio['NetworkRadio']['link_lon'];
             $windowText = $radio['NetworkRadio']['window_text'];
             if (($link_lat != null) && ($link_lon != null)) {
-                echo $this->GoogleMap->addPolyline("map_canvas", "polyline1",
-                        array("start" => array("latitude" =>$site['Site']['lat'] ,"longitude"=> $site['Site']['lon']),
-                            "end" => array("latitude" =>$link_lat ,"longitude"=> $link_lon)));
+                echo $this->GoogleMap->addPolyline(
+                        "map_canvas",
+                        "polyline1",
+                        array (
+                            "start" => array("latitude" =>$site['Site']['lat'] ,"longitude"=> $site['Site']['lon']),
+                            "end" => array("latitude" =>$link_lat ,"longitude"=> $link_lon)
+                        ),
+                        array (
+                            'strokeColor' => '4747B2',
+                            'strokeOpacity' => '0.5',
+                            'strokeWeight' => '3'
+                        )
+                        );
                 
                 $markerOptions = array (
                    'id' => $i, // Id of the marker
@@ -312,7 +321,6 @@
         }
         
     }
- */
 ?>
 
 

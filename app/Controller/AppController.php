@@ -42,7 +42,8 @@ class AppController extends Controller {
             'logoutRedirect' => array('controller' => 'users', 'action' => 'login'),
             //'logoutRedirect' => array('controller' => 'pages', 'action' => 'display', ''),
             'authorize' => array('Controller')
-        )
+        ),
+        'RequestHandler'
     );
 
     // used for the login/ACL
@@ -56,7 +57,29 @@ class AppController extends Controller {
         // allows access to nothing if not logged in
         // by only allowing them access to the logout page
         $this->Auth->allow('logout');
+        
+        // this is from:  http://stackoverflow.com/questions/7968312/cakephp-mobile-layout-home-redirect-requesthandler-ismobile
+        // see also afterFilter
+//        if ($this->RequestHandler->isMobile()) {
+//            $this->is_mobile = true;
+//            $this->set('is_mobile', true );
+//            $this->autoRender = false;
+//        }
     }
+    
+    /*
+    function afterFilter() {
+        // see note above RE: mobile support
+        //if (isset($this->is_mobile) && $this->is_mobile) {
+            //Configure::read('VIEWS');
+            //Configure::read('LAYOUTS');    
+        if (isset($this->is_mobile) && $this->is_mobile) {
+            $view_file = file_exists( VIEWS . $this->name . DS . 'mobile/' . $this->action . '.ctp' );
+            $layout_file = file_exists( LAYOUTS . 'mobile/' . $this->layout . '.ctp' );
+            $this->render($this->action, ($layout_file?'mobile/':'').$this->layout, ($view_file?'mobile/':'').$this->action);
+        }
+    }
+    */
     
     // we could prevent some staff to edit or delete others' schools
     // basic rules for our app are that admin users can access every url, while

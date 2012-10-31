@@ -9,7 +9,7 @@
 </div><!-- /.span3 .sb-fixed -->
 
 <div class="span9">
-	<h2>Build Items</h2>
+	<h2>Build Item Types</h2>
 	<table class="table table-condensed table-striped">
             <thead>
                 <tr>

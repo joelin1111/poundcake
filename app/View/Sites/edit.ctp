@@ -51,8 +51,8 @@
     echo $this->Form->input('Site.site_state_id', array('type'=>'select','options' => $sitestates));
     echo $this->Form->input('Site.organization_id', array('type'=>'select','options' => $organizations));
     
-    echo $this->Form->input('Site.tower_type_id', array('type'=>'select','options' => $towertypes, 'empty' => true));
-    echo $this->Form->input('Site.tower_member_id', array('type'=>'select','options' => $towermembers, 'empty' => true));
+    echo $this->Form->input('Site.tower_type_id', array('type'=>'select','options' => $towertypes, 'empty' => 'Unknown'));
+    echo $this->Form->input('Site.tower_member_id', array('type'=>'select','options' => $towermembers, 'empty' => 'Pick One'));
     echo $this->Form->input('Site.tower_mount_id', array('type'=>'select','options' => $towermounts, 'empty' => true));
     echo $this->Form->input('Site.equipment_space_id', array('type'=>'select','options' => $equipmentspace,'label' => 'Equipment Space'));
     

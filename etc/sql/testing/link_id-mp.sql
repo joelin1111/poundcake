@@ -33,37 +33,45 @@ BEGIN
 	-- now swap them to find the opposite radio name as per our naming convention
 	SELECT CONCAT(@dest, '-', @src) INTO @dest_name;
 	
+	-- INSERT INTO temp(src) VALUES(@src);
+	-- INSERT INTO temp(src) VALUES(@dest);
+	
 	-- We have a ONE-to-ONE link
-	IF ( @dest NOT LIKE 'MP%' ) THEN
+	IF ( @dest NOT LIKE '%_P2MP%' ) THEN
 	
 		-- get the ID of the corresponding radio
 		SELECT id INTO @dest_radio_id
 		FROM network_radios
 		-- WHERE name = @dest_name;
-		WHERE ( name = @dest_name ) OR ( name = CONCAT(@dest,'-MP') );
+		WHERE ( name = @dest_name ) OR ( name = CONCAT(@dest,'_P2MP%') );
 	
 		-- link the two radios in the join table
 		IF ( @dest_radio_id > 0 ) THEN
 		
+			-- note this inserts two rows
 			INSERT INTO radios_radios
-			VALUES (NEW.id, @dest_radio_id,CONCAT( @dest_name, ' or ', CONCAT(@dest,'-MP'))),
+			VALUES (NEW.id, @dest_radio_id,'one'),
 			(@dest_radio_id, NEW.id,'two');
 		
 		END IF;
 	ELSE
+		INSERT INTO temp(src) VALUES(@dest);
 		
 		INSERT INTO radios_radios
 		SELECT NEW.id, id, 'three'
 		FROM network_radios
-		WHERE name LIKE CONCAT('%-',@src);
+		-- WHERE name LIKE CONCAT('%-',@src);
+		-- WHERE name LIKE CONCAT(@dest,'%_P2MP%');
+		WHERE name LIKE @dest;
 		
 		INSERT INTO radios_radios
 		SELECT id, NEW.id, 'four'
 		FROM network_radios
-		WHERE name LIKE CONCAT('%-',@src);
+		-- WHERE name LIKE CONCAT('%-',@src);
+		-- WHERE name LIKE CONCAT(@dest,'%_P2MP%');
+		WHERE name LIKE @dest;
 		
-		-- INSERT INTO temp(src)
-		-- VALUES(@src);
+		-- INSERT INTO temp(src) VALUES(CONCAT(@dest));
 		
 	END IF;
 	
