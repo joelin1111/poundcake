@@ -30,7 +30,7 @@
                 <tr>
                     <th><?php echo $this->Paginator->sort('first_name'); ?></th>
                     <th><?php echo $this->Paginator->sort('title'); ?></th>
-                    <th><?php echo $this->Paginator->sort('Orgnanization.name'); ?></th>
+                    <th><?php echo $this->Paginator->sort('Orgnanization'); ?></th>
                     <th><?php echo $this->Paginator->sort('priority'); ?></th>
                     <th><?php echo __('Actions'); ?></th>
                 </tr>

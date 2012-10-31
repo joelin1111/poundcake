@@ -32,13 +32,13 @@
     <P><B>True Azimuth:</B>&nbsp;
         <?php //echo $networkradio['NetworkRadio']['true_azimuth'];
         if (isset($true_azimuth))
-            echo sprintf("%01.2f",$true_azimuth).'°';
+            echo sprintf("%01.2f",$networkradio['NetworkRadio']['true_azimuth']).'°';
         ?>
     </P>
     <P><B>Magnetic Azimuth:</B>&nbsp;
         <?php //echo $networkradio['NetworkRadio']['mag_azimuth'];
         if (isset($mag_azimuth))
-            echo sprintf("%01.2f",$mag_azimuth).'°';
+            echo sprintf("%01.2f",$networkradio['NetworkRadio']['mag_azimuth']).'°';
         ?>
     </P>
     <P><B>Elevation:</B>&nbsp;<?php
