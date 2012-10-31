@@ -30,14 +30,14 @@
     <P><B>Radio Mode:</B>&nbsp;<?php echo $networkradio['RadioMode']['name']; ?></P>    
     <P><B>Link Distance:</B>&nbsp;<?php echo sprintf("%01.2f",$link_distance). ' Km'; ?></P>
     <P><B>True Azimuth:</B>&nbsp;
-        <?php //echo $networkradio['NetworkRadio']['true_azimuth'];
-        if (isset($true_azimuth))
+        <?php
+        if ($networkradio['NetworkRadio']['sector'] > 0)
             echo sprintf("%01.2f",$networkradio['NetworkRadio']['true_azimuth']).'°';
         ?>
     </P>
     <P><B>Magnetic Azimuth:</B>&nbsp;
-        <?php //echo $networkradio['NetworkRadio']['mag_azimuth'];
-        if (isset($mag_azimuth))
+        <?php
+        if ($networkradio['NetworkRadio']['sector'] > 0)
             echo sprintf("%01.2f",$networkradio['NetworkRadio']['mag_azimuth']).'°';
         ?>
     </P>
