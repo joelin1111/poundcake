@@ -25,8 +25,16 @@
         echo $this->Form->input('serial');
         echo $this->Form->input('site_id');
         echo $this->Form->input('sector', array('label'=>'Sector Radio'));
-        echo $this->Form->input('true_azimuth', array('label'=>'True Azimuth'));
-        echo $this->Form->input('mag_azimuth', array('label'=>'Magnetic Azimuth'));
+
+        // if the radio is a sector then enable the azimuth field
+        if ($this->data['NetworkRadio']['sector'] > 0) {
+            $disabled = false;
+        } else {
+                $disabled = true;
+        }
+        echo $this->Form->input('true_azimuth', array('label'=>'True Azimuth','disabled' => $disabled));
+        //echo $this->Form->input('mag_azimuth', array('label'=>'Magnetic Azimuth'));
+        
         echo $this->Form->input('radio_type_id', array('type'=>'select','options' => $radiotypes));
         echo $this->Form->input('antenna_type_id', array('type'=>'select','options' => $antennatypes));
         echo $this->Form->input('radio_mode_id', array('type'=>'select','options' => $radiomodes));

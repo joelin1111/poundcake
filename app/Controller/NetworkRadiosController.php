@@ -186,11 +186,14 @@ class NetworkRadiosController extends AppController {
         $this->getFrequencies(); // for the frequency dropdown
         
         if ($this->request->is('post')) {
+
+            $this->NetworkRadio->create();
+            
+            $this->request->data = $this->setMagAzimuth($this->request->data);
 //            echo '<pre>';
 //            echo 'Request:<BR>';
 //            print_r($this->request->data);
 //            echo '</pre>';
-            $this->NetworkRadio->create();
             if ($this->NetworkRadio->save($this->request->data)) {
                 
                 $last = $this->NetworkRadio->read(null,$this->NetworkRadio->id);
@@ -235,16 +238,20 @@ class NetworkRadiosController extends AppController {
             throw new NotFoundException(__('Invalid radio'));
         }
         if ($this->request->is('post') || $this->request->is('put')) {
-            //echo '<pre>:';
-            //print_r($this->request->data);
-            //echo '</pre>';
             $data = $this->request->data;
+                   
+//            echo '<pre>:';
+//            print_r($this->request->data);
+            $this->request->data = $this->setMagAzimuth($this->request->data);
+//            print_r($this->request->data);
+//            echo '</pre>';
+            
             $old_link_id = $data['NetworkRadio']['link_id'];
             if ($this->NetworkRadio->save($this->request->data)) {
 //                echo '<pre>:';
 //                print_r($this->request->data);
 //                echo '</pre>';
-                //die;
+//                die;
                 // update the link_id and possible clear out the old
                 // link_id on related radio
                 $link_id = $this->NetworkRadio->field('link_id');
@@ -273,6 +280,15 @@ class NetworkRadiosController extends AppController {
         }
         $this->getNetworkSwitches();
         $this->getNetworkSwitchPorts();
+    }
+    
+    public function setMagAzimuth($data) {
+        if (isset($data['NetworkRadio']['true_azimuth'])) {
+            $this->loadModel('Site',$data['NetworkRadio']['site_id']);
+            $declination = $this->Site->getDeclination($this->Site->field('lat'), $this->Site->field('lon'));
+            $data['NetworkRadio']['mag_azimuth'] = $data['NetworkRadio']['true_azimuth'] - $declination;
+        }
+        return $data;
     }
     
     public function delete($id = null) {

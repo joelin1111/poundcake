@@ -316,9 +316,12 @@ class SitesController extends AppController
         
         $true_azimuth = $this->Site->getBearing($lat, $lon, $r_lat, $r_lon);
         $declination = $this->getDeclination($lat,$lon);
+        
+        // why did I make this if ($true_azimuth > 0) ???
         if ($true_azimuth > 0) {
-                $mag_azimuth = $true_azimuth - $declination;
-            }
+            $mag_azimuth = $true_azimuth - $declination;
+        }
+        
         $this->set('remote',array($r_dist,$true_azimuth,$mag_azimuth));
         //$this->set('remote',print_r($this->request->data));
         //$this->set('remote',$remote_site_id);
@@ -577,7 +580,7 @@ class SitesController extends AppController
             // so walk throug that array here and save that
             
             // compute the declination then save it back to the request object
-            $this->request->data['Site']['declination'] = $this->getDeclination($this->request->data['Site']['lat'],$this->request->data['Site']['lon']);
+            $this->request->data['Site']['declination'] = $this->Site->getDeclination($this->request->data['Site']['lat'],$this->request->data['Site']['lon']);
             
             if ($this->Site->saveAll($this->request->data, array('deep' => true))) {
                 
@@ -623,6 +626,7 @@ class SitesController extends AppController
         }
     }
     
+    /* moved to a model function
     function getDeclination($lat, $lon) {
         $dec = null;
         if (isset($lat) && isset($lon)) {
@@ -648,6 +652,7 @@ class SitesController extends AppController
         }
         return $dec;
     }
+    */
     
     public function workorder($id) {
         $conditions = '';

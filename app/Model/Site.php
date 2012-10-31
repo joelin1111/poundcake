@@ -90,6 +90,32 @@ class Site extends AppModel {
         return $this->field('id', array('id' => $site, 'user_id' => $user)) === $site;
     }
     
+    function getDeclination($lat, $lon) {
+        $dec = null;
+        if (isset($lat) && isset($lon)) {
+            //$lat=45.53704;
+            //$lon=-122.599793;
+            $url='http://www.ngdc.noaa.gov/geomag-web/calculators/calculateDeclination?lat1='.$lat.'&lon1='.$lon.'&resultFormat=csv';
+            //http://www.ngdc.noaa.gov/geomag-web/calculators/calculateDeclination?lat1=45.53704&lon1=122.599793&resultFormat=csv
+            //$x = readfile ("http://www.ngdc.noaa.gov/geomag-web/calculators/calculateDeclination?lat1='.$lat.'&lon1='.$lon.'&resultFormat=xml");
+            //echo "URL is ".$url.'<br><br>';
+            //$x = readfile($url);
+            $x = file_get_contents($url);
+            $y = str_getcsv($x);
+            
+            // count should be > 1 unless the web service is down or some other network error
+            if (count($y) > 1) {
+                //echo '<br><br><pre>';
+                //print_r($y[3]);
+                $dec = $y[3];
+            } else {
+                $dec = 0;
+            }
+            //echo '</pre>';
+        }
+        return $dec;
+    }
+    
     public function beforeFind($queryData) {
         $uid = CakeSession::read("Auth.User.id");
         
