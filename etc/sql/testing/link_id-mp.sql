@@ -37,13 +37,13 @@ BEGIN
 	-- INSERT INTO temp(src) VALUES(@dest);
 	
 	-- We have a ONE-to-ONE link
-	IF ( @dest NOT LIKE '%_P2MP%' ) THEN
+	IF ( @dest NOT LIKE '%_MP%' ) THEN
 	
 		-- get the ID of the corresponding radio
 		SELECT id INTO @dest_radio_id
 		FROM network_radios
 		-- WHERE name = @dest_name;
-		WHERE ( name = @dest_name ) OR ( name = CONCAT(@dest,'_P2MP%') );
+		WHERE ( name = @dest_name ) OR ( name = CONCAT(@dest,'_MP%') );
 	
 		-- link the two radios in the join table
 		IF ( @dest_radio_id > 0 ) THEN
@@ -55,20 +55,15 @@ BEGIN
 		
 		END IF;
 	ELSE
-		INSERT INTO temp(src) VALUES(@dest);
 		
 		INSERT INTO radios_radios
 		SELECT NEW.id, id, 'three'
 		FROM network_radios
-		-- WHERE name LIKE CONCAT('%-',@src);
-		-- WHERE name LIKE CONCAT(@dest,'%_P2MP%');
 		WHERE name LIKE @dest;
 		
 		INSERT INTO radios_radios
 		SELECT id, NEW.id, 'four'
 		FROM network_radios
-		-- WHERE name LIKE CONCAT('%-',@src);
-		-- WHERE name LIKE CONCAT(@dest,'%_P2MP%');
 		WHERE name LIKE @dest;
 		
 		-- INSERT INTO temp(src) VALUES(CONCAT(@dest));
@@ -82,8 +77,9 @@ END $$
 DELIMITER ;
 
 -- **************************************************************************************
--- This trigger updates the link_id for an updated radio, or clears it if there's
--- no match
+-- This trigger updates the join table when a radio is renamed
+-- This is basically identical to the network_radio_insert insert trigger
+-- with the addition of the delete statements to "clear out" the join table
 -- **************************************************************************************
 
 DROP TRIGGER IF EXISTS network_radio_update;
@@ -92,20 +88,59 @@ CREATE TRIGGER network_radio_update
 BEFORE UPDATE ON network_radios
 FOR EACH ROW
 BEGIN
-	-- see notes in trigger network_radio_insert
+
+	-- see documentation on the insert trigger
 	SELECT SUBSTRING_INDEX(NEW.name,'-',-1) INTO @dest;
 	SELECT SUBSTRING_INDEX(NEW.name,'-',+1) INTO @src;
 	SELECT CONCAT(@dest, '-', @src) INTO @dest_name;
 	
-	-- get the ID of the corresponding radio
-	SELECT id INTO @dest_radio_id
-	FROM network_radios
-	WHERE name = @dest_name;
-	-- link the two radios
-	IF ( @dest_radio_id > 0 ) THEN
-		SET NEW.link_id = @dest_radio_id;
+	-- We have a ONE-to-ONE link
+	IF ( @dest NOT LIKE '%_MP%' ) THEN
+		
+		-- get the ID of the corresponding radio
+		SELECT id INTO @dest_radio_id
+		FROM network_radios
+		-- WHERE name = @dest_name;
+		WHERE ( name = @dest_name ) OR ( name = CONCAT(@dest,'_MP%') );
+	
+		INSERT INTO temp(src) VALUES(@dest_radio_id);
+		
+		DELETE FROM radios_radios
+		WHERE ( src_radio_id = @dest_radio_id ) OR ( dest_radio_id = @dest_radio_id );
+		DELETE FROM radios_radios
+		WHERE ( src_radio_id = NEW.id ) OR ( dest_radio_id = NEW.id );
+		
+		-- link the two radios in the join table
+		IF ( @dest_radio_id > 0 ) THEN
+		
+			-- note this inserts two rows
+			INSERT INTO radios_radios
+			VALUES (NEW.id, @dest_radio_id,'one'),
+			(@dest_radio_id, NEW.id,'two');
+		
+		END IF;
 	ELSE
-		SET NEW.link_id = NULL;
+		INSERT INTO temp(src) VALUES(@dest);
+		
+		DELETE FROM radios_radios
+		WHERE ( src_radio_id = NEW.id ) OR ( dest_radio_id = NEW.id );
+		
+		INSERT INTO radios_radios
+		SELECT NEW.id, id, 'three'
+		FROM network_radios
+		WHERE name LIKE @dest;
+		
+		INSERT INTO radios_radios
+		SELECT id, NEW.id, 'four'
+		FROM network_radios
+		WHERE name LIKE @dest;
+		
+		-- INSERT INTO temp(src) VALUES(CONCAT(@dest));
+		
 	END IF;
+	
+	-- SET NEW.id = null;
+	-- SET @dest_radio_id = null;
+
 END $$
 DELIMITER ;

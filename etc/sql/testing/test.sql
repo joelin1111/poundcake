@@ -35,15 +35,22 @@
 truncate table network_radios;
 truncate table radios_radios;
 truncate table temp;
-insert into network_radios(name) values ('HILARE_P2MP');
-insert into network_radios(name) values ('PSOND-HILARE_P2MP');
-insert into network_radios(name) values ('HILARE-STMRC');
-insert into network_radios(name) values ('STMRC-HILARE');
-insert into network_radios(name) values ('PRIVA-HILARE_P2MP');
-
+insert into network_radios(name) values ('HILARE_MP'); -- 1
+insert into network_radios(name) values ('PSOND-HILARE_MP'); -- 2
+insert into network_radios(name) values ('HILARE-STMRC'); -- 3
+insert into network_radios(name) values ('STMRC-HILARE'); -- 4
+insert into network_radios(name) values ('PRIVA-HILARE_MP'); -- 5
+insert into network_radios(name) values ('FOO-BAR'); -- 6
 select id,name from network_radios;
-select * from radios_radios;
-select * from temp;
+select src_radio_id, dest_radio_id from radios_radios;
+
+update network_radios set name = 'LESTR-FOO' where id = 5;
+update network_radios set name = 'FOO-LESTR' where id = 3;
+update network_radios set name = 'FOO-HILARE_MP' where id = 6;
+select id,name from network_radios;
+select src_radio_id, dest_radio_id from radios_radios;
+
+-- select * from temp;
 
 -- insert into network_radios(name) values ('PRIVA-HILARE-MP1');
 
