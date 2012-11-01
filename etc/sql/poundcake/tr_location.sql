@@ -3,9 +3,9 @@
 -- inserted in the sites table
 -- **************************************************************************************
 
-DROP TRIGGER IF EXISTS location_insert;
+DROP TRIGGER IF EXISTS tr_location_insert;
 DELIMITER $$ 
-CREATE TRIGGER location_insert
+CREATE TRIGGER tr_location_insert
 -- TRIGGER `event_name` BEFORE/AFTER INSERT/UPDATE/DELETE  
 AFTER INSERT ON sites
 FOR EACH ROW
@@ -24,9 +24,9 @@ DELIMITER ;
 -- table when the master row in the sites table
 -- **************************************************************************************
 
-DROP TRIGGER IF EXISTS location_update;
+DROP TRIGGER IF EXISTS tr_location_update;
 DELIMITER $$ 
-CREATE TRIGGER location_update
+CREATE TRIGGER tr_location_update
 AFTER UPDATE ON sites
 FOR EACH ROW
 BEGIN
@@ -50,9 +50,9 @@ DELIMITER ;
 -- row in the sites table is deleted
 -- **************************************************************************************
 
-DROP TRIGGER IF EXISTS location_delete;
+DROP TRIGGER IF EXISTS tr_location_delete;
 DELIMITER $$ 
-CREATE TRIGGER location_delete
+CREATE TRIGGER tr_location_delete
 BEFORE DELETE ON sites
 FOR EACH ROW
 BEGIN

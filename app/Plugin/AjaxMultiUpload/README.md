@@ -60,7 +60,7 @@ in just your specific controller where you will use it as below:
 
 ```php
 var $helpers = array('AjaxMultiUpload.Upload');
-var $components = array('AjaxMultiUpload.Upload');
+var $components = array('Session', 'AjaxMultiUpload.Upload');
 ```
 
 ### Add to views
@@ -91,6 +91,12 @@ $results = $this->Upload->listing ($model, $id);
 $directory = $results['directory'];
 $baseUrl = $results['baseUrl'];
 $files = $results['files'];
+
+foreach ($files as $file) {
+	$f = basename($file);
+	$url = $baseUrl . "/$f";
+	echo "<a href='$url'>" . $f . "</a><br />\n";
+}
 ```
 
 and use the directory, baseUrl, and files data structures to display your files. Look at UploadHelper's view() function to see how the listing() function is used internally.
@@ -115,6 +121,7 @@ to allow uploads to work.
 
 Add these lines to the UploadsController.php (you may have to modify
 slightly depending on your Auth setup):
+
 ```php
 function isAuthorized() {
     return true;
@@ -174,10 +181,39 @@ as per CakePHP conventions.
 
 #### Change directory paths
 
-Coming soon.
+By default, the plugin stores files into /webroot/files/$model/$id . It is possible
+to change the /files/ directory through the configuration setting mentioned above.
+To change the /$model/$id/ path though (say you want to change it to md5($model . $id)),
+look for this line in Controller/Component/UploadComponent.php AND View/Helper/UploadHelper.php:
+
+```php
+	function last_dir ($model, $id) {
+```
+
+Change the function in both these files to do whatever you would like. Note that you have to make
+the changes in BOTH files for this to work.
+
+#### Multiple Uploads in same view/edit
+
+It is now possible to have multiple view/edit functions in the same CakePHP view. For example, for a Photo controller, add this to your view.ctp:
+
+```php
+echo $this->Upload->view('Photo', "thumbs/" . $photo['Photo']['id']);
+echo $this->Upload->view('Photo', "highres/" . $photo['Photo']['id']);
+```
+
+and this to your View/Photos/edit.ctp:
+
+```php
+echo $this->Upload->edit('Photo', "thumbs/" . $this->Form->fields['Photo.id']);
+echo $this->Upload->edit('Photo', "highres/" . $this->Form->fields['Photo.id']);
+```
+
+This allows you to upload and two sets of files to your same entity/object in a controller/view.
 
 ## ChangeLog
 
+* Version 1.0.3 / Jul 30 2012: multiple view/edit on same views possible (thanks to bobartlett@github)
 * Version 1.0.2 / Jul 16 2012: deleteAll() and listing() functionality added
 * Version 1.0.1 / Apr 02 2012: Delete functionality - from view() - added
 * Version 1.0.0 / Mar 2012: Initial release
@@ -185,7 +221,11 @@ Coming soon.
 ## Thanks
 
 This uses the Ajax Upload script from: http://valums.com/ajax-upload/
-and file icons from: http://www.splitbrain.org/projects/file_icons
+and file icons from: http://www.splitbrain.org/projects/file_icons .
+
+Also, thanks to contributions from the following GitHub users: 
+* @rscherf : Getting it to work with Auth and sub-domains
+* @bobartlett : Fix to allow multiple AMU helpers in same view
 
 ## Support
 

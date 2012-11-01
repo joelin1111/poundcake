@@ -94,9 +94,9 @@ class UsersController extends AppController {
         }
         if ($this->request->is('post') || $this->request->is('put')) {
             //unset($this->User->validate['password']);
-            echo '<pre>';
-            print_r($this->request->data);
-            echo '</pre>';
+//            echo '<pre>';
+//            print_r($this->request->data);
+//            echo '</pre>';
 //            die;
             
             // $blackList is also used above

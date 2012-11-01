@@ -6,9 +6,9 @@
 -- Radios are named in the format XXXXX-YYYYY; a corresponding radio would be YYYYY-XXXXX
 -- **************************************************************************************
 
-DROP TRIGGER IF EXISTS network_radio_insert;
+DROP TRIGGER IF EXISTS tr_network_radio_insert;
 DELIMITER $$ 
-CREATE TRIGGER network_radio_insert
+CREATE TRIGGER tr_network_radio_insert
 BEFORE INSERT ON network_radios
 FOR EACH ROW
 BEGIN
@@ -48,9 +48,9 @@ DELIMITER ;
 -- no match
 -- **************************************************************************************
 
-DROP TRIGGER IF EXISTS network_radio_update;
+DROP TRIGGER IF EXISTS tr_network_radio_update;
 DELIMITER $$ 
-CREATE TRIGGER network_radio_update
+CREATE TRIGGER tr_network_radio_update
 BEFORE UPDATE ON network_radios
 FOR EACH ROW
 BEGIN

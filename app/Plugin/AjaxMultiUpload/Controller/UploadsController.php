@@ -71,14 +71,6 @@ class UploadsController extends AjaxMultiUploadAppController {
 		
 		$this->redirect($this->referer());	
 	}
-        
-        function isAuthorized() {
-            return true;
-        }
-
-        function beforeFilter() {
-            $this->Auth->allow(array('upload','delete'));
-        }
 }
 
 ?>

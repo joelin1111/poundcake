@@ -478,6 +478,8 @@ class SitesController extends AppController
         $this->getAntennaTypes();
         $this->getInstallTeams();
         
+        $this->getUserProjects();
+        
         $zones = $this->Site->Zone->find('list');
         $this->set(compact('zones'));
         
@@ -508,7 +510,7 @@ class SitesController extends AppController
 //            }
             
             // compute the declination then save it back to the request object
-            $this->request->data['Site']['declination'] = $this->getDeclination($this->request->data['Site']['lat'],$this->request->data['Site']['lon']);
+            $this->request->data['Site']['declination'] = $this->Site->getDeclination($this->request->data['Site']['lat'],$this->request->data['Site']['lon']);
             
             if ($this->Site->saveAssociated($this->request->data, array('validate'=>true))) {
                 $this->Session->setFlash(__('The site has been saved'));
@@ -683,11 +685,18 @@ class SitesController extends AppController
         foreach ($radios as $radio) {
             //echo $radio['NetworkRadios']['name']."<br>";
             $this->loadModel('NetworkRadio');
-            $d = $this->NetworkRadio->getLinkDistance($radio['NetworkRadios']['id'],$radio['NetworkRadios']['link_id']);
-            $radio['NetworkRadios']['distance'] = $d;
             
-            $b = $this->NetworkRadio->getRadioBearing($radio['NetworkRadios']['id'],$radio['NetworkRadios']['link_id']);
-            $radio['NetworkRadios']['true_azimuth'] = $b;
+            // if it's not a sector radio, then calculate link distance and bearing
+            if ($radio['NetworkRadios']['sector'] == 0 ) {
+                $d = $this->NetworkRadio->getLinkDistance($radio['NetworkRadios']['id'],$radio['NetworkRadios']['link_id']);
+                $radio['NetworkRadios']['distance'] = $d;
+
+                $b = $this->NetworkRadio->getRadioBearing($radio['NetworkRadios']['id'],$radio['NetworkRadios']['link_id']);
+                $radio['NetworkRadios']['true_azimuth'] = $b;
+            } else {
+                 $radio['NetworkRadios']['distance'] = 'N/A';
+                 //$radio['NetworkRadios']['true_azimuth'] = 999;                
+            }
             
             $ip_address = '';
             $ip_address = $this->getIPAddress($radio['NetworkRadios']['name']);

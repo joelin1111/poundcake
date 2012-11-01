@@ -1,14 +1,25 @@
 -- **************************************************************************************
--- This trigger looks for a radio that corresponds to the newly inserted radio, then
--- links them via the link_id field -- since a trigger cannot update rows in the same
--- table, the procedure sp_add_link_id is also called immediately after this -- that
--- links the other radio back to the new radio
--- Radios are named in the format XXXXX-YYYYY; a corresponding radio would be YYYYY-XXXXX
+-- These triggers looks for a radio that corresponds to the newly inserted or updated
+-- radio, then links them via a join table
+--
+-- Point-to-Point radios are named in the format XXXXX-YYYYY; a corresponding radio
+-- would be YYYYY-XXXXX
+-- XXXXX YYYYY are arbitrary lengths -- e.g. XX-YYYY or XXXXXXXXX-YY are OK (the
+-- corresponding radio must be named appropriately, e.g. YYYY-XX or YY-XXXXXXXXX)
+--
+-- Point-to-Multipoint radios are named in the form ZZZZ_MPn where n is a number
+-- e.g. ZZZZ_MP1 would be the first multipoint link on the ZZZZ site, radios that link to
+-- ZZZZ_MP1 would be named AAA-ZZZZ_MP1
+--
+-- A Point-to-Multipoint radio must be created before any of the remote radios are
+-- are connected to them
+-- e.g. OK:  create ZZZZ_MP1 then create FOO-ZZZZ_MP1 and BAR-ZZZZ_MP1
+-- e.g. Not OK:  create FOO-ZZZZ_MP1 then create ZZZZ_MP1
 -- **************************************************************************************
 
-DROP TRIGGER IF EXISTS network_radio_insert;
+DROP TRIGGER IF EXISTS tr_network_radio_insert;
 DELIMITER $$ 
-CREATE TRIGGER network_radio_insert
+CREATE TRIGGER tr_network_radio_insert
 BEFORE INSERT ON network_radios
 FOR EACH ROW
 BEGIN
@@ -16,6 +27,9 @@ BEGIN
 	-- a different number of characters on each, e.g.
 	-- XXXX-YYYYY
 	-- YY-XXXXX
+	-- Except for Point-to-Multipoint links, which are in the form
+	-- ZZZZ_MPn where n is the number
+	-- e.g. ZZZZ_MP1 would be the first multipoint link on the ZZZZ site
 	-- Etc.
 	
 	-- Because network_radios.id is an auto-increment field, we can't get it as we would
@@ -33,17 +47,13 @@ BEGIN
 	-- now swap them to find the opposite radio name as per our naming convention
 	SELECT CONCAT(@dest, '-', @src) INTO @dest_name;
 	
-	-- INSERT INTO temp(src) VALUES(@src);
-	-- INSERT INTO temp(src) VALUES(@dest);
-	
 	-- We have a ONE-to-ONE link
 	IF ( @dest NOT LIKE '%_MP%' ) THEN
 	
 		-- get the ID of the corresponding radio
 		SELECT id INTO @dest_radio_id
 		FROM network_radios
-		-- WHERE name = @dest_name;
-		WHERE ( name = @dest_name ) OR ( name = CONCAT(@dest,'_MP%') );
+		WHERE ( name = @dest_name ); -- OR ( name = CONCAT(@dest,'_MP%') );
 	
 		-- link the two radios in the join table
 		IF ( @dest_radio_id > 0 ) THEN
@@ -66,8 +76,6 @@ BEGIN
 		FROM network_radios
 		WHERE name LIKE @dest;
 		
-		-- INSERT INTO temp(src) VALUES(CONCAT(@dest));
-		
 	END IF;
 	
 	SET NEW.id = null;
@@ -78,13 +86,13 @@ DELIMITER ;
 
 -- **************************************************************************************
 -- This trigger updates the join table when a radio is renamed
--- This is basically identical to the network_radio_insert insert trigger
--- with the addition of the delete statements to "clear out" the join table
+-- This is basically identical to the tr_network_radio_insert insert trigger
+-- with the addition of the delete statements to "clear out" the join table first
 -- **************************************************************************************
 
-DROP TRIGGER IF EXISTS network_radio_update;
+DROP TRIGGER IF EXISTS tr_network_radio_update;
 DELIMITER $$ 
-CREATE TRIGGER network_radio_update
+CREATE TRIGGER tr_network_radio_update
 BEFORE UPDATE ON network_radios
 FOR EACH ROW
 BEGIN
@@ -100,8 +108,7 @@ BEGIN
 		-- get the ID of the corresponding radio
 		SELECT id INTO @dest_radio_id
 		FROM network_radios
-		-- WHERE name = @dest_name;
-		WHERE ( name = @dest_name ) OR ( name = CONCAT(@dest,'_MP%') );
+		WHERE ( name = @dest_name ); -- OR ( name = CONCAT(@dest,'_MP%') );
 	
 		INSERT INTO temp(src) VALUES(@dest_radio_id);
 		
@@ -135,12 +142,23 @@ BEGIN
 		FROM network_radios
 		WHERE name LIKE @dest;
 		
-		-- INSERT INTO temp(src) VALUES(CONCAT(@dest));
-		
 	END IF;
 	
 	-- SET NEW.id = null;
-	-- SET @dest_radio_id = null;
+	SET @dest_radio_id = null;
+
+END $$
+DELIMITER ;
+
+DROP TRIGGER IF EXISTS tr_network_radio_delete;
+DELIMITER $$ 
+CREATE TRIGGER tr_network_radio_delete
+BEFORE DELETE ON network_radios
+FOR EACH ROW
+BEGIN
+
+	DELETE FROM radios_radios
+	WHERE ( src_radio_id = OLD.id ) OR ( dest_radio_id = OLD.id );
 
 END $$
 DELIMITER ;

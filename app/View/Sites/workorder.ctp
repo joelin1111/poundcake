@@ -5,7 +5,6 @@
 //include('ExcelWriterXML.php');
 App::import('Vendor','ExcelWriterXML/ExcelWriterXML');
 
-
 /**
  * Create a new instance of the Excel Writer
  */
@@ -17,7 +16,6 @@ $xml = new ExcelWriterXML( $filename );
 /**
  * Add some general properties to the document
  */
-
 
 $xml->docTitle($title);
 $xml->docAuthor('Tower DB');
@@ -370,18 +368,20 @@ foreach ($radios as $radio) {
     $sheet1->writeString($row,5,$radio['NetworkRadios']['ip_address'],$fmt4);
     $row++;
     
-    if ($radio['NetworkRadios']['true_azimuth'] > 0) {
+    // if it's not a sector radio, calculate the magnetic azimuth
+    if (( $radio['NetworkRadios']['sector'] == 0 ) && ( $radio['NetworkRadios']['true_azimuth'] > 0 )) {
         $mag_azimuth = $radio['NetworkRadios']['true_azimuth'] - $site['Site']['declination'];
     } else {
-        $mag_azimuth = 0;
+        // we have a sector radio, so grab the value directly
+        $mag_azimuth = $radio['NetworkRadios']['mag_azimuth'];
     }
+    
     $sheet1->writeString($row,1,'Azimuth (Magnetic)',$fmt3);
     //$d = sprintf("%01.2f",$mag_azimuth);
     $d = round($mag_azimuth);
-    if (isset($d))
+    //if (isset($d))
         $sheet1->writeString($row,2,$d."°",$fmt4);
     $sheet1->writeString($row,4,'Gateway',$fmt3);
-    //$sheet1->writeString($row,5,'',$fmt4);
     $sheet1->writeString($row,5,$radio['NetworkRadios']['gw_address'],$fmt4);
     $row++;
     

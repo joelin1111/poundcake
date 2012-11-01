@@ -29,6 +29,8 @@
     echo $this->Form->input('lat', array ('label' => 'Latitude','value' => ''));
     echo $this->Form->input('lon', array ('label' => 'Longitude','value' => ''));
     echo $this->Form->input('declination', array('type'=>'hidden'));
+    echo $this->Form->input('project_id', array('type'=>'select','options' => $projects,'label' => 'Project'));
+    
     echo $this->Form->input('install_date', 
         array(
            'class'=>'datepicker', 
