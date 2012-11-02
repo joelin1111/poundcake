@@ -276,47 +276,53 @@
     if (count($radios) > 0) {
         //echo '<pre>';
         foreach ($radios as $radio) {
-            //print_r($radio);
-            //print_r();
-            $link_lat = $radio['NetworkRadio']['link_lat'];
-            $link_lon = $radio['NetworkRadio']['link_lon'];
-            $windowText = $radio['NetworkRadio']['window_text'];
-            if (($link_lat != null) && ($link_lon != null)) {
-                echo $this->GoogleMap->addPolyline(
-                        "map_canvas",
-                        "polyline1",
-                        array (
-                            "start" => array("latitude" =>$site['Site']['lat'] ,"longitude"=> $site['Site']['lon']),
-                            "end" => array("latitude" =>$link_lat ,"longitude"=> $link_lon)
-                        ),
-                        array (
-                            'strokeColor' => '4747B2',
-                            'strokeOpacity' => '0.5',
-                            'strokeWeight' => '3'
-                        )
-                        );
-                
-                $markerOptions = array (
-                   'id' => $i, // Id of the marker
-                   'latitude' => $link_lat,
-                   'longitude' => $link_lon,
-                   'markerIcon' => $radio['NetworkRadio']['link_icon'],
-                   'position' => null,
-                   'address' => null, // mysteriously started complaining about this field not being present
-                   //'shadowIcon' => 'http://google-maps-icons.googlecode.com/files/home.png', //Custom shadow
-                   'infoWindow' => true, // Boolean to show an information window when you click the marker or not
-                   'windowText' => $windowText // Text inside the information window
-               );
+//            echo '<pre>';
+//            //print_r($radio);
+//            echo "Link Lat: ". $radio['NetworkRadios']['link_lat'];
+//            echo '</pre>';
+//            
+            // it seems it's possible for a radio to get here without a lat/lon set on its link?
+            if (isset($radio['NetworkRadios']['link_lat'])) {
+                $link_lat = $radio['NetworkRadios']['link_lat'];
+                $link_lon = $radio['NetworkRadios']['link_lon'];
+                $windowText = $radio['NetworkRadios']['window_text'];
+                if (($link_lat != null) && ($link_lon != null)) {
+                    echo $this->GoogleMap->addPolyline(
+                            "map_canvas",
+                            "polyline1",
+                            array (
+                                "start" => array("latitude" =>$site['Site']['lat'] ,"longitude"=> $site['Site']['lon']),
+                                "end" => array("latitude" =>$link_lat ,"longitude"=> $link_lon)
+                            ),
+                            array (
+                                'strokeColor' => '4747B2',
+                                'strokeOpacity' => '0.5',
+                                'strokeWeight' => '3'
+                            )
+                            );
 
-                //echo '</pre>';
-                // position is required by addMarker
-                $position = array(
-                    'latitude' => $site['Site']['lat'],
-                    'longitude' => $site['Site']['lon']
-                );
-                //echo "<pre>".print_r($markerOptions)."</pre>";
-                echo $this->GoogleMap->addMarker('map_canvas', $i, $position, $markerOptions);
-                $i++;
+                    $markerOptions = array (
+                       'id' => $i, // Id of the marker
+                       'latitude' => $link_lat,
+                       'longitude' => $link_lon,
+                       'markerIcon' => $radio['NetworkRadios']['link_icon'],
+                       'position' => null,
+                       'address' => null, // mysteriously started complaining about this field not being present
+                       //'shadowIcon' => 'http://google-maps-icons.googlecode.com/files/home.png', //Custom shadow
+                       'infoWindow' => true, // Boolean to show an information window when you click the marker or not
+                       'windowText' => $windowText // Text inside the information window
+                   );
+
+                    //echo '</pre>';
+                    // position is required by addMarker
+                    $position = array(
+                        'latitude' => $site['Site']['lat'],
+                        'longitude' => $site['Site']['lon']
+                    );
+                    //echo "<pre>".print_r($markerOptions)."</pre>";
+                    echo $this->GoogleMap->addMarker('map_canvas', $i, $position, $markerOptions);
+                    $i++;
+                }
             }
         }
         

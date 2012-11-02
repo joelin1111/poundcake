@@ -48,7 +48,11 @@ class NetworkRadiosController extends AppController {
         if (!$this->NetworkRadio->exists()) {
             throw new NotFoundException(__('Invalid radio'));
         }
-        $this->set('link_name',$this->getLinkName($this->NetworkRadio->field('link_id')));
+        // get all the radios this radio may be linked to
+        $query = 'call sp_get_remote_links('.$id.')';
+        $links = $this->NetworkRadio->query( $query );
+        
+        //$this->set('link_name',$this->getLinkName($this->NetworkRadio->field('link_id')));
         $this->set('networkradio', $this->NetworkRadio->read(null, $id));
         $ip_addresses = $this->getAllIPAddresses($this->NetworkRadio->field('name'));
         $this->set(compact('ip_addresses'));
@@ -58,26 +62,48 @@ class NetworkRadiosController extends AppController {
             $true_azimuth = $this->NetworkRadio->field('true_azimuth');
             $mag_azimuth = $this->NetworkRadio->field('mag_azimuth');
         } else {
+            
+            $u = 0;
             $declination = $this->NetworkRadio->Site->field('declination');
-
-            $true_azimuth = 0;
-            $link_distance = 0;
-            $mag_azimuth = 0;
-            if ($this->NetworkRadio->field('link_id') > 0) {
+            foreach ($links as $link) {
+                $true_azimuth = 0;
+                $link_distance = 0;
+                $mag_azimuth = 0;            
+                
                 $id = $this->NetworkRadio->field('id');
-                $link_id = $this->NetworkRadio->field('link_id');
-                $link_distance = $this->NetworkRadio->getLinkDistance($id, $link_id);
-
+                $link_id = $link['radios_radios']['dest_radio_id'];
+                $link['network_radios']['link_distance'] = $this->NetworkRadio->getLinkDistance($id, $link_id);
+                
                 $true_azimuth = $this->NetworkRadio->getRadioBearing($id, $link_id);
+                $link['network_radios']['true_azimuth'] = $true_azimuth;
+                
                 if ($true_azimuth > 0) {
                     $mag_azimuth = $true_azimuth - $declination;
+                }               
+                $link['network_radios']['mag_azimuth'] = $mag_azimuth;
+                
+                // save it back to the links array
+                $links[$u] = $link;
+                $u++;
+    //            die;
+                /*
+                if ($this->NetworkRadio->field('link_id') > 0) {
+                    $id = $this->NetworkRadio->field('id');
+                    $link_id = $this->NetworkRadio->field('link_id');
+                    $link_distance = $this->NetworkRadio->getLinkDistance($id, $link_id);
+
+                    $true_azimuth = $this->NetworkRadio->getRadioBearing($id, $link_id);
+                    if ($true_azimuth > 0) {
+                        $mag_azimuth = $true_azimuth - $declination;
+                    }
                 }
+                */
             }
         }
-        
-        $this->set('link_distance',$link_distance);
-        $this->set('true_azimuth',$true_azimuth);
-        $this->set('mag_azimuth', $mag_azimuth);
+        $this->set('links', $links);
+//        $this->set('link_distance',$link_distance);
+//        $this->set('true_azimuth',$true_azimuth);
+//        $this->set('mag_azimuth', $mag_azimuth);
     }
 
     // return all the sites to allow the radio to be assigned to
@@ -195,23 +221,6 @@ class NetworkRadiosController extends AppController {
 //            print_r($this->request->data);
 //            echo '</pre>';
             if ($this->NetworkRadio->save($this->request->data)) {
-                
-                $last = $this->NetworkRadio->read(null,$this->NetworkRadio->id);
-                $new_id = $last['NetworkRadio']['id'];
-                $link_id = $last['NetworkRadio']['link_id']; //$this->NetworkRadio->read(null, $id);
-                if ( $link_id > 0 ) {
-                    //echo '<pre>';
-                    //echo "New ID:".$new_id."<br>";
-                    //echo "Link ID:".$link_id."<br>";
-                    //echo '</pre>';
-                    //
-                    // need to verify these values before passing them to the sp
-                    // 
-                    // update the link_id on the corresponding radio
-                    $query = 'call sp_add_link_id('.$new_id.','.$link_id.')';
-                    $this->NetworkRadio->query( $query );
-                }
-                
                 $this->Session->setFlash(__('The radio has been saved'));
                 $this->redirect(array('action' => 'index'));
             } else {
@@ -232,7 +241,6 @@ class NetworkRadiosController extends AppController {
         $this->getFrequencies(); // for the frequency dropdown
 //        $this->getNetworkSwitches();
 //        $this->getNetworkSwitchPorts();
-        $this->set('link_name',$this->getLinkName($this->NetworkRadio->field('link_id')));
         
         if (!$this->NetworkRadio->exists()) {
             throw new NotFoundException(__('Invalid radio'));
@@ -246,30 +254,7 @@ class NetworkRadiosController extends AppController {
 //            print_r($this->request->data);
 //            echo '</pre>';
             
-            $old_link_id = $data['NetworkRadio']['link_id'];
             if ($this->NetworkRadio->save($this->request->data)) {
-//                echo '<pre>:';
-//                print_r($this->request->data);
-//                echo '</pre>';
-//                die;
-                // update the link_id and possible clear out the old
-                // link_id on related radio
-                $link_id = $this->NetworkRadio->field('link_id');
-                if ($link_id > 0) {
-                    //echo "link ".$id." to ".$link_id;
-                    $query = 'call sp_add_link_id('.$id.','.$link_id.')';
-                    $this->NetworkRadio->query( $query );
-                } else {
-                    //echo "old link: ".$old_link_id;
-                    if ($old_link_id == "") {
-                        $old_link_id = 0;
-                    }
-                    $query = 'call sp_rm_link_id('.$old_link_id.')';
-                    //echo $query;
-                    //die;
-                    $this->NetworkRadio->query( $query );
-                    
-                }
                 $this->Session->setFlash(__('The radio has been saved'));
                 $this->redirect(array('action' => 'index'));
             } else {
@@ -295,24 +280,13 @@ class NetworkRadiosController extends AppController {
         if (!$this->request->is('post')) {
             throw new MethodNotAllowedException();
         }
+        
         $this->NetworkRadio->id = $id;
         if (!$this->NetworkRadio->exists()) {
             throw new NotFoundException(__('Invalid radio'));
         }
-        
-        $link_to = $this->NetworkRadio->field('link_id');
-        //echo "Radio ".$id." links to ".$link_to."<br>";
-        //die;
+
         if ($this->NetworkRadio->delete()) {
-            // cleanup the link_id on the corresponding radio
-            // we have to pass something into the sp, parameters are not optional
-            if (!(isset($link_to))) {
-                $link_to = 'NULL';
-            }
-            //echo "link_to: ".$link_to;
-            $query = 'call sp_rm_link_id('.$link_to.')';
-            $this->NetworkRadio->query( $query );
-            
             $this->Session->setFlash(__('Radio deleted'));
             $this->redirect(array('action' => 'index'));
         }
@@ -332,6 +306,7 @@ class NetworkRadiosController extends AppController {
         $this->set('frequencies',$frequencies);
     }
     
+    /*
     // return the logical name of a linked radio
     function getLinkName($id) {
         $link_name = '';
@@ -348,6 +323,7 @@ class NetworkRadiosController extends AppController {
         }
         return $link_name;
     }
+    */
     
     public function isAuthorized($user) {
         // everyone can see the list and view individual Contacts

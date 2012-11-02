@@ -1,28 +1,7 @@
 <?php
-    # include Jquery
     echo $this->Html->script('jquery-1.7.2');
-    //echo $this->Html->script('poundcake');
     echo $this->Html->script('sector');
 ?>
-<script type="text/javascript">
-/*
-$(document).ready(function() {
-    $("#NetworkRadioSector").click(
-    function() {
-       $("#NetworkRadioTrueAzimuth").each(
-            function() {
-               this.disabled = !this.disabled;
-            }
-        );
-       $("#NetworkRadioMagAzimuth").each(
-            function() {
-               this.disabled = !this.disabled;
-            }
-        );
-    });
-});
-*/
-</script>
 
 <div class="row">
 <div class="span3">
@@ -38,14 +17,12 @@ $(document).ready(function() {
     <?php echo $this->Form->create('NetworkRadio'); ?>
     <h2>Add Radio</h2>
     <?php
-    
         echo $this->Form->input('name');
         echo $this->Form->input('serial');
         echo $this->Form->input('site_id');
         echo $this->Form->input('sector', array('label'=>'Sector Radio'));
-        // sector will default to being un-checked, so we can disable this field
+        // sector will default to being un-checked, so we can disable this field by default
         echo $this->Form->input('true_azimuth', array('label'=>'True Azimuth','disabled' => true));
-        
         echo $this->Form->input('radio_type_id', array('type'=>'select','options' => $radiotypes,'default'=>'1'));
         echo $this->Form->input('antenna_type_id', array('type'=>'select','options' => $antennatypes));
         echo $this->Form->input('radio_mode_id', array('type'=>'select','options' => $radiomodes));
@@ -55,7 +32,6 @@ $(document).ready(function() {
         echo $this->Form->input('ssid', array('label'=>'SSID'));
         echo $this->Form->input('network_switch_id', array('type'=>'select','options' => $networkswitches,'empty' => true));
         echo $this->Form->input('switch_port', array('type'=>'select','options' => $switchports));
-        
         echo $this->Form->end(__('Save'));
     ?>
 </div> <!-- /.span9 -->

@@ -2,10 +2,10 @@
 <?php
   echo $this->Form->create(
       'Site',
-      // calls the search function on the SitesController
-      array('action'=>'search','class' => 'well')
+      array('action'=>'index','class' => 'well')
   );
-  echo $this->Form->input('site_code',array('escape' => true,'class' => 'span2'));
+  //echo $this->Form->input('site_code',array('escape' => true,'class' => 'span2'));
+  echo $this->Form->input('site_code',array('escape' => false,'class' => 'span2'));
   echo $this->Form->input('site_name',array('class' => 'span2'));
   //echo $this->Form->input('site_state_id',array('class' => 'span2'));
   echo $this->Form->input(
@@ -19,6 +19,6 @@
   ?>
 <span class="help-block">Use * to wildcard</span>
 <?php
-    echo $this->Form->submit(__('Search', true), array('div' => false));
+    echo $this->Form->submit('Search', array('div' => false));
     echo $this->Form->end(); 
 ?>

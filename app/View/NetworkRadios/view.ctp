@@ -28,23 +28,17 @@
     <P><B>Radio Type:</B>&nbsp;<?php echo $networkradio['RadioType']['name']; ?></P>
     <P><B>Antenna:</B>&nbsp;<?php echo $networkradio['AntennaType']['name']; ?></P>
     <P><B>Radio Mode:</B>&nbsp;<?php echo $networkradio['RadioMode']['name']; ?></P>    
-    <P><B>Link Distance:</B>&nbsp;<?php echo sprintf("%01.2f",$link_distance). ' Km'; ?></P>
-    <P><B>True Azimuth:</B>&nbsp;
-        <?php
-        if ($networkradio['NetworkRadio']['sector'] > 0)
+    <?php
+        // if this is a sector radio, show the true/mag azimuth values from the database
+        if ($networkradio['NetworkRadio']['sector'] > 0) {
+            echo '<P><B>True Azimuth:</B>&nbsp;';
             echo sprintf("%01.2f",$networkradio['NetworkRadio']['true_azimuth']).'°';
-        else
-            echo 'N/A';
-        ?>
-    </P>
-    <P><B>Magnetic Azimuth:</B>&nbsp;
-        <?php
-        if ($networkradio['NetworkRadio']['sector'] > 0)
+            echo '</P>';
+            echo '<P><B>Magnetic Azimuth:</B>&nbsp;';
             echo sprintf("%01.2f",$networkradio['NetworkRadio']['mag_azimuth']).'°';
-        else
-            echo 'N/A';
-        ?>
-    </P>
+            echo '</P>';
+        }
+    ?>
     <P><B>Elevation:</B>&nbsp;<?php
         if (isset($networkradio['NetworkRadio']['elevation']))
             echo $networkradio['NetworkRadio']['elevation'].'°';
@@ -60,7 +54,61 @@
 //    print_r($networkradio);
 //    echo '</pre>';
     ?>
-    <P><B>Linked To:</B>&nbsp;<?php echo $this->MyHtml->linkIfAllowed($link_name, array('action' => 'view', $networkradio['NetworkRadio']['link_id'])) ?>
+    <P><B>Link Information:</B>&nbsp;
+        <?php
+            //echo $this->MyHtml->linkIfAllowed($link_name, array('action' => 'view', $networkradio['NetworkRadio']['link_id']));
+//            echo '<pre>';
+//            print_r($links);
+//            echo '</pre>';
+//            echo "<UL>";
+            foreach ($links as $link) {
+//                echo "<LI>";
+//                echo $this->MyHtml->linkIfAllowed(
+//                        $link['network_radios']['name'],
+//                        array('action' => 'view',
+//                            $link['radios_radios']['dest_radio_id']
+//                            )
+//                        );
+//                echo '<UL>';
+//                echo '<LI>Link distance: ' . sprintf("%01.2f",$link['network_radios']['link_distance']) . ' Km</LI>';
+//                echo '<LI>True azimuth to '.$link['network_radios']['name'].':  ' . sprintf("%01.2f",$link['network_radios']['true_azimuth']) . '°</LI>';
+//                echo '<LI>Magnetic azimuth to '.$link['network_radios']['name'].':  ' . sprintf("%01.2f",$link['network_radios']['mag_azimuth']) . '°</LI>';
+//                echo "</UL></LI>";
+//            }
+//            echo "</UL>";
+            ?>
+    <table class="table table-condensed table-striped">
+        <thead>
+        <tr>
+            <th>Radio Name</th>
+            <th>Distance</th>
+            <th>True Azimuth</td>
+            <th>Magnetic Azimuth</td>
+        </tr>
+        <tr>
+            <td>
+                <?php echo $this->MyHtml->linkIfAllowed(
+                        $link['network_radios']['name'],
+                        array('action' => 'view',
+                            $link['radios_radios']['dest_radio_id']
+                            )
+                        );
+                ?>
+            </td>
+            <td>
+                <?php echo sprintf("%01.2f",$link['network_radios']['link_distance']) .' Km'; ?>
+            </td>
+            <td>
+                <?php echo sprintf("%01.2f",$link['network_radios']['true_azimuth']) . '° to ' . $link['network_radios']['name']; ?>
+            </td>
+            <td>
+               <?php echo sprintf("%01.2f",$link['network_radios']['mag_azimuth']) . '° to ' . $link['network_radios']['name']; ?>
+            </td>
+        </tr>
+    </table>
+    <?php
+            }
+            ?>
     <?php echo $this->element('Common/addrpool_data'); ?>
 </div> <!-- /.span9 -->
 </div> <!-- /.row -->

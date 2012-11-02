@@ -36,10 +36,11 @@ class NetworkRadio extends AppModel {
                 'rule' => array('isUnique', array('name')),
                 'message' => 'This field need must be unique!'
             ),
+            /*
             'format' => array(
                 'rule' => '/^[a-z0-9]{1,}\-[a-z0-9]{1,}$/i',
                 'message' => 'Wrong format, should be: [Letters, Numbers]-[Letters, Numbers]'
-            ),
+            ),*/
         ),
     );
     

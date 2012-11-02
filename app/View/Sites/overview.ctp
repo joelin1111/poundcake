@@ -114,7 +114,7 @@
             //echo $this->GoogleMap->OLDaddMarker('map_canvas', $i, $markerOptions);
             $lastLat = $lat;
             $lastLon = $lon;
-             */
+            */
             $i++;
             //unset($markerOptions); // lame attempt to free memory for the map
         }
