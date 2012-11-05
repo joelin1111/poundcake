@@ -16,7 +16,7 @@ class User extends AppModel {
     
     public $validate = array(
         'username' => array(
-            'rule'     => 'alphaNumeric',
+            'rule'    => '/^[a-z0-9_]{3,}$/i',
             'required' => true,
             'message' => 'Username is required.'
         ),
