@@ -108,7 +108,7 @@ class ContactsController extends AppController {
         if ($this->request->is('post') || $this->request->is('put')) {
             if ($this->Contact->save($this->request->data)) {
                     $this->Session->setFlash(__('The contact has been saved'));
-                    $this->redirect(array('action' => 'index'));
+                    $this->redirect(array('action' => 'view',$this->Contact->id));
             } else {
                     $this->Session->setFlash(__('The contact could not be saved. Please, try again.'));
             }

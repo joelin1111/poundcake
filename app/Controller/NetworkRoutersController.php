@@ -48,10 +48,10 @@ class NetworkRoutersController extends AppController {
         }
         if ($this->request->is('post') || $this->request->is('put')) {
                 if ($this->NetworkRouter->save($this->request->data)) {
-                        $this->Session->setFlash(__('The router has been saved'));
-                        $this->redirect(array('action' => 'index'));
+                    $this->Session->setFlash(__('The router has been saved'));
+                    $this->redirect(array('action' => 'view',$this->NetworkRouter->id));
                 } else {
-                        $this->Session->setFlash(__('The router could not be saved. Please, try again.'));
+                    $this->Session->setFlash(__('The router could not be saved. Please, try again.'));
                 }
         } else {
                 $this->request->data = $this->NetworkRouter->read(null, $id);

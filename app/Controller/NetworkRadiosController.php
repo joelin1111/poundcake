@@ -51,6 +51,10 @@ class NetworkRadiosController extends AppController {
         // get all the radios this radio may be linked to
         $query = 'call sp_get_remote_links('.$id.')';
         $links = $this->NetworkRadio->query( $query );
+//        echo '<pre>';
+//        print_r($links);
+//        echo '</pre>';
+//        die;
         
         //$this->set('link_name',$this->getLinkName($this->NetworkRadio->field('link_id')));
         $this->set('networkradio', $this->NetworkRadio->read(null, $id));
@@ -239,24 +243,17 @@ class NetworkRadiosController extends AppController {
         $this->getAntennaTypes();
         $this->getRadioModes();
         $this->getFrequencies(); // for the frequency dropdown
-//        $this->getNetworkSwitches();
-//        $this->getNetworkSwitchPorts();
         
         if (!$this->NetworkRadio->exists()) {
             throw new NotFoundException(__('Invalid radio'));
         }
         if ($this->request->is('post') || $this->request->is('put')) {
             $data = $this->request->data;
-                   
-//            echo '<pre>:';
-//            print_r($this->request->data);
             $this->request->data = $this->setMagAzimuth($this->request->data);
-//            print_r($this->request->data);
-//            echo '</pre>';
             
             if ($this->NetworkRadio->save($this->request->data)) {
                 $this->Session->setFlash(__('The radio has been saved'));
-                $this->redirect(array('action' => 'index'));
+                $this->redirect(array('action' => 'view',$this->NetworkRadio->id));
             } else {
                 $this->Session->setFlash(__('The radio could not be saved. Please, try again.'));
             }

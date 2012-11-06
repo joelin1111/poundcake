@@ -539,10 +539,17 @@ class SitesController extends AppController
             // get all the radios this radio may be linked to
             $query = 'call sp_get_remote_links('.$radio['NetworkRadios']['id'].')';
             $links = $this->NetworkRadio->query( $query );       
-            echo '<pre>';
-            print_r($links);
-            echo '</pre>';
+//            echo '<pre>';
+//            print_r($links);
+//            echo '</pre>';
+            
+            // this is pretty much usually going to be an array of one, except if
+            // it's a multipoint radio, in which case distance and true_azimuth
+            // will be set to the value of the final
+            // item in the link array
+            // guessing the person editing the work order will tweak that anyhow
             foreach ($links as $link) {
+                $radio['NetworkRadios']['distance'] = 'N/A';
                 // if it's not a sector radio, then calculate link distance and bearing
                 if ($radio['NetworkRadios']['sector'] == 0 ) {
                     $link_id = $link['radios_radios']['dest_radio_id'];
@@ -551,10 +558,9 @@ class SitesController extends AppController
 
                     $b = $this->NetworkRadio->getRadioBearing($radio['NetworkRadios']['id'],$link_id);
                     $radio['NetworkRadios']['true_azimuth'] = $b;
-                } else {
-                     $radio['NetworkRadios']['distance'] = 'N/A';                
                 }
-            }
+            }            
+            
             $ip_address = '';
             $ip_address = $this->getIPAddress($radio['NetworkRadios']['name']);
             $radio['NetworkRadios']['ip_address'] = $ip_address;
@@ -562,11 +568,15 @@ class SitesController extends AppController
             $gw_address = '';
             $gw_address = $this->getGatewayAddress($radio['NetworkRadios']['name']);
             $radio['NetworkRadios']['gw_address'] = $gw_address;
-            //print_r($radio);
+            
             $radios[$n] = $radio;
             $n++;
         }
-
+//        echo "***********";
+//        echo '<pre>';
+//        print_r($radios);
+//        echo '</pre>';
+//        die;
         $this->set('site', $sites);
         $this->set('towercontacts', $towercontacts);
         $this->set('router', $router);

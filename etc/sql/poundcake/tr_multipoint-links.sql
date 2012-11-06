@@ -135,13 +135,15 @@ BEGIN
 		INSERT INTO radios_radios
 		SELECT NEW.id, id, 'three'
 		FROM network_radios
-		WHERE name LIKE @dest;
+		WHERE name LIKE @dest
+		AND NEW.id <> id; -- This is to prevent a multipoint radio linking to itself upon edit
 		
 		INSERT INTO radios_radios
 		SELECT id, NEW.id, 'four'
 		FROM network_radios
-		WHERE name LIKE @dest;
-		
+		WHERE name LIKE @dest
+		AND NEW.id <> id;
+
 	END IF;
 	
 	-- SET NEW.id = null;

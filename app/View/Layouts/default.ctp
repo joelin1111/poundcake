@@ -96,7 +96,7 @@ $cakeDescription = __d('poundcake', 'Tower DB');
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </a>
-          <a class="brand" href="/">Tower DB v1.8</a>
+          <a class="brand" href="/">Tower DB 2.0</a>
           <div class="nav-collapse">
             <ul class="nav pull-left">
             <?php

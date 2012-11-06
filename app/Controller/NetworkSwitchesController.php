@@ -49,7 +49,7 @@ class NetworkSwitchesController extends AppController {
         if ($this->request->is('post') || $this->request->is('put')) {
             if ($this->NetworkSwitch->save($this->request->data)) {
                 $this->Session->setFlash(__('The switch has been saved'));
-                $this->redirect(array('action' => 'index'));
+                $this->redirect(array('action' => 'view',$this->NetworkSwitch->id));
             } else {
                 $this->Session->setFlash(__('The switch could not be saved. Please, try again.'));
             }

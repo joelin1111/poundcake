@@ -53,17 +53,23 @@ class UsersController extends AppController {
     }
     
     function password($id = null) {
-        $this->User->id = $id;        
+        $this->User->id = $id;  
+//        echo "<pre>";
+//        print_r($this->User);
+//        echo "</pre>";
+//        die;
         if ($this->request->is('post') || $this->request->is('put')) {
             //$this->User->set($this->request->data);
             if ($this->User->validates(array('fieldList' => array('pwd_current')))) {
                 //echo "pwd_current validated<br>";
                 if ($this->User->validates(array('fieldList' => array('pwd_current','password')))) {
 //                    echo "<pre>";
-//                    unset($this->request->data['User']['pwd_current']);
+//                    $this->getProjects()
 //                    print_r($this->request->data);
 //                    echo "</pre>";
-                    if ($this->User->save($this->request->data)) {
+//                    die;
+                    unset($this->request->data['User']['pwd_current']);
+                    if ($this->User->saveAll($this->request->data)) {
                         // success flash/redirect
                         //echo "Saved";
                         $this->Session->setFlash('Password succssfully updated.  Please logout and login again.');

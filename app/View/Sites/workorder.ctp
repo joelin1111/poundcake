@@ -333,7 +333,13 @@ $sheet1->cellMerge($row,1,4,0);
 $sheet1->rowHeight($row,$fmtBannerHeight);
 $row += 2;
 
+
 foreach ($radios as $radio) {
+//    echo '<pre>';
+//    print_r($radio);
+//    echo '</pre>';
+//    die;
+    
     $sheet1->writeString($row,1,'Name',$fmt3);
     $sheet1->writeString($row,2,$radio['NetworkRadios']['name'],$fmt4);
     $sheet1->writeString($row,4,'Min. Height (meters)',$fmt3);
@@ -353,14 +359,15 @@ foreach ($radios as $radio) {
     $row++;
     
     $sheet1->writeString($row,1,'Link Distance',$fmt3);
-    $d = sprintf("%01.2f",$radio['NetworkRadios']['distance']);
-    $sheet1->writeString($row,2,$d." Km",$fmt4);
+    if (isset($radio['NetworkRadios']['distance'])) {
+        $d = sprintf("%01.2f",$radio['NetworkRadios']['distance']);
+        $sheet1->writeString($row,2,$d." Km",$fmt4);
+    }
     $sheet1->writeString($row,4,'Switch Port',$fmt3);
     $sheet1->writeString($row,5,$radio['NetworkRadios']['switch_port'],$fmt4);
     $row++;
     
     $sheet1->writeString($row,1,'Azimuth (True)',$fmt3);
-    //$d = sprintf("%01.2f",$radio['NetworkRadios']['true_azimuth']);
     $d = round($radio['NetworkRadios']['true_azimuth']);
     if (isset($d))
         $sheet1->writeString($row,2,$d."°",$fmt4);
@@ -384,7 +391,7 @@ foreach ($radios as $radio) {
     $sheet1->writeString($row,4,'Gateway',$fmt3);
     $sheet1->writeString($row,5,$radio['NetworkRadios']['gw_address'],$fmt4);
     $row++;
-    
+
     $sheet1->writeString($row,1,'Elevaton',$fmt3);
     if (isset($radio['NetworkRadios']['elevation']))
         $sheet1->writeString($row,2,$radio['NetworkRadios']['elevation']."°",$fmt4);
@@ -395,9 +402,10 @@ foreach ($radios as $radio) {
     for ($u = 1; $u <= 5; $u++) {
         $sheet1->writeString($row,$u,'',$fmt5);
     }
-    
+   
     $row += 2;    
 }
+
 
 // Send the headers, then output the data
 $xml->sendHeaders();

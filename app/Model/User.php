@@ -18,7 +18,7 @@ class User extends AppModel {
         'username' => array(
             'rule'    => '/^[a-z0-9_]{3,}$/i',
             'required' => true,
-            'message' => 'Username is required.'
+            'message' => 'Username is required, must be 3 characters or longer, and must be only letters, digits or underscores.'
         ),
         'pwd_current' => array(
             'rule'     => array('checkCurrentPassword'),
@@ -27,9 +27,9 @@ class User extends AppModel {
         ),
         'password' => array(
             //'rule'     => 'alphaNumeric',
-            'rule'    => array('minLength', 6),
+            'rule'    => array('minLength', 5),
             //'required' => true,
-            'message' => 'Password must be alphanumeric.'
+            'message' => 'Password must be at least 5 characters.'
         ),
     );
     
