@@ -20,7 +20,6 @@
         //echo $this->element('sql_dump');
         echo $this->Form->create('NetworkRadio');
         echo $this->Form->input('id');
-        echo "foo";
         echo $this->Form->input('name');
         echo $this->Form->input('serial');
         echo $this->Form->input('site_id');
