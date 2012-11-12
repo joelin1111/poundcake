@@ -72,8 +72,6 @@ Thumbs.db
 !/app/tmp/logs/empty
 
 *.log
-
-*.log
-
+*/log.htm
 app/tmp/logs/error.log
 app/Vendor/dompdf/lib/fonts/log.htm
