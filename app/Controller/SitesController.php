@@ -29,6 +29,9 @@ class SitesController extends AppController
         $this->set('site_name', $this->Site->site_name);
     }
     
+    /*
+    I don't think this is needed anymore since the current project is available
+    as a session variable
     function getUserProjects() {
         // return only the projects this user has access to
         $this->loadModel('User');
@@ -48,6 +51,7 @@ class SitesController extends AppController
         $this->set('projects',$projects);
         return $projects;
     }
+    */
     
     function index($id = null) {
         
@@ -373,7 +377,7 @@ class SitesController extends AppController
         $this->getRadioTypes();
         $this->getAntennaTypes();
         $this->getInstallTeams();
-        $this->getUserProjects();
+        //$this->getUserProjects();
         $this->getZones();
         
         // the user clicked Save on Add screen
@@ -398,7 +402,7 @@ class SitesController extends AppController
             }
             
             //if ($this->Site->saveAssociated($this->request->data, array('validate'=>true))) {
-            if ($this->Site->saveAssociated($this->request->data, array('validate'=>true))) {
+            if ($this->Site->saveAssociated($this->request->data, array('validate'=>false))) {
                 $this->Session->setFlash(__('The site has been saved'));
                 $this->redirect(array('action' => 'index'));
             }
@@ -440,7 +444,7 @@ class SitesController extends AppController
         $this->getRadioTypes();
         $this->getAntennaTypes();
         $this->getInstallTeams();
-        $this->getUserProjects();
+        //$this->getUserProjects();
         
         if (!$this->Site->exists()) {
             throw new NotFoundException(__('Invalid site'));

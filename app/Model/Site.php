@@ -23,22 +23,7 @@ class Site extends AppModel {
     public $hasMany = array(
         'NetworkRadios' => array(
             'className' => 'NetworkRadio',
-            'foreignKey' => 'site_id',
-            //'dependent' => false,
-            /*
-            'conditions' => array(
-                //'network_radio.site_id' => 'site.id',
-                //'project_id' => '3'
-                'network_radios.id' => '5'
-            ),
-            'fields' => '',
-            'order' => '',
-            'limit' => '',
-            'offset' => '',
-            'exclusive' => '',
-            'finderQuery' => '',
-            'counterQuery' => ''
-            */
+            'foreignKey' => 'site_id'
         )
     );
     
@@ -56,24 +41,24 @@ class Site extends AppModel {
             )
         )
         ,
-//        'lat' => array(
-//            /* RegEx for GPS field:
-//            -? allows for, but does not require, a negative sign
-//            \d{1,2} requires 1 or 2 decimal digits
-//            \. requires a decimal point
-//            \d{5} requires exactly 5 decimal digits
-//            , matches a single comma
-//            (repeat the first 5 bullets)
-//            $ anchors at the end of input
-//             */
-//            'rule' => '/^-?\d{1,2}\.\d{1,14}$/',
-//            'message' => 'Expecting XX.XXXXX or -XX.XXXXX'
-//        ),
-//        'lon' => array(
-//            // same as above
-//            'rule' => '/^-?\d{1,2}\.\d{1,14}$/',
-//            'message' => 'Expecting XX.XXXXX or -XX.XXXXX'
-//            )
+        'lat' => array(
+            /* RegEx for GPS field:
+            -? allows for, but does not require, a negative sign
+            \d{1,2} requires 1 or 2 decimal digits
+            \. requires a decimal point
+            \d{5} requires exactly 5 decimal digits
+            , matches a single comma
+            (repeat the first 5 bullets)
+            $ anchors at the end of input
+             */
+            'rule' => '/^-?\d{1,2}\.\d{1,14}$/',
+            'message' => 'Expecting XX.XXXXX or -XX.XXXXX'
+        ),
+        'lon' => array(
+            // same as above
+            'rule' => '/^-?\d{1,2}\.\d{1,14}$/',
+            'message' => 'Expecting XX.XXXXX or -XX.XXXXX'
+            )
     );
     
     // this virtualField is also defined in the sp_nearby stored procedure - that version
@@ -122,6 +107,8 @@ class Site extends AppModel {
         return $dec;
     }
     
+    /*
+    note sure if this is needed anymore?
     public function beforeFind($queryData) {
         $uid = CakeSession::read("Auth.User.id");
         
@@ -157,5 +144,6 @@ class Site extends AppModel {
 //        die;
         return $queryData;
     }
+     */
 }
 ?>

@@ -1,5 +1,5 @@
 <?php
-App::uses('AppModel', 'Model');
+App::uses('AppModel', 'Model','CakeSession');
 
 class NetworkSwitch extends AppModel {
 
@@ -13,6 +13,10 @@ class NetworkSwitch extends AppModel {
         'SwitchType'
     );
 
+    var $hasOne = array(
+        'Site'
+    );
+    
     public $validate = array(
         'name' => array(
             'notempty' => array(

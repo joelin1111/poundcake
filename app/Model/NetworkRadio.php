@@ -13,7 +13,7 @@ class NetworkRadio extends AppModel {
         'RadioMode',
     );
     
-    public $actAs = array('Containable');
+    // public $actAs = array('Containable');
     
     public $validate = array(
         'name' => array(
@@ -37,17 +37,6 @@ class NetworkRadio extends AppModel {
         ),
     );
     
-    /*
-    function getLinkLatLon($link_id) {
-        $this->loadModel('Site');
-        $radio = $this->findById($link_id);
-        return array (
-            $radio['Site']['lat'],
-            $radio['Site']['lon']
-        );
-    }
-    */
-    
     function getLinkDistance($id, $link_id) {
         // uses Haversine formula
         // http://sgowtham.net/blog/2009/08/04/php-calculating-distance-between-two-locations-given-their-gps-coordinates/
@@ -70,45 +59,6 @@ class NetworkRadio extends AppModel {
         return $distance;
     }
     
-    /*
-    // return the distance between two radios
-    function getLinkDistance($id, $link_id) {
-        // uses Haversine formula
-        // http://sgowtham.net/blog/2009/08/04/php-calculating-distance-between-two-locations-given-their-gps-coordinates/
-        
-        $distance = "";
-        $earth_radius = 3960.00; # in miles
-        
-        $radio1 = $this->findById($id);
-        $radio2 = $this->findById($link_id);
-        
-        if (is_array($radio2)) {
-//        $radio1 = $this->NetworkRadio->findById($id);
-//        $radio2 = $this->NetworkRadio->findById($link_id);
-
-            $lat1 = $radio1['Site']['lat'];
-            $lon1 = $radio1['Site']['lon'];
-            $lat2 = $radio2['Site']['lat'];
-            $lon2 = $radio2['Site']['lon'];
-
-            //global $earth_radius;
-            $delta_lat = $lat2 - $lat1;
-            $delta_lon = $lon2 - $lon1;
-
-            $alpha  = $delta_lat/2;
-            $beta = $delta_lon/2;
-            $a = sin(deg2rad($alpha)) * sin(deg2rad($alpha)) + cos(deg2rad($lat1)) * cos(deg2rad($lat2)) * sin(deg2rad($beta)) * sin(deg2rad($beta)) ;
-            $c = asin(min(1, sqrt($a)));
-            $distance = 2*$earth_radius * $c;
-            $distance = round($distance, 4);
-
-            // return the distance as kilometers
-            $distance = $distance * 1.60934;
-        }
-        
-        return $distance;
-    }
-    */
     function getRadioBearing($id, $link_id) {
         $radio1 = $this->findById($id);
         $radio2 = $this->findById($link_id);

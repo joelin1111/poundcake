@@ -38,7 +38,7 @@ class UsersController extends AppController {
         $this->set(compact('projects'));
     }
     
-    public function project() {
+    public function project($id = null) {
         // this is true when the user has switched projects
         if ($this->request->is('post') || $this->request->is('put')) {
 //            echo '<pre>';
@@ -50,10 +50,18 @@ class UsersController extends AppController {
             $project = $this->Project->read();
             $this->Session->write('project_id', $project_id);
             $this->Session->write('project_name', $project['Project']['name']);
-                
+            
+            // save the newly selected project id, name to a session variable
+            // allows us to filter sites/radios/routers/switches to the currently
+            // chosen project
             if ($this->Session->write('project_id',$project_id) &&
                 $this->Session->write('project_name',$project['Project']['name'])
                 ) {
+                // also save the selected project id the database -- which
+                // becomes the project the next time the user logs in
+                // see login in this controller
+                $this->User->id = $id;
+                $this->User->saveField('project_id',$project_id);
                 $this->Session->setFlash(__('The project has been set'));
                 $this->redirect(array('controller' => 'sites','action' => 'overview'));
             } else {
@@ -62,6 +70,7 @@ class UsersController extends AppController {
         }
         $this->getProjects();
     }
+    
     public function add() {
         $this->getRoles();
         if ($this->request->is('post')) {
@@ -193,25 +202,31 @@ class UsersController extends AppController {
         // if the user is already logged in (maybe opening the site in a new tab)
         // don't send them to the login page
         //echo print_r($this->Auth->user());
-       
+       /*
         if ( $this->Auth->user() != null) {
             // user logged in, send to overview page
             $this->redirect(array('controller' => 'sites', 'action' => 'index'));
         }
-        
+        */
         if ($this->request->is('post')) {
             if ($this->Auth->login()) {
-                $project = $this->User->Project->find('first');
+//                echo '<pre>';
+//                print_r($this->Auth->user('project_id'));
+//                echo '</pre>';
+//                die;
+                //$project = $this->User->Project->find('first');
+                // load the last project the user had viewed -- which was saved
+                // to the user table as project_id
+                $project = $this->User->Project->findById($this->Auth->user('project_id'));
                 $project_id = $project['Project']['id'];
                 $project_name = $project['Project']['name'];
-                // revisit for defaults, last accessed project, etc.
-                // currently goes to the first project the user may be assigned to
                 $this->loadModel('Project',$project_id);
                 $project = $this->Project->read();
                 // save the project ID and name as session variables
                 // see also projects() in this controller
                 $this->Session->write('project_id', $project_id);
                 $this->Session->write('project_name', $project_name);
+                
                 // send them on their way
                 $this->redirect($this->Auth->redirect());
             } else {

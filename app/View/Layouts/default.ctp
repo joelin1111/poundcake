@@ -25,35 +25,35 @@ $cakeDescription = __d('poundcake', 'Tower DB');
 <head>
 	<?php echo $this->Html->charset(); ?>
 	<title>
-		<?php echo $cakeDescription ?>:
-		<?php echo $title_for_layout; ?>
+            <?php echo $cakeDescription ?>:
+            <?php echo $title_for_layout; ?>
 	</title>
 	<?php
-		//echo $this->Html->script('jquery-1.7.2');
-                echo $this->Html->meta('icon');
-		echo $this->fetch('meta');
-		echo $this->fetch('css');
-		echo $this->fetch('script');
-                echo $this->Html->css('poundcake'); // Our custom CSS file
-                echo $this->Html->css('bootstrap'); // Bootstrap's CSS file
-                
-                echo $this->Html->script('jquery-1.7.2');
-                echo $this->Html->script('bootstrap-dropdown');
-                echo $this->Html->script('poundcake');
-                /*
-                <script src="js/bootstrap-transition.js"></script>
-                <script src="js/bootstrap-alert.js"></script>
-                <script src="js/bootstrap-modal.js"></script>
-                <script src="js/bootstrap-dropdown.js"></script>
-                <script src="js/bootstrap-scrollspy.js"></script>
-                <script src="js/bootstrap-tab.js"></script>
-                <script src="js/bootstrap-tooltip.js"></script>
-                <script src="js/bootstrap-popover.js"></script>
-                <script src="js/bootstrap-button.js"></script>
-                <script src="js/bootstrap-collapse.js"></script>
-                <script src="js/bootstrap-carousel.js"></script>
-                <script src="js/bootstrap-typeahead.js"></script>
-                */
+            //echo $this->Html->script('jquery-1.7.2');
+            echo $this->Html->meta('icon');
+            echo $this->fetch('meta');
+            echo $this->fetch('css');
+            echo $this->fetch('script');
+            echo $this->Html->css('poundcake'); // Our custom CSS file
+            echo $this->Html->css('bootstrap'); // Bootstrap's CSS file
+
+            echo $this->Html->script('jquery-1.7.2');
+            echo $this->Html->script('bootstrap-dropdown');
+            echo $this->Html->script('poundcake');
+            /*
+            <script src="js/bootstrap-transition.js"></script>
+            <script src="js/bootstrap-alert.js"></script>
+            <script src="js/bootstrap-modal.js"></script>
+            <script src="js/bootstrap-dropdown.js"></script>
+            <script src="js/bootstrap-scrollspy.js"></script>
+            <script src="js/bootstrap-tab.js"></script>
+            <script src="js/bootstrap-tooltip.js"></script>
+            <script src="js/bootstrap-popover.js"></script>
+            <script src="js/bootstrap-button.js"></script>
+            <script src="js/bootstrap-collapse.js"></script>
+            <script src="js/bootstrap-carousel.js"></script>
+            <script src="js/bootstrap-typeahead.js"></script>
+            */
 	?>
         <style>
           body {

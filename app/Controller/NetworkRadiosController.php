@@ -27,21 +27,23 @@ class NetworkRadiosController extends AppController {
         $conditions = array(
             'AND' => array(
                 'NetworkRadio.name LIKE' => $name_arg,
+                // only show radios for the currently selected project
+                // saved as a session variable
                 'Site.project_id' => $this->Session->read('project_id')
             ),
         );
         
-        $this->NetworkRadio->Behaviors->attach('Containable');
+        // $this->NetworkRadio->Behaviors->attach('Containable');
         
         $this->paginate = array(
             'NetworkRadio' => array(
                 // limit is the number per page 
                 'limit' => 20,
                 'conditions' => $conditions,
-                'contain' => array(
+                /*'contain' => array(
                     'Site',
                     'RadioType'
-                ),
+                ),*/
                 'order' => array(
                     'NetworkRadio.name' => 'asc',
                 ),
@@ -49,8 +51,6 @@ class NetworkRadiosController extends AppController {
         $this->NetworkRadio->recursive = 1;
         $data = $this->paginate('NetworkRadio');
         $this->set('networkradios',$data);
-        // end search stuff
-        // $this->set('networkradios', $this->paginate());
     }
 
     public function view($id = null) {

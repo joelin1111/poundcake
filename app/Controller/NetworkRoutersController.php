@@ -13,8 +13,38 @@ class NetworkRoutersController extends AppController {
     );
     
     public function index() {
-        $this->NetworkRouter->recursive = 0;
-        $this->set('networkrouters', $this->paginate());
+        // begin search stuff (note: this is not currently used)
+        $name_arg = "";
+        if (isset($this->passedArgs['NetworkSwitch.name'])) {
+            $name_arg = str_replace('*','%',$this->passedArgs['NetworkSwitch.name']);
+        }
+        
+        // if no argument was passed, default to a wildcard
+        if ($name_arg == "") {
+            $name_arg = '%';
+        }
+        
+        $conditions = array(
+            'AND' => array(
+                'NetworkRouter.name LIKE' => $name_arg,
+                // only show radios for the currently selected project
+                // saved as a session variable
+                'Site.project_id' => $this->Session->read('project_id')
+            ),
+        );
+        
+        $this->paginate = array(
+            'NetworkRouter' => array(
+                // limit is the number per page 
+                'limit' => 20,
+                'conditions' => $conditions,
+                'order' => array(
+                    'NetworkRouter.name' => 'asc',
+                ),
+            ));
+        $this->NetworkRouter->recursive = 1;
+        $data = $this->paginate('NetworkRouter');
+        $this->set('networkrouters',$data);
     }
 
     public function view($id = null) {

@@ -1,12 +1,17 @@
+-- 2.1
+alter table users add project_id int(10);
+
+
+
+
+-- Old
+
 DROP TABLE IF EXISTS `radios_radios`;
 CREATE TABLE `radios_radios` (
   `src_radio_id` int(10) NOT NULL,
   `dest_radio_id` int(10) NOT NULL,
   PRIMARY KEY (`src_radio_id`,`dest_radio_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
--- Old
-
 
 alter table switch_types add manufacturer varchar(255);
 alter table switch_types add model varchar(255);

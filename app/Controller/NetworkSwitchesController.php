@@ -5,18 +5,75 @@ class NetworkSwitchesController extends AppController {
 
     var $helpers = array('MyHTML');
     
+    /*
+    public $paginate = array(
+        'limit' => 20, // default limit also defined in AppController
+        'order' => array(
+            'NetworkSwitch.name' => 'asc'
+        )/*,
+        'conditions' => array(
+            'Site.project_id' => 3 // $this->Session->read('project_id')
+        )
+        *
+    );
+    
+    public function index() {
+        //$this->NetworkSwitch->recursive = 0;
+        //$this->set('networkswitches', $this->paginate());
+        $this->paginate = array(
+            'contain' => array('Site'),
+            'conditions' => array(
+                'Site.project_id' => 3 // $this->Session->read('project_id')
+            )
+        );
+        $data = $this->paginate('NetworkSwitch');
+        $this->set(compact('data'));
+    }
+    */
+    /*
     public $paginate = array(
         'limit' => 20, // default limit also defined in AppController
         'order' => array(
             'NetworkSwitch.name' => 'asc'
         )
     );
+    */
     
     public function index() {
-        $this->NetworkSwitch->recursive = 0;
-        $this->set('networkswitches', $this->paginate());
+        // begin search stuff (note: this is not currently used)
+        $name_arg = "";
+        if (isset($this->passedArgs['NetworkSwitch.name'])) {
+            $name_arg = str_replace('*','%',$this->passedArgs['NetworkSwitch.name']);
+        }
+        
+        // if no argument was passed, default to a wildcard
+        if ($name_arg == "") {
+            $name_arg = '%';
+        }
+        
+        $conditions = array(
+            'AND' => array(
+                'NetworkSwitch.name LIKE' => $name_arg,
+                // only show radios for the currently selected project
+                // saved as a session variable
+                'Site.project_id' => $this->Session->read('project_id')
+            ),
+        );
+        
+        $this->paginate = array(
+            'NetworkSwitch' => array(
+                // limit is the number per page 
+                'limit' => 20,
+                'conditions' => $conditions,
+                'order' => array(
+                    'NetworkSwitch.name' => 'asc',
+                ),
+            ));
+        $this->NetworkSwitch->recursive = 1;
+        $data = $this->paginate('NetworkSwitch');
+        $this->set('networkswitches',$data);
     }
-
+    
     public function view($id = null) {
         $this->NetworkSwitch->id = $id;
         if (!$this->NetworkSwitch->exists()) {

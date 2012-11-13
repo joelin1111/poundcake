@@ -22,6 +22,7 @@
 <div class="span9">
     <h3>Add Site</h3>
 <?php
+    echo "Project: ".$this->Session->read('project_name');
     echo $this->Form->create('Site', array('action'=>'add'));
     echo $this->Form->input('Site.site_name');
     echo $this->Form->input('Site.site_code');
@@ -29,7 +30,13 @@
     echo $this->Form->input('lat', array ('label' => 'Latitude','value' => ''));
     echo $this->Form->input('lon', array ('label' => 'Longitude','value' => ''));
     echo $this->Form->input('declination', array('type'=>'hidden'));
-    echo $this->Form->input('project_id', array('type'=>'select','options' => $projects,'label' => 'Project'));
+    //echo $this->Form->input('project_id', array('type'=>'select','options' => $projects,'label' => 'Project'));
+    //echo $this->Form->input('project_id', $this->Session->read('project_id'));
+    echo $this->Form->input('project_id',
+            array(
+                'type'=>'hidden',
+                'value'=> $this->Session->read('project_id')
+                ));
     
     echo $this->Form->input('install_date', 
         array(

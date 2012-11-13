@@ -9,6 +9,10 @@ class NetworkRouter extends AppModel {
         'RouterType'
     );
     
+    var $hasOne = array(
+        'Site'
+    );
+    
     public $validate = array(
         'name' => array(
             'notempty' => array(
