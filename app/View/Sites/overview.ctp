@@ -13,16 +13,16 @@
 
 <div class="row">
 <div class="span3">
-    
-    <?php echo $this->element('Common/search'); ?>
-    <?php echo $this->element('Common/legend'); ?>
-    
+    <?php
+        echo $this->element('Common/search');
+        echo $this->element('Common/legend');
+    ?>
 </div><!-- /.span3 .sb-fixed -->
 
 <div class="span9">
 
 <?php
-    // maybe we could have used the Element for creating the map here, but this map
+    // maybe we could have used an Element for creating the map here, but this map
     // is bigger with different options, and so it might take just as much code
     // to do that as it is to just do it again manually
 

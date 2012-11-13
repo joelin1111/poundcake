@@ -1,26 +1,19 @@
 <?php
-App::uses('AppModel', 'Model');
+App::uses('AppModel', 'Model','CakeSession');
 
 class NetworkRadio extends AppModel {
 
     public $displayField = 'name';
-
+    
     var $belongsTo = array(
         'Site',
         'RadioType',
         'NetworkSwitch',
         'AntennaType',
         'RadioMode',
-        //'NetworkLink'
-        //'NetworkLink' => array('foreignKey' => 'zipcode')
-
     );
     
-    /*
-    var $virtualFields = array(
-        'target' => "NetworkLink.radio_dest_id"
-    );    
-    */
+    public $actAs = array('Containable');
     
     public $validate = array(
         'name' => array(
@@ -156,4 +149,50 @@ class NetworkRadio extends AppModel {
         //echo "B is $b";
         return $b;
     }
+    /*
+    function afterFind($results){
+        echo '<pre>';
+        print_r($results);
+        echo '</pre>';
+        die;
+    }
+    */
+    /*
+    public function beforeFind($queryData) {
+        //$uid = CakeSession::read("Auth.User.id");
+        $project_id = 3;
+        
+        // http://stackoverflow.com/questions/2727217/cakephp-beforefind-how-do-i-add-a-join-condition-after-the-belongsto-associa
+        // The join can not reference anything in the associations, as the associations
+        // are fetched via separate queries. If you need to add a join that references
+        // an association, you will need to add the association manually in the join as well.
+        
+        $options['joins'] = array(
+            array('table' => 'sites',
+                //'alias' => 'Site2',
+                'type' => 'LEFT',
+                'conditions' => array(
+                    'site.project_id =  '.$project_id,
+                )
+            )/*,
+            array('table' => 'projects_users',
+                'alias' => 'ProjectsUser',
+                'type' => 'INNER',
+                'conditions' => array(
+                    //"Site.project_id  =  Project.id",
+                    'ProjectsUser.user_id =  '.$uid,
+                    'ProjectsUser.project_id = Project2.id'
+                )
+            )
+        );
+        $queryData['joins'] = $options['joins'];
+        
+//        $results = $this->Project->find('all', $options);
+//        echo '<pre>';
+//        print_r($queryData);
+//        echo '</pre>';
+//        die;
+        return $queryData;
+    }
+    */
 }

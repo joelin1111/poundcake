@@ -86,7 +86,8 @@ class SitesController extends AppController
             'AND' => array(
                 'Site.site_code LIKE' => $site_code_arg,
                 'Site.site_name LIKE' => $site_name_arg,
-                'Site.site_state_id LIKE' => $site_state_id_arg
+                'Site.site_state_id LIKE' => $site_state_id_arg,
+                'Site.project_id' => $this->Session->read('project_id') // only show sites for the current project
             )
         );
         
@@ -113,14 +114,15 @@ class SitesController extends AppController
     }
     
     public function overview() {
-        // get all the sites for display on the map - ignor any without lat/lon
+        // get all the sites for display on the map - ignore any without lat/lon
         // skip any that don't have coordinates in the db
         $conditions = array ("NOT" => array ("Site.lat" => null));
         $sites = $this->Site->find('all', array('conditions' => $conditions));
         $this->set('sites', $sites);
         $this->getSiteStates();
         $this->buildLegend();
-        $project = $this->Site->Project->findById($this->Site->field('project_id'));
+        //$project = $this->Site->Project->findById($this->Site->field('project_id'));
+        $project = $this->Site->Project->findById($this->Session->read('project_id'));
         $this->set('default_lat', $project['Project']['default_lat']);
         $this->set('default_lon', $project['Project']['default_lon']);
     }
@@ -348,12 +350,7 @@ class SitesController extends AppController
     }
     
     function getAllSites() {
-        $this->set('sites',$this->Site->find('list',
-            array(
-                'order' => array(
-                    'Site.site_name ASC'
-            )))
-        );
+        $this->set('sites',$this->Site->find('list'));
     }
     
     function add() {

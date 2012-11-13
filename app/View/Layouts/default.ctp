@@ -107,10 +107,10 @@ $cakeDescription = __d('poundcake', 'Tower DB');
                 if ( isset($user) ) {
                     //echo "<small>Logged in as: ".$user['username']."<br>";
                     //echo "Role: ".$user['Role']['name']."</small><br><br><br>";
-                    
                     echo "<LI>";
                     echo $this->Html->link('Map', array('controller' => 'sites', 'action' => 'overview'));
-                    echo "</LI>";                    
+                    echo "</LI>";
+                    
                     echo "<LI>";
                     echo $this->Html->link('Sites', array('controller' => 'sites', 'action' => 'index'));
                     echo "</LI>";
@@ -131,7 +131,6 @@ $cakeDescription = __d('poundcake', 'Tower DB');
                     echo $this->Html->link('Switches', array('controller' => 'networkSwitches', 'action' => 'index'));
                     echo "</LI>";
                     
-                    
                     // this doesn't really belong here, should probably serve up a different
                     // view for admins
                     if ($user['Role']['name'] === 'admin') {
@@ -139,10 +138,6 @@ $cakeDescription = __d('poundcake', 'Tower DB');
                         echo $this->Html->link('Setup', array('controller' => 'users', 'action' => 'setup'));
                         echo "</LI>";
                     }
-                    
-                    echo "<LI>";
-                    echo $this->Html->link('Logout', array('controller' => 'users', 'action' => 'logout'));
-                    echo "</LI>";
                 }
             ?>
             </ul><!--/.nav .pull-left -->
@@ -154,7 +149,7 @@ $cakeDescription = __d('poundcake', 'Tower DB');
                 include 'user.ctp';
             }
             ?>
-          </div><!--/.nav-collapse  -->
+          </div><!--/.nav-collapse  -->          
         </div>
       </div>
     </div> <!--/.navbar -->
@@ -168,15 +163,17 @@ $cakeDescription = __d('poundcake', 'Tower DB');
             echo  $banner; 
             echo '</span></div><br>';
         }
-        
     ?>
     </div>
     <div class="container">
-    	<?php
-                echo $content_for_layout;
-            ?>
+    	<?php echo $content_for_layout; ?>
         <div id="footer" align="center"><BR><BR><BR>
-                        Copyright © <?php echo date("Y"); ?>. All Rights Reserved.<BR>
+        <?php
+            $project_name = $this->Session->read('project_name');
+            echo "Current Project: ";
+            echo $project_name != "" ? $project_name : "Unknown";
+        ?><BR>
+            Copyright © <?php echo date("Y"); ?>. All Rights Reserved.<BR>
         <?php
             echo $this->Html->link(('Version History'), array('action' => 'index', 'controller' => 'changeLog'));
         ?>

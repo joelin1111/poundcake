@@ -32,7 +32,6 @@ class AppController extends Controller {
     // used for the login/ACL
     public $components = array(
         'Session',
-        //'DebugKit.Toolbar',
         'Auth' => array(
             //'loginRedirect' => array('controller' => 'schools', 'action' => 'overview'),\
             // if the user is not logged in, 
@@ -40,7 +39,6 @@ class AppController extends Controller {
             // typing in the URL manually), send them here
             'loginRedirect' => array('controller' => 'sites', 'action' => 'overview'),
             'logoutRedirect' => array('controller' => 'users', 'action' => 'login'),
-            //'logoutRedirect' => array('controller' => 'pages', 'action' => 'display', ''),
             'authorize' => array('Controller')
         ),
         'RequestHandler'

@@ -20,15 +20,17 @@ class Site extends AppModel {
         'Project'
     );
    
-   //public $actsAs = array('Containable');
-   //var $uses = array('User');
-    
     public $hasMany = array(
         'NetworkRadios' => array(
             'className' => 'NetworkRadio',
             'foreignKey' => 'site_id',
-            'dependent' => false,
-            'conditions' => '',
+            //'dependent' => false,
+            /*
+            'conditions' => array(
+                //'network_radio.site_id' => 'site.id',
+                //'project_id' => '3'
+                'network_radios.id' => '5'
+            ),
             'fields' => '',
             'order' => '',
             'limit' => '',
@@ -36,9 +38,11 @@ class Site extends AppModel {
             'exclusive' => '',
             'finderQuery' => '',
             'counterQuery' => ''
+            */
         )
     );
     
+    //public $actAs = array('Containable');
     
     public $validate = array(
         'site_name' => array(
@@ -75,6 +79,8 @@ class Site extends AppModel {
     // this virtualField is also defined in the sp_nearby stored procedure - that version
     // is used to place placemarkers for nearby sites on the site view page map
     var $virtualFields = array('site_vf' => 'CONCAT(site_code, " ", site_name)');
+    
+    var $order = 'Site.site_code ASC';
     
     // The displayField attribute specifies which database field should be used as a
     // label for the record. The label is used in scaffolding and in find('list') calls.

@@ -18,20 +18,30 @@ class NetworkRadiosController extends AppController {
         if (isset($this->passedArgs['NetworkRadio.name'])) {
             $name_arg = str_replace('*','%',$this->passedArgs['NetworkRadio.name']);
         }
+        
         // if no argument was passed, default to a wildcard
         if ($name_arg == "") {
             $name_arg = '%';
         }
+        
         $conditions = array(
             'AND' => array(
-                'NetworkRadio.name LIKE' => $name_arg
-            )
+                'NetworkRadio.name LIKE' => $name_arg,
+                'Site.project_id' => $this->Session->read('project_id')
+            ),
         );
+        
+        $this->NetworkRadio->Behaviors->attach('Containable');
+        
         $this->paginate = array(
             'NetworkRadio' => array(
                 // limit is the number per page 
                 'limit' => 20,
                 'conditions' => $conditions,
+                'contain' => array(
+                    'Site',
+                    'RadioType'
+                ),
                 'order' => array(
                     'NetworkRadio.name' => 'asc',
                 ),

@@ -53,6 +53,7 @@
     <?php
         // include pagination
         echo $this->element('Common/pagination');
+        //echo $this->element('sql_dump');
     ?>
 </div> <!-- /.span9 -->
 </div> <!-- /.row -->

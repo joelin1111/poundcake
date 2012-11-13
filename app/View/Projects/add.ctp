@@ -6,6 +6,7 @@
         <li><?php echo $this->Html->link(__('List Projects'), array('action' => 'index')); ?>
     </ul>
     </div>
+    <?php echo $this->element('Common/date_format'); ?>
 </div><!-- /.span3 .sb-fixed -->
 
 <div class="span9">

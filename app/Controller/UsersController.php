@@ -38,6 +38,30 @@ class UsersController extends AppController {
         $this->set(compact('projects'));
     }
     
+    public function project() {
+        // this is true when the user has switched projects
+        if ($this->request->is('post') || $this->request->is('put')) {
+//            echo '<pre>';
+//            print_r($this->request->data);
+//            echo '</pre>';
+//            die;
+            $project_id = $this->request->data['Project']['Project'];
+            $this->loadModel('Project',$project_id);
+            $project = $this->Project->read();
+            $this->Session->write('project_id', $project_id);
+            $this->Session->write('project_name', $project['Project']['name']);
+                
+            if ($this->Session->write('project_id',$project_id) &&
+                $this->Session->write('project_name',$project['Project']['name'])
+                ) {
+                $this->Session->setFlash(__('The project has been set'));
+                $this->redirect(array('controller' => 'sites','action' => 'overview'));
+            } else {
+                $this->Session->setFlash(__('The project could not be set.'));
+            }
+        }
+        $this->getProjects();
+    }
     public function add() {
         $this->getRoles();
         if ($this->request->is('post')) {
@@ -177,6 +201,18 @@ class UsersController extends AppController {
         
         if ($this->request->is('post')) {
             if ($this->Auth->login()) {
+                $project = $this->User->Project->find('first');
+                $project_id = $project['Project']['id'];
+                $project_name = $project['Project']['name'];
+                // revisit for defaults, last accessed project, etc.
+                // currently goes to the first project the user may be assigned to
+                $this->loadModel('Project',$project_id);
+                $project = $this->Project->read();
+                // save the project ID and name as session variables
+                // see also projects() in this controller
+                $this->Session->write('project_id', $project_id);
+                $this->Session->write('project_name', $project_name);
+                // send them on their way
                 $this->redirect($this->Auth->redirect());
             } else {
                 $this->Session->setFlash(__('Invalid username or password, try again'));
