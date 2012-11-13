@@ -71,17 +71,19 @@
     </div> <!-- ./well -->
     </div> <!-- ./row -->
     
-    <BR>
-    
     <P><B>Zone:</B>&nbsp;<?php echo $site['Zone']['name']; ?></P>
     
     <?php
-        $windowText = $site['Site']['site_vf'];
+        // some of the sites may have apostrophes in their name
+        // addslashes seems to take care of that (since the map
+        // will throw an exception)
+        $windowText = addslashes($site['Site']['site_vf']);
+        
         // draw the main map
         $icon = 'data:'.$site['SiteState']['img_type'].';base64,'.base64_encode( $site['SiteState']['img_data'] );
         echo $this->element('Common/map',
                 array(
-                    'windowText' => $windowText,
+                    'windowText' => 'oo',//$windowText,
                     'lat' => $site['Site']['lat'],
                     'lon' => $site['Site']['lon'],
                     'icon' => $icon
