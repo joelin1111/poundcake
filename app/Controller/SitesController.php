@@ -199,8 +199,15 @@ class SitesController extends AppController
         }
     }
     
+    function isAllowed($project_id, $uid) {
+        // manually check if the user is allowed to view this site by checking them
+        // against the projects table -- theres probably a Cake-ier way to do this!
+        $query = 'select * from projects_users where user_id='.$uid.' and project_id='.$project_id;
+        $result = $this->Site->query($query);
+        return (sizeof($result) > 0 ? true : false);
+    }
+    
     function view($id = null) {
-        
         $this->Site->id = $id;
         $this->set('id',$id);
         
@@ -208,6 +215,12 @@ class SitesController extends AppController
             throw new NotFoundException(__('Invalid site'));
         }
         $this->set('site', $this->Site->read(null, $id));
+        
+        // don't go any further if the user is not in the same project as this site
+        if (!$this->isAllowed($this->Site->data['Site']['project_id'], $this->Auth->user('id')) ) {
+            $this->redirect(array('action' => 'index'));
+        }
+        
         $this->getContacts($id);
         $this->getAllSites($id);
         $this->getBuildItems();
@@ -509,6 +522,11 @@ class SitesController extends AppController
         } else {
             // show edit page
             $this->request->data = $this->Site->read(null, $id);
+            
+            // don't go any further if the user is not in the same project as this site
+            if (!$this->isAllowed($this->Site->data['Site']['project_id'], $this->Auth->user('id')) ) {
+                $this->redirect(array('action' => 'index'));
+            }
 //            echo '<pre>';
 //            print_r($this->request->data);
 //            echo '</pre>';
@@ -583,6 +601,11 @@ class SitesController extends AppController
         $this->set('router', $router);
         $this->set('switch', $switch);
         $this->set('radios', $radios);
+        
+//        echo '<pre>';
+//        print_r($sites);
+//        echo '</pre>';
+//        die;
         
         // the title on a work order is part of a project's meta-data
         if (isset($sites['Project']['workorder_title'])) {
