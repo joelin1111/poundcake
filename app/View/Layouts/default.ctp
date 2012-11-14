@@ -172,6 +172,8 @@ $cakeDescription = __d('poundcake', 'Tower DB');
             $project_name = $this->Session->read('project_name');
             echo "Current Project: ";
             echo $project_name != "" ? $project_name : "Unknown";
+            echo " | ";
+            echo $this->Html->link(('Switch Project'), array('action' => 'project', 'controller' => 'users'));
         ?><BR>
             Copyright © <?php echo date("Y"); ?>. All Rights Reserved.<BR>
         <?php
