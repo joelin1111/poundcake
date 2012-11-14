@@ -14,15 +14,14 @@
     <H3>Actions</H3>
     <div class="well well-large">
         <ul>
-            <li><?php echo $this->Html->link(__('List Sites'), array('action' => 'index')); ?></li>
+            <li><?php echo $this->Html->link('List Sites', array('action' => 'index')); ?></li>
         </ul>
     </div>
 </div><!-- /.span3 .sb-fixed -->
 
 <div class="span9">
-    <h3>Add Site</h3>
+    <h3>Add Site: <?php echo $this->Session->read('project_name'); ?></h3>
 <?php
-    echo "Project: ".$this->Session->read('project_name');
     echo $this->Form->create('Site', array('action'=>'add'));
     echo $this->Form->input('Site.site_name');
     echo $this->Form->input('Site.site_code');

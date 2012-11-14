@@ -44,6 +44,65 @@ class AppController extends Controller {
         'RequestHandler'
     );
 
+    // return all the organizations the user may be assigned to
+    public function getOrganizationsForCurrentProject($obj) {
+        // $this->set('organizations',$this->Contact->Organization->find('list'));
+        // the above does not give us what we want -- it gives us a list of all
+        // organiations (for use in the select on the Contact add/edit pages)
+        // However, we only want to show orgs for the currently selected project
+        // e.g. contact <-> organization <-> organizations_projects <-> project
+        // I could not sort out how to do this with a Cake join (see below)
+        // so I'm doing it manually by running my own SQL and creating the array manually
+
+        // NOTE: this is basically 
+//        begin does not work:
+//        $orgs = $this->Contact->Organization->find('list');
+//        echo '<pre>';
+//        echo "For Project ID: ".$this->Session->read('project_id');
+//        echo "<br>";
+//        print_r($orgs);
+//        
+//        foreach ($orgs as $key => $value) {
+//            $this->loadModel('Organization', $key);
+//            $org = $this->Organization->read(null, $key);
+//            echo ">";
+//            print_r($org);
+//        }
+//        echo '</pre>';
+//        echo "------------";
+        
+//        $this->Contact->Organization->bindModel(array('hasOne' => array('OrganizationsProjects')));
+//        $organizations = $this->Contact->Organization->find('all',array(
+//            'fields' => array('DISTINCT Organization.name'),
+//            //'fields' => array('Organization.id', 'Organization.name'),
+//            'conditions'=> array(
+//                    //'Contact.organization_id = OrganizationsProject.organization_id',
+//                    'OrganizationsProject.project_id' => $this->Session->read('project_id'),
+//                    //'OrganizationsProject.organization_id' => 14
+//                ),
+//            'recursive' => 0,
+//            'joins' => array( 
+//                array('table' => 'organizations_projects', 
+//                'alias' => 'OrganizationsProject', 
+//                'type' => 'INNER',  
+//                'conditions'=> array(
+//                    //'Contact.organization_id = OrganizationsProject.organization_id',
+//                    'OrganizationsProject.project_id' => $this->Session->read('project_id'),
+//                    //'OrganizationsProject.organization_id' => 14
+//                )
+//        ))));
+//        end does not work:
+        
+        $sql = "select distinct organization_id, name from organizations_projects, organizations where project_id=".$this->Session->read('project_id');
+        $sql .= " and organizations.id=organizations_projects.organization_id";
+        $results = $this->$obj->query($sql);        
+        $organizations = array();
+        foreach ($results as $key => $value) {
+            $organizations[$value['organizations_projects']['organization_id']] = $value['organizations']['name'];
+        }
+        $this->set(compact('organizations'));
+    }
+    
     // used for the login/ACL
     public function beforeFilter() {
         //// tell the AuthComponent to not require a login for all index and

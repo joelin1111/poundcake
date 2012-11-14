@@ -132,7 +132,7 @@ class SitesController extends AppController
     }
     
     function getContacts($id = null) {
-        // sometimes I think my head is going to explode - I had a haard time finding
+        // sometimes I think my head is going to explode - I had a hard time finding
         // contacts for this site's tower owner, this is the model setup:
         // 
         // Site belongsTo Organization
@@ -296,10 +296,6 @@ class SitesController extends AppController
         $this->set('connectivitytypes',$this->Site->ConnectivityType->find('list'));
     }
     
-    function getOrganizations() {
-        $this->set('organizations',$this->Site->Organization->find('list'));
-    }
-    
     function getSiteStates() {
         $this->set('sitestates',$this->Site->SiteState->find('list'));
     }
@@ -368,6 +364,12 @@ class SitesController extends AppController
     
     function getAllSites() {
         $this->set('sites',$this->Site->find('list'));
+    }
+    
+    // return all the organizations the user may be assigned to
+    function getOrganizations() {
+        // moved this into AppController since ContactsController has to do the same thing
+        return parent::getOrganizationsForCurrentProject('Site');
     }
     
     function add() {
