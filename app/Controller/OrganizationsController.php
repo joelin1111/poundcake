@@ -27,6 +27,7 @@ class OrganizationsController extends AppController {
     }
 
     public function add() {
+        $this->getUsersAssignedProjects();
         if ($this->request->is('post')) {
             $this->Organization->create();
             if ($this->Organization->save($this->request->data)) {
@@ -40,6 +41,7 @@ class OrganizationsController extends AppController {
 
     public function edit($id = null) {
         $this->Organization->id = $id;
+        $this->getUsersAssignedProjects();
         if (!$this->Organization->exists()) {
             throw new NotFoundException(__('Invalid organization'));
         }
@@ -55,6 +57,26 @@ class OrganizationsController extends AppController {
         }
     }
 
+    function getUsersAssignedProjects() {
+        // return only the projects this user has access to
+        $this->loadModel('User');
+        $uid = CakeSession::read("Auth.User.id");
+        $options['joins'] = array(
+            array('table' => 'projects_users',
+                'alias' => 'ProjectsUser',
+                'type' => 'INNER',
+                'conditions' => array(
+                    //"Site.project_id  =  Project.id",
+                    'ProjectsUser.user_id =  '.$uid,
+                    'ProjectsUser.project_id = Project.id'
+                )
+            )
+        );
+        $projects = $this->User->Project->find('list', $options);
+        $this->set('projects',$projects);
+        return $projects;
+    }
+    
     public function delete($id = null) {
         if (!$this->request->is('post')) {
             throw new MethodNotAllowedException();

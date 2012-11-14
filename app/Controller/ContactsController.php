@@ -35,33 +35,63 @@ class ContactsController extends AppController {
             'AND' => array(
                 'Contact.first_name LIKE' => $first_name_arg,
                 'Contact.last_name LIKE' => $last_name_arg,
+                //'Organizations.project_id' => $this->Session->read('project_id')
             )
         );
         
+        $joins = array(
+            array( 
+                'table' => 'organizations_projects', 
+                'alias' => 'OrganizationsProject', 
+                'type' => 'inner',  
+                'conditions'=> array(
+                    'Contact.organization_id = OrganizationsProject.organization_id',
+                    'OrganizationsProject.project_id' => $this->Session->read('project_id'),
+                    //'OrganizationsProject.organization_id' => 14
+                )
+                /*
+                'conditions'=> array(
+                    'Contact.organization_id = OrganizationsProject.organization_id',
+                    'OrganizationsProject.project_id = 3',
+                    'OrganizationsProject.organization_id = 14'
+                ) 
+                */
+            )
+        );
+        
+        $this->Contact->recursive = 2;
         $this->paginate = array(
             'Contact' => array(
                 // limit is the number per page 
                 //'limit' => 10,
+                'joins' => $joins,
                 'conditions' => $conditions,
                 'order' => array(
-                    'Contact.first_name' => 'asc',
-                    'Contact.last_name' => 'asc',
+                    'Contact.name_vf' => 'asc'
                 ),
             ));
-//        echo '<pre>';
-//        print_r($this->Contact);
-//        echo '</pre>';
+        
+        
+        //$options = array('PatientsProject.project_id' => $id);
+        $this->set('data', $this->paginate('Contact'));
+        
+        echo '<pre>';
+        //print_r($this->Session->read('project_id'));
+        //print_r($this->paginate('Contact'));
+        echo '</pre>';
 //        die;
         
-        $this->Contact->recursive = 0;
-        $this->set('contacts', $this->paginate());
-            
+        //$this->Contact->recursive = 0;
+        //$this->set('contacts', $this->paginate());
+        
+        //$this->Contact->recursive = 1;
+        $this->set('contacts',$this->paginate('Contact'));
     }
     
     public function view($id = null) {
         $this->Contact->id = $id;
         if (!$this->Contact->exists()) {
-                throw new NotFoundException(__('Invalid contact'));
+            throw new NotFoundException(__('Invalid contact'));
         }
         $this->set('contact', $this->Contact->read(null, $id));        
     }
@@ -81,7 +111,7 @@ class ContactsController extends AppController {
         }
     }
 
-    // return all the towers to allow the user to be assigned to
+    // return all the organizations the user may be assigned to
     function getOrganizations() {
         $this->set('organizations',$this->Contact->Organization->find('list'));
     }

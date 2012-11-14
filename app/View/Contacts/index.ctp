@@ -28,9 +28,9 @@
 	<table class="table table-condensed table-striped">
             <thead>
                 <tr>
-                    <th><?php echo $this->Paginator->sort('first_name'); ?></th>
+                    <th><?php echo $this->Paginator->sort('name_vf','Name'); ?></th>
                     <th><?php echo $this->Paginator->sort('title'); ?></th>
-                    <th><?php echo $this->Paginator->sort('Orgnanization'); ?></th>
+                    <th><?php echo $this->Paginator->sort('Organization'); ?></th>
                     <th><?php echo $this->Paginator->sort('priority'); ?></th>
                     <th><?php echo __('Actions'); ?></th>
                 </tr>
@@ -38,6 +38,11 @@
             <tbody>
 	<?php
 	foreach ($contacts as $contact): ?>
+                <?
+//                echo '<pre>';
+//                print_r($contact);
+//                echo '</pre>';
+                ?>
 	<tr>
             <td><?php
                 //echo $contact['Contact']['name_vf'];

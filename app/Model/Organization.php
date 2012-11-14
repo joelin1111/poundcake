@@ -17,6 +17,8 @@ class Organization extends AppModel {
         'Contact',
         'Site'
     );
+    
+    public $hasAndBelongsToMany = array('Project');
 
     public $validate = array(
         'name' => array(

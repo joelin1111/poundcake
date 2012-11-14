@@ -5,6 +5,8 @@ class Contact extends AppModel {
 
     public $displayField = 'first_name';
 
+    public $belongsTo = array('Organization','ContactType','InstallTeam');
+    
     public $virtualFields = array(
         'name_vf' => 'CONCAT(first_name, " ", last_name)'
         //'contact_vf' => 'CONCAT(first_name, " ", last_name, " (",")")'
@@ -62,7 +64,5 @@ class Contact extends AppModel {
         )
         */
     );
-        
-    public $belongsTo = array('Organization','ContactType','InstallTeam');
 
 }

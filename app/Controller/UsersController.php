@@ -27,15 +27,40 @@ class UsersController extends AppController {
     */
     
     function getRoles() {
-        // identical to getRegions
         $roles = $this->User->Role->find('list');
         $this->set('roles',$roles);
     }
     
-    function getProjects() {
-        // identical to getRegions
-        $projects = $this->User->Project->find('list',array('fields'=>array('id','name')));
+    function getUsersProjects() {
+        // return an array of projects this user is assigned to
+        
+        //$projects = $this->User->Project->find('list');
+        // I thought Cake would make finding all projects this user is associated
+        // with (which is a HABTM relation) easier -- or am I just not doing this
+        // right?
+        $projects = $this->User->Project->find('list', array( 
+            'conditions' => array('ProjectsUser.user_id' => $this->Auth->user('id')), 
+            'joins' => array( 
+                array('table' => 'projects_users', 
+                      'alias' => 'ProjectsUser', 
+                      'type' => 'inner', 
+                      'conditions'=> array('ProjectsUser.project_id = Project.id')) 
+            ) 
+            ));
+//        echo '<pre>';
+//        echo "For user ID: ".$this->Auth->user('id');
+//        echo "<br>";
+//        print_r(compact('projects'));
+//        echo '</pre>';
+//        die;
+        
         $this->set(compact('projects'));
+    }
+    
+    function getAllProjects() {
+        // return all projects
+        $projects = $this->User->Project->find('list');
+        $this->set('projects',$projects);
     }
     
     public function project($id = null) {
@@ -68,7 +93,7 @@ class UsersController extends AppController {
                 $this->Session->setFlash(__('The project could not be set.'));
             }
         }
-        $this->getProjects();
+        $this->getUsersProjects();
     }
     
     public function add() {
@@ -82,7 +107,7 @@ class UsersController extends AppController {
                 $this->Session->setFlash(__('The user could not be saved. Please, try again.'));
             }
         }
-        $this->getProjects();
+        $this->getAllProjects();
     }
     
     function password($id = null) {
@@ -118,7 +143,7 @@ class UsersController extends AppController {
                  //echo "pwd_current FAILED validation<br>";
             }
         } else {
-            $this->getProjects();
+            $this->getAllProjects();
             $this->request->data = $this->User->read(null, $id);
         }
     }
@@ -126,7 +151,7 @@ class UsersController extends AppController {
     public function permissions($id = null) {
         $this->User->id = $id;
         $this->getRoles();
-        $this->getProjects();
+        $this->getAllProjects();
         
         if (!$this->User->exists()) {
             throw new NotFoundException(__('Invalid user'));
@@ -262,6 +287,20 @@ class UsersController extends AppController {
             // for testing
             return true;
         }*/
+        
+        // these are the pages the user is allowed to access in this controller
+        $available_actions = array(
+            'logout',
+            'password',
+            'change_password',
+            'project'
+        );
+        
+        if (array_search($this->action, $available_actions)) {
+            return true;
+        }
+        
+        /*
         // allow users to logout, change their own password
         if ($this->action === 'logout' || $this->action === 'password') {
             // for testing
@@ -272,6 +311,8 @@ class UsersController extends AppController {
             // for testing
             return true;
         }
+        */
+        
         /*
         from the sample code:
         // The owner of a post can edit and delete it
