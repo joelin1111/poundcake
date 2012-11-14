@@ -85,8 +85,11 @@ class UsersController extends AppController {
                 // also save the selected project id the database -- which
                 // becomes the project the next time the user logs in
                 // see login in this controller
-                $this->User->id = $id;
-                $this->User->saveField('project_id',$project_id);
+                // $uid = CakeSession::read("Auth.User.id");
+                if (!is_null($id)) {
+                    $this->User->id = $id;
+                    $this->User->saveField('project_id',$project_id);
+                }
                 $this->Session->setFlash(__('The project has been set'));
                 $this->redirect(array('controller' => 'sites','action' => 'overview'));
             } else {

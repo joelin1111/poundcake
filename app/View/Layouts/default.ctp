@@ -173,12 +173,16 @@ $cakeDescription = __d('poundcake', 'Tower DB');
             echo "Current Project: ";
             echo $project_name != "" ? $project_name : "Unknown";
             echo " | ";
-            echo $this->Html->link(('Switch Project'), array('action' => 'project', 'controller' => 'users'));
+            echo $this->Html->link(('Switch Project'), array('action' => 'project', 'controller' => 'users', CakeSession::read("Auth.User.id")));
         ?><BR>
-            Copyright © <?php echo date("Y"); ?>. All Rights Reserved.<BR>
-        <?php
-            echo $this->Html->link(('Version History'), array('action' => 'index', 'controller' => 'changeLog'));
-        ?>
+            <?
+                $copyright = 'Copyright © 2012';
+                $current_year = date("Y");
+                if ($current_year > 2012)
+                    $copyright = 'Copyright © 2012-'.$current_year;
+                echo $copyright . ' All Rights Reserved.<BR>';
+                echo $this->Html->link(('Version History'), array('action' => 'index', 'controller' => 'changeLog'));
+            ?>
 
         </div> <!-- /footer -->
 <!--        Debugging info:-->
