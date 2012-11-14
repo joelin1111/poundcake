@@ -180,14 +180,18 @@ class UsersController extends AppController {
     
     public function edit($id = null) {
         $this->User->id = $id;
-        //$this->getRoles();
-        //$this->getProjects();
+        $this->User->read(null,$id);
+        $this->set('username',$this->User->field('username'));
+//        echo '<pre>';
+//        print_r($this->User->field('username'));
+//        echo '</pre>';
         
         if (!$this->User->exists()) {
             throw new NotFoundException(__('Invalid user'));
         }
+        
         if ($this->request->is('post') || $this->request->is('put')) {
-            if ($this->User->save($this->request->data)) {
+            if ( $this->User->saveField('password',$this->request->data['User']['password'] )) {
                 $this->Session->setFlash(__('The user has been saved.'));
                 $this->redirect(array('action' => 'index'));
             } else {
@@ -280,14 +284,7 @@ class UsersController extends AppController {
     
     public function isAuthorized($user) {
         // override isAuthorized in AppController by allowing specific functionality
-        // All registered users can add posts
-        // remember to comment this out!
-        /*
-        if ($this->action === 'add') {
-            // for testing
-            return true;
-        }*/
-        
+
         // these are the pages the user is allowed to access in this controller
         $available_actions = array(
             'logout',
@@ -299,30 +296,6 @@ class UsersController extends AppController {
         if (array_search($this->action, $available_actions)) {
             return true;
         }
-        
-        /*
-        // allow users to logout, change their own password
-        if ($this->action === 'logout' || $this->action === 'password') {
-            // for testing
-            return true;
-        }
-        
-        if ($this->action === 'logout' || $this->action === 'change_password') {
-            // for testing
-            return true;
-        }
-        */
-        
-        /*
-        from the sample code:
-        // The owner of a post can edit and delete it
-        if (in_array($this->action, array('edit', 'delete'))) {
-            $postId = $this->request->params['pass'][0];
-            if ($this->Post->isOwnedBy($postId, $user['id'])) {
-                return true;
-            }
-        }
-        */
         
         return parent::isAuthorized($user);
     }

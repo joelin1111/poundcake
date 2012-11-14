@@ -12,10 +12,9 @@
 
 <div class="span9">
     <?php echo $this->Form->create('User'); ?>
-    <h2>Edit User</h2>
+    <h2>Edit User: <?php echo $username ?></h2>
     <?php
         echo $this->Form->input('id');
-        echo $this->Form->input('username');
         echo $this->Form->input('password');
         /*
         echo $this->Form->input('User.role_id', array('type'=>'select','options' => $roles));

@@ -41,7 +41,7 @@ class EquipmentSpacesController extends AppController {
                 $this->Session->setFlash(__('The equipment space could not be saved. Please, try again.'));
             }
         } else {
-                $this->request->data = $this->EquipmentSpace->read(null, $id);
+            $this->request->data = $this->EquipmentSpace->read(null, $id);
         }
     }
 

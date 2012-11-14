@@ -1,8 +1,12 @@
 -- 2.1
 alter table users add project_id int(10);
 
-
-
+DROP TABLE IF EXISTS `organizations_projects`;
+CREATE TABLE `organizations_projects` (
+  `organization_id` int(10) NOT NULL,
+  `project_id` int(10) NOT NULL,
+  PRIMARY KEY (`organization_id`,`project_id`)
+);
 
 -- Old
 
