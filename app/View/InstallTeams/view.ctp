@@ -14,10 +14,12 @@
     
     <?php
     //echo '<pre>';
+    echo '<UL>';
     foreach ($installteam['Contact'] as $key => $value) {
         //print_r($installteam['Contact']);
-        echo $this->Html->link($installteam['Contact'][$key]['name_vf'], array('action' => 'view', 'controller' => 'contacts',$installteam['Contact'][$key]['id']));
+        echo '<LI>'.$this->Html->link($installteam['Contact'][$key]['name_vf'], array('action' => 'view', 'controller' => 'contacts',$installteam['Contact'][$key]['id'])).'</LI>';
     }
+    echo '</UL>';
     //echo '</pre>';  
 ?>
     
