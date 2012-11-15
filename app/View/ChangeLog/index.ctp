@@ -3,7 +3,7 @@
     <H3>Actions</H3>
     <div class="well well-large">
     <ul>
-        <li><?php echo $this->Html->link(__('New Change'), array('action' => 'add')); ?></li>
+        <li><?php echo $this->MyHtml->postLinkIfAllowed('New Change', array('action' => 'add')); ?></li>
     </ul>
     </div>
 </div><!-- /.span3 .sb-fixed -->
@@ -39,8 +39,8 @@
                 ?>
             </td>
             <td>
-            <?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $change['ChangeLog']['id'])); ?>
-            <?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $change['ChangeLog']['id']), null, __('Are you sure you want to delete change %s?', $change['ChangeLog']['version'])); ?>
+            <?php echo $this->MyHTML->linkIfAdmin('Edit', array('action' => 'edit', $change['ChangeLog']['id'])); ?>
+            <?php echo $this->MyHtml->linkIfAdmin('Delete', array('action' => 'delete', $change['ChangeLog']['id']), null, __('Are you sure you want to delete change %s?', $change['ChangeLog']['version'])); ?>
             </td>
 	</tr>
         <?php endforeach; ?>

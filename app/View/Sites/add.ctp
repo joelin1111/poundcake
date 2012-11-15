@@ -10,6 +10,8 @@
 ?>
 
 <div class="row">
+    <?php //echo $this->Html->addCrumb('Sites', '/sites'); ?>
+    <?php //echo $this->BreadcrumbFormatter->getTrail(array('add')); ?>
 <div class="span3">
     <H3>Actions</H3>
     <div class="well well-large">

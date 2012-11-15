@@ -10,8 +10,17 @@ class MyHTMLHelper extends AppHelper {
             return $title;
         }
     }
+    
+    function linkIfAdmin($title, $url) {
+        $role = $this->getRoleAlias();
+        if ($role === 'admin') {
+          return $this->Html->link($title, $url);
+        } else {
+            return $title;
+        }
+    }
 
-    // ok so this should prbably be in MyFormHelper
+    // ok so this should probably be in MyFormHelper
     function postLinkIfAllowed($title, $url = null, $options = array(), $confirmMessage = false) {
         $role = $this->getRoleAlias();
         if (($role === 'edit') || ($role === 'admin') ) {

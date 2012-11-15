@@ -96,8 +96,8 @@ $cakeDescription = __d('poundcake', 'Tower DB');
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </a>
-          <a class="brand" href="/">Tower DB 2.0</a>
-          <div class="nav-collapse">
+          <a class="brand" href="/">Tower DB <?php echo $this->Session->read('version');?></a>
+         <div class="nav-collapse">
             <ul class="nav pull-left">
             <?php
                 // may want to use:  $this->Session->read('User.id')));
@@ -152,21 +152,103 @@ $cakeDescription = __d('poundcake', 'Tower DB');
           </div><!--/.nav-collapse  -->          
         </div>
       </div>
+    
+        
     </div> <!--/.navbar -->
     <div align="center">
-    <?php 
+    <?php
+        // show banner, if any -- this would be set in AppController::beforeFilter
+        $banner = $this->Session->read('banner');
         if (isset($banner) && strlen($banner) > 0 ) {
             //echo '<div class="row">';
             //echo '<div class="span9" align="center">';
             echo '<div align="center">';
             echo '<span style="vertical-align:middle" class="label label-warning">';       
-            echo  $banner; 
+            echo  $banner;
             echo '</span></div><br>';
         }
     ?>
     </div>
     <div class="container">
-    	<?php echo $content_for_layout; ?>
+        <div align="center">
+        <!-- <a href="javascript:window.history.back()">Back</a> -->
+        <?php
+            /*
+            $startText = array(
+                'text' => 'Overview',
+                'url' => '/sites/overview'
+            );
+            echo $this->Html->getCrumbs(' » ',$startText);
+            */
+            
+            // $breadcrumbs = $this->Session->read('breadcrumbs');
+            $breadcrumbs = CakeSession::read('breadcrumbs');
+            if (!isset($breadcrumbs)) {
+                $breadcrumbs = array();
+            }
+//            echo '<pre>';
+//            print_r($breadcrumbs);
+//            echo '</pre>';
+            $controller = $this->name;
+            $view = $this->action;
+            $label = $controller.'/'.$view;
+            $url = $controller.'/'.$view;
+            $link = '';
+            
+            $params = '';
+            if (sizeof($this->params['pass']) > 0)
+                $params = $this->params['pass'][0];
+            /*
+            $length = sizeof($this->params['pass']) - 1;
+            $u = 0;
+            foreach ($this->params['pass'] as $param) {
+                //echo "Param " . $param ."<BR>";
+                $url .= '/'.$param;
+                if ($u <  $length ) 
+                    $url .= '/';
+                $u++;
+            }
+            */
+            
+//            echo '<pre>';
+//            echo $label;
+//            echo $url;
+//            echo '</pre>';
+            
+            $link = $this->Html->link(
+                $label,
+                array(
+                    'controller' => $controller,
+                    'action' => $view,
+                    $params
+                ));
+                    
+//            echo '<pre>';
+//            //print_r($this->params['pass']);
+//            echo "LABEL:  ".$label.'<br>';
+//            echo "URL:  ".$url.'<br>';
+//            //echo $length;
+//            echo '</pre>';
+            
+            //echo $link;
+            array_unshift($breadcrumbs, $link);
+            echo "History: ";
+            $i = 0;
+            $max = 7;
+            $breadcrumbs = array_slice($breadcrumbs, 0, $max);           
+            foreach ($breadcrumbs as $bc ) {
+                //echo '<LI>'.$bc.'</LI>';
+                echo $bc;
+                if ($i < $max -1 ) 
+                    echo " &raquo; ";
+                $i++;
+            }
+            echo "<HR>";
+            CakeSession::write('breadcrumbs', $breadcrumbs);            
+        ?>
+        </div>
+        <BR>
+        <?php echo $content_for_layout; ?>
         <div id="footer" align="center"><BR><BR><BR>
         <?php
             $project_name = $this->Session->read('project_name');

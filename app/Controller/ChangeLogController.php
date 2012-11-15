@@ -3,6 +3,10 @@ App::uses('AppController', 'Controller');
 
 class ChangeLogController extends AppController {
 
+    var $helpers = array(
+        'MyHTML',
+    );
+    
     public function index() {
         $this->ChangeLog->recursive = 0;
         $this->set('changeLogs', $this->paginate());

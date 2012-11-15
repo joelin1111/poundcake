@@ -29,6 +29,7 @@ class AppController extends Controller {
         'limit' => 20 // may be overridden in other controllers!
     );
     
+    
     // used for the login/ACL
     public $components = array(
         'Session',
@@ -105,7 +106,7 @@ class AppController extends Controller {
     
     // used for the login/ACL
     public function beforeFilter() {
-        //// tell the AuthComponent to not require a login for all index and
+        // tell the AuthComponent to not require a login for all index and
         // view actions, in every controller. We want our visitors to be able to
         // read and list the entries without registering in the site.
         //$this->Auth->allow('index', 'view', 'overview','overviewalt');
@@ -154,6 +155,24 @@ class AppController extends Controller {
     function beforeRender() {
         // In the views $user['User']['username'] would display the logged in users username
         $this->set('user', $this->Auth->user());
+        $banner = $this->Session->read('banner');
+        $version = $this->Session->read('version');
+        if ( !isset($banner) || !isset($version) ) {
+            //echo "setting version";
+            // I just need an object on which I can call query, ChangeLog seems OK?
+            // maybe this doesn't need to be done here
+            $query = "select message from notifications";
+            $this->loadModel('ChangeLog');
+            $result = $this->ChangeLog->query($query);
+            if (count($result) > 0 )
+                $this->Session->write('banner',$result[0]['notifications']['message']);
+
+            $query = "select max(version) as version from change_logs";
+            $result = $this->ChangeLog->query($query);
+            $this->Session->write('version',$result[0][0]['version']);
+        }
+        //echo "Banner is $banner";
+        //echo "Version is $version";
     }
     
     function search() {
@@ -163,7 +182,8 @@ class AppController extends Controller {
         // build a URL will all the search elements in it
         // the resulting URL will be 
         // example.com/cake/posts/index/Search.keywords:mykeyword/Search.tag_id:3
-        foreach ($this->data as $k=>$v){ 
+        foreach ($this->data as $k=>$v) {
+            //print_r($v);
             foreach ($v as $kk=>$vv){
                 //echo "<BR>VV is".print_r($vv);
                 // remove forward slashes -- site codes may have them!
