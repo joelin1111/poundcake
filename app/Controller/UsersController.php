@@ -71,6 +71,7 @@ class UsersController extends AppController {
 //            echo '</pre>';
 //            die;
             $project_id = $this->request->data['Project']['Project'];
+            
             $this->loadModel('Project',$project_id);
             $project = $this->Project->read();
             $this->Session->write('project_id', $project_id);
@@ -242,18 +243,23 @@ class UsersController extends AppController {
         */
         if ($this->request->is('post')) {
             if ($this->Auth->login()) {
-//                echo '<pre>';
-//                print_r($this->Auth->user('project_id'));
-//                echo '</pre>';
-//                die;
-                //$project = $this->User->Project->find('first');
                 // load the last project the user had viewed -- which was saved
                 // to the user table as project_id
                 $project = $this->User->Project->findById($this->Auth->user('project_id'));
+
+                // if there is no project_id (last viewed project), just give them their first assigned project
+                if ( $project == null ) {
+//                    echo "project is null";
+                    $uid = CakeSession::read("Auth.User.id");
+                    $this->loadModel('User',$uid);
+                    $user = $this->User->read();
+                    $project = $this->User->Project->find('first');
+                    //$this->User->saveField('project_id',$project['Project']['id']);
+                }
                 $project_id = $project['Project']['id'];
                 $project_name = $project['Project']['name'];
-                $this->loadModel('Project',$project_id);
-                $project = $this->Project->read();
+//                $this->loadModel('Project',$project_id);
+//                $project = $this->Project->read();
                 // save the project ID and name as session variables
                 // see also projects() in this controller
                 $this->Session->write('project_id', $project_id);
@@ -278,6 +284,7 @@ class UsersController extends AppController {
         // problem described here:
         // see:  http://stackoverflow.com/questions/8262720/cakephp-2-0-logout
         if($this->Auth->user()) {
+            $this->Session->delete('banner');
             $this->redirect($this->Auth->logout());
         } else {
             $this->redirect(array('controller'=>'pages','action' => 'display','home'));

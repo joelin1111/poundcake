@@ -155,6 +155,7 @@ class AppController extends Controller {
     function beforeRender() {
         // In the views $user['User']['username'] would display the logged in users username
         $this->set('user', $this->Auth->user());
+        
         $banner = $this->Session->read('banner');
         $version = $this->Session->read('version');
         if ( !isset($banner) || !isset($version) ) {
