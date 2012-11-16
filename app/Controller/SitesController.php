@@ -116,11 +116,22 @@ class SitesController extends AppController
         $allSiteStates = $this->Site->SiteState->find('all');
         $this->set('allSiteStates', $allSiteStates);
     }
-    
+    //getAllSitesForProject
     public function overview() {
+        /*
         // get all the sites for display on the map - ignore any without lat/lon
         // skip any that don't have coordinates in the db
-        $conditions = array ("NOT" => array ("Site.lat" => null));
+        $conditions = array (
+            "NOT" => array (
+                "Site.lat" => null
+                )
+            );
+        */
+        $conditions = array(
+            'AND' => array(
+                'Site.project_id' => $this->Session->read('project_id') // only show sites for the current project
+            )
+        );
         $sites = $this->Site->find('all', array('conditions' => $conditions));
         $this->set('sites', $sites);
         $this->getSiteStates();
@@ -363,7 +374,11 @@ class SitesController extends AppController
     }
     
     function getAllSites() {
-        $this->set('sites',$this->Site->find('list'));
+        // return sites for the currently selected/active project
+        $conditions = array (
+            'conditions' => array('Site.project_id' => $this->Session->read('project_id'))
+            );
+        $this->set('sites',$this->Site->find('list', $conditions));        
     }
     
     // return all the organizations the user may be assigned to
