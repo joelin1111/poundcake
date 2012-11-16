@@ -116,7 +116,7 @@ class SitesController extends AppController
         $allSiteStates = $this->Site->SiteState->find('all');
         $this->set('allSiteStates', $allSiteStates);
     }
-    //getAllSitesForProject
+    
     public function overview() {
         /*
         // get all the sites for display on the map - ignore any without lat/lon
@@ -225,6 +225,7 @@ class SitesController extends AppController
         if (!$this->Site->exists()) {
             throw new NotFoundException(__('Invalid site'));
         }
+        
         $this->set('site', $this->Site->read(null, $id));
         
         // don't go any further if the user is not in the same project as this site
@@ -233,7 +234,9 @@ class SitesController extends AppController
         }
         
         $this->getContacts($id);
-        $this->getAllSites($id);
+        //$this->getAllSites($id);
+        $this->getAllSitesForProject();
+        
         $this->getBuildItems();
         $site_code = $this->Site->data['Site']['site_code'];       
         $radios = $this->Site->NetworkRadios->findAllBySiteId($id);
@@ -256,8 +259,8 @@ class SitesController extends AppController
             $radios[$n] = $radio;
             $n++;
         }
-         $this->set('radios', $radios);
-        //$ip_addresses = $this->getAllIPAddresses($this->Site->field('site_code'));
+        $this->set('radios', $radios);
+        
         $ip_addresses = $this->getAllIPAddresses($site_code);
         $this->set(compact('ip_addresses'));
     }
@@ -275,8 +278,8 @@ class SitesController extends AppController
         $r_dist = $this->Site->getDistance($lat, $lon, $r_lat,$r_lon);
         
         $true_azimuth = $this->Site->getBearing($lat, $lon, $r_lat, $r_lon);
-        $declination = $this->Site->getDeclination($lat,$lon);
-        
+        $declination = $this->Site->getDeclination($lat,$lon);        
+        $mag_azimuth = 0;
         if ($true_azimuth > 0) {
             $mag_azimuth = $true_azimuth - $declination;
         }
@@ -373,6 +376,7 @@ class SitesController extends AppController
         );
     }
     
+    /*
     function getAllSites() {
         // return sites for the currently selected/active project
         $conditions = array (
@@ -380,6 +384,7 @@ class SitesController extends AppController
             );
         $this->set('sites',$this->Site->find('list', $conditions));        
     }
+    */
     
     // return all the organizations the user may be assigned to
     function getOrganizations() {
