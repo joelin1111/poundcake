@@ -64,6 +64,7 @@
                 echo strip_tags($bc);
                 // maybe it's just me but I could swear that divider has an
                 // extra space over active, so just pad it manually here
+                //echo '<span class="active">&nbsp;&nbsp;&raquo;&nbsp;&nbsp;</span>';
                 echo '<span class="active">&nbsp;&nbsp;&raquo;&nbsp;&nbsp;</span>';
             } else {
                 echo $bc;
