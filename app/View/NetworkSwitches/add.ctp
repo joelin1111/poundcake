@@ -16,6 +16,7 @@
         echo $this->Form->input('serial');
         echo $this->Form->input('switch_type_id', array('type'=>'select','options' => $switchtypes));
         //echo $this->Form->input('num_ports', array('type'=>'select','label'=>'Ports','options' => $num_ports));
+        echo $this->Form->input('site_id', array('type'=>'select','options' => $sites));
     ?>
     </fieldset>
     <?php echo $this->Form->end('Save'); ?>

@@ -1,6 +1,12 @@
 -- 2.1
 alter table users add project_id int(10);
 
+DROP TABLE IF EXISTS `notifications`;
+CREATE TABLE `notifications` (
+  `message` varchar(255),
+  PRIMARY KEY (`message`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
 DROP TABLE IF EXISTS `organizations_projects`;
 CREATE TABLE `organizations_projects` (
   `organization_id` int(10) NOT NULL,

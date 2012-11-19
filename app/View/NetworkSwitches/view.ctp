@@ -3,7 +3,9 @@
     <H3>Actions</H3>
     <div class="well well-large">
     <ul>
-        <li><?php echo $this->Html->link(__('List Switches'), array('action' => 'index')); ?>
+        <li><?php echo $this->MyHTML->linkIfAllowed('Edit Switch', array('action'=>'edit', $networkswitch['NetworkSwitch']['id']),1);?></li>
+        <li><?php echo $this->Html->link('List Switches', array('action' => 'index')); ?>
+            
     </ul>
     </div>
 </div><!-- /.span3 .sb-fixed -->
@@ -11,6 +13,7 @@
 <div class="span9">
     <h2>View Switch</h2>
     <P><B>Name:</B>&nbsp;<?php echo $networkswitch['NetworkSwitch']['name']; ?></P>
+    <P><B>Site:</B>&nbsp;<?php echo $networkswitch['Site']['site_name']; ?></P>
     <P><B>Serial No:</B>&nbsp;<?php echo $networkswitch['NetworkSwitch']['serial']; ?></P>
     <P><B>Switch Type:</B>&nbsp;<?php echo $networkswitch['SwitchType']['name']; ?></P>
     <P><B>Ports:</B>&nbsp;<?php echo $networkswitch['SwitchType']['ports']; ?></P>

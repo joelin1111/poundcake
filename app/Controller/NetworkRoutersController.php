@@ -57,10 +57,14 @@ class NetworkRoutersController extends AppController {
 
     public function add() {
         $this->getRouterTypes();
+        $this->getAllSitesForProject();
         
         if ($this->request->is('post')) {
             $this->NetworkRouter->create();
             if ($this->NetworkRouter->save($this->request->data)) {
+                $this->Site->id = $this->request->data['NetworkRouter']['site_id']; // weird to have to do this manually
+                $this->Site->saveField('network_router_id', $this->NetworkRouter->id);
+                
                 $this->Session->setFlash(__('The router has been saved'));
                 $this->redirect(array('action' => 'index'));
             } else {
@@ -71,6 +75,7 @@ class NetworkRoutersController extends AppController {
 
     public function edit($id = null) {
         $this->NetworkRouter->id = $id;
+        $this->getAllSitesForProject();
         $this->getRouterTypes();
         
         if (!$this->NetworkRouter->exists()) {
@@ -78,6 +83,9 @@ class NetworkRoutersController extends AppController {
         }
         if ($this->request->is('post') || $this->request->is('put')) {
                 if ($this->NetworkRouter->save($this->request->data)) {
+                    $this->Site->id = $this->request->data['NetworkRouter']['site_id']; // weird to have to do this manually
+                    $this->Site->saveField('network_router_id', $this->NetworkRouter->id);
+                
                     $this->Session->setFlash(__('The router has been saved'));
                     $this->redirect(array('action' => 'view',$this->NetworkRouter->id));
                 } else {

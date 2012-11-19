@@ -3,8 +3,8 @@
     <H3>Actions</H3>
     <div class="well well-large">
     <ul>
-        <li><?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $this->Form->value('NetworkRouter.id')), null, __('Are you sure you want to delete router %s?', $this->Form->value('NetworkRouter.name'))); ?></li>
         <li><?php echo $this->Html->link(__('List Routers'), array('action' => 'index')); ?></li>
+        <li><?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $this->Form->value('NetworkRouter.id')), null, __('Are you sure you want to delete router %s?', $this->Form->value('NetworkRouter.name'))); ?></li>        
     </ul>
     </div>
 </div><!-- /.span3 .sb-fixed -->
@@ -17,6 +17,7 @@
             echo $this->Form->input('name');
             echo $this->Form->input('serial');
             echo $this->Form->input('router_type_id', array('type'=>'select','options' => $routertypes));
+            echo $this->Form->input('site_id', array('type'=>'select','options' => $sites));
     ?>
     </fieldset>
     <?php echo $this->Form->end('Save'); ?>

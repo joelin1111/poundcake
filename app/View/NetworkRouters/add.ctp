@@ -15,6 +15,7 @@
         echo $this->Form->input('name');
         echo $this->Form->input('serial');
         echo $this->Form->input('router_type_id', array('type'=>'select','options' => $routertypes));
+        echo $this->Form->input('site_id', array('type'=>'select','options' => $sites));
     ?>
     </fieldset>
     <?php echo $this->Form->end('Save'); ?>

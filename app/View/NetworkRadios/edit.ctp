@@ -21,8 +21,16 @@
         echo $this->Form->create('NetworkRadio');
         echo $this->Form->input('id');
         echo $this->Form->input('name');
+        echo $this->Form->input('site_id', array('type'=>'select','options' => $sites,'empty' => false));
+        echo $this->Form->input('network_switch_id', array( 'value' => $network_switch_id, 'type' => 'hidden' ));
+        echo $this->Form->input('switch_port', array(
+            'label' => 'Switch/Port #',
+            'type' => 'select',
+            'options' => $networkswitches,
+            'empty' => false
+        ));
+        
         echo $this->Form->input('serial');
-        echo $this->Form->input('site_id');
         echo $this->Form->input('sector', array('label'=>'Sector Radio'));
         // if the radio is a sector then enable the azimuth field
         $disabled = true;
@@ -37,16 +45,20 @@
         echo $this->Form->input('min_height', array('label'=>'Min. Height (meters)'));
         echo $this->Form->input('frequency', array('type'=>'select','options' => $frequencies));
         echo $this->Form->input('ssid', array('label'=>'SSID'));
-        echo $this->Form->input('network_switch_id', array('type'=>'select','options' => $networkswitches,'empty' => true));
-        echo $this->Form->input('switch_port', array('type'=>'select','options' => $switchports));
-        echo $this->Form->hidden('link_id');
+       
+        
+        //echo $this->Form->input('switch_port', array('type'=>'select','options' => $switchports,'empty' => true));
+        
+        //echo $this->Form->input('switch_port', array('type'=>'select','options' => $switchports,'empty' => true));
+        //echo $this->Form->hidden('link_id');
     ?>
     </fieldset>
-    <?php echo $this->Form->end(__('Save')); ?>
+    <?php echo $this->Form->end('Save'); ?>
 </div> <!-- /.span9 -->
 </div> <!-- /.row -->
 
 <?php
-    // include the JQuery to handle updating the list of available ports for the selected switch
-    echo $this->element('Common/switch_change');
+    // include the JQuery to handle updating the list of available
+    // switches for the selected site
+    echo $this->element('Common/site_change');
 ?>

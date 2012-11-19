@@ -66,7 +66,6 @@ class NetworkRadiosController extends AppController {
 //        echo '</pre>';
 //        die;
         
-        //$this->set('link_name',$this->getLinkName($this->NetworkRadio->field('link_id')));
         $this->set('networkradio', $this->NetworkRadio->read(null, $id));
         $ip_addresses = $this->getAllIPAddresses($this->NetworkRadio->field('name'));
         $this->set(compact('ip_addresses'));
@@ -120,17 +119,6 @@ class NetworkRadiosController extends AppController {
 //        $this->set('mag_azimuth', $mag_azimuth);
     }
 
-    // return all the sites to allow the radio to be assigned to
-    function getSites() {
-        $this->set('sites',$this->NetworkRadio->Site->find('list',
-            array(
-                'order' => array(
-                    'Site.site_code',
-                    'Site.site_name ASC'
-            )))
-        );
-    }
-    
     function getRadioTypes() {
         $this->set('radiotypes',$this->NetworkRadio->RadioType->find('list',
             array(
@@ -158,82 +146,65 @@ class NetworkRadiosController extends AppController {
         );
     }
     
-    function getNetworkSwitches() {
+    function getNetworkSwitch($id) {
+        // this function is only called when the add/edit page is first loaded
+        // NetworkRadios should not be created without a corresponding Site
+        // and thus the Site select is set to not allow empty values
+        
+        /*
+        previously we were just returning all switches in the database, e.g.
+        
         $this->set('networkswitches',$this->NetworkRadio->NetworkSwitch->find('list',
             array(
                 'order' => array(
                     'NetworkSwitch.name ASC'
             )))
         );
-    }
-    
-    function getNumPorts() {
-        return $this->NetworkRadio->NetworkSwitch->SwitchType->field('ports');
-    }
-    
-    function getNetworkSwitchPorts() {
-        // this function is only called when the add/edit page is first loaded
-        // we want to set the number of available ports on the switch equal
-        // to the number of ports on the switch's SwitchType
+        */
         
-        // anytime a user changes the switch, the select (the listing of ports
-        // for the SwitchType) is updated via AJAX -- see NetworkSwitchesController
-        // getPortsBySwitchType
+        // this is basically now a diplicate of getSwitchForSite in NetworkSwitchesController
+        // should probably move this to a model function on NetworkSwitch?
         
-        // and really, I'm dying today -- my brain is not working
-        // this is hideous, but seems functional
+        $this->loadModel('Site', $id);
+        $this->Site->id = $id;
+                
+        // now get the NetworkSwitch on that site
+        // $network_switch_id = $this->Site->field('network_switch_id');
+        $this->loadModel('NetworkSwitch', $this->Site->field('network_switch_id'));
+        $this->NetworkSwitch->id = $this->Site->field('network_switch_id');
         
-        
-        $id = $this->NetworkRadio->id;
-        $switchports = '';
-        // if there is a switch associated with this radio (this would only happen
-        // on edit), get the number of ports associated with that switch
-        if (isset($id)) {
-            //echo '<pre>';
-            $network_switch_id = $this->NetworkRadio->field('network_switch_id');
-            //echo "Network Switch ID ".$network_switch_id;
-            
-            //$this->NetworkRadio->NetworkSwitch->recursive = 2; // set recursive to 2 to get the data related to Contacts
-            $switch_data = $this->NetworkRadio->NetworkSwitch->find('all', array('conditions' => array('NetworkSwitch.id' => $network_switch_id)));
-            //print_r($switch_data);
-            if (count($switch_data) > 0) {
-                $ports = $switch_data[0]['SwitchType']['ports'];
-                //echo "NetworkRadio ID ".$id."<BR>";
-                //echo "NetworkSwitch ID ".$network_switch_id."<BR>";
-                //echo "Ports ".$ports;
-                //echo '</pre>';
+        $networkswitches = array();        
+        if ( $this->NetworkSwitch->field('name') != null ) { 
+            // now load the SwitchType
+            $this->loadModel('SwitchType', $this->NetworkSwitch->field('switch_type_id'));
+            $this->SwitchType->id = $this->NetworkSwitch->field('switch_type_id');
 
-                //$this->request->data = $this->NetworkRadio->NetworkSwitch->read(null, $network_switch_id);
-                //$ports = $this->request->data['SwitchType']['ports'];
-                //print_r($this->request->data );
-
-                // SEE ALSO NetworkSwitchesController getPortsBySwitchType
-                if (isset($ports)) {
-                    for ($i = 1; $i <= $ports; $i++) {
-                        $switchports[$i] = 'Port #'.$i;
-                    }
-                }
+            $ports = $this->SwitchType->field('ports');
+            // switches are labeled 1 to N
+            for ($i = 1; $i <= $ports; $i++) {
+                //$switchports[$i] = $i . " switch id: ".$switch_id ." ports ".$ports."";
+                $networkswitches[$i] = $this->NetworkSwitch->field('name') . ' #'.$i;
+                //$networkswitches[$i] = 'Port '.$i;
             }
+        } else {
+            $networkswitches[0] = $this->Site->field('site_name').' has no switch';
         }
-        $this->set('switchports',$switchports);
+        
+        $this->set('network_switch_id',$this->NetworkSwitch->id);
+        $this->set('networkswitches',$networkswitches);        
     }
     
     public function add() {
-        $this->getSites();
         $this->getRadioTypes();
         $this->getAntennaTypes();
         $this->getRadioModes();
         $this->getFrequencies(); // for the frequency dropdown
+        $first_site = $this->getAllSitesForProject();
+        $this->getNetworkSwitch($first_site);
         
         if ($this->request->is('post')) {
-
-            $this->NetworkRadio->create();
-            
+            $this->NetworkRadio->create();            
             $this->request->data = $this->setMagAzimuth($this->request->data);
-//            echo '<pre>';
-//            echo 'Request:<BR>';
-//            print_r($this->request->data);
-//            echo '</pre>';
             if ($this->NetworkRadio->save($this->request->data)) {
                 $this->Session->setFlash(__('The radio has been saved'));
                 $this->redirect(array('action' => 'index'));
@@ -241,22 +212,21 @@ class NetworkRadiosController extends AppController {
                 $this->Session->setFlash(__('The radio could not be saved. Please, try again.'));
             }
         }
-        
-        $this->getNetworkSwitches();
-        $this->getNetworkSwitchPorts();
     }
 
     public function edit($id = null) {
         $this->NetworkRadio->id = $id;
-        $this->getSites();
         $this->getRadioTypes();
         $this->getAntennaTypes();
         $this->getRadioModes();
         $this->getFrequencies(); // for the frequency dropdown
+        $this->getAllSitesForProject();
+        $this->getNetworkSwitch($this->NetworkRadio->field('site_id'));
         
         if (!$this->NetworkRadio->exists()) {
             throw new NotFoundException(__('Invalid radio'));
         }
+        
         if ($this->request->is('post') || $this->request->is('put')) {
             $data = $this->request->data;
             $this->request->data = $this->setMagAzimuth($this->request->data);
@@ -270,8 +240,6 @@ class NetworkRadiosController extends AppController {
         } else {
             $this->request->data = $this->NetworkRadio->read(null, $id);
         }
-        $this->getNetworkSwitches();
-        $this->getNetworkSwitchPorts();
     }
     
     public function setMagAzimuth($data) {
@@ -312,25 +280,6 @@ class NetworkRadiosController extends AppController {
         }
         $this->set('frequencies',$frequencies);
     }
-    
-    /*
-    // return the logical name of a linked radio
-    function getLinkName($id) {
-        $link_name = '';
-        if ($id > 0) {
-            $link_name = $this->NetworkRadio->read('name', $id);
-            
-            $link_name = $link_name['NetworkRadio']['name'];
-//            echo '<pre>';
-//            echo 'ID of link '.$id;
-//            //echo "Linked to: " . $link_radio['NetworkRadio']['name'];
-//            //echo "Link name: ".print_r($link_name);
-//            echo "Link name: ".$link_name;
-//            echo '</pre>';
-        }
-        return $link_name;
-    }
-    */
     
     public function isAuthorized($user) {
         // everyone can see the list and view individual Contacts

@@ -104,6 +104,20 @@ class AppController extends Controller {
         $this->set(compact('organizations'));
     }
     
+    function getAllSitesForProject() {
+        // set sites to the list of sites the currently selected/active project
+        // also returns the ID for the first site in that list
+        $conditions = array (
+            'conditions' => array('Site.project_id' => $this->Session->read('project_id'))
+            );
+        $this->loadModel('Site');
+        // list or findByProjectId?  Hmm...
+        //$this->set('sites', $this->Site->find('list', $conditions));
+        $sites = $this->Site->find('list', $conditions);
+        $this->set( 'sites', $sites );
+        return key($sites); // return the ID of the first site        
+    }
+    
     // used for the login/ACL
     public function beforeFilter() {
         // tell the AuthComponent to not require a login for all index and
