@@ -31,7 +31,7 @@
                 <th><?php echo $this->Paginator->sort('name'); ?></th>
                 <th><?php echo $this->Paginator->sort('site_id'); ?></th>
                 <th><?php echo $this->Paginator->sort('radio_type_id'); ?></th>
-                <th><?php echo __('Actions'); ?></th>
+                <th><?php echo 'Actions'; ?></th>
             </tr>
         </thead>
         <tbody>

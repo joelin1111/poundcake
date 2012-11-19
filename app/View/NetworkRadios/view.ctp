@@ -9,7 +9,7 @@
     <H3>Actions</H3>
     <div class="well well-large">
     <ul>
-        <li><?php echo $this->MyHTML->linkIfAllowed(__('Edit Radio'), array('action' => 'edit', $networkradio['NetworkRadio']['id']))?></li>
+        <li><?php echo $this->MyHTML->linkIfAllowed('Edit Radio', array('action'=>'edit', $networkradio['NetworkRadio']['id']),1);?></li>
         <li><?php echo $this->Html->link(__('List Radios'), array('action' => 'index')); ?></li>
         <li><?php echo $this->MyHTML->postLinkIfAllowed(__('Delete'), array('action' => 'delete', $networkradio['NetworkRadio']['id']), null, __('Are you sure you want to delete radio %s?', $networkradio['NetworkRadio']['name'])); ?></li>
     </ul>
@@ -35,7 +35,7 @@
     ?></P>    
     <?php
         // if this is a sector radio, show the true/mag azimuth values from the database
-        if ($networkradio['NetworkRadio']['sector'] > 0) {
+        if ( $sector ) {
             echo '<P><B>True Azimuth:</B>&nbsp;';
             echo sprintf("%01.2f",$networkradio['NetworkRadio']['true_azimuth']).'°';
             echo '</P>';

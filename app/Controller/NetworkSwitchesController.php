@@ -40,7 +40,7 @@ class NetworkSwitchesController extends AppController {
     */
     
     public function index() {
-        // begin search stuff (note: this is not currently used)
+        // begin search stuff
         $name_arg = "";
         if (isset($this->passedArgs['NetworkSwitch.name'])) {
             $name_arg = str_replace('*','%',$this->passedArgs['NetworkSwitch.name']);
@@ -69,6 +69,7 @@ class NetworkSwitchesController extends AppController {
                     'NetworkSwitch.name' => 'asc',
                 ),
             ));
+        
         $this->NetworkSwitch->recursive = 1;
         $data = $this->paginate('NetworkSwitch');
         $this->set('networkswitches',$data);
@@ -77,7 +78,7 @@ class NetworkSwitchesController extends AppController {
     public function view($id = null) {
         $this->NetworkSwitch->id = $id;
         if (!$this->NetworkSwitch->exists()) {
-                throw new NotFoundException(__('Invalid switch'));
+            throw new NotFoundException('Invalid switch');
         }
         $this->set('networkswitch', $this->NetworkSwitch->read(null, $id));
     }

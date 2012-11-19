@@ -13,10 +13,10 @@ class NetworkRoutersController extends AppController {
     );
     
     public function index() {
-        // begin search stuff (note: this is not currently used)
+        // begin search stuff\
         $name_arg = "";
-        if (isset($this->passedArgs['NetworkSwitch.name'])) {
-            $name_arg = str_replace('*','%',$this->passedArgs['NetworkSwitch.name']);
+        if (isset($this->passedArgs['NetworkRouter.name'])) {
+            $name_arg = str_replace('*','%',$this->passedArgs['NetworkRouter.name']);
         }
         
         // if no argument was passed, default to a wildcard

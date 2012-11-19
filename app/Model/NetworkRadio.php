@@ -145,4 +145,10 @@ class NetworkRadio extends AppModel {
         return $queryData;
     }
     */
+    
+//    public function afterFind($results, $primary = false) {
+//        echo '<pre>';
+//        print_r($results);
+//        echo '</pre>';
+//    }
 }

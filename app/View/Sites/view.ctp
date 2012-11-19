@@ -262,6 +262,14 @@
             */
         ?>
     </P>
+    
+    <?php
+        // maybe time format should also be set in the Site properties
+        // we already got the date format (above) so just tack on the time
+        $format .= " - g:m A"
+    ?>
+    <P><B>Last Modified:</B>&nbsp; <?php echo date($format, strtotime( $site['Site']['modified'] )); ?>    
+    </P>
             
     </div> <!-- /.span9 -->
 </div> <!-- /.row -->
@@ -330,8 +338,8 @@
         }
         
     }
+    
 ?>
-
 
 <?php
     //$this->Js->get('#SiteSites')->event('change', $this->Js->alert('Compute Distance To Selected Site'));    

@@ -5,7 +5,6 @@
     <ul>
         <li><?php echo $this->MyHTML->linkIfAllowed('Edit Switch', array('action'=>'edit', $networkswitch['NetworkSwitch']['id']),1);?></li>
         <li><?php echo $this->Html->link('List Switches', array('action' => 'index')); ?>
-            
     </ul>
     </div>
 </div><!-- /.span3 .sb-fixed -->
@@ -22,13 +21,24 @@
     
     <P><B>Attached Radios:</B>&nbsp;
     <?php
-//        echo '<pre>';
-//        print_r($networkswitch);
-//        echo '</pre>';
-//        
         if (!isset($networkswitch['NetworkRadio'])) {
             echo "None";
         } else {
+        
+            // the array of attached radios doesn't come out sorted by port, by default
+            // it would come out in the order they were attached to the switch
+            // so re-order the array to make it look more logical
+
+//            echo '<pre>';
+//            print_r($networkswitch['NetworkRadio'] );
+//            
+//            foreach ( $networkswitch['NetworkRadio'] as $key => $value ) {
+//                print_r($value);
+//            }
+//            
+//            echo '</pre>';
+//            die;
+            
             echo "<UL>";
             foreach ($networkswitch['NetworkRadio'] as $radio) {
                 //print_r($radio);

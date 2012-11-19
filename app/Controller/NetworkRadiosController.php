@@ -50,6 +50,11 @@ class NetworkRadiosController extends AppController {
             ));
         $this->NetworkRadio->recursive = 1;
         $data = $this->paginate('NetworkRadio');
+        
+//        echo "<pre>";
+//        print_r($data);
+//        echo "</pre>";
+//        die;
         $this->set('networkradios',$data);
     }
 
@@ -70,12 +75,17 @@ class NetworkRadiosController extends AppController {
         $ip_addresses = $this->getAllIPAddresses($this->NetworkRadio->field('name'));
         $this->set(compact('ip_addresses'));
         
+        
         if ( $this->NetworkRadio->field('sector') > 0 ) {
+            // Cake and MySQL tinyint don't seem accessible from the view, even
+            // when cast to (bool) or (int) -- so set a flag here that this is
+            // a sector radio
+            $sector = true;
             $link_distance = 0;
             $true_azimuth = $this->NetworkRadio->field('true_azimuth');
             $mag_azimuth = $this->NetworkRadio->field('mag_azimuth');
         } else {
-            
+            $sector = false;
             $u = 0;
             $declination = $this->NetworkRadio->Site->field('declination');
             foreach ($links as $link) {
@@ -114,6 +124,7 @@ class NetworkRadiosController extends AppController {
             }
         }
         $this->set('links', $links);
+        $this->set('sector',$sector);
 //        $this->set('link_distance',$link_distance);
 //        $this->set('true_azimuth',$true_azimuth);
 //        $this->set('mag_azimuth', $mag_azimuth);

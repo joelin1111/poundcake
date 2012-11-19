@@ -5,8 +5,15 @@ class NetworkSwitch extends AppModel {
 
     public $displayField = 'name';
     
+    /*
     public $hasMany = array(
         'NetworkRadio'
+    );
+    */
+    
+    // return attached radios sorted by the switch port there's connected to
+    public $hasMany = array(
+        'NetworkRadio' => array('order' => 'NetworkRadio.switch_port')
     );
     
     var $belongsTo = array(
