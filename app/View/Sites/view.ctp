@@ -189,6 +189,7 @@
         } else {
             echo "<table class=\"table table-condensed table-striped\">";
             echo "<th>Radio</th>";
+            echo "<th>Switch Port</th>";
             echo "<th>Frequency</th>";
             echo "<th>SSID</th>";
             foreach ($site['NetworkRadios'] as $radio) {
@@ -197,6 +198,14 @@
                     'controller' => 'networkRadios',
                     'action' => 'view',
                     $radio['id']));
+                echo "</td>";
+                
+                echo '<td>';
+                if (!empty($radio['switch_port'])) {
+                     echo $radio['switch_port'];
+                } else {
+                    echo "-";
+                }
                 echo "</td>";
                 
                 echo "<td>";

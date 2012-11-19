@@ -566,7 +566,8 @@ class SitesController extends AppController
         $towercontacts = $this->Site->Organization->Contact->find('all',array('conditions' => $conditions));        
         $router = $this->Site->NetworkRouter->findByRouterTypeId($sites['NetworkRouter']['router_type_id']);
         $switch = $this->Site->NetworkSwitch->findBySwitchTypeId($sites['NetworkSwitch']['switch_type_id']);
-        $radios = $this->Site->NetworkRadios->findAllBySiteId($id);
+        
+        $radios = $this->Site->NetworkRadios->findAllBySiteId($id,array(),array('NetworkRadios.switch_port' => 'ASC'));
         
         // this seems kind of crazy -- and it is -- but since I'm not saving the link distance or bearing on the
         // NetworkRadio object (they are computed at view time), and really I can't do that since

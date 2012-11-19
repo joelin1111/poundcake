@@ -23,7 +23,8 @@ class Site extends AppModel {
     public $hasMany = array(
         'NetworkRadios' => array(
             'className' => 'NetworkRadio',
-            'foreignKey' => 'site_id'
+            'foreignKey' => 'site_id',
+            'order' => 'switch_port'
         )
     );
     
