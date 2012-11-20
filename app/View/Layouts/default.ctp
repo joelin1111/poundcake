@@ -96,7 +96,7 @@ $cakeDescription = __d('poundcake', 'Tower DB');
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </a>
-          <a class="brand" href="/">Tower DB <?php echo $this->Session->read('version');?></a>
+          <a class="brand" href="/sites/overview">Tower DB <?php echo $this->Session->read('version');?></a>
          <div class="nav-collapse">
             <ul class="nav pull-left">
             <?php
@@ -198,7 +198,7 @@ $cakeDescription = __d('poundcake', 'Tower DB');
                 echo $this->Html->link(('Version History'), array('action' => 'index', 'controller' => 'changeLog'));
             ?>
 
-        </div> <!-- /footer -->
+        
 <!--        Debugging info:-->
     <?php //echo $this->element('sql_dump'); ?>
 
@@ -208,6 +208,22 @@ $cakeDescription = __d('poundcake', 'Tower DB');
     //if (class_exists('JsHelper') && method_exists($this->Js, 'writeBuffer')) echo $this->Js->writeBuffer();
     // Writes cached scripts
     ?>
-    </div> <!-- /.container --> 
+    
+    
+   <?php
+       $host = gethostname();
+        if ($host == 'Catapult-Clarks-MacBook.local') {
+        ?>
+        <BR>
+        <div style="background-color: orange; border: 1px solid black; width: 100%; height:5em;">            
+            <div style="height:3em;padding:1em 0 1em 0">
+                Development version - (<?php echo $host ?>
+            </div>
+        </div>
+    <?php
+        }
+    ?>
+    </div> <!-- /footer -->
+    </div> <!-- /.container -->
 </body>
 </html>
