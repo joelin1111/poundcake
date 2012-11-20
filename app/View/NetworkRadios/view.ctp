@@ -52,12 +52,12 @@
     <P><B>Min. Height (meters):</B>&nbsp;<?php echo $networkradio['NetworkRadio']['min_height']; ?></P>
     <P><B>Frequency:</B>&nbsp;
         <?php echo $networkradio['NetworkRadio']['frequency'];
-        if ($networkradio['NetworkRadio']['sector'] = 0)
+        if ( $sector )
             echo '<BR><I>Frequency for '.$links[0]['network_radios']['name'].': '.$links[0]['network_radios']['frequency'] . '</I>';
         ?></P>
     <P><B>SSID:</B>&nbsp;
         <?php echo $networkradio['NetworkRadio']['ssid'];
-        if ($networkradio['NetworkRadio']['sector'] = 0)
+        if ( $sector )
             echo '<BR><I>SSID for '.$links[0]['network_radios']['name'].': '.$links[0]['network_radios']['ssid'] . '</I>';
         ?></P>
     <P><B>Switch:</B>&nbsp;<?php echo $networkradio['NetworkSwitch']['name']; ?></P>
@@ -67,6 +67,7 @@
 //    print_r($networkradio);
 //    echo '</pre>';
     ?>
+    
     <P><B>Link Information:</B>&nbsp;
         <?php foreach ($links as $link) { ?>
         <table class="table table-condensed table-striped">
@@ -88,13 +89,28 @@
                     ?>
                 </td>
                 <td>
-                    <?php echo sprintf("%01.2f",$link['network_radios']['link_distance']) .' Km'; ?>
+                    <?php
+                    if ($sector)
+                        echo "N/A";
+                    else
+                        echo sprintf("%01.2f",$link['network_radios']['link_distance']) .' Km';
+                    ?>
                 </td>
                 <td>
-                    <?php echo sprintf("%01.2f",$link['network_radios']['true_azimuth']) . '° to ' . $link['network_radios']['name']; ?>
+                    <?php
+                    if ($sector)
+                        echo "N/A";
+                    else
+                        echo sprintf("%01.2f",$link['network_radios']['true_azimuth']) . '° to ' . $link['network_radios']['name'];
+                    ?>
                 </td>
                 <td>
-                   <?php echo sprintf("%01.2f",$link['network_radios']['mag_azimuth']) . '° to ' . $link['network_radios']['name']; ?>
+                   <?php
+                   if ($sector)
+                        echo "N/A";
+                    else
+                        echo sprintf("%01.2f",$link['network_radios']['mag_azimuth']) . '° to ' . $link['network_radios']['name'];
+                    ?>
                 </td>
             </tr>
         </table>

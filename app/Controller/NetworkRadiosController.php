@@ -84,6 +84,7 @@ class NetworkRadiosController extends AppController {
             $link_distance = 0;
             $true_azimuth = $this->NetworkRadio->field('true_azimuth');
             $mag_azimuth = $this->NetworkRadio->field('mag_azimuth');
+            
         } else {
             $sector = false;
             $u = 0;
@@ -95,6 +96,7 @@ class NetworkRadiosController extends AppController {
                 
                 $id = $this->NetworkRadio->field('id');
                 $link_id = $link['radios_radios']['dest_radio_id'];
+                
                 $link['network_radios']['link_distance'] = $this->NetworkRadio->getLinkDistance($id, $link_id);
                 
                 $true_azimuth = $this->NetworkRadio->getRadioBearing($id, $link_id);
@@ -125,9 +127,6 @@ class NetworkRadiosController extends AppController {
         }
         $this->set('links', $links);
         $this->set('sector',$sector);
-//        $this->set('link_distance',$link_distance);
-//        $this->set('true_azimuth',$true_azimuth);
-//        $this->set('mag_azimuth', $mag_azimuth);
     }
 
     function getRadioTypes() {
