@@ -16,7 +16,6 @@
 ?>
 
 <div class="row">
-    <?php echo $this->Html->addCrumb('Sites', '/sites'); ?>
 <div class="span3">
     <H3>Actions</H3>
     <div class="well well-large">

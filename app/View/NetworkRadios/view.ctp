@@ -77,6 +77,7 @@
                 <th>Distance</th>
                 <th>True Azimuth</td>
                 <th>Magnetic Azimuth</td>
+                <th>Actions</td>
             </tr>
             <tr>
                 <td>
@@ -111,6 +112,15 @@
                     else
                         echo sprintf("%01.2f",$link['network_radios']['mag_azimuth']) . '° to ' . $link['network_radios']['name'];
                     ?>
+                </td>
+                <td>
+                    <?php echo $this->MyHTML->postLinkIfAllowed('Push Config', array(
+                        'action' => 'push_config',
+                        $link['radios_radios']['dest_radio_id']),
+                            null,
+                            'Push configs from '.$networkradio['NetworkRadio']['name'].' to '.$link['network_radios']['name'].'?  This will overwrite '.$link['network_radios']['name'].'.');
+                    ?>
+                    
                 </td>
             </tr>
         </table>
