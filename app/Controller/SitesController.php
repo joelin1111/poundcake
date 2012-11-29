@@ -142,6 +142,99 @@ class SitesController extends AppController
         $this->set('default_lon', $project['Project']['default_lon']);
     }
     
+    public function import() {
+        if (is_uploaded_file( $this->request->data['Site']['File']['tmp_name'] )) {
+            $fileData = fread(fopen($this->request->data['Site']['File']['tmp_name'], "r"), $this->request->data['Site']['File']['size']);
+                     
+            $filename = $this->request->data['Site']['File']['tmp_name'];
+            $finfo = finfo_open(FILEINFO_MIME_TYPE);
+            $mime = finfo_file($finfo, $filename);
+            
+//            echo '<pre>';            
+//            print_r( $this->request->data['Site']['File']['tmp_name']  . '<br>' );
+//            print_r( '-'.$mime . '-<br>' );
+//            echo '</pre>';
+            
+            // .kmz files are MIME type application/zip
+            if ( $mime == 'application/xml' ) {
+                echo "Reading XML file<BR>";
+                $xml = simplexml_load_file( $filename );
+                $this->parseKML( $xml->Document->Folder->children() );
+            }
+        }
+    }
+    
+    function parseKML( $xml ) {
+        // recursively step through the KML XML syntax looking for Placemarks
+        //echo '<pre>';
+        if ($xml != null ) {
+            if ( $xml->Folder != null ) {
+                $count = $xml->Folder->count();
+                if ( $count == 0 ) {
+                    //echo "look into placemarks<br>";
+                    $children = $xml->children();
+                    foreach ( $children as $child ) {
+                        //print_r($child);
+                        if ( $child->Point->coordinates ) {
+                            //print_r( $child );
+                            $coords = explode(",", $child->Point->coordinates);
+                            //print_r($coords);
+                            $site = $child->name;
+                            $lat = $coords[0];
+                            $lon = $coords[1];
+                            echo "$site is at $lat and $lon<br>";
+                        }
+                    }
+                }
+                //echo "Has $count subfolders!";
+                $i = 0;
+                while ( $i < $count ) {
+                    //print_r( $xml->Folder[$i] );
+                    $this->parseKML( $xml->Folder[$i] );
+                    $i++;
+                }
+            }
+        }
+        //echo '</pre>';
+        return;
+    }
+    
+    /*
+    function parseXML($node, &$parent=array(), $only_child=true) {         
+
+        //Current node name
+        $node_name = $node->getName();
+          
+        //Let's count children
+        $only_child = true;
+        if($node->count() > 1 ) $only_child = false;
+
+        //If there is no child, then there may be text data
+        if($only_child){
+            $content="$node";            
+            if (strlen($content)>0) $parent['content']=$content;
+        }
+        
+        //Get attributes of current node
+        foreach ($node->attributes() as $k=>$v) {
+            $parent['@attributes'][$k]="$v";
+        }
+       
+        //Get children
+        $count = 0;
+        foreach ($node->children() as $child_name=>$child_node) {
+            if(!$only_child) //If there are siblings then we'll add node to the end of the array
+                $this->parseXML($child_node, $parent[$node_name][$child_name][$count], $only_child);
+            else 
+                $this-ParseXML($child_node, $parent[$node_name][$child_name], $only_child);
+            $count++;
+        }
+        
+        return $parent;   
+    }
+    */
+    
+    
     function getContacts($id = null) {
         // sometimes I think my head is going to explode - I had a hard time finding
         // contacts for this site's tower owner, this is the model setup:
