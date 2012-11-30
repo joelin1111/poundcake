@@ -685,7 +685,6 @@ class SitesController extends AppController
         $this->getRadioTypes();
         $this->getAntennaTypes();
         $this->getInstallTeams();
-        //$this->getUserProjects();
         
         if (!$this->Site->exists()) {
             throw new NotFoundException(__('Invalid site'));
@@ -745,13 +744,13 @@ class SitesController extends AppController
 
 
             } else {
-                $this->Session->setFlash(__('The site could not be saved. [Error 002]'));
+                $this->Session->setFlash(__('The site could not be saved.'));
             }
         } else {
             // show edit page
             $this->request->data = $this->Site->read(null, $id);
             
-            // don't go any further if the user is not in the same 146 as this site
+            // don't go any further if the user is not in the same project as this site
             if (!$this->isAllowed($this->Site->data['Site']['project_id'], $this->Auth->user('id')) ) {
                 $this->redirect(array('action' => 'index'));
             }

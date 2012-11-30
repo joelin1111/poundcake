@@ -10,13 +10,13 @@
     <div class="well well-large">
     <ul>
         <li><?php echo $this->MyHTML->linkIfAllowed(__('New Site'), array('action' => 'add')); ?></li>
-        <li><?php echo $this->MyHTML->linkIfAllowed(__('Import Sites'), array('action' => 'import')); ?></li>
+        <li><?php echo $this->MyHTML->linkIfAllowed(__('KML Import'), array('action' => 'import')); ?></li>
         <li><?php
             // make the KML link that appears in the URL bar a little prettier by removing: whitespace, (, )
             // this is basiclly duplicated in SitesController::export
             $project_name = preg_replace('/\s+/', '', $this->Session->read('project_name'));
             $project_name = preg_replace('/(\(|\))/', '', $project_name);
-            echo $this->MyHTML->linkIfAllowed('Export All Sites', array('action'=>'export', 'ext'=>'kml', $project_name));
+            echo $this->MyHTML->linkIfAllowed('KML Export', array('action'=>'export', 'ext'=>'kml', $project_name));
             ?>
         </li>
     </ul>

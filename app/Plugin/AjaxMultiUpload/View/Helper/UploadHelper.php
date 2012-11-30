@@ -55,6 +55,7 @@ class UploadHelper extends AppHelper {
 	}
 
 	public function edit ($model, $id) {
+                //echo "here!"; die;
 		require_once (ROOT . DS . APP_DIR . "/Plugin/AjaxMultiUpload/Config/bootstrap.php");
 		$dir = Configure::read('AMU.directory');
 		if (strlen($dir) < 1) $dir = "files";

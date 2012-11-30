@@ -34,6 +34,9 @@ class UsersController extends AppController {
     function getUsersProjects() {
         // return an array of projects this user is assigned to
         
+        // this really would be more useful to take a user id as a parameter
+        // and return an array of projects
+        
         //$projects = $this->User->Project->find('list');
         // I thought Cake would make finding all projects this user is associated
         // with (which is a HABTM relation) easier -- or am I just not doing this
@@ -162,10 +165,27 @@ class UsersController extends AppController {
         }
         if ($this->request->is('post') || $this->request->is('put')) {
             //unset($this->User->validate['password']);
+            
+            // we need to check if the user has been removed from a project
+            // they were previously assigned to and possibly clear/change
+            // their project_id field -- otherwise the user will still have access
+            
+            // get the id of the last project the user accessed
+            $last_project_id = $this->User->field('project_id');
+            
+            // get an array of projects the user is now currently assigned to
+            $new_projects = $this->request->data['Project']['Project'];
+ 
 //            echo '<pre>';
-//            print_r($this->request->data);
+//            echo "$last_project_id <br>";
+//            print_r($new_projects);
 //            echo '</pre>';
-//            die;
+            
+            if ( in_array( $last_project_id,  $new_projects ) == 0 ) {
+                //echo "Reset project_id";
+                // just assign them to the first item in the set of new projects
+                $this->User->saveField('project_id',$new_projects[0]);              
+            }
             
             // $blackList is also used above
             $blackList = array('password', 'username');
