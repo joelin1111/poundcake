@@ -14,10 +14,21 @@
 
 <div class="span9">
     <div class="row">
-        <h2>KML File Uplod</h2>            
-        <div class="span4">
-        <?php
+        <h2>KML File Uplod</h2>        
+        <div class="span9">
+        <P>Google Earth KML files only.  Google Earth KMZ (compressed KML) files will be quietly ignored.</p>
+        <?php        
             echo $this->Form->create('Site', array('type' => 'file'));
+            echo "<p>Sites will be imported into the project: ".$this->Session->read('project_name')."</p>";
+            echo $this->Form->create('Site', array('type' => 'file'));
+        ?>
+            <div class="controls span9">
+                <label class="checkbox">
+                    <input type="checkbox" class="checkbox" name="overwrite" value="true">Overwrite sites with same name
+                </label>
+            </div>
+        
+        <?php
             echo $this->Form->file('File');
             echo $this->Form->end('Import');
         ?>

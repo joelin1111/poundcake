@@ -31,7 +31,7 @@
         ));
         
         echo $this->Form->input('serial');
-        echo $this->Form->input('sector', array('label'=>'Sector Radio'));
+        echo $this->Form->input('sector', array('label'=>'Sector Radio' ));
         // if the radio is a sector then enable the azimuth field
         $disabled = true;
         if ($this->data['NetworkRadio']['sector'] > 0) {

@@ -143,30 +143,41 @@ class SitesController extends AppController
     }
     
     public function import() {
-        if (is_uploaded_file( $this->request->data['Site']['File']['tmp_name'] )) {
-            $fileData = fread(fopen($this->request->data['Site']['File']['tmp_name'], "r"), $this->request->data['Site']['File']['size']);
-                     
-            $filename = $this->request->data['Site']['File']['tmp_name'];
-            $finfo = finfo_open(FILEINFO_MIME_TYPE);
-            $mime = finfo_file($finfo, $filename);
+        if ($this->request->data != null ) {
             
-//            echo '<pre>';            
-//            print_r( $this->request->data['Site']['File']['tmp_name']  . '<br>' );
-//            print_r( '-'.$mime . '-<br>' );
-//            echo '</pre>';
+            $overwrite = false;
+            if ( isset($this->request->data['overwrite'] )) {
+                if ( $this->request->data['overwrite'] == 'true') {
+                    $overwrite = true;
+                }
+            }
             
-            // .kmz files are MIME type application/zip
-            if ( $mime == 'application/xml' ) {
-                echo "Reading XML file<BR>";
-                $xml = simplexml_load_file( $filename );
-                $this->parseKML( $xml->Document->Folder->children() );
+            if (is_uploaded_file( $this->request->data['Site']['File']['tmp_name'] )) {
+                $fileData = fread(fopen($this->request->data['Site']['File']['tmp_name'], "r"), $this->request->data['Site']['File']['size']);
+
+                $filename = $this->request->data['Site']['File']['tmp_name'];
+                $finfo = finfo_open(FILEINFO_MIME_TYPE);
+                $mime = finfo_file($finfo, $filename);
+
+    //            echo '<pre>';            
+    //            print_r( $this->request->data['Site']['File']['tmp_name']  . '<br>' );
+    //            print_r( '-'.$mime . '-<br>' );
+    //            echo '</pre>';
+
+                // .kmz files are MIME type application/zip
+                if ( $mime == 'application/xml' ) {
+//                    echo "Reading XML file<BR>";
+                    $xml = simplexml_load_file( $filename );
+                    $this->parseKML( $xml->Document->Folder->children(), $overwrite );
+                    $this->redirect(array('action' => 'index'));
+                }
             }
         }
     }
     
-    function parseKML( $xml ) {
+    function parseKML( $xml, $overwrite ) {
         // recursively step through the KML XML syntax looking for Placemarks
-        //echo '<pre>';
+//        echo '<pre>';
         if ($xml != null ) {
             if ( $xml->Folder != null ) {
                 $count = $xml->Folder->count();
@@ -179,10 +190,29 @@ class SitesController extends AppController
                             //print_r( $child );
                             $coords = explode(",", $child->Point->coordinates);
                             //print_r($coords);
-                            $site = $child->name;
+                            $site_name = $child->name;
                             $lat = $coords[0];
                             $lon = $coords[1];
-                            echo "$site is at $lat and $lon<br>";
+//                            echo "$site_name is at $lat and $lon<br>";
+                            if ($overwrite) {
+//                                echo "Overwrite existing data!<BR>";
+                                $site = $this->Site->findBySite_name( $site_name );
+//                                echo "Site:";
+//                                print_r($site);
+//                                echo "<br>";
+                                if (isset($site['Site']['id'])) {
+//                                    echo "Delete existing site, existing ID = ".$site['Site']['id']."<BR>";
+                                    $this->Site->delete($site['Site']['id']);
+//                                    echo "Deleted<br>";
+                                }
+                            }                   
+                            $this->Site->create();
+                            $this->Site->set( 'site_name', (string)$site_name ); // converts it from SimpleXMLElement Object back to a string
+                            $this->Site->set( 'lat', $lat );
+                            $this->Site->set( 'lon', $lon );
+                            $this->Site->set( 'project_id', $this->Session->read('project_id') );
+//                            print_r($this->Site->data);
+                            $this->Site->save();
                         }
                     }
                 }
@@ -190,50 +220,14 @@ class SitesController extends AppController
                 $i = 0;
                 while ( $i < $count ) {
                     //print_r( $xml->Folder[$i] );
-                    $this->parseKML( $xml->Folder[$i] );
+                    $this->parseKML( $xml->Folder[$i], $overwrite );
                     $i++;
                 }
             }
         }
-        //echo '</pre>';
+//        echo '</pre>';
         return;
     }
-    
-    /*
-    function parseXML($node, &$parent=array(), $only_child=true) {         
-
-        //Current node name
-        $node_name = $node->getName();
-          
-        //Let's count children
-        $only_child = true;
-        if($node->count() > 1 ) $only_child = false;
-
-        //If there is no child, then there may be text data
-        if($only_child){
-            $content="$node";            
-            if (strlen($content)>0) $parent['content']=$content;
-        }
-        
-        //Get attributes of current node
-        foreach ($node->attributes() as $k=>$v) {
-            $parent['@attributes'][$k]="$v";
-        }
-       
-        //Get children
-        $count = 0;
-        foreach ($node->children() as $child_name=>$child_node) {
-            if(!$only_child) //If there are siblings then we'll add node to the end of the array
-                $this->parseXML($child_node, $parent[$node_name][$child_name][$count], $only_child);
-            else 
-                $this-ParseXML($child_node, $parent[$node_name][$child_name], $only_child);
-            $count++;
-        }
-        
-        return $parent;   
-    }
-    */
-    
     
     function getContacts($id = null) {
         // sometimes I think my head is going to explode - I had a hard time finding
@@ -638,7 +632,7 @@ class SitesController extends AppController
             // show edit page
             $this->request->data = $this->Site->read(null, $id);
             
-            // don't go any further if the user is not in the same project as this site
+            // don't go any further if the user is not in the same 146 as this site
             if (!$this->isAllowed($this->Site->data['Site']['project_id'], $this->Auth->user('id')) ) {
                 $this->redirect(array('action' => 'index'));
             }

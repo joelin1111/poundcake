@@ -10,6 +10,7 @@
     <div class="well well-large">
     <ul>
         <li><?php echo $this->MyHTML->linkIfAllowed(__('New Site'), array('action' => 'add')); ?></li>
+        <li><?php echo $this->MyHTML->linkIfAllowed(__('Import KML'), array('action' => 'import')); ?></li>
     </ul>
     </div>
     
