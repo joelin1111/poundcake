@@ -190,6 +190,12 @@ class AppController extends Controller {
         //echo "Version is $version";
     }
     
+    /* make strings filename safe
+    function sanitizeName( $string ) {
+        return preg_replace(array('/\s/', '/\.[\.]+/', '/[^\w_\.\-]/'), array('_', '.', ''), $string);
+    }
+    */
+    
     function search() {
         // the page we will redirect to at the end
         $url['action'] = 'index';

@@ -1,7 +1,6 @@
 <?php
 
-// maybe we'll need this?
-//App::uses('Sanitize','Utility');
+//App::uses('Xml', 'Utility'); // needed?
 
 class SitesController extends AppController
 {
@@ -13,7 +12,8 @@ class SitesController extends AppController
         'GoogleMap',
         'MyHTML',
         'PhpThumb.PhpThumb',
-        'PhpThumb'
+        'PhpThumb',
+        //'XmlView'
     );
 
     public $components = array('AjaxMultiUpload.Upload','RequestHandler'); //,'DebugKit.Toolbar'
@@ -227,6 +227,125 @@ class SitesController extends AppController
         }
 //        echo '</pre>';
         return;
+    }
+    
+    public function export() {
+        // See:  https://developers.google.com/kml/articles/phpmysqlkml
+        
+        // Creates the Document.
+        $dom = new DOMDocument('1.0', 'UTF-8');
+
+        // Creates the root KML element and appends it to the root document.
+        $node = $dom->createElementNS('http://earth.google.com/kml/2.1', 'kml');
+        $parNode = $dom->appendChild($node);
+
+        // Creates a KML Document element and append it to the KML element.
+        $dnode = $dom->createElement('Document');
+        $docNode = $parNode->appendChild($dnode);
+
+        // Creates the two Style elements, one for restaurant and one for bar, and append the elements to the Document element.
+        $restStyleNode = $dom->createElement('Style');
+        $restStyleNode->setAttribute('id', 'restaurantStyle');
+        $restIconstyleNode = $dom->createElement('IconStyle');
+        $restIconstyleNode->setAttribute('id', 'restaurantIcon');
+        $restIconNode = $dom->createElement('Icon');
+        $restHref = $dom->createElement('href', 'http://maps.google.com/mapfiles/kml/pal2/icon63.png');
+        $restIconNode->appendChild($restHref);
+        $restIconstyleNode->appendChild($restIconNode);
+        $restStyleNode->appendChild($restIconstyleNode);
+        $docNode->appendChild($restStyleNode);
+
+        $barStyleNode = $dom->createElement('Style');
+        $barStyleNode->setAttribute('id', 'barStyle');
+        $barIconstyleNode = $dom->createElement('IconStyle');
+        $barIconstyleNode->setAttribute('id', 'barIcon');
+        $barIconNode = $dom->createElement('Icon');
+        $barHref = $dom->createElement('href', 'http://maps.google.com/mapfiles/kml/pal2/icon27.png');
+        $barIconNode->appendChild($barHref);
+        $barIconstyleNode->appendChild($barIconNode);
+        $barStyleNode->appendChild($barIconstyleNode);
+        $docNode->appendChild($barStyleNode);
+
+        $this->Site->recursive = -1; // we only need Site data
+        $sites = $this->Site->findAllByProjectId( $this->Session->read('project_id') );
+        foreach ($sites as $site ) {
+//            echo '<pre>';
+//            print_r($site);
+//            echo '</pre>';
+            // creating one Placemark for each site.
+            // Creates a Placemark and append it to the Document.
+
+            $node = $dom->createElement('Placemark');
+            $placeNode = $docNode->appendChild($node);
+
+            // Creates an id attribute and assign it the value of id column.
+            $placeNode->setAttribute('id', 'placemark' . $site['Site']['id']); // CakePHP primary key -- not sure if this should be site_code?
+
+            // Create name, and description elements and assigns them the values of the name and address columns from the results.
+            $nameNode = $dom->createElement('name',htmlentities($site['Site']['site_name']));
+            $placeNode->appendChild($nameNode);
+//            $descNode = $dom->createElement('description', $row['address']);
+//            $placeNode->appendChild($descNode);
+//            $styleUrl = $dom->createElement('styleUrl', '#' . $row['type'] . 'Style');
+//            $placeNode->appendChild($styleUrl);
+
+            // Creates a Point element.
+            $pointNode = $dom->createElement('Point');
+            $placeNode->appendChild($pointNode);
+
+            // Creates a coordinates element and gives it the value of the lng and lat columns from the results.
+            $coorStr = $site['Site']['lon'] . ','  . $site['Site']['lat'];
+            $coorNode = $dom->createElement('coordinates', $coorStr);
+            $pointNode->appendChild($coorNode);
+        }
+
+        $kmlOutput = $dom->saveXML();
+        $this->set('data',$kmlOutput);
+        
+        $project_name = preg_replace('/\s+/', '', $this->Session->read('project_name'));
+        $project_name = preg_replace('/(\(|\))/', '', $project_name);
+        $this->set('filename',$project_name);
+        
+        /*
+        //echo $this->Xml->serialize($kmlOutput);
+//        $objXmlHelper = new XmlHelper();
+//        $objXml = $objXmlHelper->serilize($arrXml);
+        //$this->layout = 'ajax';
+        $this->layout = 'kml';
+        //$this->RequestHandler->setContent('kml', 'text/xml');
+        
+        $this->layout = 'default';
+        */
+        
+        $this->layout = 'blank';
+        $this->render('export');
+        $this->layout = 'default';
+//       
+//        // $this->layout = 'blank';
+//        // header('Content-type: application/vnd.google-earth.kml+xml');
+//        $headers = array('Content-type: application/vnd.google-earth.kml+xml');
+//        
+//        //echo $kmlOutput;
+//        //$this->set('kmlOutput',$kmlOutput);
+//        //$this->render('export');
+//        
+//        //$this->layout = 'default';
+//        
+//        $data = array($kmlOutput);
+//        array_unshift($data,$headers);
+//        $this->set(compact('data')); 
+        
+        /*
+        $this->view = 'Media';
+        $params = array(
+              'id' => 'file.kml',
+              'name' => 'Example',
+              'download' => true,
+              'extension' => 'kml',  // must be lower case
+              'path' => APP . 'files' . DS   // don't forget terminal 'DS'
+       );
+       $this->set($params);
+       */
     }
     
     function getContacts($id = null) {

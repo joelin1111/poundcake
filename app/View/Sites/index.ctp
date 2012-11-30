@@ -10,7 +10,14 @@
     <div class="well well-large">
     <ul>
         <li><?php echo $this->MyHTML->linkIfAllowed(__('New Site'), array('action' => 'add')); ?></li>
-        <li><?php echo $this->MyHTML->linkIfAllowed(__('Import KML'), array('action' => 'import')); ?></li>
+        <li><?php echo $this->MyHTML->linkIfAllowed(__('Import Sites'), array('action' => 'import')); ?></li>
+        <li><?php
+            // make the KML file name a little prettier by removing: whitespace, (, )
+            $project_name = preg_replace('/\s+/', '', $this->Session->read('project_name'));
+            $project_name = preg_replace('/(\(|\))/', '', $project_name);
+            echo $this->MyHTML->linkIfAllowed('Export All Sites', array('action'=>'export', 'ext'=>'kml', $project_name));
+            ?>
+        </li>
     </ul>
     </div>
     
