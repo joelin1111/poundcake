@@ -306,46 +306,10 @@ class SitesController extends AppController
         $project_name = preg_replace('/(\(|\))/', '', $project_name);
         $this->set('filename',$project_name);
         
-        /*
-        //echo $this->Xml->serialize($kmlOutput);
-//        $objXmlHelper = new XmlHelper();
-//        $objXml = $objXmlHelper->serilize($arrXml);
-        //$this->layout = 'ajax';
-        $this->layout = 'kml';
-        //$this->RequestHandler->setContent('kml', 'text/xml');
-        
-        $this->layout = 'default';
-        */
-        
         $this->layout = 'blank';
         $this->render('export');
         $this->layout = 'default';
-//       
-//        // $this->layout = 'blank';
-//        // header('Content-type: application/vnd.google-earth.kml+xml');
-//        $headers = array('Content-type: application/vnd.google-earth.kml+xml');
-//        
-//        //echo $kmlOutput;
-//        //$this->set('kmlOutput',$kmlOutput);
-//        //$this->render('export');
-//        
-//        //$this->layout = 'default';
-//        
-//        $data = array($kmlOutput);
-//        array_unshift($data,$headers);
-//        $this->set(compact('data')); 
         
-        /*
-        $this->view = 'Media';
-        $params = array(
-              'id' => 'file.kml',
-              'name' => 'Example',
-              'download' => true,
-              'extension' => 'kml',  // must be lower case
-              'path' => APP . 'files' . DS   // don't forget terminal 'DS'
-       );
-       $this->set($params);
-       */
     }
     
     function getContacts($id = null) {
@@ -849,6 +813,8 @@ class SitesController extends AppController
         $this->layout = 'blank';
         $this->render('workorder');
         $this->layout = 'default';
+        
+        
     }
     
     public function isAuthorized($user) {

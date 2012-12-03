@@ -24,7 +24,10 @@
         <li><?php echo $this->Html->link('List Sites', array('action'=>'index')); ?></li>
         <li><?php echo $this->MyHTML->postLinkIfAllowed(__('Delete'), array('action' => 'delete', $this->Form->value('Site.id')), null, __('Are you sure you want to delete site %s?', $this->Form->value('Site.site_id'))); ?></li>
         <li><?php echo $this->Html->link('Equipment List', array('action'=>'view', 'ext'=>'pdf', $site['Site']['id']));?></li>
-        <li><?php echo $this->Html->link('Work Order', array('action'=>'workorder',$site['Site']['id']));?></li>
+        <li><?php
+            //echo $this->Html->link('Work Order', array('action'=>'workorder', $site['Site']['id']));
+            echo $this->Html->link('Work Order', array('action'=>'workorder','ext'=>'xml', $site['Site']['id']));?>
+        </li>
     </ul>
     </div>
 </div><!-- /.span3 .sb-fixed -->
