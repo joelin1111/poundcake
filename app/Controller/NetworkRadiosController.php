@@ -88,7 +88,8 @@ class NetworkRadiosController extends AppController {
         } else {
             $sector = false;
             $u = 0;
-            $declination = $this->NetworkRadio->Site->field('declination');
+            // $declination = $this->NetworkRadio->Site->field('declination');
+            $declination = $this->NetworkRadio->data['Site']['declination'];
             foreach ($links as $link) {
                 $true_azimuth = 0;
                 $link_distance = 0;
@@ -102,6 +103,11 @@ class NetworkRadiosController extends AppController {
                 $true_azimuth = $this->NetworkRadio->getRadioBearing($id, $link_id);
                 $link['network_radios']['true_azimuth'] = $true_azimuth;
                 
+//                echo '<pre>';
+//                print_r($this->NetworkRadio->data['Site']['declination']);
+//                echo "Dec: ".$declination;
+//                echo '</pre>';
+//                die;
                 if ($true_azimuth > 0) {
                     $mag_azimuth = $true_azimuth - $declination;
                 }               
