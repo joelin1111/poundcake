@@ -8,6 +8,12 @@
   echo $this->Form->input('site_code',array('escape' => false,'class' => 'span2'));
   echo $this->Form->input('site_name',array('class' => 'span2'));
   //echo $this->Form->input('site_state_id',array('class' => 'span2'));
+
+  echo $this->Form->select('site_state_id', $sitestates, array(
+    'multiple' => 'checkbox'
+    ));
+  
+  /*
   echo $this->Form->input(
           'site_state_id',
           array('type'=>'select',
@@ -16,6 +22,8 @@
               'label' => '',
               'class' => 'span2'
               ));
+  */
+  
   ?>
 <span class="help-block">Use * to wildcard</span>
 <?php

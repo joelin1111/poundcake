@@ -55,59 +55,104 @@ class SitesController extends AppController
     
     function index($id = null) {
         
-        $conditions = "";                
-        $site_code_arg = "";
-        $site_name_arg = "";
-        $site_state_id_arg = "";
-        
         $this->getSiteStates();
+
+        // passing checkbox search parameters in-between pages with the
+        // Pagination controller is not working!  So we're using the session
+        // variable here.
         
-        // used by search
-        // was:  $this->passedArgs['Site.site_code']
-        // now:  $this->data['Site']['site_code']
-        if (isset($this->data['Site']['site_code'])) {
-            $site_code_arg = str_replace('*','%',$this->data['Site']['site_code']);
-        }
-        if (isset($this->data['Site']['site_name'])) {
-            $site_name_arg = str_replace('*','%',$this->data['Site']['site_name']);
-        }
-        if (isset($this->data['Site.site_state_id'])) {
-            $site_state_id_arg = $this->data['Site']['site_state_id'];            
+        // if the form has no values, grab conditions from the Session
+        if ( count($this->params->data) == 0 ) {
+            $conditions = $this->Session->read('conditions');
+            // this array just tells the view what boxes to keep checked
+            // when the page refreshes
+            $checked = array();
+            foreach ($conditions['AND']['1']['OR'] as $key => $val) {
+                if (isset($val['Site.site_state_id']))
+                    array_push($checked,$val['Site.site_state_id']);
+            }
+            
+            $this->request->data['Site']['site_state_id'] = $checked;
+        } else {
+            // get search stuff from the form that was sent in
+            $conditions = "";                
+            $site_code_arg = "";
+            $site_name_arg = "";
+            $site_state_id_arg = "";
+            // this indexes should always exist, but they may be empty!
+
+            if (isset($this->data['Site']['site_code'])) {
+                $site_code_arg = str_replace('*','%',$this->data['Site']['site_code']);
+            }
+            if (isset($this->data['Site']['site_name'])) {
+                $site_name_arg = str_replace('*','%',$this->data['Site']['site_name']);
+            }
+
+            $site_states = array();
+            if (isset($this->data['Site']['site_state_id'])) {
+                $states = $this->data['Site']['site_state_id'];            
+    //            echo '<pre>';
+    //            print_r($this->data['Site']);
+    //            print_r("Len:".$len);
+    //            echo '</pre>';
+
+                if ( isset($states[0] )) {
+                    foreach ( $states as $state ) {
+                        array_push( $site_states, array('Site.site_state_id' => $state) );
+                    }
+                }           
+    //            echo '</pre>';
+    //            print_r($site_states);
+    //            echo '</pre>';            
+            }
+
+            // if no argument was passed, default to a wildcard here
+            if ($site_code_arg == "") {
+                $site_code_arg = '%';
+            }
+            if ($site_name_arg == "") {
+                $site_name_arg = '%';
+            }
+
+            // we basically have to have something in the site_state_id field, so if the
+            // user didn't check anything, stick a wildcard in there
+            if (count($site_states) == 0 ) {
+                $site_states = array('Site.site_state_id LIKE' => '%');
+            }
+
+            $conditions = array(
+                'AND' => array(
+                    array('AND' => array(
+                        'Site.site_code LIKE' => $site_code_arg,
+                        'Site.site_name LIKE' => $site_name_arg,
+                        //'Site.site_state_id ' => $site_state_id_arg,
+                        'Site.project_id' => $this->Session->read('project_id') // only show sites for the current project
+                    )),
+                    array('OR' => $site_states)
+            ));
+
+            $this->Session->write('conditions',$conditions);
         }
         
-        // if no argument was passed, default to a wildcard
-        if ($site_code_arg == "") {
-            $site_code_arg = '%';
-        }
-        if ($site_name_arg == "") {
-            $site_name_arg = '%';
-        }
-        if ($site_state_id_arg == "") {
-            $site_state_id_arg = '%';
-        }
+//        echo '<pre>';
+//        print_r($conditions);
+//        echo '</pre>';      
+
         
-        $conditions = array(
-            'AND' => array(
-                'Site.site_code LIKE' => $site_code_arg,
-                'Site.site_name LIKE' => $site_name_arg,
-                'Site.site_state_id LIKE' => $site_state_id_arg,
-                'Site.project_id' => $this->Session->read('project_id') // only show sites for the current project
-            )
-        );
         
         $this->paginate = array(
-            'Site' => array(
-                // limit is the number per page 
-                'limit' => 20,
-                'conditions' => $conditions,
-                'order' => array(
-                    'Site.site_code' => 'asc',
-                    'Site.site_name' => 'asc',
-                ),
-            ));
-        
+            // limit is the number per page 
+            'limit' => 20,
+            'conditions' => $conditions,
+            'order' => array(
+                'Site.site_code' => 'asc',
+                'Site.site_name' => 'asc',
+            ),
+        );
         $data = $this->paginate('Site');
         $this->set('sites',$data);
+        
+//        debug($this->Site->getDataSource()->getLog(false, false));
         
         $this->set('installteams',$this->Site->InstallTeam->find('list'));
     }
@@ -433,8 +478,10 @@ class SitesController extends AppController
         
         $ip_addresses = $this->getAllIPAddresses($site_code);
         $this->set(compact('ip_addresses'));
+        
+        
     }
-    
+
     function getRemoteSite($id) {
         // get the lat/lon of the current site
         $site = $this->Site->read(null,$id);

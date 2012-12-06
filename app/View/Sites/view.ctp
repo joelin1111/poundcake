@@ -249,7 +249,53 @@
                 $baseUrl = $results['baseUrl'];
                 $files = $results['files'];
                 foreach ($files as $file) {
-                    $f = basename($file);
+                    
+                    /*
+                    // this is sort of experimental, a follow-up to PC-244
+                    // use exiftool to set/view EXIF orientation flags for testing
+                    // e.g.
+                    // $ exiftool -n -Orientation=3 case3.jpg
+                    // $ exiftool *.jpg | grep Orientation
+                    //
+                    // Also see:  http://stackoverflow.com/questions/3657023/how-to-detect-shot-angle-of-photo-and-auto-rotate-for-website-display-like-desk
+                    //
+                    // if the image is a JPEG, check the EXIF for orientation flag
+                    // this is really a one-time operation
+                    if( exif_imagetype($file) == IMAGETYPE_JPEG ){
+                        $exif = exif_read_data($file);
+//                        echo '<pre>';
+//                        print_r($exif);
+//                        echo '</pre>';
+                            
+                        if (isset($exif['Orientation'])) {
+                            $orientation = $exif['Orientation'];
+                            $deg = 0;
+                            switch ($orientation) {
+                                // not 100% sure about these case-degree mappings
+                                case 3:
+                                  $deg = 180;
+                                  break;
+                                // 4 is 180 & mirror
+                                // 5 is 90 & mirror
+                                case 6:
+                                  $deg = -90;
+                                  break;
+                                // 7 is -90 & mirror
+                                case 8:
+                                  $deg = 90;
+                                  break;
+                            }
+                            $source = imagecreatefromjpeg($file);
+                            $rotate = imagerotate($source, $deg, $orientation);
+                            // this actually re-saves the file,
+                            // and in so doing destroys the EXIF data
+                            // so this routine won't get called again
+                            //imagejpeg($rotate,$file);
+                        }
+                    }
+                    */
+                    
+                    $f = basename($file);                    
                     $url = $baseUrl . "/$f";
                     echo "<P>";
                     echo $this->PhpThumb->thumbnail($url, array('w' => 100, 'h' => 100, 'zc' => 1));

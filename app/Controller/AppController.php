@@ -24,11 +24,12 @@ App::uses('Controller', 'Controller');
 
 class AppController extends Controller {
     
+    /*
     // default pagination
     public $paginate = array(
         'limit' => 20 // may be overridden in other controllers!
     );
-    
+    */
     
     // used for the login/ACL
     public $components = array(
