@@ -52,12 +52,12 @@
     <P><B>Min. Height (meters):</B>&nbsp;<?php echo $networkradio['NetworkRadio']['min_height']; ?></P>
     <P><B>Frequency:</B>&nbsp;
         <?php echo $networkradio['NetworkRadio']['frequency'];
-        if ( $sector )
+        if ( $sector && isset($links[0]) ) 
             echo '<BR><I>Frequency for '.$links[0]['network_radios']['name'].': '.$links[0]['network_radios']['frequency'] . '</I>';
         ?></P>
     <P><B>SSID:</B>&nbsp;
         <?php echo $networkradio['NetworkRadio']['ssid'];
-        if ( $sector )
+        if ( $sector && isset($links[0]) ) 
             echo '<BR><I>SSID for '.$links[0]['network_radios']['name'].': '.$links[0]['network_radios']['ssid'] . '</I>';
         ?></P>
     <P><B>Switch:</B>&nbsp;<?php echo $networkradio['NetworkSwitch']['name']; ?></P>
