@@ -1,12 +1,3 @@
-<?php
-    # jquery UI - for the date picker
-    echo $this->Html->script('jquery-ui-1.8.21.custom.min');
-    # other date picker stuff is in poundcake and datepicker js files
-    echo $this->Html->script('poundcake');
-    echo $this->Html->script('datepicker');
-    //echo $this->Html->script('jquery-1.7.2.min'); // min only works with Bootstrap dropdown?
-?>
-
 <div class="row">
     <?php //echo $this->Html->addCrumb('Sites', '/sites'); ?>
     <?php //echo $this->BreadcrumbFormatter->getTrail(array('add')); ?>

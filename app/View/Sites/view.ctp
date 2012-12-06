@@ -75,6 +75,7 @@
     
     <P><B>Zone:</B>&nbsp;<?php echo $site['Zone']['name']; ?></P>
     
+    <div class="map-frame">
     <?php
         // some of the sites may have apostrophes in their name
         // addslashes seems to take care of that (since the map
@@ -131,6 +132,7 @@
         }
         */
     ?>
+    </div> <!-- /.map-frame -->
     </p>
 
     <P><B>Tower Guard</B>:&nbsp;<?php echo $site['Site']['tower_guard'];?></P>

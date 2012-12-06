@@ -2,7 +2,8 @@
  * This datepicker is from:
  * http://nik.chankov.net/2011/07/16/setting-datepicker-with-jquery-in-cakephp-project/
  */
-$(document).ready(function() {
+
+$(document).ready(function () {
     cakebootstrap();
     errorstrap();
     

@@ -80,6 +80,17 @@ class UsersController extends AppController {
             $this->Session->write('project_id', $project_id);
             $this->Session->write('project_name', $project['Project']['name']);
             
+//            echo '<pre>';
+//            echo "Session before:<BR>";
+//            print_r($this->Session->read('conditions'));            
+            $this->Session->delete('conditions'); // clear any search conditions
+//            echo "Session after:<BR>";
+//            print_r($this->Session->read('conditions'));            
+//            echo '</pre>';
+            
+            
+            
+            
             // save the newly selected project id, name to a session variable
             // allows us to filter sites/radios/routers/switches to the currently
             // chosen project
@@ -304,7 +315,8 @@ class UsersController extends AppController {
         // problem described here:
         // see:  http://stackoverflow.com/questions/8262720/cakephp-2-0-logout
         if($this->Auth->user()) {
-            $this->Session->delete('banner');
+            //$this->Session->delete('banner');
+            $this->Session->destroy();
             $this->redirect($this->Auth->logout());
         } else {
             $this->redirect(array('controller'=>'pages','action' => 'display','home'));

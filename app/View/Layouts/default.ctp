@@ -34,27 +34,27 @@ $cakeDescription = __d('poundcake', 'Tower DB');
             echo $this->fetch('meta');
             echo $this->fetch('css');
             echo $this->fetch('script');
+            
             echo $this->Html->css('poundcake'); // Our custom CSS file
             echo $this->Html->css('bootstrap'); // Bootstrap's CSS file
 
-            echo $this->Html->script('jquery-1.7.2');
-            echo $this->Html->script('bootstrap-dropdown');
+            //echo $this->Html->script('deprecated/jquery-1.7.2');
+            echo $this->Html->script('jquery-1.8.3'); 
+            //echo $this->Html->script('jquery-ui-1.8.21.custom.min'); 
+            echo $this->Html->script('jquery-ui-1.9.2.custom.min');
+            
+            echo $this->Html->script('deprecated/bootstrap-dropdown'); // now in bootstrap.js?
+            echo $this->Html->script('datepicker');
             echo $this->Html->script('poundcake');
-            /*
-            <script src="js/bootstrap-transition.js"></script>
-            <script src="js/bootstrap-alert.js"></script>
-            <script src="js/bootstrap-modal.js"></script>
-            <script src="js/bootstrap-dropdown.js"></script>
-            <script src="js/bootstrap-scrollspy.js"></script>
-            <script src="js/bootstrap-tab.js"></script>
-            <script src="js/bootstrap-tooltip.js"></script>
-            <script src="js/bootstrap-popover.js"></script>
-            <script src="js/bootstrap-button.js"></script>
-            <script src="js/bootstrap-collapse.js"></script>
-            <script src="js/bootstrap-carousel.js"></script>
-            <script src="js/bootstrap-typeahead.js"></script>
-            */
-	?>
+        ?>
+        <style type="text/css"> 
+        /* bootstrap Google map fix
+        See:  http://gis.yohman.com/up206b/tutorials/5-2/
+        */
+        #map_canvas img {
+            max-width: none;
+        }
+        </style>
         <style>
           body {
             padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */

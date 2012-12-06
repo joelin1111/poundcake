@@ -19,7 +19,7 @@
 </div><!-- /.span3 .sb-fixed -->
 
 <div class="span9">
-
+    <div class="map-frame">
 <?php
     // maybe we could have used an Element for creating the map here, but this map
     // is bigger with different options, and so it might take just as much code
@@ -37,8 +37,8 @@
     // http://plugins.cakephp.org/package/marcferna/CakePHP-Google-Maps-V3-Helper
     $mapOptions = array(
         'id' => 'map_canvas', // Map canvas ID
-        'width' => '700px', // Width of the map
-        'height'=>'700px', // Height of the map
+        'width' => '800px', // Width of the map
+        'height'=>'800px', // Height of the map
         //'style' => '', // CSS style for the map canvas
         'style' => '98%; height:700px;', // CSS style for the map canvas
         'zoom' => 8, // lower = further out
@@ -120,5 +120,6 @@
     }
     unset($sites); // lame attempt to free memory for the map
 ?>
+</div> <!-- /.map-frame -->
 </div> <!-- /.span9 -->
 </div> <!-- /.row -->

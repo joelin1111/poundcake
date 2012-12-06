@@ -60,18 +60,23 @@ class SitesController extends AppController
         // passing checkbox search parameters in-between pages with the
         // Pagination controller is not working!  So we're using the session
         // variable here.
-        
+            
         // if the form has no values, grab conditions from the Session
-        if ( count($this->params->data) == 0 ) {
+        if ( $this->params->data != null ) {
             $conditions = $this->Session->read('conditions');
+            echo '<pre>Conditions:<BR>';
+            print_r($conditions);
+            echo '</pre>';
+            
             // this array just tells the view what boxes to keep checked
             // when the page refreshes
             $checked = array();
-            foreach ($conditions['AND']['1']['OR'] as $key => $val) {
-                if (isset($val['Site.site_state_id']))
-                    array_push($checked,$val['Site.site_state_id']);
-            }
-            
+            if (isset($conditions['AND']['1']['OR'])) {
+                foreach ($conditions['AND']['1']['OR'] as $key => $val) {
+                    if (isset($val['Site.site_state_id']))
+                        array_push($checked,$val['Site.site_state_id']);
+                }
+            }            
             $this->request->data['Site']['site_state_id'] = $checked;
         } else {
             // get search stuff from the form that was sent in

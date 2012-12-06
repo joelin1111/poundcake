@@ -1,11 +1,3 @@
-<?php
-    # jquery UI - for the date picker
-    echo $this->Html->script('jquery-ui-1.8.21.custom.min');
-    # other date picker stuff is in poundcake and datepicker js files
-    echo $this->Html->script('poundcake');
-    echo $this->Html->script('datepicker');
-?>
-
 <div class="row">
 <div class="span3">
     <H3>Actions</H3>
