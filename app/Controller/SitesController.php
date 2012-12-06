@@ -64,9 +64,9 @@ class SitesController extends AppController
         // if the form has no values, grab conditions from the Session
         if ( $this->params->data != null ) {
             $conditions = $this->Session->read('conditions');
-            echo '<pre>Conditions:<BR>';
-            print_r($conditions);
-            echo '</pre>';
+//            echo '<pre>Conditions:<BR>';
+//            print_r($conditions);
+//            echo '</pre>';
             
             // this array just tells the view what boxes to keep checked
             // when the page refreshes
