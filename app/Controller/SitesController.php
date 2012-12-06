@@ -177,12 +177,17 @@ class SitesController extends AppController
                 )
             );
         */
+        
         $conditions = array(
             'AND' => array(
                 'Site.project_id' => $this->Session->read('project_id') // only show sites for the current project
             )
         );
+        
+        $this->Site->recursive = 0;
         $sites = $this->Site->find('all', array('conditions' => $conditions));
+        
+        //$sites = $this->Site->findByProjectId( $this->Session->read('project_id') );
         $this->set('sites', $sites);
         $this->getSiteStates();
         $this->buildLegend();
