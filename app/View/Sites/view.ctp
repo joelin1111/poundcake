@@ -1,5 +1,4 @@
 <?php
-    echo $this->Html->script('jquery-1.7.2');
     
     // http://www.appelsiini.net/projects/jeditable
     // echo $this->Html->script('jquery.jeditable.mini');
