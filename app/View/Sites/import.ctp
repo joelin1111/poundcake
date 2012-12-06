@@ -1,7 +1,3 @@
-<?php
-    //echo $this->Html->script('jquery-1.7.2');
-?>
-
 <div class="row">
 <div class="span3">
     <H3>Actions</H3>

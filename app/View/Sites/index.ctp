@@ -1,8 +1,3 @@
-<?php
-    //echo $this->Html->script('jquery-1.7.2');
-    //echo $this->Html->script('poundcake');
-?>
-
 <div class="row">
     <?php //echo $this->element('sql_dump'); ?>
 <div class="span3">

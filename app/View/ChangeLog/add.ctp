@@ -1,6 +1,4 @@
 <?php
-    # include Jquery
-    echo $this->Html->script('jquery-1.7.2');
     # jquery UI - for the date picker
     echo $this->Html->script('jquery-ui-1.8.21.custom.min');
     # other date picker stuff is in poundcake and datepicker js files

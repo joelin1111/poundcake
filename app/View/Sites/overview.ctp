@@ -1,5 +1,4 @@
 <?php
-    //echo $this->Html->script('jquery-1.7.2');
     // if we're under SSL we have to give the Google stuff under SSL, too, or
     // else the browser is likely to complain or just not render SSL/non-SSL
     // content together
