@@ -207,9 +207,11 @@ class AppController extends Controller {
         foreach ($this->data as $k=>$v) {
             //print_r($v);
             foreach ($v as $kk=>$vv){
-                //echo "<BR>VV is".print_r($vv);
+                //echo "<BR>VV is".$vv."<br>";
+                $vv .= '*';
                 // remove forward slashes -- site codes may have them!
                 $vv = str_replace('/','*',$vv);
+                //$vv .= '%';
                 $url[$k.'.'.$kk]=$vv; 
             } 
         }

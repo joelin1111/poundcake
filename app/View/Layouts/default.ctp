@@ -46,6 +46,8 @@ $cakeDescription = __d('poundcake', 'Tower DB');
             echo $this->Html->script('deprecated/bootstrap-dropdown'); // now in bootstrap.js?
             echo $this->Html->script('datepicker');
             echo $this->Html->script('poundcake');
+            
+            
         ?>
         <style type="text/css"> 
         /* bootstrap Google map fix
