@@ -274,6 +274,12 @@ class UsersController extends AppController {
         */
         if ($this->request->is('post')) {
             if ($this->Auth->login()) {
+                
+                $uid = CakeSession::read("Auth.User.id");
+                $this->loadModel('User',$uid);
+                $this->User->id = $uid;
+                $user = $this->User->read();
+//                    
                 // load the last project the user had viewed -- which was saved
                 // to the user table as project_id
                 $project = $this->User->Project->findById($this->Auth->user('project_id'));
@@ -281,21 +287,22 @@ class UsersController extends AppController {
                 // if there is no project_id (last viewed project), just give them their first assigned project
                 if ( $project == null ) {
 //                    echo "project is null";
-                    $uid = CakeSession::read("Auth.User.id");
-                    $this->loadModel('User',$uid);
-                    $user = $this->User->read();
+//                    $uid = CakeSession::read("Auth.User.id");
+//                    $this->loadModel('User',$uid);
+//                    $user = $this->User->read();
                     $project = $this->User->Project->find('first');
-                    //$this->User->saveField('project_id',$project['Project']['id']);
+                    //$this->User->saveField('project_id',$project['Project']['id']);                  
                 }
                 $project_id = $project['Project']['id'];
                 $project_name = $project['Project']['name'];
-//                $this->loadModel('Project',$project_id);
-//                $project = $this->Project->read();
+
                 // save the project ID and name as session variables
                 // see also projects() in this controller
                 $this->Session->write('project_id', $project_id);
                 $this->Session->write('project_name', $project_name);
-                
+                // log the user's login time
+                $this->User->saveField('last_login', date( "Y-m-d H:i:s", time() ));
+                //echo '<pre>'.$this->User->getLastQuery().'</pre>';
                 // send them on their way
                 $this->redirect($this->Auth->redirect());
             } else {
