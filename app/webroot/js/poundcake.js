@@ -49,6 +49,12 @@ $(document).ready(function () {
         });
         return false;
     });
+    
+    // Select none
+    $("A[href='#clear_all']").click( function() {
+        $("#" + $(this).attr('rel') + " INPUT[type='text']").val('');
+        return false;
+    });
 });
 
 // CakePHP Twitter Bootstrappifier

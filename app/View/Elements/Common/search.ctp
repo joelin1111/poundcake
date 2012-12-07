@@ -49,11 +49,11 @@ function checkAll(formname, checktoggle)
               ));
   */
 ?>
-    <div align="left">
-        
-<a rel="sitestate_search" href="#select_all">Select All</a><BR>
-<a rel="sitestate_search" href="#select_none">Select None</a><BR>
-<a rel="sitestate_search" href="#clear_all">Clear All</a><BR>
+    <div align="center">
+Select:         
+<a rel="sitestate_search" href="#select_all">All</a> | 
+<a rel="sitestate_search" href="#select_none">None</a> |
+<a rel="sitestate_search" href="#clear_all">Clear</a><BR><BR>
 <!--
 <a rel="sitestate_search" href="#invert_selection">Invert Selection</a>
 -->
