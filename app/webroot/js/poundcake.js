@@ -4,7 +4,9 @@
  */
 
 $(document).ready(function () {
+    
     cakebootstrap();
+    
     errorstrap();
     
     $( "input.datepicker" ).dp({
@@ -26,22 +28,28 @@ $(document).ready(function () {
         );
     });
     
-});
-
-/*
-$(document).ready(function() {
-   $('.object-wrapper').popover({
-    	placement: 'left',
-    	content: 'Hello'
+    // Checkbox stuff from: http://www.abeautifulsite.net/blog/2007/12/jquery-checkboxes-select-all-select-none-and-invert-selection/
+    
+    // Select all
+    $("A[href='#select_all']").click( function() {
+        $("#" + $(this).attr('rel') + " INPUT[type='checkbox']").attr('checked', true);
+        return false;
     });
-    
-   $('[rel=tooltip]').tooltip();
-    
-   $('.object-wrapper').hover(
-   		function(){$('.title-red',this).css('background-color', '#BD9300');},
-   		function(){$('.title-red',this).css('background-color', '#08c');});
- });
-*/
+
+    // Select none
+    $("A[href='#select_none']").click( function() {
+        $("#" + $(this).attr('rel') + " INPUT[type='checkbox']").attr('checked', false);
+        return false;
+    });
+
+    // Invert selection
+    $("A[href='#invert_selection']").click( function() {
+        $("#" + $(this).attr('rel') + " INPUT[type='checkbox']").each( function() {
+            $(this).attr('checked', !$(this).attr('checked'));
+        });
+        return false;
+    });
+});
 
 // CakePHP Twitter Bootstrappifier
 // https://gist.github.com/2035441
@@ -85,3 +93,17 @@ function errorstrap()
             $(data).remove();
     });
 }
+
+/*
+
+// make all checkboxes checked
+$("#allsts").click(function() {
+    $(".selsts").attr('checked', true);
+});
+
+// make all checkboxes un-checked
+$("#nosts").click(function() {
+    $(".selsts").attr('checked', false);
+});
+
+*/
