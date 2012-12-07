@@ -125,4 +125,12 @@ class AppModel extends Model {
 	return $joins;
     }
      */
+    
+    // for debugging -- print last SQL query
+    function getLastQuery() {
+        $dbo = $this->getDatasource();
+        $logs = $dbo->getLog();
+        $lastLog = end($logs['log']);
+        return $lastLog['query'];
+    }
 }
