@@ -5,7 +5,7 @@ checked the box for a sector antenna
 */
  
 $(document).ready(function() {
-    $("#NetworkRadioSector").click(
+    $("#NetworkRadioSector_").click(
     function() {
        $("#NetworkRadioTrueAzimuth").each(
             function() {
