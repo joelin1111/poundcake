@@ -53,6 +53,7 @@ function checkAll(formname, checktoggle)
         
 <a rel="sitestate_search" href="#select_all">Select All</a><BR>
 <a rel="sitestate_search" href="#select_none">Select None</a><BR>
+<a rel="sitestate_search" href="#clear_all">Clear All</a><BR>
 <!--
 <a rel="sitestate_search" href="#invert_selection">Invert Selection</a>
 -->
@@ -60,7 +61,7 @@ function checkAll(formname, checktoggle)
     
 
 
-<span class="help-block">Use * to wildcard</span>
+<!--<span class="help-block">Search is greedy, case-insensitive, * to wildcard further</span>-->
 
 <?php
     echo $this->Form->submit('Search', array('div' => false));

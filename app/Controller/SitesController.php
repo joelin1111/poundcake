@@ -100,6 +100,7 @@ class SitesController extends AppController
             // on the search form
             
             // turn % back into *
+            $site_code = '';
             if (isset($conditions['AND']['0']['AND'])) {
                 $site_code = str_replace('%','*',$conditions['AND']['0']['AND']['Site.site_code LIKE']);
                 //echo "Site code from past search: ". $site_code."<br>";
@@ -107,6 +108,7 @@ class SitesController extends AppController
             $this->request->data['Site']['site_code'] =  $site_code;
                     
             // turn % back into *
+            $site_name = '';
             if (isset($conditions['AND']['0']['AND'])) {
                 $site_name = str_replace('%','*',$conditions['AND']['0']['AND']['Site.site_name LIKE']);
                 //echo "Site name from past search: ". $site_name."<br>";
@@ -126,7 +128,6 @@ class SitesController extends AppController
             
             
         } else {
-            echo "in else<br>";
             // get search stuff from the form that was sent in
             $conditions = "";                
             $site_code_arg = "";
@@ -159,14 +160,10 @@ class SitesController extends AppController
     //            echo '</pre>';            
             }
 
-            // if no argument was passed, default to a wildcard here
-            if ($site_code_arg == "") {
-                $site_code_arg = '%';
-            }
-            if ($site_name_arg == "") {
-                $site_name_arg = '%';
-            }
-
+            // greedy search
+            $site_code_arg .= '%';
+            $site_name_arg .= '%';
+            
             // we basically have to have something in the site_state_id field, so if the
             // user didn't check anything, stick a wildcard in there
             if (count($site_states) == 0 ) {

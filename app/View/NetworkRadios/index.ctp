@@ -16,7 +16,7 @@
       );
       echo $this->Form->input('name',array('escape' => true,'class' => 'span2'));
       ?>
-    <span class="help-block">Use * to wildcard</span>
+<!--    <span class="help-block">Search is greedy, case-insensitive, * to wildcard further</span>-->
     <?php
         echo $this->Form->submit(__('Search', true), array('div' => false));
         echo $this->Form->end(); 

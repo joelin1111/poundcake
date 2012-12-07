@@ -11,12 +11,11 @@
     <?php
       echo $this->Form->create(
           'NetworkRouter',
-          // calls the search function on the SitesController
           array('action'=>'search','class' => 'well')
       );
       echo $this->Form->input('name',array('escape' => true,'class' => 'span2'));
       ?>
-    <span class="help-block">Use * to wildcard</span>
+<!--    <span class="help-block">Search is greedy, case-insensitive, * to wildcard further<BR></span>-->
     <?php
         echo $this->Form->submit(__('Search', true), array('div' => false));
         echo $this->Form->end(); 
