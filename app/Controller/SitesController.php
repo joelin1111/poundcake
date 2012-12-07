@@ -66,15 +66,27 @@ class SitesController extends AppController
 //        print_r($this->params->action);
         
         $loadPastSearch = false;
+        
         // this is true if the user is navigating around the paginated results
         if ( $this->params->action == 'index' ) {            
             $loadPastSearch = true;
+        }
+        
+//        echo '<pre>';
+//        print_r($this->params);
+//        echo '</pre>';
+        
+        // this is true when the user hits the index page for the first time
+        if ( ( $this->params->action == 'index' ) && ($this->Session->read('conditions') == null) ) {            
+            $loadPastSearch = false;
         }
         
         // this is a new search
         if ( isset($this->params->data['Site']) ) {
              $loadPastSearch = false;
         }
+        
+//        echo "Load past search? ".$loadPastSearch."<BR>";
         
 //        if ( isset($this->params->data['Site']) ) {
 //            echo "Params:<BR>";
@@ -186,9 +198,7 @@ class SitesController extends AppController
         
 //        echo '<pre>';
 //        print_r($conditions);
-//        echo '</pre>';      
-
-        
+//        echo '</pre>';
         
         $this->paginate = array(
             // limit is the number per page 
