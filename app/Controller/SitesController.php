@@ -60,13 +60,58 @@ class SitesController extends AppController
         // passing checkbox search parameters in-between pages with the
         // Pagination controller is not working!  So we're using the session
         // variable here.
-            
-        // if the form has no values, grab conditions from the Session
-        if ( $this->params->data != null ) {
+        
+//        echo '<pre>Params>Data:<BR>';
+//        print_r($this->params->controller);
+//        print_r($this->params->action);
+        
+        $loadPastSearch = false;
+        // this is true if the user is navigating around the paginated results
+        if ( $this->params->action == 'index' ) {            
+            $loadPastSearch = true;
+        }
+        
+        // this is a new search
+        if ( isset($this->params->data['Site']) ) {
+             $loadPastSearch = false;
+        }
+        
+//        if ( isset($this->params->data['Site']) ) {
+//            echo "Params:<BR>";
+//            print_r($this->params->data['Site']);
+//        } else {
+//            echo "No params";
+//        }
+//        //echo "<Br>Action:".$this->params->action;
+//        //print_r($this->params);
+//        echo '</pre>';
+        
+        // if the form has no values, and the users is coming from the index page
+        // (i.e. going in-between paginated results) grab conditions from the Session
+        // if they are coming from somewhere else, default to a new search
+        if ( $loadPastSearch ) {
             $conditions = $this->Session->read('conditions');
 //            echo '<pre>Conditions:<BR>';
-//            print_r($conditions);
+//            print_r($conditions['AND']['0']['AND']);
 //            echo '</pre>';
+            
+            // this just makes sure that any past searches re-populate in the
+            // fields for site code, site name, and the checkboxes
+            // on the search form
+            
+            // turn % back into *
+            if (isset($conditions['AND']['0']['AND'])) {
+                $site_code = str_replace('%','*',$conditions['AND']['0']['AND']['Site.site_code LIKE']);
+                //echo "Site code from past search: ". $site_code."<br>";
+            }
+            $this->request->data['Site']['site_code'] =  $site_code;
+                    
+            // turn % back into *
+            if (isset($conditions['AND']['0']['AND'])) {
+                $site_name = str_replace('%','*',$conditions['AND']['0']['AND']['Site.site_name LIKE']);
+                //echo "Site name from past search: ". $site_name."<br>";
+            }
+            $this->request->data['Site']['site_name'] =  $site_name;
             
             // this array just tells the view what boxes to keep checked
             // when the page refreshes
@@ -76,9 +121,12 @@ class SitesController extends AppController
                     if (isset($val['Site.site_state_id']))
                         array_push($checked,$val['Site.site_state_id']);
                 }
-            }            
+            }
             $this->request->data['Site']['site_state_id'] = $checked;
+            
+            
         } else {
+            echo "in else<br>";
             // get search stuff from the form that was sent in
             $conditions = "";                
             $site_code_arg = "";
