@@ -4,6 +4,7 @@
     <div class="well well-large">
     <ul>
         <li><?php echo $this->Html->link(__('New Project'), array('action' => 'add')); ?></li>
+        <li><?php echo $this->Html->link('Setup',array('controller'=>'users','action' => 'setup')); ?></li>
     </ul>
     </div>
 </div><!-- /.span3 .sb-fixed -->

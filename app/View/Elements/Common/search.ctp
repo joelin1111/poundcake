@@ -20,12 +20,15 @@ function checkAll(formname, checktoggle)
       array(
           'action'=>'index',
           'class' => 'well',
+          
           //'name' => 'sitesearch'
           )
   );
   //echo $this->Form->input('site_code',array('escape' => true,'class' => 'span2'));
-  echo $this->Form->input('site_code',array('escape' => false,'class' => 'span2'));
-  echo $this->Form->input('site_name',array('class' => 'span2'));
+  echo $this->Form->input('site_code',array('escape' => false,'class' => 'search-query'));
+  echo '<br>'; 
+  echo $this->Form->input('site_name',array('class' => 'search-query'));
+  echo '<br>';
   //echo $this->Form->input('site_state_id',array('class' => 'span2'));
    
   //echo $this->Form->checkbox('check_all_none', array('class' => 'checkall','label'=>'Check All/None'));
@@ -51,9 +54,9 @@ function checkAll(formname, checktoggle)
 ?>
     
 <div align="center">
-    <a rel="sitestate_search" href="#select_all">All</a> | 
-    <a rel="sitestate_search" href="#select_none">None</a> |
-    <a rel="sitestate_search" href="#clear_all">Clear</a><BR><BR>
+    <a rel="sitestate_search" href="#select_all">Check All</a> |  
+    <a rel="sitestate_search" href="#select_none">Check None</a><br>
+    <a rel="sitestate_search" href="#clear_all">Clear Search</a><BR><BR>
 </div>
     
 
@@ -61,7 +64,7 @@ function checkAll(formname, checktoggle)
 <!--<span class="help-block">Search is greedy, case-insensitive, * to wildcard further</span>-->
 
 <?php
-    echo $this->Form->submit('Search', array('div' => false));
+    echo $this->Form->submit('Search', array('div' => false,'class'=>'btn'));
     echo $this->Form->end(); 
 ?>
 

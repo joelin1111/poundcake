@@ -13,11 +13,11 @@
           'NetworkRouter',
           array('action'=>'search','class' => 'well')
       );
-      echo $this->Form->input('name',array('escape' => true,'class' => 'span2'));
+      echo $this->Form->input('name',array('escape' => true,'class' => 'search-query'));
       ?>
-<!--    <span class="help-block">Search is greedy, case-insensitive, * to wildcard further<BR></span>-->
+    <span class="help-block"></span>
     <?php
-        echo $this->Form->submit(__('Search', true), array('div' => false));
+        echo $this->Form->submit(__('Search', true), array('div' => false,'class'=>'btn'));
         echo $this->Form->end(); 
     ?>
 </div><!-- /.span3 .sb-fixed -->

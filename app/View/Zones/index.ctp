@@ -4,6 +4,7 @@
     <H3>Actions</H3>
     <ul>
         <li><?php echo $this->Html->link(__('New Zone'), array('action' => 'add')); ?></li>
+        <li><?php echo $this->Html->link('Setup',array('controller'=>'users','action' => 'setup')); ?></li>
     </ul>
 </div><!-- /.span3 .sb-fixed -->
 

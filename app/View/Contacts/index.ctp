@@ -15,20 +15,20 @@
           array('action'=>'search','class' => 'well')
       );
      
-      echo $this->Form->input('first_name',array('escape' => true,'class' => 'span2'));
-      echo $this->Form->input('last_name',array('class' => 'span2'));
+      echo $this->Form->input('first_name',array('escape' => true,'class' => 'search-query'));
+      echo '<br>';
+      echo $this->Form->input('last_name',array('class' => 'search-query'));
+      echo '<br>';
       ?>
-    <span class="help-block">Use * as a wildcard</span>
+    <span class="help-block"></span>
     <?php
-        //echo $this->Form->submit('Search', true, array('div' => false));
-        //echo $this->Form->submit('Search',falsearray('div' => false));
-        //echo $this->Form->end();
-        
         $options = array(
             'label' => 'Search',
             //'name' => 'Update',
             //'div' => array(        'class' => 'glass-pill',    ));
-            'div' => false);
+            'div' => false,
+            'class'=>'btn'
+            );
         echo $this->Form->end($options);
     ?>
 </div><!-- /.span3 .sb-fixed -->

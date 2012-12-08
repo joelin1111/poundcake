@@ -55,6 +55,45 @@ $(document).ready(function () {
         $("#" + $(this).attr('rel') + " INPUT[type='text']").val('');
         return false;
     });
+    
+    /*
+    // tabs on admin interface
+    $('#home a').click(function (e) {
+        e.preventDefault();
+        $(this).tabs('show');
+    })
+    
+    $('#profile a').click(function (e) {
+        e.preventDefault();
+        $(this).tabs('show');
+    })
+    
+    
+    $('#messages a').click(function (e) {
+        e.preventDefault();
+        $(this).tabs('show');
+    })
+    
+    
+    $('#settings a').click(function (e) {
+        e.preventDefault();
+        $(this).tabs('show');
+    })
+    
+    $('a[data-toggle="tab"]').on('shown', function (e) {
+        e.target // activated tab
+        e.relatedTarget // previous tab
+    })
+    */
+ 
+    // this highlights the current tab
+    var str=location.href.toLowerCase();
+    $(".nav li a").each(function() {
+        if (str.indexOf(this.href.toLowerCase()) > -1) {
+            $("li.active").removeClass("active");
+            $(this).parent().addClass("active");
+        }
+    });
 });
 
 // CakePHP Twitter Bootstrappifier
@@ -113,3 +152,4 @@ $("#nosts").click(function() {
 });
 
 */
+

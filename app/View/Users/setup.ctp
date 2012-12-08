@@ -10,7 +10,7 @@
 &nbsp;
 </div><!-- /.span3 .sb-fixed -->
 <div class="span9">
-<H2>Site Administration</H2>
+    <H2>Setup</H2>
     <div class="span4">
         <H3>Projects, Groups, Users</H3>
         <UL>
@@ -20,13 +20,13 @@
             
         </UL>
 
-        <H3>Sites/Towers</H3>
+        <H3>Sites, Towers</H3>
         <UL>
             <li><?php echo $this->Html->link('Equipment Spaces', '/equipmentSpaces/index'); ?></li>
-            <li><?php echo $this->Html->link('Organizations', '/organizations/index'); ?></li> 
+            <li><?php echo $this->Html->link('Organizations', '/organizations/index'); ?></li>    
             <li><?php echo $this->Html->link('Power Types', '/powerTypes/index'); ?></li>
             <li><?php echo $this->Html->link('Tower Members', '/towerMembers/index'); ?></li>    
-            <li><?php echo $this->Html->link('Tower Mounts', '/towerMounts/index'); ?></li>
+            <li><?php echo $this->Html->link('Tower Mounts', '/towerMounts/index'); ?></li>            
             <li><?php echo $this->Html->link('Tower Type', '/towerTypes/index'); ?></li>            
         </UL>
     </div> <!-- /.span4 -->
@@ -42,7 +42,6 @@
     <H3>Other</H3>
     <UL>    
         <li><?php echo $this->Html->link('Build Items', '/buildItems/index'); ?></li>
-        <li><?php echo $this->Html->link('Build Item Types', '/buildItemTypes/index'); ?></li>
         <li><?php echo $this->Html->link('Contact Types', '/contactTypes/index'); ?></li>
         <li><?php echo $this->Html->link('Install Teams', '/installTeams/index'); ?></li> 
         <li><?php echo $this->Html->link('Router Types', '/routerTypes/index'); ?> </li>

@@ -42,13 +42,13 @@ $cakeDescription = __d('poundcake', 'Tower DB');
             echo $this->Html->script('jquery-1.8.3'); 
             //echo $this->Html->script('jquery-ui-1.8.21.custom.min'); 
             echo $this->Html->script('jquery-ui-1.9.2.custom.min');
+            echo $this->Html->script('bootstrap'); // Bootstrap's JS file
             
             echo $this->Html->script('deprecated/bootstrap-dropdown'); // now in bootstrap.js?
             echo $this->Html->script('datepicker');
             echo $this->Html->script('poundcake');
-            
-            
         ?>
+    
         <style type="text/css"> 
         /* bootstrap Google map fix
         See:  http://gis.yohman.com/up206b/tutorials/5-2/
@@ -90,49 +90,32 @@ $cakeDescription = __d('poundcake', 'Tower DB');
 </head>
 <body>
 
-<div class="navbar navbar-fixed-top">
-      <div class="navbar-inner">
-        <div class="container">
-          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </a>
-          <a class="brand" href="/sites/overview">Tower DB <?php echo $this->Session->read('version');?></a>
-         <div class="nav-collapse">
-            <ul class="nav pull-left">
-            <?php
-                // may want to use:  $this->Session->read('User.id')));
-                // 
-                // if the user is logged in, show their name and role
-                // near the top
-                if ( isset($user) ) {
-                    //echo "<small>Logged in as: ".$user['username']."<br>";
-                    //echo "Role: ".$user['Role']['name']."</small><br><br><br>";
-                    echo "<LI>";
-                    echo $this->Html->link('Map', array('controller' => 'sites', 'action' => 'overview'));
-                    echo "</LI>";
+<div class="navbar navbar-fixed-top"> 
+    <div class="navbar">
+        <div class="navbar-inner">
+            <div class="container">
+                <a class="brand" href="/sites/overview">Tower DB <?php echo $this->Session->read('version');?>&nbsp;&nbsp;</a>
+                <ul class="nav">
+                    <li class="active">
+                        <?php echo $this->Html->link('Map', array('controller' => 'sites', 'action' => 'overview')); ?>
+                    </li>
+                    <li>
+                        <?php echo $this->Html->link('Sites', array('controller' => 'sites', 'action' => 'index')); ?>
+                    </li>
+                    <li>
+                        <?php echo $this->Html->link('Contacts', array('controller' => 'contacts', 'action' => 'index')); ?>
+                    </li>
+                    <li>
+                        <?php echo $this->Html->link('Radios', array('controller' => 'networkRadios', 'action' => 'index')); ?>
+                    </li>
+                    <li>
+                        <?php echo $this->Html->link('Routers', array('controller' => 'networkRouters', 'action' => 'index')); ?>
+                    </li>
+                    <li>
+                        <?php echo $this->Html->link('Switches', array('controller' => 'networkSwitches', 'action' => 'index')); ?>
+                    </li>
                     
-                    echo "<LI>";
-                    echo $this->Html->link('Sites', array('controller' => 'sites', 'action' => 'index'));
-                    echo "</LI>";
-                    
-                    echo "<LI>";
-                    echo $this->Html->link('Contacts', array('controller' => 'contacts', 'action' => 'index'));
-                    echo "</LI>";
-                    
-                    echo "<LI>";
-                    echo $this->Html->link('Radios', array('controller' => 'networkRadios', 'action' => 'index'));
-                    echo "</LI>";
-                    
-                    echo "<LI>";
-                    echo $this->Html->link('Routers', array('controller' => 'networkRouters', 'action' => 'index'));
-                    echo "</LI>";
-                    
-                    echo "<LI>";
-                    echo $this->Html->link('Switches', array('controller' => 'networkSwitches', 'action' => 'index'));
-                    echo "</LI>";
-                    
+                    <?php
                     // this doesn't really belong here, should probably serve up a different
                     // view for admins
                     if ($user['Role']['name'] === 'admin') {
@@ -140,20 +123,19 @@ $cakeDescription = __d('poundcake', 'Tower DB');
                         echo $this->Html->link('Setup', array('controller' => 'users', 'action' => 'setup'));
                         echo "</LI>";
                     }
+                    ?>
+                    
+                </ul>
+            <?php
+                // if the user is logged in, show a button on the right side with
+                // links to change their password, etc.
+                if ( isset($user) ) {
+                    include 'user.ctp';
                 }
             ?>
-            </ul><!--/.nav .pull-left -->
-            
-            <?php
-            // if the user is logged in, show a button on the right side with
-            // links to change their password, etc.
-            if ( isset($user) ) {
-                include 'user.ctp';
-            }
-            ?>
-          </div><!--/.nav-collapse  -->          
+            </div>
         </div>
-      </div>
+    </div>
     </div> <!--/.navbar -->
     
     <div class="row" align="center">

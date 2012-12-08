@@ -249,6 +249,9 @@
                 $directory = $results['directory'];
                 $baseUrl = $results['baseUrl'];
                 $files = $results['files'];
+                
+                echo '<ul class="thumbnails">';
+                
                 foreach ($files as $file) {
                     
                     /*
@@ -298,18 +301,30 @@
                     
                     $f = basename($file);                    
                     $url = $baseUrl . "/$f";
-                    echo "<P>";
+                    //echo "<P>";
+                    //echo $this->PhpThumb->thumbnail($url, array('w' => 100, 'h' => 100, 'zc' => 1));
+                    //echo "<BR>";
+                    //echo '<a href="'.$url.'" >'.$f.'</a>';
+                    echo '<li><a href="'.$url.'" class="thumbnail">';
                     echo $this->PhpThumb->thumbnail($url, array('w' => 100, 'h' => 100, 'zc' => 1));
-                    echo "<BR>";
-                    echo '<a href="'.$url.'">'.$f.'</a>';
-                    echo "</P>";
+                    echo '</a></li>';
+                    //echo "</P>";
                 }
+                echo '</ul>';
                 
             } else {
                 echo "None";
             }
-            
-            
+            /*
+            <ul class="thumbnails">
+  <li class="span4">
+    <a href="#" class="thumbnail">
+      <img src="http://placehold.it/300x200" alt="">
+    </a>
+  </li>
+  ...
+</ul>
+            */
 
             /* in case we want to do something more interesting with the list of files?
             $results = $this->Upload->listing('Site', $site['Site']['id']);
