@@ -97,10 +97,14 @@ $cakeDescription = __d('poundcake', 'Tower DB');
                 <a class="brand" href="/sites/overview">Tower DB <?php echo $this->Session->read('version');?>&nbsp;&nbsp;</a>
                 <ul class="nav">
                     <li class="active">
-                        <?php echo $this->Html->link('Map', array('controller' => 'sites', 'action' => 'overview')); ?>
+                        <?php
+                            // 'fullBase' => true for this link and the one below b/c they are in the same controller
+                            // and the JQuery that highlights the active tab ends up highlighting Sites when you're on
+                            // the overview map
+                            echo $this->Html->link('Map', array('controller' => 'sites', 'action' => 'overview','fullBase' => true)); ?>
                     </li>
                     <li>
-                        <?php echo $this->Html->link('Sites', array('controller' => 'sites', 'action' => 'index')); ?>
+                        <?php echo $this->Html->link('Sites', array('controller' => 'sites', 'action' => 'index','fullBase' => true)); ?>
                     </li>
                     <li>
                         <?php echo $this->Html->link('Contacts', array('controller' => 'contacts', 'action' => 'index')); ?>
