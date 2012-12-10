@@ -1,8 +1,10 @@
 <?php
 /**
- * Controller for antenna types.
+ * Controller for build items.
  *
- * This is a very basic controller to add/view/update/delete antenna types.
+ * This is a very basic controller to add/view/update/delete build items, what
+ * appears within an equipment list.
+ * 
  * These tasks would typically be performed by a user with administrative level
  * permissions within Poundcake.
  *
@@ -18,7 +20,7 @@
  * @author        Clark Ritchie <clark@inveneo.org>
  * @link          http://www.inveneo.org
  * @package       app.Controller
- * @since         AntennaTypesController precedes Poundcake v2.2.1
+ * @since         BuildItemsController precedes Poundcake v2.2.1
  * @license       XYZ License
  */
 
@@ -26,6 +28,9 @@ App::uses('AppController', 'Controller');
 
 class BuildItemsController extends AppController {
 
+    /*
+     * Custom pagination, sort order on index listing
+     */
     public $paginate = array(
         'limit' => 20, // default limit also defined in AppController
         'order' => array(
@@ -33,20 +38,84 @@ class BuildItemsController extends AppController {
         )
     );
     
+    /*
+     * Main listing for all BuildItemss
+     */
     public function index() {
         $this->BuildItem->recursive = 0;
         $this->set('builditems', $this->paginate());
     }
 
+    /*
+     * View a BuildItem
+     */
     public function view($id = null) {
         $this->BuildItem->id = $id;
         if (!$this->BuildItem->exists()) {
-            throw new NotFoundException(__('Invalid build item'));
+            throw new NotFoundException('Invalid build item');
         }
         $this->set('builditem', $this->BuildItem->read(null, $id));
     }
 
-    // return all the sites to allow the build item to be assigned to
+    /*
+     * Add a new BuildItem
+     */
+    public function add() {
+        if ($this->request->is('post')) {
+            $this->BuildItem->create();
+            if ($this->BuildItem->save($this->request->data)) {
+                $this->Session->setFlash('The build item has been saved');
+                $this->redirect(array('action' => 'index'));
+            } else {
+                $this->Session->setFlash('The build item could not be saved. Please, try again.');
+            }
+        }
+        $this->getBuildItemTypes();
+    }
+    
+    /*
+     * Edit an existing BuildItem
+     */
+    public function edit($id = null) {
+        $this->BuildItem->id = $id;
+        if (!$this->BuildItem->exists()) {
+            throw new NotFoundException('Invalid build item');
+        }
+        if ($this->request->is('post') || $this->request->is('put')) {
+            if ($this->BuildItem->save($this->request->data)) {
+                    $this->Session->setFlash('The build item has been saved');
+                    $this->redirect(array('action' => 'index'));
+            } else {
+                    $this->Session->setFlash('The build item could not be saved. Please, try again.');
+            }
+        } else {
+            $this->request->data = $this->BuildItem->read(null, $id);
+        }
+        $this->getBuildItemTypes();
+    }
+    
+    /*
+     * Delete an existing BuildItem
+     */
+    public function delete($id = null) {
+        if (!$this->request->is('post')) {
+            throw new MethodNotAllowedException();
+        }
+        $this->BuildItem->id = $id;
+        if (!$this->BuildItem->exists()) {
+            throw new NotFoundException('Invalid build item');
+        }
+        if ($this->BuildItem->delete()) {
+            $this->Session->setFlash('Build item deleted');
+            $this->redirect(array('action' => 'index'));
+        }
+        $this->Session->setFlash('Build item was not deleted');
+        $this->redirect(array('action' => 'index'));
+    }
+    
+    /*
+     * Save an array of sites the build item may be assigned to
+     */
     function getSites() {
         $this->set('sites',$this->BuildItem->Site->find('list',
             array(
@@ -57,64 +126,19 @@ class BuildItemsController extends AppController {
         );
     }
     
+    /*
+     * Save an array of build item types the build item may be defined as
+     */
     function getBuildItemTypes() {
         $this->set('builditemtypes',$this->BuildItem->BuildItemType->find('list'));
     }
     
-    public function add() {
-        if ($this->request->is('post')) {
-            $this->BuildItem->create();
-            if ($this->BuildItem->save($this->request->data)) {
-                $this->Session->setFlash(__('The build item has been saved'));
-                $this->redirect(array('action' => 'index'));
-            } else {
-                $this->Session->setFlash(__('The build item could not be saved. Please, try again.'));
-            }
-        }
-        $this->getBuildItemTypes();
-    }
-
-    public function edit($id = null) {
-        $this->BuildItem->id = $id;
-        
-        if (!$this->BuildItem->exists()) {
-            throw new NotFoundException(__('Invalid build item'));
-        }
-        if ($this->request->is('post') || $this->request->is('put')) {
-            if ($this->BuildItem->save($this->request->data)) {
-                    $this->Session->setFlash(__('The build item has been saved'));
-                    $this->redirect(array('action' => 'index'));
-            } else {
-                    $this->Session->setFlash(__('The build item could not be saved. Please, try again.'));
-            }
-        } else {
-            $this->request->data = $this->BuildItem->read(null, $id);
-        }
-        $this->getBuildItemTypes();
-    }
-    
-    public function delete($id = null) {
-        if (!$this->request->is('post')) {
-            throw new MethodNotAllowedException();
-        }
-        $this->BuildItem->id = $id;
-        if (!$this->BuildItem->exists()) {
-            throw new NotFoundException(__('Invalid build item'));
-        }
-        if ($this->BuildItem->delete()) {
-            $this->Session->setFlash(__('Radio deleted'));
-            $this->redirect(array('action' => 'index'));
-        }
-        $this->Session->setFlash(__('Radio was not deleted'));
-        $this->redirect(array('action' => 'index'));
-    }
-
     /*
      * Uses Auth to check the ACL to see if the user is allowed to perform any
      * actions in this controller
      */
     public function isAuthorized($user) {
-        // everyone can see the list and view individual Contacts
+        // everyone can see the list and view individual build items
         if ($this->action === 'index' || $this->action === 'view') {
             return true;
         }

@@ -1,4 +1,22 @@
 <?php
+/**
+ * Model for user.
+ *
+ * Developed against CakePHP 2.2.3 and PHP 5.4.4.
+ *
+ * Copyright 2012, Inveneo, Inc. (http://www.inveneo.org)
+ *
+ * Licensed under XYZ License.
+ * 
+ * Redistributions of files must retain the above copyright notice.
+ *
+ * @copyright     Copyright 2012, Inveneo, Inc. (http://www.inveneo.org)
+ * @author        Clark Ritchie <clark@inveneo.org>
+ * @link          http://www.inveneo.org
+ * @package       app.Model
+ * @since         User precedes Poundcake v2.2.1
+ * @license       XYZ License
+ */
 
 // following this example:
 // http://book.cakephp.org/2.0/en/tutorials-and-examples/blog-auth-example/auth.html
@@ -7,13 +25,23 @@ App::uses('AuthComponent', 'Controller/Component');
 
 class User extends AppModel {
     
+    /*
+     * Relations
+     */
     var $belongsTo = array(
         'Role',
     );
     
+    /*
+     * Relations
+     * @see HABTM example: http://mrphp.com.au/code/working-habtm-form-data-cakephp
+     */
     public $hasAndBelongsToMany = array('Project');
-    // HABTM example: http://mrphp.com.au/code/working-habtm-form-data-cakephp
     
+    
+    /*
+     * Field-level validation rules
+     */
     public $validate = array(
         'username' => array(
             'rule'    => '/^[a-z0-9_]{3,}$/i',
@@ -33,12 +61,10 @@ class User extends AppModel {
         ),
     );
     
-    // changed parameters on beforeSave for PHP 5.4.x compatability
-    // worked as-per this suggestion:
-    // http://community.webfaction.com/questions/8397/cakephp-2-auth-failing-on-production-only
+    /*
+     * Callback function to handle password hashing
+     */
     public function beforeSave($options = array()) {
-        //$this->data[$this->alias]['password'] = $this->data[$this->alias]['new_password_1'];
-        //echo "Password " . $this->data[$this->alias]['password'];
         if (isset($this->data[$this->alias]['password'])) {
             // passworld hashing is done here
             $this->data[$this->alias]['password'] = AuthComponent::password($this->data[$this->alias]['password']);
@@ -46,40 +72,22 @@ class User extends AppModel {
         return true;
     }
    
+    /*
+     * Returns true or false if current password matches
+     */
     public function checkCurrentPassword($check) {
         //print_r($check);
         $pwd_current = $check['pwd_current'];
         
         // return true if the hash of the password the user thinks is their current
         // password (from the change password form) versus what's in the database
-        
         $this->id = AuthComponent::user('id');;
         $this->read();
-        //echo "<pre>".print_r($this->data)."</pre>";
         $db_pass = $this->data['User']['password'];
         //echo "Current (pw) in db: " . $db_pass."<BR>";
         //echo "Current (pw) in form: " . AuthComponent::password($pwd_current)."<BR>";
         
         return (AuthComponent::password($pwd_current) == $db_pass);
     }
-
-    /*
-    public function checkPasswordsMatch($check) {
-        print_r($check);
-        echo "<pre> checkPasswordsMatch ".print_r($check)."</pre>";
-        //echo "New 1 " . $check['password'];
-        echo "New 2 " . $check['verify'];
-        echo $user[$this->alias]['password'];
-        die;
-        return false;
-        //return false;
-        //return $check['password'] === $check['password_verify'];
-        //echo "New 1 " . $this->data[$this->alias]['password'];
-        //echo "New 2 " . $this->data[$this->alias]['password_verify'];
-        //return $this->data[$this->alias]['password'] === $this->data[$this->alias]['password_verify'];
-        // return AuthComponent::password($current_password['current_password']) == $user[$this->alias]['password'];
-        //return false;
-    }
-    */
 }
 ?>

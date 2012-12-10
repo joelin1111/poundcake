@@ -1,10 +1,33 @@
 <?php
+/**
+ * Model for site.
+ *
+ * Developed against CakePHP 2.2.3 and PHP 5.4.4.
+ *
+ * Copyright 2012, Inveneo, Inc. (http://www.inveneo.org)
+ *
+ * Licensed under XYZ License.
+ * 
+ * Redistributions of files must retain the above copyright notice.
+ *
+ * @copyright     Copyright 2012, Inveneo, Inc. (http://www.inveneo.org)
+ * @author        Clark Ritchie <clark@inveneo.org>
+ * @link          http://www.inveneo.org
+ * @package       app.Model
+ * @since         Site precedes Poundcake v2.2.1
+ * @license       XYZ License
+ */
+
 class Site extends AppModel {
+        
+    /*
+     * Display field for select lists
+     */
+    public $displayField = 'site_vf';
     
-    // A site belongs to a Zone, etc.
-    // this is a one-way relationship, e.g. at the moment you cannot get all
-    // sites for a region, would need to define the relationship the other
-    // way to do that
+    /*
+     * Relations
+     */
     var $belongsTo = array(
         'Zone',
         'SiteState',
@@ -20,6 +43,9 @@ class Site extends AppModel {
         'Project'
     );
    
+    /*
+     * Relations
+     */
     public $hasMany = array(
         'NetworkRadios' => array(
             'className' => 'NetworkRadio',
@@ -28,8 +54,9 @@ class Site extends AppModel {
         )
     );
     
-    //public $actAs = array('Containable');
-    
+    /*
+     * Field-level validation rules
+     */
     public $validate = array(
         'site_name' => array(
             'notempty' => array(
@@ -62,89 +89,50 @@ class Site extends AppModel {
             )
     );
     
-    // this virtualField is also defined in the sp_nearby stored procedure - that version
-    // is used to place placemarkers for nearby sites on the site view page map
+    /*
+     * Use CakePHP virtual fields to combine site_code and site_name
+     * Note: this virtualField is also defined in the sp_nearby stored procedure
+     * - that version is used to place placemarkers for nearby sites on the site
+     * view page map
+     */
     var $virtualFields = array('site_vf' => 'CONCAT(site_code, " ", site_name)');
     
+    /*
+     * Default sort order
+     */
     var $order = 'Site.site_code ASC';
-    
-    // The displayField attribute specifies which database field should be used as a
-    // label for the record. The label is used in scaffolding and in find('list') calls.
-    // The model will use name or title, by default.
-    public $displayField = 'site_vf';
-    
+
+    /*
+     * Constructor - Note: cannot remember why we defined a constructor here
+     */
     public function __construct($id = false,$table = null,$ids = null) {
         parent::__construct($id,$table,$ids);
     }
     
-    // return true if a site is owned by a user (was created by)
+    /*
+     * Rreturns true if a site is owned by a user (was created by)
+     */
     public function isOwnedBy($site, $user) {
         return $this->field('id', array('id' => $site, 'user_id' => $user)) === $site;
     }
     
+    /*
+     * Returns the declination for a given lat/lon pair using NOAA web service
+     */
     function getDeclination($lat, $lon) {
         $dec = null;
         if (isset($lat) && isset($lon)) {
-            //$lat=45.53704;
-            //$lon=-122.599793;
             $url='http://www.ngdc.noaa.gov/geomag-web/calculators/calculateDeclination?lat1='.$lat.'&lon1='.$lon.'&resultFormat=csv';
-            //http://www.ngdc.noaa.gov/geomag-web/calculators/calculateDeclination?lat1=45.53704&lon1=122.599793&resultFormat=csv
-            //$x = readfile ("http://www.ngdc.noaa.gov/geomag-web/calculators/calculateDeclination?lat1='.$lat.'&lon1='.$lon.'&resultFormat=xml");
-            //echo "URL is ".$url.'<br><br>';
-            //$x = readfile($url);
             $x = file_get_contents($url);
-            $y = str_getcsv($x);
-            
+            $y = str_getcsv($x);            
             // count should be > 1 unless the web service is down or some other network error
             if (count($y) > 1) {
-                //echo '<br><br><pre>';
-                //print_r($y[3]);
                 $dec = $y[3];
             } else {
                 $dec = 0;
             }
-            //echo '</pre>';
         }
         return $dec;
-    }
-    
-    /*
-    note sure if this is needed anymore?
-    public function beforeFind($queryData) {
-        $uid = CakeSession::read("Auth.User.id");
-        
-        // http://stackoverflow.com/questions/2727217/cakephp-beforefind-how-do-i-add-a-join-condition-after-the-belongsto-associa
-        // The join can not reference anything in the associations, as the associations
-        // are fetched via separate queries. If you need to add a join that references
-        // an association, you will need to add the association manually in the join as well.
-        
-        $options['joins'] = array(
-            array('table' => 'projects',
-                'alias' => 'Project2',
-                'type' => 'LEFT',
-                'conditions' => array(
-                    'Project2.id = Site.project_id'
-                )
-            ),
-            array('table' => 'projects_users',
-                'alias' => 'ProjectsUser',
-                'type' => 'INNER',
-                'conditions' => array(
-                    //"Site.project_id  =  Project.id",
-                    'ProjectsUser.user_id =  '.$uid,
-                    'ProjectsUser.project_id = Project2.id'
-                )
-            )
-        );
-        $queryData['joins'] = $options['joins'];
-        
-//        $results = $this->Project->find('all', $options);
-//        echo '<pre>';
-//        print_r($queryData);
-//        echo '</pre>';
-//        die;
-        return $queryData;
-    }
-     */
+    }    
 }
 ?>

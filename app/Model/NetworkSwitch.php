@@ -1,29 +1,61 @@
 <?php
+/**
+ * Model for network switch.
+ *
+ * Ideally this Model would be called just Switch, not NetworkSwitch, but
+ * switch is a PHP keyword.  See also NetworkRadio, NetworkRouter.
+ * 
+ * Developed against CakePHP 2.2.3 and PHP 5.4.4.
+ *
+ * Copyright 2012, Inveneo, Inc. (http://www.inveneo.org)
+ *
+ * Licensed under XYZ License.
+ * 
+ * Redistributions of files must retain the above copyright notice.
+ *
+ * @copyright     Copyright 2012, Inveneo, Inc. (http://www.inveneo.org)
+ * @author        Clark Ritchie <clark@inveneo.org>
+ * @link          http://www.inveneo.org
+ * @package       app.Model
+ * @since         NetworkSwitch precedes Poundcake v2.2.1
+ * @license       XYZ License
+ */
+
+
 App::uses('AppModel', 'Model','CakeSession');
 
 class NetworkSwitch extends AppModel {
 
-    public $displayField = 'name';
+    /*
+     * Display field for select lists
+     */
+    public $displayField = 'name';    
     
     /*
-    public $hasMany = array(
-        'NetworkRadio'
-    );
-    */
-    
-    // return attached radios sorted by the switch port there's connected to
+     * Relations
+     * Returns attached radios sorted by the switch port there's connected to.
+     */
     public $hasMany = array(
         'NetworkRadio' => array('order' => 'NetworkRadio.switch_port')
     );
     
+    /*
+     * Relations
+     */
     var $belongsTo = array(
         'SwitchType'
     );
 
+    /*
+     * Relations
+     */
     var $hasOne = array(
         'Site'
     );
     
+    /*
+     * Field-level validation rules
+     */
     public $validate = array(
         'name' => array(
             'notempty' => array(
@@ -44,6 +76,4 @@ class NetworkSwitch extends AppModel {
             ),*/
         ),
     );
-    
-    
 }

@@ -1,8 +1,9 @@
 <?php
 /**
- * Controller for antenna types.
+ * Controller for install teams.
  *
- * This is a very basic controller to add/view/update/delete antenna types.
+ * This is a very basic controller to add/view/update/delete install teams.
+ * 
  * These tasks would typically be performed by a user with administrative level
  * permissions within Poundcake.
  *
@@ -18,7 +19,7 @@
  * @author        Clark Ritchie <clark@inveneo.org>
  * @link          http://www.inveneo.org
  * @package       app.Controller
- * @since         AntennaTypesController precedes Poundcake v2.2.1
+ * @since         InstallTeamsController precedes Poundcake v2.2.1
  * @license       XYZ License
  */
 
@@ -26,6 +27,9 @@ App::uses('AppController', 'Controller');
 
 class InstallTeamsController extends AppController {
 
+    /*
+     * Custom pagination, sort order on index listing
+     */
     public $paginate = array(
         'limit' => 20, // default limit also defined in AppController
         'order' => array(
@@ -33,90 +37,76 @@ class InstallTeamsController extends AppController {
         )
     );
     
+    /*
+     * Main listing for all InstallTeams
+     */
     public function index() {
         $this->InstallTeam->recursive = 0;
         $this->set('installteams', $this->paginate());
     }
 
+    /*
+     * View an InstallTeam
+     */
     public function view($id = null) {
-        $this->InstallTeam->id = $id;
-        
+        $this->InstallTeam->id = $id;        
         if (!$this->InstallTeam->exists()) {
-            throw new NotFoundException(__('Invalid install team'));
+            throw new NotFoundException('Invalid install team');
         }
         $this->set('installteam', $this->InstallTeam->read(null, $id));
     }
 
-
     /*
-    function getRadioTypes() {
-        $this->set('install teamtypes',$this->InstallTeam->RadioType->find('list',
-            array(
-                'order' => array(
-                    'RadioType.name ASC'
-            )))
-        );
-    }
-    
-    function getAntennaTypes() {
-        $this->set('antennatypes',$this->InstallTeam->AntennaType->find('list',
-            array(
-                'order' => array(
-                    'AntennaType.name ASC'
-            )))
-        );
-    }
-    */
+     * Add a new InstallTeam
+     */
     public function add() {
-//        $this->getSites();
-//        $this->getRadioTypes();
-//        $this->getAntennaTypes();
-        
         if ($this->request->is('post')) {
             $this->InstallTeam->create();
             if ($this->InstallTeam->save($this->request->data)) {
-                $this->Session->setFlash(__('The install team has been saved'));
+                $this->Session->setFlash('The install team has been saved');
                 $this->redirect(array('action' => 'index'));
             } else {
-                $this->Session->setFlash(__('The install team could not be saved. Please, try again.'));
+                $this->Session->setFlash('The install team could not be saved. Please, try again.');
             }
         }
     }
 
+    /*
+     * Edit an existing InstallTeam
+     */
     public function edit($id = null) {
-        $this->InstallTeam->id = $id;
-//        $this->getSites();
-//        $this->getRadioTypes();
-//        $this->getAntennaTypes();
-        
+        $this->InstallTeam->id = $id;        
         if (!$this->InstallTeam->exists()) {
-            throw new NotFoundException(__('Invalid install team'));
+            throw new NotFoundException('Invalid install team');
         }
         if ($this->request->is('post') || $this->request->is('put')) {
             if ($this->InstallTeam->save($this->request->data)) {
-                    $this->Session->setFlash(__('The install team has been saved'));
-                    $this->redirect(array('action' => 'index'));
+                $this->Session->setFlash('The install team has been saved');
+                $this->redirect(array('action' => 'index'));
             } else {
-                    $this->Session->setFlash(__('The install team could not be saved. Please, try again.'));
+                $this->Session->setFlash('The install team could not be saved. Please, try again.');
             }
         } else {
             $this->request->data = $this->InstallTeam->read(null, $id);
         }
     }
     
+    /*
+     * Delete an existing InstallTeam
+     */
     public function delete($id = null) {
         if (!$this->request->is('post')) {
             throw new MethodNotAllowedException();
         }
         $this->InstallTeam->id = $id;
         if (!$this->InstallTeam->exists()) {
-            throw new NotFoundException(__('Invalid install team'));
+            throw new NotFoundException('Invalid install team');
         }
         if ($this->InstallTeam->delete()) {
-            $this->Session->setFlash(__('Radio deleted'));
+            $this->Session->setFlash('Radio deleted');
             $this->redirect(array('action' => 'index'));
         }
-        $this->Session->setFlash(__('Radio was not deleted'));
+        $this->Session->setFlash('Radio was not deleted');
         $this->redirect(array('action' => 'index'));
     }
 
@@ -125,7 +115,7 @@ class InstallTeamsController extends AppController {
      * actions in this controller
      */
     public function isAuthorized($user) {
-        // everyone can see the list and view individual Contacts
+        // everyone can see the list and view individual install teams
         if ($this->action === 'index' || $this->action === 'view') {
             return true;
         }

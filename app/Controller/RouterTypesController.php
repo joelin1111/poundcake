@@ -1,8 +1,9 @@
 <?php
 /**
- * Controller for antenna types.
+ * Controller for router types.
  *
- * This is a very basic controller to add/view/update/delete antenna types.
+ * This is a very basic controller to add/view/update/delete router types.
+ * 
  * These tasks would typically be performed by a user with administrative level
  * permissions within Poundcake.
  *
@@ -18,7 +19,7 @@
  * @author        Clark Ritchie <clark@inveneo.org>
  * @link          http://www.inveneo.org
  * @package       app.Controller
- * @since         AntennaTypesController precedes Poundcake v2.2.1
+ * @since         RouterTypesController precedes Poundcake v2.2.1
  * @license       XYZ License
  */
 
@@ -26,61 +27,76 @@ App::uses('AppController', 'Controller');
 
 class RouterTypesController extends AppController {
 
+    /*
+     * Main listing for all RouterTypes
+     */
     public function index() {
         $this->RouterType->recursive = 0;
         $this->set('routerTypes', $this->paginate());
     }
 
+    /*
+     * View a RouterType
+     */
     public function view($id = null) {
         $this->RouterType->id = $id;
         if (!$this->RouterType->exists()) {
-                throw new NotFoundException(__('Invalid router type'));
+            throw new NotFoundException('Invalid router type');
         }
         $this->set('routerType', $this->RouterType->read(null, $id));
     }
 
+    /*
+     * Add a new RouterType
+     */
     public function add() {
         if ($this->request->is('post')) {
             $this->RouterType->create();
             if ($this->RouterType->save($this->request->data)) {
-                $this->Session->setFlash(__('The router type has been saved'));
+                $this->Session->setFlash('The router type has been saved');
                 $this->redirect(array('action' => 'index'));
             } else {
-                $this->Session->setFlash(__('The router type could not be saved. Please, try again.'));
+                $this->Session->setFlash('The router type could not be saved. Please, try again.');
             }
         }
     }
 
+    /*
+     * Edit an existing RouterType
+     */
     public function edit($id = null) {
         $this->RouterType->id = $id;
         if (!$this->RouterType->exists()) {
-            throw new NotFoundException(__('Invalid router type'));
+            throw new NotFoundException('Invalid router type');
         }
         if ($this->request->is('post') || $this->request->is('put')) {
             if ($this->RouterType->save($this->request->data)) {
-                $this->Session->setFlash(__('The router type has been saved'));
+                $this->Session->setFlash('The router type has been saved');
                 $this->redirect(array('action' => 'index'));
             } else {
-                $this->Session->setFlash(__('The router type could not be saved. Please, try again.'));
+                $this->Session->setFlash('The router type could not be saved. Please, try again.');
             }
         } else {
             $this->request->data = $this->RouterType->read(null, $id);
         }
     }
 
+    /*
+     * Delete an existing RouterType
+     */
     public function delete($id = null) {
         if (!$this->request->is('post')) {
             throw new MethodNotAllowedException();
         }
         $this->RouterType->id = $id;
         if (!$this->RouterType->exists()) {
-            throw new NotFoundException(__('Invalid router type'));
+            throw new NotFoundException('Invalid router type');
         }
         if ($this->RouterType->delete()) {
-            $this->Session->setFlash(__('Power type deleted'));
+            $this->Session->setFlash('Router type deleted');
             $this->redirect(array('action' => 'index'));
         }
-        $this->Session->setFlash(__('Power type was not deleted'));
+        $this->Session->setFlash('Router type was not deleted');
         $this->redirect(array('action' => 'index'));
     }
 

@@ -27,7 +27,7 @@ App::uses('AppController', 'Controller');
 class ZonesController extends AppController {
 
     /*
-     * Paginate results on the index listing
+     * Custom pagination, sort order on index listing
      */
     public $paginate = array(
         'limit' => 20, // default limit also defined in AppController

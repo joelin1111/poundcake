@@ -1,25 +1,49 @@
 <?php
+/**
+ * Model for organization.
+ *
+ * Developed against CakePHP 2.2.3 and PHP 5.4.4.
+ *
+ * Copyright 2012, Inveneo, Inc. (http://www.inveneo.org)
+ *
+ * Licensed under XYZ License.
+ * 
+ * Redistributions of files must retain the above copyright notice.
+ *
+ * @copyright     Copyright 2012, Inveneo, Inc. (http://www.inveneo.org)
+ * @author        Clark Ritchie <clark@inveneo.org>
+ * @link          http://www.inveneo.org
+ * @package       app.Model
+ * @since         Organization precedes Poundcake v2.2.1
+ * @license       XYZ License
+ */
+
+
 App::uses('AppModel', 'Model');
 
 class Organization extends AppModel {
     
-    // not working?
-    public $paginate = array(
-        'limit' => 20, // default limit also defined in AppController
-        'order' => array(
-            'Organizations.name' => 'asc'
-        )
-    );
-    
+    /*
+     * Display field for select lists
+     */
     public $displayField = 'name';
 
+    /*
+     * Relations
+     */
     public $hasMany = array(
         'Contact',
         'Site'
     );
     
+    /*
+     * Relations
+     */
     public $hasAndBelongsToMany = array('Project');
 
+    /*
+     * Field-level validation rules
+     */
     public $validate = array(
         'name' => array(
             'notempty' => array(

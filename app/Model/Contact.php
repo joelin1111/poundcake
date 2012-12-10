@@ -1,31 +1,48 @@
 <?php
+/**
+ * Model for a contact.
+ *
+ * Developed against CakePHP 2.2.3 and PHP 5.4.4.
+ *
+ * Copyright 2012, Inveneo, Inc. (http://www.inveneo.org)
+ *
+ * Licensed under XYZ License.
+ * 
+ * Redistributions of files must retain the above copyright notice.
+ *
+ * @copyright     Copyright 2012, Inveneo, Inc. (http://www.inveneo.org)
+ * @author        Clark Ritchie <clark@inveneo.org>
+ * @link          http://www.inveneo.org
+ * @package       app.Model
+ * @since         Contact precedes Poundcake v2.2.1
+ * @license       XYZ License
+ */
+
 App::uses('AppModel', 'Model');
 
 class Contact extends AppModel {
 
+    /*
+     * Display field for select lists
+     */
     public $displayField = 'first_name';
 
+    /*
+     * Relations
+     */
     public $belongsTo = array('Organization','ContactType','InstallTeam');
     
+    /*
+     * Use Cake virtual fields to create first name + last name pair
+     */
     public $virtualFields = array(
         'name_vf' => 'CONCAT(first_name, " ", last_name)'
         //'contact_vf' => 'CONCAT(first_name, " ", last_name, " (",")")'
     );
     
     /*
-    // we are using afterFind to define a second virutal field since we need to
-    // pull from a related model -- something that's not possible with the
-    // standard public $virtualFields approach
-    public function afterFind($results, $primary = false) {
-        foreach ($results as $key => $val) {
-            if (isset($val['Contact']['first_name']) && isset($val['Contact']['last_name'])) {
-                $results[$key]['Contact']['contact_role'] = 'foo bar';
-            }
-        }
-        return $results;
-    }
-    */
-    
+     * Field-level validation rules
+     */
     public $validate = array(
         'first_name' => array(
             'notempty' => array(
@@ -64,5 +81,4 @@ class Contact extends AppModel {
         )
         */
     );
-
 }

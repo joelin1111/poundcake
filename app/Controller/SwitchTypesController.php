@@ -3,6 +3,7 @@
  * Controller for switch types.
  *
  * This is a very basic controller to add/view/update/delete switch types.
+ * 
  * These tasks would typically be performed by a user with administrative level
  * permissions within Poundcake.
  *

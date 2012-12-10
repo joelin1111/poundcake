@@ -1,49 +1,82 @@
 <?php
+/**
+ * Model for IP addresses.
+ * 
+ * Note this model is unique within Poundcake -- it representats the addrpool
+ * application, an external (Python, not CakePHP) system Inveneo uses for IP
+ * address allocation and management.
+ * 
+ * Developed against CakePHP 2.2.3 and PHP 5.4.4.
+ *
+ * Copyright 2012, Inveneo, Inc. (http://www.inveneo.org)
+ *
+ * Licensed under XYZ License.
+ * 
+ * Redistributions of files must retain the above copyright notice.
+ *
+ * @copyright     Copyright 2012, Inveneo, Inc. (http://www.inveneo.org)
+ * @author        Clark Ritchie <clark@inveneo.org>
+ * @link          http://www.inveneo.org
+ * @package       app.Model
+ * @since         IPAddress precedes Poundcake v2.2.1
+ * @license       XYZ License
+ */
+
 App::uses('AppModel', 'Model');
 
 class IPAddress extends AppModel {
 
+    /*
+     * Display field for select lists
+     */
     public $displayField = 'name';
+    
+    /*
+     * IPAddress pulls data from a different datasource
+     */
     var $useTable = 'addrpool_subnet'; // This model uses the database table 'addrpool_subnet' in the addrpool db
     
+    /*
+     * IPAddress pulls data from a different datasource
+     */
     var $useDbConfig = 'addrpool';
     
-    // plural
+    /*
+     * Returns all the IP addresses from addrpool for a given radio name.
+     * Note this name is plural
+     */
     public function getAllIPAddresses($name) {
         $addresses = '';
         if (isset($name)) {
-            // current model can be accessed via: $this->modelClass;
-            // $name = $this->{$this->modelClass}->field('name');
             $query = 'call sp_get_all_ip_addresses("'.$name.'%")';
             $addresses = ClassRegistry::init('IPAddress')->query( $query );
         }
         return $addresses;
     }
     
-    // singular
+    /*
+     * Returns the IP address from addrpool for a given radio name.
+     * Note this name is singular
+     */
     public function getIPAddress($name) {
         $ip_address = '';
         $value = '';
         if (isset($name)) {    
             $query = 'select sp_get_ip_address("'.$name.'")';          
             $ip_address = ClassRegistry::init('IPAddress')->query($query);
-//            echo '<pre>';
-//            echo $query;
-//            print_r($ip_address);
-//            echo '</pre>';
             if (is_array($ip_address)) {
                 foreach ($ip_address[0][0] as $key => $value) {
                     $ip_address = $value;
                 }
             }
         }
-        // note we're supressing any PHP warnings when there is no IP address
-        //return @$address;
         return $ip_address;
     }
     
+    /*
+     * Returns all gateway IP addresses from addrpool for a given radio name.
+     */
     public function getGatewayAddress($name) {
-        
         if (isset($name)) {
             $query = 'call sp_get_gw("'.$name.'")';
             $address = ClassRegistry::init('IPAddress')->query( $query );
@@ -56,9 +89,6 @@ class IPAddress extends AppModel {
                 $address = '';
             }
         }
-        // note we're supressing any PHP warnings when there is no IP address
-//        echo $address;
-//        die;
         return $address;
     }
 }

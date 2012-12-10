@@ -3,6 +3,7 @@
  * Controller for change log entries.
  *
  * This is a very basic controller to add/view/update/delete change log entries.
+ * 
  * These tasks would typically be performed by a user with administrative level
  * permissions within Poundcake.
  *
