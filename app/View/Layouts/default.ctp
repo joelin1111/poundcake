@@ -142,10 +142,6 @@ $cakeDescription = __d('poundcake', 'Tower DB');
     </div>
     </div> <!--/.navbar -->
     
-    <div class="row" align="center">
-        <?php //include 'breadcrumb.ctp'; ?>
-    </div> <!--/.bread crumbs -->
-    
     <div class="container">       
     <div align="center">
     <?php
@@ -164,7 +160,7 @@ $cakeDescription = __d('poundcake', 'Tower DB');
             
         <?php echo $content_for_layout; ?>
         
-        <div id="footer" align="center"><BR><BR><BR>
+        <div id="footer" align="center"><BR><BR>
                         
         <div class="row" align="center">
             <?php include 'breadcrumb.ctp'; ?>
