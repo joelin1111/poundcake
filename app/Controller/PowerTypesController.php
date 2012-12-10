@@ -40,7 +40,7 @@ class PowerTypesController extends AppController {
     public function view($id = null) {
         $this->PowerType->id = $id;
         if (!$this->PowerType->exists()) {
-                throw new NotFoundException(__('Invalid power type'));
+                throw new NotFoundException('Invalid power type');
         }
         $this->set('powerType', $this->PowerType->read(null, $id));
     }
@@ -52,10 +52,10 @@ class PowerTypesController extends AppController {
         if ($this->request->is('post')) {
             $this->PowerType->create();
             if ($this->PowerType->save($this->request->data)) {
-                $this->Session->setFlash(__('The power type has been saved'));
+                $this->Session->setFlash('The power type has been saved');
                 $this->redirect(array('action' => 'index'));
             } else {
-                $this->Session->setFlash(__('The power type could not be saved. Please, try again.'));
+                $this->Session->setFlash('The power type could not be saved. Please, try again.');
             }
         }
     }
@@ -66,14 +66,14 @@ class PowerTypesController extends AppController {
     public function edit($id = null) {
         $this->PowerType->id = $id;
         if (!$this->PowerType->exists()) {
-            throw new NotFoundException(__('Invalid power type'));
+            throw new NotFoundException('Invalid power type');
         }
         if ($this->request->is('post') || $this->request->is('put')) {
             if ($this->PowerType->save($this->request->data)) {
-                $this->Session->setFlash(__('The power type has been saved'));
+                $this->Session->setFlash('The power type has been saved');
                 $this->redirect(array('action' => 'index'));
             } else {
-                $this->Session->setFlash(__('The power type could not be saved. Please, try again.'));
+                $this->Session->setFlash('The power type could not be saved. Please, try again.');
             }
         } else {
             $this->request->data = $this->PowerType->read(null, $id);
@@ -89,13 +89,13 @@ class PowerTypesController extends AppController {
         }
         $this->PowerType->id = $id;
         if (!$this->PowerType->exists()) {
-            throw new NotFoundException(__('Invalid power type'));
+            throw new NotFoundException('Invalid power type');
         }
         if ($this->PowerType->delete()) {
-            $this->Session->setFlash(__('Power type deleted'));
+            $this->Session->setFlash('Power type deleted');
             $this->redirect(array('action' => 'index'));
         }
-        $this->Session->setFlash(__('Power type was not deleted'));
+        $this->Session->setFlash('Power type was not deleted');
         $this->redirect(array('action' => 'index'));
     }
 
@@ -106,5 +106,4 @@ class PowerTypesController extends AppController {
     public function isAuthorized($user) {
         return parent::isAuthorized($user);
     }
-        
 }

@@ -40,7 +40,7 @@ class AntennaTypesController extends AppController {
     public function view($id = null) {
         $this->AntennaType->id = $id;
         if (!$this->AntennaType->exists()) {
-            throw new NotFoundException(__('Invalid antenna type'));
+            throw new NotFoundException('Invalid antenna type');
         }
         $this->set('antennaType', $this->AntennaType->read(null, $id));
     }
@@ -52,10 +52,10 @@ class AntennaTypesController extends AppController {
         if ($this->request->is('post')) {
             $this->AntennaType->create();
             if ($this->AntennaType->save($this->request->data)) {
-                $this->Session->setFlash(__('The antenna type has been saved'));
+                $this->Session->setFlash('The antenna type has been saved');
                 $this->redirect(array('action' => 'index'));
             } else {
-                $this->Session->setFlash(__('The antenna type could not be saved. Please, try again.'));
+                $this->Session->setFlash('The antenna type could not be saved. Please, try again.');
             }
         }
     }
@@ -66,14 +66,14 @@ class AntennaTypesController extends AppController {
     public function edit($id = null) {
         $this->AntennaType->id = $id;
         if (!$this->AntennaType->exists()) {
-            throw new NotFoundException(__('Invalid antenna type'));
+            throw new NotFoundException('Invalid antenna type');
         }
         if ($this->request->is('post') || $this->request->is('put')) {
             if ($this->AntennaType->save($this->request->data)) {
-                $this->Session->setFlash(__('The antenna type has been saved'));
+                $this->Session->setFlash('The antenna type has been saved');
                 $this->redirect(array('action' => 'index'));
             } else {
-                $this->Session->setFlash(__('The antenna type could not be saved. Please, try again.'));
+                $this->Session->setFlash('The antenna type could not be saved. Please, try again.');
             }
         } else {
             $this->request->data = $this->AntennaType->read(null, $id);
@@ -89,13 +89,13 @@ class AntennaTypesController extends AppController {
         }
         $this->AntennaType->id = $id;
         if (!$this->AntennaType->exists()) {
-            throw new NotFoundException(__('Invalid antenna type'));
+            throw new NotFoundException('Invalid antenna type');
         }
         if ($this->AntennaType->delete()) {
-            $this->Session->setFlash(__('Antenna type deleted'));
+            $this->Session->setFlash('Antenna type deleted');
             $this->redirect(array('action' => 'index'));
         }
-        $this->Session->setFlash(__('Antenna type was not deleted'));
+        $this->Session->setFlash('Antenna type was not deleted');
         $this->redirect(array('action' => 'index'));
     }
 
@@ -106,5 +106,4 @@ class AntennaTypesController extends AppController {
     public function isAuthorized($user) {
         return parent::isAuthorized($user);
     }
-        
 }

@@ -1,6 +1,6 @@
 <?php
 /**
- * Controller for antenna types.
+ * Controller for contact types.
  *
  * This is a very basic controller to add/view/update/delete antenna types.
  * These tasks would typically be performed by a user with administrative level
@@ -18,7 +18,7 @@
  * @author        Clark Ritchie <clark@inveneo.org>
  * @link          http://www.inveneo.org
  * @package       app.Controller
- * @since         AntennaTypesController precedes Poundcake v2.2.1
+ * @since         ContactTypesController precedes Poundcake v2.2.1
  * @license       XYZ License
  */
 
@@ -26,61 +26,76 @@ App::uses('AppController', 'Controller');
 
 class ContactTypesController extends AppController {
 
+    /*
+     * Main listing for all ContactTypes
+     */
     public function index() {
         $this->ContactType->recursive = 0;
         $this->set('contactTypes', $this->paginate());
     }
 
+    /*
+     * View a ContactType
+     */
     public function view($id = null) {
         $this->ContactType->id = $id;
         if (!$this->ContactType->exists()) {
-                throw new NotFoundException(__('Invalid contact type'));
+                throw new NotFoundException('Invalid contact type');
         }
         $this->set('roadType', $this->ContactType->read(null, $id));
     }
 
+    /*
+     * Add a new ContactType
+     */
     public function add() {
         if ($this->request->is('post')) {
             $this->ContactType->create();
             if ($this->ContactType->save($this->request->data)) {
-                    $this->Session->setFlash(__('The contact type has been saved'));
-                    $this->redirect(array('action' => 'index'));
+                $this->Session->setFlash('The contact type has been saved');
+                $this->redirect(array('action' => 'index'));
             } else {
-                    $this->Session->setFlash(__('The contact type could not be saved. Please, try again.'));
+                $this->Session->setFlash('The contact type could not be saved. Please, try again.');
             }
         }
     }
 
+    /*
+     * Edit an existing ContactType
+     */
     public function edit($id = null) {
         $this->ContactType->id = $id;
         if (!$this->ContactType->exists()) {
-                throw new NotFoundException(__('Invalid contact type'));
+                throw new NotFoundException('Invalid contact type');
         }
         if ($this->request->is('post') || $this->request->is('put')) {
             if ($this->ContactType->save($this->request->data)) {
-                $this->Session->setFlash(__('The contact type has been saved'));
+                $this->Session->setFlash('The contact type has been saved');
                 $this->redirect(array('action' => 'index'));
             } else {
-                $this->Session->setFlash(__('The contact type could not be saved. Please, try again.'));
+                $this->Session->setFlash('The contact type could not be saved. Please, try again.');
             }
         } else {
             $this->request->data = $this->ContactType->read(null, $id);
         }
     }
 
+    /*
+     * Delete an existing ContactType
+     */
     public function delete($id = null) {
         if (!$this->request->is('post')) {
                 throw new MethodNotAllowedException();
         }
         $this->ContactType->id = $id;
         if (!$this->ContactType->exists()) {
-                throw new NotFoundException(__('Invalid contact type'));
+                throw new NotFoundException('Invalid contact type');
         }
         if ($this->ContactType->delete()) {
-                $this->Session->setFlash(__('Contact type deleted'));
+                $this->Session->setFlash('Contact type deleted');
                 $this->redirect(array('action' => 'index'));
         }
-        $this->Session->setFlash(__('Contact type was not deleted'));
+        $this->Session->setFlash('Contact type was not deleted');
         $this->redirect(array('action' => 'index'));
     }
 

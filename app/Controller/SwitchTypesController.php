@@ -1,8 +1,8 @@
 <?php
 /**
- * Controller for antenna types.
+ * Controller for switch types.
  *
- * This is a very basic controller to add/view/update/delete antenna types.
+ * This is a very basic controller to add/view/update/delete switch types.
  * These tasks would typically be performed by a user with administrative level
  * permissions within Poundcake.
  *
@@ -18,7 +18,7 @@
  * @author        Clark Ritchie <clark@inveneo.org>
  * @link          http://www.inveneo.org
  * @package       app.Controller
- * @since         AntennaTypesController precedes Poundcake v2.2.1
+ * @since         SwitchTypesController precedes Poundcake v2.2.1
  * @license       XYZ License
  */
 
@@ -26,61 +26,76 @@ App::uses('AppController', 'Controller');
 
 class SwitchTypesController extends AppController {
 
+    /*
+     * Main listing for all SwitchTypes
+     */
     public function index() {
         $this->SwitchType->recursive = 0;
         $this->set('switchTypes', $this->paginate());
     }
 
+    /*
+     * View a SwitchType
+     */
     public function view($id = null) {
         $this->SwitchType->id = $id;
         if (!$this->SwitchType->exists()) {
-                throw new NotFoundException(__('Invalid switch type'));
+            throw new NotFoundException('Invalid switch type');
         }
         $this->set('switchType', $this->SwitchType->read(null, $id));
     }
 
+    /*
+     * Add a new SwitchType
+     */
     public function add() {
         if ($this->request->is('post')) {
             $this->SwitchType->create();
             if ($this->SwitchType->save($this->request->data)) {
-                $this->Session->setFlash(__('The switch type has been saved'));
+                $this->Session->setFlash('The switch type has been saved');
                 $this->redirect(array('action' => 'index'));
             } else {
-                $this->Session->setFlash(__('The switch type could not be saved. Please, try again.'));
+                $this->Session->setFlash('The switch type could not be saved. Please, try again.');
             }
         }
     }
 
+    /*
+     * Edit an existing SwitchType
+     */
     public function edit($id = null) {
         $this->SwitchType->id = $id;
         if (!$this->SwitchType->exists()) {
-            throw new NotFoundException(__('Invalid switch type'));
+            throw new NotFoundException('Invalid switch type');
         }
         if ($this->request->is('post') || $this->request->is('put')) {
             if ($this->SwitchType->save($this->request->data)) {
-                $this->Session->setFlash(__('The switch type has been saved'));
+                $this->Session->setFlash('The switch type has been saved');
                 $this->redirect(array('action' => 'index'));
             } else {
-                $this->Session->setFlash(__('The switch type could not be saved. Please, try again.'));
+                $this->Session->setFlash('The switch type could not be saved. Please, try again.');
             }
         } else {
             $this->request->data = $this->SwitchType->read(null, $id);
         }
     }
 
+    /*
+     * Delete an existing SwitchType
+     */
     public function delete($id = null) {
         if (!$this->request->is('post')) {
             throw new MethodNotAllowedException();
         }
         $this->SwitchType->id = $id;
         if (!$this->SwitchType->exists()) {
-            throw new NotFoundException(__('Invalid switch type'));
+            throw new NotFoundException('Invalid switch type');
         }
         if ($this->SwitchType->delete()) {
-            $this->Session->setFlash(__('Power type deleted'));
+            $this->Session->setFlash('Switch type deleted');
             $this->redirect(array('action' => 'index'));
         }
-        $this->Session->setFlash(__('Power type was not deleted'));
+        $this->Session->setFlash('Switch type was not deleted');
         $this->redirect(array('action' => 'index'));
     }
 
@@ -91,5 +106,4 @@ class SwitchTypesController extends AppController {
     public function isAuthorized($user) {
         return parent::isAuthorized($user);
     }
-        
 }

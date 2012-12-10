@@ -47,7 +47,7 @@ class ChangeLogController extends AppController {
     public function view($id = null) {
         $this->ChangeLog->id = $id;
         if (!$this->ChangeLog->exists()) {
-            throw new NotFoundException(__('Invalid change log'));
+            throw new NotFoundException('Invalid change log');
         }
         $changeLog = $this->ChangeLog->read(null, $id);
         $changeLog['ChangeLog']['description'] =nl2br( $changeLog['ChangeLog']['description'] );
@@ -61,10 +61,10 @@ class ChangeLogController extends AppController {
         if ($this->request->is('post')) {
             $this->ChangeLog->create();
             if ($this->ChangeLog->save($this->request->data)) {
-                $this->Session->setFlash(__('The change log has been saved'));
+                $this->Session->setFlash('The change log has been saved');
                 $this->redirect(array('action' => 'index'));
             } else {
-                $this->Session->setFlash(__('The change log could not be saved. Please, try again.'));
+                $this->Session->setFlash('The change log could not be saved. Please, try again.');
             }
         }
     }
@@ -75,14 +75,14 @@ class ChangeLogController extends AppController {
     public function edit($id = null) {
         $this->ChangeLog->id = $id;
         if (!$this->ChangeLog->exists()) {
-            throw new NotFoundException(__('Invalid change log'));
+            throw new NotFoundException('Invalid change log');
         }
         if ($this->request->is('post') || $this->request->is('put')) {
             if ($this->ChangeLog->save($this->request->data)) {
-                $this->Session->setFlash(__('The change log has been saved'));
+                $this->Session->setFlash('The change log has been saved');
                 $this->redirect(array('action' => 'index'));
             } else {
-                $this->Session->setFlash(__('The change log could not be saved. Please, try again.'));
+                $this->Session->setFlash('The change log could not be saved. Please, try again.');
             }
         } else {
             $this->request->data = $this->ChangeLog->read(null, $id);
@@ -98,13 +98,13 @@ class ChangeLogController extends AppController {
         }
         $this->ChangeLog->id = $id;
         if (!$this->ChangeLog->exists()) {
-            throw new NotFoundException(__('Invalid change log'));
+            throw new NotFoundException('Invalid change log');
         }
         if ($this->ChangeLog->delete()) {
-            $this->Session->setFlash(__('Change log deleted'));
+            $this->Session->setFlash('Change log deleted');
             $this->redirect(array('action' => 'index'));
         }
-        $this->Session->setFlash(__('Change log was not deleted'));
+        $this->Session->setFlash('Change log was not deleted');
         $this->redirect(array('action' => 'index'));
     }
 
@@ -119,5 +119,4 @@ class ChangeLogController extends AppController {
         }
         return parent::isAuthorized($user);
     }
-        
 }

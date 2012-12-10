@@ -1,6 +1,6 @@
 <?php
 /**
- * Controller for antenna types.
+ * Controller for equipment spaces.
  *
  * This is a very basic controller to add/view/update/delete antenna types.
  * These tasks would typically be performed by a user with administrative level
@@ -18,7 +18,7 @@
  * @author        Clark Ritchie <clark@inveneo.org>
  * @link          http://www.inveneo.org
  * @package       app.Controller
- * @since         AntennaTypesController precedes Poundcake v2.2.1
+ * @since         EquipmentSpacesController precedes Poundcake v2.2.1
  * @license       XYZ License
  */
 
@@ -26,61 +26,76 @@ App::uses('AppController', 'Controller');
 
 class EquipmentSpacesController extends AppController {
 
+    /*
+     * Main listing for all AntennaTypes
+     */
     public function index() {
         $this->EquipmentSpace->recursive = 0;
         $this->set('towertypes', $this->paginate());
     }
 
+    /*
+     * View an EquipmentSpace
+     */
     public function view($id = null) {
         $this->EquipmentSpace->id = $id;
         if (!$this->EquipmentSpace->exists()) {
-                throw new NotFoundException(__('Invalid equipment space'));
+                throw new NotFoundException('Invalid equipment space');
         }
-        $this->set('towertype', $this->EquipmentSpace->read(null, $id));
+        $this->set('equipmentspace', $this->EquipmentSpace->read(null, $id));
     }
 
+    /*
+     * Add a new EquipmentSpace
+     */
     public function add() {
         if ($this->request->is('post')) {
             $this->EquipmentSpace->create();
             if ($this->EquipmentSpace->save($this->request->data)) {
-                $this->Session->setFlash(__('The equipment space has been saved'));
+                $this->Session->setFlash('The equipment space has been saved');
                 $this->redirect(array('action' => 'index'));
             } else {
-                $this->Session->setFlash(__('The equipment space could not be saved. Please, try again.'));
+                $this->Session->setFlash('The equipment space could not be saved. Please, try again.');
             }
         }
     }
 
+    /*
+     * Edit an existing EquipmentSpace
+     */
     public function edit($id = null) {
         $this->EquipmentSpace->id = $id;
         if (!$this->EquipmentSpace->exists()) {
-                throw new NotFoundException(__('Invalid equipment space'));
+            throw new NotFoundException('Invalid equipment space');
         }
         if ($this->request->is('post') || $this->request->is('put')) {
             if ($this->EquipmentSpace->save($this->request->data)) {
-                $this->Session->setFlash(__('The equipment space has been saved'));
+                $this->Session->setFlash('The equipment space has been saved');
                 $this->redirect(array('action' => 'index'));
             } else {
-                $this->Session->setFlash(__('The equipment space could not be saved. Please, try again.'));
+                $this->Session->setFlash('The equipment space could not be saved. Please, try again.');
             }
         } else {
             $this->request->data = $this->EquipmentSpace->read(null, $id);
         }
     }
 
+    /*
+     * Delete an existing EquipmentSpace
+     */
     public function delete($id = null) {
         if (!$this->request->is('post')) {
             throw new MethodNotAllowedException();
         }
         $this->EquipmentSpace->id = $id;
         if (!$this->EquipmentSpace->exists()) {
-            throw new NotFoundException(__('Invalid equipment space'));
+            throw new NotFoundException('Invalid equipment space');
         }
         if ($this->EquipmentSpace->delete()) {
-            $this->Session->setFlash(__('EquipmentSpace deleted'));
+            $this->Session->setFlash('Equipment space deleted');
             $this->redirect(array('action' => 'index'));
         }
-        $this->Session->setFlash(__('EquipmentSpace was not deleted'));
+        $this->Session->setFlash('Equipment space was not deleted');
         $this->redirect(array('action' => 'index'));
     }
         
