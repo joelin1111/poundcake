@@ -10,7 +10,7 @@
  *
  * Copyright 2012, Inveneo, Inc. (http://www.inveneo.org)
  *
- * Licensed under RevisitLicenseType license.
+ * Licensed under XYZ License.
  * 
  * Redistributions of files must retain the above copyright notice.
  *
@@ -18,8 +18,9 @@
  * @author        Clark Ritchie <clark@inveneo.org>
  * @link          http://www.inveneo.org
  * @package       app.Controller
- * @since         Precedes v 2.2.1
- * @license       RevisitLicenseType
+ * @since         File precedes Poundcake v2.2.1
+ * @version       Developed using CakePHP 2.2.3 and PHP 5.4.4
+ * @license       XYZ License
  */
 
 App::uses('AppController', 'Controller');
