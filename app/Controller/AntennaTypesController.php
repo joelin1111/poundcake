@@ -10,7 +10,7 @@
  *
  * Copyright 2012, Inveneo, Inc. (http://www.inveneo.org)
  *
- * Licensed under REVISIT license.
+ * Licensed under RevisitLicenseType license.
  * 
  * Redistributions of files must retain the above copyright notice.
  *
@@ -19,7 +19,7 @@
  * @link          http://www.inveneo.org
  * @package       app.Controller
  * @since         Precedes v 2.2.1
- * @license       REVISIT
+ * @license       RevisitLicenseType
  */
 
 App::uses('AppController', 'Controller');
