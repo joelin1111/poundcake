@@ -6,7 +6,7 @@
  * These tasks would typically be performed by a user with administrative level
  * permissions within Poundcake.
  *
- * PHP 5
+ * Developed against CakePHP 2.2.3 and PHP 5.4.4.
  *
  * Copyright 2012, Inveneo, Inc. (http://www.inveneo.org)
  *
@@ -18,8 +18,7 @@
  * @author        Clark Ritchie <clark@inveneo.org>
  * @link          http://www.inveneo.org
  * @package       app.Controller
- * @since         File precedes Poundcake v2.2.1
- * @version       Developed using CakePHP 2.2.3 and PHP 5.4.4
+ * @since         AntennaTypesController precedes Poundcake v2.2.1
  * @license       XYZ License
  */
 
@@ -27,19 +26,28 @@ App::uses('AppController', 'Controller');
 
 class AntennaTypesController extends AppController {
 
+    /*
+     * Main listing for all AntennaTypes
+     */
     public function index() {
         $this->AntennaType->recursive = 0;
         $this->set('antennaTypes', $this->paginate());
     }
 
+    /*
+     * View an AntennaType
+     */
     public function view($id = null) {
         $this->AntennaType->id = $id;
         if (!$this->AntennaType->exists()) {
-                throw new NotFoundException(__('Invalid antenna type'));
+            throw new NotFoundException(__('Invalid antenna type'));
         }
         $this->set('antennaType', $this->AntennaType->read(null, $id));
     }
 
+    /*
+     * Add a new AntennaType
+     */
     public function add() {
         if ($this->request->is('post')) {
             $this->AntennaType->create();
@@ -52,6 +60,9 @@ class AntennaTypesController extends AppController {
         }
     }
 
+    /*
+     * Edit an existing AntennaType
+     */
     public function edit($id = null) {
         $this->AntennaType->id = $id;
         if (!$this->AntennaType->exists()) {
@@ -69,6 +80,9 @@ class AntennaTypesController extends AppController {
         }
     }
 
+    /*
+     * Delete an existing AntennaType
+     */
     public function delete($id = null) {
         if (!$this->request->is('post')) {
             throw new MethodNotAllowedException();
@@ -85,7 +99,10 @@ class AntennaTypesController extends AppController {
         $this->redirect(array('action' => 'index'));
     }
 
-    // check the ACL
+    /*
+     * Uses Auth to check the ACL to see if the user is allowed to perform any
+     * actions in this controller
+     */
     public function isAuthorized($user) {
         return parent::isAuthorized($user);
     }

@@ -6,11 +6,11 @@
  * These tasks would typically be performed by a user with administrative level
  * permissions within Poundcake.
  *
- * PHP 5
+ * Developed against CakePHP 2.2.3 and PHP 5.4.4.
  *
  * Copyright 2012, Inveneo, Inc. (http://www.inveneo.org)
  *
- * Licensed under REVISIT license.
+ * Licensed under XYZ License.
  * 
  * Redistributions of files must retain the above copyright notice.
  *
@@ -18,8 +18,8 @@
  * @author        Clark Ritchie <clark@inveneo.org>
  * @link          http://www.inveneo.org
  * @package       app.Controller
- * @since         Precedes v 2.2.1
- * @license       REVISIT
+ * @since         AntennaTypesController precedes Poundcake v2.2.1
+ * @license       XYZ License
  */
 
 App::uses('AppController', 'Controller');
@@ -84,7 +84,10 @@ class TowerMembersController extends AppController {
         $this->redirect(array('action' => 'index'));
     }
         
-    // check the ACL
+    /*
+     * Uses Auth to check the ACL to see if the user is allowed to perform any
+     * actions in this controller
+     */
     public function isAuthorized($user) {
         return parent::isAuthorized($user);
     }

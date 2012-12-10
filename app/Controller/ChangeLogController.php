@@ -1,40 +1,62 @@
 <?php
+/**
+ * Controller for change log entries.
+ *
+ * This is a very basic controller to add/view/update/delete change log entries.
+ * These tasks would typically be performed by a user with administrative level
+ * permissions within Poundcake.
+ *
+ * Developed against CakePHP 2.2.3 and PHP 5.4.4.
+ *
+ * Copyright 2012, Inveneo, Inc. (http://www.inveneo.org)
+ *
+ * Licensed under XYZ License.
+ * 
+ * Redistributions of files must retain the above copyright notice.
+ *
+ * @copyright     Copyright 2012, Inveneo, Inc. (http://www.inveneo.org)
+ * @author        Clark Ritchie <clark@inveneo.org>
+ * @link          http://www.inveneo.org
+ * @package       app.Controller
+ * @since         ChangeLogController precedes Poundcake v2.2.1
+ * @license       XYZ License
+ */
+
 App::uses('AppController', 'Controller');
 
 class ChangeLogController extends AppController {
 
+    /*
+     * Uses our custom HTML helper to handle hyperlinks based on ACL permissions
+     */
     var $helpers = array(
         'MyHTML',
     );
     
+    /*
+     * Main listing for all ChangeLogs
+     */
     public function index() {
         $this->ChangeLog->recursive = 0;
         $this->set('changeLogs', $this->paginate());
     }
 
+    /*
+     * View a ChangeLog
+     */
     public function view($id = null) {
         $this->ChangeLog->id = $id;
         if (!$this->ChangeLog->exists()) {
             throw new NotFoundException(__('Invalid change log'));
         }
-        //$changeLog = $this->ChangeLog->read(null, $id);
-        //$changeLog = str_replace('-','<li>',$this->ChangeLog->read(null, $id));
         $changeLog = $this->ChangeLog->read(null, $id);
         $changeLog['ChangeLog']['description'] =nl2br( $changeLog['ChangeLog']['description'] );
         $this->set('changeLog', $changeLog);
-        //$this->set('changeLog', $this->ChangeLog->read(null, $id));
     }
-    
+
     /*
-    public function sslTest() {
-        $link = mysql_connect("10.0.2.6","addrpool-viewer","addrpool-viewer",false,MYSQL_CLIENT_SSL) 
-                or die(mysql_error());
-        $res = mysql_query("SHOW STATUS LIKE 'ssl_cipher';",$link);
-        print_r(mysql_fetch_row($res));
-        echo "Finished.";
-    }
-    */
-    
+     * Add a new ChangeLog
+     */
     public function add() {
         if ($this->request->is('post')) {
             $this->ChangeLog->create();
@@ -46,7 +68,10 @@ class ChangeLogController extends AppController {
             }
         }
     }
-
+    
+    /*
+     * Edit an existing ChangeLog
+     */
     public function edit($id = null) {
         $this->ChangeLog->id = $id;
         if (!$this->ChangeLog->exists()) {
@@ -64,6 +89,9 @@ class ChangeLogController extends AppController {
         }
     }
 
+    /*
+     * Delete an existing ChangeLog
+     */
     public function delete($id = null) {
         if (!$this->request->is('post')) {
             throw new MethodNotAllowedException();
@@ -80,11 +108,13 @@ class ChangeLogController extends AppController {
         $this->redirect(array('action' => 'index'));
     }
 
-    // check the ACL
+    /*
+     * Uses Auth to check the ACL to see if the user is allowed to perform any
+     * actions in this controller
+     */
     public function isAuthorized($user) {
         // allow users to view the changelog
         if ($this->action === 'index' || $this->action === 'view') {
-            // for testing
             return true;
         }
         return parent::isAuthorized($user);

@@ -1,13 +1,42 @@
 <?php
+/**
+ * Controller for power types.
+ *
+ * This is a very basic controller to add/view/update/delete power types.
+ * These tasks would typically be performed by a user with administrative level
+ * permissions within Poundcake.
+ *
+ * Developed against CakePHP 2.2.3 and PHP 5.4.4.
+ *
+ * Copyright 2012, Inveneo, Inc. (http://www.inveneo.org)
+ *
+ * Licensed under XYZ License.
+ * 
+ * Redistributions of files must retain the above copyright notice.
+ *
+ * @copyright     Copyright 2012, Inveneo, Inc. (http://www.inveneo.org)
+ * @author        Clark Ritchie <clark@inveneo.org>
+ * @link          http://www.inveneo.org
+ * @package       app.Controller
+ * @since         PowerTypesController precedes Poundcake v2.2.1
+ * @license       XYZ License
+ */
+
 App::uses('AppController', 'Controller');
 
 class PowerTypesController extends AppController {
 
+    /*
+     * Main listing for all PowerTypes
+     */
     public function index() {
         $this->PowerType->recursive = 0;
         $this->set('powerTypes', $this->paginate());
     }
 
+    /*
+     * View a PowerType
+     */
     public function view($id = null) {
         $this->PowerType->id = $id;
         if (!$this->PowerType->exists()) {
@@ -16,6 +45,9 @@ class PowerTypesController extends AppController {
         $this->set('powerType', $this->PowerType->read(null, $id));
     }
 
+    /*
+     * Add a new PowerType
+     */
     public function add() {
         if ($this->request->is('post')) {
             $this->PowerType->create();
@@ -28,6 +60,9 @@ class PowerTypesController extends AppController {
         }
     }
 
+    /*
+     * Edit an existing PowerType
+     */
     public function edit($id = null) {
         $this->PowerType->id = $id;
         if (!$this->PowerType->exists()) {
@@ -45,6 +80,9 @@ class PowerTypesController extends AppController {
         }
     }
 
+    /*
+     * Delete an existing PowerType
+     */
     public function delete($id = null) {
         if (!$this->request->is('post')) {
             throw new MethodNotAllowedException();
@@ -61,7 +99,10 @@ class PowerTypesController extends AppController {
         $this->redirect(array('action' => 'index'));
     }
 
-    // check the ACL
+    /*
+     * Uses Auth to check the ACL to see if the user is allowed to perform any
+     * actions in this controller
+     */
     public function isAuthorized($user) {
         return parent::isAuthorized($user);
     }
