@@ -154,27 +154,36 @@ class AppController extends Controller {
     }
     */
     
-    // we could prevent some staff to edit or delete others' schools
-    // basic rules for our app are that admin users can access every url, while
-    // normal users (the author role) can only access the permitted actions.
-    public function isAuthorized($user) {
-        // The role of admin can access every action, huzzah!
+    /*
+     * Check the ACL to see if this user can perform actions on the view within
+     * the controller
+     */
+    public function isAuthorized( $user ) {
+        // there are 3 role alias' in the system:  admin, edit, view
+        // users with the rolealias of admin can access every page
+        // some controllers override this to allow the rolealias' of
+        // edit or view to access the page    
         if (isset($user['Role']['rolealias']) && $user['Role']['rolealias'] === 'admin') {
             return true;
         }
 
-        // Default deny
+        // default deny
         return false;
     }
     
+    /*
+     * Standard callback function before a view is rendered
+     * Used to grab any system messages an admin may have set, and get the 
+     * release number
+     */
     function beforeRender() {
-        // In the views $user['User']['username'] would display the logged in users username
+        // in the views $user['User']['username'] would display the logged in
+        // user's username
         $this->set('user', $this->Auth->user());
         
-        $banner = $this->Session->read('banner');
-        $version = $this->Session->read('version');
+        $banner = $this->Session->read('banner'); // system messages
+        $version = $this->Session->read('version'); // current version number
         if ( !isset($banner) || !isset($version) ) {
-            //echo "setting version";
             // I just need an object on which I can call query, ChangeLog seems OK?
             // maybe this doesn't need to be done here
             $query = "select message from notifications";
@@ -187,15 +196,15 @@ class AppController extends Controller {
             $result = $this->ChangeLog->query($query);
             $this->Session->write('version',$result[0][0]['version']);
         }
-        //echo "Banner is $banner";
-        //echo "Version is $version";
     }
     
-    /* make strings filename safe
-    function sanitizeName( $string ) {
-        return preg_replace(array('/\s/', '/\.[\.]+/', '/[^\w_\.\-]/'), array('_', '.', ''), $string);
-    }
-    */
+    /*
+     * Make strings filename safe
+     */
+//    function sanitizeName( $string ) {
+//        return preg_replace(array('/\s/', '/\.[\.]+/', '/[^\w_\.\-]/'), array('_', '.', ''), $string);
+//    }
+    
     
     function search() {
         // the page we will redirect to at the end
