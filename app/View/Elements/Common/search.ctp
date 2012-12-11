@@ -11,20 +11,20 @@ function checkAll(formname, checktoggle)
   }
 }
 </script>-->
-
 <H3>Search</H3>
+<div class="well well-large">
 <fieldset id="sitestate_search">
 <?php
   echo $this->Form->create(
       'Site',
       array(
           'action'=>'index',
-          'class' => 'well',
-          
+          //'class' => 'well',          
           //'name' => 'sitesearch'
           )
   );
   //echo $this->Form->input('site_code',array('escape' => true,'class' => 'span2'));
+  //echo '<div style="width:10px;">';
   echo $this->Form->input('site_code',array('escape' => false,'class' => 'search-query'));
   echo '<br>'; 
   echo $this->Form->input('site_name',array('class' => 'search-query'));
@@ -59,13 +59,10 @@ function checkAll(formname, checktoggle)
     <a rel="sitestate_search" href="#clear_all">Clear Search</a><BR><BR>
 </div>
     
-
-
 <!--<span class="help-block">Search is greedy, case-insensitive, * to wildcard further</span>-->
 
 <?php
     echo $this->Form->submit('Search', array('div' => false,'class'=>'btn'));
     echo $this->Form->end(); 
 ?>
-
-</fieldset>
+</div>  <!--/.well well-large -->

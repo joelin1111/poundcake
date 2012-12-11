@@ -36,18 +36,6 @@ class UsersController extends AppController {
         $this->set('users', $this->paginate());
     }
 
-    /*
-    it seems unnecessary to have a view for user since the users are all listed
-    on the index page
-    public function view($id = null) {
-        $this->User->id = $id;
-        if (!$this->User->exists()) {
-            throw new NotFoundException(__('Invalid user'));
-        }
-        $this->set('user', $this->User->read(null, $id));
-    }
-    */
-    
     function getRoles() {
         $roles = $this->User->Role->find('list');
         $this->set('roles',$roles);

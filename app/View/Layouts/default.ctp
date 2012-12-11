@@ -33,10 +33,10 @@ $cakeDescription = __d('poundcake', 'Tower DB');
             echo $this->Html->meta('icon');
             echo $this->fetch('meta');
             echo $this->fetch('css');
-            echo $this->fetch('script');
+            echo $this->fetch('script');            
             
+            echo $this->Html->css('bootstrap'); // Bootstrap CSS file
             echo $this->Html->css('poundcake'); // Our custom CSS file
-            echo $this->Html->css('bootstrap'); // Bootstrap's CSS file
 
             //echo $this->Html->script('deprecated/jquery-1.7.2');
             echo $this->Html->script('jquery-1.8.3'); 
@@ -56,32 +56,29 @@ $cakeDescription = __d('poundcake', 'Tower DB');
         #map_canvas img {
             max-width: none;
         }
-        </style>
-        <style>
-          body {
-            padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+        body {
+          padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+        }
+
+        @media (min-width: 768px) { 
+          .sb-fixed{
+                  position: fixed;
+                  } 
+               }
+          .box{
+              min-height: 20px;
+              padding: 19px;
+              margin-bottom: 20px;
+              background-color: whiteSmoke;
+              border: 1px solid #EEE;
+              border: 1px solid rgba(0, 0, 0, 0.05);
+              -webkit-border-radius: 4px;
+              -moz-border-radius: 4px;
+              border-radius: 4px;
+              -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
+              -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
+              box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
           }
-
-          @media (min-width: 768px) { 
-            .sb-fixed{
-                    position: fixed;
-                    } 
-                 }
-
-            .box{
-                min-height: 20px;
-                padding: 19px;
-                margin-bottom: 20px;
-                background-color: whiteSmoke;
-                border: 1px solid #EEE;
-                border: 1px solid rgba(0, 0, 0, 0.05);
-                -webkit-border-radius: 4px;
-                -moz-border-radius: 4px;
-                border-radius: 4px;
-                -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
-                -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
-                box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
-            }
         </style>
         <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
         <!--[if lt IE 9]>
@@ -90,46 +87,28 @@ $cakeDescription = __d('poundcake', 'Tower DB');
 </head>
 <body>
 
-<div class="navbar navbar-fixed-top"> 
-    <div class="navbar">
+<div class="navbar navbar-fixed-top"> <!-- was: navbar-fixed-top -->    
         <div class="navbar-inner">
             <div class="container">
                 <a class="brand" href="/sites/overview">Tower DB <?php echo $this->Session->read('version');?>&nbsp;&nbsp;</a>
-                <ul class="nav">
-                    <li class="active">
-                        <?php
-                            // 'fullBase' => true for this link and the one below b/c they are in the same controller
-                            // and the JQuery that highlights the active tab ends up highlighting Sites when you're on
-                            // the overview map
-                            echo $this->Html->link('Map', array('controller' => 'sites', 'action' => 'overview','fullBase' => true)); ?>
-                    </li>
-                    <li>
-                        <?php echo $this->Html->link('Sites', array('controller' => 'sites', 'action' => 'index','fullBase' => true)); ?>
-                    </li>
-                    <li>
-                        <?php echo $this->Html->link('Contacts', array('controller' => 'contacts', 'action' => 'index')); ?>
-                    </li>
-                    <li>
-                        <?php echo $this->Html->link('Radios', array('controller' => 'networkRadios', 'action' => 'index')); ?>
-                    </li>
-                    <li>
-                        <?php echo $this->Html->link('Routers', array('controller' => 'networkRouters', 'action' => 'index')); ?>
-                    </li>
-                    <li>
-                        <?php echo $this->Html->link('Switches', array('controller' => 'networkSwitches', 'action' => 'index')); ?>
-                    </li>
-                    
+                <div class="main-navigation">
+                    <ul class="nav">
+                    <li> <?php echo $this->Html->link('Map', array('controller' => 'sites', 'action' => 'overview')); ?> </li>
+                    <li> <?php echo $this->Html->link('Sites', array('controller' => 'sites', 'action' => 'index')); ?> </li>
+                    <li> <?php echo $this->Html->link('Contacts', array('controller' => 'contacts', 'action' => 'index')); ?> </li>
+                    <li> <?php echo $this->Html->link('Radios', array('controller' => 'networkRadios', 'action' => 'index')); ?> </li>
+                    <li> <?php echo $this->Html->link('Routers', array('controller' => 'networkRouters', 'action' => 'index')); ?> </li>
+                    <li> <?php echo $this->Html->link('Switches', array('controller' => 'networkSwitches', 'action' => 'index')); ?> </li>                    
                     <?php
                     // this doesn't really belong here, should probably serve up a different
                     // view for admins
                     if ($user['Role']['name'] === 'admin') {
-                        echo "<LI>";
-                        echo $this->Html->link('Setup', array('controller' => 'users', 'action' => 'setup'));
-                        echo "</LI>";
+                        echo "<LI>".$this->Html->link('Admin', array('controller' => 'admin', 'action' => 'setup'))."</LI>";
                     }
                     ?>
                     
                 </ul>
+            </div>
             <?php
                 // if the user is logged in, show a button on the right side with
                 // links to change their password, etc.
@@ -139,7 +118,6 @@ $cakeDescription = __d('poundcake', 'Tower DB');
             ?>
             </div>
         </div>
-    </div>
     </div> <!--/.navbar -->
     
     <div class="container">       
@@ -199,9 +177,9 @@ $cakeDescription = __d('poundcake', 'Tower DB');
         if ($host == 'Catapult-Clarks-MacBook.local') {
         ?>
         <BR>
-        <div style="background-color: orange; border: 1px solid black; width: 100%; height:5em;">            
+        <div style="background-color: #ffff66; border: 1px solid black; width: 100%; height:5em;">            
             <div style="height:3em;padding:1em 0 1em 0">
-                Development version - (<?php echo $host ?>
+                Development version!  <?php echo $host ?>
             </div>
         </div>
     <?php

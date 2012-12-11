@@ -478,3 +478,20 @@
     width: 800px;
     box-shadow: 5px 5px 10px #888;
 }
+
+/* overrides bootstrap.css */
+input,
+textarea,
+.uneditable-input {
+  width: 140px;
+}
+
+/* overrides bootstrap.css
+.navbar-inner misbehaving on Chrome?!  Ask Matt...
+*/
+.navbar
+  .navbar-inner {
+    background-color: #a73e00; /*#b64000;*/ /*#c64309;*/
+    background-image: none;
+  }
+}

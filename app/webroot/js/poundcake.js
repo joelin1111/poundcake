@@ -85,15 +85,67 @@ $(document).ready(function () {
         e.relatedTarget // previous tab
     })
     */
- 
+
+    /*
+    
     // this highlights the current tab
-    var str=location.href.toLowerCase();
-    $(".nav li a").each(function() {
-        if (str.indexOf(this.href.toLowerCase()) > -1) {
-            $("li.active").removeClass("active");
-            $(this).parent().addClass("active");
-        }
+    $(".main-navigation .nav li a").each(function() {
+        var str=location.href.toLowerCase();
+        $(".nav li a").each(function() {
+            // this changes the main navigation
+            if (str.indexOf(this.href.toLowerCase()) > -1) {
+                //$("li.active").removeClass("active");
+                //$(this).parent().addClass("active");
+                $(this).parent().css({
+                    //'background-color':'#0088cc',
+                    'text-shadow':'0 -1px 0 rgba(0, 0, 0, 0.2)',
+                    'color':'#ffffff'
+                });
+                return false;
+            } else if ( str.match(/overview/)) {
+                $("li.active").removeClass("active");
+                $(".nav li a").eq(0).css({
+                    //'background-color':'#0088cc',
+                    'text-shadow':'0 -1px 0 rgba(0, 0, 0, 0.2)',
+                    'color':'#ffffff'
+                });
+                return false;
+            } else if ( str.match(/admin/)) {
+                // this keeps admin highlighted even when we're on sub-pages
+                // of the admin UI such as /admin/buildItems/index
+                //alert("Admin page!");
+                $("li.active").removeClass("active");
+                //$(".nav li a").eq(6).addClass("active"); // doesn't work!
+                $(".nav li a").eq(6).css({
+                    //'background-color':'#0088cc',
+                    'text-shadow':'0 -1px 0 rgba(0, 0, 0, 0.2)',
+                    'color':'#ffffff'
+                });
+                return false;            
+            };           
+        });
+        $("li.active").removeClass("active");
+        $(this).parent().addClass("");
+        //alert($(this).text());
+    */
+   
     });
+    
+    /*
+    $("li.active").removeClass("active");
+    //$(selectedItem).parent().addClass("active");
+    $(selectedItem).addClass("active");
+    $(selectedItem).parent().css('background-color','blue');
+    
+//    var str=location.href.toLowerCase();
+//    $(".nav li a").each(function() {
+//        if (str.indexOf(this.href.toLowerCase()) > -1) {
+//            $("li.active").removeClass("active");
+//            $(this).parent().addClass("active");
+//        }            
+//    });
+
+    */
 });
 
 // CakePHP Twitter Bootstrappifier
