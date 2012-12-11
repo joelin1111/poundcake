@@ -1,11 +1,12 @@
 <?php
 /**
- * Controller for antenna types.
+ * Controller for users.
  *
- * This is a very basic controller to add/view/update/delete antenna types.
- * These tasks would typically be performed by a user with administrative level
- * permissions within Poundcake.
- *
+ * This controller is used by both the admin interface, to add/update/delete/edit
+ * users within the system, but also performs some user-level functions like
+ * login, logout and switching project.  An admin can also assign permissions
+ * with functions in this class.
+ * 
  * Developed against CakePHP 2.2.3 and PHP 5.4.4.
  *
  * Copyright 2012, Inveneo, Inc. (http://www.inveneo.org)
@@ -18,7 +19,7 @@
  * @author        Clark Ritchie <clark@inveneo.org>
  * @link          http://www.inveneo.org
  * @package       app.Controller
- * @since         AntennaTypesController precedes Poundcake v2.2.1
+ * @since         UsersController precedes Poundcake v2.2.1
  * @license       XYZ License
  */
 
@@ -31,19 +32,26 @@ class UsersController extends AppController {
         )
     );
     
+    /*
+     * Main listing for all Users
+     */
     public function index() {
         $this->User->recursive = 0;
         $this->set('users', $this->paginate());
     }
 
+    /*
+     * Get all the roles defined in the system
+     */
     function getRoles() {
         $roles = $this->User->Role->find('list');
         $this->set('roles',$roles);
     }
     
+    /*
+     * Set an array of projects this user is assigned to
+     */
     function getUsersProjects() {
-        // return an array of projects this user is assigned to
-        
         // this really would be more useful to take a user id as a parameter
         // and return an array of projects
         
@@ -59,47 +67,31 @@ class UsersController extends AppController {
                       'type' => 'inner', 
                       'conditions'=> array('ProjectsUser.project_id = Project.id')) 
             ) 
-            ));
-//        echo '<pre>';
-//        echo "For user ID: ".$this->Auth->user('id');
-//        echo "<br>";
-//        print_r(compact('projects'));
-//        echo '</pre>';
-//        die;
-        
+            ));        
         $this->set(compact('projects'));
     }
     
+    /*
+     * Set an array of all projects in the system
+     */
     function getAllProjects() {
         // return all projects
         $projects = $this->User->Project->find('list');
         $this->set('projects',$projects);
     }
     
+    /*
+     * Switch a user's project context to a new project
+     */
     public function project($id = null) {
         // this is true when the user has switched projects
         if ($this->request->is('post') || $this->request->is('put')) {
-//            echo '<pre>';
-//            print_r($this->request->data);
-//            echo '</pre>';
-//            die;
             $project_id = $this->request->data['Project']['Project'];
             
             $this->loadModel('Project',$project_id);
             $project = $this->Project->read();
             $this->Session->write('project_id', $project_id);
             $this->Session->write('project_name', $project['Project']['name']);
-            
-//            echo '<pre>';
-//            echo "Session before:<BR>";
-//            print_r($this->Session->read('conditions'));            
-            $this->Session->delete('conditions'); // clear any search conditions
-//            echo "Session after:<BR>";
-//            print_r($this->Session->read('conditions'));            
-//            echo '</pre>';
-            
-            
-            
             
             // save the newly selected project id, name to a session variable
             // allows us to filter sites/radios/routers/switches to the currently
@@ -115,19 +107,35 @@ class UsersController extends AppController {
                     $this->User->id = $id;
                     $this->User->saveField('project_id',$project_id);
                 }
-                $this->Session->setFlash(__('The project has been set'));
+                $this->Session->setFlash('The project has been set');
                 $this->redirect(array('controller' => 'sites','action' => 'overview'));
             } else {
-                $this->Session->setFlash(__('The project could not be set.'));
+                $this->Session->setFlash('The project could not be set.');
             }
         }
         $this->getUsersProjects();
     }
     
+    /*
+     * Add a new User
+     */
     public function add() {
         $this->getRoles();
         if ($this->request->is('post')) {
+            
+            // if they were not assigned to any projects, make them try again
+            if ( !isset($this->request->data['Project']['Project'][0] )) {
+                $this->Session->setFlash('The user must be assigned to at least one project');
+                $this->redirect(array('controller' => 'users','action' => 'add'));
+            }
+            
             $this->User->create();
+            // project_id is the project the user defaults to when they login
+            // this should be getting set by the login routine but we can set
+            // it here just the same -- give them the first project to which they are assigned
+            // if the admin didn't assign them to any projects this will return an error
+            $this->request->data['User']['project_id'] = $this->request->data['Project']['Project'][0];
+            //debug($this->request->data,false);
             if ($this->User->save($this->request->data)) {
                 $this->Session->setFlash(__('The user has been saved'));
                 $this->redirect(array('action' => 'index'));
@@ -138,37 +146,27 @@ class UsersController extends AppController {
         $this->getAllProjects();
     }
     
+    /*
+     * This password() function is for when a user changes their own password
+     */
     function password($id = null) {
         $this->User->id = $id;  
-//        echo "<pre>";
-//        print_r($this->User);
-//        echo "</pre>";
-//        die;
+
         if ($this->request->is('post') || $this->request->is('put')) {
-            //$this->User->set($this->request->data);
             if ($this->User->validates(array('fieldList' => array('pwd_current')))) {
-                //echo "pwd_current validated<br>";
                 if ($this->User->validates(array('fieldList' => array('pwd_current','password')))) {
-//                    echo "<pre>";
-//                    $this->getProjects()
-//                    print_r($this->request->data);
-//                    echo "</pre>";
-//                    die;
                     unset($this->request->data['User']['pwd_current']);
                     if ($this->User->saveAll($this->request->data)) {
-                        // success flash/redirect
-                        //echo "Saved";
                         $this->Session->setFlash('Password succssfully updated.  Please logout and login again.');
                         
                     } else {
                         $this->Session->setFlash('Error updating password.');
-                        //debug($this->User->validationErrors);
                     }
                 } else {
-                     //echo "pwd FAILED validation<br>";
+                     // echo "pwd FAILED validation<br>";
                 }
             } else {
-                 //echo "pwd_current FAILED validation<br>";
+                 // echo "pwd_current FAILED validation<br>";
             }
         } else {
             $this->getAllProjects();
@@ -176,6 +174,9 @@ class UsersController extends AppController {
         }
     }
     
+    /*
+     * Grant a user permissions in other projects
+     */
     public function permissions($id = null) {
         $this->User->id = $id;
         $this->getRoles();
@@ -196,14 +197,8 @@ class UsersController extends AppController {
             
             // get an array of projects the user is now currently assigned to
             $new_projects = $this->request->data['Project']['Project'];
- 
-//            echo '<pre>';
-//            echo "$last_project_id <br>";
-//            print_r($new_projects);
-//            echo '</pre>';
             
             if ( in_array( $last_project_id,  $new_projects ) == 0 ) {
-                //echo "Reset project_id";
                 // just assign them to the first item in the set of new projects
                 $this->User->saveField('project_id',$new_projects[0]);              
             }
@@ -211,7 +206,6 @@ class UsersController extends AppController {
             // $blackList is also used above
             $blackList = array('password', 'username');
             if ($this->User->save($this->request->data, true, array_diff(array_keys($this->User->schema()), $blackList))) {
-            //if ($this->User->save($this->request->data)) {
                 $this->Session->setFlash(__('The user has been saved.'));
                 $this->redirect(array('action' => 'index'));
             } else {
@@ -223,13 +217,13 @@ class UsersController extends AppController {
         }
     }
     
+    /*
+     * Edit a details for a user
+     */
     public function edit($id = null) {
         $this->User->id = $id;
         $this->User->read(null,$id);
         $this->set('username',$this->User->field('username'));
-//        echo '<pre>';
-//        print_r($this->User->field('username'));
-//        echo '</pre>';
         
         if (!$this->User->exists()) {
             throw new NotFoundException(__('Invalid user'));
@@ -248,6 +242,9 @@ class UsersController extends AppController {
         }
     }
     
+    /*
+     * Delete a user
+     */
     public function delete($id = null) {
         if (!$this->request->is('post')) {
             throw new MethodNotAllowedException();
@@ -264,24 +261,20 @@ class UsersController extends AppController {
         $this->redirect(array('action' => 'index'));
     }
     
+    /*
+     * Standard callback function
+     */
     public function beforeFilter() {
+        // deprecated?  cannot recall why this is here -- doesn't do much...
         parent::beforeFilter();
     }
     
-    public function setup() {
-        // show the setup page - main admin landing page
-    }
-    
+    /*
+     * Login is our main login routine
+     */
     public function login() {
         // if the user is already logged in (maybe opening the site in a new tab)
         // don't send them to the login page
-        //echo print_r($this->Auth->user());
-       /*
-        if ( $this->Auth->user() != null) {
-            // user logged in, send to overview page
-            $this->redirect(array('controller' => 'sites', 'action' => 'index'));
-        }
-        */
         if ($this->request->is('post')) {
             if ($this->Auth->login()) {
                 
@@ -289,19 +282,14 @@ class UsersController extends AppController {
                 $this->loadModel('User',$uid);
                 $this->User->id = $uid;
                 $user = $this->User->read();
-//                    
+
                 // load the last project the user had viewed -- which was saved
                 // to the user table as project_id
                 $project = $this->User->Project->findById($this->Auth->user('project_id'));
 
                 // if there is no project_id (last viewed project), just give them their first assigned project
                 if ( $project == null ) {
-//                    echo "project is null";
-//                    $uid = CakeSession::read("Auth.User.id");
-//                    $this->loadModel('User',$uid);
-//                    $user = $this->User->read();
                     $project = $this->User->Project->find('first');
-                    //$this->User->saveField('project_id',$project['Project']['id']);                  
                 }
                 $project_id = $project['Project']['id'];
                 $project_name = $project['Project']['name'];
@@ -312,7 +300,6 @@ class UsersController extends AppController {
                 $this->Session->write('project_name', $project_name);
                 // log the user's login time
                 $this->User->saveField('last_login', date( "Y-m-d H:i:s", time() ));
-                //echo '<pre>'.$this->User->getLastQuery().'</pre>';
                 // send them on their way
                 $this->redirect($this->Auth->redirect());
             } else {
@@ -320,7 +307,10 @@ class UsersController extends AppController {
             }
         }
     }
-
+    
+    /*
+     * Logout is our main logout routine
+     */
     public function logout() {
         // setFlash doesn't actually work here, maybe we should redirect them to a page
         // confirming they've been logged out (which then redirects to the main page?

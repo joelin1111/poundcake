@@ -256,5 +256,17 @@ class AppController extends Controller {
     public function getGatewayAddress($name) {
         return ClassRegistry::init('IPAddress')->getGatewayAddress($name);
     }
+    
+    protected function debug(array $x, $die = true) {
+        echo '<pre>';
+        print_r($x);
+        $dbo = $this->getDatasource();
+        $logs = $dbo->getLog();
+        echo $logs;
+        if ($die)
+            die;
+        echo '</pre>';
+        
+    }
 }
 ?>

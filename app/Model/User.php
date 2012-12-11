@@ -58,7 +58,7 @@ class User extends AppModel {
             'rule'    => array('minLength', 5),
             //'required' => true,
             'message' => 'Password must be at least 5 characters.'
-        ),
+        )
     );
     
     /*
@@ -88,6 +88,15 @@ class User extends AppModel {
         //echo "Current (pw) in form: " . AuthComponent::password($pwd_current)."<BR>";
         
         return (AuthComponent::password($pwd_current) == $db_pass);
+    }
+    
+    function beforeValidate($options = array()) {
+	foreach($this->hasAndBelongsToMany as $k=>$v) {
+            if(isset($this->data[$k][$k]))
+            {
+                $this->data[$this->alias][$k] = $this->data[$k][$k];
+            }
+	}
     }
 }
 ?>

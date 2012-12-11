@@ -3,7 +3,7 @@
     <H3>Actions</H3>
     <div class="well well-large">
     <ul>
-        <li><?php echo $this->Html->link(__('List Users'), array('action' => 'index')); ?>
+        <li><?php echo $this->Html->link('List Users', array('action' => 'index')); ?>
     </ul>
     </div>
 </div><!-- /.span3 .sb-fixed -->
@@ -12,12 +12,13 @@
     <?php echo $this->Form->create('User'); ?>
     <h2>Add User</h2>
     <?php
+        echo $this->Session->flash();
         echo $this->Form->input('username');
         echo $this->Form->input('password');
         echo $this->Form->input('User.role_id', array('type'=>'select','options' => $roles));
         //echo $this->Form->input('Project.Project',array('label'=>'Project (Feature in Development)'));
         echo $this->Form->input('Project.Project',array(
-            'label' => __('Projects',true),
+            'label' => 'Projects',
             'type' => 'select',
             'multiple' => 'checkbox',
             'options' => $projects,
