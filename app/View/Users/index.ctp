@@ -16,8 +16,8 @@
                 <tr>
                     <th><?php echo $this->Paginator->sort('name'); ?></th>
                     <th><?php echo $this->Paginator->sort('role_id'); ?></th>
-                    <th><?php echo $this->Paginator->sort('created'); ?></th>
-                    <th><?php echo $this->Paginator->sort('modified'); ?></th>
+<!--                    <th><?php //echo $this->Paginator->sort('created'); ?></th>-->
+                    <th><?php echo $this->Paginator->sort('last_login'); ?></th>
                     <th><?php echo 'Actions'; ?></th>
                 </tr>
             </thead>
@@ -32,8 +32,11 @@
                         echo $user['Role']['name'];
                     ?>
 		</td>
-		<td><?php echo $user['User']['created']; ?>&nbsp;</td>
-		<td><?php echo $user['User']['modified']; ?>&nbsp;</td>
+<!--		<td><?php // echo $user['User']['created']; ?>&nbsp;</td>-->
+		<td><?php
+                    $date = new DateTime($user['User']['last_login']);
+                    echo date_format($date, 'D m/d/y g:ia');
+                    //echo $user['User']['modified']; ?>&nbsp;</td>
 		<td class="actions">
                     <?php //echo $this->Html->link('View'), array('action' => 'view', $user['User']['id']));
                         echo $this->Html->link('Edit', array('action' => 'edit', $user['User']['id']));
