@@ -19,7 +19,7 @@
 </div><!-- /.span3 .sb-fixed -->
 
 <div class="span9">
-    <h3>Project Overview: <?php echo $this->Session->read('project_name'); ?>
+    <h3><?php echo $this->Session->read('project_name'); ?> Project Overview
     </h3>
     <div class="map-frame">
 <?php

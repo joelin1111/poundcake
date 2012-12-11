@@ -29,8 +29,8 @@
     // http://plugins.cakephp.org/package/marcferna/CakePHP-Google-Maps-V3-Helper
     $mapOptions = array(
         'id' => 'map_canvas', // Map canvas ID
-        'width' => '600px', // Width of the map
-        'height'=>'600px', // Height of the map
+        'width' => '700px', // Width of the map
+        'height'=>'700px', // Height of the map
         'style' => 'width: 100%; height:500px;', // CSS style for the map canvas
         'zoom' => $zoom,
         'type' => 'TERRAIN', // Type of map (ROADMAP, SATELLITE, HYBRID or TERRAIN)
