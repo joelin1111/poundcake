@@ -19,7 +19,8 @@
 </div><!-- /.span3 .sb-fixed -->
 
 <div class="span9">
-    <h3>Project Overview</h3>
+    <h3>Project Overview: <?php echo $this->Session->read('project_name'); ?>
+    </h3>
     <div class="map-frame">
 <?php
     // maybe we could have used an Element for creating the map here, but this map
