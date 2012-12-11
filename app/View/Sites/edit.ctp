@@ -20,10 +20,10 @@
 
 <div class="span9">
     <h3>Edit Site</h3>
-    
-    <div class="flash flash_success">
-        <?php echo $this->Session->flash(); ?>
-    </div>
+        
+<!--    <div class="flash flash_success">
+        <?php //echo $this->Session->flash(); ?>
+    </div>-->
 
     <?php
     echo $this->Form->create('Site', array('action' => 'edit'));

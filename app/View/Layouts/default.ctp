@@ -123,6 +123,7 @@ $cakeDescription = __d('poundcake', 'Tower DB');
     <div class="container">       
     <div align="center">
     <?php
+    
         // show banner, if any -- this would be set in AppController::beforeFilter
         $banner = $this->Session->read('banner');
         if (isset($banner) && strlen($banner) > 0 ) {
@@ -134,8 +135,23 @@ $cakeDescription = __d('poundcake', 'Tower DB');
             echo '</span></div><br>';
         }
     ?>
-    </div>
+    </div> <!--/.navbar -->
+    <?php
+        $flashMessage = $this->Session->flash();
+        if (isset($flashMessage) && strlen($flashMessage) > 0 ) {
+            // Also see:  alert-info, alert-error, alert-success
+            if (strlen(strstr($flashMessage,'Success'))>0) {
+                echo '<div class="alert alert-success">';
+            } else if (strlen(strstr($flashMessage,'Info'))>0) {
+                echo '<div class="alert alert-info">';
+            } else {
+                echo '<div class="alert alert-error">';
+            }
+            echo $flashMessage.'</div>';
             
+        }
+    ?>
+    
         <?php echo $content_for_layout; ?>
         
         <div id="footer" align="center"><BR><BR>

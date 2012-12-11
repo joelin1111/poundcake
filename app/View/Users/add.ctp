@@ -12,7 +12,6 @@
     <?php echo $this->Form->create('User'); ?>
     <h2>Add User</h2>
     <?php
-        echo $this->Session->flash();
         echo $this->Form->input('username');
         echo $this->Form->input('password');
         echo $this->Form->input('User.role_id', array('type'=>'select','options' => $roles));

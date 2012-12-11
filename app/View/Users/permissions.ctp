@@ -13,7 +13,6 @@
     <?php echo $this->Form->create('User'); ?>
     <h2>Permissions</h2>
     <?php
-        //echo $this->Session->flash();
         echo $this->Form->input('id');
         echo "Username:  ".$this->Form->value('username'); //,array('disabled' => true));
         echo $this->Form->input('User.role_id', array('type'=>'select','options' => $roles));
