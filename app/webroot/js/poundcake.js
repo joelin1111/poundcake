@@ -127,9 +127,8 @@ $(document).ready(function () {
         $("li.active").removeClass("active");
         $(this).parent().addClass("");
         //alert($(this).text());
-    */
-   
     });
+    */
     
     /*
     $("li.active").removeClass("active");

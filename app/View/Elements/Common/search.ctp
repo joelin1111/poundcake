@@ -1,16 +1,3 @@
-<!--<script type="text/javascript">
-function checkAll(formname, checktoggle)
-{
-  var checkboxes = new Array(); 
-  checkboxes = document[formname].getElementsByTagName('input');
- 
-  for (var i=0; i<checkboxes.length; i++)  {
-    if (checkboxes[i].type == 'checkbox')   {
-      checkboxes[i].checked = checktoggle;
-    }
-  }
-}
-</script>-->
 <H3>Search</H3>
 <div class="well well-large">
 <fieldset id="sitestate_search">
