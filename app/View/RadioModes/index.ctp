@@ -3,7 +3,7 @@
     <H3>Actions</H3>
     <div class="well well-large">
     <ul>
-        <li><?php echo $this->Html->link(__('New Radio Mode'), array('action' => 'add')); ?></li>
+        <li><?php echo $this->Html->link('New Radio Mode', array('action' => 'add')); ?></li>
         <li><?php echo $this->Html->link('Admin',array('controller'=>'admin','action' => 'setup')); ?></li>
     </ul>
     </div>
@@ -15,17 +15,19 @@
             <thead>
                 <tr>
                     <th><?php echo $this->Paginator->sort('name'); ?></th>
-                    <th><?php echo __('Actions'); ?></th>
+                    <th><?php echo $this->Paginator->sort('inverse_mode_name'); ?></th>
+                    <th><?php echo 'Actions'; ?></th>
                 </tr>
             </thead>
             <tbody>
 	<?php
 	foreach ($radiomodes as $radiomode): ?>
 	<tr>
-            <td><?php echo h($radiomode['RadioMode']['name']);?></td>
+            <td><?php echo $radiomode['RadioMode']['name'];?></td>
+            <td><?php echo $radiomode['RadioMode']['inverse_mode_name'];?></td>
             <td>
-                <?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $radiomode['RadioMode']['id'])); ?>
-                <?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $radiomode['RadioMode']['id']), null, __('Are you sure you want to delete radio mode %s?', $radiomode['RadioMode']['name'])); ?>
+                <?php echo $this->Html->link('Edit', array('action' => 'edit', $radiomode['RadioMode']['id'])); ?>
+                <?php echo $this->Form->postLink('Delete', array('action' => 'delete', $radiomode['RadioMode']['id']), null, __('Are you sure you want to delete radio mode %s?', $radiomode['RadioMode']['name'])); ?>
             </td>
 	</tr>
         <?php endforeach; ?>

@@ -3,7 +3,7 @@
     <H3>Actions</H3>
     <div class="well well-large">
     <ul>
-        <li><?php echo $this->Html->link(__('List Radio Modes'), array('action' => 'index')); ?>
+        <li><?php echo $this->Html->link('List Radio Modes', array('action' => 'index')); ?>
     </ul>
     </div>
 </div><!-- /.span3 .sb-fixed -->
@@ -13,6 +13,13 @@
     <h2>Add Radio Modes</h2>
     <?php
         echo $this->Form->input('name');
+        echo $this->Form->input('inverse_mode_id',
+                array(
+                    'type'=>'select',
+                    'options' => $radiomodes,
+                    'label'=>'Inverse Mode (Optional)',
+                    'empty' => true
+                    ));
     ?>
     </fieldset>
     <?php
