@@ -249,77 +249,46 @@
                 $directory = $results['directory'];
                 $baseUrl = $results['baseUrl'];
                 $files = $results['files'];
+                $images = array();
                 
-                echo '<ul class="thumbnails">';
-                foreach ($files as $file) {
-                    
-                    /*
-                    // this is sort of experimental, a follow-up to PC-244
-                    // use exiftool to set/view EXIF orientation flags for testing
-                    // e.g.
-                    // $ exiftool -n -Orientation=3 case3.jpg
-                    // $ exiftool *.jpg | grep Orientation
-                    //
-                    // Also see:  http://stackoverflow.com/questions/3657023/how-to-detect-shot-angle-of-photo-and-auto-rotate-for-website-display-like-desk
-                    //
-                    // if the image is a JPEG, check the EXIF for orientation flag
-                    // this is really a one-time operation
-                    if( exif_imagetype($file) == IMAGETYPE_JPEG ){
-                        $exif = exif_read_data($file);
-//                        echo '<pre>';
-//                        print_r($exif);
-//                        echo '</pre>';
-                            
-                        if (isset($exif['Orientation'])) {
-                            $orientation = $exif['Orientation'];
-                            $deg = 0;
-                            switch ($orientation) {
-                                // not 100% sure about these case-degree mappings
-                                case 3:
-                                  $deg = 180;
-                                  break;
-                                // 4 is 180 & mirror
-                                // 5 is 90 & mirror
-                                case 6:
-                                  $deg = -90;
-                                  break;
-                                // 7 is -90 & mirror
-                                case 8:
-                                  $deg = 90;
-                                  break;
-                            }
-                            $source = imagecreatefromjpeg($file);
-                            $rotate = imagerotate($source, $deg, $orientation);
-                            // this actually re-saves the file,
-                            // and in so doing destroys the EXIF data
-                            // so this routine won't get called again
-                            //imagejpeg($rotate,$file);
-                        }
+                // we want to display images with thumbnails, so first we have to
+                // look through the files array and move any files that are of
+                // type image into an images array, then display them each
+                // separately
+                
+                for ($i = 0; $i <= count($files); $i++) {
+                    // look for any images in the files array
+                    if(in_array( exif_imagetype($files[$i]) , array( IMAGETYPE_GIF , IMAGETYPE_JPEG ,IMAGETYPE_PNG , IMAGETYPE_BMP ) )) {
+                        array_push($images,$files[$i]); // put it into the images array
+                        unset($files[$i]); // remove it from the files array
                     }
-                    */
-                    
+                }
+                
+                // show the non-image files
+                echo '<P><UL>';
+                foreach ( $files as $file ) {
                     $f = basename($file);                    
                     $url = $baseUrl . "/$f";
-                    //echo "<P>";
-                    //echo $this->PhpThumb->thumbnail($url, array('w' => 100, 'h' => 100, 'zc' => 1));
-                    //echo "<BR>";
-                    //echo '<a href="'.$url.'" >'.$f.'</a>';
+                    echo '<li><a href="'.$url.'">';
+                    echo $f;
+                    echo '</a></li>';
+                }
+                echo '</UL></P>';
+                
+                // now show the images
+                echo '<P><UL class="thumbnails">';
+                foreach ( $images as $image ) {
+                    $f = basename($image);                    
+                    $url = $baseUrl . "/$f";
                     echo '<li><a href="'.$url.'" class="thumbnail">';
                     echo $this->PhpThumb->thumbnail($url, array('w' => 100, 'h' => 100, 'zc' => 1));
                     echo '</a></li>';
-                    //echo "</P>";
                 }
-                echo '</ul>';
-                
+                echo '</UL></P>';
             } else {
-                echo "None";
+                echo "<P><UL><LI>None</LI></UL></P>";
             }
-//            in case we want to do something more interesting with the list of files?
-//            $results = $this->Upload->listing('Site', $site['Site']['id']);
-//            $directory = $results['directory'];
-//            $baseUrl = $results['baseUrl'];
-//            $files = $results['files'];
-//            echo "<pre>".print_r($results)."</pre>";
+
             
         ?>
     </P>
@@ -329,29 +298,18 @@
         // we already got the date format (above) so just tack on the time
         $format .= " - g:m A"
     ?>
-    <P><B>Last Modified:</B>&nbsp; <?php echo date($format, strtotime( $site['Site']['modified'] )); ?>    
+    <P><B>Site last modified:</B>&nbsp; <?php echo date($format, strtotime( $site['Site']['modified'] )); ?>    
     </P>            
     </div> <!-- /.span9 -->
 </div> <!-- /.row -->
 
 <?php
-
-// draw links to remote sites
-// and put placemarkers there, too
-// 
-// 
-//    echo '<pre>';
-//    print_r($radios);
-//    echo '</pre>';
+    // draw links to remote sites
+    // and put placemarkers there, too
     $i = 1; // markers must start at 1
     if (count($radios) > 0) {
         //echo '<pre>';
         foreach ($radios as $radio) {
-//            echo '<pre>';
-//            //print_r($radio);
-//            echo "Link Lat: ". $radio['NetworkRadios']['link_lat'];
-//            echo '</pre>';
-//            
             // it seems it's possible for a radio to get here without a lat/lon set on its link?
             if (isset($radio['NetworkRadios']['link_lat'])) {
                 $link_lat = $radio['NetworkRadios']['link_lat'];
@@ -421,4 +379,59 @@
                 )
     );
     echo $this->Js->writeBuffer(); // Write cached scripts
+?>
+
+<?php
+/*
+
+Misc code that I'm saving for now -- this was sort of experimental, a follow-up to PC-244
+
+                    // use exiftool to set/view EXIF orientation flags for testing
+                    // e.g.
+                    // $ exiftool -n -Orientation=3 case3.jpg
+                    // $ exiftool *.jpg | grep Orientation
+                    //
+                    // Also see:  http://stackoverflow.com/questions/3657023/how-to-detect-shot-angle-of-photo-and-auto-rotate-for-website-display-like-desk
+                    //
+                    // if the image is a JPEG, check the EXIF for orientation flag
+                    // this is really a one-time operation
+//                        $exif = exif_read_data($file);
+//                        echo '<pre>';
+//                        print_r($exif);
+//                        echo '</pre>';
+                        /* 
+                        if (isset($exif['Orientation'])) {
+                            $orientation = $exif['Orientation'];
+                            $deg = 0;
+                            switch ($orientation) {
+                                // not 100% sure about these case-degree mappings
+                                case 3:
+                                  $deg = 180;
+                                  break;
+                                // 4 is 180 & mirror
+                                // 5 is 90 & mirror
+                                case 6:
+                                  $deg = -90;
+                                  break;
+                                // 7 is -90 & mirror
+                                case 8:
+                                  $deg = 90;
+                                  break;
+                            }
+                            $source = imagecreatefromjpeg($file);
+                            $rotate = imagerotate($source, $deg, $orientation);
+                            // this actually re-saves the file,
+                            // and in so doing destroys the EXIF data
+                            // so this routine won't get called again
+                            //imagejpeg($rotate,$file);
+                        }
+
+//            in case we want to do something more interesting with the list of files?
+//            $results = $this->Upload->listing('Site', $site['Site']['id']);
+//            $directory = $results['directory'];
+//            $baseUrl = $results['baseUrl'];
+//            $files = $results['files'];
+//            echo "<pre>".print_r($results)."</pre>";
+
+*/
 ?>
