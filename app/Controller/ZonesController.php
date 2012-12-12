@@ -62,10 +62,10 @@ class ZonesController extends AppController {
         if ($this->request->is('post')) {
             $this->Zone->create();
             if ($this->Zone->save($this->request->data)) {
-                $this->Session->setFlash(__('The zone has been saved'));
+                $this->Session->setFlash('The zone has been saved.');
                 $this->redirect(array('action' => 'index'));
             } else {
-                $this->Session->setFlash(__('The zone could not be saved. Please, try again.'));
+                $this->Session->setFlash('Error!  The zone could not be saved. Please, try again.');
             }
         }
     }
@@ -80,10 +80,10 @@ class ZonesController extends AppController {
         }
         if ($this->request->is('post') || $this->request->is('put')) {
             if ($this->Zone->save($this->request->data)) {
-                $this->Session->setFlash(__('The zone has been saved'));
+                $this->Session->setFlash('The zone has been saved.');
                 $this->redirect(array('action' => 'index'));
             } else {
-                $this->Session->setFlash(__('The zone could not be saved. Please, try again.'));
+                $this->Session->setFlash('Error!  The zone could not be saved. Please, try again.');
             }
         } else {
             $this->request->data = $this->Zone->read(null, $id);
@@ -99,13 +99,13 @@ class ZonesController extends AppController {
         }
         $this->Zone->id = $id;
         if (!$this->Zone->exists()) {
-            throw new NotFoundException(__('Invalid zone'));
+            throw new NotFoundException('Invalid zone');
         }
         if ($this->Zone->delete()) {
-            $this->Session->setFlash(__('Zone deleted'));
+            $this->Session->setFlash('Zone deleted.');
             $this->redirect(array('action' => 'index'));
         }
-        $this->Session->setFlash(__('Zone was not deleted'));
+        $this->Session->setFlash('Error!  Zone was not deleted.');
         $this->redirect(array('action' => 'index'));
     }
         

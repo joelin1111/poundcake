@@ -245,10 +245,10 @@ class NetworkRadiosController extends AppController {
             $this->NetworkRadio->create();            
             $this->request->data = $this->setMagAzimuth($this->request->data);
             if ($this->NetworkRadio->save($this->request->data)) {
-                $this->Session->setFlash(__('The radio has been saved'));
+                $this->Session->setFlash('The radio has been saved.');
                 $this->redirect(array('action' => 'index'));
             } else {
-                $this->Session->setFlash(__('The radio could not be saved. Please, try again.'));
+                $this->Session->setFlash('Error!  The radio could not be saved. Please, try again.');
             }
         }
     }
@@ -271,10 +271,10 @@ class NetworkRadiosController extends AppController {
             $this->request->data = $this->setMagAzimuth($this->request->data);
             
             if ($this->NetworkRadio->save($this->request->data)) {
-                $this->Session->setFlash(__('The radio has been saved'));
+                $this->Session->setFlash('The radio has been saved.');
                 $this->redirect(array('action' => 'view',$this->NetworkRadio->id));
             } else {
-                $this->Session->setFlash(__('The radio could not be saved. Please, try again.'));
+                $this->Session->setFlash('Error!  The radio could not be saved. Please, try again.');
             }
         } else {
             $this->request->data = $this->NetworkRadio->read(null, $id);
@@ -297,14 +297,14 @@ class NetworkRadiosController extends AppController {
         
         $this->NetworkRadio->id = $id;
         if (!$this->NetworkRadio->exists()) {
-            throw new NotFoundException(__('Invalid radio'));
+            throw new NotFoundException('Invalid radio');
         }
 
         if ($this->NetworkRadio->delete()) {
-            $this->Session->setFlash(__('Radio deleted'));
+            $this->Session->setFlash('Radio deleted.');
             $this->redirect(array('action' => 'index'));
         }
-        $this->Session->setFlash(__('Radio was not deleted'));
+        $this->Session->setFlash('Error!  Radio was not deleted.');
         $this->redirect(array('action' => 'index'));
     }
     

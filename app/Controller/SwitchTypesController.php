@@ -53,10 +53,10 @@ class SwitchTypesController extends AppController {
         if ($this->request->is('post')) {
             $this->SwitchType->create();
             if ($this->SwitchType->save($this->request->data)) {
-                $this->Session->setFlash('The switch type has been saved');
+                $this->Session->setFlash('The switch type has been saved.');
                 $this->redirect(array('action' => 'index'));
             } else {
-                $this->Session->setFlash('The switch type could not be saved. Please, try again.');
+                $this->Session->setFlash('Error!  The switch type could not be saved. Please, try again.');
             }
         }
     }
@@ -71,10 +71,10 @@ class SwitchTypesController extends AppController {
         }
         if ($this->request->is('post') || $this->request->is('put')) {
             if ($this->SwitchType->save($this->request->data)) {
-                $this->Session->setFlash('The switch type has been saved');
+                $this->Session->setFlash('The switch type has been saved.');
                 $this->redirect(array('action' => 'index'));
             } else {
-                $this->Session->setFlash('The switch type could not be saved. Please, try again.');
+                $this->Session->setFlash('Error!  The switch type could not be saved. Please, try again.');
             }
         } else {
             $this->request->data = $this->SwitchType->read(null, $id);
@@ -93,10 +93,10 @@ class SwitchTypesController extends AppController {
             throw new NotFoundException('Invalid switch type');
         }
         if ($this->SwitchType->delete()) {
-            $this->Session->setFlash('Switch type deleted');
+            $this->Session->setFlash('Switch type deleted.');
             $this->redirect(array('action' => 'index'));
         }
-        $this->Session->setFlash('Switch type was not deleted');
+        $this->Session->setFlash('Error!  Switch type was not deleted.');
         $this->redirect(array('action' => 'index'));
     }
 

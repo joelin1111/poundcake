@@ -35,7 +35,7 @@ class EquipmentSpace extends AppModel {
         'name' => array(
             'notempty' => array(
                 'rule' => array('notempty'),
-                //'message' => 'Your custom message here',
+                'message' => 'This field cannot be blank.',
                 //'allowEmpty' => false,
                 //'required' => false,
                 //'last' => false, // Stop validation after this rule

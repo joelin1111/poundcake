@@ -44,10 +44,10 @@ class RadioModesController extends AppController {
         if ($this->request->is('post')) {
             $this->RadioMode->create();
             if ($this->RadioMode->save($this->request->data)) {
-                $this->Session->setFlash(__('The radio mode has been saved'));
+                $this->Session->setFlash('The radio mode has been saved.');
                 $this->redirect(array('action' => 'index'));
             } else {
-                $this->Session->setFlash(__('The radio mode could not be saved. Please, try again.'));
+                $this->Session->setFlash('Error!  The radio mode could not be saved. Please, try again.');
             }
         }
     }
@@ -55,14 +55,14 @@ class RadioModesController extends AppController {
     public function edit($id = null) {
         $this->RadioMode->id = $id;
         if (!$this->RadioMode->exists()) {
-                throw new NotFoundException(__('Invalid radio mode'));
+                throw new NotFoundException('Invalid radio mode');
         }
         if ($this->request->is('post') || $this->request->is('put')) {
             if ($this->RadioMode->save($this->request->data)) {
-                $this->Session->setFlash(__('The radio mode has been saved'));
+                $this->Session->setFlash('The radio mode has been saved.');
                 $this->redirect(array('action' => 'index'));
             } else {
-                $this->Session->setFlash(__('The radio mode could not be saved. Please, try again.'));
+                $this->Session->setFlash('Error!  The radio mode could not be saved. Please, try again.');
             }
         } else {
                 $this->request->data = $this->RadioMode->read(null, $id);
@@ -75,13 +75,13 @@ class RadioModesController extends AppController {
         }
         $this->RadioMode->id = $id;
         if (!$this->RadioMode->exists()) {
-            throw new NotFoundException(__('Invalid radio mode'));
+            throw new NotFoundException('Invalid radio mode');
         }
         if ($this->RadioMode->delete()) {
-            $this->Session->setFlash(__('Tower equipment deleted'));
+            $this->Session->setFlash('Tower equipment deleted.');
             $this->redirect(array('action' => 'index'));
         }
-        $this->Session->setFlash(__('Tower equipment was not deleted'));
+        $this->Session->setFlash('Error!  Tower equipment was not deleted.');
         $this->redirect(array('action' => 'index'));
     }
         

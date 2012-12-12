@@ -53,10 +53,10 @@ class PowerTypesController extends AppController {
         if ($this->request->is('post')) {
             $this->PowerType->create();
             if ($this->PowerType->save($this->request->data)) {
-                $this->Session->setFlash('The power type has been saved');
+                $this->Session->setFlash('The power type has been saved.');
                 $this->redirect(array('action' => 'index'));
             } else {
-                $this->Session->setFlash('The power type could not be saved. Please, try again.');
+                $this->Session->setFlash('Error!  The power type could not be saved. Please, try again.');
             }
         }
     }
@@ -71,10 +71,10 @@ class PowerTypesController extends AppController {
         }
         if ($this->request->is('post') || $this->request->is('put')) {
             if ($this->PowerType->save($this->request->data)) {
-                $this->Session->setFlash('The power type has been saved');
+                $this->Session->setFlash('The power type has been saved.');
                 $this->redirect(array('action' => 'index'));
             } else {
-                $this->Session->setFlash('The power type could not be saved. Please, try again.');
+                $this->Session->setFlash('Error!  The power type could not be saved. Please, try again.');
             }
         } else {
             $this->request->data = $this->PowerType->read(null, $id);
@@ -93,10 +93,10 @@ class PowerTypesController extends AppController {
             throw new NotFoundException('Invalid power type');
         }
         if ($this->PowerType->delete()) {
-            $this->Session->setFlash('Power type deleted');
+            $this->Session->setFlash('Power type deleted.');
             $this->redirect(array('action' => 'index'));
         }
-        $this->Session->setFlash('Power type was not deleted');
+        $this->Session->setFlash('Error!  Power type was not deleted.');
         $this->redirect(array('action' => 'index'));
     }
 

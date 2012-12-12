@@ -9,11 +9,17 @@ $(document).ready(function () {
     
     errorstrap();
     
+    // fade out flash messages after n miliseconds
+    // replace with empty block to maintain space
+    $('#flash').fadeTo(4000, 0, function(){ $(this).html().fadeTo(1000, 1); })
+    
+    // date picker
     $( "input.datepicker" ).dp({
        dateFormat: 'dd.mm.yy',
        altFormat: 'yy-mm-dd'
     });
     
+    // enable/disable azimuth checkboxes on the networkradio add/edit page
     $("#NetworkRadioSector").click(
     function() {
        $("#NetworkRadioTrueAzimuth").each(
@@ -28,8 +34,8 @@ $(document).ready(function () {
         );
     });
     
+    // checkboes on the main search
     // Checkbox stuff from: http://www.abeautifulsite.net/blog/2007/12/jquery-checkboxes-select-all-select-none-and-invert-selection/
-    
     // Select all
     $("A[href='#select_all']").click( function() {
         $("#" + $(this).attr('rel') + " INPUT[type='checkbox']").attr('checked', true);

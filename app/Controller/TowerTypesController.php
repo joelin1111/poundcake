@@ -44,10 +44,10 @@ class TowerTypesController extends AppController {
         if ($this->request->is('post')) {
             $this->TowerType->create();
             if ($this->TowerType->save($this->request->data)) {
-                $this->Session->setFlash(__('The tower type has been saved'));
+                $this->Session->setFlash('The tower type has been saved.');
                 $this->redirect(array('action' => 'index'));
             } else {
-                $this->Session->setFlash(__('The tower type could not be saved. Please, try again.'));
+                $this->Session->setFlash('Error!  The tower type could not be saved. Please, try again.');
             }
         }
     }
@@ -59,10 +59,10 @@ class TowerTypesController extends AppController {
         }
         if ($this->request->is('post') || $this->request->is('put')) {
             if ($this->TowerType->save($this->request->data)) {
-                $this->Session->setFlash(__('The tower type has been saved'));
+                $this->Session->setFlash('The tower type has been saved.');
                 $this->redirect(array('action' => 'index'));
             } else {
-                $this->Session->setFlash(__('The tower type could not be saved. Please, try again.'));
+                $this->Session->setFlash('Error!  The tower type could not be saved. Please, try again.');
             }
         } else {
                 $this->request->data = $this->TowerType->read(null, $id);
@@ -75,13 +75,13 @@ class TowerTypesController extends AppController {
         }
         $this->TowerType->id = $id;
         if (!$this->TowerType->exists()) {
-            throw new NotFoundException(__('Invalid tower type'));
+            throw new NotFoundException('Invalid tower type');
         }
         if ($this->TowerType->delete()) {
-            $this->Session->setFlash(__('Tower equipment deleted'));
+            $this->Session->setFlash('Tower equipment deleted.');
             $this->redirect(array('action' => 'index'));
         }
-        $this->Session->setFlash(__('Tower equipment was not deleted'));
+        $this->Session->setFlash('Error!  Tower equipment was not deleted.');
         $this->redirect(array('action' => 'index'));
     }
         

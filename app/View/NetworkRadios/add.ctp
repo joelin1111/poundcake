@@ -40,8 +40,8 @@
         echo $this->Form->input('frequency', array('type'=>'select','options' => $frequencies));
         echo $this->Form->input('ssid', array('label'=>'SSID'));
         
-        echo $this->Form->end('Save');
-        
+        echo $this->Form->submit('Save', array('div' => false,'class'=>'btn'));
+        echo $this->Form->end(); 
     ?>
 </div> <!-- /.span9 -->
 </div> <!-- /.row -->

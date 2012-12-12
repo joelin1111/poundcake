@@ -251,7 +251,6 @@
                 $files = $results['files'];
                 
                 echo '<ul class="thumbnails">';
-                
                 foreach ($files as $file) {
                     
                     /*
@@ -315,24 +314,13 @@
             } else {
                 echo "None";
             }
-            /*
-            <ul class="thumbnails">
-  <li class="span4">
-    <a href="#" class="thumbnail">
-      <img src="http://placehold.it/300x200" alt="">
-    </a>
-  </li>
-  ...
-</ul>
-            */
-
-            /* in case we want to do something more interesting with the list of files?
-            $results = $this->Upload->listing('Site', $site['Site']['id']);
-            $directory = $results['directory'];
-            $baseUrl = $results['baseUrl'];
-            $files = $results['files'];
-            echo "<pre>".print_r($results)."</pre>";
-            */
+//            in case we want to do something more interesting with the list of files?
+//            $results = $this->Upload->listing('Site', $site['Site']['id']);
+//            $directory = $results['directory'];
+//            $baseUrl = $results['baseUrl'];
+//            $files = $results['files'];
+//            echo "<pre>".print_r($results)."</pre>";
+            
         ?>
     </P>
     
@@ -342,8 +330,7 @@
         $format .= " - g:m A"
     ?>
     <P><B>Last Modified:</B>&nbsp; <?php echo date($format, strtotime( $site['Site']['modified'] )); ?>    
-    </P>
-            
+    </P>            
     </div> <!-- /.span9 -->
 </div> <!-- /.row -->
 
@@ -416,33 +403,6 @@
 
 <?php
     //$this->Js->get('#SiteSites')->event('change', $this->Js->alert('Compute Distance To Selected Site'));    
-    //$this->Js->get('#SiteSites')->event('change', $this->Js->text('bar'));
-    /*
-    $this->Js->get('#SiteSites');
-    $this->Js->get('#SiteSites')->event('change',
-        $this->Js->each('$(this).css({color: "red"});')
-    );
-    */
-    /*
-    $this->Js->get('#SiteSites')->event('change',
-        $this->Js->request(
-                array(
-                    'controller' => 'Sites',
-                    'action' => 'getRemoteSite'),
-                array(
-                    'async' => true,
-                    'update' => '#RemoteSite',
-                    'dataExpression' => false,
-                    'data'=> $this->Js->serializeForm(
-                            array(
-                                'isForm' => true,
-                                'inline'=> true
-                                )
-                            ),
-                    )
-                )
-            );
-    */
     $this->Js->get('#SiteSites')->event('change',
         $this->Js->request(array(
         'controller' => 'Sites',

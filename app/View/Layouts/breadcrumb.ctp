@@ -49,8 +49,9 @@
         $breadcrumbs = array_slice($breadcrumbs, 0, $max);
         // http://twitter.github.com/bootstrap/components.html#breadcrumbs
         
+        echo '<i class="icon-list"></i>&nbsp;<B>Page History</B><BR>';
         echo '<ul class="poundcake-breadcrumb">';
-        echo '<LI><i class="icon-list"></i>&nbsp;<B>Page History</B>: ';
+        //echo '<LI><i class="icon-list"></i>&nbsp;<B>Page History</B>: ';
         echo '<span class="active"></span>';
         echo '</LI>&nbsp;&nbsp;&nbsp;';
         

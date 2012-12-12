@@ -42,7 +42,7 @@
                     <th><?php echo $this->Paginator->sort('title'); ?></th>
                     <th><?php echo $this->Paginator->sort('Organization'); ?></th>
                     <th><?php echo $this->Paginator->sort('priority'); ?></th>
-                    <th><?php echo __('Actions'); ?></th>
+                    <th><?php echo ('Actions'); ?></th>
                 </tr>
             </thead>
             <tbody>

@@ -107,10 +107,10 @@ class UsersController extends AppController {
                     $this->User->id = $id;
                     $this->User->saveField('project_id',$project_id);
                 }
-                $this->Session->setFlash('The project has been set');
+                $this->Session->setFlash('The project has been set.');
                 $this->redirect(array('controller' => 'sites','action' => 'overview'));
             } else {
-                $this->Session->setFlash('The project could not be set.');
+                $this->Session->setFlash('Error!  The project could not be set.');
             }
         }
         $this->getUsersProjects();
@@ -125,7 +125,7 @@ class UsersController extends AppController {
             
             // if they were not assigned to any projects, make them try again
             if ( !isset($this->request->data['Project']['Project'][0] )) {
-                $this->Session->setFlash('The user must be assigned to at least one project');
+                $this->Session->setFlash('Error!  The user must be assigned to at least one project.');
                 $this->redirect(array('controller' => 'users','action' => 'add'));
             }
             
@@ -137,10 +137,10 @@ class UsersController extends AppController {
             $this->request->data['User']['project_id'] = $this->request->data['Project']['Project'][0];
             //debug($this->request->data,false);
             if ($this->User->save($this->request->data)) {
-                $this->Session->setFlash(__('The user has been saved'));
+                $this->Session->setFlash('The user has been saved.');
                 $this->redirect(array('action' => 'index'));
             } else {
-                $this->Session->setFlash(__('The user could not be saved. Please, try again.'));
+                $this->Session->setFlash('Error!  The user could not be saved. Please, try again.');
             }
         }
         $this->getAllProjects();
@@ -160,7 +160,7 @@ class UsersController extends AppController {
                         $this->Session->setFlash('Password succssfully updated.  Please logout and login again.');
                         
                     } else {
-                        $this->Session->setFlash('Error updating password.');
+                        $this->Session->setFlash('Error!  Problem updating password.');
                     }
                 } else {
                      // echo "pwd FAILED validation<br>";
@@ -206,10 +206,10 @@ class UsersController extends AppController {
             // $blackList is also used above
             $blackList = array('password', 'username');
             if ($this->User->save($this->request->data, true, array_diff(array_keys($this->User->schema()), $blackList))) {
-                $this->Session->setFlash(__('The user has been saved.'));
+                $this->Session->setFlash('The user has been saved.');
                 $this->redirect(array('action' => 'index'));
             } else {
-                $this->Session->setFlash(__('The user could not be saved. Please, try again.'));
+                $this->Session->setFlash('Error!  The user could not be saved. Please, try again.');
             }
         } else {
             $this->request->data = $this->User->read(null, $id);
@@ -231,10 +231,10 @@ class UsersController extends AppController {
         
         if ($this->request->is('post') || $this->request->is('put')) {
             if ( $this->User->saveField('password',$this->request->data['User']['password'] )) {
-                $this->Session->setFlash(__('The user has been saved.'));
+                $this->Session->setFlash('The user has been saved.');
                 $this->redirect(array('action' => 'index'));
             } else {
-                $this->Session->setFlash(__('The user could not be saved. Please, try again.'));
+                $this->Session->setFlash('Error!  The user could not be saved. Please, try again.');
             }
         } else {
             $this->request->data = $this->User->read(null, $id);
@@ -254,10 +254,10 @@ class UsersController extends AppController {
             throw new NotFoundException(__('Invalid user'));
         }
         if ($this->User->delete()) {
-            $this->Session->setFlash(__('User deleted'));
+            $this->Session->setFlash('User deleted.');
             $this->redirect(array('action' => 'index'));
         }
-        $this->Session->setFlash(__('User was not deleted'));
+        $this->Session->setFlash('Error!  User was not deleted.');
         $this->redirect(array('action' => 'index'));
     }
     
@@ -303,7 +303,7 @@ class UsersController extends AppController {
                 // send them on their way
                 $this->redirect($this->Auth->redirect());
             } else {
-                $this->Session->setFlash(__('Invalid username or password, try again'));
+                $this->Session->setFlash('Error!  Invalid username or password, try again.');
             }
         }
     }
@@ -327,7 +327,7 @@ class UsersController extends AppController {
             $this->redirect($this->Auth->logout());
         } else {
             $this->redirect(array('controller'=>'pages','action' => 'display','home'));
-            $this->Session->setFlash(__('Not logged in'), 'default', array(), 'auth');
+            $this->Session->setFlash('Error!  Not logged in.', 'default', array(), 'auth');
         }
     }
     

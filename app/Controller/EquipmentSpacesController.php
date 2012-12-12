@@ -53,10 +53,10 @@ class EquipmentSpacesController extends AppController {
         if ($this->request->is('post')) {
             $this->EquipmentSpace->create();
             if ($this->EquipmentSpace->save($this->request->data)) {
-                $this->Session->setFlash('The equipment space has been saved');
+                $this->Session->setFlash('The equipment space has been saved.');
                 $this->redirect(array('action' => 'index'));
             } else {
-                $this->Session->setFlash('The equipment space could not be saved. Please, try again.');
+                $this->Session->setFlash('Error!  The equipment space could not be saved. Please, try again.');
             }
         }
     }
@@ -71,10 +71,10 @@ class EquipmentSpacesController extends AppController {
         }
         if ($this->request->is('post') || $this->request->is('put')) {
             if ($this->EquipmentSpace->save($this->request->data)) {
-                $this->Session->setFlash('The equipment space has been saved');
+                $this->Session->setFlash('The equipment space has been saved.');
                 $this->redirect(array('action' => 'index'));
             } else {
-                $this->Session->setFlash('The equipment space could not be saved. Please, try again.');
+                $this->Session->setFlash('Error!  The equipment space could not be saved. Please, try again.');
             }
         } else {
             $this->request->data = $this->EquipmentSpace->read(null, $id);
@@ -93,10 +93,10 @@ class EquipmentSpacesController extends AppController {
             throw new NotFoundException('Invalid equipment space');
         }
         if ($this->EquipmentSpace->delete()) {
-            $this->Session->setFlash('Equipment space deleted');
+            $this->Session->setFlash('Equipment space deleted.');
             $this->redirect(array('action' => 'index'));
         }
-        $this->Session->setFlash('Equipment space was not deleted');
+        $this->Session->setFlash('Error!  Equipment space was not deleted.');
         $this->redirect(array('action' => 'index'));
     }
         

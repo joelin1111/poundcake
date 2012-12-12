@@ -21,6 +21,9 @@
         
     ?>
     </fieldset>
-    <?php echo $this->Form->end('Save'); ?>
+    <?php
+        echo $this->Form->submit('Save', array('div' => false,'class'=>'btn'));
+        echo $this->Form->end(); 
+    ?>
 </div> <!-- /.span9 -->
 </div> <!-- /.row -->

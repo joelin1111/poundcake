@@ -57,7 +57,7 @@ class NetworkRadio extends AppModel {
             ),
             'isUnique' => array(
                 'rule' => array('isUnique', array('name')),
-                'message' => 'This field need must be unique!'
+                'message' => 'This field need must be unique.'
             ),
             /*
             'format' => array(

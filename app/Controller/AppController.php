@@ -139,21 +139,7 @@ class AppController extends Controller {
 //            $this->autoRender = false;
 //        }
     }
-    
-    /*
-    function afterFilter() {
-        // see note above RE: mobile support
-        //if (isset($this->is_mobile) && $this->is_mobile) {
-            //Configure::read('VIEWS');
-            //Configure::read('LAYOUTS');    
-        if (isset($this->is_mobile) && $this->is_mobile) {
-            $view_file = file_exists( VIEWS . $this->name . DS . 'mobile/' . $this->action . '.ctp' );
-            $layout_file = file_exists( LAYOUTS . 'mobile/' . $this->layout . '.ctp' );
-            $this->render($this->action, ($layout_file?'mobile/':'').$this->layout, ($view_file?'mobile/':'').$this->action);
-        }
-    }
-    */
-    
+
     /*
      * Check the ACL to see if this user can perform actions on the view within
      * the controller
@@ -257,16 +243,16 @@ class AppController extends Controller {
         return ClassRegistry::init('IPAddress')->getGatewayAddress($name);
     }
     
-    protected function debug(array $x, $die = true) {
+    public function pcdebug(array $x, $die = true) {
         echo '<pre>';
         print_r($x);
-        $dbo = $this->getDatasource();
-        $logs = $dbo->getLog();
-        echo $logs;
+        //$dbo = $this->getDatasource();
+        //$logs = $dbo->getLog();
+        //echo $logs;
+        echo '</pre>';    
         if ($die)
             die;
-        echo '</pre>';
-        
+           
     }
 }
 ?>

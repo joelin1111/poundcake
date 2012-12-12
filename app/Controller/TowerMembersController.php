@@ -43,10 +43,10 @@ class TowerMembersController extends AppController {
         if ($this->request->is('post')) {
             $this->TowerMember->create();
             if ($this->TowerMember->save($this->request->data)) {
-                $this->Session->setFlash(__('The tower member has been saved'));
+                $this->Session->setFlash('The tower member has been saved.');
                 $this->redirect(array('action' => 'index'));
             } else {
-                $this->Session->setFlash(__('The tower member could not be saved. Please, try again.'));
+                $this->Session->setFlash('Error!  The tower member could not be saved. Please, try again.');
             }
         }
     }
@@ -58,10 +58,10 @@ class TowerMembersController extends AppController {
         }
         if ($this->request->is('post') || $this->request->is('put')) {
             if ($this->TowerMember->save($this->request->data)) {
-                $this->Session->setFlash(__('The tower member has been saved'));
+                $this->Session->setFlash('The tower member has been saved.');
                 $this->redirect(array('action' => 'index'));
             } else {
-                $this->Session->setFlash(__('The tower member could not be saved. Please, try again.'));
+                $this->Session->setFlash('Error!  The tower member could not be saved. Please, try again.');
             }
         } else {
                 $this->request->data = $this->TowerMember->read(null, $id);
@@ -77,10 +77,10 @@ class TowerMembersController extends AppController {
             throw new NotFoundException(__('Invalid tower member'));
         }
         if ($this->TowerMember->delete()) {
-            $this->Session->setFlash(__('TowerMember deleted'));
+            $this->Session->setFlash('TowerMember deleted.');
             $this->redirect(array('action' => 'index'));
         }
-        $this->Session->setFlash(__('TowerMember was not deleted'));
+        $this->Session->setFlash('Error!  TowerMember was not deleted.');
         $this->redirect(array('action' => 'index'));
     }
         

@@ -64,10 +64,10 @@ class BuildItemsController extends AppController {
         if ($this->request->is('post')) {
             $this->BuildItem->create();
             if ($this->BuildItem->save($this->request->data)) {
-                $this->Session->setFlash('The build item has been saved');
+                $this->Session->setFlash('The build item has been saved.');
                 $this->redirect(array('action' => 'index'));
             } else {
-                $this->Session->setFlash('The build item could not be saved. Please, try again.');
+                $this->Session->setFlash('Error!  The build item could not be saved. Please, try again.');
             }
         }
         $this->getBuildItemTypes();
@@ -83,10 +83,10 @@ class BuildItemsController extends AppController {
         }
         if ($this->request->is('post') || $this->request->is('put')) {
             if ($this->BuildItem->save($this->request->data)) {
-                    $this->Session->setFlash('The build item has been saved');
+                    $this->Session->setFlash('The build item has been saved.');
                     $this->redirect(array('action' => 'index'));
             } else {
-                    $this->Session->setFlash('The build item could not be saved. Please, try again.');
+                    $this->Session->setFlash('Error!  The build item could not be saved. Please, try again.');
             }
         } else {
             $this->request->data = $this->BuildItem->read(null, $id);
@@ -106,10 +106,10 @@ class BuildItemsController extends AppController {
             throw new NotFoundException('Invalid build item');
         }
         if ($this->BuildItem->delete()) {
-            $this->Session->setFlash('Build item deleted');
+            $this->Session->setFlash('Build item deleted.');
             $this->redirect(array('action' => 'index'));
         }
-        $this->Session->setFlash('Build item was not deleted');
+        $this->Session->setFlash('Error!  Build item was not deleted.');
         $this->redirect(array('action' => 'index'));
     }
     

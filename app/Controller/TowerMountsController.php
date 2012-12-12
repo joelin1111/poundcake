@@ -43,10 +43,10 @@ class TowerMountsController extends AppController {
         if ($this->request->is('post')) {
             $this->TowerMount->create();
             if ($this->TowerMount->save($this->request->data)) {
-                $this->Session->setFlash(__('The tower mount has been saved'));
+                $this->Session->setFlash('The tower mount has been saved.');
                 $this->redirect(array('action' => 'index'));
             } else {
-                $this->Session->setFlash(__('The tower mount could not be saved. Please, try again.'));
+                $this->Session->setFlash('Error!  The tower mount could not be saved. Please, try again.');
             }
         }
     }
@@ -58,10 +58,10 @@ class TowerMountsController extends AppController {
         }
         if ($this->request->is('post') || $this->request->is('put')) {
             if ($this->TowerMount->save($this->request->data)) {
-                $this->Session->setFlash(__('The tower mount has been saved'));
+                $this->Session->setFlash('The tower mount has been saved.');
                 $this->redirect(array('action' => 'index'));
             } else {
-                $this->Session->setFlash(__('The tower mount could not be saved. Please, try again.'));
+                $this->Session->setFlash('Error!  The tower mount could not be saved. Please, try again.');
             }
         } else {
                 $this->request->data = $this->TowerMount->read(null, $id);
@@ -74,13 +74,13 @@ class TowerMountsController extends AppController {
         }
         $this->TowerMount->id = $id;
         if (!$this->TowerMount->exists()) {
-            throw new NotFoundException(__('Invalid tower mount'));
+            throw new NotFoundException('Invalid tower mount');
         }
         if ($this->TowerMount->delete()) {
-            $this->Session->setFlash(__('TowerMount deleted'));
+            $this->Session->setFlash('TowerMount deleted.');
             $this->redirect(array('action' => 'index'));
         }
-        $this->Session->setFlash(__('TowerMount was not deleted'));
+        $this->Session->setFlash('Error!  TowerMount was not deleted.');
         $this->redirect(array('action' => 'index'));
     }
         

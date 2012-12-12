@@ -19,8 +19,7 @@
 </div><!-- /.span3 .sb-fixed -->
 
 <div class="span9">
-    <h3><?php echo $this->Session->read('project_name'); ?> Project Overview
-    </h3>
+    <h2><?php echo $this->Session->read('project_name'); ?> Overview</h2>
     <div class="map-frame">
 <?php
     // maybe we could have used an Element for creating the map here, but this map

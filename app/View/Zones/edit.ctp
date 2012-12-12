@@ -11,9 +11,10 @@
     <?php echo $this->Form->create('Zone'); ?>
     <h2>Edit Zone</h2>
     <?php
-            echo $this->Form->input('id');
-            echo $this->Form->input('name');
+        echo $this->Form->input('id');
+        echo $this->Form->input('name');
+        echo $this->Form->submit('Save', array('div' => false,'class'=>'btn'));
+        echo $this->Form->end(); 
     ?>
-    <?php echo $this->Form->end('Save'); ?>
 </div> <!-- /.span9 -->
 </div> <!-- /.row -->

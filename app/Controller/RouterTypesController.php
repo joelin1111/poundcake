@@ -53,10 +53,10 @@ class RouterTypesController extends AppController {
         if ($this->request->is('post')) {
             $this->RouterType->create();
             if ($this->RouterType->save($this->request->data)) {
-                $this->Session->setFlash('The router type has been saved');
+                $this->Session->setFlash('The router type has been saved.');
                 $this->redirect(array('action' => 'index'));
             } else {
-                $this->Session->setFlash('The router type could not be saved. Please, try again.');
+                $this->Session->setFlash('Error!  The router type could not be saved. Please, try again.');
             }
         }
     }
@@ -71,7 +71,7 @@ class RouterTypesController extends AppController {
         }
         if ($this->request->is('post') || $this->request->is('put')) {
             if ($this->RouterType->save($this->request->data)) {
-                $this->Session->setFlash('The router type has been saved');
+                $this->Session->setFlash('The router type has been saved.');
                 $this->redirect(array('action' => 'index'));
             } else {
                 $this->Session->setFlash('The router type could not be saved. Please, try again.');
@@ -93,10 +93,10 @@ class RouterTypesController extends AppController {
             throw new NotFoundException('Invalid router type');
         }
         if ($this->RouterType->delete()) {
-            $this->Session->setFlash('Router type deleted');
+            $this->Session->setFlash('Router type deleted.');
             $this->redirect(array('action' => 'index'));
         }
-        $this->Session->setFlash('Router type was not deleted');
+        $this->Session->setFlash('Error!  Router type was not deleted.');
         $this->redirect(array('action' => 'index'));
     }
 

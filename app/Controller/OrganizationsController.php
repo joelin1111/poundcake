@@ -54,10 +54,10 @@ class OrganizationsController extends AppController {
         if ($this->request->is('post')) {
             $this->Organization->create();
             if ($this->Organization->save($this->request->data)) {
-                $this->Session->setFlash(__('The organization has been saved'));
+                $this->Session->setFlash('The organization has been saved.');
                 $this->redirect(array('action' => 'index'));
             } else {
-                $this->Session->setFlash(__('The organization could not be saved. Please, try again.'));
+                $this->Session->setFlash('Error!  The organization could not be saved. Please, try again.');
             }
         }
     }
@@ -70,10 +70,10 @@ class OrganizationsController extends AppController {
         }
         if ($this->request->is('post') || $this->request->is('put')) {
             if ($this->Organization->save($this->request->data)) {
-                $this->Session->setFlash(__('The organization has been saved'));
+                $this->Session->setFlash('The organization has been saved.');
                 $this->redirect(array('action' => 'index'));
             } else {
-                $this->Session->setFlash(__('The organization could not be saved. Please, try again.'));
+                $this->Session->setFlash('Error!  The organization could not be saved. Please, try again.');
             }
         } else {
             $this->request->data = $this->Organization->read(null, $id);
@@ -106,13 +106,13 @@ class OrganizationsController extends AppController {
         }
         $this->Organization->id = $id;
         if (!$this->Organization->exists()) {
-            throw new NotFoundException(__('Invalid organization'));
+            throw new NotFoundException('Invalid organization');
         }
         if ($this->Organization->delete()) {
-            $this->Session->setFlash(__('Tower owner deleted'));
+            $this->Session->setFlash('Organization deleted.');
             $this->redirect(array('action' => 'index'));
         }
-        $this->Session->setFlash(__('Tower owner was not deleted'));
+        $this->Session->setFlash('Error!  Organization was not deleted.');
         $this->redirect(array('action' => 'index'));
     }
 

@@ -13,7 +13,8 @@
         echo $this->Form->input('role_id',array('type'=>'hidden'));
         echo $this->Form->input('pwd_current', array('label' => 'Current password', 'type'=>'password', 'value'=>'', 'autocomplete'=>'off'));
         echo $this->Form->input('password', array('label' => 'New password','type'=>'password', 'value'=>'', 'autocomplete'=>'off'));
-        echo $this->Form->end('Save');
+        echo $this->Form->submit('Save', array('div' => false,'class'=>'btn'));
+        echo $this->Form->end(); 
     ?>
 </div> <!-- /.span9 -->
 </div> <!-- /.row -->

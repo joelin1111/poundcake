@@ -73,7 +73,7 @@ class NetworkRoutersController extends AppController {
     public function view($id = null) {
         $this->NetworkRouter->id = $id;
         if (!$this->NetworkRouter->exists()) {
-            throw new NotFoundException(__('Invalid router'));
+            throw new NotFoundException('Invalid router');
         }
         $this->set('networkrouter', $this->NetworkRouter->read(null, $id));
     }
@@ -88,10 +88,10 @@ class NetworkRoutersController extends AppController {
                 $this->Site->id = $this->request->data['NetworkRouter']['site_id']; // weird to have to do this manually
                 $this->Site->saveField('network_router_id', $this->NetworkRouter->id);
                 
-                $this->Session->setFlash(__('The router has been saved'));
+                $this->Session->setFlash('The router has been saved.');
                 $this->redirect(array('action' => 'index'));
             } else {
-                $this->Session->setFlash(__('The router could not be saved. Please, try again.'));
+                $this->Session->setFlash('Error!  The router could not be saved. Please, try again.');
             }
         }
     }
@@ -109,10 +109,10 @@ class NetworkRoutersController extends AppController {
                     $this->Site->id = $this->request->data['NetworkRouter']['site_id']; // weird to have to do this manually
                     $this->Site->saveField('network_router_id', $this->NetworkRouter->id);
                 
-                    $this->Session->setFlash(__('The router has been saved'));
+                    $this->Session->setFlash('The router has been saved.');
                     $this->redirect(array('action' => 'view',$this->NetworkRouter->id));
                 } else {
-                    $this->Session->setFlash(__('The router could not be saved. Please, try again.'));
+                    $this->Session->setFlash('Error!  The router could not be saved. Please, try again.');
                 }
         } else {
                 $this->request->data = $this->NetworkRouter->read(null, $id);
@@ -134,13 +134,13 @@ class NetworkRoutersController extends AppController {
         }
         $this->NetworkRouter->id = $id;
         if (!$this->NetworkRouter->exists()) {
-                throw new NotFoundException(__('Invalid router'));
+                throw new NotFoundException('Invalid router');
         }
         if ($this->NetworkRouter->delete()) {
-                $this->Session->setFlash(__('Road type deleted'));
+                $this->Session->setFlash('Router deleted.');
                 $this->redirect(array('action' => 'index'));
         }
-        $this->Session->setFlash(__('Road type was not deleted'));
+        $this->Session->setFlash('Error!  Router was not deleted.');
         $this->redirect(array('action' => 'index'));
     }
 

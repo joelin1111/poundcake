@@ -34,7 +34,7 @@ class SiteStatesController extends AppController {
     public function view($id = null) {
         $this->SiteState->id = $id;
         if (!$this->SiteState->exists()) {
-                throw new NotFoundException(__('Invalid site state'));
+                throw new NotFoundException('Invalid site state');
         }
         $this->set('siteState', $this->SiteState->read(null, $id));
     }
@@ -61,10 +61,10 @@ class SiteStatesController extends AppController {
                 //echo "img_data " . $this->request->data['SiteState']['img_data'];
                 }        
             if ($this->SiteState->save($this->request->data)) {
-                $this->Session->setFlash(__('The site state has been saved'));
+                $this->Session->setFlash('The site state has been saved.');
                 $this->redirect(array('action' => 'index'));
             } else {
-                $this->Session->setFlash(__('The site state could not be saved. Please, try again.'));
+                $this->Session->setFlash('Error!  The site state could not be saved. Please, try again.');
             }
         }
     }
@@ -72,7 +72,7 @@ class SiteStatesController extends AppController {
     public function edit($id = null) {
         $this->SiteState->id = $id;
         if (!$this->SiteState->exists()) {
-            throw new NotFoundException(__('Invalid site state'));
+            throw new NotFoundException('Invalid site state');
         }
         if ($this->request->is('post') || $this->request->is('put')) {
             if (is_uploaded_file($this->request->data['SiteState']['File']['tmp_name'])) {
@@ -84,10 +84,10 @@ class SiteStatesController extends AppController {
                     $this->request->data['SiteState']['img_data'] = $fileData;
             }
             if ($this->SiteState->save($this->request->data)) {
-                $this->Session->setFlash(__('The site state has been saved'));
+                $this->Session->setFlash('The site state has been saved.');
                 $this->redirect(array('action' => 'index'));
             } else {
-                $this->Session->setFlash(__('The site state could not be saved. Please, try again.'));
+                $this->Session->setFlash('Error!  The site state could not be saved. Please, try again.');
             }
         } else {
             $this->request->data = $this->SiteState->read(null, $id);
@@ -101,13 +101,13 @@ class SiteStatesController extends AppController {
         }
         $this->SiteState->id = $id;
         if (!$this->SiteState->exists()) {
-            throw new NotFoundException(__('Invalid site state'));
+            throw new NotFoundException('Invalid site state');
         }
         if ($this->SiteState->delete()) {
-            $this->Session->setFlash(__('Site state deleted'));
+            $this->Session->setFlash('Site state deleted.');
             $this->redirect(array('action' => 'index'));
         }
-        $this->Session->setFlash(__('Site state was not deleted'));
+        $this->Session->setFlash('Error!  Site state was not deleted.');
         $this->redirect(array('action' => 'index'));
     }
     

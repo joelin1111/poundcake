@@ -53,10 +53,10 @@ class ContactTypesController extends AppController {
         if ($this->request->is('post')) {
             $this->ContactType->create();
             if ($this->ContactType->save($this->request->data)) {
-                $this->Session->setFlash('The contact type has been saved');
+                $this->Session->setFlash('The contact type has been saved.');
                 $this->redirect(array('action' => 'index'));
             } else {
-                $this->Session->setFlash('The contact type could not be saved. Please, try again.');
+                $this->Session->setFlash('Error!  The contact type could not be saved. Please, try again.');
             }
         }
     }
@@ -71,10 +71,10 @@ class ContactTypesController extends AppController {
         }
         if ($this->request->is('post') || $this->request->is('put')) {
             if ($this->ContactType->save($this->request->data)) {
-                $this->Session->setFlash('The contact type has been saved');
+                $this->Session->setFlash('The contact type has been saved.');
                 $this->redirect(array('action' => 'index'));
             } else {
-                $this->Session->setFlash('The contact type could not be saved. Please, try again.');
+                $this->Session->setFlash('Error!  The contact type could not be saved. Please, try again.');
             }
         } else {
             $this->request->data = $this->ContactType->read(null, $id);
@@ -90,13 +90,13 @@ class ContactTypesController extends AppController {
         }
         $this->ContactType->id = $id;
         if (!$this->ContactType->exists()) {
-                throw new NotFoundException('Invalid contact type');
+                throw new NotFoundException('Invalid contact type.');
         }
         if ($this->ContactType->delete()) {
-                $this->Session->setFlash('Contact type deleted');
+                $this->Session->setFlash('Contact type deleted.');
                 $this->redirect(array('action' => 'index'));
         }
-        $this->Session->setFlash('Contact type was not deleted');
+        $this->Session->setFlash('Error!  Contact type was not deleted.');
         $this->redirect(array('action' => 'index'));
     }
 

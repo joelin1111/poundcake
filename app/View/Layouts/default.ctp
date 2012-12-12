@@ -120,38 +120,31 @@ $cakeDescription = __d('poundcake', 'Tower DB');
         </div>
     </div> <!--/.navbar -->
     
-    <div class="container">       
-    <div align="center">
-    <?php
-    
-        // show banner, if any -- this would be set in AppController::beforeFilter
-        $banner = $this->Session->read('banner');
-        if (isset($banner) && strlen($banner) > 0 ) {
-            //echo '<div class="row">';
-            //echo '<div class="span9" align="center">';
-            echo '<div align="center">';
-            echo '<span style="vertical-align:middle" class="label label-warning">';       
-            echo  $banner;
-            echo '</span></div><br>';
-        }
-    ?>
-    </div> <!--/.navbar -->
-    <?php
-        $flashMessage = $this->Session->flash();
-        if (isset($flashMessage) && strlen($flashMessage) > 0 ) {
-            // Also see:  alert-info, alert-error, alert-success
-            if (strlen(strstr($flashMessage,'Success'))>0) {
-                echo '<div class="alert alert-success">';
+    <div class="container">
+    <div class="row">
+    <?php        
+        $flashClass = "alert-spacer";
+        $flashMessage = "";
+        //if (isset($flashMessage) && strlen($flashMessage) > 0 ) {
+        if( $this->Session->check('Message.flash') ) {
+            // show banner, if any -- this would be set in AppController::beforeRender
+            $flashMessage = $this->Session->flash();
+//            $banner = $this->Session->read('banner');
+//            $flashMessage = $banner;
+//            if (isset($flashMessage) && strlen($flashMessage) > 0
+            $flashClass = "alert-success";
+            if (strlen(strstr($flashMessage,'Error')) > 0) {
+                $flashClass = "alert-error";
             } else if (strlen(strstr($flashMessage,'Info'))>0) {
-                echo '<div class="alert alert-info">';
-            } else {
-                echo '<div class="alert alert-error">';
+                $flashClass = "alert-info";
             }
-            echo $flashMessage.'</div>';
-            
         }
+        echo '<div align="center" id="flash" class="alert '.$flashClass.'">';
+        echo $flashMessage;
+        echo '</div>';
+//        }
     ?>
-    
+        </div>
         <?php echo $content_for_layout; ?>
         
         <div id="footer" align="center"><BR><BR>
@@ -175,32 +168,19 @@ $cakeDescription = __d('poundcake', 'Tower DB');
                 echo $copyright . ' All Rights Reserved.<BR>';
                 echo $this->Html->link(('Version History'), array('action' => 'index', 'controller' => 'changeLog'));
             ?>
-
-        
-<!--        Debugging info:-->
+            
     <?php //echo $this->element('sql_dump'); ?>
-
-    <?php //echo $scripts_for_layout; ?>
-    <!-- Js writeBuffer -->
-    <?php
-    //if (class_exists('JsHelper') && method_exists($this->Js, 'writeBuffer')) echo $this->Js->writeBuffer();
-    // Writes cached scripts
-    ?>
-    
     
    <?php
-       $host = gethostname();
-        if ($host == 'Catapult-Clarks-MacBook.local') {
-        ?>
+        $host = gethostname();
+        if ($host == 'Catapult-Clarks-MacBook.local') { ?>
         <BR>
         <div style="background-color: #ffff66; border: 1px solid black; width: 100%; height:5em;">            
             <div style="height:3em;padding:1em 0 1em 0">
                 Development version!  <?php echo $host ?>
             </div>
         </div>
-    <?php
-        }
-    ?>
+    <?php } ?>
     </div> <!-- /footer -->
     </div> <!-- /.container -->
 </body>

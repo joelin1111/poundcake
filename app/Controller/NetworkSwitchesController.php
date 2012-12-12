@@ -120,10 +120,10 @@ class NetworkSwitchesController extends AppController {
                 $this->Site->id = $this->request->data['NetworkSwitch']['site_id']; // weird to have to do this manually
                 $this->Site->saveField('network_switch_id', $this->NetworkSwitch->id);
 
-                $this->Session->setFlash(__('The switch has been saved'));
+                $this->Session->setFlash('The switch has been saved.');
                 $this->redirect(array('action' => 'index'));
             } else {
-                $this->Session->setFlash(__('The switch could not be saved. Please, try again.'));
+                $this->Session->setFlash('Error!  The switch could not be saved. Please, try again.');
             }
         }
     }
@@ -143,10 +143,10 @@ class NetworkSwitchesController extends AppController {
                 $this->Site->id = $this->request->data['NetworkSwitch']['site_id']; // weird to have to do this manually
                 $this->Site->saveField('network_switch_id', $this->NetworkSwitch->id);
                 
-                $this->Session->setFlash(__('The switch has been saved'));
+                $this->Session->setFlash('The switch has been saved.');
                 $this->redirect(array('action' => 'view',$this->NetworkSwitch->id));
             } else {
-                $this->Session->setFlash(__('The switch could not be saved. Please, try again.'));
+                $this->Session->setFlash('Error!  The switch could not be saved. Please, try again.');
             }
         } else {
             $this->request->data = $this->NetworkSwitch->read(null, $id);
@@ -160,13 +160,13 @@ class NetworkSwitchesController extends AppController {
         
         $this->NetworkSwitch->id = $id;
         if (!$this->NetworkSwitch->exists()) {
-            throw new NotFoundException(__('Invalid switch'));
+            throw new NotFoundException('Invalid switch');
         }
         if ($this->NetworkSwitch->delete()) {
-            $this->Session->setFlash(__('Switch deleted'));
+            $this->Session->setFlash('Switch deleted.');
             $this->redirect(array('action' => 'index'));
         }
-        $this->Session->setFlash(__('Switch was not deleted'));
+        $this->Session->setFlash('Error!  Switch was not deleted.');
         $this->redirect(array('action' => 'index'));
     }
     

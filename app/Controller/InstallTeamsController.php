@@ -63,10 +63,10 @@ class InstallTeamsController extends AppController {
         if ($this->request->is('post')) {
             $this->InstallTeam->create();
             if ($this->InstallTeam->save($this->request->data)) {
-                $this->Session->setFlash('The install team has been saved');
+                $this->Session->setFlash('The install team has been saved.');
                 $this->redirect(array('action' => 'index'));
             } else {
-                $this->Session->setFlash('The install team could not be saved. Please, try again.');
+                $this->Session->setFlash('Error!  The install team could not be saved. Please, try again.');
             }
         }
     }
@@ -81,10 +81,10 @@ class InstallTeamsController extends AppController {
         }
         if ($this->request->is('post') || $this->request->is('put')) {
             if ($this->InstallTeam->save($this->request->data)) {
-                $this->Session->setFlash('The install team has been saved');
+                $this->Session->setFlash('The install team has been saved.');
                 $this->redirect(array('action' => 'index'));
             } else {
-                $this->Session->setFlash('The install team could not be saved. Please, try again.');
+                $this->Session->setFlash('Error!  The install team could not be saved. Please, try again.');
             }
         } else {
             $this->request->data = $this->InstallTeam->read(null, $id);
@@ -103,10 +103,10 @@ class InstallTeamsController extends AppController {
             throw new NotFoundException('Invalid install team');
         }
         if ($this->InstallTeam->delete()) {
-            $this->Session->setFlash('Radio deleted');
+            $this->Session->setFlash('Install team deleted.');
             $this->redirect(array('action' => 'index'));
         }
-        $this->Session->setFlash('Radio was not deleted');
+        $this->Session->setFlash('Error!  Install Team was not deleted.');
         $this->redirect(array('action' => 'index'));
     }
 

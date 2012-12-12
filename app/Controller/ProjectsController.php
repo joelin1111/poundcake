@@ -43,10 +43,10 @@ class ProjectsController extends AppController {
         if ($this->request->is('post')) {
             $this->Project->create();
             if ($this->Project->save($this->request->data)) {
-                $this->Session->setFlash(__('The project has been saved'));
+                $this->Session->setFlash('The project has been saved.');
                 $this->redirect(array('action' => 'index'));
             } else {
-                $this->Session->setFlash(__('The project could not be saved. Please, try again.'));
+                $this->Session->setFlash('Error!  The project could not be saved. Please, try again.');
             }
         }
     }
@@ -58,10 +58,10 @@ class ProjectsController extends AppController {
         }
         if ($this->request->is('post') || $this->request->is('put')) {
             if ($this->Project->save($this->request->data)) {
-                $this->Session->setFlash(__('The project has been saved'));
+                $this->Session->setFlash('The project has been saved.');
                 $this->redirect(array('action' => 'index'));
             } else {
-                $this->Session->setFlash(__('The project could not be saved. Please, try again.'));
+                $this->Session->setFlash('Error!  The project could not be saved. Please, try again.');
             }
         } else {
                 $this->request->data = $this->Project->read(null, $id);
@@ -74,13 +74,13 @@ class ProjectsController extends AppController {
         }
         $this->Project->id = $id;
         if (!$this->Project->exists()) {
-            throw new NotFoundException(__('Invalid project'));
+            throw new NotFoundException('Invalid project');
         }
         if ($this->Project->delete()) {
-            $this->Session->setFlash(__('Project deleted'));
+            $this->Session->setFlash('Project deleted.');
             $this->redirect(array('action' => 'index'));
         }
-        $this->Session->setFlash(__('Project was not deleted'));
+        $this->Session->setFlash('Error!  Project was not deleted.');
         $this->redirect(array('action' => 'index'));
     }
         

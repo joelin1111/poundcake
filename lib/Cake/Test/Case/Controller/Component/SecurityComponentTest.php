@@ -449,7 +449,7 @@ class SecurityComponentTest extends CakeTestCase {
 	public function testRequireDeleteSucceed() {
 		$_SERVER['REQUEST_METHOD'] = 'DELETE';
 		$this->Controller->request['action'] = 'deleted';
-		$this->Controller->Security->requireDelete('deleted');
+		$this->Controller->Security->requireDelete('deleted.');
 		$this->Controller->Security->startup($this->Controller);
 		$this->assertFalse($this->Controller->failed);
 	}
@@ -462,7 +462,7 @@ class SecurityComponentTest extends CakeTestCase {
 	public function testRequireDeleteSucceedWrongMethod() {
 		$_SERVER['REQUEST_METHOD'] = 'POST';
 		$this->Controller->request['action'] = 'posted';
-		$this->Controller->Security->requireDelete('deleted');
+		$this->Controller->Security->requireDelete('deleted.');
 		$this->Controller->Security->startup($this->Controller);
 		$this->assertFalse($this->Controller->failed);
 	}

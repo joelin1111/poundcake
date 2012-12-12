@@ -94,19 +94,7 @@ class ContactsController extends AppController {
                 ),
             ));
         
-        
-        //$options = array('PatientsProject.project_id' => $id);
         $this->set('data', $this->paginate('Contact'));
-        
-        //echo '<pre>';
-        //print_r($this->Session->read('project_id'));
-        //print_r($this->paginate('Contact'));
-        //echo '</pre>';
-        
-        //$this->Contact->recursive = 0;
-        //$this->set('contacts', $this->paginate());
-        
-        //$this->Contact->recursive = 1;
         $this->set('contacts',$this->paginate('Contact'));
     }
     
@@ -125,10 +113,10 @@ class ContactsController extends AppController {
        if ($this->request->is('post')) {
             $this->Contact->create();
             if ($this->Contact->save($this->request->data)) {
-                $this->Session->setFlash(__('The contact has been saved'));
+                $this->Session->setFlash('The contact has been saved.');
                 $this->redirect(array('action' => 'index'));
             } else {
-                $this->Session->setFlash(__('The contact could not be saved. Please, try again.'));
+                $this->Session->setFlash('Error!  The contact could not be saved. Please, try again.');
             }
         }
     }
@@ -156,14 +144,14 @@ class ContactsController extends AppController {
         $this->getInstallTeams();
         $this->getContactTypeOptions();
         if (!$this->Contact->exists()) {
-            throw new NotFoundException(__('Invalid contact'));
+            throw new NotFoundException('Invalid contact');
         }
         if ($this->request->is('post') || $this->request->is('put')) {
             if ($this->Contact->save($this->request->data)) {
-                    $this->Session->setFlash(__('The contact has been saved'));
+                    $this->Session->setFlash('The contact has been saved.');
                     $this->redirect(array('action' => 'view',$this->Contact->id));
             } else {
-                    $this->Session->setFlash(__('The contact could not be saved. Please, try again.'));
+                    $this->Session->setFlash('Error!  The contact could not be saved. Please, try again.');
             }
         } else {
             $this->request->data = $this->Contact->read(null, $id);
@@ -177,13 +165,13 @@ class ContactsController extends AppController {
         }
         $this->Contact->id = $id;
         if (!$this->Contact->exists()) {
-            throw new NotFoundException(__('Invalid contact'));
+            throw new NotFoundException('Invalid contact');
         }
         if ($this->Contact->delete()) {
-            $this->Session->setFlash(__('Contact deleted'));
+            $this->Session->setFlash('Contact deleted.');
             $this->redirect(array('action' => 'index'));
         }
-        $this->Session->setFlash(__('Contact was not deleted'));
+        $this->Session->setFlash('Error!  Contact was not deleted.');
         $this->redirect(array('action' => 'index'));
     }
 

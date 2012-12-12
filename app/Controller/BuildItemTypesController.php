@@ -41,7 +41,7 @@ class BuildItemTypesController extends AppController {
     public function view($id = null) {
         $this->BuildItemType->id = $id;
         if (!$this->BuildItemType->exists()) {
-            throw new NotFoundException(__('Invalid build item'));
+            throw new NotFoundException('Invalid build item');
         }
         $this->set('builditemtypes', $this->BuildItemType->read(null, $id));
     }
@@ -62,10 +62,10 @@ class BuildItemTypesController extends AppController {
         if ($this->request->is('post')) {
             $this->BuildItemType->create();
             if ($this->BuildItemType->save($this->request->data)) {
-                $this->Session->setFlash(__('The build item has been saved'));
+                $this->Session->setFlash('The build item has been saved.');
                 $this->redirect(array('action' => 'index'));
             } else {
-                $this->Session->setFlash(__('The build item could not be saved. Please, try again.'));
+                $this->Session->setFlash('Error!  The build item could not be saved. Please, try again.');
             }
         }
     }
@@ -78,10 +78,10 @@ class BuildItemTypesController extends AppController {
         }
         if ($this->request->is('post') || $this->request->is('put')) {
             if ($this->BuildItemType->save($this->request->data)) {
-                    $this->Session->setFlash(__('The build item has been saved'));
+                    $this->Session->setFlash('The build item has been saved.');
                     $this->redirect(array('action' => 'index'));
             } else {
-                    $this->Session->setFlash(__('The build item could not be saved. Please, try again.'));
+                    $this->Session->setFlash('Error!  The build item could not be saved. Please, try again.');
             }
         } else {
             $this->request->data = $this->BuildItemType->read(null, $id);
@@ -94,13 +94,13 @@ class BuildItemTypesController extends AppController {
         }
         $this->BuildItemType->id = $id;
         if (!$this->BuildItemType->exists()) {
-            throw new NotFoundException(__('Invalid build item'));
+            throw new NotFoundException('Invalid build item');
         }
         if ($this->BuildItemType->delete()) {
-            $this->Session->setFlash(__('Radio deleted'));
+            $this->Session->setFlash('Build item deleted.');
             $this->redirect(array('action' => 'index'));
         }
-        $this->Session->setFlash(__('Radio was not deleted'));
+        $this->Session->setFlash('Error!  Build item was not deleted.');
         $this->redirect(array('action' => 'index'));
     }
 

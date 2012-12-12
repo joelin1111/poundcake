@@ -127,8 +127,8 @@
     
     // this is the upload field
     echo $this->Upload->edit('Site', $this->Form->fields['Site.id']); 
-    
-    echo $this->Form->end('Save');
+    echo $this->Form->submit('Save', array('div' => false,'class'=>'btn'));
+    echo $this->Form->end(); 
     /*
     $options = array(
         'label' => 'Save 2',

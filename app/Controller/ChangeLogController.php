@@ -62,10 +62,10 @@ class ChangeLogController extends AppController {
         if ($this->request->is('post')) {
             $this->ChangeLog->create();
             if ($this->ChangeLog->save($this->request->data)) {
-                $this->Session->setFlash('The change log has been saved');
+                $this->Session->setFlash('The change log has been saved.');
                 $this->redirect(array('action' => 'index'));
             } else {
-                $this->Session->setFlash('The change log could not be saved. Please, try again.');
+                $this->Session->setFlash('Error!  The change log could not be saved. Please, try again.');
             }
         }
     }
@@ -80,10 +80,10 @@ class ChangeLogController extends AppController {
         }
         if ($this->request->is('post') || $this->request->is('put')) {
             if ($this->ChangeLog->save($this->request->data)) {
-                $this->Session->setFlash('The change log has been saved');
+                $this->Session->setFlash('The change log has been saved.');
                 $this->redirect(array('action' => 'index'));
             } else {
-                $this->Session->setFlash('The change log could not be saved. Please, try again.');
+                $this->Session->setFlash('Error!  The change log could not be saved. Please, try again.');
             }
         } else {
             $this->request->data = $this->ChangeLog->read(null, $id);
@@ -102,10 +102,10 @@ class ChangeLogController extends AppController {
             throw new NotFoundException('Invalid change log');
         }
         if ($this->ChangeLog->delete()) {
-            $this->Session->setFlash('Change log deleted');
+            $this->Session->setFlash('Change log deleted.');
             $this->redirect(array('action' => 'index'));
         }
-        $this->Session->setFlash('Change log was not deleted');
+        $this->Session->setFlash('Error!  Change log was not deleted.');
         $this->redirect(array('action' => 'index'));
     }
 
