@@ -283,14 +283,34 @@ class NetworkRadiosController extends AppController {
     /*
      * Pull radio configuration from linked radio
      * - SSID
-     * - Invert radio mode of the source radio
      * - Frequency
+     * - Invert radio mode of the source radio
      */
     function pullConfig( $to, $from ) {
-        //$this->pcdebug("From ".$from." to " .$to);
-        $this->loadModel('NetworkRadio',$to);
-        $this->NetworkRadio->id = $to;
-        $this->pcdebug($this->NetworkRadio->field('SSID'));
+        $this->NetworkRadio->recursive = -1; // we don't need related model data
+        $to_radio = $this->NetworkRadio->read( null, $to );
+        $from_radio = $this->NetworkRadio->read( null, $from );
+        //$this->pcdebug( $to_radio, false );
+        //$this->pcdebug( $from_radio, false );
+        // and now the dirty work!
+        // overwrite the radio''s configuration from the other radio's data
+        $to_radio['NetworkRadio']['ssid'] = $from_radio['NetworkRadio']['ssid'];
+        $to_radio['NetworkRadio']['frequency'] = $from_radio['NetworkRadio']['frequency'];
+        
+        // this one is a bit tricker, as we need to get the opposite radio mode
+        $this->loadModel('RadioMode');
+        $radiomode = $this->RadioMode->read( null, $from_radio['NetworkRadio']['radio_mode_id'] );
+        $to_radio['NetworkRadio']['radio_mode_id'] = $radiomode['RadioMode']['inverse_mode_id'];
+        
+        //$this->pcdebug( $to_radio, false );
+        $this->NetworkRadio->save( $to_radio );
+        if ($this->NetworkRadio->save( $to_radio )) {
+            $this->Session->setFlash('The radio\'s configiraton has been updated.');
+            $this->redirect(array('action' => 'view',$this->NetworkRadio->id));
+        } else {
+            $this->Session->setFlash('Error!  The radio\'s configiraton could not be updated. Please, try again.');
+        }
+        //die;
     }
     
     /*
