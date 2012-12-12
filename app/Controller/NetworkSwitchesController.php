@@ -1,6 +1,6 @@
 <?php
 /**
- * Controller for antenna types.
+ * Controller for network switches.
  *
  * This is a very basic controller to add/view/update/delete antenna types.
  * These tasks would typically be performed by a user with administrative level
@@ -18,7 +18,7 @@
  * @author        Clark Ritchie <clark@inveneo.org>
  * @link          http://www.inveneo.org
  * @package       app.Controller
- * @since         AntennaTypesController precedes Poundcake v2.2.1
+ * @since         NetworkSwitchesController precedes Poundcake v2.2.1
  * @license       XYZ License
  */
 
@@ -26,42 +26,14 @@ App::uses('AppController', 'Controller');
 
 class NetworkSwitchesController extends AppController {
 
+    /*
+     * MyHTML makes de-links hyperlinks for view-only users
+     */
     var $helpers = array('MyHTML');
     
     /*
-    public $paginate = array(
-        'limit' => 20, // default limit also defined in AppController
-        'order' => array(
-            'NetworkSwitch.name' => 'asc'
-        )/*,
-        'conditions' => array(
-            'Site.project_id' => 3 // $this->Session->read('project_id')
-        )
-        *
-    );
-    
-    public function index() {
-        //$this->NetworkSwitch->recursive = 0;
-        //$this->set('networkswitches', $this->paginate());
-        $this->paginate = array(
-            'contain' => array('Site'),
-            'conditions' => array(
-                'Site.project_id' => 3 // $this->Session->read('project_id')
-            )
-        );
-        $data = $this->paginate('NetworkSwitch');
-        $this->set(compact('data'));
-    }
-    */
-    /*
-    public $paginate = array(
-        'limit' => 20, // default limit also defined in AppController
-        'order' => array(
-            'NetworkSwitch.name' => 'asc'
-        )
-    );
-    */
-    
+     * Main listing for all NetworkSwitches
+     */
     public function index() {
         // begin search stuff
         $name_arg = "";
@@ -98,6 +70,9 @@ class NetworkSwitchesController extends AppController {
         $this->set('networkswitches',$data);
     }
     
+    /*
+     * View an existing NetworkSwitch
+     */
     public function view($id = null) {
         $this->NetworkSwitch->id = $id;
         if (!$this->NetworkSwitch->exists()) {
@@ -106,6 +81,9 @@ class NetworkSwitchesController extends AppController {
         $this->set('networkswitch', $this->NetworkSwitch->read(null, $id));
     }
 
+    /*
+     * Add a new NetworkSwitch
+     */
     public function add() {
         $this->getSwitchTypes();
         $this->getAllSitesForProject();
@@ -128,13 +106,16 @@ class NetworkSwitchesController extends AppController {
         }
     }
 
+    /*
+     * Edit an existing NetworkSwitch
+     */
     public function edit($id = null) {
         $this->getSwitchTypes();
         $this->getAllSitesForProject();
         $this->NetworkSwitch->id = $id;
         
         if (!$this->NetworkSwitch->exists()) {
-                throw new NotFoundException(__('Invalid switch'));
+                throw new NotFoundException('Invalid switch');
         }
         if ($this->request->is('post') || $this->request->is('put')) {
             if ($this->NetworkSwitch->save($this->request->data)) {
@@ -153,6 +134,9 @@ class NetworkSwitchesController extends AppController {
         }
     }
 
+    /*
+     * Delete an existing NetworkSwitch
+     */
     public function delete($id = null) {
         if (!$this->request->is('post')) {
                 throw new MethodNotAllowedException();
@@ -170,6 +154,9 @@ class NetworkSwitchesController extends AppController {
         $this->redirect(array('action' => 'index'));
     }
     
+    /*
+     * Set an array of SwitchTypes
+     */
     function getSwitchTypes() {
         $this->set('switchtypes',$this->NetworkSwitch->SwitchType->find('list',
             array(
@@ -179,8 +166,11 @@ class NetworkSwitchesController extends AppController {
         );
     }
     
+    /*
+     * Get the assigned Switch for a given site
+     */
     public function getSwitchForSite() {
-        //$site_id = $this->request->data['NetworkRadio']['site_id'];
+        // revisit: site_id should probably come in as an argument
         
         // get the Site the user selected
         $this->loadModel('Site', $this->request->data['NetworkRadio']['site_id']);
@@ -213,37 +203,10 @@ class NetworkSwitchesController extends AppController {
             $networkswitches[0] = $this->Site->field('site_name').' has no switch';
         }
         
-//        // $networkswitches[$this->NetworkSwitch->id] = $this->NetworkSwitch->field('name').' ('.$this->SwitchType->field('ports').')';
-//        $networkswitches[0] = 'Site ID: ' . $this->Site->id;
-//        $networkswitches[1] = 'Switch ID: ' . $network_switch_id;
-//        $networkswitches[2] = 'Ports: ' . $ports;
-        
         $this->set('network_switch_id',$this->NetworkSwitch->id);
         $this->set('networkswitches',$networkswitches);
         $this->layout = 'ajax';
     }
-    
-    /*
-    public function getPortsBySwitchType() {
-        // this ID of the switch the user has selected (from the Radio add/edit page)
-        $switch_id = $this->request->data['NetworkRadio']['network_switch_id'];
-        $this->loadModel('NetworkSwitch', $switch_id);
-        $switch_data = $this->NetworkSwitch->find('all', array('conditions' => array('NetworkSwitch.id' => $switch_id)));
-        $ports = $switch_data[0]['SwitchType']['ports'];
-        ////$ports = $this->NetworkSwitch->SwitchType->field('ports');
-        //$switch_data = $this->NetworkSwitch->SwitchType->find('all', array('conditions' => array('NetworkSwitch.id' => $switch_id)));
-        //$ports = 4;
-        
-        // sadly, switches are labeled 1 to N
-        for ($i = 1; $i <= $ports; $i++) {
-            //$switchports[$i] = $i . " switch id: ".$switch_id ." ports ".$ports."";
-            $switchports[$i] = 'Port #'.$i;
-        }
-        //$switchports[0] = 'foo';
-        $this->set('switchports',$switchports);
-        $this->layout = 'ajax';
-    }
-    */
     
     /*
      * Uses Auth to check the ACL to see if the user is allowed to perform any

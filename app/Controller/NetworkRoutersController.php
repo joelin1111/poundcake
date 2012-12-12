@@ -18,7 +18,7 @@
  * @author        Clark Ritchie <clark@inveneo.org>
  * @link          http://www.inveneo.org
  * @package       app.Controller
- * @since         AntennaTypesController precedes Poundcake v2.2.1
+ * @since         NetworkRoutersController precedes Poundcake v2.2.1
  * @license       XYZ License
  */
 
@@ -26,8 +26,14 @@ App::uses('AppController', 'Controller');
 
 class NetworkRoutersController extends AppController {
 
+    /*
+     * MyHTML makes de-links hyperlinks for view-only users
+     */
     var $helpers = array('MyHTML');
     
+    /*
+     * Custom pagination, sort order on index listing
+     */
     public $paginate = array(
         'limit' => 20, // default limit also defined in AppController
         'order' => array(
@@ -35,6 +41,9 @@ class NetworkRoutersController extends AppController {
         )
     );
     
+    /*
+     * Main listing for all NetworkRouters
+     */
     public function index() {
         // begin search stuff\
         $name_arg = "";
@@ -102,7 +111,7 @@ class NetworkRoutersController extends AppController {
         $this->getRouterTypes();
         
         if (!$this->NetworkRouter->exists()) {
-                throw new NotFoundException(__('Invalid router'));
+                throw new NotFoundException('Invalid router');
         }
         if ($this->request->is('post') || $this->request->is('put')) {
                 if ($this->NetworkRouter->save($this->request->data)) {

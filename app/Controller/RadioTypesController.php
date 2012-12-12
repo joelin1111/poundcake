@@ -1,8 +1,9 @@
 <?php
 /**
- * Controller for antenna types.
+ * Controller for radio types.
  *
- * This is a very basic controller to add/view/update/delete antenna types.
+ * This is a very basic controller to add/view/update/delete radio types.
+ * 
  * These tasks would typically be performed by a user with administrative level
  * permissions within Poundcake.
  *
@@ -18,7 +19,7 @@
  * @author        Clark Ritchie <clark@inveneo.org>
  * @link          http://www.inveneo.org
  * @package       app.Controller
- * @since         AntennaTypesController precedes Poundcake v2.2.1
+ * @since         RadioTypesController precedes Poundcake v2.2.1
  * @license       XYZ License
  */
 
@@ -26,19 +27,28 @@ App::uses('AppController', 'Controller');
 
 class RadioTypesController extends AppController {
 
+    /*
+     * Main listing for all RadioTypes
+     */
     public function index() {
         $this->RadioType->recursive = 0;
         $this->set('radioTypes', $this->paginate());
     }
-
+    
+    /*
+     * View an existing RadioType
+     */
     public function view($id = null) {
         $this->RadioType->id = $id;
         if (!$this->RadioType->exists()) {
-                throw new NotFoundException(__('Invalid radio type'));
+                throw new NotFoundException('Invalid radio type');
         }
         $this->set('radioType', $this->RadioType->read(null, $id));
     }
 
+    /*
+     * Add a new RadioType
+     */
     public function add() {
         if ($this->request->is('post')) {
             $this->RadioType->create();
@@ -51,10 +61,13 @@ class RadioTypesController extends AppController {
         }
     }
 
+    /*
+     * Edit an existing RadioType
+     */
     public function edit($id = null) {
         $this->RadioType->id = $id;
         if (!$this->RadioType->exists()) {
-            throw new NotFoundException(__('Invalid radio type'));
+            throw new NotFoundException('Invalid radio type');
         }
         if ($this->request->is('post') || $this->request->is('put')) {
             if ($this->RadioType->save($this->request->data)) {
@@ -68,6 +81,9 @@ class RadioTypesController extends AppController {
         }
     }
 
+    /*
+     * Delete an existing RadioType
+     */
     public function delete($id = null) {
         if (!$this->request->is('post')) {
             throw new MethodNotAllowedException();

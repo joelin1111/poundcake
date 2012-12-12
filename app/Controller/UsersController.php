@@ -183,7 +183,7 @@ class UsersController extends AppController {
         $this->getAllProjects();
         
         if (!$this->User->exists()) {
-            throw new NotFoundException(__('Invalid user'));
+            throw new NotFoundException('Invalid user');
         }
         if ($this->request->is('post') || $this->request->is('put')) {
             //unset($this->User->validate['password']);
@@ -226,7 +226,7 @@ class UsersController extends AppController {
         $this->set('username',$this->User->field('username'));
         
         if (!$this->User->exists()) {
-            throw new NotFoundException(__('Invalid user'));
+            throw new NotFoundException('Invalid user');
         }
         
         if ($this->request->is('post') || $this->request->is('put')) {
@@ -251,7 +251,7 @@ class UsersController extends AppController {
         }
         $this->User->id = $id;
         if (!$this->User->exists()) {
-            throw new NotFoundException(__('Invalid user'));
+            throw new NotFoundException('Invalid user');
         }
         if ($this->User->delete()) {
             $this->Session->setFlash('User deleted.');

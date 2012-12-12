@@ -1,8 +1,11 @@
 <?php
 /**
- * Controller for antenna types.
+ * Controller for projects.
  *
- * This is a very basic controller to add/view/update/delete antenna types.
+ * This is a very basic controller to add/view/update/delete projects.  Projects
+ * are the highest level categorization of sites; Sites may be long to one
+ * Project.  Users are then granted permissions to access a project.
+ * 
  * These tasks would typically be performed by a user with administrative level
  * permissions within Poundcake.
  *
@@ -18,7 +21,7 @@
  * @author        Clark Ritchie <clark@inveneo.org>
  * @link          http://www.inveneo.org
  * @package       app.Controller
- * @since         AntennaTypesController precedes Poundcake v2.2.1
+ * @since         ProjectsController precedes Poundcake v2.2.1
  * @license       XYZ License
  */
 
@@ -26,19 +29,28 @@ App::uses('AppController', 'Controller');
 
 class ProjectsController extends AppController {
 
+    /*
+     * Main listing for all Projects
+     */
     public function index() {
         $this->Project->recursive = 0;
         $this->set('projects', $this->paginate());
     }
 
+    /*
+     * View an existing project.
+     */
     public function view($id = null) {
         $this->Project->id = $id;
         if (!$this->Project->exists()) {
-                throw new NotFoundException(__('Invalid project'));
+                throw new NotFoundException('Invalid project');
         }
         $this->set('project', $this->Project->read(null, $id));
     }
 
+    /*
+     * Add a new project
+     */
     public function add() {
         if ($this->request->is('post')) {
             $this->Project->create();
@@ -51,10 +63,13 @@ class ProjectsController extends AppController {
         }
     }
 
+    /*
+     * Edit an existing project
+     */
     public function edit($id = null) {
         $this->Project->id = $id;
         if (!$this->Project->exists()) {
-                throw new NotFoundException(__('Invalid project'));
+                throw new NotFoundException('Invalid project');
         }
         if ($this->request->is('post') || $this->request->is('put')) {
             if ($this->Project->save($this->request->data)) {
@@ -68,6 +83,9 @@ class ProjectsController extends AppController {
         }
     }
 
+    /*
+     * Delete an existing project
+     */
     public function delete($id = null) {
         if (!$this->request->is('post')) {
             throw new MethodNotAllowedException();

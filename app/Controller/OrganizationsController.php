@@ -1,8 +1,9 @@
 <?php
 /**
- * Controller for antenna types.
+ * Controller for organizations.
  *
- * This is a very basic controller to add/view/update/delete antenna types.
+ * This is a very basic controller to add/view/update/delete organizations.
+ * 
  * These tasks would typically be performed by a user with administrative level
  * permissions within Poundcake.
  *
@@ -18,7 +19,7 @@
  * @author        Clark Ritchie <clark@inveneo.org>
  * @link          http://www.inveneo.org
  * @package       app.Controller
- * @since         AntennaTypesController precedes Poundcake v2.2.1
+ * @since         OrganizationsController precedes Poundcake v2.2.1
  * @license       XYZ License
  */
 
@@ -30,25 +31,36 @@ App::uses('AppController', 'Controller');
  */
 class OrganizationsController extends AppController {
 
+    /*
+     * Main listing for all Organizations
+     */
     public function index() {
         $this->Organization->recursive = 0;
         $this->set('organizations', $this->paginate());
     }
     
+    /*
+     * Set an array of contacts for an Organization.
+     */
     function getContacts() {
         $this->set('contacts',$this->Organization->Contact->find('list'));        
     }
 
+    /*
+     * View an existing Organization
+     */
     public function view($id = null) {
-        $this->Organization->id = $id;
-        
+        $this->Organization->id = $id;        
         if (!$this->Organization->exists()) {
-                throw new NotFoundException(__('Invalid organization'));
+            throw new NotFoundException('Invalid organization');
         }
         $this->set('organization', $this->Organization->read(null, $id));
         
     }
 
+    /*
+     * Add a new Organization
+     */
     public function add() {
         $this->getUsersAssignedProjects();
         if ($this->request->is('post')) {
@@ -62,11 +74,14 @@ class OrganizationsController extends AppController {
         }
     }
 
+    /*
+     * Edit an existing Organization
+     */
     public function edit($id = null) {
         $this->Organization->id = $id;
         $this->getUsersAssignedProjects();
         if (!$this->Organization->exists()) {
-            throw new NotFoundException(__('Invalid organization'));
+            throw new NotFoundException('Invalid organization');
         }
         if ($this->request->is('post') || $this->request->is('put')) {
             if ($this->Organization->save($this->request->data)) {
@@ -80,8 +95,11 @@ class OrganizationsController extends AppController {
         }
     }
 
+    /*
+     * Return the projects this user has access to
+     */
     function getUsersAssignedProjects() {
-        // return only the projects this user has access to
+        // 
         $this->loadModel('User');
         $uid = CakeSession::read("Auth.User.id");
         $options['joins'] = array(
@@ -100,6 +118,9 @@ class OrganizationsController extends AppController {
         return $projects;
     }
     
+    /*
+     * Delete an existing Organization
+     */
     public function delete($id = null) {
         if (!$this->request->is('post')) {
             throw new MethodNotAllowedException();

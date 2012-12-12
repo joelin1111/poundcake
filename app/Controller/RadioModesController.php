@@ -55,7 +55,7 @@ class RadioModesController extends AppController {
     public function view($id = null) {
         $this->RadioMode->id = $id;
         if (!$this->RadioMode->exists()) {
-                throw new NotFoundException(__('Invalid radio mode'));
+                throw new NotFoundException('Invalid radio mode');
         }
         $this->set('radiomode', $this->RadioMode->read(null, $id));
     }

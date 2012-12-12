@@ -1,8 +1,9 @@
 <?php
 /**
- * Controller for antenna types.
+ * Controller for tower mounts.
  *
- * This is a very basic controller to add/view/update/delete antenna types.
+ * This is a very basic controller to add/view/update/delete tower mounts.
+ * 
  * These tasks would typically be performed by a user with administrative level
  * permissions within Poundcake.
  *
@@ -18,7 +19,7 @@
  * @author        Clark Ritchie <clark@inveneo.org>
  * @link          http://www.inveneo.org
  * @package       app.Controller
- * @since         AntennaTypesController precedes Poundcake v2.2.1
+ * @since         TowerMountsController precedes Poundcake v2.2.1
  * @license       XYZ License
  */
 
@@ -26,19 +27,28 @@ App::uses('AppController', 'Controller');
 
 class TowerMountsController extends AppController {
 
+    /*
+     * Main listing for all TowerMounts
+     */
     public function index() {
         $this->TowerMount->recursive = 0;
         $this->set('towermounts', $this->paginate());
     }
 
+    /*
+     * View an existing TowerMount
+     */
     public function view($id = null) {
         $this->TowerMount->id = $id;
         if (!$this->TowerMount->exists()) {
-                throw new NotFoundException(__('Invalid tower mount'));
+                throw new NotFoundException('Invalid tower mount');
         }
         $this->set('towermount', $this->TowerMount->read(null, $id));
     }
 
+    /*
+     * Add a new TowerMount
+     */
     public function add() {
         if ($this->request->is('post')) {
             $this->TowerMount->create();
@@ -51,10 +61,13 @@ class TowerMountsController extends AppController {
         }
     }
 
+    /*
+     * Edit an existing TowerMount
+     */
     public function edit($id = null) {
         $this->TowerMount->id = $id;
         if (!$this->TowerMount->exists()) {
-                throw new NotFoundException(__('Invalid tower mount'));
+                throw new NotFoundException('Invalid tower mount');
         }
         if ($this->request->is('post') || $this->request->is('put')) {
             if ($this->TowerMount->save($this->request->data)) {
@@ -68,6 +81,9 @@ class TowerMountsController extends AppController {
         }
     }
 
+    /*
+     * Delete an existing TowerMount
+     */
     public function delete($id = null) {
         if (!$this->request->is('post')) {
             throw new MethodNotAllowedException();

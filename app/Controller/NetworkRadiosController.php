@@ -94,7 +94,7 @@ class NetworkRadiosController extends AppController {
     public function view($id = null) {
         $this->NetworkRadio->id = $id;
         if (!$this->NetworkRadio->exists()) {
-            throw new NotFoundException(__('Invalid radio'));
+            throw new NotFoundException('Invalid radio');
         }
         // get all the radios this radio may be linked to
         $query = 'call sp_get_remote_links('.$id.')';
@@ -262,7 +262,7 @@ class NetworkRadiosController extends AppController {
         $this->getNetworkSwitch($this->NetworkRadio->field('site_id'));
         
         if (!$this->NetworkRadio->exists()) {
-            throw new NotFoundException(__('Invalid radio'));
+            throw new NotFoundException('Invalid radio');
         }
         
         if ($this->request->is('post') || $this->request->is('put')) {

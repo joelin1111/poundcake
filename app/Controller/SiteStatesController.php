@@ -3,6 +3,7 @@
  * Controller for antenna types.
  *
  * This is a very basic controller to add/view/update/delete antenna types.
+ * 
  * These tasks would typically be performed by a user with administrative level
  * permissions within Poundcake.
  *
@@ -18,7 +19,7 @@
  * @author        Clark Ritchie <clark@inveneo.org>
  * @link          http://www.inveneo.org
  * @package       app.Controller
- * @since         AntennaTypesController precedes Poundcake v2.2.1
+ * @since         SiteStatesController precedes Poundcake v2.2.1
  * @license       XYZ License
  */
 
@@ -26,11 +27,15 @@ App::uses('AppController', 'Controller');
 
 class SiteStatesController extends AppController {
 
+    /*
+     * Main listing for all SiteStates
+     */
     public function index() {
         $this->SiteState->recursive = 0;
         $this->set('siteStates', $this->paginate());
     }
 
+    
     public function view($id = null) {
         $this->SiteState->id = $id;
         if (!$this->SiteState->exists()) {

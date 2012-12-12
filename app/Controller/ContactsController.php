@@ -1,11 +1,9 @@
 <?php
 /**
- * Controller for antenna types.
+ * Controller for contacts.
  *
- * This is a very basic controller to add/view/update/delete antenna types.
- * These tasks would typically be performed by a user with administrative level
- * permissions within Poundcake.
- *
+ * This is a very basic controller to add/view/update/delete contacts.
+ * 
  * Developed against CakePHP 2.2.3 and PHP 5.4.4.
  *
  * Copyright 2012, Inveneo, Inc. (http://www.inveneo.org)
@@ -18,7 +16,7 @@
  * @author        Clark Ritchie <clark@inveneo.org>
  * @link          http://www.inveneo.org
  * @package       app.Controller
- * @since         AntennaTypesController precedes Poundcake v2.2.1
+ * @since         ContactsController precedes Poundcake v2.2.1
  * @license       XYZ License
  */
 
@@ -30,10 +28,15 @@ App::uses('AppController', 'Controller');
  */
 class ContactsController extends AppController {
 
+    /*
+     * MyHTML makes de-links hyperlinks for view-only users
+     */
     var $helpers = array('MyHTML');
     
-    function index($id = null) {
-        
+    /*
+     * Main listing for all Contacts
+     */
+    function index($id = null) {        
         $conditions = "";
         $first_name_arg = "";
         $last_name_arg = "";
@@ -98,14 +101,20 @@ class ContactsController extends AppController {
         $this->set('contacts',$this->paginate('Contact'));
     }
     
+    /*
+     * View an existing Contact
+     */
     public function view($id = null) {
         $this->Contact->id = $id;
         if (!$this->Contact->exists()) {
-            throw new NotFoundException(__('Invalid contact'));
+            throw new NotFoundException('Invalid contact');
         }
         $this->set('contact', $this->Contact->read(null, $id));        
     }
-
+    
+    /*
+     * Add a new Contact
+     */
     public function add() {
        $this->getOrganizations();
        $this->getInstallTeams();
@@ -121,23 +130,31 @@ class ContactsController extends AppController {
         }
     }
 
-    // return all the organizations the user may be assigned to
+    /*
+     * Get all organizations the user may be assigned to
+     */
     function getOrganizations() {
         // moved this into AppController since SitesController has to do the same thing
         return parent::getOrganizationsForCurrentProject('Contact');
     }
     
-    // as above
+    /*
+     * Set an array of all the installation teams
+     */
     function getInstallTeams() {
         $this->set('installteams',$this->Contact->InstallTeam->find('list'));
     }
     
+    /*
+     * Set an array of ContactTypes
+     */
     function getContactTypeOptions() {
-        //$type_options = array('0' => 'Commercial Contact', '1' => 'Technical Contact');
-        //$type_options = array('0' => $contactType0, '1' => $contactType1);
         $this->set('contacttypes',$this->Contact->ContactType->find('list'));
     }
 
+    /*
+     * Edit an existing Contact
+     */
     public function edit($id = null) {
         $this->Contact->id = $id;
         $this->getOrganizations();
@@ -155,10 +172,12 @@ class ContactsController extends AppController {
             }
         } else {
             $this->request->data = $this->Contact->read(null, $id);
-            //$this->getSites();
         }
     }
 
+    /*
+     * Delete an existing Contact
+     */
     public function delete($id = null) {
         if (!$this->request->is('post')) {
             throw new MethodNotAllowedException();

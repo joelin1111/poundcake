@@ -1,8 +1,9 @@
 <?php
 /**
- * Controller for antenna types.
+ * Controller for tower types.
  *
- * This is a very basic controller to add/view/update/delete antenna types.
+ * This is a very basic controller to add/view/update/delete tower types.
+ * 
  * These tasks would typically be performed by a user with administrative level
  * permissions within Poundcake.
  *
@@ -18,7 +19,7 @@
  * @author        Clark Ritchie <clark@inveneo.org>
  * @link          http://www.inveneo.org
  * @package       app.Controller
- * @since         AntennaTypesController precedes Poundcake v2.2.1
+ * @since         TowerTypesController precedes Poundcake v2.2.1
  * @license       XYZ License
  */
 
@@ -26,20 +27,29 @@ App::uses('AppController', 'Controller');
 
 class TowerTypesController extends AppController {
 
+    /*
+     * Main listing for all TowerrTypes
+     */
     public function index() {
         $this->TowerType->recursive = 0;
         // yes, I do realize that the plural of equipment is equipment
         $this->set('towerequipments', $this->paginate());
     }
 
+    /*
+     * View a TowerType
+     */
     public function view($id = null) {
         $this->TowerType->id = $id;
         if (!$this->TowerType->exists()) {
-                throw new NotFoundException(__('Invalid tower type'));
+                throw new NotFoundException('Invalid tower type');
         }
         $this->set('towerequipment', $this->TowerType->read(null, $id));
     }
 
+    /*
+     * Add a new TowerType
+     */
     public function add() {
         if ($this->request->is('post')) {
             $this->TowerType->create();
@@ -52,10 +62,13 @@ class TowerTypesController extends AppController {
         }
     }
 
+    /*
+     * Edit an existing TowerrType
+     */
     public function edit($id = null) {
         $this->TowerType->id = $id;
         if (!$this->TowerType->exists()) {
-                throw new NotFoundException(__('Invalid tower type'));
+                throw new NotFoundException('Invalid tower type');
         }
         if ($this->request->is('post') || $this->request->is('put')) {
             if ($this->TowerType->save($this->request->data)) {
@@ -69,6 +82,9 @@ class TowerTypesController extends AppController {
         }
     }
 
+    /*
+     * Delete an existing TowerType
+     */
     public function delete($id = null) {
         if (!$this->request->is('post')) {
             throw new MethodNotAllowedException();

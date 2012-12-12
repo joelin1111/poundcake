@@ -3,6 +3,7 @@
  * Controller for zones.
  *
  * This is a very basic controller to add/view/update/delete zones.
+ * 
  * These tasks would typically be performed by a user with administrative level
  * permissions within Poundcake.
  *
@@ -50,7 +51,7 @@ class ZonesController extends AppController {
     public function view($id = null) {
         $this->Zone->id = $id;
         if (!$this->Zone->exists()) {
-            throw new NotFoundException(__('Invalid zone'));
+            throw new NotFoundException('Invalid zone');
         }
         $this->set('zone', $this->Zone->read(null, $id));
     }
@@ -76,7 +77,7 @@ class ZonesController extends AppController {
     public function edit($id = null) {
         $this->Zone->id = $id;
         if (!$this->Zone->exists()) {
-            throw new NotFoundException(__('Invalid province'));
+            throw new NotFoundException('Invalid province');
         }
         if ($this->request->is('post') || $this->request->is('put')) {
             if ($this->Zone->save($this->request->data)) {

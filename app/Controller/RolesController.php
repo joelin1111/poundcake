@@ -1,10 +1,16 @@
 <?php
 /**
- * Controller for antenna types.
+ * Controller for roles
  *
- * This is a very basic controller to add/view/update/delete antenna types.
+ * This is a very basic controller to add/view/update/delete roles.
+ * 
  * These tasks would typically be performed by a user with administrative level
  * permissions within Poundcake.
+ * 
+ * It's not likely that an admin would be managing Roles very often, since Roles
+ * are pretty tightly coupled to the way ACLs work with Auth, and thus adding
+ * a new role is likely to mean changes to the code to add/remove/change
+ * permissions in some way.
  *
  * Developed against CakePHP 2.2.3 and PHP 5.4.4.
  *
@@ -18,7 +24,7 @@
  * @author        Clark Ritchie <clark@inveneo.org>
  * @link          http://www.inveneo.org
  * @package       app.Controller
- * @since         AntennaTypesController precedes Poundcake v2.2.1
+ * @since         RolesController precedes Poundcake v2.2.1
  * @license       XYZ License
  */
 
@@ -26,19 +32,28 @@ App::uses('AppController', 'Controller');
 
 class RolesController extends AppController {
 
+    /*
+     * Main listing for all Roles
+     */
     public function index() {
         $this->Role->recursive = 0;
         $this->set('roles', $this->paginate());
     }
 
+    /*
+     * View an existing Role.
+     */
     public function view($id = null) {
         $this->Role->id = $id;
         if (!$this->Role->exists()) {
-                throw new NotFoundException(__('Invalid role'));
+                throw new NotFoundException('Invalid role');
         }
         $this->set('role', $this->Role->read(null, $id));
     }
 
+    /*
+     * Add a new Role.
+     */
     public function add() {
         if ($this->request->is('post')) {
             $this->Role->create();
@@ -51,10 +66,13 @@ class RolesController extends AppController {
         }
     }
 
+    /*
+     * Edit an existing Role.
+     */
     public function edit($id = null) {
         $this->Role->id = $id;
         if (!$this->Role->exists()) {
-                throw new NotFoundException(__('Invalid role'));
+            throw new NotFoundException('Invalid role');
         }
         if ($this->request->is('post') || $this->request->is('put')) {
             if ($this->Role->save($this->request->data)) {
@@ -64,17 +82,20 @@ class RolesController extends AppController {
                 $this->Session->setFlash('Error!  The role could not be saved. Please, try again.');
             }
         } else {
-                $this->request->data = $this->Role->read(null, $id);
+            $this->request->data = $this->Role->read(null, $id);
         }
     }
 
+    /*
+     * Delete an existing Role.
+     */
     public function delete($id = null) {
         if (!$this->request->is('post')) {
             throw new MethodNotAllowedException();
         }
         $this->Role->id = $id;
         if (!$this->Role->exists()) {
-            throw new NotFoundException(__('Invalid role'));
+            throw new NotFoundException('Invalid role');
         }
         if ($this->Role->delete()) {
             $this->Session->setFlash('Role deleted.');

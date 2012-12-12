@@ -3,6 +3,7 @@
  * Controller for tower members.
  *
  * This is a very basic controller to add/view/update/delete tower members.
+ * 
  * These tasks would typically be performed by a user with administrative level
  * permissions within Poundcake.
  *
@@ -18,7 +19,7 @@
  * @author        Clark Ritchie <clark@inveneo.org>
  * @link          http://www.inveneo.org
  * @package       app.Controller
- * @since         AntennaTypesController precedes Poundcake v2.2.1
+ * @since         TowerMembersController precedes Poundcake v2.2.1
  * @license       XYZ License
  */
 
@@ -26,19 +27,28 @@ App::uses('AppController', 'Controller');
 
 class TowerMembersController extends AppController {
 
+    /*
+     * Main listing for all TowerMembers
+     */
     public function index() {
         $this->TowerMember->recursive = 0;
         $this->set('towermembers', $this->paginate());
     }
 
+    /*
+     * View an existing TowerMember
+     */
     public function view($id = null) {
         $this->TowerMember->id = $id;
         if (!$this->TowerMember->exists()) {
-                throw new NotFoundException(__('Invalid tower member'));
+                throw new NotFoundException('Invalid tower member');
         }
         $this->set('towermember', $this->TowerMember->read(null, $id));
     }
 
+    /*
+     * Add an ew TowerMember
+     */
     public function add() {
         if ($this->request->is('post')) {
             $this->TowerMember->create();
@@ -51,10 +61,13 @@ class TowerMembersController extends AppController {
         }
     }
 
+    /*
+     * Edit an existing TowerMember
+     */
     public function edit($id = null) {
         $this->TowerMember->id = $id;
         if (!$this->TowerMember->exists()) {
-                throw new NotFoundException(__('Invalid tower member'));
+                throw new NotFoundException('Invalid tower member');
         }
         if ($this->request->is('post') || $this->request->is('put')) {
             if ($this->TowerMember->save($this->request->data)) {
@@ -68,13 +81,16 @@ class TowerMembersController extends AppController {
         }
     }
 
+    /*
+     * Delete an existing TowerMember
+     */
     public function delete($id = null) {
         if (!$this->request->is('post')) {
             throw new MethodNotAllowedException();
         }
         $this->TowerMember->id = $id;
         if (!$this->TowerMember->exists()) {
-            throw new NotFoundException(__('Invalid tower member'));
+            throw new NotFoundException('Invalid tower member');
         }
         if ($this->TowerMember->delete()) {
             $this->Session->setFlash('TowerMember deleted.');

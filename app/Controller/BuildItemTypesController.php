@@ -1,8 +1,9 @@
 <?php
 /**
- * Controller for antenna types.
+ * Controller for build item types.
  *
- * This is a very basic controller to add/view/update/delete antenna types.
+ * This is a very basic controller to add/view/update/delete build item types.
+ * 
  * These tasks would typically be performed by a user with administrative level
  * permissions within Poundcake.
  *
@@ -18,7 +19,7 @@
  * @author        Clark Ritchie <clark@inveneo.org>
  * @link          http://www.inveneo.org
  * @package       app.Controller
- * @since         AntennaTypesController precedes Poundcake v2.2.1
+ * @since         BuildItemTypesController precedes Poundcake v2.2.1
  * @license       XYZ License
  */
 
@@ -26,6 +27,9 @@ App::uses('AppController', 'Controller');
 
 class BuildItemTypesController extends AppController {
 
+    /*
+     * Custom pagination, sort order on index listing
+     */
     public $paginate = array(
         'limit' => 20, // default limit also defined in AppController
         'order' => array(
@@ -33,11 +37,18 @@ class BuildItemTypesController extends AppController {
         )
     );
     
+    
+    /*
+     * Main listing for all BuildItemTypes
+     */
     public function index() {
         $this->BuildItemType->recursive = 0;
         $this->set('builditemtypes', $this->paginate());
     }
 
+    /*
+     * View an existing BuildItemType
+     */
     public function view($id = null) {
         $this->BuildItemType->id = $id;
         if (!$this->BuildItemType->exists()) {
@@ -46,7 +57,9 @@ class BuildItemTypesController extends AppController {
         $this->set('builditemtypes', $this->BuildItemType->read(null, $id));
     }
 
-    // return all the sites to allow the build item to be assigned to
+    /*
+     * Set an array of  all the sites to allow the build item to be assigned to
+     */
     function getSites() {
         $this->set('sites',$this->BuildItemType->Site->find('list',
             array(
@@ -57,8 +70,10 @@ class BuildItemTypesController extends AppController {
         );
     }
     
+    /*
+     * Add a new BuildItemType
+     */
     public function add() {
-        
         if ($this->request->is('post')) {
             $this->BuildItemType->create();
             if ($this->BuildItemType->save($this->request->data)) {
@@ -70,11 +85,14 @@ class BuildItemTypesController extends AppController {
         }
     }
 
+    /*
+     * Edit an existing BuildItemType
+     */
     public function edit($id = null) {
         $this->BuildItemType->id = $id;
         
         if (!$this->BuildItemType->exists()) {
-            throw new NotFoundException(__('Invalid build item'));
+            throw new NotFoundException('Invalid build item');
         }
         if ($this->request->is('post') || $this->request->is('put')) {
             if ($this->BuildItemType->save($this->request->data)) {
@@ -88,6 +106,9 @@ class BuildItemTypesController extends AppController {
         }
     }
     
+    /*
+     * Delete an existing BuildItemType
+     */
     public function delete($id = null) {
         if (!$this->request->is('post')) {
             throw new MethodNotAllowedException();
