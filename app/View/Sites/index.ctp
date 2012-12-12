@@ -62,7 +62,14 @@
            </td>
            <td>
                <?php
-                echo $this->Html->link($site['Site']['site_name'],
+                //echo $this->Html->link($site['Site']['site_name'],
+               // truncate site names longer than 20 characters
+                $site_name = substr($site['Site']['site_name'], 0, 20);
+                if (strlen($site['Site']['site_name']) > 20 ) {
+                    $site_name .= "...";
+                }
+                echo $this->Html->link($site_name,
+                
                 array('controller' => 'sites', 'action' => 'view', $site['Site']['id']));
                 ?>
            </td>
