@@ -185,7 +185,7 @@ class NetworkRadiosController extends AppController {
      * Set the NetworkSwitch for this radio.  Note this function is only
      * called when the add/edit page is first loaded.
      */
-    function getNetworkSwitch($id) {
+    function getNetworkSwitch( $id ) {
         /*
         previously we were just returning all switches in the database, e.g.
         
@@ -208,20 +208,37 @@ class NetworkRadiosController extends AppController {
         $this->NetworkSwitch->id = $this->Site->field('network_switch_id');
         
         $networkswitches = array();        
-        if ( $this->NetworkSwitch->field('name') != null ) { 
+        if ( $this->NetworkSwitch->field('name') != null ) {
+            
+            // get an array of other radios attached to this switch
+            $this->NetworkSwitch->NetworkRadio->recursive = -1; // we only need radio data
+            $radios_on_switch = $this->NetworkSwitch->NetworkRadio->findAllByNetworkSwitchId( $this->NetworkSwitch->id );
+            // reswizzle the array so that we can search it easier below
+            $unavailable_ports = array();
+            foreach ( $radios_on_switch as $r ) {
+                $unavailable_ports[$r['NetworkRadio']['switch_port']] = $r['NetworkRadio']['name'];
+            }
+  
             // now load the SwitchType
             $this->loadModel('SwitchType', $this->NetworkSwitch->field('switch_type_id'));
             $this->SwitchType->id = $this->NetworkSwitch->field('switch_type_id');
-
             $ports = $this->SwitchType->field('ports');
-            // switches are labeled 1 to N
+            
+            // switches are labeled 1 to N not 0 to N
             for ($i = 1; $i <= $ports; $i++) {
-                $networkswitches[$i] = $this->NetworkSwitch->field('name') . ' #'.$i;
+                // if something is already on the switch at that port, then denote
+                // that it's not available by showing the radio on that port
+                if ( isset($unavailable_ports[$i] )) {
+                    $label = $unavailable_ports[$i]; //['NetworkRadio']['name'];
+                } else {
+                    // otherwise it's free
+                    $label = 'Available ('.$this->NetworkSwitch->field('name') . ' #'.$i.')';
+                }
+                $networkswitches[$i] = $label;
             }
         } else {
             $networkswitches[0] = $this->Site->field('site_name').' has no switch';
         }
-        
         $this->set('network_switch_id',$this->NetworkSwitch->id);
         $this->set('networkswitches',$networkswitches);        
     }
