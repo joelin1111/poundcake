@@ -43,10 +43,11 @@ $cakeDescription = __d('poundcake', 'Tower DB');
             //echo $this->Html->script('jquery-ui-1.8.21.custom.min'); 
             echo $this->Html->script('jquery-ui-1.9.2.custom.min');
             echo $this->Html->script('bootstrap'); // Bootstrap's JS file
-            
-            echo $this->Html->script('deprecated/bootstrap-dropdown'); // now in bootstrap.js?
+            //echo $this->Html->script('deprecated/bootstrap-dropdown'); // now in bootstrap.js?
             echo $this->Html->script('datepicker');
             echo $this->Html->script('poundcake');
+            
+            //echo $this->Html->script('bootbox'); // testing this out, see: http://bootboxjs.com/
         ?>
     
         <style type="text/css"> 

@@ -1,11 +1,14 @@
 <?php
 /**
- * Controller for antenna types.
+ * Controller for network radios.
  *
- * This is a very basic controller to add/view/update/delete antenna types.
- * These tasks would typically be performed by a user with administrative level
- * permissions within Poundcake.
- *
+ * This controller is used to add/view/update/delete network radios.
+ * 
+ * There are a variety of utility functions in addition to the basic CRUD
+ * functions.  And of major note, in order to make NetworkRadios link to other
+ * NetworkRadios, both point-point and point-multipoint, this controller
+ * leverages MySQL triggers and stored procedures.
+ * 
  * Developed against CakePHP 2.2.3 and PHP 5.4.4.
  *
  * Copyright 2012, Inveneo, Inc. (http://www.inveneo.org)
@@ -18,16 +21,23 @@
  * @author        Clark Ritchie <clark@inveneo.org>
  * @link          http://www.inveneo.org
  * @package       app.Controller
- * @since         AntennaTypesController precedes Poundcake v2.2.1
+ * @since         NetworkRadiosController precedes Poundcake v2.2.1
  * @license       XYZ License
+ * @see           MySQL triggers, stored procedures
  */
 
 App::uses('AppController', 'Controller');
 
 class NetworkRadiosController extends AppController {
 
+    /*
+     * MyHTML makes de-links hyperlinks for view-only users
+     */
     var $helpers = array('MyHTML');
     
+    /*
+     * Custom pagination, sort order on index listing
+     */
     public $paginate = array(
         'limit' => 20, // default limit also defined in AppController
         'order' => array(
@@ -35,6 +45,9 @@ class NetworkRadiosController extends AppController {
         )
     );
     
+    /*
+     * Main listing for all NetworkRadios
+     */
     public function index() {
         // begin search stuff
         $name_arg = "";
@@ -56,8 +69,6 @@ class NetworkRadiosController extends AppController {
             ),
         );
         
-        // $this->NetworkRadio->Behaviors->attach('Containable');
-        
         $this->paginate = array(
             'NetworkRadio' => array(
                 // limit is the number per page 
@@ -73,14 +84,13 @@ class NetworkRadiosController extends AppController {
             ));
         $this->NetworkRadio->recursive = 1;
         $data = $this->paginate('NetworkRadio');
-        
-//        echo "<pre>";
-//        print_r($data);
-//        echo "</pre>";
-//        die;
         $this->set('networkradios',$data);
     }
 
+    /*
+     * View an existing NetworkRadio
+     * @see MySQL stored procedure sp_get_remote_links
+     */
     public function view($id = null) {
         $this->NetworkRadio->id = $id;
         if (!$this->NetworkRadio->exists()) {
@@ -89,10 +99,6 @@ class NetworkRadiosController extends AppController {
         // get all the radios this radio may be linked to
         $query = 'call sp_get_remote_links('.$id.')';
         $links = $this->NetworkRadio->query( $query );
-//        echo '<pre>';
-//        print_r($links);
-//        echo '</pre>';
-//        die;
         
         $this->set('networkradio', $this->NetworkRadio->read(null, $id));
         $ip_addresses = $this->getAllIPAddresses($this->NetworkRadio->field('name'));
@@ -111,7 +117,6 @@ class NetworkRadiosController extends AppController {
         } else {
             $sector = false;
             $u = 0;
-            // $declination = $this->NetworkRadio->Site->field('declination');
             $declination = $this->NetworkRadio->data['Site']['declination'];
             foreach ($links as $link) {
                 $true_azimuth = 0;
@@ -125,12 +130,7 @@ class NetworkRadiosController extends AppController {
                 
                 $true_azimuth = $this->NetworkRadio->getRadioBearing($id, $link_id);
                 $link['network_radios']['true_azimuth'] = $true_azimuth;
-                
-//                echo '<pre>';
-//                print_r($this->NetworkRadio->data['Site']['declination']);
-//                echo "Dec: ".$declination;
-//                echo '</pre>';
-//                die;
+
                 if ($true_azimuth > 0) {
                     $mag_azimuth = $true_azimuth - $declination;
                 }               
@@ -139,25 +139,15 @@ class NetworkRadiosController extends AppController {
                 // save it back to the links array
                 $links[$u] = $link;
                 $u++;
-    //            die;
-                /*
-                if ($this->NetworkRadio->field('link_id') > 0) {
-                    $id = $this->NetworkRadio->field('id');
-                    $link_id = $this->NetworkRadio->field('link_id');
-                    $link_distance = $this->NetworkRadio->getLinkDistance($id, $link_id);
-
-                    $true_azimuth = $this->NetworkRadio->getRadioBearing($id, $link_id);
-                    if ($true_azimuth > 0) {
-                        $mag_azimuth = $true_azimuth - $declination;
-                    }
-                }
-                */
             }
         }
         $this->set('links', $links);
         $this->set('sector',$sector);
     }
 
+    /*
+     * Set an array of allowed radio types (preconfigured by an administrator).
+     */
     function getRadioTypes() {
         $this->set('radiotypes',$this->NetworkRadio->RadioType->find('list',
             array(
@@ -167,6 +157,9 @@ class NetworkRadiosController extends AppController {
         );
     }
     
+    /*
+     * Set an array of antenna types (preconfigured by an administrator).
+     */
     function getAntennaTypes() {
         $this->set('antennatypes',$this->NetworkRadio->AntennaType->find('list',
             array(
@@ -176,6 +169,9 @@ class NetworkRadiosController extends AppController {
         );
     }
     
+    /*
+     * Set an array of allowed radio modes (preconfigured by an administrator).
+     */
     function getRadioModes() {
         $this->set('radiomodes',$this->NetworkRadio->RadioMode->find('list',
             array(
@@ -185,11 +181,11 @@ class NetworkRadiosController extends AppController {
         );
     }
     
+    /*
+     * Set the NetworkSwitch for this radio.  Note this function is only
+     * called when the add/edit page is first loaded.
+     */
     function getNetworkSwitch($id) {
-        // this function is only called when the add/edit page is first loaded
-        // NetworkRadios should not be created without a corresponding Site
-        // and thus the Site select is set to not allow empty values
-        
         /*
         previously we were just returning all switches in the database, e.g.
         
@@ -201,9 +197,8 @@ class NetworkRadiosController extends AppController {
         );
         */
         
-        // this is basically now a diplicate of getSwitchForSite in NetworkSwitchesController
-        // should probably move this to a model function on NetworkSwitch?
-        
+        // this is basically now a duplicate of getSwitchForSite in NetworkSwitchesController
+        // should probably move this to a model function on NetworkSwitch?        
         $this->loadModel('Site', $id);
         $this->Site->id = $id;
                 
@@ -221,9 +216,7 @@ class NetworkRadiosController extends AppController {
             $ports = $this->SwitchType->field('ports');
             // switches are labeled 1 to N
             for ($i = 1; $i <= $ports; $i++) {
-                //$switchports[$i] = $i . " switch id: ".$switch_id ." ports ".$ports."";
                 $networkswitches[$i] = $this->NetworkSwitch->field('name') . ' #'.$i;
-                //$networkswitches[$i] = 'Port '.$i;
             }
         } else {
             $networkswitches[0] = $this->Site->field('site_name').' has no switch';
@@ -233,6 +226,9 @@ class NetworkRadiosController extends AppController {
         $this->set('networkswitches',$networkswitches);        
     }
     
+    /*
+     * Add a new NetworkRadio
+     */
     public function add() {
         $this->getRadioTypes();
         $this->getAntennaTypes();
@@ -253,6 +249,9 @@ class NetworkRadiosController extends AppController {
         }
     }
 
+    /*
+     * Edit an existing NetworkRadio
+     */
     public function edit($id = null) {
         $this->NetworkRadio->id = $id;
         $this->getRadioTypes();
@@ -281,6 +280,22 @@ class NetworkRadiosController extends AppController {
         }
     }
     
+    /*
+     * Pull radio configuration from linked radio
+     * - SSID
+     * - Invert radio mode of the source radio
+     * - Frequency
+     */
+    function pullConfig( $to, $from ) {
+        //$this->pcdebug("From ".$from." to " .$to);
+        $this->loadModel('NetworkRadio',$to);
+        $this->NetworkRadio->id = $to;
+        $this->pcdebug($this->NetworkRadio->field('SSID'));
+    }
+    
+    /*
+     * Set the magnetic azimuth on a NetworkRadio
+     */
     public function setMagAzimuth($data) {
         if (isset($data['NetworkRadio']['true_azimuth'])) {
             $this->loadModel('Site',$data['NetworkRadio']['site_id']);
@@ -290,6 +305,9 @@ class NetworkRadiosController extends AppController {
         return $data;
     }
     
+    /*
+     * Delete a NetworkRadio
+     */
     public function delete($id = null) {
         if (!$this->request->is('post')) {
             throw new MethodNotAllowedException();
@@ -308,10 +326,14 @@ class NetworkRadiosController extends AppController {
         $this->redirect(array('action' => 'index'));
     }
     
-    function getFrequencies() {
+    /*
+     * Set an array of frequencies for the select dropdown.  
+     * Note Ubiquity devices support 4920 MHz to 6100 MHz in 5 MHz increments
+     * and that 4920 starting value is hard-coded.
+     */
+    private function getFrequencies() {
         $frequencies = array();
-        $frequency = 4920;
-        // Ubiquity devices support 4920 MHz to 6100 MHz in 5 MHz increments
+        $frequency = 4920;        
         for ($i = 0; $i <= 236; ++$i) {
             // we want the key and value in this array be the same here
             $frequencies[$frequency] = $frequency;

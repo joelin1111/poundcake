@@ -28,11 +28,11 @@ App::uses('AppController', 'Controller');
 class EquipmentSpacesController extends AppController {
 
     /*
-     * Main listing for all AntennaTypes
+     * Main listing for all EquipmentSpaces
      */
     public function index() {
         $this->EquipmentSpace->recursive = 0;
-        $this->set('towertypes', $this->paginate());
+        $this->set('equipmentspaces', $this->paginate());
     }
 
     /*

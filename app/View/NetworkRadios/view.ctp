@@ -62,11 +62,6 @@
         ?></P>
     <P><B>Switch:</B>&nbsp;<?php echo $networkradio['NetworkSwitch']['name']; ?></P>
     <P><B>Switch Port:</B>&nbsp;<?php echo $networkradio['NetworkRadio']['switch_port']; ?></P>
-    <?php 
-//    echo '<pre>';
-//    print_r($networkradio);
-//    echo '</pre>';
-    ?>
     
     <P><B>Link Information:</B>&nbsp;
         <?php foreach ($links as $link) { ?>
@@ -81,7 +76,8 @@
             </tr>
             <tr>
                 <td>
-                    <?php echo $this->MyHtml->linkIfAllowed(
+                    <?php
+                        echo $this->MyHtml->linkIfAllowed(
                             $link['network_radios']['name'],
                             array('action' => 'view',
                                 $link['radios_radios']['dest_radio_id']
@@ -114,13 +110,17 @@
                     ?>
                 </td>
                 <td>
-                    <?php echo $this->MyHTML->postLinkIfAllowed('Push Config', array(
-                        'action' => 'push_config',
-                        $link['radios_radios']['dest_radio_id']),
+                    <?php echo $this->MyHTML->postLinkIfAllowed(
+                            'Pull Config',
+                            array(
+                                'action' => 'pullConfig',
+                                'controller' => 'networkRadios',
+                                $networkradio['NetworkRadio']['id'],
+                                $link['radios_radios']['dest_radio_id']
+                            ),
                             null,
-                            'Push configs from '.$networkradio['NetworkRadio']['name'].' to '.$link['network_radios']['name'].'?  This will overwrite '.$link['network_radios']['name'].'.');
+                            'Pull SSID, frequency and mode from '.$link['network_radios']['name'].'?');
                     ?>
-                    
                 </td>
             </tr>
         </table>
