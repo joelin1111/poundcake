@@ -15,17 +15,23 @@
             <thead>
                 <tr>
                     <th><?php echo $this->Paginator->sort('name'); ?></th>
-                    <th><?php echo __('Actions'); ?></th>
+                    <th><?php echo 'Actions'; ?></th>
                 </tr>
             </thead>
             <tbody>
 	<?php
 	foreach ($powerTypes as $powerType): ?>
 	<tr>
-            <td><?php echo h($powerType['PowerType']['name']);?></td>
+            <td><?php echo $powerType['PowerType']['name'];?></td>
             <td>
-                    <?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $powerType['PowerType']['id'])); ?>
-                    <?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $powerType['PowerType']['id']), null, __('Are you sure you want to delete power type %s?', $powerType['PowerType']['name'])); ?>
+                    <?php echo $this->Html->link('Edit', array('action' => 'edit', $powerType['PowerType']['id'])); ?>
+                    <?php
+                        echo $this->Form->postLink('Delete',
+                            array('controller'=>'powertypes','action'=>'delete', $powerType['PowerType']['id']),
+                            array('method' => 'post','class'=>'confirm','data-dialog_msg'=>'Confirm delete of '.$powerType['PowerType']['name']),
+                            null
+                        );
+                    ?>
             </td>
 	</tr>
         <?php endforeach; ?>

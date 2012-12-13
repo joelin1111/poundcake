@@ -8,7 +8,6 @@
     <div class="well well-large">
     <ul>
         <li><?php echo $this->Html->link('List Radios', array('action' => 'index')); ?></li>
-        <li><?php echo $this->Form->postLink('Delete', array('action' => 'delete', $this->Form->value('NetworkRadio.id')), null, 'Are you sure you want to delete radio %s?', $this->Form->value('NetworkRadio.name')); ?></li>        
     </ul>
     </div>
 </div><!-- /.span3 .sb-fixed -->

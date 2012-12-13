@@ -15,17 +15,23 @@
             <thead>
                 <tr>
                     <th><?php echo $this->Paginator->sort('name'); ?></th>
-                    <th><?php echo __('Actions'); ?></th>
+                    <th><?php echo 'Actions'; ?></th>
                 </tr>
             </thead>
             <tbody>
 	<?php
 	foreach ($routerTypes as $routerType): ?>
 	<tr>
-            <td><?php echo h($routerType['RouterType']['name']);?></td>
+            <td><?php echo $routerType['RouterType']['name'];?></td>
             <td>
-                    <?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $routerType['RouterType']['id'])); ?>
-                    <?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $routerType['RouterType']['id']), null, __('Are you sure you want to delete router type %s?', $routerType['RouterType']['name'])); ?>
+                    <?php echo $this->Html->link('Edit', array('action' => 'edit', $routerType['RouterType']['id'])); ?>
+                    <?php
+                        echo $this->Form->postLink('Delete',
+                            array('controller'=>'routertypes','action'=>'delete', $routerType['RouterType']['id']),
+                            array('method' => 'post','class'=>'confirm','data-dialog_msg'=>'Confirm delete of '.$routerType['RouterType']['name']),
+                            null
+                        );
+                    ?>
             </td>
 	</tr>
         <?php endforeach; ?>

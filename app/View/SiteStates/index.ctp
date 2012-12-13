@@ -24,7 +24,7 @@
                 <tr>
                     <th><?php echo $this->Paginator->sort('name'); ?></th>
                     <th><?php echo $this->Paginator->sort('sequence'); ?></th>
-                    <th><?php echo __('Actions'); ?></th>
+                    <th><?php echo 'Actions'; ?></th>
                 </tr>
             </thead>
             <tbody>
@@ -34,8 +34,14 @@
             <td><?php echo $this->Html->link(($siteState['SiteState']['name']), array('action' => 'view', $siteState['SiteState']['id'])); ?></td>
             <td><?php echo $siteState['SiteState']['sequence']; ?></td>
             <td>
-                <?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $siteState['SiteState']['id'])); ?>
-                <?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $siteState['SiteState']['id']), null, __('Are you sure you want to delete site state %s?', $siteState['SiteState']['name'])); ?>
+            <?php
+                echo $this->Html->link('Edit', array('action' => 'edit', $siteState['SiteState']['id']));
+                echo $this->Form->postLink('Delete',
+                    array('controller'=>'sitestates','action'=>'delete', $siteState['SiteState']['id']),
+                    array('method' => 'post','class'=>'confirm','data-dialog_msg'=>'Confirm delete of '.$siteState['SiteState']['name']),
+                    null
+                );
+            ?>
             </td>
 	</tr>
         <?php endforeach; ?>

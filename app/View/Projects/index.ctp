@@ -15,18 +15,26 @@
             <thead>
                 <tr>
                     <th><?php echo $this->Paginator->sort('name'); ?></th>
-                    <th><?php echo __('Actions'); ?></th>
+                    <th><?php echo 'Actions'; ?></th>
                 </tr>
             </thead>
             <tbody>
 	<?php
 	foreach ($projects as $project): ?>
 	<tr>
-            <td><?php echo h($project['Project']['name']);?></td>
+            <td><?php echo $project['Project']['name'];?></td>
             <td>
-                <?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $project['Project']['id']));  ?>
-                <?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $project['Project']['id']), null, __('Are you sure you want to delete project %s?', $project['Project']['name'])); ?>
-                
+                <?php echo $this->Html->link('Edit', array('action' => 'edit', $project['Project']['id']));  ?>
+                <?php 
+                    // Standard Cake delete syntax:
+                    // echo $this->Form->postLink('Delete', array('action' => 'delete', $project['Project']['id']), null, 'Are you sure you want to delete project %s?', $project['Project']['name']);
+                    // new Bootbox-compatible delete -- see poundcake.js
+                    echo $this->Form->postLink('Delete',
+                        array('controller'=>'projects','action'=>'delete', $project['Project']['id']),
+                        array('method' => 'post','class'=>'confirm','data-dialog_msg'=>'Confirm delete of '.$project['Project']['name']),
+                        null
+                    );
+                ?>
             </td>
 	</tr>
         <?php endforeach; ?>

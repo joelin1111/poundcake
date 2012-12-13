@@ -35,10 +35,17 @@
 	<?php
 	foreach ($networkrouters as $networkrouter): ?>
 	<tr>
-            <td><?php echo h($networkrouter['NetworkRouter']['name']);?></td>
+            <td><?php echo $networkrouter['NetworkRouter']['name'];?></td>
             <td>
                 <?php echo $this->MyHTML->linkIfAllowed('Edit', array('action' => 'edit', $networkrouter['NetworkRouter']['id'])); ?>
-                <?php echo $this->MyHTML->postLinkIfAllowed('Delete', array('action' => 'delete', $networkrouter['NetworkRouter']['id']), null, __('Are you sure you want to delete router %s?', $networkrouter['NetworkRouter']['name'])); ?>
+                <?php
+                    //echo $this->MyHTML->postLinkIfAllowed('Delete', array('action' => 'delete', $networkrouter['NetworkRouter']['id']), null, __('Are you sure you want to delete router %s?', $networkrouter['NetworkRouter']['name']));
+                    echo $this->MyHTML->postLinkIfAllowed('Delete',
+                        array('controller'=>'networkrouters','action'=>'delete', $networkrouter['NetworkRouter']['id']),
+                        array('method' => 'post','class'=>'confirm','data-dialog_msg'=>'Confirm delete of '.$networkrouter['NetworkRouter']['name']),
+                        null
+                    );
+                ?>
             </td>
 	</tr>
         <?php endforeach; ?>

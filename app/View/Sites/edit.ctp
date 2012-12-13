@@ -6,26 +6,19 @@
 ?>
 
 <div class="row">
-    <?php //echo $this->Html->addCrumb('Sites', '/sites'); ?>
 <div class="span3">
     <H3>Actions</H3>
     <div class="well well-large">
     <ul>
-        <li><?php echo $this->Html->link(('View Site'), array('action' => 'view', $this->Form->value('Site.id')))?></li>
-        <li><?php echo $this->Html->link(__('List Sites'), array('action' => 'index')); ?></li>
-        <li><?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $this->Form->value('Site.id')), null, __('Are you sure you want to delete site %s?', $this->Form->value('Site.site_id'))); ?></li>
+        <li><?php echo $this->Html->link('View Site', array('action' => 'view', $this->Form->value('Site.id')))?></li>
+        <li><?php echo $this->Html->link('List Sites', array('action' => 'index')); ?></li>
     </ul>
     </div>
 </div><!-- /.span3 .sb-fixed -->
 
 <div class="span9">
     <h3>Edit Site</h3>
-        
-<!--    <div class="flash flash_success">
-        <?php //echo $this->Session->flash(); ?>
-    </div>-->
-
-    <?php
+<?php
     echo $this->Form->create('Site', array('action' => 'edit'));
     echo $this->Form->input('id', array('type'=>'hidden'));
     echo $this->Form->input('site_name', array('error' => array('attributes' => array('wrap' => 'span', 'class' => 'label label-important')))); // still testing

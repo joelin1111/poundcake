@@ -3,8 +3,7 @@
     <H3>Actions</H3>
     <div class="well well-large">
     <ul>
-        <li><?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $this->Form->value('RouterType.id')), null, __('Are you sure you want to delete router type %s?', $this->Form->value('RouterType.name'))); ?></li>
-        <li><?php echo $this->Html->link(__('List Router Types'), array('action' => 'index')); ?></li>
+        <li><?php echo $this->Html->link('List Router Types', array('action' => 'index')); ?></li>
     </ul>
     </div>
 </div><!-- /.span3 .sb-fixed -->

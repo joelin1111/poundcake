@@ -15,7 +15,7 @@
             <thead>
                 <tr>
                     <th><?php echo $this->Paginator->sort('name'); ?></th>
-                    <th><?php echo __('Actions'); ?></th>
+                    <th><?php echo 'Actions'; ?></th>
                 </tr>
             </thead>
             <tbody>
@@ -24,8 +24,14 @@
 	<tr>
             <td><?php echo $this->Html->link($team['InstallTeam']['name'], array('action' => 'view', $team['InstallTeam']['id'])); ?></td>
             <td>
-            <?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $team['InstallTeam']['id'])); ?>
-            <?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $team['InstallTeam']['id']), null, __('Are you sure you want to delete install team %s?', $team['InstallTeam']['name'])); ?>
+            <?php echo $this->Html->link('Edit', array('action' => 'edit', $team['InstallTeam']['id'])); ?>
+            <?php
+                echo $this->Form->postLink('Delete',
+                    array('controller'=>'installteams','action'=>'delete', $team['InstallTeam']['id']),
+                    array('method' => 'post','class'=>'confirm','data-dialog_msg'=>'Confirm delete of '.$team['InstallTeam']['name']),
+                    null
+                );
+            ?>
             </td>
 	</tr>
         <?php endforeach; ?>

@@ -210,10 +210,11 @@ class NetworkRadiosController extends AppController {
         $networkswitches = array();        
         if ( $this->NetworkSwitch->field('name') != null ) {
             
-            // get an array of other radios attached to this switch
+            // get an array of other radios that are attached to this switch
             $this->NetworkSwitch->NetworkRadio->recursive = -1; // we only need radio data
             $radios_on_switch = $this->NetworkSwitch->NetworkRadio->findAllByNetworkSwitchId( $this->NetworkSwitch->id );
             // reswizzle the array so that we can search it easier below
+            // and denote which ports are available or occupied
             $unavailable_ports = array();
             foreach ( $radios_on_switch as $r ) {
                 $unavailable_ports[$r['NetworkRadio']['switch_port']] = $r['NetworkRadio']['name'];

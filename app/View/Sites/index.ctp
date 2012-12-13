@@ -79,7 +79,14 @@
            <td>
 <!--               <button class="btn btn-mini"></button>-->
             <?php echo $this->MyHTML->linkIfAllowed('Edit', array('action'=>'edit', $site['Site']['id']));?>
-            <?php echo $this->MyHTML->postLinkIfAllowed('Delete', array('action' => 'delete', $site['Site']['id']), null, 'Are you sure?' )?>
+            <?php
+                // echo $this->MyHTML->postLinkIfAllowed('Delete', array('action' => 'delete', $site['Site']['id']), null, 'Are you sure?' )
+                echo $this->MyHTML->postLinkIfAllowed('Delete',
+                        array('controller'=>'sites','action'=>'delete', $site['Site']['id']),
+                        array('method' => 'post','class'=>'confirm','data-dialog_msg'=>'Confirm delete of '.$site['Site']['site_name']),
+                        null
+                    );
+            ?>
            </td>
        </tr>
     <?php

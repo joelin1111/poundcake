@@ -17,19 +17,25 @@
                     <th><?php echo $this->Paginator->sort('quantity'); ?></th>
                     <th><?php echo $this->Paginator->sort('name'); ?></th>
                     <th><?php echo $this->Paginator->sort('build_item_type_id'); ?></th>
-                    <th><?php echo __('Actions'); ?></th>
+                    <th><?php echo 'Actions'; ?></th>
                 </tr>
             </thead>
             <tbody>
 	<?php
 	foreach ($builditems as $item): ?>
 	<tr>
-            <td><?php echo h($item['BuildItem']['quantity']);?></td>
-            <td><?php echo h($item['BuildItem']['name']);?></td>
-            <td><?php echo h($item['BuildItemType']['name']);?></td>
+            <td><?php echo $item['BuildItem']['quantity'];?></td>
+            <td><?php echo $item['BuildItem']['name'];?></td>
+            <td><?php echo $item['BuildItemType']['name'];?></td>
             <td>
-            <?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $item['BuildItem']['id'])); ?>
-            <?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $item['BuildItem']['id']), null, __('Are you sure you want to delete item %s?', $item['BuildItem']['name'])); ?>
+            <?php echo $this->Html->link('Edit', array('action' => 'edit', $item['BuildItem']['id'])); ?>
+            <?php
+                echo $this->Form->postLink('Delete',
+                    array('controller'=>'builditems','action'=>'delete', $item['BuildItem']['id']),
+                    array('method' => 'post','class'=>'confirm','data-dialog_msg'=>'Confirm delete of '.$item['BuildItem']['name']),
+                    null
+                );
+            ?>
             </td>
 	</tr>
         <?php endforeach; ?>

@@ -15,17 +15,23 @@
             <thead>
                 <tr>
                     <th><?php echo $this->Paginator->sort('name'); ?></th>
-                    <th><?php echo __('Actions'); ?></th>
+                    <th><?php echo 'Actions'; ?></th>
                 </tr>
             </thead>
             <tbody>
 	<?php
 	foreach ($antennaTypes as $antennaType): ?>
 	<tr>
-            <td><?php echo h($antennaType['AntennaType']['name']);?></td>
+            <td><?php echo $antennaType['AntennaType']['name'];?></td>
             <td>
-                    <?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $antennaType['AntennaType']['id'])); ?>
-                    <?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $antennaType['AntennaType']['id']), null, __('Are you sure you want to delete antenna type %s?', $antennaType['AntennaType']['name'])); ?>
+                <?php
+                    echo $this->Html->link('Edit', array('action' => 'edit', $antennaType['AntennaType']['id']));
+                    echo $this->Form->postLink('Delete',
+                        array('controller'=>'antennatypes','action'=>'delete', $antennaType['AntennaType']['id']),
+                        array('method' => 'post','class'=>'confirm','data-dialog_msg'=>'Confirm delete of '.$antennaType['AntennaType']['name']),
+                        null
+                    );
+                ?>
             </td>
 	</tr>
         <?php endforeach; ?>

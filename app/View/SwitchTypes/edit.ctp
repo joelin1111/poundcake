@@ -3,7 +3,6 @@
     <H3>Actions</H3>
     <div class="well well-large">
     <ul>
-        <li><?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $this->Form->value('SwitchType.id')), null, __('Are you sure you want to delete switch type %s?', $this->Form->value('SwitchType.name'))); ?></li>
         <li><?php echo $this->Html->link(__('List Switch Types'), array('action' => 'index')); ?></li>
     </ul>
     </div>

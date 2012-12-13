@@ -1,27 +1,15 @@
-<?php
-//    echo "<pre>";
-//    print_r($networkradio);
-//    echo "</pre>";
-?>
-
 <div class="row">
 <div class="span3">
     <H3>Actions</H3>
     <div class="well well-large">
     <ul>
         <li><?php echo $this->MyHTML->linkIfAllowed('Edit Radio', array('action'=>'edit', $networkradio['NetworkRadio']['id']),1);?></li>
-        <li><?php echo $this->Html->link(__('List Radios'), array('action' => 'index')); ?></li>
-        <li><?php echo $this->MyHTML->postLinkIfAllowed(__('Delete'), array('action' => 'delete', $networkradio['NetworkRadio']['id']), null, __('Are you sure you want to delete radio %s?', $networkradio['NetworkRadio']['name'])); ?></li>
+        <li><?php echo $this->Html->link('List Radios', array('action' => 'index')); ?></li>        
     </ul>
     </div>
 </div><!-- /.span3 .sb-fixed -->
 <div class="span9">
     <h2>View Radio</h2>
-    <?php
-//    echo "<pre>";
-//    print_r( $networkradio );
-//    echo "</pre>";
-    ?>
     <P><B>Name:</B>&nbsp;<?php echo $networkradio['NetworkRadio']['name']; ?></P>
     <P><B>Site:</B>&nbsp;<?php echo $networkradio['Site']['site_name']; ?></P>
     <P><B>Serial No:</B>&nbsp;<?php echo $networkradio['NetworkRadio']['serial']; ?></P>
@@ -110,7 +98,9 @@
                     ?>
                 </td>
                 <td>
-                    <?php echo $this->MyHTML->postLinkIfAllowed(
+                    <?php
+                        /*
+                        echo $this->MyHTML->postLinkIfAllowed(
                             'Pull Config',
                             array(
                                 'action' => 'pullConfig',
@@ -120,6 +110,13 @@
                             ),
                             null,
                             'Pull SSID, frequency and mode from '.$link['network_radios']['name'].'?');
+                        */
+                        echo $this->MyHTML->postLinkIfAllowed('Pull Config',
+                            array('controller'=>'networkRadios','action'=>'pullConfig', $networkradio['NetworkRadio']['id'],$link['radios_radios']['dest_radio_id']),
+                            array('method' => 'post','class'=>'confirm','data-dialog_msg'=>'Pull config from '.$networkradio['NetworkRadio']['name']),
+                            null,
+                            'Pull SSID, frequency and mode from '.$link['network_radios']['name'].'?'
+                        );
                     ?>
                 </td>
             </tr>

@@ -14,17 +14,23 @@
             <thead>
                 <tr>
                     <th><?php echo $this->Paginator->sort('name'); ?></th>
-                    <th><?php echo __('Actions'); ?></th>
+                    <th><?php echo 'Actions'; ?></th>
                 </tr>
             </thead>
             <tbody>
 	<?php
 	foreach ($builditemtypes as $item): ?>
 	<tr>
-            <td><?php echo h($item['BuildItemType']['name']);?></td>
+            <td><?php echo $item['BuildItemType']['name'];?></td>
             <td>
-            <?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $item['BuildItemType']['id'])); ?>
-            <?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $item['BuildItemType']['id']), null, __('Are you sure you want to delete build item type %s?', $item['BuildItemType']['name'])); ?>
+            <?php echo $this->Html->link('Edit', array('action' => 'edit', $item['BuildItemType']['id'])); ?>
+            <?php
+                echo $this->Form->postLink('Delete',
+                    array('controller'=>'builditemtypes','action'=>'delete', $item['BuildItemType']['id']),
+                    array('method' => 'post','class'=>'confirm','data-dialog_msg'=>'Confirm delete of '.$item['BuildItemType']['name']),
+                    null
+                );
+            ?>
             </td>
 	</tr>
         <?php endforeach; ?>

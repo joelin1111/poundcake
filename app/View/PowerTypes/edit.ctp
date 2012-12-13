@@ -3,8 +3,7 @@
     <H3>Actions</H3>
     <div class="well well-large">
     <ul>
-        <li><?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $this->Form->value('PowerType.id')), null, __('Are you sure you want to delete power type %s?', $this->Form->value('PowerType.name'))); ?></li>
-        <li><?php echo $this->Html->link(__('List Power Types'), array('action' => 'index')); ?></li>
+        <li><?php echo $this->Html->link('List Power Types', array('action' => 'index')); ?></li>
     </ul>
     </div>
 </div><!-- /.span3 .sb-fixed -->

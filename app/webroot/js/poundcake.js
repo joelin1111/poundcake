@@ -9,9 +9,12 @@ $(document).ready(function () {
     
     errorstrap();
     
+    bootbox_dialogs();
+    
     // fade out flash messages after n miliseconds
     // replace with empty block to maintain space
-    $('#flash').fadeTo(4000, 0, function(){ $(this).html().fadeTo(1000, 1); })
+    //$('#flash').fadeTo(4000, 0, function(){ $(this).html().fadeTo(1000, 1); })
+    $('#flash').fadeTo(4000, 0, function(){  })
     
     // date picker
     $( "input.datepicker" ).dp({
@@ -193,6 +196,51 @@ function errorstrap()
     $('form[class*="form-horizontal"] .error .error-message').each(function(e, data){
             $(data).parent().find('.controls').append('<span class="help-inline">' + $(this).text() + '</span>');
             $(data).remove();
+    });
+}
+
+function bootbox_dialogs() {
+    
+    /*
+     * Delete confirmation Bootbox dialog
+     */
+    $('a.confirm').removeAttr('onclick');
+    $('a.confirm').click(function(e) {
+        e.preventDefault();
+        
+        // get the form element preceding the Delete link
+        //var $action = $('a.confirm').siblings().last().attr('action');
+        var $action = $(this).siblings( 'form' ).attr('action');
+        //console.log( $action );
+        
+        var $string = $(this).data( 'dialog_msg' );
+        
+        //console.log( $name );
+        
+        // bootbox.confirm( "Confirm "+$name+"?", function(confirmed) {
+        bootbox.confirm( $string + '?', function(confirmed) {
+            if (confirmed) {
+                $.post( $action, {
+                    beforeSend: function() {
+//                        console.log("before send");
+                    },
+                    error: function(e, ts, et) {
+//                        console.log( 'error' ); 
+//                        console.log( e ); 
+//                        console.log( ts ); 
+//                        console.log( et); 
+                    },
+                    success: function(data) {
+//                        console.log( 'success' );
+                        window.location.reload(true);
+                    }
+                });
+//                console.log( "done");
+                // window.location.reload(true);
+                return false;
+            }
+        });
+        return false;
     });
 }
 

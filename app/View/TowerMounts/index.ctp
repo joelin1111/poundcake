@@ -15,17 +15,23 @@
             <thead>
                 <tr>
                     <th><?php echo $this->Paginator->sort('name'); ?></th>
-                    <th><?php echo __('Actions'); ?></th>
+                    <th><?php echo 'Actions'; ?></th>
                 </tr>
             </thead>
             <tbody>
 	<?php
 	foreach ($towermounts as $towermount): ?>
 	<tr>
-            <td><?php echo h($towermount['TowerMount']['name']);?></td>
+            <td><?php echo $towermount['TowerMount']['name'];?></td>
             <td>
-                <?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $towermount['TowerMount']['id'])); ?>
-                <?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $towermount['TowerMount']['id']), null, __('Are you sure you want to delete tower mount %s?', $towermount['TowerMount']['name'])); ?>
+            <?php
+                echo $this->Html->link('Edit', array('action' => 'edit', $towermount['TowerMount']['id']));
+                echo $this->Form->postLink('Delete',
+                    array('controller'=>'towermounts','action'=>'delete', $towermount['TowerMount']['id']),
+                    array('method' => 'post','class'=>'confirm','data-dialog_msg'=>'Confirm delete of '.$towermount['TowerMount']['name']),
+                    null
+                );
+            ?>
             </td>
 	</tr>
         <?php endforeach; ?>

@@ -3,7 +3,7 @@
     <H3>Actions</H3>
     <div class="well well-large">
     <ul>
-        <li><?php echo $this->MyHtml->postLinkIfAllowed('New Change', array('action' => 'add')); ?></li>
+        <li><?php echo $this->MyHtml->linkIfAllowed('New Change', array('action' => 'add')); ?></li>
     </ul>
     </div>
 </div><!-- /.span3 .sb-fixed -->
@@ -16,14 +16,14 @@
                     <th><?php echo $this->Paginator->sort('version'); ?></th>
                     <th><?php echo $this->Paginator->sort('release_date'); ?></th>
                     <th><?php echo $this->Paginator->sort('descrption'); ?></th>
-                    <th><?php echo __('Actions'); ?></th>
+                    <th><?php echo 'Actions'; ?></th>
                 </tr>
             </thead>
             <tbody>
 	<?php
 	foreach ($changeLogs as $change): ?>
 	<tr>
-            <td><?php echo h($change['ChangeLog']['version']);?></td>
+            <td><?php echo $change['ChangeLog']['version'];?></td>
             <td>
             <?php
                 $date = new DateTime($change['ChangeLog']['release_date']);

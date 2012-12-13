@@ -30,7 +30,7 @@
         <thead>
             <tr>
                 <th><?php echo $this->Paginator->sort('name'); ?></th>
-                <th><?php echo __('Actions'); ?></th>
+                <th><?php echo 'Actions'; ?></th>
             </tr>
         </thead>
         <tbody>
@@ -40,7 +40,14 @@
         <td><?php echo $this->Html->link($networkswitch['NetworkSwitch']['name'], array('action' => 'view', $networkswitch['NetworkSwitch']['id'])); ?></td>
         <td>
             <?php echo $this->MyHTML->linkIfAllowed(('Edit'), array('action' => 'edit', $networkswitch['NetworkSwitch']['id'])); ?>
-            <?php echo $this->MyHTML->postLinkIfAllowed(('Delete'), array('action' => 'delete', $networkswitch['NetworkSwitch']['id']), null, __('Are you sure you want to delete switch %s?', $networkswitch['NetworkSwitch']['name'])); ?>
+            <?php
+                //echo $this->MyHTML->postLinkIfAllowed(('Delete'), array('action' => 'delete', $networkswitch['NetworkSwitch']['id']), null, __('Are you sure you want to delete switch %s?', $networkswitch['NetworkSwitch']['name']));
+                echo $this->MyHTML->postLinkIfAllowed('Delete',
+                        array('controller'=>'networkswitches','action'=>'delete', $networkswitch['NetworkSwitch']['id']),
+                        array('method' => 'post','class'=>'confirm','data-dialog_msg'=>'Confirm delete of '.$networkswitch['NetworkSwitch']['name']),
+                        null
+                    );
+            ?>
         </td>
     </tr>
     <?php endforeach; ?>

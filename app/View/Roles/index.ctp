@@ -15,21 +15,23 @@
             <thead>
                 <tr>
                     <th><?php echo $this->Paginator->sort('name'); ?></th>
-                    <th><?php echo __('Actions'); ?></th>
+                    <th><?php echo 'Actions'; ?></th>
                 </tr>
             </thead>
             <tbody>
 	<?php
 	foreach ($roles as $role): ?>
 	<tr>
-            <td><?php echo h($role['Role']['name']);?></td>
+            <td><?php echo $role['Role']['name'];?></td>
             <td>
                 <?php
-                    // no edit or delete for admin or view roles
-                    if(($role['Role']['rolealias'] != 'admin') && ($role['Role']['rolealias'] != 'view')) { ?>
-                    <?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $role['Role']['id'])); ?>
-                    <?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $role['Role']['id']), null, __('Are you sure you want to delete role %s?', $role['Role']['name'])); ?>
-                <?php } ?>
+                    echo $this->MyHtml->linkIfAllowed(__('Edit'), array('action' => 'edit', $role['Role']['id']));
+                    echo $this->Form->postLink('Delete',
+                        array('controller'=>'roles','action'=>'delete', $role['Role']['id']),
+                        array('method' => 'post','class'=>'confirm','data-dialog_msg'=>'Confirm delete of '.$role['Role']['name']),
+                        null
+                    );
+                ?>
             </td>
 	</tr>
         <?php endforeach; ?>

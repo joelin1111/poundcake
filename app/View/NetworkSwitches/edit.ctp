@@ -4,7 +4,6 @@
     <div class="well well-large">
     <ul>
         <li><?php echo $this->Html->link('List  Switches', array('action' => 'index')); ?></li>
-        <li><?php echo $this->Form->postLink('Delete', array('action' => 'delete', $this->Form->value('NetworkSwitch.id')), null, __('Are you sure you want to delete switch %s?', $this->Form->value('NetworkSwitch.name'))); ?></li>        
     </ul>
     </div>
 </div><!-- /.span3 .sb-fixed -->

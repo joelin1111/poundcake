@@ -22,7 +22,7 @@
 	<?php
 	foreach ($equipmentspaces as $equipmentspace): ?>
 	<tr>
-            <td><?php echo h($equipmentspace['EquipmentSpace']['name']);?></td>
+            <td><?php echo $equipmentspace['EquipmentSpace']['name'];?></td>
             <td>
                 <?php echo $this->Html->link('Edit', array('action' => 'edit', $equipmentspace['EquipmentSpace']['id'])); ?>
                 <?php echo $this->Form->postLink('Delete', array('action' => 'delete', $equipmentspace['EquipmentSpace']['id']), null, __('Are you sure you want to delete equipment space %s?', $equipmentspace['EquipmentSpace']['name'])); ?>

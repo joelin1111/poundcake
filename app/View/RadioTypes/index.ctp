@@ -15,17 +15,23 @@
             <thead>
                 <tr>
                     <th><?php echo $this->Paginator->sort('name'); ?></th>
-                    <th><?php echo __('Actions'); ?></th>
+                    <th><?php echo 'Actions'; ?></th>
                 </tr>
             </thead>
             <tbody>
 	<?php
 	foreach ($radioTypes as $radioType): ?>
 	<tr>
-            <td><?php echo h($radioType['RadioType']['name']);?></td>
+            <td><?php echo $radioType['RadioType']['name'];?></td>
             <td>
-                    <?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $radioType['RadioType']['id'])); ?>
-                    <?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $radioType['RadioType']['id']), null, __('Are you sure you want to delete radio type %s?', $radioType['RadioType']['name'])); ?>
+                    <?php echo $this->Html->link('Edit', array('action' => 'edit', $radioType['RadioType']['id'])); ?>
+                    <?php
+                        echo $this->Form->postLink('Delete',
+                            array('controller'=>'radiotypes','action'=>'delete', $radioType['RadioType']['id']),
+                            array('method' => 'post','class'=>'confirm','data-dialog_msg'=>'Confirm delete of '.$radioType['RadioType']['name']),
+                            null
+                        );
+                    ?>
             </td>
 	</tr>
         <?php endforeach; ?>

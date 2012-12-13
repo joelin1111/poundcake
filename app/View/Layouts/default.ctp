@@ -47,7 +47,8 @@ $cakeDescription = __d('poundcake', 'Tower DB');
             echo $this->Html->script('datepicker');
             echo $this->Html->script('poundcake');
             
-            //echo $this->Html->script('bootbox'); // testing this out, see: http://bootboxjs.com/
+            echo $this->Html->script('bootbox'); // testing this out, see: http://bootboxjs.com/
+            echo $this->Html->script('jquery.form'); // testing this out, see http://www.malsup.com/jquery/form/#download
         ?>
     
         <style type="text/css"> 

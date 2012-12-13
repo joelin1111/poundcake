@@ -14,23 +14,28 @@
             <thead>
                 <tr>
                     <th><?php echo $this->Paginator->sort('name'); ?></th>
-                    <th><?php echo __('Actions'); ?></th>
+                    <th><?php echo 'Actions'; ?></th>
                 </tr>
             </thead>
             <tbody>
 	<?php
 	foreach ($zones as $zone): ?>
 	<tr>
-            <td><?php echo h($zone['Zone']['name']);?></td>
+            <td><?php echo $zone['Zone']['name'];?></td>
             <td>
-                    <?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $zone['Zone']['id'])); ?>
-                    <?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $zone['Zone']['id']), null, __('Are you sure you want to delete zone %s?', $zone['Zone']['name'])); ?>
+                <?php
+                    echo $this->Html->link('Edit', array('action' => 'edit', $zone['Zone']['id']));
+                    echo $this->Form->postLink('Delete',
+                        array('controller'=>'zones','action'=>'delete', $zone['Zone']['id']),
+                        array('method' => 'post','class'=>'confirm','data-dialog_msg'=>'Confirm delete of '.$zone['Zone']['name']),
+                        null
+                    );
+                ?>
             </td>
 	</tr>
         <?php endforeach; ?>
             </tbody>
         </table>
-
 	
 	<?php
             // include pagination
