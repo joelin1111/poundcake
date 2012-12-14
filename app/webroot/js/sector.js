@@ -10,11 +10,17 @@ $(document).ready(function() {
        $("#NetworkRadioTrueAzimuth").each(
             function() {
                this.disabled = !this.disabled;
+               // if it's disabled then clear the field
+               if(this.disabled)
+                   $(this).val("");
             }
         );
        $("#NetworkRadioMagAzimuth").each(
             function() {
                this.disabled = !this.disabled;
+               // if it's disabled then clear the field
+               if(this.disabled)
+                   $(this).val("");
             }
         );
     });
