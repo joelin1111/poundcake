@@ -38,7 +38,6 @@ class User extends AppModel {
      */
     public $hasAndBelongsToMany = array('Project');
     
-    
     /*
      * Field-level validation rules
      */

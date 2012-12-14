@@ -61,6 +61,7 @@ class ProjectsController extends AppController {
                 $this->Session->setFlash('Error!  The project could not be saved. Please, try again.');
             }
         }
+        $this->getSnmpTypes();
     }
 
     /*
@@ -81,6 +82,7 @@ class ProjectsController extends AppController {
         } else {
                 $this->request->data = $this->Project->read(null, $id);
         }
+        $this->getSnmpTypes();
     }
 
     /*
@@ -102,6 +104,18 @@ class ProjectsController extends AppController {
         $this->redirect(array('action' => 'index'));
     }
         
+    /*
+     * Save an array of SNMP types the project may be using
+     */
+    private function getSnmpTypes() {
+        $this->set('snmptypes',$this->Project->SnmpType->find('list',
+            array(
+                'order' => array(
+                    'SnmpType.name'
+            )))
+        );
+    }
+    
     /*
      * Uses Auth to check the ACL to see if the user is allowed to perform any
      * actions in this controller

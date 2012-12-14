@@ -1,5 +1,6 @@
 <?php
-    echo $this->Html->script('sector');
+    // jQuery to enable/disable fields based on checkbox
+    echo $this->Html->script('snmp_override');
 ?>
     
 <div class="row">
@@ -26,16 +27,11 @@
             'type' => 'select',
             'options' => $networkswitches,
             'empty' => false
-        ));
-        
-        echo $this->Form->input('serial');
+        ));       
         echo $this->Form->input('sector', array('label'=>'Sector Radio' ));
         // if the radio is a sector then enable the azimuth field
-        $disabled = true;
-        if ($this->data['NetworkRadio']['sector'] > 0) {
-            $disabled = false;
-        }
-        echo $this->Form->input('true_azimuth', array('label'=>'True Azimuth','disabled' => $disabled));
+        $sector_disabled = ($this->data['NetworkRadio']['sector'] > 0 ? false : true);
+        echo $this->Form->input('true_azimuth', array('label'=>'True Azimuth','disabled' => $sector_disabled));
         echo $this->Form->input('radio_type_id', array('type'=>'select','options' => $radiotypes));
         echo $this->Form->input('antenna_type_id', array('type'=>'select','options' => $antennatypes));
         echo $this->Form->input('radio_mode_id', array('type'=>'select','options' => $radiomodes));
@@ -43,12 +39,7 @@
         echo $this->Form->input('min_height', array('label'=>'Min. Height (meters)'));
         echo $this->Form->input('frequency', array('type'=>'select','options' => $frequencies));
         echo $this->Form->input('ssid', array('label'=>'SSID'));
-       
-        
-        //echo $this->Form->input('switch_port', array('type'=>'select','options' => $switchports,'empty' => true));
-        
-        //echo $this->Form->input('switch_port', array('type'=>'select','options' => $switchports,'empty' => true));
-        //echo $this->Form->hidden('link_id');
+        echo $this->element('Common/snmp_override');  // include fiels for SNMP override
     ?>
     </fieldset>
     <?php

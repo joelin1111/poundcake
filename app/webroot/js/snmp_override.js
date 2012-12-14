@@ -1,13 +1,14 @@
 
 /*
-Toggle the true/mag azimuth fields based on whether or not the user has
-checked the box for a sector antenna
+ * Toggle SNMP version/community name fields based on whether or not the user
+ * has checked the box for to override the project's SNMP data
 */
- 
+
 $(document).ready(function() {
-    $("#NetworkRadioSector_").click(
+    $(".snmp").click(
     function() {
-       $("#NetworkRadioTrueAzimuth").each(
+       // the field for SNMP type (version)
+       $("[id$='SnmpTypeId']").each(
             function() {
                this.disabled = !this.disabled;
                // if it's disabled then clear the field
@@ -15,7 +16,8 @@ $(document).ready(function() {
                    $(this).val("");
             }
         );
-       $("#NetworkRadioMagAzimuth").each(
+       // the field for SNMP community string
+       $("[id$='SnmpCommunityName']").each(
             function() {
                this.disabled = !this.disabled;
                // if it's disabled then clear the field

@@ -104,6 +104,7 @@ class NetworkSwitchesController extends AppController {
                 $this->Session->setFlash('Error!  The switch could not be saved. Please, try again.');
             }
         }
+        $this->getSnmpTypes();
     }
 
     /*
@@ -132,6 +133,7 @@ class NetworkSwitchesController extends AppController {
         } else {
             $this->request->data = $this->NetworkSwitch->read(null, $id);
         }
+        $this->getSnmpTypes();
     }
 
     /*
@@ -162,6 +164,18 @@ class NetworkSwitchesController extends AppController {
             array(
                 'order' => array(
                     'SwitchType.ports ASC'
+            )))
+        );
+    }
+    
+    /*
+     * Save an array of SNMP types the project may be using
+     */
+    private function getSnmpTypes() {
+        $this->set('snmptypes',$this->NetworkSwitch->SnmpType->find('list',
+            array(
+                'order' => array(
+                    'SnmpType.name'
             )))
         );
     }

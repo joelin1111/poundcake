@@ -1,5 +1,7 @@
 <?php
+    // jQuery to enable/disable fields based on checkbox
     echo $this->Html->script('sector');
+    echo $this->Html->script('snmp_override');
 ?>
 
 <div class="row">
@@ -8,7 +10,7 @@
     <H3>Actions</H3>
     <div class="well well-large">
     <ul>
-        <li><?php echo $this->Html->link(__('List Radios'), array('action' => 'index')); ?>
+        <li><?php echo $this->Html->link('List Radios', array('action' => 'index')); ?>
     </ul>
     </div>
 </div><!-- /.span3 .sb-fixed -->
@@ -39,7 +41,7 @@
         echo $this->Form->input('min_height', array('label'=>'Min. Height (meters)','value'=>'20')); // default value set in model?  Setting _schema not working?!
         echo $this->Form->input('frequency', array('type'=>'select','options' => $frequencies));
         echo $this->Form->input('ssid', array('label'=>'SSID'));
-        
+        echo $this->element('Common/snmp_override');  // include fiels for SNMP override
         echo $this->Form->submit('Save', array('div' => false,'class'=>'btn'));
         echo $this->Form->end(); 
     ?>

@@ -42,8 +42,9 @@
         <li><?php echo $this->Html->link('Contact Types', '/admin/contactTypes/index'); ?></li>
         <li><?php echo $this->Html->link('Install Teams', '/admin/installTeams/index'); ?></li> 
         <li><?php echo $this->Html->link('Router Types', '/admin/routerTypes/index'); ?> </li>
-        <li><?php echo $this->Html->link('Switch Types', '/admin/switchTypes/index'); ?> </li>      
         <li><?php echo $this->Html->link('Site States', '/admin/siteStates/index'); ?></li>
+        <li><?php echo $this->Html->link('SNMP Versions', '/admin/snmpTypes/index'); ?></li>
+        <li><?php echo $this->Html->link('Switch Types', '/admin/switchTypes/index'); ?> </li>      
         <li><?php echo $this->Html->link('Zones', '/admin/zones/index'); ?></li>
     </UL>
     </div> <!-- /.span4 -->

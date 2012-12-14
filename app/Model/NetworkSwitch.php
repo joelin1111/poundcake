@@ -43,7 +43,8 @@ class NetworkSwitch extends AppModel {
      * Relations
      */
     var $belongsTo = array(
-        'SwitchType'
+        'SwitchType',
+        'SnmpType'
     );
 
     /*

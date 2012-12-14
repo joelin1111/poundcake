@@ -61,6 +61,8 @@
         Router::connect('/admin/:controller/:action/*', array(), array('controller' => 'siteStates'));
         Router::connect('/admin/:controller/:action/*', array(), array('controller' => 'zones'));
         
+        Router::connect('/admin/:controller/:action/*', array(), array('controller' => 'snmpTypes'));
+        
         //Router::connect('/admin/:controller/:action', array('prefix' => 'admin'));
         //Router::connect('/admin/projects/:action/*', array(), array('controller' => 'projects', 'action' => ':action'));
 

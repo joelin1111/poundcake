@@ -1,3 +1,8 @@
+<?php
+    // jQuery to enable/disable fields based on checkbox
+    echo $this->Html->script('snmp_override');
+?>
+
 <div class="row">
 <div class="span3">
     <H3>Actions</H3>
@@ -17,6 +22,7 @@
         echo $this->Form->input('serial');
         echo $this->Form->input('switch_type_id', array('type'=>'select','options' => $switchtypes));
         echo $this->Form->input('site_id', array('type'=>'select','options' => $sites));
+        echo $this->element('Common/snmp_override');  // include fiels for SNMP override        
     ?>
     </fieldset>
     <?php

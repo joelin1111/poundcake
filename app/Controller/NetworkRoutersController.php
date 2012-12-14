@@ -103,6 +103,7 @@ class NetworkRoutersController extends AppController {
                 $this->Session->setFlash('Error!  The router could not be saved. Please, try again.');
             }
         }
+        $this->getSnmpTypes();
     }
 
     public function edit($id = null) {
@@ -126,6 +127,7 @@ class NetworkRoutersController extends AppController {
         } else {
                 $this->request->data = $this->NetworkRouter->read(null, $id);
         }
+        $this->getSnmpTypes();
     }
 
     function getRouterTypes() {
@@ -133,6 +135,18 @@ class NetworkRoutersController extends AppController {
             array(
                 'order' => array(
                     'RouterType.manufacturer ASC'
+            )))
+        );
+    }
+    
+    /*
+     * Save an array of SNMP types the project may be using
+     */
+    private function getSnmpTypes() {
+        $this->set('snmptypes',$this->NetworkRouter->SnmpType->find('list',
+            array(
+                'order' => array(
+                    'SnmpType.name'
             )))
         );
     }

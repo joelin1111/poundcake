@@ -182,6 +182,18 @@ class NetworkRadiosController extends AppController {
     }
     
     /*
+     * Save an array of SNMP types the project may be using
+     */
+    private function getSnmpTypes() {
+        $this->set('snmptypes',$this->NetworkRadio->SnmpType->find('list',
+            array(
+                'order' => array(
+                    'SnmpType.name'
+            )))
+        );
+    }
+    
+    /*
      * Set the NetworkSwitch for this radio.  Note this function is only
      * called when the add/edit page is first loaded.
      */
@@ -265,6 +277,7 @@ class NetworkRadiosController extends AppController {
                 $this->Session->setFlash('Error!  The radio could not be saved. Please, try again.');
             }
         }
+        $this->getSnmpTypes();
     }
 
     /*
@@ -296,6 +309,7 @@ class NetworkRadiosController extends AppController {
         } else {
             $this->request->data = $this->NetworkRadio->read(null, $id);
         }
+        $this->getSnmpTypes();
     }
     
     /*

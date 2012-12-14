@@ -40,6 +40,7 @@ class NetworkRadio extends AppModel {
         'NetworkSwitch',
         'AntennaType',
         'RadioMode',
+        'SnmpType'
     );
     
     /*

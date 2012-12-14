@@ -22,21 +22,17 @@ $(document).ready(function () {
        altFormat: 'yy-mm-dd'
     });
     
-    // enable/disable azimuth checkboxes on the networkradio add/edit page
-    $("#NetworkRadioSector").click(
-    function() {
-       $("#NetworkRadioTrueAzimuth").each(
-            function() {
-               this.disabled = !this.disabled;
-            }
-        );
-       $("#NetworkRadioMagAzimuth").each(
-            function() {
-               this.disabled = !this.disabled;
-            }
-        );
+    // checkbox on Radio add/edit for denoting it as a sector -- enables/disables
+    // the true azimuth field
+    $('#NetworkRadioSector').click( function() {
+        $("[id$='Azimuth']").each( function() {
+            this.disabled = !this.disabled;
+            // if it's disabled then clear the field
+            //if(this.disabled)
+                $(this).val("");
+         });
     });
-    
+
     // checkboes on the main search
     // Checkbox stuff from: http://www.abeautifulsite.net/blog/2007/12/jquery-checkboxes-select-all-select-none-and-invert-selection/
     // Select all

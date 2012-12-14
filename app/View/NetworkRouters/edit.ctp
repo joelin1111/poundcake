@@ -1,3 +1,8 @@
+<?php
+    // jQuery to enable/disable fields based on checkbox
+    echo $this->Html->script('snmp_override');
+?>
+
 <div class="row">
 <div class="span3">
     <H3>Actions</H3>
@@ -12,11 +17,12 @@
     <?php echo $this->Form->create('NetworkRouter'); ?>
     <h2>Edit Router</h2>
     <?php
-            echo $this->Form->input('id');
-            echo $this->Form->input('name');
-            echo $this->Form->input('serial');
-            echo $this->Form->input('router_type_id', array('type'=>'select','options' => $routertypes));
-            echo $this->Form->input('site_id', array('type'=>'select','options' => $sites));
+        echo $this->Form->input('id');
+        echo $this->Form->input('name');
+        echo $this->Form->input('serial');
+        echo $this->Form->input('router_type_id', array('type'=>'select','options' => $routertypes));
+        echo $this->Form->input('site_id', array('type'=>'select','options' => $sites));
+        echo $this->element('Common/snmp_override');  // include fiels for SNMP override
     ?>
     </fieldset>
     <?php

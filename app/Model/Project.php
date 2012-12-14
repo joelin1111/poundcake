@@ -34,6 +34,11 @@ class Project extends AppModel {
     public $hasAndBelongsToMany = array('User');
     
     /*
+     * Relations
+     */
+    public $belongsTo = array('SnmpType');
+    
+    /*
      * Field-level validation rules
      */
     public $validate = array(

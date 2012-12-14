@@ -42,7 +42,7 @@
             echo "<UL>";
             foreach ($networkswitch['NetworkRadio'] as $radio) {
                 //print_r($radio);
-                //echo $this->Html->link(__($contact['first_name']." ".$contact['last_name']), array(
+                //echo $this->Html->link($contact['first_name']." ".$contact['last_name']), array(
                 echo "<LI>";
                 echo 'Port '.$radio['switch_port'].' - ';
                 echo $this->Html->link(($radio['name']), array(
