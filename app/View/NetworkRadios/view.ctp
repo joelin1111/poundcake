@@ -32,6 +32,7 @@
             echo '</P>';
         }
     ?>
+    
     <P><B>Elevation:</B>&nbsp;<?php
         if (isset($networkradio['NetworkRadio']['elevation']))
             echo $networkradio['NetworkRadio']['elevation'].'°';
@@ -50,6 +51,21 @@
         ?></P>
     <P><B>Switch:</B>&nbsp;<?php echo $networkradio['NetworkSwitch']['name']; ?></P>
     <P><B>Switch Port:</B>&nbsp;<?php echo $networkradio['NetworkRadio']['switch_port']; ?></P>
+    
+    <P><B>SNMP Override:</B>&nbsp;<?php echo ($networkradio['NetworkRadio']['snmp_override'] > 0 ? "Yes" : "No");?>
+    <?php
+        if ( $snmp_override ) {
+            echo '<ul>';
+            echo '<li>SNMP Version:  '.$networkradio['SnmpType']['name'].'</li>';
+            echo '<li>SNMP Community Name: ';
+            if ( $snmp_community ) {
+              echo $networkradio['NetworkRadio']['snmp_community_name'];
+            } else {
+                echo '********************';
+            }
+            echo '</li></ul>';            
+        }
+    ?>
     
     <P><B>Link Information:</B>&nbsp;
         <?php foreach ($links as $link) { ?>

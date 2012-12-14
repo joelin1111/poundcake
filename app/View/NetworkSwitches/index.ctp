@@ -6,22 +6,6 @@
         <li><?php echo $this->MyHTML->linkIfAllowed('New Switch', array('action' => 'add')); ?></li>
     </ul>
     </div>
-    
-    <H3>Search</H3>
-    <?php
-      echo $this->Form->create(
-          'NetworkSwitch',
-          // calls the search function on the SitesController
-          array('action'=>'search','class' => 'well')
-      );
-      echo $this->Form->input('name',array('escape' => true,'class' => 'search-query'));
-      ?>
-    <span class="help-block"></span>
-    <?php
-        echo $this->Form->submit(__('Search', true), array('div' => false,'class'=>'btn'));
-        echo $this->Form->end(); 
-    ?>
-    
 </div><!-- /.span3 .sb-fixed -->
 
 <div class="span9">
@@ -40,14 +24,7 @@
         <td><?php echo $this->Html->link($networkswitch['NetworkSwitch']['name'], array('action' => 'view', $networkswitch['NetworkSwitch']['id'])); ?></td>
         <td>
             <?php echo $this->MyHTML->linkIfAllowed(('Edit'), array('action' => 'edit', $networkswitch['NetworkSwitch']['id'])); ?>
-            <?php
-                //echo $this->MyHTML->postLinkIfAllowed(('Delete'), array('action' => 'delete', $networkswitch['NetworkSwitch']['id']), null, __('Are you sure you want to delete switch %s?', $networkswitch['NetworkSwitch']['name']));
-                echo $this->MyHTML->postLinkIfAllowed('Delete',
-                        array('controller'=>'networkswitches','action'=>'delete', $networkswitch['NetworkSwitch']['id']),
-                        array('method' => 'post','class'=>'confirm','data-dialog_msg'=>'Confirm delete of '.$networkswitch['NetworkSwitch']['name']),
-                        null
-                    );
-            ?>
+            <?php echo $this->MyHTML->postLinkIfAllowed(('Delete'), array('action' => 'delete', $networkswitch['NetworkSwitch']['id']), null, __('Are you sure you want to delete switch %s?', $networkswitch['NetworkSwitch']['name'])); ?>
         </td>
     </tr>
     <?php endforeach; ?>

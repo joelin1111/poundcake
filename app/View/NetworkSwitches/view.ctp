@@ -18,7 +18,20 @@
     <P><B>Ports:</B>&nbsp;<?php echo $networkswitch['SwitchType']['ports']; ?></P>
     <P><B>Manufacturer:</B>&nbsp;<?php echo $networkswitch['SwitchType']['manufacturer']; ?></P>
     <P><B>Model:</B>&nbsp;<?php echo $networkswitch['SwitchType']['model']; ?></P>
-    
+    <P><B>SNMP Override:</B>&nbsp;<?php echo ($networkswitch['NetworkSwitch']['snmp_override'] > 0 ? "Yes" : "No");?>
+    <?php
+        if ( $snmp_override ) {
+            echo '<ul>';
+            echo '<li>SNMP Version:  '.$networkswitch['SnmpType']['name'].'</li>';
+            echo '<li>SNMP Community Name: ';
+            if ( $snmp_community ) {
+              echo $networkswitch['NetworkSwitch']['snmp_community_name'];
+            } else {
+                echo '********************';
+            }
+            echo '</li></ul>';            
+        }
+    ?>
     <P><B>Attached Radios:</B>&nbsp;
     <?php
         if (!isset($networkswitch['NetworkRadio'])) {

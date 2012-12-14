@@ -35,7 +35,7 @@
 	<?php
 	foreach ($networkrouters as $networkrouter): ?>
 	<tr>
-            <td><?php echo $networkrouter['NetworkRouter']['name'];?></td>
+            <td><?php echo $this->Html->link($networkrouter['NetworkRouter']['name'], array('action' => 'view', $networkrouter['NetworkRouter']['id'])); ?></td>
             <td>
                 <?php echo $this->MyHTML->linkIfAllowed('Edit', array('action' => 'edit', $networkrouter['NetworkRouter']['id'])); ?>
                 <?php

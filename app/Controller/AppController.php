@@ -139,7 +139,20 @@ class AppController extends Controller {
 //            $this->autoRender = false;
 //        }
     }
-
+    
+    /*
+     * Check the ACL to see if this user can perform actions on the view within
+     * the controller
+     */
+    public function isViewOnly( ) {
+        $this->loadModel('User');
+        $uid = CakeSession::read("Auth.User.id");
+        $this->User->read(null,$uid);
+        $ret = false;
+        if ( $this->User->data['Role']['rolealias'] === 'view' )
+            $ret = true;
+        return $ret;
+    }
     /*
      * Check the ACL to see if this user can perform actions on the view within
      * the controller

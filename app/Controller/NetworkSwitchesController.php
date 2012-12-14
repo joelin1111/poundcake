@@ -79,6 +79,18 @@ class NetworkSwitchesController extends AppController {
             throw new NotFoundException('Invalid switch');
         }
         $this->set('networkswitch', $this->NetworkSwitch->read(null, $id));
+        
+        // this is basically identical among Radios/Routers/Switches
+        $snmp_override = false;
+        $snmp_community = false;
+        if ( $this->NetworkSwitch->field('snmp_override') > 0 ) {
+            $snmp_override = true;
+            if ( !$this->isViewOnly() ) {
+                $snmp_community = true;
+            }
+        }
+        $this->set('snmp_override',$snmp_override);
+        $this->set('snmp_community',$snmp_community);
     }
 
     /*
