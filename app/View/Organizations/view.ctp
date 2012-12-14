@@ -3,7 +3,7 @@
     <H3>Actions</H3>
     <div class="well well-large">
     <ul>
-        <li><?php echo $this->Html->link(__('List Organizations'), array('action' => 'index')); ?>
+        <li><?php echo $this->Html->link('List Organizations', array('action' => 'index')); ?>
     </ul>
     </div>
 </div><!-- /.span3 .sb-fixed -->
@@ -25,7 +25,7 @@
             } else {
                 foreach ($organization['Contact'] as $contact) {
                     echo "<LI>";
-                    echo $this->Html->link(__($contact['name_vf']), array(
+                    echo $this->Html->link($contact['name_vf'], array(
                         'controller' => 'contacts',
                         'action' => 'view',
                         $contact['id']));

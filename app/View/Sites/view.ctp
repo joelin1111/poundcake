@@ -196,7 +196,7 @@
             echo "<th>SSID</th>";
             foreach ($site['NetworkRadios'] as $radio) {
                 echo "<tr><td>";
-                echo $this->Html->link(__($radio['name']), array(
+                echo $this->Html->link($radio['name'], array(
                     'controller' => 'networkRadios',
                     'action' => 'view',
                     $radio['id']));

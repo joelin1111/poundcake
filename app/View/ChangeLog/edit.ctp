@@ -20,7 +20,8 @@
             )
         );
         echo $this->Form->input('description');
-        echo $this->Form->end(__('Submit'));
+        echo $this->Form->submit('Save', array('div' => false,'class'=>'btn'));
+        echo $this->Form->end(); 
     ?>
 </div> <!-- /.span9 -->
 </div> <!-- /.row -->

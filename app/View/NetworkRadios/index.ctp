@@ -3,7 +3,7 @@
     <H3>Actions</H3>
     <div class="well well-large">
     <ul>
-        <li><?php echo $this->MyHTML->linkIfAllowed(__('New Radio'), array('action' => 'add')); ?></li>
+        <li><?php echo $this->MyHTML->linkIfAllowed('New Radio', array('action' => 'add')); ?></li>
     </ul>
     </div>
     
@@ -38,7 +38,7 @@
     <?php
     foreach ($networkradios as $networkradio): ?>
     <tr>
-        <td><?php echo $this->Html->link(__($networkradio['NetworkRadio']['name']), array('action' => 'view', $networkradio['NetworkRadio']['id']))?></td>
+        <td><?php echo $this->Html->link($networkradio['NetworkRadio']['name'], array('action' => 'view', $networkradio['NetworkRadio']['id']))?></td>
         <td><?php echo $networkradio['Site']['site_vf'];?></td>
         <td><?php echo $networkradio['RadioType']['name'];?></td>
         <td>

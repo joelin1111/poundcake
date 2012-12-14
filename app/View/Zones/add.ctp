@@ -2,7 +2,7 @@
 <div class="span3">
     <H3>Actions</H3>
     <ul>
-        <li><?php echo $this->Html->link(__('List Zones'), array('action' => 'index')); ?>
+        <li><?php echo $this->Html->link('List Zones', array('action' => 'index')); ?>
     </ul>
 </div><!-- /.span3 .sb-fixed -->
 

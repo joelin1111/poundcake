@@ -3,7 +3,7 @@
     <H3>Actions</H3>
     <div class="well well-large">
     <ul>
-        <li><?php echo $this->Html->link(__('New Project'), array('action' => 'add')); ?></li>
+        <li><?php echo $this->Html->link('New Project', array('action' => 'add')); ?></li>
         <li><?php echo $this->Html->link('Admin',array('controller'=>'admin','action' => 'setup')); ?></li>
     </ul>
     </div>
@@ -22,14 +22,14 @@
 	<?php
 	foreach ($projects as $project): ?>
 	<tr>
-            <td><?php echo $project['Project']['name'];?></td>
+            <td><?php echo $this->MyHtml->linkIfAllowed($project['Project']['name'], array('action' => 'view', $project['Project']['id'])); ?></td>
             <td>
-                <?php echo $this->Html->link('Edit', array('action' => 'edit', $project['Project']['id']));  ?>
+                <?php echo $this->MyHtml->linkIfAllowed('Edit', array('action' => 'edit', $project['Project']['id']));  ?>
                 <?php 
                     // Standard Cake delete syntax:
                     // echo $this->Form->postLink('Delete', array('action' => 'delete', $project['Project']['id']), null, 'Are you sure you want to delete project %s?', $project['Project']['name']);
                     // new Bootbox-compatible delete -- see poundcake.js
-                    echo $this->Form->postLink('Delete',
+                    echo $this->MyHtml->postLinkIfAllowed('Delete',
                         array('controller'=>'projects','action'=>'delete', $project['Project']['id']),
                         array('method' => 'post','class'=>'confirm','data-dialog_msg'=>'Confirm delete of '.$project['Project']['name']),
                         null

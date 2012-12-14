@@ -3,7 +3,7 @@
     <H3>Actions</H3>
     <div class="well well-large">
     <ul>
-        <li><?php echo $this->Html->link(__('List Build Items'), array('action' => 'index')); ?>
+        <li><?php echo $this->Html->link('List Build Items', array('action' => 'index')); ?>
     </ul>
     </div>
 </div><!-- /.span3 .sb-fixed -->
@@ -18,6 +18,9 @@
         echo $this->Form->input('build_item_type_id', array('type'=>'select','options' => $builditemtypes)); //,'empty' => true));
     ?>
     </fieldset>
-    <?php echo $this->Form->end(__('Save')); ?>
+    <?php 
+        echo $this->Form->submit('Save', array('div' => false,'class'=>'btn'));
+        echo $this->Form->end(); 
+    ?>
 </div> <!-- /.span9 -->
 </div> <!-- /.row -->

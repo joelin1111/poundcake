@@ -13,8 +13,8 @@
     <h2>Edit InstallTeam</h2>
     <?php
         echo $this->Form->input('name');;
-        
-        echo $this->Form->end(__('Submit'));
+        echo $this->Form->submit('Save', array('div' => false,'class'=>'btn'));
+        echo $this->Form->end(); 
     ?>
 </div> <!-- /.span9 -->
 </div> <!-- /.row -->

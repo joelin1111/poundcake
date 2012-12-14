@@ -3,7 +3,7 @@
     <H3>Actions</H3>
     <div class="well well-large">
     <ul>
-        <li><?php echo $this->Html->link(__('New Build Item'), array('action' => 'add')); ?></li>
+        <li><?php echo $this->Html->link('New Build Item', array('action' => 'add')); ?></li>
         <li><?php echo $this->Html->link('Admin',array('controller'=>'admin','action' => 'setup')); ?></li>
     </ul>
     </div>

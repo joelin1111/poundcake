@@ -54,7 +54,7 @@
     echo $this->Form->input('Site.notes',array('style' => 'width:100%'));
     
     // no upload field since we don't have a Site.id until after save
-    echo $this->Form->end('Save site');
+    echo $this->Form->end('Save');
 ?>
 </fieldset>
 

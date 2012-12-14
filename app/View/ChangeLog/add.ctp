@@ -3,7 +3,7 @@
     <H3>Actions</H3>
     <div class="well well-large">
     <ul>
-        <li><?php echo $this->Html->link(__('List Changes'), array('action' => 'index')); ?>
+        <li><?php echo $this->Html->link('List Changes', array('action' => 'index')); ?>
     </ul>
     </div>
 </div><!-- /.span3 .sb-fixed -->
@@ -23,6 +23,9 @@
         echo $this->Form->input('description');
     ?>
     </fieldset>
-    <?php echo $this->Form->end(__('Submit')); ?>
+    <?php 
+        echo $this->Form->submit('Save', array('div' => false,'class'=>'btn'));
+        echo $this->Form->end(); 
+    ?>
 </div> <!-- /.span9 -->
 </div> <!-- /.row -->

@@ -4,6 +4,7 @@
     <div class="well well-large">
     <ul>
         <li><?php echo $this->Html->link('List Projects', array('action' => 'index')); ?></li>
+        <li><?php echo $this->Html->link('Admin',array('controller'=>'admin','action' => 'setup')); ?></li>
     </ul>
     </div>
     <?php echo $this->element('Common/date_format'); ?>
@@ -19,6 +20,8 @@
         echo $this->Form->input('default_lon', array( 'label' => 'Default Longitude' ));
         echo $this->Form->input('workorder_title', array( 'label' => 'Title for Workorder' ));
         echo $this->Form->input('datetime_format', array( 'label' => 'Datetime Format (PHP compatible)' ));
+        echo $this->Form->input('snmp_type_id', array('type'=>'select','options' => $snmptypes, 'label' => 'SNMP Version', 'empty' => true));
+        echo $this->Form->input('snmp_community_name', array( 'label' => 'SNMP Community Name' ));
     ?>
     </fieldset>
     <?php
