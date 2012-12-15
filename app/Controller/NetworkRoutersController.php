@@ -84,19 +84,8 @@ class NetworkRoutersController extends AppController {
         if (!$this->NetworkRouter->exists()) {
             throw new NotFoundException('Invalid router');
         }
-        $this->set('networkrouter', $this->NetworkRouter->read(null, $id));
-        
-        // this is basically identical among Radios/Routers/Switches
-        $snmp_override = false;
-        $snmp_community = false;
-        if ( $this->NetworkRouter->field('snmp_override') > 0 ) {
-            $snmp_override = true;
-            if ( !$this->isViewOnly() ) {
-                $snmp_community = true;
-            }
-        }
-        $this->set('snmp_override',$snmp_override);
-        $this->set('snmp_community',$snmp_community);
+        $this->set('networkrouter', $this->NetworkRouter->read(null, $id));        
+        $this->checkSnmp(); // check if there is custom SNMP data on this item
     }
 
     public function add() {

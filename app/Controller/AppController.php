@@ -140,6 +140,21 @@ class AppController extends Controller {
 //        }
     }
     
+    protected function checkSnmp() {
+        $model = $this->modelClass;
+        // this is used by each of NetworkRadios/NetworkRouters/NetworkSwitches
+        $snmp_override = false;
+        $snmp_community = false;
+        if ( $this->$model->field('snmp_override') > 0 ) {
+            $snmp_override = true;
+            if ( !$this->isViewOnly() ) {
+                $snmp_community = true;
+            }
+        }
+        $this->set('snmp_override',$snmp_override);
+        $this->set('snmp_community',$snmp_community);
+    }
+    
     /*
      * Check the ACL to see if this user can perform actions on the view within
      * the controller
