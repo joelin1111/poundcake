@@ -39,8 +39,8 @@
 <table class="table table-condensed table-striped">
 <thead>
    <tr>
-       <th><?php echo $this->Paginator->sort('site_code'); ?></th>
-       <th><?php echo $this->Paginator->sort('site_name'); ?></th>
+       <th><?php echo $this->Paginator->sort('code'); ?></th>
+       <th><?php echo $this->Paginator->sort('name'); ?></th>
        <th><?php echo $this->Paginator->sort('Organization'); ?></th>
        <th><?php echo $this->Paginator->sort('site_state_id'); ?></th>
        <th><?php echo $this->Paginator->sort('Zone.name','Zone');?></th> <!-- zone_id -->
@@ -56,19 +56,19 @@
                 //echo $site['Site']['PowerType'];
            ?>
            <td><?php
-                    echo $this->Html->link($site['Site']['site_code'],
+                    echo $this->Html->link($site['Site']['code'],
                     array('controller' => 'sites', 'action' => 'view', $site['Site']['id']));
                 ?>
            </td>
            <td>
                <?php
-                //echo $this->Html->link($site['Site']['site_name'],
+                //echo $this->Html->link($site['Site']['name'],
                // truncate site names longer than 20 characters
-                $site_name = substr($site['Site']['site_name'], 0, 20);
-                if (strlen($site['Site']['site_name']) > 20 ) {
-                    $site_name .= "...";
+                $name = substr($site['Site']['name'], 0, 20);
+                if (strlen($site['Site']['name']) > 20 ) {
+                    $name .= "...";
                 }
-                echo $this->Html->link($site_name,
+                echo $this->Html->link($name,
                 
                 array('controller' => 'sites', 'action' => 'view', $site['Site']['id']));
                 ?>
@@ -83,7 +83,7 @@
                 // echo $this->MyHTML->postLinkIfAllowed('Delete', array('action' => 'delete', $site['Site']['id']), null, 'Are you sure?' )
                 echo $this->MyHTML->postLinkIfAllowed('Delete',
                         array('controller'=>'sites','action'=>'delete', $site['Site']['id']),
-                        array('method' => 'post','class'=>'confirm','data-dialog_msg'=>'Confirm delete of '.$site['Site']['site_name']),
+                        array('method' => 'post','class'=>'confirm','data-dialog_msg'=>'Confirm delete of '.$site['Site']['name']),
                         null
                     );
             ?>

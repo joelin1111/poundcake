@@ -69,7 +69,7 @@ $fmtBannerHeight = 25;
 
 // Create a new sheet with the XML document
 //$sheet1 = $xml->addSheet('Work Order '.$site['Site']['site_vf']);
-$sheet1 = $xml->addSheet('Work Order '.$site['Site']['site_code']);
+$sheet1 = $xml->addSheet('Work Order '.$site['Site']['code']);
 
 $row = 1;
 $sheet1->writeString($row,1,$title,$fmt1);
@@ -105,7 +105,7 @@ $row++;
 // col 1
 $sheet1->writeString($row,1,'Site',$fmt3);
 $sheet1->writeString($row,2,$site['Site']['site_vf'],$fmt4);
-//$sheet1->writeString($row,2,$site['Site']['site_name'].' ('.$site['Site']['site_name'].')',$fmt4);
+//$sheet1->writeString($row,2,$site['Site']['name'].' ('.$site['Site']['name'].')',$fmt4);
 // col 2
 $sheet1->writeString($row,4,'Tower Type',$fmt3);
 $sheet1->writeString($row,5,$site['TowerType']['name'],$fmt4);

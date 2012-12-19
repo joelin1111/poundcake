@@ -48,7 +48,7 @@ class SitesController extends AppController
      * Field names for the form itself, 'model' => 'Site'
      */
     public $presetVars = array(
-        array('field' => 'site_name', 'type' => 'value'),
+        array('field' => 'name', 'type' => 'value'),
     );
     
     /*
@@ -56,7 +56,7 @@ class SitesController extends AppController
      */
     public function beforeFilter() {
         parent::beforeFilter();
-        $this->set('site_name', $this->Site->site_name);
+        $this->set('name', $this->Site->name);
     }
     
     /*
@@ -97,20 +97,20 @@ class SitesController extends AppController
             // on the search form
             
             // turn % back into *
-            $site_code = '';
+            $code = '';
             if (isset($conditions['AND']['0']['AND'])) {
-                $site_code = str_replace('%','*',$conditions['AND']['0']['AND']['Site.site_code LIKE']);
-                //echo "Site code from past search: ". $site_code."<br>";
+                $code = str_replace('%','*',$conditions['AND']['0']['AND']['Site.code LIKE']);
+                //echo "Site code from past search: ". $code."<br>";
             }
-            $this->request->data['Site']['site_code'] =  $site_code;
+            $this->request->data['Site']['code'] =  $code;
                     
             // turn % back into *
-            $site_name = '';
+            $name = '';
             if (isset($conditions['AND']['0']['AND'])) {
-                $site_name = str_replace('%','*',$conditions['AND']['0']['AND']['Site.site_name LIKE']);
-                //echo "Site name from past search: ". $site_name."<br>";
+                $name = str_replace('%','*',$conditions['AND']['0']['AND']['Site.name LIKE']);
+                //echo "Site name from past search: ". $name."<br>";
             }
-            $this->request->data['Site']['site_name'] =  $site_name;
+            $this->request->data['Site']['name'] =  $name;
             
             // this array just tells the view what boxes to keep checked
             // when the page refreshes
@@ -127,16 +127,16 @@ class SitesController extends AppController
         } else {
             // get search stuff from the form that was sent in
             $conditions = "";                
-            $site_code_arg = "";
-            $site_name_arg = "";
+            $code_arg = "";
+            $name_arg = "";
             $site_state_id_arg = "";
             // this indexes should always exist, but they may be empty!
 
-            if (isset($this->data['Site']['site_code'])) {
-                $site_code_arg = str_replace('*','%',$this->data['Site']['site_code']);
+            if (isset($this->data['Site']['code'])) {
+                $code_arg = str_replace('*','%',$this->data['Site']['code']);
             }
-            if (isset($this->data['Site']['site_name'])) {
-                $site_name_arg = str_replace('*','%',$this->data['Site']['site_name']);
+            if (isset($this->data['Site']['name'])) {
+                $name_arg = str_replace('*','%',$this->data['Site']['name']);
             }
 
             $site_states = array();
@@ -150,8 +150,8 @@ class SitesController extends AppController
             }
 
             // greedy search
-            $site_code_arg .= '%';
-            $site_name_arg .= '%';
+            $code_arg .= '%';
+            $name_arg .= '%';
             
             // we basically have to have something in the site_state_id field, so if the
             // user didn't check anything, stick a wildcard in there
@@ -162,8 +162,8 @@ class SitesController extends AppController
             $conditions = array(
                 'AND' => array(
                     array('AND' => array(
-                        'Site.site_code LIKE' => $site_code_arg,
-                        'Site.site_name LIKE' => $site_name_arg,
+                        'Site.code LIKE' => $code_arg,
+                        'Site.name LIKE' => $name_arg,
                         //'Site.site_state_id ' => $site_state_id_arg,
                         'Site.project_id' => $this->Session->read('project_id') // only show sites for the current project
                     )),
@@ -179,8 +179,8 @@ class SitesController extends AppController
             'limit' => 20,
             'conditions' => $conditions,
             'order' => array(
-                'Site.site_code' => 'asc',
-                'Site.site_name' => 'asc',
+                'Site.code' => 'asc',
+                'Site.name' => 'asc',
             ),
         );
         $data = $this->paginate('Site');
@@ -271,17 +271,17 @@ class SitesController extends AppController
                     foreach ( $children as $child ) {
                         if ( $child->Point->coordinates ) {
                             $coords = explode(",", $child->Point->coordinates);
-                            $site_name = $child->name;
+                            $name = $child->name;
                             $lat = $coords[0];
                             $lon = $coords[1];
                             if ($overwrite) {
-                                $site = $this->Site->findBySite_name( $site_name );
+                                $site = $this->Site->findByname( $name );
                                 if (isset($site['Site']['id'])) {
                                     $this->Site->delete($site['Site']['id']);
                                 }
                             }                   
                             $this->Site->create();
-                            $this->Site->set( 'site_name', (string)$site_name ); // converts it from SimpleXMLElement Object back to a string
+                            $this->Site->set( 'name', (string)$name ); // converts it from SimpleXMLElement Object back to a string
                             $this->Site->set( 'lat', $lat );
                             $this->Site->set( 'lon', $lon );
                             $this->Site->set( 'project_id', $this->Session->read('project_id') );
@@ -348,9 +348,9 @@ class SitesController extends AppController
             $node = $dom->createElement('Placemark');
             $placeNode = $docNode->appendChild($node);
             // Creates an id attribute and assign it the value of id column.
-            $placeNode->setAttribute('id', 'placemark' . $site['Site']['id']); // CakePHP primary key -- not sure if this should be site_code?
+            $placeNode->setAttribute('id', 'placemark' . $site['Site']['id']); // CakePHP primary key -- not sure if this should be code?
             // Create name, and description elements and assigns them the values of the name and address columns from the results.
-            $nameNode = $dom->createElement('name',htmlentities($site['Site']['site_name']));
+            $nameNode = $dom->createElement('name',htmlentities($site['Site']['name']));
             $placeNode->appendChild($nameNode);
             // Creates a Point element.
             $pointNode = $dom->createElement('Point');
@@ -480,7 +480,7 @@ class SitesController extends AppController
         $this->getAllSitesForProject();
         
         $this->getBuildItems();
-        $site_code = $this->Site->data['Site']['site_code'];       
+        $code = $this->Site->data['Site']['code'];       
         $radios = $this->Site->NetworkRadios->findAllBySiteId($id);
         $n = 0;
         foreach ($radios as $radio) {
@@ -501,7 +501,7 @@ class SitesController extends AppController
         }
         $this->set('radios', $radios);
         
-        $ip_addresses = $this->getAllIPAddresses($site_code);
+        $ip_addresses = $this->getAllIPAddresses($code);
         $this->set(compact('ip_addresses'));        
     }
 

@@ -51,7 +51,7 @@ CREATE TABLE `trcs` (
 
 INSERT INTO `trcs` VALUES (
 	1, -- ID
-	'Kitogani', -- site_name
+	'Kitogani', -- name
 	'TRC_0001', -- trc_code
 	'', -- status
 	'', -- intervention_type_id
@@ -69,7 +69,7 @@ INSERT INTO `trcs` VALUES (
 
 INSERT INTO `trcs` VALUES (
 	2, -- ID
-	'Dunga', -- site_name
+	'Dunga', -- name
 	'TRC_0002', -- trc_code
 	'', -- status
 	'', -- intervention_type_id
@@ -87,7 +87,7 @@ INSERT INTO `trcs` VALUES (
 
 INSERT INTO `trcs` VALUES (
 	3, -- ID
-	'Bububu', -- site_name
+	'Bububu', -- name
 	'TRC_0003', -- trc_code
 	'', -- status
 	'', -- intervention_type_id
@@ -105,7 +105,7 @@ INSERT INTO `trcs` VALUES (
 
 INSERT INTO `trcs` VALUES (
 	4, -- ID
-	'Mkwajuni', -- site_name
+	'Mkwajuni', -- name
 	'TRC_0004', -- trc_code
 	'', -- status
 	'', -- intervention_type_id
@@ -123,7 +123,7 @@ INSERT INTO `trcs` VALUES (
 
 INSERT INTO `trcs` VALUES (
 	5, -- ID
-	'Kiembesamaki', -- site_name
+	'Kiembesamaki', -- name
 	'TRC_0005', -- trc_code
 	'', -- status
 	'', -- intervention_type_id
@@ -141,7 +141,7 @@ INSERT INTO `trcs` VALUES (
 
 INSERT INTO `trcs` VALUES (
 	6, -- ID
-	'Michakaini', -- site_name
+	'Michakaini', -- name
 	'TRC_0006', -- trc_code
 	'', -- status
 	'', -- intervention_type_id
@@ -159,7 +159,7 @@ INSERT INTO `trcs` VALUES (
 
 INSERT INTO `trcs` VALUES (
 	7, -- ID
-	'Mitiulaya', -- site_name
+	'Mitiulaya', -- name
 	'TRC_0007', -- trc_code
 	'', -- status
 	'', -- intervention_type_id
@@ -177,7 +177,7 @@ INSERT INTO `trcs` VALUES (
 
 INSERT INTO `trcs` VALUES (
 	8, -- ID
-	'Wingwi', -- site_name
+	'Wingwi', -- name
 	'TRC_0008', -- trc_code
 	'', -- status
 	'', -- intervention_type_id
@@ -195,7 +195,7 @@ INSERT INTO `trcs` VALUES (
 
 INSERT INTO `trcs` VALUES (
 	9, -- ID
-	'Mizingani', -- site_name
+	'Mizingani', -- name
 	'TRC_0009', -- trc_code
 	'', -- status
 	'', -- intervention_type_id
@@ -213,7 +213,7 @@ INSERT INTO `trcs` VALUES (
 
 INSERT INTO `trcs` VALUES (
 	10, -- ID
-	'Luchingu', -- site_name
+	'Luchingu', -- name
 	'TRC_0010', -- trc_code
 	'', -- status
 	'', -- intervention_type_id
@@ -231,7 +231,7 @@ INSERT INTO `trcs` VALUES (
 
 INSERT INTO `trcs` VALUES (
 	11, -- ID
-	'Kiuta', -- site_name
+	'Kiuta', -- name
 	'TRC_0011', -- trc_code
 	'', -- status
 	'', -- intervention_type_id
@@ -249,7 +249,7 @@ INSERT INTO `trcs` VALUES (
 
 INSERT INTO `trcs` VALUES (
 	12, -- ID
-	'Mikumbi', -- site_name
+	'Mikumbi', -- name
 	'TRC_0012', -- trc_code
 	'', -- status
 	'', -- intervention_type_id
@@ -267,7 +267,7 @@ INSERT INTO `trcs` VALUES (
 
 INSERT INTO `trcs` VALUES (
 	13, -- ID
-	'Kitangari', -- site_name
+	'Kitangari', -- name
 	'TRC_0013', -- trc_code
 	'', -- status
 	'', -- intervention_type_id
@@ -285,7 +285,7 @@ INSERT INTO `trcs` VALUES (
 
 INSERT INTO `trcs` VALUES (
 	14, -- ID
-	'Lengo', -- site_name
+	'Lengo', -- name
 	'TRC_0014', -- trc_code
 	'', -- status
 	'', -- intervention_type_id
@@ -303,7 +303,7 @@ INSERT INTO `trcs` VALUES (
 
 INSERT INTO `trcs` VALUES (
 	15, -- ID
-	'Chiungutwa', -- site_name
+	'Chiungutwa', -- name
 	'TRC_0015', -- trc_code
 	'', -- status
 	'', -- intervention_type_id
@@ -321,7 +321,7 @@ INSERT INTO `trcs` VALUES (
 
 INSERT INTO `trcs` VALUES (
 	16, -- ID
-	'Luagala', -- site_name
+	'Luagala', -- name
 	'TRC_0016', -- trc_code
 	'', -- status
 	'', -- intervention_type_id
@@ -339,7 +339,7 @@ INSERT INTO `trcs` VALUES (
 
 INSERT INTO `trcs` VALUES (
 	17, -- ID
-	'Mwitika', -- site_name
+	'Mwitika', -- name
 	'TRC_0017', -- trc_code
 	'', -- status
 	'', -- intervention_type_id
@@ -357,7 +357,7 @@ INSERT INTO `trcs` VALUES (
 
 INSERT INTO `trcs` VALUES (
 	18, -- ID
-	'Mwena', -- site_name
+	'Mwena', -- name
 	'TRC_0018', -- trc_code
 	'', -- status
 	'', -- intervention_type_id
@@ -375,7 +375,7 @@ INSERT INTO `trcs` VALUES (
 
 INSERT INTO `trcs` VALUES (
 	19, -- ID
-	'Mkomaindo', -- site_name
+	'Mkomaindo', -- name
 	'TRC_0019', -- trc_code
 	'', -- status
 	'', -- intervention_type_id
@@ -393,7 +393,7 @@ INSERT INTO `trcs` VALUES (
 
 INSERT INTO `trcs` VALUES (
 	20, -- ID
-	'Lukuledi', -- site_name
+	'Lukuledi', -- name
 	'TRC_0020', -- trc_code
 	'', -- status
 	'', -- intervention_type_id
@@ -411,7 +411,7 @@ INSERT INTO `trcs` VALUES (
 
 INSERT INTO `trcs` VALUES (
 	21, -- ID
-	'Luagala', -- site_name
+	'Luagala', -- name
 	'TRC_0021', -- trc_code
 	'', -- status
 	'', -- intervention_type_id
@@ -429,7 +429,7 @@ INSERT INTO `trcs` VALUES (
 
 INSERT INTO `trcs` VALUES (
 	22, -- ID
-	'Mihambwe', -- site_name
+	'Mihambwe', -- name
 	'TRC_0022', -- trc_code
 	'', -- status
 	'', -- intervention_type_id
@@ -447,7 +447,7 @@ INSERT INTO `trcs` VALUES (
 
 INSERT INTO `trcs` VALUES (
 	23, -- ID
-	'Matogoro', -- site_name
+	'Matogoro', -- name
 	'TRC_0023', -- trc_code
 	'', -- status
 	'', -- intervention_type_id
@@ -465,7 +465,7 @@ INSERT INTO `trcs` VALUES (
 
 INSERT INTO `trcs` VALUES (
 	24, -- ID
-	'Chikongola', -- site_name
+	'Chikongola', -- name
 	'TRC_0024', -- trc_code
 	'', -- status
 	'', -- intervention_type_id
@@ -483,7 +483,7 @@ INSERT INTO `trcs` VALUES (
 
 INSERT INTO `trcs` VALUES (
 	25, -- ID
-	'Mchichira', -- site_name
+	'Mchichira', -- name
 	'TRC_0025', -- trc_code
 	'', -- status
 	'', -- intervention_type_id
@@ -501,7 +501,7 @@ INSERT INTO `trcs` VALUES (
 
 INSERT INTO `trcs` VALUES (
 	26, -- ID
-	'Majengo', -- site_name
+	'Majengo', -- name
 	'TRC_0026', -- trc_code
 	'', -- status
 	'', -- intervention_type_id
@@ -519,7 +519,7 @@ INSERT INTO `trcs` VALUES (
 
 INSERT INTO `trcs` VALUES (
 	27, -- ID
-	'Mitengo', -- site_name
+	'Mitengo', -- name
 	'TRC_0027', -- trc_code
 	'', -- status
 	'', -- intervention_type_id
@@ -537,7 +537,7 @@ INSERT INTO `trcs` VALUES (
 
 INSERT INTO `trcs` VALUES (
 	28, -- ID
-	'Libobe', -- site_name
+	'Libobe', -- name
 	'TRC_0028', -- trc_code
 	'', -- status
 	'', -- intervention_type_id
@@ -555,7 +555,7 @@ INSERT INTO `trcs` VALUES (
 
 INSERT INTO `trcs` VALUES (
 	29, -- ID
-	'Madimba', -- site_name
+	'Madimba', -- name
 	'TRC_0029', -- trc_code
 	'', -- status
 	'', -- intervention_type_id
@@ -573,7 +573,7 @@ INSERT INTO `trcs` VALUES (
 
 INSERT INTO `trcs` VALUES (
 	30, -- ID
-	'Nanguruwe', -- site_name
+	'Nanguruwe', -- name
 	'TRC_0030', -- trc_code
 	'', -- status
 	'', -- intervention_type_id
@@ -591,7 +591,7 @@ INSERT INTO `trcs` VALUES (
 
 INSERT INTO `trcs` VALUES (
 	31, -- ID
-	'Nanyamba', -- site_name
+	'Nanyamba', -- name
 	'TRC_0031', -- trc_code
 	'', -- status
 	'', -- intervention_type_id
@@ -609,7 +609,7 @@ INSERT INTO `trcs` VALUES (
 
 INSERT INTO `trcs` VALUES (
 	32, -- ID
-	'Nanyumbu', -- site_name
+	'Nanyumbu', -- name
 	'TRC_0032', -- trc_code
 	'', -- status
 	'', -- intervention_type_id
@@ -627,7 +627,7 @@ INSERT INTO `trcs` VALUES (
 
 INSERT INTO `trcs` VALUES (
 	33, -- ID
-	'Nandete', -- site_name
+	'Nandete', -- name
 	'TRC_0033', -- trc_code
 	'', -- status
 	'', -- intervention_type_id
@@ -645,7 +645,7 @@ INSERT INTO `trcs` VALUES (
 
 INSERT INTO `trcs` VALUES (
 	34, -- ID
-	'Mikangaula', -- site_name
+	'Mikangaula', -- name
 	'TRC_0034', -- trc_code
 	'', -- status
 	'', -- intervention_type_id
@@ -663,7 +663,7 @@ INSERT INTO `trcs` VALUES (
 
 INSERT INTO `trcs` VALUES (
 	35, -- ID
-	'Mangaka', -- site_name
+	'Mangaka', -- name
 	'TRC_0035', -- trc_code
 	'', -- status
 	'', -- intervention_type_id
@@ -681,7 +681,7 @@ INSERT INTO `trcs` VALUES (
 
 INSERT INTO `trcs` VALUES (
 	36, -- ID
-	'Michiga', -- site_name
+	'Michiga', -- name
 	'TRC_0036', -- trc_code
 	'', -- status
 	'', -- intervention_type_id
@@ -20052,6 +20052,6 @@ UPDATE `districts` SET area_id=3 WHERE id=16; -- Nanyumbu
 
 -- DROP INDEX school_code_idx ON schools;
 -- CREATE INDEX school_code_idx ON schools(school_code);
--- CREATE INDEX schools_index2 ON schools(site_name);
--- CREATE INDEX school_idx ON schools(school_code,site_name);
+-- CREATE INDEX schools_index2 ON schools(name);
+-- CREATE INDEX school_idx ON schools(school_code,name);
 

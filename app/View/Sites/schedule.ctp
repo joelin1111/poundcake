@@ -44,7 +44,7 @@
             ?>
            </td>
            <td><?php
-                    echo $this->Html->link($site['sites']['site_code'],
+                    echo $this->Html->link($site['sites']['code'],
                     array('controller' => 'sites', 'action' => 'view', $site['sites']['id']));
                 ?>
            </td>

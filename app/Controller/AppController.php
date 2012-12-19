@@ -140,6 +140,11 @@ class AppController extends Controller {
 //        }
     }
     
+    /*
+     * Sets two variables (snmp_override, snmp_community) to true/false if
+     * the NetworkRadios/NetworkRouters/NetworkSwitch has custom SNMP
+     * values defined.
+     */
     protected function checkSnmp() {
         $model = $this->modelClass;
         // this is used by each of NetworkRadios/NetworkRouters/NetworkSwitches
@@ -147,6 +152,8 @@ class AppController extends Controller {
         $snmp_community = false;
         if ( $this->$model->field('snmp_override') > 0 ) {
             $snmp_override = true;
+            // if they are not a view-only user then they can see the community
+            // string
             if ( !$this->isViewOnly() ) {
                 $snmp_community = true;
             }

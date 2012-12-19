@@ -4,8 +4,7 @@ DELIMITER ENDSPDEF
 -- Create the procedure
 CREATE PROCEDURE sp_count_radios(site_id int(10))
     BEGIN 
-        -- SELECT sites.site_code AS "site_code", radio_types.name AS "radio_type", count(*) AS "count" -- , network_radios.name AS "radio_name"
-        SELECT sites.site_code, radio_types.name, count(*) AS "count" -- , network_radios.name AS "radio_name"
+        SELECT sites.code, radio_types.name, count(*) AS "count" -- , network_radios.name AS "radio_name"
 		FROM sites, network_radios, radio_types
 		WHERE sites.id = network_radios.site_id
 		AND network_radios.radio_type_id = radio_types.id

@@ -10,11 +10,11 @@
           //'name' => 'sitesearch'
           )
   );
-  //echo $this->Form->input('site_code',array('escape' => true,'class' => 'span2'));
+  //echo $this->Form->input('code',array('escape' => true,'class' => 'span2'));
   //echo '<div style="width:10px;">';
-  echo $this->Form->input('site_code',array('escape' => false,'class' => 'search-query'));
+  echo $this->Form->input('code',array('escape' => false,'class' => 'search-query'));
   echo '<br>'; 
-  echo $this->Form->input('site_name',array('class' => 'search-query'));
+  echo $this->Form->input('name',array('class' => 'search-query'));
   echo '<br>';
   //echo $this->Form->input('site_state_id',array('class' => 'span2'));
    

@@ -215,7 +215,7 @@ class NetworkSwitchesController extends AppController {
                 //$networkswitches[$i] = 'Port '.$i;
             }
         } else {
-            $networkswitches[0] = $this->Site->field('site_name').' has no switch';
+            $networkswitches[0] = $this->Site->field('name').' has no switch';
         }
         
         $this->set('network_switch_id',$this->NetworkSwitch->id);

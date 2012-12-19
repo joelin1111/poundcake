@@ -135,7 +135,7 @@ while ( <TRCS> ) {
 	print OUTPUT "INSERT INTO \`trcs\` VALUES (\n";
 	
 	print OUTPUT "\t$id, -- ID\n";
-	print OUTPUT "\t\'$trc_name\', -- site_name\n";
+	print OUTPUT "\t\'$trc_name\', -- name\n";
 	print OUTPUT "\t\'$trc_code\', -- trc_code\n";
 	print OUTPUT "\t\'\', -- status\n";
 	print OUTPUT "\t\'\', -- intervention_type_id\n";
@@ -166,7 +166,7 @@ while ( <SCHOOLS> ) {
 	$catchment = $fields[0];
 	$area = $fields[1];
 	$district = $fields[2];
-	$site_name = $fields[3];
+	$name = $fields[3];
 	$school_code = $fields[4];
 	$school_status = $fields[5];
 	$trc = $fields[6];
@@ -248,11 +248,11 @@ while ( <SCHOOLS> ) {
 	
 	# site name
 	# escape any apostrophes in the site name
-	$site_name =~ s/\'/\\\'/g;
+	$name =~ s/\'/\\\'/g;
 	# capitalize the first letter, lowercase the rest
-	$site_name =~ s/([\w']+)/\u\L$1/g;
+	$name =~ s/([\w']+)/\u\L$1/g;
 	
-	print OUTPUT "\t\'$site_name\', -- Site Name\n";
+	print OUTPUT "\t\'$name\', -- Site Name\n";
 	
 	# school code
 	print OUTPUT "\t\'$school_code\', -- School Code\n";
@@ -751,8 +751,8 @@ UPDATE `districts` SET area_id=3 WHERE id=16; -- Nanyumbu
 
 -- DROP INDEX school_code_idx ON schools;
 -- CREATE INDEX school_code_idx ON schools(school_code);
--- CREATE INDEX schools_index2 ON schools(site_name);
--- CREATE INDEX school_idx ON schools(school_code,site_name);
+-- CREATE INDEX schools_index2 ON schools(name);
+-- CREATE INDEX school_idx ON schools(school_code,name);
 
 -- Dummy data
 UPDATE `trcs` SET location=GeomFromText('POINT(-10.7262833333333 39.8306833333333)');

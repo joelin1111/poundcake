@@ -120,8 +120,8 @@ class BuildItemsController extends AppController {
         $this->set('sites',$this->BuildItem->Site->find('list',
             array(
                 'order' => array(
-                    'Site.site_code',
-                    'Site.site_name ASC'
+                    'Site.code',
+                    'Site.name ASC'
             )))
         );
     }

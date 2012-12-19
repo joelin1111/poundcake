@@ -5,7 +5,7 @@ DELIMITER ENDSPDEF
 -- GLength returns in degrees -- so multiply by 111.2 for Kms (69 for miles)
 CREATE PROCEDURE sp_nearby(site_id int(10), max_sites int(10))
     BEGIN 
-        SELECT sites.id, sites.site_code, sites.site_name, CONCAT(sites.site_code, " ", sites.site_name) as site_vf,
+        SELECT sites.id, sites.code, sites.name, CONCAT(sites.code, " ", sites.name) as site_vf,
         111.2*(GLength(LineStringFromWKB(LineString(location,(select location from locations where ID=site_id)))))
 		AS distance,
 		X(location) as lat,

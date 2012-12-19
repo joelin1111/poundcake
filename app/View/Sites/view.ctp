@@ -32,7 +32,7 @@
 
 <div class="span9">
     <div class="row">
-        <h2><?php echo $site['Site']['site_code']." ".$site['Site']['site_name'].' ('.$site['SiteState']['name'].')'?> </h2>            
+        <h2><?php echo $site['Site']['code']." ".$site['Site']['name'].' ('.$site['SiteState']['name'].')'?> </h2>            
         <div class="span4">
             <P><B>Site contacts:</B>&nbsp;
                 <?php
@@ -111,7 +111,7 @@
                     $s[0]['site_vf'],
                     array('controller' => 'sites', 'action' => 'view', $s['sites']['id'])
                 );
-                //$windowText = $siteUrl."<BR>".$s['schools']['site_name']. "<BR>Distance: ".$distance." Km";
+                //$windowText = $siteUrl."<BR>".$s['schools']['name']. "<BR>Distance: ".$distance." Km";
                 $windowText = $siteUrl."<BR>Distance: ".$distance." Km";
 
 

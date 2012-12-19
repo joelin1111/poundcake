@@ -16,7 +16,7 @@ DROP PROCEDURE IF EXISTS sp_get_gw;
 -- Switch delimiter so the ; will work in the function body
 DELIMITER ENDSPDEF
 -- Create the procedure
-CREATE PROCEDURE sp_get_gw(site_code varchar(255))
+CREATE PROCEDURE sp_get_gw(code varchar(255))
 BEGIN
 	DECLARE addr char(15);
 	DECLARE dest,src,ip,starting_ip char(15);
@@ -29,12 +29,12 @@ BEGIN
 	-- if you are looking for the gateway for OBLEO-BOUTL, you need to find a /32 IP in the same IP range as OBLEO boutl with the name OBELO
 	
 	 -- returns everything to the right of the '-'
-	SELECT SUBSTRING_INDEX(site_code,'-',-1) INTO dest;
+	SELECT SUBSTRING_INDEX(code,'-',-1) INTO dest;
 	-- returns everything to the left of the '-'
-	SELECT SUBSTRING_INDEX(site_code,'-',+1) INTO src;
+	SELECT SUBSTRING_INDEX(code,'-',+1) INTO src;
 	
 	-- Get the IP for the site
-	SET ip = sp_get_ip_address(site_code);
+	SET ip = sp_get_ip_address(code);
 	
 	IF ip IS NOT NULL THEN
 	-- SELECT ip;

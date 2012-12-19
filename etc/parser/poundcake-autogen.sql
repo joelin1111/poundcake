@@ -4,8 +4,8 @@
 DROP TABLE IF EXISTS `sites`;
 CREATE TABLE `sites` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `site_name` varchar(50) NOT NULL,
-  `site_code` varchar(10) NOT NULL,
+  `name` varchar(50) NOT NULL,
+  `code` varchar(10) NOT NULL,
   `lat` decimal(17,14) DEFAULT NULL,
   `lon` decimal(17,14) DEFAULT NULL,
   `install_date` datetime DEFAULT NULL,

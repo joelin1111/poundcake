@@ -58,7 +58,7 @@ class Site extends AppModel {
      * Field-level validation rules
      */
     public $validate = array(
-        'site_name' => array(
+        'name' => array(
             'notempty' => array(
                 'rule' => array('notempty'),
                 'message' => 'This field cannot be blank',
@@ -90,17 +90,17 @@ class Site extends AppModel {
     );
     
     /*
-     * Use CakePHP virtual fields to combine site_code and site_name
+     * Use CakePHP virtual fields to combine code and name
      * Note: this virtualField is also defined in the sp_nearby stored procedure
      * - that version is used to place placemarkers for nearby sites on the site
      * view page map
      */
-    var $virtualFields = array('site_vf' => 'CONCAT(site_code, " ", site_name)');
+    var $virtualFields = array('site_vf' => 'CONCAT(code, " ", Site.name)');
     
     /*
      * Default sort order
      */
-    var $order = 'Site.site_code ASC';
+    var $order = 'Site.code ASC';
 
     /*
      * Constructor - Note: cannot remember why we defined a constructor here
