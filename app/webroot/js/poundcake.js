@@ -228,25 +228,6 @@ function bootbox_dialogs() {
                         },
                         error: function() { console.log( 'error'); }
                 });
-                /*
-                $.post( $action, {
-//                    beforeSend: function() {
-//                        console.log( 'before send' );
-//                    },
-                success: function(data) {
-                        console.log( 'success' );
-//                        window.location.reload(true);
-                    },
-                error: function(e, ts, et) {
-                        console.log( 'error' ); 
-//                        console.log( e ); 
-//                        console.log( ts ); 
-//                        console.log( et);
-                    }                    
-                });
-                */
-//                console.log( "done");
-                // window.location.reload(true);
                 return false;
             }
         });
