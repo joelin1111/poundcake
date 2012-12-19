@@ -198,7 +198,8 @@ function errorstrap()
 function bootbox_dialogs() {
     
     /*
-     * Delete confirmation Bootbox dialog
+     * Generic way to handle Bootbox dialog boxes for confirmation
+     * from users on an action such a "Delete"
      */
     $('a.confirm').removeAttr('onclick');
     $('a.confirm').click(function(e) {
@@ -209,28 +210,41 @@ function bootbox_dialogs() {
         var $action = $(this).siblings( 'form' ).attr('action');
         //console.log( $action );
         
+        // the text to display in the dialog box comes in as an HTML5
+        // data attribute, data-dialog_msg="Foo"
         var $string = $(this).data( 'dialog_msg' );
         
-        //console.log( $name );
+        console.log( $action );
         
         // bootbox.confirm( "Confirm "+$name+"?", function(confirmed) {
         bootbox.confirm( $string + '?', function(confirmed) {
             if (confirmed) {
+                $.ajax({
+                        type: 'POST',
+                        url: $action,
+                        success: function() {
+                            console.log( 'success');
+                            window.location.reload(true);
+                        },
+                        error: function() { console.log( 'error'); }
+                });
+                /*
                 $.post( $action, {
-                    beforeSend: function() {
-//                        console.log("before send");
+//                    beforeSend: function() {
+//                        console.log( 'before send' );
+//                    },
+                success: function(data) {
+                        console.log( 'success' );
+//                        window.location.reload(true);
                     },
-                    error: function(e, ts, et) {
-//                        console.log( 'error' ); 
+                error: function(e, ts, et) {
+                        console.log( 'error' ); 
 //                        console.log( e ); 
 //                        console.log( ts ); 
-//                        console.log( et); 
-                    },
-                    success: function(data) {
-//                        console.log( 'success' );
-                        window.location.reload(true);
-                    }
+//                        console.log( et);
+                    }                    
                 });
+                */
 //                console.log( "done");
                 // window.location.reload(true);
                 return false;
