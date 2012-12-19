@@ -40,7 +40,13 @@
             </td>
             <td>
             <?php echo $this->MyHTML->linkIfAdmin('Edit', array('action' => 'edit', $change['ChangeLog']['id'])); ?>
-            <?php echo $this->MyHtml->linkIfAdmin('Delete', array('action' => 'delete', $change['ChangeLog']['id']), null, __('Are you sure you want to delete change %s?', $change['ChangeLog']['version'])); ?>
+            <?php 
+                echo $this->Form->postLink('Delete',
+                    array('controller'=>'changelog','action'=>'delete', $change['ChangeLog']['id']),
+                    array('method' => 'post','class'=>'confirm','data-dialog_msg'=>'Confirm delete of '.$change['ChangeLog']['version']),
+                    null
+                );
+            ?>
             </td>
 	</tr>
         <?php endforeach; ?>
