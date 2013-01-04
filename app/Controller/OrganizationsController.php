@@ -24,11 +24,7 @@
  */
 
 App::uses('AppController', 'Controller');
-/**
- * ServiceProviders Controller
- *
- * @property Organization $Organization
- */
+
 class OrganizationsController extends AppController {
 
     /*

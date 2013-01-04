@@ -29,7 +29,7 @@ class ChangeLog extends AppModel {
     public $displayField = 'name';
     
     /*
-     * Default sort order
+     * Default sort order: by date, version (newest at top)
      */
-    var $order = "ChangeLog.release_date DESC";
+    var $order = "ChangeLog.release_date DESC, ChangeLog.version DESC";
 }

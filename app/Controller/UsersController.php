@@ -24,7 +24,10 @@
  */
 
 class UsersController extends AppController {
-
+    
+    /*
+     * Custom pagination, sort order on index listing
+     */
     public $paginate = array(
         'limit' => 20, // default limit also defined in AppController
         'order' => array(

@@ -21,11 +21,7 @@
  */
 
 App::uses('AppController', 'Controller');
-/**
- * Contacts Controller
- *
- * @property Contact $Contact
- */
+
 class ContactsController extends AppController {
 
     /*

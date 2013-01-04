@@ -1,6 +1,6 @@
 <?php
 /**
- * Controller for antenna types.
+ * Controller for radio modes.
  *
  * This is a very basic controller to add/view/update/delete radio modes.
  * 

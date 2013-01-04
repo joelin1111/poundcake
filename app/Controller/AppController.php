@@ -46,6 +46,14 @@ class AppController extends Controller {
         'RequestHandler'
     );
 
+    /*
+     * Helpers we use:
+     * - MyHTML makes de-links hyperlinks for view-only users
+     */
+    var $helpers = array(
+        //'MyHTML'
+    );
+    
     // return all the organizations the user may be assigned to
     public function getOrganizationsForCurrentProject($obj) {
         // $this->set('organizations',$this->Contact->Organization->find('list'));

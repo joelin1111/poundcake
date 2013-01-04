@@ -110,7 +110,7 @@ $cakeDescription = __d('poundcake', 'Tower DB');
                     ?>
                     
                 </ul>
-            </div>
+                </div>
             <?php
                 // if the user is logged in, show a button on the right side with
                 // links to change their password, etc.
@@ -161,15 +161,13 @@ $cakeDescription = __d('poundcake', 'Tower DB');
             echo $project_name != "" ? $project_name : "Unknown";
             echo " | ";
             echo $this->Html->link(('Switch Project'), array('action' => 'project', 'controller' => 'users', CakeSession::read("Auth.User.id")));
-        ?><BR>
-            <?
-                $copyright = 'Copyright © 2012';
-                $current_year = date("Y");
-                if ($current_year > 2012)
-                    $copyright = 'Copyright © 2012-'.$current_year;
-                echo $copyright . ' All Rights Reserved.<BR>';
-                echo $this->Html->link(('Version History'), array('action' => 'index', 'controller' => 'changeLog'));
-            ?>
+            $copyright = 'Copyright © 2012';
+            $current_year = date("Y");
+            if ($current_year > 2012)
+                $copyright = '<BR>Copyright © 2012-'.$current_year;
+            echo $copyright . ' All Rights Reserved.<BR>';
+            echo $this->Html->link(('Version History'), array('action' => 'index', 'controller' => 'changeLog'));
+        ?>
             
     <?php //echo $this->element('sql_dump'); ?>
     

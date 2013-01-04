@@ -1,6 +1,6 @@
 <?php
 /**
- * Controller for antenna types.
+ * Controller for admin functions.
  *
  * This is a very basic controller to add/view/update/delete antenna types.
  * These tasks would typically be performed by a user with administrative level
@@ -21,6 +21,7 @@
  * @since         AntennaTypesController precedes Poundcake v2.2.1
  * @license       XYZ License
  */
+
 class AdminController extends AppController {
     
     /*

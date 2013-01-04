@@ -1,10 +1,9 @@
 <?php
 /**
- * Controller for antenna types.
+ * Controller for sites.
  *
- * This is a very basic controller to add/view/update/delete antenna types.
- * These tasks would typically be performed by a user with administrative level
- * permissions within Poundcake.
+ * This is a very basic controller to add/view/update/delete sites, a
+ * core object within the Poundcake application.
  *
  * Developed against CakePHP 2.2.3 and PHP 5.4.4.
  *

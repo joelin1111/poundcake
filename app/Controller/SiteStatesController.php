@@ -1,8 +1,8 @@
 <?php
 /**
- * Controller for antenna types.
+ * Controller for site states.
  *
- * This is a very basic controller to add/view/update/delete antenna types.
+ * This is a very basic controller to add/view/update/delete site states.
  * 
  * These tasks would typically be performed by a user with administrative level
  * permissions within Poundcake.
