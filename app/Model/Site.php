@@ -122,7 +122,10 @@ class Site extends AppModel {
     function getDeclination($lat, $lon) {
         $dec = null;
         if (isset($lat) && isset($lon)) {
-            $url='http://www.ngdc.noaa.gov/geomag-web/calculators/calculateDeclination?lat1='.$lat.'&lon1='.$lon.'&resultFormat=csv';
+            // since Jan 2013 they appear to want the month now as part of the URL
+            // so just get the current month number
+            $month = date('m');
+            $url='http://www.ngdc.noaa.gov/geomag-web/calculators/calculateDeclination?lat1='.$lat.'&startMonth='.$month.'&lon1='.$lon.'&resultFormat=csv';
             $x = file_get_contents($url);
             $y = str_getcsv($x);            
             // count should be > 1 unless the web service is down or some other network error
@@ -132,6 +135,7 @@ class Site extends AppModel {
                 $dec = 0;
             }
         }
+        debug ($url );
         return $dec;
     }    
 }
