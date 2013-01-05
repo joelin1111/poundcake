@@ -77,10 +77,19 @@
 
         foreach ($this->request->data['NetworkRadios'] as $radio) {
             echo "<tr><td>";
+            //$radio['name'] = "test";
+            //debug( $radio['name'] );
+            //debug( $radio['id'] );
+            echo $this->MyHtml->linkIfAllowed($radio['name'], array(
+                'controller' => 'networkRadios',
+                'action' => 'view',
+                $radio['id']));
+            /*
             echo $this->Html->link($radio['name']), array(
                 'controller' => 'networkRadios',
                 'action' => 'view',
                 $radio['id']);
+            */
             echo "</td>";
 
             echo "<td>";
