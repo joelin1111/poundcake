@@ -51,7 +51,7 @@ class AppController extends Controller {
      * - MyHTML makes de-links hyperlinks for view-only users
      */
     var $helpers = array(
-        //'MyHTML'
+        'MyHTML'
     );
     
     // return all the organizations the user may be assigned to

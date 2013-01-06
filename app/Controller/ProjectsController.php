@@ -30,6 +30,14 @@ App::uses('AppController', 'Controller');
 class ProjectsController extends AppController {
 
     /*
+     * Helpers we use:
+     * - MyHTML makes de-links hyperlinks for view-only users
+     */
+    var $helpers = array(
+        'MyHTML'
+    );
+    
+    /*
      * Main listing for all Projects
      */
     public function index() {
