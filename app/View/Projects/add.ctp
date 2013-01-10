@@ -21,6 +21,7 @@
         echo $this->Form->input('datetime_format', array( 'label' => 'Datetime Format (PHP compatible)' ));
         echo $this->Form->input('snmp_type_id', array('type'=>'select','options' => $snmptypes, 'label' => 'SNMP Version', 'empty' => true));
         echo $this->Form->input('snmp_community_name', array( 'label' => 'SNMP Community Name' ));
+        echo $this->Form->input('monitoring_system_type_id', array('type'=>'select','options' => $monitoringSystemTypes, 'label' => 'Monitoring System', 'empty' => true));
     ?>
     </fieldset>
     <?php

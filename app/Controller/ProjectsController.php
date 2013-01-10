@@ -70,6 +70,7 @@ class ProjectsController extends AppController {
             }
         }
         $this->getSnmpTypes();
+        $this->getMonitoringSystemTypes();
     }
 
     /*
@@ -91,6 +92,7 @@ class ProjectsController extends AppController {
                 $this->request->data = $this->Project->read(null, $id);
         }
         $this->getSnmpTypes();
+        $this->getMonitoringSystemTypes();
     }
 
     /*
@@ -120,6 +122,18 @@ class ProjectsController extends AppController {
             array(
                 'order' => array(
                     'SnmpType.name'
+            )))
+        );
+    }
+    
+    /*
+     * Save an array of Monitor System Types the project may be using
+     */
+    private function getMonitoringSystemTypes() {
+        $this->set('monitoringSystemTypes',$this->Project->MonitoringSystemType->find('list',
+            array(
+                'order' => array(
+                    'MonitoringSystemType.name'
             )))
         );
     }

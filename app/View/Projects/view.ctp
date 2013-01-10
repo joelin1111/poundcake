@@ -17,5 +17,6 @@
     <P><B>Datetime Format:</B>&nbsp;<?php echo $project['Project']['datetime_format']; ?></P>
     <P><B>SNMP Version:</B>&nbsp;<?php echo $project['SnmpType']['name']; ?></P>
     <P><B>SNMP Community Name:</B>&nbsp;<?php echo $project['Project']['snmp_community_name']; ?></P>
+    <P><B>Monitoring System:</B>&nbsp;<?php echo $project['MonitoringSystemType']['name']; ?></P>
 </div> <!-- /.span9 -->
 </div> <!-- /.row -->

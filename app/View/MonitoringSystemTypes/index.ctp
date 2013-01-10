@@ -3,14 +3,14 @@
     <H3>Actions</H3>
     <div class="well well-large">
     <ul>
-        <li><?php echo $this->Html->link('New Antenna Type', array('action' => 'add')); ?></li>
+        <li><?php echo $this->Html->link('New Monitoring System Type', array('action' => 'add')); ?></li>
         <li><?php echo $this->Html->link('Admin',array('controller'=>'admin','action' => 'setup')); ?></li>
     </ul>
     </div>
 </div><!-- /.span3 .sb-fixed -->
 
 <div class="span9">
-	<h2>Antenna Types</h2>
+	<h2>Monitor System Types</h2>
 	<table class="table table-condensed table-striped">
             <thead>
                 <tr>
@@ -20,16 +20,16 @@
             </thead>
             <tbody>
 	<?php
-	foreach ($antennaTypes as $antennaType): ?>
+	foreach ($monitoringSystemTypes as $monitoringSystemType): ?>
 	<tr>
-            <td><?php echo $antennaType['AntennaType']['name'];?></td>
+            <td><?php echo $monitoringSystemType['MonitoringSystemType']['name'];?></td>
             <td>
                 <?php
-                    echo $this->Html->link('Edit', array('action' => 'edit', $antennaType['AntennaType']['id']));
+                    echo $this->Html->link('Edit', array('action' => 'edit', $monitoringSystemType['MonitoringSystemType']['id']));
                     echo '&nbsp;';
                     echo $this->Form->postLink('Delete',
-                        array('controller'=>'antennatypes','action'=>'delete', $antennaType['AntennaType']['id']),
-                        array('method' => 'post','class'=>'confirm','data-dialog_msg'=>'Confirm delete of '.$antennaType['AntennaType']['name']),
+                        array('controller'=>'monitoringsystemtypes','action'=>'delete', $monitoringSystemType['MonitoringSystemType']['id']),
+                        array('method' => 'post','class'=>'confirm','data-dialog_msg'=>'Confirm delete of '.$monitoringSystemType['MonitoringSystemType']['name']),
                         null
                     );
                 ?>

@@ -2,7 +2,8 @@
 /**
  * Controller for admin functions.
  *
- * This is a very basic controller to add/view/update/delete antenna types.
+ * This is a very basic controller to show an admin page.
+ * 
  * These tasks would typically be performed by a user with administrative level
  * permissions within Poundcake.
  *
@@ -18,7 +19,7 @@
  * @author        Clark Ritchie <clark@inveneo.org>
  * @link          http://www.inveneo.org
  * @package       app.Controller
- * @since         AntennaTypesController precedes Poundcake v2.2.1
+ * @since         AdminController precedes Poundcake v2.2.1
  * @license       XYZ License
  */
 

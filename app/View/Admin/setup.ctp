@@ -13,8 +13,7 @@
         <UL>
             <li><?php echo $this->Html->link('Projects', '/admin/projects/index'); ?></li>
             <li><?php echo $this->Html->link('Roles', '/admin/roles/index'); ?></li>
-            <li><?php echo $this->Html->link('Users', '/admin/users/index'); ?></li>
-            
+            <li><?php echo $this->Html->link('Users', '/admin/users/index'); ?></li>            
         </UL>
 
         <H3>Sites, Towers</H3>
@@ -41,6 +40,7 @@
         <li><?php echo $this->Html->link('Build Items', '/admin/buildItems/index'); ?></li>
         <li><?php echo $this->Html->link('Contact Types', '/admin/contactTypes/index'); ?></li>
         <li><?php echo $this->Html->link('Install Teams', '/admin/installTeams/index'); ?></li> 
+        <li><?php echo $this->Html->link('Monitoring System Type', '/admin/monitoringSystemTypes/index'); ?></li>
         <li><?php echo $this->Html->link('Router Types', '/admin/routerTypes/index'); ?> </li>
         <li><?php echo $this->Html->link('Site States', '/admin/siteStates/index'); ?></li>
         <li><?php echo $this->Html->link('SNMP Versions', '/admin/snmpTypes/index'); ?></li>

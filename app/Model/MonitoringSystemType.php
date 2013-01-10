@@ -1,6 +1,6 @@
 <?php
 /**
- * Model for project.
+ * Model for monitoring system types.
  *
  * Developed against CakePHP 2.2.3 and PHP 5.4.4.
  *
@@ -10,18 +10,18 @@
  * 
  * Redistributions of files must retain the above copyright notice.
  *
- * @copyright     Copyright 2012, Inveneo, Inc. (http://www.inveneo.org)
+ * @copyright     Copyright 2013, Inveneo, Inc. (http://www.inveneo.org)
  * @author        Clark Ritchie <clark@inveneo.org>
  * @link          http://www.inveneo.org
  * @package       app.Model
- * @since         Project precedes Poundcake v2.2.1
+ * @since         MonitoringSystemType was introduced in Poundcake v2.2.5
  * @license       XYZ License
  */
 
 
 App::uses('AppModel', 'Model');
 
-class Project extends AppModel {
+class MonitoringSystemType extends AppModel {
 
     /*
      * Display field for select lists
@@ -29,18 +29,10 @@ class Project extends AppModel {
     public $displayField = 'name';
     
     /*
-     * Relations
+     * Default sort order
      */
-    public $hasAndBelongsToMany = array('User');
-    
-    /*
-     * Relations
-     */
-    public $belongsTo = array(
-        'SnmpType',
-        'MonitoringSystemType'
-    );
-    
+    var $order = 'MonitoringSystemType.name ASC';
+
     /*
      * Field-level validation rules
      */
@@ -54,6 +46,7 @@ class Project extends AppModel {
                 //'last' => false, // Stop validation after this rule
                 //'on' => 'create', // Limit validation to 'create' or 'update' operations
             )
-        ),
+        )
     );
 }
+?>
