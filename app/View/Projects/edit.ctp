@@ -22,7 +22,15 @@
         echo $this->Form->input('datetime_format', array( 'label' => 'Datetime Format (PHP compatible)' ));
         echo $this->Form->input('snmp_type_id', array('type'=>'select','options' => $snmptypes, 'label' => 'SNMP Version', 'empty' => true));
         echo $this->Form->input('snmp_community_name', array( 'label' => 'SNMP Community Name' ));
-        echo $this->Form->input('monitoring_system_type_id', array('type'=>'select','options' => $monitoringSystemTypes, 'label' => 'Monitoring System', 'empty' => true));
+    ?>
+    
+    <B>Network Monitoring System</B>
+    <?php
+        echo $this->Form->input('monitoring_system_type_id', array('type'=>'select','options' => $monitoringSystemTypes, 'label' => 'Monitoring System Type', 'empty' => true));
+        echo $this->Form->input('monitoring_system_username', array( 'label' => 'Monitoring System Username' ));
+        echo $this->Form->input('monitoring_system_password', array( 'type'=>'password', 'label' => 'Monitoring System Password' ));
+        echo $this->Form->input('monitoring_system_url', array( 'label' => 'Monitoring System URL' ));
+        echo $this->Form->input('monitoring_system_port', array( 'label' => 'Monitoring System Port' ));
     ?>
     </fieldset>
     <?php
