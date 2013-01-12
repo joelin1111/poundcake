@@ -157,10 +157,15 @@ $cakeDescription = __d('poundcake', 'Tower DB');
     
         <?php
             $project_name = $this->Session->read('project_name');
-            echo "Current Project: ";
-            echo $project_name != "" ? $project_name : "Unknown";
-            echo " | ";
-            echo $this->Html->link(('Switch Project'), array('action' => 'project', 'controller' => 'users', CakeSession::read("Auth.User.id")));
+            
+            // only show this stuff if the user is logged in
+            if ( !(is_null($project_name))) {
+                echo "Current Project: ";
+                echo $project_name != "" ? $project_name : "Unknown";
+                echo " | ";
+                echo $this->Html->link(('Switch Project'), array('action' => 'project', 'controller' => 'users', CakeSession::read("Auth.User.id")));
+            }
+            
             $copyright = 'Copyright © 2012';
             $current_year = date("Y");
             if ($current_year > 2012)
