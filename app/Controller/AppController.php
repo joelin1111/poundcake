@@ -272,36 +272,41 @@ class AppController extends Controller {
 //        return $this->isUnique($tmp, false); 
 //    }
     
-    // plural
+    /*
+     * Return IP addresses (note: plural) for a given item name, used for the
+     * HRBN addrpool integration.
+     * 
+     * @see MySQL stored procedures.
+     */
     public function getAllIPAddresses($name) {
         return ClassRegistry::init('IPAddress')->getAllIPAddresses($name);
     }
     
-    // singular
+    /*
+     * Return IP addresses (note: singular) for a given item name, used for the
+     * HRBN addrpool integration.
+     * 
+     * @see MySQL stored procedures.
+     */
     public function getIPAddress($name) {
         return ClassRegistry::init('IPAddress')->getIPAddress($name);
     }
     
+    /*
+     * Return gateway addresses for a given item name, used for the
+     * HRBN addrpool integration.
+     * 
+     * @see MySQL stored procedures.
+     */
     public function getGatewayAddress($name) {
         return ClassRegistry::init('IPAddress')->getGatewayAddress($name);
     }
     
-    public function pcdebug(array $x, $die = true) {
-        echo '<pre>';
-        print_r($x);
-        //$dbo = $this->getDatasource();
-        //$logs = $dbo->getLog();
-        //echo $logs;
-        echo '</pre>';    
-        if ($die)
-            die;
-           
-    }
-    
     /**
      * Prettifies an XML string into a human-readable and indented work of art 
-     *  @param string $xml The XML as a string 
-     *  @param boolean $html_output True if the output should be escaped (for use in HTML) 
+     * 
+     * @param string $xml The XML as a string 
+     * @param boolean $html_output True if the output should be escaped (for use in HTML) 
      */
     
     // see: http://gdatatips.blogspot.com/2008/11/xml-php-pretty-printer.html

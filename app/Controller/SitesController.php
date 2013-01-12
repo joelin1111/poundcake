@@ -47,7 +47,10 @@ class SitesController extends AppController
      * Field names for the form itself, 'model' => 'Site'
      */
     public $presetVars = array(
-        array('field' => 'name', 'type' => 'value'),
+        array(
+            'field' => 'name',
+            'type' => 'value'
+        ),
     );
     
     /*
@@ -120,8 +123,7 @@ class SitesController extends AppController
                         array_push($checked,$val['Site.site_state_id']);
                 }
             }
-            $this->request->data['Site']['site_state_id'] = $checked;
-            
+            $this->request->data['Site']['site_state_id'] = $checked;            
             
         } else {
             // get search stuff from the form that was sent in
@@ -154,7 +156,7 @@ class SitesController extends AppController
             
             // we basically have to have something in the site_state_id field, so if the
             // user didn't check anything, stick a wildcard in there
-            if (count($site_states) == 0 ) {
+            if ( count( $site_states ) == 0 ) {
                 $site_states = array('Site.site_state_id LIKE' => '%');
             }
 
@@ -169,7 +171,7 @@ class SitesController extends AppController
                     array('OR' => $site_states)
             ));
 
-            $this->Session->write('conditions',$conditions);
+            $this->Session->write( 'conditions', $conditions );
         }
 
         // paginate the results
@@ -410,7 +412,7 @@ class SitesController extends AppController
     }
     
     /*
-     * 
+     * Get an array of build items -- items for the "board" build
      */
     function getBuildItems() {
        $this->loadModel('BuildItems');
@@ -553,7 +555,7 @@ class SitesController extends AppController
     }
     
     /*
-     * 
+     * Save an array of connectivity types
      */
     function getConnectivityTypes() {
         $this->Site->ConnectivityType->
@@ -561,63 +563,63 @@ class SitesController extends AppController
     }
     
     /*
-     * 
+     * Save an array of site states
      */
     function getSiteStates() {
         $this->set('sitestates',$this->Site->SiteState->find('list'));
     }
     
     /*
-     * 
+     * Save an array of power types
      */
     function getPowerTypes() {
         $this->set('powertypes',$this->Site->PowerType->find('list'));
     }
     
     /*
-     * 
+     * Save an array of tower types
      */
     function getTowerTypes() {
         $this->set('towertypes',$this->Site->TowerType->find('list'));
     }
     
     /*
-     * 
+     * Save an array of tower members
      */
     function getTowerMembers() {
         $this->set('towermembers',$this->Site->TowerMember->find('list'));
     }
     
     /*
-     * 
+     * Save an array of equipment spaces
      */
     function getEquipmentSpace() {
         $this->set('equipmentspace',$this->Site->EquipmentSpace->find('list'));
     }
     
     /*
-     * 
+     * Save an array of tower mounts
      */
     function getTowerMounts() {
         $this->set('towermounts',$this->Site->TowerMount->find('list'));
     }   
     
     /*
-     * 
+     * Save an array of network switches
      */
     function getNetworkSwitches() {
         $this->set('networkswitches',$this->Site->NetworkSwitch->find('list'));
     }
     
     /*
-     * 
+     * Save an array of network routers
      */
     function getNetworkRouters() {
         $this->set('networkrouters',$this->Site->NetworkRouter->find('list'));
     }
     
     /*
-     * 
+     * Save an array of network radios
      */
     function getNetworkRadios() {
         // Cake uses lazy binding, so we must explicitly bind here
@@ -627,7 +629,7 @@ class SitesController extends AppController
     }
     
     /*
-     * 
+     * Save an array of radio types
      */
     function getRadioTypes() {
         $this->set('radiotypes',$this->Site->NetworkRadio->RadioType->find('list',
@@ -639,7 +641,7 @@ class SitesController extends AppController
     }
     
     /*
-     * 
+     * Save an array of antenna types
      */
     function getAntennaTypes() {
         $this->set('antennatypes',$this->Site->NetworkRadio->AntennaType->find('list',
@@ -651,7 +653,7 @@ class SitesController extends AppController
     }
     
     /*
-     * 
+     * Save an array of install teams
      */
     function getInstallTeams() {
         $this->set('installteams',$this->Site->InstallTeam->find('list',
@@ -933,8 +935,6 @@ class SitesController extends AppController
         $this->layout = 'blank';
         $this->render('workorder');
         $this->layout = 'default';
-        
-        
     }
     
     /*
