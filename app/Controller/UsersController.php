@@ -109,6 +109,9 @@ class UsersController extends AppController {
                 if (!is_null($id)) {
                     $this->User->id = $id;
                     $this->User->saveField('project_id',$project_id);
+                    // clear any saved searches ("sticky search" so the main site
+                    // listing page goes to sites in the newly selected project
+                    $this->Session->write( 'conditions', null );
                 }
                 $this->Session->setFlash('The project has been set.');
                 $this->redirect(array('controller' => 'sites','action' => 'overview'));
