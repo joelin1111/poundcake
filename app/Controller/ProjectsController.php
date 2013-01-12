@@ -79,7 +79,7 @@ class ProjectsController extends AppController {
     public function edit($id = null) {
         $this->Project->id = $id;
         if (!$this->Project->exists()) {
-                throw new NotFoundException('Invalid project');
+            throw new NotFoundException('Invalid project');
         }
         if ($this->request->is('post') || $this->request->is('put')) {
             if ($this->Project->save($this->request->data)) {

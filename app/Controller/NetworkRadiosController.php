@@ -26,9 +26,13 @@
  * @see           MySQL triggers, stored procedures
  */
 
-App::uses('AppController', 'Controller');
+// App::uses('AppController', 'NetworkDeviceController', 'Controller');
 
-class NetworkRadiosController extends AppController {
+// class NetworkRadiosController extends AppController {
+
+App::uses('NetworkDeviceController', 'Controller');
+
+class NetworkRadiosController extends NetworkDeviceController {
 
     /*
      * MyHTML makes de-links hyperlinks for view-only users
@@ -44,7 +48,7 @@ class NetworkRadiosController extends AppController {
             'NetworkRadio.name' => 'asc'
         )
     );
-    
+
     /*
      * Main listing for all NetworkRadios
      */
@@ -93,6 +97,7 @@ class NetworkRadiosController extends AppController {
      */
     public function view($id = null) {
         $this->NetworkRadio->id = $id;
+        
         if (!$this->NetworkRadio->exists()) {
             throw new NotFoundException('Invalid radio');
         }
@@ -394,6 +399,26 @@ class NetworkRadiosController extends AppController {
         }
         $this->set('frequencies',$frequencies);
     }
+    
+        
+    public function provision( $id = null ) {        
+        // $this->NetworkRadio->id = $id;
+        $this->NetworkRadio->read(null, $id);
+        $name = $this->NetworkRadio->data['NetworkRadio']['name'];
+        $type = $this->NetworkRadio->data['RadioType']['name'];
+        $ip_addr = '10.0.0.1';
+        $foreign_id = parent::provision_node( $name, $type, $ip_addr, false );
+        
+        if ( !is_null( $foreign_id ) ) {
+            $this->NetworkRadio->saveField('foreign_id', $foreign_id);
+            $this->Session->setFlash('Provisioned radio.  Foreign ID '.$foreign_id);
+            
+        } else {
+            $this->Session->setFlash('Error provisioning radio.');
+        }
+        $this->redirect(array('action' => 'view',$this->NetworkRadio->id));
+    }
+    
     
     /*
      * Uses Auth to check the ACL to see if the user is allowed to perform any

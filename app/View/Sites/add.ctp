@@ -1,6 +1,4 @@
 <div class="row">
-    <?php //echo $this->Html->addCrumb('Sites', '/sites'); ?>
-    <?php //echo $this->BreadcrumbFormatter->getTrail(array('add')); ?>
 <div class="span3">
     <H3>Actions</H3>
     <div class="well well-large">
@@ -54,61 +52,6 @@
     echo $this->Form->input('Site.notes',array('style' => 'width:100%'));
     
     // no upload field since we don't have a Site.id until after save
-    echo $this->Form->end('Save');
+    echo $this->Form->end('Save', array('div' => false,'class'=>'btn'));
 ?>
 </fieldset>
-
-<?php
-    /*
-    //$this->Js->get('#SchoolCatchmentId')->event('change', $this->Js->alert('catchment changed, again!'));
-    //$this->Js->get('#catchment_id')->event('change', $this->Js->alert('hey you!'));
-
-    // this creates the Javascript to refresh the Areas select box after a user
-    // picks a District -- basically call getByCatchment on the Areas controller
-    // which dynamically replaces just the HTML for $this->Form->select('area_id')
-    // with the view code defined in Areas/get_by_catchment.ctp
-
-    $this->Js->get('#SchoolCatchmentId');
-    $this->Js->event('change',
-        $this->Js->request(array(
-        'controller' => 'areas',
-                'action'=>'getByCatchment'),
-                    array('async' => true,
-                        'update' => '#SchoolAreaId',
-                        'dataExpression' => true,
-                        'data'=> $this->Js->serializeForm(
-                                array(
-                                    'isForm' => true,
-                                    'inline'=> true
-                                    )
-                                ),
-                        'method' => 'post'
-                        )
-                    )
-    );
-    
-    $this->Js->get('#SchoolAreaId');
-    $this->Js->event('change',
-        $this->Js->request(array(
-        'controller' => 'districts',
-                'action'=>'getByArea'),
-                    array('async' => true,
-                        'update' => '#SchoolDistrictId',
-                        'dataExpression' => true,
-                        'data'=> $this->Js->serializeForm(
-                                array(
-                                    'isForm' => true,
-                                    'inline'=> true
-                                    )
-                                ),
-                        'method' => 'post'
-                        )
-                    )
-    );
-    
-    echo $this->Js->writeBuffer(); // Write cached scripts
-    */
-    //In client side JS, onchange is dependant upon onfocus() and onblur().
-    //So when you simply change the value of a select element, niehter focus
-    //nor blur happens to that element so onchange is never evoked.
-?>

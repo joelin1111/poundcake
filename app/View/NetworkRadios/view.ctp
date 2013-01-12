@@ -4,6 +4,14 @@
     <div class="well well-large">
     <ul>
         <li><?php echo $this->MyHTML->linkIfAllowed('Edit Radio', array('action'=>'edit', $networkradio['NetworkRadio']['id']),1);?></li>
+        <li><?php
+            echo $this->MyHTML->postLinkIfAllowed('Provision Radio',
+                array('controller'=>'networkRadios','action'=>'provision', $networkradio['NetworkRadio']['id'] ),
+                array('method' => 'post','class'=>'confirm','data-dialog_msg'=>'Provision radio '.$networkradio['NetworkRadio']['name'].' into monitoring system'),
+                null,
+                null );
+            ?>
+        </li>                    
         <li><?php echo $this->Html->link('List Radios', array('action' => 'index')); ?></li>        
     </ul>
     </div>

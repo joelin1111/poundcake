@@ -26,7 +26,7 @@ App::uses('AppController', 'Controller');
 class MonitorController extends AppController {
     
     /*
-     * This contoller has no unerlying model
+     * This contoller has no model
      */
     var $uses = null;
     
@@ -70,7 +70,7 @@ class MonitorController extends AppController {
     /*
      * Main listing for all objects
      */
-    public function index() {
+    public function index_test() {
         App::uses('HttpSocket', 'Network/Http');
         $HttpSocket = new HttpSocket();
         // string query
@@ -195,71 +195,42 @@ class MonitorController extends AppController {
         
         // echo '<pre>DUMP:<BR>' . $this->xmlpp($results->body, true) . '</pre>';
     }
+//    
+//    public function provision() {
+//        if ($this->request->is('post') || $this->request->is('put')) {
+//            // provision nodes with HttpSocket here
+//        } else {
+//            $project_id = $this->Session->read('project_id');
+//            if ( $project_id > 0 ) {
+//                // $sites = ClassRegistry::init('Sites')->find('all', array()); 
+//                $sites = ClassRegistry::init('Sites')->findAllByProjectId( $project_id , array() ); 
+//                debug($sites);
+//                die;
+//            }
+//        }
+//    }
     
-    public function provision() {
+   /*
+    * Provision a node in OpenNMS
+    * 
+    * Example of valid XML for privisioning a node:
+    * 
+    * <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+    * <node node-label="snooplion" foreign-id="snooplion" building="renamed-hiphop-artists">
+    *  <interface snmp-primary="N" status="1" ip-addr="8.8.4.4" descr="">
+    *   <monitored-service service-name="DNS"/>
+    * </interface>
+    * </node>
+    * 
+    * This XML could be saved to a file (e.g. snooplion.xml) and run as such:
+    * 
+    * curl -v -u admin:xxx -X POST -T foo.xml http://localhost:8980/opennms/rest/requisitions/renamed-hiphop-artists/nodes
+    * 
+   */
+    
+    private function provision_opennms() {
         App::uses('HttpSocket', 'Network/Http');
 
-        
-//        $data = array(
-//          'model-import' => array(
-//              'non-ip-snmp-primary' => 'N',
-//               'non-ip-interfaces'  => 'false',
-//              'foreign-source'  => 'xxx',
-//              'date-stamp' => '2013-01-08T09:39:07.227-08:00',
-//              'xmln' => 'http://xmlns.opennms.org/xsd/config/model-import',
-//              'node' => array(
-//                  'node-label' => 'zzz',
-//                  'foreign-id' => 'yyy'
-//        )));        
-//        $data = array (
-//            'key0' => array(
-//            'key1' => 'first value',
-//            'key2' => 'other value'
-//                )
-//        );
-//        
-//        $data = array(
-//            array('key' => 'value')
-//        );
-//        
-//        $data = array(
-//            'root' => array(
-//                'xmlns:' => 'http://xmlns.opennms.org/xsd/config/model-import',
-//                //'node node-label' => 'XXX',
-//                //'foreign-id' => 'YYY'
-//                'node' => array(
-//                    'node-label' => 'zzz',
-//                    'foreign-id' => 'yyy'
-//              )
-//            )
-//        );
-//        
-//        $data = array(
-//            'model-import' => array(
-//                'non-ip-snmp-primary' => 'N', // will be: <non-ip-snmp-primary>N</non-ip-snmp-primary>
-//                'node' => array(
-//                    'xmlns:' => 'http://xmlns.opennms.org/xsd/config/model-import',
-//                    'node-label' => array(
-//                        'item 1',
-//                        'item 2'
-//                    )
-//                )
-//        ));
-//        
-//        $xml_data = Xml::fromArray( $data );
-//        $xml_string = $xml_data->asXML();
-        
-       /*
-
-        <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-        <node node-label="snooplion" foreign-id="snooplion" building="renamed-hiphop-artists">
-         <interface snmp-primary="N" status="1" ip-addr="8.8.4.4" descr="">
-          <monitored-service service-name="DNS"/>
-         </interface>
-        </node>
-       
-       */
-        
         // creating XML from a data array -- I could not get attributes to work
         // using Cake's XML class, so I am doing it this way:
         // http://www.viper007bond.com/2011/06/29/easily-create-xml-in-php-using-a-data-array/
@@ -277,7 +248,6 @@ class MonitorController extends AppController {
                 'building' => $foreign_source                
 //                'xmlns' => 'http://xmlns.opennms.org/xsd/config/model-import'
             ),
-            //'value' => 'Some random value.',
             array(
                 'name' => 'interface',
                 'attributes' => array(
@@ -298,33 +268,21 @@ class MonitorController extends AppController {
         );
         
         $doc = new DOMDocument( '1.0', 'utf-8' );
-        $doc->xmlStandalone = true; // standalone = yes
+        $doc->xmlStandalone = true; // adds attribute: standalone="yes"
         $child = $this->generate_xml_element( $doc, $data );
         if ( $child )
            $doc->appendChild( $child );
         $doc->formatOutput = true; // Add whitespace to make easier to read XML
         
         $xml_string = $doc->saveXML();
-//        $xml_string = new SimpleXMLElement( $doc->saveXML() );
         
         echo "XML:<BR><pre>";
         debug( $xml_string );
-//        echo "JSON:<BR>";
-//        debug( json_encode( $data ) );
-        //$this->xmlpp( $xml_string );
         echo "</pre><BR>";
         
-        /*
-        //$this->layout = 'ajax';
-        //$results = $HttpSocket->post( $this->getOpenNMSReSTConnection( '/opennms/rest/nodes' ), $xml_string );
-        $HttpSocket = new HttpSocket();
-        $HttpSocket->configAuth('Basic', 'admin', 'Info4@ll');
-        // PipeMsg: http://blog.crazytje.be/xml-to-array-and-array-to-xml-in-cakephp/
-        $results = $HttpSocket->post( 'http://lab.inveneo.org:8980/opennms/rest/requisitions/'.$foreign_source.'/nodes', array('PipeMsg' => $xml_string ) );
-        */
         
-        // JSON HttpSocket example:  http://ask.cakephp.org/questions/view/how_to_post_json_with_httpsocket
-        
+//        For future reference, JSON HttpSocket example:  http://ask.cakephp.org/questions/view/how_to_post_json_with_httpsocket
+
         $HttpSocket = new HttpSocket();
         $HttpSocket->configAuth('Basic', 'admin', 'Info4@ll');
         $results = $HttpSocket->request(
@@ -338,32 +296,85 @@ class MonitorController extends AppController {
                 )
         );
         debug( $results );
-        //echo '<pre>DUMP:<BR>' . $this->xmlpp( $results->body, true ) . '</pre>';
-        // $this->layout = 'default';
-//        $response = $http->put(Router::url(array('action' => 'test'), true), $xml_string);
-//        
-//        debug($response);
+    }
+    
+    private function provision_test() {
+        App::uses('HttpSocket', 'Network/Http');
+
+        // creating XML from a data array -- I could not get attributes to work
+        // using Cake's XML class, so I am doing it this way:
+        // http://www.viper007bond.com/2011/06/29/easily-create-xml-in-php-using-a-data-array/
+        
+//        $now = date('his');
+//        $digits = 7;
+//        $foreign_id = rand(pow(10, $digits-1), pow(10, $digits)-1);
+        $foreign_source = 'renamed-hiphop-artists';
+        
+        $data = array(
+            'name' => 'node', // "name" required, all else optional
+            'attributes' => array(
+                'node-label' => 'snooplion44',
+                'foreign-id' => 'snooplion',
+                'building' => $foreign_source                
+//                'xmlns' => 'http://xmlns.opennms.org/xsd/config/model-import'
+            ),
+            array(
+                'name' => 'interface',
+                'attributes' => array(
+                    'snmp-primary' => 'N',
+                    'status' => 1,
+                    'ip-addr' => '8.8.8.8',
+                    'descr' => ''
+                 ),
+                //'value'=> '',
+                array(
+                    'name' => 'monitored-service',
+                    'attributes' => array(
+                        'service-name' => 'DNS'
+                     ),
+                    'value'=> '',
+                )
+            )
+        );
+        
+        $doc = new DOMDocument( '1.0', 'utf-8' );
+        $doc->xmlStandalone = true; // adds attribute: standalone="yes"
+        $child = $this->generateXMLElement( $doc, $data );
+        if ( $child )
+           $doc->appendChild( $child );
+        $doc->formatOutput = true; // Add whitespace to make easier to read XML
+        
+        $xml_string = $doc->saveXML();
+        
+        echo "XML:<BR><pre>";
+        debug( $xml_string );
+        echo "</pre><BR>";
         
         
-        
-        /*
-         critchie@opennms-1:~$ cat snooplion.xml 
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<node node-label="snooplion" foreign-id="snooplion" building="renamed-hiphop-artists">
- <interface snmp-primary="N" status="1" ip-addr="8.8.4.4" descr="">
-  <monitored-service service-name="DNS"/>
- </interface>
-</node>
-critchie@opennms-1:~$ curl -v -u admin:Info4\@ll -X POST -T  snooplion.xml http://localhost:8980/opennms/rest/requisitions/renamed-h
-         * 
-         */
+//        For future reference, JSON HttpSocket example:  http://ask.cakephp.org/questions/view/how_to_post_json_with_httpsocket
+
+        $HttpSocket = new HttpSocket();
+        $HttpSocket->configAuth('Basic', 'admin', 'Info4@ll');
+        $results = $HttpSocket->request(
+                array(
+                    'method' => 'POST',
+                    'uri' => 'http://lab.inveneo.org:8980/opennms/rest/requisitions/'.$foreign_source.'/nodes',
+                    'header' => array('Content-Type' => 'application/xml'),
+                    'body' => $xml_string,
+//                    'header' => array('content-type' => 'application/json'),
+//                    'body' => json_encode( $data )
+                )
+        );
+        debug( $results );
     }
     
     /*
-     * Function to generate XML from a data array
+     * This function generates XML from a data array
+     * 
      * @see http://www.viper007bond.com/2011/06/29/easily-create-xml-in-php-using-a-data-array/
      */
-    function generate_xml_element( $dom, $data ) {
+    
+    private function generateXMLElement( $dom, $data ) {
         if ( empty( $data['name'] ) )
             return false;
 
@@ -392,63 +403,4 @@ critchie@opennms-1:~$ curl -v -u admin:Info4\@ll -X POST -T  snooplion.xml http:
     }
 }
 
-/*
-       $request_haiti = array(
-            'method' => 'GET',
-            'uri' => array (
-                'scheme' => 'http',
-                'host' => '10.0.2.10',
-                'port' => 8980,
-                'user' => 'admin',
-                'pass' => 'Links4@yti',
-                // 'path' => '/opennms/rest/nodes/19/ipinterfaces',
-                'path' => '/opennms/rest/nodes/',
-                'query' => null,
-                'fragment' => null
-            ),
-//            'auth' => array (
-//                'method' => 'Basic',
-//                'user' => 'admin',
-//                'pass' => 'Links4\@yti'
-//            ),
-            'version' => '1.1',
-            'body' => '',
-            'line' => null,
-            'header' => array (
-                'Connection' => 'close',
-                'User-Agent' => 'CakePHP/Poundcake'
-            ),
-            'raw' => null,
-            'cookies' => array()
-        );
-        
-        $request_lab = array(
-            'method' => 'GET',
-            'uri' => array (
-                'scheme' => 'http',
-                'host' => 'lab.inveneo.org',
-                'port' => 8980,
-                'user' => 'admin',
-                'pass' => 'Info4@ll',
-                // 'path' => '/opennms/rest/nodes/19/ipinterfaces',
-                'path' => '/opennms/rest/nodes/',
-                'query' => null,
-                'fragment' => null
-            ),
-//            'auth' => array (
-//                'method' => 'Basic',
-//                'user' => 'admin',
-//                'pass' => 'Links4\@yti'
-//            ),
-            'version' => '1.1',
-            'body' => '',
-            'line' => null,
-            'header' => array (
-                'Connection' => 'close',
-                'User-Agent' => 'CakePHP/Poundcake'
-            ),
-            'raw' => null,
-            'cookies' => array()
-        );
-*/
 ?>
