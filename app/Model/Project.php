@@ -42,6 +42,18 @@ class Project extends AppModel {
     );
     
     /*
+     * @see http://bakery.cakephp.org/articles/utoxin/2009/08/01/cryptable-behavior
+     */
+    var $actsAs = array( 
+        'Cryptable' => array( 
+            'fields' => array( 
+                'monitoring_system_password',
+                'snmp_community_name'
+            ) 
+        ) 
+    ); 
+    
+    /*
      * Field-level validation rules
      */
     public $validate = array(
@@ -56,4 +68,5 @@ class Project extends AppModel {
             )
         ),
     );
+    
 }

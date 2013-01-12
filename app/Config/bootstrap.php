@@ -200,3 +200,13 @@ Configure::load('config'); // phpThumb
 //CakePlugin::loadAll(array(
 //    'Search' => array('routes' => true, 'bootstrap' => true),
 //));
+
+// used for storing/retrieving passwords on the monitoring system
+// see http://bakery.cakephp.org/articles/utoxin/2009/08/01/cryptable-behavior
+// used by Project to store
+Configure::write('Cryptable.cipher', 'tripledes'); 
+Configure::write('Cryptable.key','b5g39w485L}EA381'); 
+$td = mcrypt_module_open('tripledes', '', 'ecb', ''); 
+$iv = mcrypt_create_iv (mcrypt_enc_get_iv_size($td), MCRYPT_RAND); 
+mcrypt_module_close($td); 
+Configure::write('Cryptable.iv', $iv); 
