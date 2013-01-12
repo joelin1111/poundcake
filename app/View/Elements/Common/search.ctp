@@ -16,28 +16,13 @@
   echo '<br>'; 
   echo $this->Form->input('name',array('class' => 'search-query'));
   echo '<br>';
-  //echo $this->Form->input('site_state_id',array('class' => 'span2'));
-   
-  //echo $this->Form->checkbox('check_all_none', array('class' => 'checkall','label'=>'Check All/None'));
  
   echo $this->Form->select(
           'site_state_id',
           $sitestates, array(
-              'multiple' => 'checkbox',
-              //'class' => 'mycheckbox'
+              'multiple' => 'checkbox'
             )
     );
-  
-  /*
-  echo $this->Form->input(
-          'site_state_id',
-          array('type'=>'select',
-              'empty' => 'Any',
-              'options' => $sitestates,
-              'label' => '',
-              'class' => 'span2'
-              ));
-  */
 ?>
     
 <div align="center">
