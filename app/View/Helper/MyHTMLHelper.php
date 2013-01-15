@@ -30,6 +30,15 @@ class MyHTMLHelper extends AppHelper {
         }
     }
     
+    // as above, but only if an administrator
+    function postLinkIfAdmin($title, $url = null, $options = array(), $confirmMessage = false) {
+        $role = $this->getRoleAlias();
+        if ( $role === 'admin') {
+            return $this->Form->postLink($title,$url,$options,$confirmMessage);
+        } else {
+            return $title;
+        }
+    }
     
     function postLinkAltMessage($title, $url = null, $options = array(), $confirmMessage = false, $alternateString) {
         $role = $this->getRoleAlias();
