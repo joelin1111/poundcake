@@ -42,6 +42,9 @@ class Project extends AppModel {
     );
     
     /*
+     * CakePHP behavior to handle encrypting/decrypting sensitive fields when
+     * readingor writing to the database.
+     * 
      * @see http://bakery.cakephp.org/articles/utoxin/2009/08/01/cryptable-behavior
      */
     var $actsAs = array( 

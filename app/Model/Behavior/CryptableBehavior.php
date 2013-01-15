@@ -97,29 +97,6 @@ class CryptableBehavior extends ModelBehavior {
         } else { 
             return ''; 
         } 
-    } 
-
-    /*
-    public function encrypt($data) { 
-        if ($data !== '') { 
-            return base64_encode(mcrypt_encrypt(Configure::read('Cryptable.cipher'), Configure::read('Cryptable.key'), $data, 'cbc', Configure::read('Cryptable.iv')));
-        } else { 
-            return ''; 
-        } 
-    } 
-
-    public function decrypt($data, $data2 = null) { 
-        if (is_object($data)) { 
-            unset($data); 
-            $data = $data2; 
-        } 
-
-        if ($data != '') { 
-            return trim(mcrypt_decrypt(Configure::read('Cryptable.cipher'), Configure::read('Cryptable.key'), base64_decode($data), 'cbc', Configure::read('Cryptable.iv')));
-        } else { 
-            return ''; 
-        } 
     }
-    */
 } 
 ?>
