@@ -32,6 +32,7 @@
             echo '</li></ul>';            
         }
     ?>
+    <P><B>Primary IP Address:</B>&nbsp;<?php echo $networkswitch['NetworkSwitch']['ip_address']; ?>
     <P><B>Attached Radios:</B>&nbsp;
     <?php
         if (!isset($networkswitch['NetworkRadio'])) {

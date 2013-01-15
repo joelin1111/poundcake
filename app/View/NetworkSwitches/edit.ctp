@@ -22,7 +22,17 @@
         echo $this->Form->input('serial');
         echo $this->Form->input('switch_type_id', array('type'=>'select','options' => $switchtypes));
         echo $this->Form->input('site_id', array('type'=>'select','options' => $sites));
-        echo $this->element('Common/snmp_override');  // include fiels for SNMP override        
+        echo $this->element('Common/snmp_override');  // include fiels for SNMP override
+        // the IPv4 behavior is correctly decoding the IP address, but this doesn't
+        // seem to populate the form:
+        // echo $this->Form->input('ip_address', array('label'=>'Primary IP'));
+        echo $this->Form->input('ip_address', array(
+            'label' => 'Primary IP Address',
+            'type' => 'text',
+            // 'value' => '1\.2\.3\.4'
+            'value' => $this->data['NetworkSwitch']['ip_address'],
+            'placeholder' => 'For Testing'
+        ));
     ?>
     </fieldset>
     <?php

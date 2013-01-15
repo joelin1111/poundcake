@@ -23,6 +23,16 @@
         echo $this->Form->input('router_type_id', array('type'=>'select','options' => $routertypes));
         echo $this->Form->input('serial');
         echo $this->element('Common/snmp_override');  // include fiels for SNMP override
+        // the IPv4 behavior is correctly decoding the IP address, but this doesn't
+        // seem to populate the form:
+        // echo $this->Form->input('ip_address', array('label'=>'Primary IP'));
+        echo $this->Form->input('ip_address', array(
+            'label' => 'Primary IP Address',
+            'type' => 'text',
+            // 'value' => '1\.2\.3\.4'
+            'value' => $this->data['NetworkRouter']['ip_address'],
+            'placeholder' => 'For Testing'
+        ));
     ?>
     </fieldset>
     <?php

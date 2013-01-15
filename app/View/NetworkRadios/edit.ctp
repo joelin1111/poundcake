@@ -39,6 +39,16 @@
         echo $this->Form->input('min_height', array('label'=>'Min. Height (meters)'));
         echo $this->Form->input('frequency', array('type'=>'select','options' => $frequencies));
         echo $this->Form->input('ssid', array('label'=>'SSID'));
+        // the IPv4 behavior is correctly decoding the IP address, but this doesn't
+        // seem to populate the form:
+        // echo $this->Form->input('ip_address', array('label'=>'Primary IP'));
+        echo $this->Form->input('ip_address', array(
+            'label' => 'Primary IP Address',
+            'type' => 'text',
+            // 'value' => '1\.2\.3\.4'
+            'value' => $this->data['NetworkRadio']['ip_address'],
+            'placeholder' => 'For Testing'
+        ));
         echo $this->element('Common/snmp_override');  // include fiels for SNMP override
     ?>
     </fieldset>

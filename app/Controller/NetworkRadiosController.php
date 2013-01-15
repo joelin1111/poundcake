@@ -109,7 +109,6 @@ class NetworkRadiosController extends NetworkDeviceController {
         $ip_addresses = $this->getAllIPAddresses($this->NetworkRadio->field('name'));
         $this->set(compact('ip_addresses'));
         
-        
         if ( $this->NetworkRadio->field('sector') > 0 ) {
             // Cake and MySQL tinyint don't seem accessible from the view, even
             // when cast to (bool) or (int) -- so set a flag here that this is
@@ -149,6 +148,13 @@ class NetworkRadiosController extends NetworkDeviceController {
         $this->set('links', $links);
         $this->set('sector',$sector);
         $this->checkSnmp(); // check if there is custom SNMP data on this item
+        
+        $i = $this->NetworkRadio->field('ip_address');
+//        debug( $this->NetworkRadio->data );
+        //$this->NetworkRadio->decodeIPv4Address( $i );
+//        $this->NetworkRadio->data['NetworkRadio']['ip_address'] = parent::decodeIPv4Address( $i );
+//        debug( $this->NetworkRadio->data );
+        
     }
 
     /*
@@ -316,6 +322,8 @@ class NetworkRadiosController extends NetworkDeviceController {
             $this->request->data = $this->NetworkRadio->read(null, $id);
         }
         $this->getSnmpTypes();
+        debug( $this->NetworkRadio->data );
+//        die;
     }
     
     /*
@@ -400,14 +408,17 @@ class NetworkRadiosController extends NetworkDeviceController {
         $this->set('frequencies',$frequencies);
     }
     
-        
     public function provision( $id = null ) {        
         // $this->NetworkRadio->id = $id;
         $this->NetworkRadio->read(null, $id);
         $name = $this->NetworkRadio->data['NetworkRadio']['name'];
         $type = $this->NetworkRadio->data['RadioType']['name'];
-        $ip_addr = '10.0.0.1';
-        $foreign_id = parent::provision_node( $name, $type, $ip_addr, false );
+        //$ip_addr = '10.50.0.103';
+        //$ip_addr = $this->getIPv4Address();
+        debug( $ip_addr );
+        die;
+        
+        $foreign_id = parent::provision_node( $name, $type, $ip_addr, true );
         
         if ( !is_null( $foreign_id ) ) {
             $this->NetworkRadio->saveField('foreign_id', $foreign_id);
@@ -418,6 +429,7 @@ class NetworkRadiosController extends NetworkDeviceController {
         }
         $this->redirect(array('action' => 'view',$this->NetworkRadio->id));
     }
+    
     
     
     /*

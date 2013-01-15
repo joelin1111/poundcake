@@ -16,6 +16,7 @@
     <P><B>Model:</B>&nbsp;<?php echo $networkrouter['RouterType']['model']; ?></P>
     <P><B>Serial No:</B>&nbsp;<?php echo $networkrouter['NetworkRouter']['serial']; ?></P>
     <P><B>SNMP Override:</B>&nbsp;<?php echo ($networkrouter['NetworkRouter']['snmp_override'] > 0 ? "Yes" : "No");?>
+    <P><B>Primary IP Address:</B>&nbsp;<?php echo $networkrouter['NetworkRouter']['ip_address']; ?>
     <?php
         if ( $snmp_override ) {
             echo '<ul>';

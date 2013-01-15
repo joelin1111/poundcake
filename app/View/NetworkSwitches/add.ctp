@@ -21,7 +21,8 @@
         echo $this->Form->input('serial');
         echo $this->Form->input('switch_type_id', array('type'=>'select','options' => $switchtypes));
         echo $this->Form->input('site_id', array('type'=>'select','options' => $sites));
-        echo $this->element('Common/snmp_override');  // include fiels for SNMP override        
+        echo $this->element('Common/snmp_override');  // include fiels for SNMP override
+        echo $this->Form->input('ip_address', array('label'=>'Primary IP Address'));
     ?>
     </fieldset>
     <?php

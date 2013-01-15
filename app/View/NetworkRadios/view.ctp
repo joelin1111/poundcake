@@ -74,7 +74,8 @@
             echo '</li></ul>';            
         }
     ?>
-    
+    <P><B>Primary IP Address:</B>&nbsp;<?php echo $networkradio['NetworkRadio']['ip_address']; ?>
+        
     <P><B>Link Information:</B>&nbsp;
         <?php foreach ($links as $link) { ?>
         <table class="table table-condensed table-striped">

@@ -41,7 +41,7 @@
         echo $this->Form->input('min_height', array('label'=>'Min. Height (meters)','value'=>'20')); // default value set in model?  Setting _schema not working?!
         echo $this->Form->input('frequency', array('type'=>'select','options' => $frequencies));
         echo $this->Form->input('ssid', array('label'=>'SSID'));
-        echo $this->element('Common/snmp_override');  // include fiels for SNMP override
+        echo $this->Form->input('ip_address', array('label'=>'Primary IP Address'));
         echo $this->Form->submit('Save', array('div' => false,'class'=>'btn'));
         echo $this->Form->end(); 
     ?>

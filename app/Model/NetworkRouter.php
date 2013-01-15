@@ -32,6 +32,18 @@ class NetworkRouter extends AppModel {
     public $displayField = 'name';
 
     /*
+     * Behaviors to use -- IPv4 auto encodes/decodes IPv4 addresses in
+     * the fields defined below
+     */
+    var $actsAs = array( 
+        'IPv4' => array( 
+            'fields' => array( 
+                'ip_address'
+            ) 
+        ) 
+    );
+    
+    /*
      * Relations
      */
     var $belongsTo = array(

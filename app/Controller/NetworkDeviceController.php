@@ -29,8 +29,7 @@ class NetworkDeviceController extends AppController {
 //        debug( $this->$model->Site->Project->field( 'monitoring_system_username' )); //MonitoringSystemUsername() );
 //        debug( $this->$model->Site->Project->findById( $this->Session->read('project_id') )); //MonitoringSystemUsername() );        
         $project = ClassRegistry::init('Project')->findById( $this->Session->read('project_id') , array() ); 
-        return $project['Project']['monitoring_system_username'];        
-        die;
+        return $project['Project']['monitoring_system_username'];
     }
     
     private function getMonitoringSystemPassword() {
@@ -38,6 +37,9 @@ class NetworkDeviceController extends AppController {
 //        return $password;
         $project = ClassRegistry::init('Project')->findById( $this->Session->read('project_id') , array() ); 
         //debug($project['Project']['monitoring_system_password']);
+        // this password is encrypted/decrypted with the CryptableBehavior on
+        // the Project
+        // addslashes escapes the string properly
         $pass = addslashes( $project['Project']['monitoring_system_password'] );
         return $pass;
         // return $project['Project']['monitoring_system_password'];
@@ -176,7 +178,6 @@ class NetworkDeviceController extends AppController {
         $doc->formatOutput = true; // add whitespace to make easier to read XML
         
         $xml_string = $doc->saveXML();
-        
         if ( $debug ) {
             echo "XML:<BR><pre>";
             debug( $xml_string );
@@ -203,7 +204,88 @@ class NetworkDeviceController extends AppController {
             if ( $debug ) {
                 debug( $response );
             }
+            
+            /*
+            $xml_string2 = 'retry="3" timeout="800" read-community="public" version="v1" max-vars-per-pdu="10">';
+            $xml_string2 .= '<definition retry="1" timeout="2000" read-community="YrusoNoz" version="v2c">';
+            $xml_string2 .= '<range begin="10.1.1.1" end="10.12.23.31"/>';
+            $xml_string2 .= '<range begin="10.12.23.33" end="10.254.254.254"/>';
+            $xml_string2 .= '</definition>';
 
+            $xml_string2 = '<snmp-info>';
+            $xml_string2 .= '<community>1nvene0</community>';
+            $xml_string2 .= '<port>161</port>';
+            $xml_string2 .= '<retries>1</retries>';
+            $xml_string2 .= '<timeout>1800</timeout>';
+            $xml_string2 .= '<version>v1</version>';
+            $xml_string2 .= '</snmp-info>';
+            */
+            
+            $data = array(
+                'name' => 'snmp-info', // "name" required, all else optional
+//                'attributes' => array(
+//                    'node-label' => $name,
+//                    'foreign-id' => $foreign_id,
+//                    'building' => $type
+//                ),
+                array(
+                    'name' => 'community',
+//                    'attributes' => array(
+//                        'snmp-primary' => 'N',
+//                        'status' => 1,
+//                        'ip-addr' => $ip_addr,
+//                        'descr' => ''
+//                     ),
+                    'value' => '1nvene0'
+                    ),
+                array(
+                    'name' => 'port',
+                    'value' => '161'
+                    ),
+                 array(
+                    'name' => 'retries',
+                    'value' => '1'
+                    ),
+                array(
+                    'name' => 'timeout',
+                    'value' => '1600'
+                    ),
+                array(
+                    'name' => 'version',
+                    'value' => 'v1'
+                    ),
+           );
+            
+            
+            $doc = new DOMDocument( '1.0', 'utf-8' );
+            $doc->xmlStandalone = true; // adds attribute: standalone="yes"
+            $child = $this->generateXMLElement( $doc, $data );
+            if ( $child )
+               $doc->appendChild( $child );
+            $doc->formatOutput = true; // add whitespace to make easier to read XML
+
+            $xml_string = $doc->saveXML();
+            if ( $debug ) {
+                echo "XML SNMP:<BR><pre>";
+                debug( $xml_string );
+                echo "</pre><BR>";
+            }
+            
+            $response = $HttpSocket->request(
+                    array(
+                        'method' => 'PUT',
+                        'uri' => 'http://lab.inveneo.org:8980/opennms/rest/snmpConfig/'.$ip_addr,
+                        'header' => array('Content-Type' => 'application/xml'),
+                        'body' => $xml_string,
+    //                    'header' => array('content-type' => 'application/json'),
+    //                    'body' => json_encode( $data )
+                    )
+            );
+            
+            if ( $debug ) {
+                debug( $response );
+            }
+            
             // Get the status code for the response.
             // OpenNMS seems to return HTTP303 -- because it's an asynchronous call?
             $code = $response->code;
@@ -248,9 +330,37 @@ class NetworkDeviceController extends AppController {
         return $element;
     }
     
-    function generateRandomString( $length = 20 ) {    
+    /*
+     * Return a random string of length $length - used for the foreignID
+     * in OpenNMS
+     */
+    private function generateRandomString( $length = 20 ) {    
         return substr(str_shuffle("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, $length);
     }
+    
+    /*
+    public function getIPv4Address() {
+        $model = $this->modelClass; // NetworkRadio, NetworkRouter, NetworkSwitch
+        $ip = $this->$model->field( 'ip_address' );
+        return ip2long( $ip );
+        // return $this->$model->field( 'INET_NTOA(ip_address)' );
+    }
+    */
+    
+    /*
+    public function decodeIPv4Address( $i = null ) {
+//        return $i;
+//        debug( long2ip( $i ) );
+//        var_dump( long2ip($i) );
+//        $log = $this->Model->getDataSource()->getLog(false, false);
+//        debug($log);
+//        $model = $this->modelClass; // NetworkRadio, NetworkRouter, NetworkSwitch
+//        return $this->$model->field( long2ip( $i ) );
+        $i = long2ip( $i );
+//        debug( $i ); die;
+        return $i;
+    }
+    */
 }
 
 /*        
