@@ -3,9 +3,9 @@
 <div class="span3">
     <H3>Actions</H3>
     <div class="well well-large">
-    <ul>
-        <li><?php echo $this->MyHTML->linkIfAllowed(__('New Site'), array('action' => 'add')); ?></li>
-        <li><?php echo $this->MyHTML->linkIfAllowed(__('KML Import'), array('action' => 'import')); ?></li>
+        <ul>
+        <li><?php echo $this->MyHTML->linkIfAllowed('New Site', array('action' => 'add')); ?></li>
+        <li><?php echo $this->MyHTML->linkIfAdmin('KML Import', array('action' => 'import')); ?></li>
         <li><?php
             // make the KML link that appears in the URL bar a little prettier by removing: whitespace, (, )
             // this is basiclly duplicated in SitesController::export
