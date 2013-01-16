@@ -410,7 +410,8 @@ class NetworkRadiosController extends NetworkDeviceController {
         // $this->NetworkRadio->id = $id;
         $this->NetworkRadio->read(null, $id);
         $name = $this->NetworkRadio->data['NetworkRadio']['name'];
-        $type = $this->NetworkRadio->data['RadioType']['name'];
+        // $type = $this->NetworkRadio->data['RadioType']['name'];
+        $type = 'Radio';
         $ip_addr = $this->NetworkRadio->data['NetworkRadio']['ip_address'];
         $foreign_id = parent::provision_node( $name, $type, $ip_addr, true );
         
