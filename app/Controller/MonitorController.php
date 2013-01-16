@@ -16,7 +16,7 @@
  * @author        Clark Ritchie <clark@inveneo.org>
  * @link          http://www.inveneo.org
  * @package       app.Controller
- * @since         InstallTeamsController was added in Poundcake v2.2.5
+ * @since         MonitorController was introduced in Poundcake v2.3
  * @license       XYZ License
  */
 

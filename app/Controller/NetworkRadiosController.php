@@ -322,8 +322,6 @@ class NetworkRadiosController extends NetworkDeviceController {
             $this->request->data = $this->NetworkRadio->read(null, $id);
         }
         $this->getSnmpTypes();
-        debug( $this->NetworkRadio->data );
-//        die;
     }
     
     /*
@@ -413,11 +411,7 @@ class NetworkRadiosController extends NetworkDeviceController {
         $this->NetworkRadio->read(null, $id);
         $name = $this->NetworkRadio->data['NetworkRadio']['name'];
         $type = $this->NetworkRadio->data['RadioType']['name'];
-        //$ip_addr = '10.50.0.103';
-        //$ip_addr = $this->getIPv4Address();
-        debug( $ip_addr );
-        die;
-        
+        $ip_addr = $this->NetworkRadio->data['NetworkRadio']['ip_address'];
         $foreign_id = parent::provision_node( $name, $type, $ip_addr, true );
         
         if ( !is_null( $foreign_id ) ) {

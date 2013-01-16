@@ -25,25 +25,30 @@
             <li><?php echo $this->Html->link('Tower Mounts', '/admin/towerMounts/index'); ?></li>            
             <li><?php echo $this->Html->link('Tower Type', '/admin/towerTypes/index'); ?></li>            
         </UL>
-    </div> <!-- /.span4 -->
-
-    <div class="span4">
-    <H3>Radios</H3>
+        
+        <H3>Radios</H3>
         <UL>
             <li><?php echo $this->Html->link('Antenna Types', '/admin/antennaTypes/index'); ?></li>
             <li><?php echo $this->Html->link('Radio Modes', '/admin/radioModes/index'); ?> </li>
             <li><?php echo $this->Html->link('Radio Types', '/admin/radioTypes/index'); ?> </li>
         </UL>
+    </div> <!-- /.span4 -->
 
+    <div class="span4">
+    <H3>Network Monitoring</H3>
+    <UL>    
+        <li><?php echo $this->Html->link('Monitoring System Types', '/admin/monitoringSystemTypes/index'); ?></li>
+        <li><?php echo $this->Html->link('Network Services', '/admin/networkServices/index'); ?></li>
+        <li><?php echo $this->Html->link('SNMP Versions', '/admin/snmpTypes/index'); ?></li>
+    </UL>
+    
     <H3>Other</H3>
     <UL>    
         <li><?php echo $this->Html->link('Build Items', '/admin/buildItems/index'); ?></li>
         <li><?php echo $this->Html->link('Contact Types', '/admin/contactTypes/index'); ?></li>
-        <li><?php echo $this->Html->link('Install Teams', '/admin/installTeams/index'); ?></li> 
-        <li><?php echo $this->Html->link('Monitoring System Type', '/admin/monitoringSystemTypes/index'); ?></li>
+        <li><?php echo $this->Html->link('Install Teams', '/admin/installTeams/index'); ?></li>        
         <li><?php echo $this->Html->link('Router Types', '/admin/routerTypes/index'); ?> </li>
         <li><?php echo $this->Html->link('Site States', '/admin/siteStates/index'); ?></li>
-        <li><?php echo $this->Html->link('SNMP Versions', '/admin/snmpTypes/index'); ?></li>
         <li><?php echo $this->Html->link('Switch Types', '/admin/switchTypes/index'); ?> </li>      
         <li><?php echo $this->Html->link('Zones', '/admin/zones/index'); ?></li>
     </UL>

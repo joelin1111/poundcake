@@ -14,7 +14,7 @@
  * @author        Clark Ritchie <clark@inveneo.org>
  * @link          http://www.inveneo.org
  * @package       app.Model
- * @since         NetworkService precedes Poundcake v2.2.5
+ * @since         NetworkService was introduced in Poundcake v2.3
  * @license       XYZ License
  */
 

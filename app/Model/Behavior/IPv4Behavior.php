@@ -14,7 +14,7 @@
  * @author        Clark Ritchie <clark@inveneo.org>
  * @link          http://www.inveneo.org
  * @package       app.Model.Behavior
- * @since         IPv4Behavior was introduced in Poundcake v2.2.5
+ * @since         IPv4Behavior was introduced in Poundcake v2.3
  * @license       XYZ License
  */
 

@@ -22,7 +22,11 @@
         echo $this->Form->input('router_type_id', array('type'=>'select','options' => $routertypes));
         echo $this->Form->input('site_id', array('type'=>'select','options' => $sites));
         echo $this->element('Common/snmp_override');  // include fiels for SNMP override
-        echo $this->Form->input('ip_address', array('label'=>'Primary IP Address'));
+        echo $this->Form->input('ip_address',
+                array('type' => 'text',
+                    'label'=>'Primary IP Address'
+                )
+        );
     ?>
     </fieldset>
     <?php

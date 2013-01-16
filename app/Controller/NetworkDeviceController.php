@@ -14,7 +14,7 @@
  * @author        Clark Ritchie <clark@inveneo.org>
  * @link          http://www.inveneo.org
  * @package       app.Controller
- * @since         NetworkDeviceController was introduced in Poundcake v2.2.5
+ * @since         NetworkDeviceController was introduced in Poundcake v2.3
  * @license       XYZ License
  */
 
@@ -22,6 +22,9 @@ App::uses('AppController', 'Controller');
 
 class NetworkDeviceController extends AppController {
     
+    /*
+     * 
+     */
     private function getMonitoringSystemUsername() {
 //        $username = 'admin';
 //        return $username;
@@ -32,6 +35,9 @@ class NetworkDeviceController extends AppController {
         return $project['Project']['monitoring_system_username'];
     }
     
+    /*
+     * 
+     */
     private function getMonitoringSystemPassword() {
 //        $password = 'Info4@ll';
 //        return $password;
@@ -45,13 +51,33 @@ class NetworkDeviceController extends AppController {
         // return $project['Project']['monitoring_system_password'];
     }
     
+    /*
+     * 
+     */
     private function getMonitoringSystemBaseURI() {
-//        $uri = 'http://lab.inveneo.org:8980/opennms/rest/';
-//        return $uri;
         $project = ClassRegistry::init('Project')->findById( $this->Session->read('project_id') , array() ); 
         return $project['Project']['monitoring_system_url'];
     }
     
+    /*
+     * 
+     */
+    private function getSnmpCommunity() {
+        $project = ClassRegistry::init('Project')->findById( $this->Session->read('project_id') , array() ); 
+        return $project['Project']['snmp_community_name'];
+    }
+    
+    /*
+     * 
+     */
+    private function getSnmpVersion() {
+        $project = ClassRegistry::init('Project')->findById( $this->Session->read('project_id') , array() ); 
+        return $project['SnmpType']['name'];
+    }
+    
+    /*
+     * 
+     */
     private function getMonitoringSystemSocket() {
         App::uses('HttpSocket', 'Network/Http');
         
@@ -72,16 +98,23 @@ class NetworkDeviceController extends AppController {
         }
     }
     
-    // probably want to move this into a model of it's own, i.e. so
-    // that the admin can dynamically modify this
+    /*
+     * @see This now exists as a model of its own -- NetworkService -- but at
+     * the moment we're not using it since it clogs up the UI, and ultimately
+     * we'll have a more complex UI for provisioning nodes
+     */
     private function getMonitoredServices() {
         $services = array (
             'ICMP',
-            'SNMP'
+            'SNMP',
+            'StrafePing'
         );
         return $services;
     }
     
+    /*
+     * 
+     */
     protected function provision_node( $name, $type, $ip_addr, $debug ) {
         $this->autoRender = false;
         
@@ -131,11 +164,15 @@ class NetworkDeviceController extends AppController {
             array(
                 'name' => 'interface',
                 'attributes' => array(
-                    'snmp-primary' => 'N',
+                    'snmp-primary' => 'P', // N?
                     'status' => 1,
                     'ip-addr' => $ip_addr,
                     'descr' => ''
                  ),
+//                Commenting this out but saving it for posterity.  The rest of
+//                the requisite array/XML values is now added by an array of
+//                monitored services, see below -- getMonitoredServices
+//                
 //                array(
 //                    'name' => 'monitored-service',
 //                    'attributes' => array(
@@ -153,10 +190,6 @@ class NetworkDeviceController extends AppController {
             )
         );
         
-        
-        
-        // this does not work, the resulting XML has each monitored-service tag
-        // closed, and OpenNMS does not like that
         $services = $this->getMonitoredServices();
         foreach ($services as $service ) {
             array_push( $data[0], array (
@@ -167,9 +200,8 @@ class NetworkDeviceController extends AppController {
                 'value'=> '',
             ));
         }
-//        debug( $data );
-//        die;
         
+        // generate the XML for adding a node
         $doc = new DOMDocument( '1.0', 'utf-8' );
         $doc->xmlStandalone = true; // adds attribute: standalone="yes"
         $child = $this->generateXMLElement( $doc, $data );
@@ -184,6 +216,7 @@ class NetworkDeviceController extends AppController {
             echo "</pre><BR>";
         }
         
+        // send it on to OpenNMS
         // for future reference, JSON HttpSocket example:  http://ask.cakephp.org/questions/view/how_to_post_json_with_httpsocket
         // $HttpSocket = new HttpSocket();
         // $HttpSocket->configAuth('Basic', 'admin', 'xx');        
@@ -205,85 +238,38 @@ class NetworkDeviceController extends AppController {
                 debug( $response );
             }
             
-            /*
-            $xml_string2 = 'retry="3" timeout="800" read-community="public" version="v1" max-vars-per-pdu="10">';
-            $xml_string2 .= '<definition retry="1" timeout="2000" read-community="YrusoNoz" version="v2c">';
-            $xml_string2 .= '<range begin="10.1.1.1" end="10.12.23.31"/>';
-            $xml_string2 .= '<range begin="10.12.23.33" end="10.254.254.254"/>';
-            $xml_string2 .= '</definition>';
+            // now create the XML for SNMP monitoring
+            $snmp_version = $this->getSnmpVersion();
+            $snmp_community = $this->getSnmpCommunity();
+            
+            $data = $this->getSnmpConfig( $this->getSnmpVersion(), $this->getSnmpCommunity() );
+            if ( $data != null ) {
+                $doc = new DOMDocument( '1.0', 'utf-8' );
+                $doc->xmlStandalone = true; // adds attribute: standalone="yes"
+                $child = $this->generateXMLElement( $doc, $data );
+                if ( $child )
+                   $doc->appendChild( $child );
+                $doc->formatOutput = true; // add whitespace to make easier to read XML
 
-            $xml_string2 = '<snmp-info>';
-            $xml_string2 .= '<community>1nvene0</community>';
-            $xml_string2 .= '<port>161</port>';
-            $xml_string2 .= '<retries>1</retries>';
-            $xml_string2 .= '<timeout>1800</timeout>';
-            $xml_string2 .= '<version>v1</version>';
-            $xml_string2 .= '</snmp-info>';
-            */
-            
-            $data = array(
-                'name' => 'snmp-info', // "name" required, all else optional
-//                'attributes' => array(
-//                    'node-label' => $name,
-//                    'foreign-id' => $foreign_id,
-//                    'building' => $type
-//                ),
-                array(
-                    'name' => 'community',
-//                    'attributes' => array(
-//                        'snmp-primary' => 'N',
-//                        'status' => 1,
-//                        'ip-addr' => $ip_addr,
-//                        'descr' => ''
-//                     ),
-                    'value' => '1nvene0'
-                    ),
-                array(
-                    'name' => 'port',
-                    'value' => '161'
-                    ),
-                 array(
-                    'name' => 'retries',
-                    'value' => '1'
-                    ),
-                array(
-                    'name' => 'timeout',
-                    'value' => '1600'
-                    ),
-                array(
-                    'name' => 'version',
-                    'value' => 'v1'
-                    ),
-           );
-            
-            
-            $doc = new DOMDocument( '1.0', 'utf-8' );
-            $doc->xmlStandalone = true; // adds attribute: standalone="yes"
-            $child = $this->generateXMLElement( $doc, $data );
-            if ( $child )
-               $doc->appendChild( $child );
-            $doc->formatOutput = true; // add whitespace to make easier to read XML
+                $xml_string = $doc->saveXML();
+                if ( $debug ) {
+                    echo "XML SNMP:<BR><pre>";
+                    debug( $xml_string );
+                    echo "</pre><BR>";
+                }
 
-            $xml_string = $doc->saveXML();
-            if ( $debug ) {
-                echo "XML SNMP:<BR><pre>";
-                debug( $xml_string );
-                echo "</pre><BR>";
-            }
-            
-            $response = $HttpSocket->request(
-                    array(
-                        'method' => 'PUT',
-                        'uri' => 'http://lab.inveneo.org:8980/opennms/rest/snmpConfig/'.$ip_addr,
-                        'header' => array('Content-Type' => 'application/xml'),
-                        'body' => $xml_string,
-    //                    'header' => array('content-type' => 'application/json'),
-    //                    'body' => json_encode( $data )
-                    )
-            );
-            
-            if ( $debug ) {
-                debug( $response );
+                $response = $HttpSocket->request(
+                        array(
+                            'method' => 'PUT',
+                            'uri' => 'http://lab.inveneo.org:8980/opennms/rest/snmpConfig/'.$ip_addr,
+                            'header' => array('Content-Type' => 'application/xml'),
+                            'body' => $xml_string,
+                        )
+                );
+
+                if ( $debug ) {
+                    debug( $response );
+                }
             }
             
             // Get the status code for the response.
@@ -295,6 +281,39 @@ class NetworkDeviceController extends AppController {
         }
         // otherwise, problem
         return null;
+    }
+    
+    /*
+     * 
+     */
+    private function getSnmpConfig( $snmp_version, $snmp_community ) {
+        $data = null;
+        if ( (isset($snmp_version)) && (isset($snmp_community)) ) {
+                $data = array(
+                    'name' => 'snmp-info', // "name" required, all else optional
+                    array(
+                        'name' => 'community',
+                        'value' => $snmp_community
+                        ),
+                    array(
+                        'name' => 'port',
+                        'value' => '161'
+                        ),
+                     array(
+                        'name' => 'retries',
+                        'value' => '1'
+                        ),
+                    array(
+                        'name' => 'timeout',
+                        'value' => '1600'
+                        ),
+                    array(
+                        'name' => 'version',
+                        'value' => $snmp_version
+                        ),
+               );
+        }
+        return $data;
     }
     
     /*
@@ -337,66 +356,5 @@ class NetworkDeviceController extends AppController {
     private function generateRandomString( $length = 20 ) {    
         return substr(str_shuffle("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, $length);
     }
-    
-    /*
-    public function getIPv4Address() {
-        $model = $this->modelClass; // NetworkRadio, NetworkRouter, NetworkSwitch
-        $ip = $this->$model->field( 'ip_address' );
-        return ip2long( $ip );
-        // return $this->$model->field( 'INET_NTOA(ip_address)' );
-    }
-    */
-    
-    /*
-    public function decodeIPv4Address( $i = null ) {
-//        return $i;
-//        debug( long2ip( $i ) );
-//        var_dump( long2ip($i) );
-//        $log = $this->Model->getDataSource()->getLog(false, false);
-//        debug($log);
-//        $model = $this->modelClass; // NetworkRadio, NetworkRouter, NetworkSwitch
-//        return $this->$model->field( long2ip( $i ) );
-        $i = long2ip( $i );
-//        debug( $i ); die;
-        return $i;
-    }
-    */
 }
-
-/*        
-        if ($this->request->is('post') || $this->request->is('put')) {
-            // provision nodes with HttpSocket here
-        } else {
-            
-            $project_id = $this->Session->read('project_id');
-            debug( $project_id );
-      
-            if ( $project_id > 0 ) {
-                $conditions = array(
-                    'AND' => array(
-                        'Site.project_id' => $project_id // only show sites for the current project
-                    )
-                );
-//                $this->Site->recursive = 1;
-                $sites = $this->Site->find('all', array(
-                    'conditions' => $conditions,
-                    'recursive' => 1
-                ));
-//                $sites = $this->Site->find('all');
-                debug( $project_id );
-                debug( $sites );
-                
-                $log = $this->Site->getDataSource()->getLog(false, false);
-                debug($log);
-                die;
-                $this->set('sites', $sites);
-                
-//                $sites = $this->Site->findByProjectId( $this->Session->read('project_id') );                
-//                $sites = ClassRegistry::init('Sites')->find('all', array()); 
-//                $sites = ClassRegistry::init('Sites')->findAllByProjectId( $project_id , array() ); 
-//                debug($sites);
-//                die;
-            }
-        }
-*/
 ?>

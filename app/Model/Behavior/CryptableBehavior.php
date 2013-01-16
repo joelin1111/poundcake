@@ -14,13 +14,16 @@
  * @author        Clark Ritchie <clark@inveneo.org>
  * @link          http://www.inveneo.org
  * @package       app.Model.Behavior
- * @since         CryptableBehavior was introduced in Poundcake v2.2.5
+ * @since         CryptableBehavior was introduced in Poundcake v2.3
  * @license       XYZ License
  */
 
 class CryptableBehavior extends ModelBehavior { 
     var $settings = array(); 
 
+    /*
+     * 
+     */
     function setup(Model $model, $settings = array()) { 
         if (!isset($this->settings[$model->alias])) { 
             $this->settings[$model->alias] = array( 
@@ -31,6 +34,9 @@ class CryptableBehavior extends ModelBehavior {
         $this->settings[$model->alias] = array_merge($this->settings[$model->alias], $settings); 
     } 
 
+    /*
+     * 
+     */
     function beforeFind(Model $model, $query) { 
         $queryData = null;
         foreach ($this->settings[$model->alias]['fields'] AS $field) { 
@@ -41,6 +47,9 @@ class CryptableBehavior extends ModelBehavior {
         return $queryData; 
     } 
 
+    /*
+     * 
+     */
     function afterFind(Model $model, $results, $primary) { 
         foreach ($this->settings[$model->alias]['fields'] AS $field) { 
             if ($primary) { 
@@ -59,6 +68,9 @@ class CryptableBehavior extends ModelBehavior {
         return $results; 
     } 
 
+    /*
+     * 
+     */
     function beforeSave(Model $model, $options = array()) { 
         foreach ($this->settings[$model->alias]['fields'] AS $field) { 
             if (isset($model->data[$model->alias][$field])) { 
@@ -69,6 +81,9 @@ class CryptableBehavior extends ModelBehavior {
         return true; 
     } 
 
+    /*
+     * 
+     */
     public function encrypt($data) { 
         if ($data !== '') { 
             $td = mcrypt_module_open('tripledes', '', 'ecb', ''); 
@@ -81,6 +96,10 @@ class CryptableBehavior extends ModelBehavior {
             return ''; 
         } 
     }
+    
+    /*
+     * 
+     */
     public function decrypt($data, $data2 = null) { 
         if (is_object($data)) { 
             unset($data); 

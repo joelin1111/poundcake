@@ -4,6 +4,14 @@
     <div class="well well-large">
     <ul>
         <li><?php echo $this->MyHTML->linkIfAllowed('Edit Switch', array('action'=>'edit', $networkswitch['NetworkSwitch']['id']),1);?></li>
+        <li><?php
+            echo $this->MyHTML->postLinkIfAdmin('Provision Switch',
+                array('controller'=>'networkSwitches','action'=>'provision', $networkswitch['NetworkSwitch']['id'] ),
+                array('method' => 'post','class'=>'confirm','data-dialog_msg'=>'Provision switch '.$networkswitch['NetworkSwitch']['name'].' into monitoring system'),
+                null,
+                null );
+            ?>
+        </li> 
         <li><?php echo $this->Html->link('List Switches', array('action' => 'index')); ?>
     </ul>
     </div>
@@ -13,6 +21,7 @@
     <h2>View Switch</h2>
     <P><B>Name:</B>&nbsp;<?php echo $networkswitch['NetworkSwitch']['name']; ?></P>
     <P><B>Site:</B>&nbsp;<?php echo $networkswitch['Site']['name']; ?></P>
+    <P><B>Foreign ID:</B>&nbsp;<?php echo $networkswitch['NetworkSwitch']['foreign_id']; ?></P>
     <P><B>Serial No:</B>&nbsp;<?php echo $networkswitch['NetworkSwitch']['serial']; ?></P>
     <P><B>Switch Type:</B>&nbsp;<?php echo $networkswitch['SwitchType']['name']; ?></P>
     <P><B>Ports:</B>&nbsp;<?php echo $networkswitch['SwitchType']['ports']; ?></P>

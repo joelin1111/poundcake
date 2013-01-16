@@ -8,6 +8,7 @@
     <H3>Actions</H3>
     <div class="well well-large">
     <ul>
+        <li><?php echo $this->MyHTML->linkIfAllowed('Edit Switch', array('action'=>'edit', $networkswitch['NetworkSwitch']['id']),1);?></li>
         <li><?php echo $this->Html->link('List  Switches', array('action' => 'index')); ?></li>
     </ul>
     </div>

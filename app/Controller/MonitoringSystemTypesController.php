@@ -19,7 +19,7 @@
  * @author        Clark Ritchie <clark@inveneo.org>
  * @link          http://www.inveneo.org
  * @package       app.Controller
- * @since         MonitoringSystemTypesController was introduced in Poundcake v2.2.5
+ * @since         MonitoringSystemTypesController was introduced in Poundcake v2.3
  * @license       XYZ License
  */
 
