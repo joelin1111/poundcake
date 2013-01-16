@@ -6,7 +6,7 @@
         <li><?php echo $this->MyHTML->linkIfAllowed('New Router', array('action' => 'add')); ?></li>
     </ul>
     </div>
-    
+
     <H3>Search</H3>
     <?php
       echo $this->Form->create(

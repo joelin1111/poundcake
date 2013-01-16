@@ -406,6 +406,10 @@ class NetworkRadiosController extends NetworkDeviceController {
         $this->set('frequencies',$frequencies);
     }
     
+    /*
+     * Provisions the device into the monitoring system.
+     * @see Identical functions in NetworkSwitch, NetworkRouter, NetworkRadio
+     */
     public function provision( $id = null ) {        
         // $this->NetworkRadio->id = $id;
         $this->NetworkRadio->read(null, $id);
@@ -424,8 +428,6 @@ class NetworkRadiosController extends NetworkDeviceController {
         }
         $this->redirect(array('action' => 'view',$this->NetworkRadio->id));
     }
-    
-    
     
     /*
      * Uses Auth to check the ACL to see if the user is allowed to perform any

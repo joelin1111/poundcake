@@ -20,9 +20,9 @@
  * @license       XYZ License
  */
 
-App::uses('AppController', 'Controller');
+App::uses('NetworkDeviceController', 'Controller');
 
-class NetworkRoutersController extends AppController {
+class NetworkRoutersController extends NetworkDeviceController {
 
     /*
      * MyHTML makes de-links hyperlinks for view-only users
@@ -149,7 +149,9 @@ class NetworkRoutersController extends AppController {
             )))
         );
     }
-    
+    /*
+     * Delete an existing NetworkRouter
+     */
     public function delete($id = null) {
         if (!$this->request->is('post')) {
                 throw new MethodNotAllowedException();
@@ -166,6 +168,28 @@ class NetworkRoutersController extends AppController {
         $this->redirect(array('action' => 'index'));
     }
 
+    /*
+     * Provisions the device into the monitoring system.
+     * @see Identical functions in NetworkSwitch, NetworkRouter, NetworkRadio
+     */
+    public function provision( $id = null ) {        
+        $this->NetworkRouter->read(null, $id);
+        $name = $this->NetworkRouter->data['NetworkRouter']['name'];
+        // $type = $this->NetworkRadio->data['RadioType']['name'];
+        $type = 'Router';
+        $ip_addr = $this->NetworkRouter->data['NetworkRouter']['ip_address'];
+        $foreign_id = parent::provision_node( $name, $type, $ip_addr, true );
+        
+        if ( !is_null( $foreign_id ) ) {
+            $this->NetworkRouter->saveField('foreign_id', $foreign_id);
+            $this->Session->setFlash('Provisioned router.  Foreign ID '.$foreign_id);
+            
+        } else {
+            $this->Session->setFlash('Error provisioning router.');
+        }
+        $this->redirect(array('action' => 'view',$this->NetworkRouter->id));
+    }
+    
     /*
      * Uses Auth to check the ACL to see if the user is allowed to perform any
      * actions in this controller

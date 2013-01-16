@@ -23,7 +23,8 @@
         echo $this->Form->input('site_id', array('type'=>'select','options' => $sites));
         echo $this->element('Common/snmp_override');  // include fiels for SNMP override
         echo $this->Form->input('ip_address',
-                array('type' => 'text',
+                array(
+                    'type' => 'text',
                     'label'=>'Primary IP Address'
                 )
         );

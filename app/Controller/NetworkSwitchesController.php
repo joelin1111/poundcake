@@ -22,9 +22,9 @@
  * @license       XYZ License
  */
 
-App::uses('AppController', 'Controller');
+App::uses('NetworkDeviceController', 'Controller');
 
-class NetworkSwitchesController extends AppController {
+class NetworkSwitchesController extends NetworkDeviceController {
 
     /*
      * MyHTML makes de-links hyperlinks for view-only users
@@ -221,6 +221,28 @@ class NetworkSwitchesController extends AppController {
         $this->set('network_switch_id',$this->NetworkSwitch->id);
         $this->set('networkswitches',$networkswitches);
         $this->layout = 'ajax';
+    }
+    
+    /*
+     * Provisions the device into the monitoring system.
+     * @see Identical functions in NetworkSwitch, NetworkRouter, NetworkRadio
+     */
+    public function provision( $id = null ) {        
+        $this->NetworkSwitch->read(null, $id);
+        $name = $this->NetworkSwitch->data['NetworkSwitch']['name'];
+        // $type = $this->NetworkRadio->data['RadioType']['name'];
+        $type = 'Switch';
+        $ip_addr = $this->NetworkSwitch->data['NetworkSwitch']['ip_address'];
+        $foreign_id = parent::provision_node( $name, $type, $ip_addr, true );
+        
+        if ( !is_null( $foreign_id ) ) {
+            $this->NetworkSwitch->saveField('foreign_id', $foreign_id);
+            $this->Session->setFlash('Provisioned switch.  Foreign ID '.$foreign_id);
+            
+        } else {
+            $this->Session->setFlash('Error provisioning switch.');
+        }
+        $this->redirect(array('action' => 'view',$this->NetworkSwitch->id));
     }
     
     /*

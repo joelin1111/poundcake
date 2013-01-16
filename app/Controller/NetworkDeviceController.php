@@ -26,11 +26,6 @@ class NetworkDeviceController extends AppController {
      * 
      */
     private function getMonitoringSystemUsername() {
-//        $username = 'admin';
-//        return $username;
-//        $model = $this->modelClass; // NetworkRadio, NetworkRouter, NetworkSwitch
-//        debug( $this->$model->Site->Project->field( 'monitoring_system_username' )); //MonitoringSystemUsername() );
-//        debug( $this->$model->Site->Project->findById( $this->Session->read('project_id') )); //MonitoringSystemUsername() );        
         $project = ClassRegistry::init('Project')->findById( $this->Session->read('project_id') , array() ); 
         return $project['Project']['monitoring_system_username'];
     }
@@ -39,16 +34,12 @@ class NetworkDeviceController extends AppController {
      * 
      */
     private function getMonitoringSystemPassword() {
-//        $password = 'Info4@ll';
-//        return $password;
         $project = ClassRegistry::init('Project')->findById( $this->Session->read('project_id') , array() ); 
-        //debug($project['Project']['monitoring_system_password']);
         // this password is encrypted/decrypted with the CryptableBehavior on
         // the Project
         // addslashes escapes the string properly
         $pass = addslashes( $project['Project']['monitoring_system_password'] );
         return $pass;
-        // return $project['Project']['monitoring_system_password'];
     }
     
     /*
