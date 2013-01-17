@@ -254,10 +254,19 @@
                 // look through the files array and move any files that are of
                 // type image into an images array, then display them each
                 // separately
-                
-                for ($i = 0; $i <= count($files); $i++) {
+                $f = count($files);
+                for ($i = 0; $i < $f; $i++) {
                     // look for any images in the files array
-                    if(in_array( exif_imagetype($files[$i]) , array( IMAGETYPE_GIF , IMAGETYPE_JPEG ,IMAGETYPE_PNG , IMAGETYPE_BMP ) )) {
+                    //debug(exif_imagetype($files[$i]));
+                    
+                    // an enumerated list of OK image types
+                    // see: http://php.net/manual/en/function.exif-imagetype.php
+                    $allowed_image_types = array( IMAGETYPE_GIF , IMAGETYPE_JPEG ,IMAGETYPE_PNG , IMAGETYPE_BMP );
+                    // the type of our current file
+                    $image_type = exif_imagetype($files[$i]);
+                    
+                    if ( in_array( $image_type, $allowed_image_types )) {
+                        //echo $i." " . basename($files[$i]) ." is OK<br>";
                         array_push($images,$files[$i]); // put it into the images array
                         unset($files[$i]); // remove it from the files array
                     }
