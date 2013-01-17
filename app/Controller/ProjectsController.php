@@ -56,12 +56,26 @@ class ProjectsController extends AppController {
         $this->set('project', $this->Project->read(null, $id));
     }
 
+    private function cleanUrl( $url ) {
+        if ( $url != "" ) {
+            // if there is no http, append it
+            // if there is https, skip this
+            if ((stripos($url, 'http://') !== 0) && (stripos($url, 'https://') !== 0)) {
+                $url = 'http://' . $url;
+            }
+        }
+        // remove / from the end of the URL
+        $url = preg_replace('{/$}', '', $url);        
+        return $url;
+    }
     /*
      * Add a new project
      */
     public function add() {
         if ($this->request->is('post')) {
             $this->Project->create();
+            // set http if it was not set
+            $this->request->data['Project']['monitoring_system_url'] = $this->cleanUrl( $this->request->data['Project']['monitoring_system_url'] );
             if ($this->Project->save($this->request->data)) {
                 $this->Session->setFlash('The project has been saved.');
                 $this->redirect(array('action' => 'index'));
@@ -82,6 +96,8 @@ class ProjectsController extends AppController {
             throw new NotFoundException('Invalid project');
         }
         if ($this->request->is('post') || $this->request->is('put')) {
+            // set http if it was not set
+            $this->request->data['Project']['monitoring_system_url'] = $this->cleanUrl( $this->request->data['Project']['monitoring_system_url'] );
             if ($this->Project->save($this->request->data)) {
                 $this->Session->setFlash('The project has been saved.');
                 $this->redirect(array('action' => 'index'));
@@ -89,7 +105,7 @@ class ProjectsController extends AppController {
                 $this->Session->setFlash('Error!  The project could not be saved. Please, try again.');
             }
         } else {
-                $this->request->data = $this->Project->read(null, $id);
+            $this->request->data = $this->Project->read(null, $id);
         }
         $this->getSnmpTypes();
         $this->getMonitoringSystemTypes();
