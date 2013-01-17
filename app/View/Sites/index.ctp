@@ -13,7 +13,7 @@
             $project_name = preg_replace('/(\(|\))/', '', $project_name);
             echo $this->MyHTML->linkIfAllowed('KML Export', array('action'=>'export', 'ext'=>'kml', $project_name));
             ?>
-        </li>
+        </li>        
     </ul>
     </div>
     

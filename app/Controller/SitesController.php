@@ -300,7 +300,7 @@ class SitesController extends AppController
         }
         return;
     }
-
+   
     /*
      * Export sites into a KML file
      * @see https://developers.google.com/kml/articles/phpmysqlkml
@@ -942,22 +942,22 @@ class SitesController extends AppController
      * actions in this controller
      */
     public function isAuthorized($user) {
-        // everyone can see the list and view individual Contacts
-        if ($this->action === 'index' || $this->action === 'view') {
+        // pages that anyone (basically with the view rolealias) can access
+        $allowed = array( "index", "view", "overview", "workorder" );
+        if ( in_array( $this->action, $allowed )) {
             return true;
         }
         
-        if ($this->action === 'overview' || $this->action === 'workorder') {
-            return true;
-        }
-        
-        // allow users with the rolealias of "edit" to add/edit/delete
-        if ($this->action === 'add' || $this->action === 'edit' || $this->action === 'delete') {
+        // pages that editors can access
+        $allowed = array( "add","edit", "delete", "export" );
+        if ( in_array( $this->action, $allowed )) {
+            // maybe this is duplicative to check role here...
             if (isset($user['Role']['rolealias']) && $user['Role']['rolealias'] === 'edit') {
                 return true;
             }
         }
         
+        // else you must be an admin
         return parent::isAuthorized($user);
     }   
 }

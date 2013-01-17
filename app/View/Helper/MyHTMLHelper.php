@@ -3,6 +3,7 @@ class MyHTMLHelper extends AppHelper {
     var $helpers = array('Html','Form');
 
     function linkIfAllowed($title, $url) {
+        //debug( $url );
         $role = $this->getRoleAlias();
         if (($role === 'edit') || ($role === 'admin') ) {
           return $this->Html->link($title, $url);
