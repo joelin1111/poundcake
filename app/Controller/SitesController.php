@@ -285,8 +285,8 @@ class SitesController extends AppController
                     $name = (string)$xml->Placemark[$i]->name;
                     
                     $coords = explode(",", $xml->Placemark[$i]->Point->coordinates);
-                    $lat = $coords[0];
-                    $lon = $coords[1];
+                    $lon = $coords[0];
+                    $lat = $coords[1];
                     
                     // we need a site code -- remove all special characters,
                     // whitespace, grab the first 6 characters and make it
@@ -529,8 +529,8 @@ class SitesController extends AppController
         if (!$this->Site->exists()) {
             throw new NotFoundException('Invalid site');
         }
-        
-        $this->set('site', $this->Site->read(null, $id));
+  
+        $site = $this->Site->read(null, $id);
         
         // don't go any further if the user is not in the same project as this site
         if (!$this->isAllowed($this->Site->data['Site']['project_id'], $this->Auth->user('id')) ) {
@@ -563,7 +563,8 @@ class SitesController extends AppController
         $this->set('radios', $radios);
         
         $ip_addresses = $this->getAllIPAddresses($code);
-        $this->set(compact('ip_addresses'));        
+        $this->set(compact('ip_addresses'));
+        $this->set('site', $site);
     }
 
     /*

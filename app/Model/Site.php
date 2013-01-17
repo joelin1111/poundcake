@@ -68,7 +68,6 @@ class Site extends AppModel {
                 //'on' => 'create', // Limit validation to 'create' or 'update' operations
             )
         )
-        
         ,
         'lat' => array(
 //            RegEx for GPS field:
@@ -136,7 +135,7 @@ class Site extends AppModel {
                 $dec = 0;
             }
         }
-        debug ($url );
+        
         return $dec;
     }    
 }
