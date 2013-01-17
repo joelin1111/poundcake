@@ -173,7 +173,7 @@ class SitesController extends AppController
 
             $this->Session->write( 'conditions', $conditions );
         }
-
+        
         // paginate the results
         $this->paginate = array(
             // limit is the number per page 
@@ -184,7 +184,12 @@ class SitesController extends AppController
                 'Site.name' => 'asc',
             ),
         );
+        
         $data = $this->paginate('Site');
+        
+//        $log = $this->Site->getDataSource()->getLog(false, false);
+//        debug($log);
+//        
         $this->set('sites',$data);        
         $this->set('installteams',$this->Site->InstallTeam->find('list'));
     }
@@ -249,11 +254,13 @@ class SitesController extends AppController
                 $filename = $this->request->data['Site']['File']['tmp_name'];
                 $finfo = finfo_open(FILEINFO_MIME_TYPE);
                 $mime = finfo_file($finfo, $filename);
-
+                
                 // .kmz files are MIME type application/zip
                 if ( $mime == 'application/xml' ) {
                     $xml = simplexml_load_file( $filename );
-                    $this->parseKML( $xml->Document->Folder->children(), $overwrite );
+                    if ( $xml != null ) {
+                        $this->parseKML( $xml->Document->Folder->children(), $overwrite );
+                    }
                     $this->redirect(array('action' => 'index'));
                 }
             }
@@ -264,15 +271,68 @@ class SitesController extends AppController
      * Recursive KML parser
      */
     private function parseKML( $xml, $overwrite ) {
+        if ( $xml != null ) {
+//            debug ($xml);
+            if ( isset( $xml->Folder ) ) {
+                // this is untested, but should recurse if there are nested folders
+                $this->parseKML( $xml->Folder->children(), $overwrite );
+            } else {
+                $count = $xml->Placemark->count();
+                $i = 0;
+                while ( $i < $count ) {
+//                    debug($xml);
+                    // must cast to string here
+                    $name = (string)$xml->Placemark[$i]->name;
+                    
+                    $coords = explode(",", $xml->Placemark[$i]->Point->coordinates);
+                    $lat = $coords[0];
+                    $lon = $coords[1];
+                    
+                    // we need a site code -- remove all special characters,
+                    // whitespace, grab the first 6 characters and make it
+                    // uppercase -- the user can change it later
+                    $code = $name;
+                    preg_replace('/[^a-zA-Z0-9_ %\[\]\.\(\)%&-]/s', '', $code);
+                    $code = str_replace(' ', '', $code);
+                    $code = strtoupper( substr($code, 0, 6) );
+                    
+                    if ( $overwrite ) {
+                        $site = $this->Site->findByname( $name );
+                        if (isset( $site['Site']['id'] )) {
+                            $this->Site->delete( $site['Site']['id'] );
+                        }
+                    }
+//                    echo( "$name, Code: $code, is at $lat, $lon<br>" );
+                    $this->Site->create();
+                    $this->Site->set( 'name', $name );
+                    $this->Site->set( 'code', $code );
+                    $this->Site->set( 'lat', $lat );
+                    $this->Site->set( 'lon', $lon );
+                    $this->Site->set( 'project_id', $this->Session->read('project_id') );
+                    $this->Site->save();
+//                    debug( $this->Site->data );
+                    $i++;
+                }
+            }
+        }        
+        return;
+    }
+    
+    /*
+     * Recursive KML parser - deprecated, was used with Sam's KML for InternetNow
+     */
+    private function parseKML_old_Sam ( $xml, $overwrite ) {
         if ($xml != null ) {
             if ( $xml->Folder != null ) {
                 $count = $xml->Folder->count();
                 if ( $count == 0 ) {
                     $children = $xml->children();
+//                    debug( $xml );
                     foreach ( $children as $child ) {
                         if ( $child->Point->coordinates ) {
                             $coords = explode(",", $child->Point->coordinates);
                             $name = $child->name;
+                            debug ($name);
                             $lat = $coords[0];
                             $lon = $coords[1];
                             if ($overwrite) {

@@ -68,25 +68,26 @@ class Site extends AppModel {
                 //'on' => 'create', // Limit validation to 'create' or 'update' operations
             )
         )
+        
         ,
         'lat' => array(
-            /* RegEx for GPS field:
-            -? allows for, but does not require, a negative sign
-            \d{1,2} requires 1 or 2 decimal digits
-            \. requires a decimal point
-            \d{5} requires exactly 5 decimal digits
-            , matches a single comma
-            (repeat the first 5 bullets)
-            $ anchors at the end of input
-             */
-            'rule' => '/^-?\d{1,2}\.\d{1,14}$/',
+//            RegEx for GPS field:
+//            -? allows for, but does not require, a negative sign
+//            \d{1,2} requires 1 or 2 decimal digits
+//            \. requires a decimal point
+//            \d{5} requires exactly 5 decimal digits
+//            , matches a single comma
+//            (repeat the first 5 bullets)
+//            $ anchors at the end of input
+            'rule' => '/^-?\d{1,3}\.\d{1,14}$/',
             'message' => 'Expecting XX.XXXXX or -XX.XXXXX'
         ),
         'lon' => array(
             // same as above
-            'rule' => '/^-?\d{1,2}\.\d{1,14}$/',
+            'rule' => '/^-?\d{1,3}\.\d{1,14}$/',
             'message' => 'Expecting XX.XXXXX or -XX.XXXXX'
             )
+        
     );
     
     /*
