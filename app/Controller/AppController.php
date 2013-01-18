@@ -152,10 +152,12 @@ class AppController extends Controller {
      * Sets two variables (snmp_override, snmp_community) to true/false if
      * the NetworkRadios/NetworkRouters/NetworkSwitch has custom SNMP
      * values defined.
+     * 
+     * @see NetworkRadios, NetworkRouters, NetworkSwitches
      */
     protected function checkSnmp() {
         $model = $this->modelClass;
-        // this is used by each of NetworkRadios/NetworkRouters/NetworkSwitches
+        
         $snmp_override = false;
         $snmp_community = false;
         if ( $this->$model->field('snmp_override') > 0 ) {
@@ -342,5 +344,59 @@ class AppController extends Controller {
         $xml = implode("\n", $pretty);     
         return ($html_output) ? htmlentities($xml) : $xml;  
     }
+    
+    /*
+     * Return an HttpSocket for use in a ReST call
+     */
+    protected function getMonitoringSystemSocket( $username, $password ) {
+        App::uses('HttpSocket', 'Network/Http');
+        
+        if ( !(is_null( $username )) && !(is_null( $password )) ) {
+            // for future reference, JSON HttpSocket example:  http://ask.cakephp.org/questions/view/how_to_post_json_with_httpsocket
+            $HttpSocket = new HttpSocket();
+            $HttpSocket->configAuth(
+                    'Basic',
+                    $username,
+                    $password
+                );
+            return $HttpSocket;
+        } else {
+            return null;
+        }
+    }
+    
+    /*
+     * This function generates XML from a data array
+     * 
+     * @see http://www.viper007bond.com/2011/06/29/easily-create-xml-in-php-using-a-data-array/
+     */
+    protected function generateXMLElement( $dom, $data ) {
+        if ( empty( $data['name'] ) )
+            return false;
+
+        // Create the element
+        $element_value = ( ! empty( $data['value'] ) ) ? $data['value'] : null;
+        $element = $dom->createElement( $data['name'], $element_value );
+
+        // Add any attributes
+        if ( ! empty( $data['attributes'] ) && is_array( $data['attributes'] ) ) {
+            foreach ( $data['attributes'] as $attribute_key => $attribute_value ) {
+                $element->setAttribute( $attribute_key, $attribute_value );
+            }
+        }
+
+        // Any other items in the data array should be child elements
+        foreach ( $data as $data_key => $child_data ) {
+            if ( ! is_numeric( $data_key ) )
+                continue;
+
+            $child = $this->generateXMLElement( $dom, $child_data );
+            if ( $child )
+                $element->appendChild( $child );
+        }
+
+        return $element;
+    }
+    
 }
 ?>

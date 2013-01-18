@@ -16,7 +16,6 @@
                 <tr>
                     <th><?php echo $this->Paginator->sort('name'); ?></th>
                     <th><?php echo $this->Paginator->sort('role_id'); ?></th>
-<!--                    <th><?php //echo $this->Paginator->sort('created'); ?></th>-->
                     <th><?php echo $this->Paginator->sort('last_login'); ?></th>
                     <th><?php echo 'Actions'; ?></th>
                 </tr>

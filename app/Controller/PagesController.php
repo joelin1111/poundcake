@@ -52,25 +52,25 @@ class PagesController extends AppController {
  * @return void
  */
     public function display() {
-            $path = func_get_args();
+        $path = func_get_args();
 
-            $count = count($path);
-            if (!$count) {
-                    $this->redirect('/');
-            }
-            $page = $subpage = $title_for_layout = null;
+        $count = count($path);
+        if (!$count) {
+                $this->redirect('/');
+        }
+        $page = $subpage = $title_for_layout = null;
 
-            if (!empty($path[0])) {
-                    $page = $path[0];
-            }
-            if (!empty($path[1])) {
-                    $subpage = $path[1];
-            }
-            if (!empty($path[$count - 1])) {
-                    $title_for_layout = Inflector::humanize($path[$count - 1]);
-            }
-            $this->set(compact('page', 'subpage', 'title_for_layout'));
-            $this->render(implode('/', $path));
+        if (!empty($path[0])) {
+                $page = $path[0];
+        }
+        if (!empty($path[1])) {
+                $subpage = $path[1];
+        }
+        if (!empty($path[$count - 1])) {
+                $title_for_layout = Inflector::humanize($path[$count - 1]);
+        }
+        $this->set(compact('page', 'subpage', 'title_for_layout'));
+        $this->render(implode('/', $path));
     }
         
     // used for the login/ACL
@@ -78,16 +78,12 @@ class PagesController extends AppController {
         // parent::beforeFilter();
         // this doesn't seem to work
         //$this->Auth->allow('index','login','logout');
-        $this->Auth->allow('*');
+        //$this->Auth->allow('*');
         parent::beforeFilter();
     }
     
     public function logout() {
         // show logout page
-    }
-    
-    public function test() {
-        
     }
     
     public function isAuthorized($user) {
@@ -98,21 +94,12 @@ class PagesController extends AppController {
             return true;
         }
         */
-        //echo "<pre>".print_r($this->action)."</pre>";
-        if ($this->action === 'home') {
+        echo "<pre>".print_r($this->action)."</pre>";
+        if ( $this->action === 'cron') {
             // for testing
             return true;
         }
-        /*
-        from the sample code:
-        // The owner of a post can edit and delete it
-        if (in_array($this->action, array('edit', 'delete'))) {
-            $postId = $this->request->params['pass'][0];
-            if ($this->Post->isOwnedBy($postId, $user['id'])) {
-                return true;
-            }
-        }
-        */
+        
         return parent::isAuthorized($user);
    }
 }

@@ -270,10 +270,12 @@ class UsersController extends AppController {
     /*
      * Standard callback function
      */
+    /*
     public function beforeFilter() {
         // deprecated?  cannot recall why this is here -- doesn't do much...
         parent::beforeFilter();
     }
+    */
     
     /*
      * Login is our main login routine
@@ -348,6 +350,7 @@ class UsersController extends AppController {
         $available_actions = array(
             'logout',
             'password',
+            'cron',
             'change_password',
             'project'
         );

@@ -58,6 +58,9 @@ class SitesController extends AppController
      */
     public function beforeFilter() {
         parent::beforeFilter();
+        // allow anyone access to the cron page -- this should be restricted
+        // by Apache
+        $this->Auth->allow( 'cron' );
         $this->set('name', $this->Site->name);
     }
     
@@ -999,12 +1002,146 @@ class SitesController extends AppController
     }
     
     /*
+     * 
+     */
+    public function cron( $project_id ) {
+        // there is no view
+        // $this->autoRender = false;
+        $this->layout = 'blank';
+        if ( $project_id > 0 ) {
+//            echo $project_id;
+
+            // we could get this off each site, but let's try to keep it faster
+            // by getting project info first, then making recurive -1 below
+            $this->loadModel( 'Project', $project_id );
+            $project = $this->Project->read();
+            $ms_url = $this->Project->field( 'monitoring_system_url' );
+            $ms_user = $this->Project->field( 'monitoring_system_username' );
+            $ms_pass = $this->Project->field( 'monitoring_system_password' );
+            
+            if ( isset( $ms_url ) && isset( $ms_user ) && isset( $ms_pass ) ) {
+                
+                $HttpSocket = parent::getMonitoringSystemSocket( $ms_user, $ms_pass );
+                
+                if ( !is_null( $HttpSocket ) ) {
+                    
+                    // we need to correlate node IDs with devices in our system
+                    // so first, go get all the nodes in the system
+                    $response = $HttpSocket->request(
+                        array(
+                            'method' => 'GET',
+                            'uri' => $ms_url.'/nodes?limit=0',
+                            'header' => array('Content-Type' => 'application/xml')
+                        )
+                    );
+                    
+                    // now let's iterate through them
+                    $xmlIterator = new SimpleXMLIterator( $response->body );
+                    
+                    $n = 0;
+                    for( $xmlIterator->rewind(); $xmlIterator->valid(); $xmlIterator->next() ) {
+                        if( $xmlIterator->hasChildren() ) {
+                            $attrs = $xmlIterator->current()->attributes();
+//                            debug( $attrs );
+                            
+                            $node_label = $xmlIterator->current()->attributes()->label;
+                            $node_id = $xmlIterator->current()->attributes()->id;
+                            $node_foreign_id = $xmlIterator->current()->attributes()->foreignId;  
+                            
+                            echo $node_label.'<br>';
+                            echo $node_id.'<br>';
+                            echo $node_foreign_id.'<br><br>';
+                            
+                            // now get the status of the intefaces on that node
+                            $response2 = $HttpSocket->request(
+                                array(
+                                    'method' => 'GET',
+                                    'uri' => $ms_url.'/nodes/'.$node_id.'/ipinterfaces',
+                                    'header' => array('Content-Type' => 'application/xml')
+                                )
+                            );
+                            
+                            // debug( $response->body );
+                            
+                            $xmlIterator2 = new SimpleXMLIterator( $response2->body );
+//                            $u = 0;
+//                            $j = null; // array to hold ip -> status pairs
+                            for( $xmlIterator2->rewind(); $xmlIterator2->valid(); $xmlIterator2->next() ) {
+                                if( $xmlIterator2->hasChildren() ) {
+                                    
+                                    // debug( $xmlIterator2->current() );
+                                    $snmpPrimary = (string)$xmlIterator2->current()->attributes()->snmpPrimary;
+                                    
+                                    // we're only concerned about the primary interface
+                                    if ( $snmpPrimary == "P" ) {
+                                    
+                                        // reset our variables
+                                        $ip = null;
+                                        $is_down = null;
+                                        $radio = null;
+
+                                        // var_dump($xmlIterator->current());
+
+                                        // get the IP address
+                                        $ip = (string)$xmlIterator2->current()->ipAddress;
+                                        debug($ip);
+
+                                        // get the status
+                                        $is_down = (string)$xmlIterator2->current()->attributes()->isDown;
+                                        if ( $is_down === "false" )
+                                            $is_down = 0;
+                                        else
+                                            $is_down = 1;
+                                        echo "is_down: $is_down <br>";
+
+                                        // find the radio by the foreign Id
+                                        $this->loadModel( 'NetworkRadio' );
+                                        $this->NetworkRadio->recursive = -1; // we only need radio data
+                                        $radio = $this->NetworkRadio->findByForeignId( $node_foreign_id );
+                                        if ( $radio != null ) {
+                                            $radio['NetworkRadio']['is_down'] = $is_down;
+                                            debug( $radio['NetworkRadio'] );
+                                            $this->NetworkRadio->save( $radio );
+                                        }
+                                    }
+                                }
+                            }
+                            $response2 = null;
+                            $node_label = null;
+                            $node_id = null;
+                            $node_foreign_id = null;
+                        }
+                    }
+                    die;
+                    
+                    /*
+                    //$this->Site->recursive = -1; // only return Site data
+                    $sites = $this->Site->findAllByProjectId( $project_id );
+                    foreach ( $sites as $site ) {
+                        //debug($site['Project']['name']);
+                        echo '<pre>';
+                        foreach( $site['NetworkRadios'] as $radio ) {
+                            print_r( $radio );
+                        }
+
+                        echo '</pre>';
+
+                        debug($site['Site']['name']);
+    //                    debug( $site );
+                    }
+                    */
+                }
+            }
+        }
+    }
+    
+    /*
      * Uses Auth to check the ACL to see if the user is allowed to perform any
      * actions in this controller
      */
     public function isAuthorized($user) {
         // pages that anyone (basically with the view rolealias) can access
-        $allowed = array( "index", "view", "overview", "workorder" );
+        $allowed = array( "index", "view", "overview", "workorder", "cron" );
         if ( in_array( $this->action, $allowed )) {
             return true;
         }

@@ -1,8 +1,10 @@
 <?php
 /**
- * Controller for network monitoring tasks.
+ * Dummy/Proof of Concept controller for network monitoring tasks.
  *
  * This is a very basic controller with no model.
+ * 
+ * THIS IS NOT PRODUCTION CODE.
  *
  * Developed against CakePHP 2.2.3 and PHP 5.4.4.
  *
@@ -227,7 +229,7 @@ class MonitorController extends AppController {
     * curl -v -u admin:xxx -X POST -T foo.xml http://localhost:8980/opennms/rest/requisitions/renamed-hiphop-artists/nodes
     * 
    */
-    
+    /*
     private function provision_opennms() {
         App::uses('HttpSocket', 'Network/Http');
 
@@ -297,7 +299,9 @@ class MonitorController extends AppController {
         );
         debug( $results );
     }
+    */
     
+    /*
     private function provision_test() {
         App::uses('HttpSocket', 'Network/Http');
 
@@ -367,13 +371,14 @@ class MonitorController extends AppController {
         );
         debug( $results );
     }
+    */
     
     /*
      * This function generates XML from a data array
      * 
      * @see http://www.viper007bond.com/2011/06/29/easily-create-xml-in-php-using-a-data-array/
      */
-    
+    /*
     private function generateXMLElement( $dom, $data ) {
         if ( empty( $data['name'] ) )
             return false;
@@ -401,6 +406,7 @@ class MonitorController extends AppController {
 
         return $element;
     }
+    */
 }
 
 ?>

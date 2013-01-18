@@ -69,11 +69,9 @@ class NetworkDeviceController extends AppController {
     /*
      * 
      */
-    private function getMonitoringSystemSocket() {
+    /*
+    private function getMonitoringSystemSocket( $username, $password ) {
         App::uses('HttpSocket', 'Network/Http');
-        
-        $username = $this->getMonitoringSystemUsername();
-        $password = $this->getMonitoringSystemPassword();   
         
         if ( !(is_null( $username )) && !(is_null( $password )) ) {
             // for future reference, JSON HttpSocket example:  http://ask.cakephp.org/questions/view/how_to_post_json_with_httpsocket
@@ -88,6 +86,7 @@ class NetworkDeviceController extends AppController {
             return null;
         }
     }
+    */
     
     /*
      * @see This now exists as a model of its own -- NetworkService -- but at
@@ -195,7 +194,7 @@ class NetworkDeviceController extends AppController {
         // generate the XML for adding a node
         $doc = new DOMDocument( '1.0', 'utf-8' );
         $doc->xmlStandalone = true; // adds attribute: standalone="yes"
-        $child = $this->generateXMLElement( $doc, $data );
+        $child = parent::generateXMLElement( $doc, $data );
         if ( $child )
            $doc->appendChild( $child );
         $doc->formatOutput = true; // add whitespace to make easier to read XML
@@ -211,7 +210,9 @@ class NetworkDeviceController extends AppController {
         // for future reference, JSON HttpSocket example:  http://ask.cakephp.org/questions/view/how_to_post_json_with_httpsocket
         // $HttpSocket = new HttpSocket();
         // $HttpSocket->configAuth('Basic', 'admin', 'xx');        
-        $HttpSocket = $this->getMonitoringSystemSocket();
+        // $HttpSocket = $this->getMonitoringSystemSocket( $this->getMonitoringSystemUsername(), $this->getMonitoringSystemPassword() );
+        $HttpSocket = parent::getMonitoringSystemSocket( $this->getMonitoringSystemUsername(), $this->getMonitoringSystemPassword() );
+        
         if ( !is_null($HttpSocket) ) {
             $response = $HttpSocket->request(
                     array(
@@ -237,7 +238,7 @@ class NetworkDeviceController extends AppController {
             if ( $data != null ) {
                 $doc = new DOMDocument( '1.0', 'utf-8' );
                 $doc->xmlStandalone = true; // adds attribute: standalone="yes"
-                $child = $this->generateXMLElement( $doc, $data );
+                $child = parent::generateXMLElement( $doc, $data );
                 if ( $child )
                    $doc->appendChild( $child );
                 $doc->formatOutput = true; // add whitespace to make easier to read XML
@@ -305,39 +306,6 @@ class NetworkDeviceController extends AppController {
                );
         }
         return $data;
-    }
-    
-    /*
-     * This function generates XML from a data array
-     * 
-     * @see http://www.viper007bond.com/2011/06/29/easily-create-xml-in-php-using-a-data-array/
-     */
-    protected function generateXMLElement( $dom, $data ) {
-        if ( empty( $data['name'] ) )
-            return false;
-
-        // Create the element
-        $element_value = ( ! empty( $data['value'] ) ) ? $data['value'] : null;
-        $element = $dom->createElement( $data['name'], $element_value );
-
-        // Add any attributes
-        if ( ! empty( $data['attributes'] ) && is_array( $data['attributes'] ) ) {
-            foreach ( $data['attributes'] as $attribute_key => $attribute_value ) {
-                $element->setAttribute( $attribute_key, $attribute_value );
-            }
-        }
-
-        // Any other items in the data array should be child elements
-        foreach ( $data as $data_key => $child_data ) {
-            if ( ! is_numeric( $data_key ) )
-                continue;
-
-            $child = $this->generateXMLElement( $dom, $child_data );
-            if ( $child )
-                $element->appendChild( $child );
-        }
-
-        return $element;
     }
     
     /*
