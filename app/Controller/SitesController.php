@@ -262,7 +262,8 @@ class SitesController extends AppController
                 if ( $mime == 'application/xml' ) {
                     $xml = simplexml_load_file( $filename );
                     if ( $xml != null ) {
-                        $this->parseKML( $xml->Document->Folder->children(), $overwrite );
+                        // $this->parseKML( $xml->Document->Folder->children(), $overwrite );
+                        $this->parseKML( $xml->Document->children(), $overwrite );
                     }
                     $this->redirect(array('action' => 'index'));
                 }
