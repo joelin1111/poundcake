@@ -94,12 +94,13 @@ class PagesController extends AppController {
             return true;
         }
         */
+        /*
         echo "<pre>".print_r($this->action)."</pre>";
         if ( $this->action === 'cron') {
             // for testing
             return true;
         }
-        
+        */
         return parent::isAuthorized($user);
    }
 }

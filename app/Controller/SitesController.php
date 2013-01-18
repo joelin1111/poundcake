@@ -188,11 +188,7 @@ class SitesController extends AppController
             ),
         );
         
-        $data = $this->paginate('Site');
-        
-//        $log = $this->Site->getDataSource()->getLog(false, false);
-//        debug($log);
-//        
+        $data = $this->paginate('Site');     
         $this->set('sites',$data);        
         $this->set('installteams',$this->Site->InstallTeam->find('list'));
     }
@@ -209,16 +205,6 @@ class SitesController extends AppController
      * Overivew page with main project map
      */
     public function overview() {
-        /*
-        // get all the sites for display on the map - ignore any without lat/lon
-        // skip any that don't have coordinates in the db
-        $conditions = array (
-            "NOT" => array (
-                "Site.lat" => null
-                )
-            );
-        */
-        
         $conditions = array(
             'AND' => array(
                 'Site.project_id' => $this->Session->read('project_id') // only show sites for the current project
@@ -325,6 +311,7 @@ class SitesController extends AppController
     /*
      * Recursive KML parser - deprecated, was used with Sam's KML for InternetNow
      */
+    /*
     private function parseKML_old_Sam ( $xml, $overwrite ) {
         if ($xml != null ) {
             if ( $xml->Folder != null ) {
@@ -364,7 +351,8 @@ class SitesController extends AppController
         }
         return;
     }
-   
+    */
+    
     /*
      * Export sites into a KML file
      * @see https://developers.google.com/kml/articles/phpmysqlkml
@@ -833,7 +821,7 @@ class SitesController extends AppController
         $this->getRadioTypes();
         $this->getAntennaTypes();
         $this->getInstallTeams();
-        
+
         if (!$this->Site->exists()) {
             throw new NotFoundException('Invalid site');
         }
@@ -1002,8 +990,16 @@ class SitesController extends AppController
         $this->layout = 'default';
     }
     
+    public function getSiteStatus() {
+        $this->layout = 'blank';
+        
+    }
+    
     /*
-     * 
+     * Query the monitoring system for site status and update the db -- this is
+     * a back-end function meant to be called from cron.  It produces no output
+     * and is outside Auth authentication.  Currently it is OpenNMS specific
+     * and needs to be generalized.
      */
     public function cron( $project_id ) {
         // there is no view
@@ -1049,9 +1045,7 @@ class SitesController extends AppController
                             $node_id = $xmlIterator->current()->attributes()->id;
                             $node_foreign_id = $xmlIterator->current()->attributes()->foreignId;  
                             
-                            echo $node_label.'<br>';
-                            echo $node_id.'<br>';
-                            echo $node_foreign_id.'<br><br>';
+                            echo "$node_label, $node_id, $node_foreign_id <br>";
                             
                             // now get the status of the intefaces on that node
                             $response2 = $HttpSocket->request(
@@ -1085,7 +1079,7 @@ class SitesController extends AppController
 
                                         // get the IP address
                                         $ip = (string)$xmlIterator2->current()->ipAddress;
-                                        debug($ip);
+//                                        debug($ip);
 
                                         // get the status
                                         $is_down = (string)$xmlIterator2->current()->attributes()->isDown;
@@ -1093,7 +1087,7 @@ class SitesController extends AppController
                                             $is_down = 0;
                                         else
                                             $is_down = 1;
-                                        echo "is_down: $is_down <br>";
+//                                        echo "is_down: $is_down <br>";
 
                                         // find the radio by the foreign Id
                                         $this->loadModel( 'NetworkRadio' );
@@ -1101,8 +1095,8 @@ class SitesController extends AppController
                                         $radio = $this->NetworkRadio->findByForeignId( $node_foreign_id );
                                         if ( $radio != null ) {
                                             $radio['NetworkRadio']['is_down'] = $is_down;
-                                            debug( $radio['NetworkRadio'] );
-                                            $this->NetworkRadio->save( $radio );
+//                                            debug( $radio['NetworkRadio'] );
+                                            $this->NetworkRadio->save( $radio );                                            
                                         }
                                     }
                                 }
@@ -1113,24 +1107,44 @@ class SitesController extends AppController
                             $node_foreign_id = null;
                         }
                     }
-                    die;
                     
-                    /*
-                    //$this->Site->recursive = -1; // only return Site data
                     $sites = $this->Site->findAllByProjectId( $project_id );
                     foreach ( $sites as $site ) {
-                        //debug($site['Project']['name']);
-                        echo '<pre>';
-                        foreach( $site['NetworkRadios'] as $radio ) {
-                            print_r( $radio );
+                        $is_down = 0; // default to not down
+                        $count = 0;
+                        $is_down_old = $site['Site']['is_down'];
+                        if ( is_null($is_down_old) )
+                            $is_down_old = 0;                        
+                        
+                        // check all the radios -- if any are down, the site is down
+                        foreach( $site['NetworkRadios'] as $r ) {
+                            $count++;
+                            if ( $r['is_down'] > 0 )
+                                $is_down++;
                         }
 
-                        echo '</pre>';
+                        if ( $site['NetworkSwitch']['id'] != null ) {
+                            $count++;
+                            if ( $site['NetworkSwitch']['is_down'] > 0 )
+                                $is_down++;                            
+                        }
 
-                        debug($site['Site']['name']);
-    //                    debug( $site );
+                        if ( $site['NetworkRouter']['id'] != null ) {
+                            $count++;
+                            if ( $site['NetworkRouter']['is_down'] > 0 )
+                                $is_down++;
+                        }
+                        
+                        // if there are any devices on the site -- switch, router, radio...
+                        if ( $count > 0 ) {
+                            $site['Site']['is_down'] = $is_down / $count;
+                            // if the status has changed, save it back to the db
+                            if ( $site['Site']['is_down'] != $is_down_old ) {
+                                $this->Site->id = $site['Site']['id'];
+                                $this->Site->saveField( 'is_down', $site['Site']['is_down'] );
+                            }
+                        }
                     }
-                    */
                 }
             }
         }

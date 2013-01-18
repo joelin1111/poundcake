@@ -17,6 +17,9 @@
     <P><B>Datetime Format:</B>&nbsp;<?php echo $project['Project']['datetime_format']; ?></P>
     <P><B>SNMP Version:</B>&nbsp;<?php echo $project['SnmpType']['name']; ?></P>
     <P><B>SNMP Community Name:</B>&nbsp;<?php echo $project['Project']['snmp_community_name']; ?></P>
-    <P><B>Monitoring System:</B>&nbsp;<?php echo $project['MonitoringSystemType']['name']; ?></P>
+    <P><B>Monitoring System Type:</B>&nbsp;<?php echo $project['MonitoringSystemType']['name']; ?></P>
+    <P><B>Monitoring System Username:</B>&nbsp;<?php echo $project['Project']['monitoring_system_username']; ?></P>
+    <P><B>Monitoring System Password:</B>&nbsp;<?php echo $project['Project']['monitoring_system_password']; ?></P>
+    <P><B>Monitoring System ReST URL:</B>&nbsp;<?php echo $project['Project']['monitoring_system_url']; ?></P>
 </div> <!-- /.span9 -->
 </div> <!-- /.row -->
