@@ -55,7 +55,7 @@ class Project extends AppModel {
             ) 
         ) 
     ); 
-    
+   
     /*
      * Field-level validation rules
      */
@@ -71,5 +71,18 @@ class Project extends AppModel {
             )
         ),
     );
+    
+    /*
+     *  If there are Sites that match this project's id, then prevent the delete
+     */
+    public function beforeDelete($cascade = true) {
+        // loadModel returning an error here
+       $i = ClassRegistry::init('Site')->findByProjectId( $this->id );      
+       if ( !is_null( $i['Site'] ) ) {
+            return false;
+       } else {
+           return parent::beforeDelete($cascade);
+       }
+    }
     
 }

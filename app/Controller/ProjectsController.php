@@ -126,7 +126,7 @@ class ProjectsController extends AppController {
             $this->Session->setFlash('Project deleted.');
             $this->redirect(array('action' => 'index'));
         }
-        $this->Session->setFlash('Error!  Project was not deleted.');
+        $this->Session->setFlash('Error!  Project was not deleted.  Check dependencies.');
         $this->redirect(array('action' => 'index'));
     }
         
