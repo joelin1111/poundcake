@@ -13,8 +13,8 @@
 <div class="row">
 <div class="span3">
     <?php
-        echo $this->element('Common/search');
-        echo $this->element('Common/legend');
+        //echo $this->element('Common/search');
+        //echo $this->element('Common/legend');
     ?>
 </div><!-- /.span3 .sb-fixed -->
 
@@ -58,43 +58,80 @@
 
     // too many markers?
     // https://developers.google.com/maps/articles/toomanymarkers
-    
+        
     $i = 1; // the map helper doesn't like this to start at 0
     if ($sites != null) {
+        $last_site = "";
         foreach ($sites as $site) {
-            ///echo "<pre>".print_r($site['Site']['location'])."</pre>";
-            $lat = $site['Site']['lat'];
-            $lon = $site['Site']['lon'];
+//            echo "<pre>".print_r( $site )."</pre>";
             
-            $icon = 'data:'.$site['SiteState']['img_type'].';base64,'.base64_encode( $site['SiteState']['img_data'] );
-            
-            $windowText = $this->Html->link(
-                $site['Site']['site_vf'],
-                array('controller' => 'sites', 'action' => 'view', $site['Site']['id'])
+            // if we just added a placemarker for this site, we don't need to add
+            // another
+            if ( $site['name'] != $last_site ) {
+                $lat = $site[ 'src_lat' ];
+                $lon = $site[ 'src_lon' ];
+
+                $status = $site['is_down'];
+                if (isset($status)) {
+                    if ( $status == 0 ) {
+                         $icon = '/img/sites/green.png';
+                    } elseif ( ( $status > 0 ) && ( $status < 1 )) {
+                        $icon = '/img/sites/yellow.png';
+                    } elseif ( $status == 1 ) {
+                         $icon = '/img/sites/red.png';
+                    }
+                }
+                else {
+                     $icon = '/img/sites/grey.png';
+                }
+
+
+                //$icon = 'data:'.$site['SiteState']['img_type'].';base64,'.base64_encode( $site['SiteState']['img_data'] );
+                $windowText = $this->Html->link(
+                    $site['site_vf'],
+                    array('controller' => 'sites', 'action' => 'view', $site['id'])
+                );
+                $position = array(
+                    'latitude' => $defaultLat,
+                    'longitude' => $defaultLng
+                );
+
+                $markerOptions = array(
+                    'id' => $i, // Id of the marker
+                    'latitude' => $lat,
+                    'longitude' => $lon,
+                    'markerIcon' => $icon,
+                    'position' => null,
+                    'address' => null, // mysteriously started complaining about this field not being present
+                    //'shadowIcon' => 'http://google-maps-icons.googlecode.com/files/home.png', //Custom shadow
+                    'infoWindow' => true, // Boolean to show an information window when you click the marker or not
+                    'windowText' => $windowText // Text inside the information window
+                );
+
+
+                //echo "<pre>".print_r($markerOptions)."</pre>";
+                echo $this->GoogleMap->addMarker('map_canvas', $i, $position, $markerOptions);
+            }
+        
+            echo $this->GoogleMap->addPolyline(
+                "map_canvas",
+                "polyline1",
+                array (
+                    "start" => array("latitude" =>$site['src_lat'] ,"longitude"=> $site['src_lon']),
+                    "end" => array("latitude" =>$site['dest_lat'] ,"longitude"=> $site['dest_lon'])
+                ),
+                array (
+                    'strokeColor' => '4747B2',
+                    'strokeOpacity' => '0.5',
+                    'strokeWeight' => '3'
+                )
             );
             
-            $windowText .= '<BR>'.$site['Zone']['name'];
-            $windowText .= '<BR>'.$site['Organization']['name'];
-            
-            $position = array(
-                'latitude' => $defaultLat,
-                'longitude' => $defaultLng
-            );
-            
-            $markerOptions = array(
-                'id' => $i, // Id of the marker
-                'latitude' => $lat,
-                'longitude' => $lon,
-                'markerIcon' => $icon,
-                'position' => null,
-                'address' => null, // mysteriously started complaining about this field not being present
-                //'shadowIcon' => 'http://google-maps-icons.googlecode.com/files/home.png', //Custom shadow
-                'infoWindow' => true, // Boolean to show an information window when you click the marker or not
-                'windowText' => $windowText // Text inside the information window
-            );
-           
-            //echo "<pre>".print_r($markerOptions)."</pre>";
-            echo $this->GoogleMap->addMarker('map_canvas', $i, $position, $markerOptions);
+            // keep track of the last site's name so we don't duplicate placemarkers
+            // I am assuming that this array is sorted here... but I think it is
+            // a safe assumption since it comes from the Sites->find method
+            // in the controller
+            $last_site = $site['name'];
             $i++;
             //unset($markerOptions); // lame attempt to free memory for the map
         }
