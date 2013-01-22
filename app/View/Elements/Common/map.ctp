@@ -23,6 +23,7 @@
 //    echo "Lon is ". $lon . "<br>";
 //    echo "Zoom is ". $zoom . "<br>";
 //    echo "Marker is ". $marker . "<br>";
+//    echo "Icon is ".$icon . "<br>";
     
     // https://github.com/marcferna/CakePHP-Google-Maps-V3-Helper
     // http://marcferna.tumblr.com/post/3580268729/google-maps-api-v3-cakephp-helper

@@ -327,7 +327,13 @@ class SitesController extends AppController
                     $xml = simplexml_load_file( $filename );
                     if ( $xml != null ) {
                         // $this->parseKML( $xml->Document->Folder->children(), $overwrite );
-                        $this->parseKML( $xml->Document->children(), $overwrite );
+                        
+                        // Sites need to be in a default state or else they won't
+                        // appear on the overview map -- so let's get the first
+                        // state manually here
+                        $sid = $this->Site->SiteState->query('select id from site_states where sequence is not null order by sequence limit 1');
+                        
+                        $this->parseKML( $xml->Document->children(), $overwrite, $sid[0]['site_states']['id'] );
                     }
                     $this->redirect(array('action' => 'index'));
                 }
@@ -338,7 +344,7 @@ class SitesController extends AppController
     /*
      * Recursive KML parser
      */
-    private function parseKML( $xml, $overwrite ) {
+    private function parseKML( $xml, $overwrite, $default_state ) {
         if ( $xml != null ) {
 //            debug ($xml);
             if ( isset( $xml->Folder ) ) {
@@ -376,9 +382,11 @@ class SitesController extends AppController
                     $this->Site->set( 'code', $code );
                     $this->Site->set( 'lat', $lat );
                     $this->Site->set( 'lon', $lon );
+                    $this->Site->set( 'site_state_id', $default_state );
                     $this->Site->set( 'project_id', $this->Session->read('project_id') );
-                    $this->Site->save();
-//                    debug( $this->Site->data );
+                    $data = $this->Site->save();
+                    //print_r( $data );
+                    //$this->Site->saveAssociated( $data );
                     $i++;
                 }
             }
