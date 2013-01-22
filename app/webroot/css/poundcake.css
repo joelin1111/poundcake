@@ -489,11 +489,12 @@ textarea,
 /* overrides bootstrap.css
 .navbar-inner misbehaving on Chrome?!  Ask Matt...
 */
+/*
 .navbar
   .navbar-inner {
-    background-color: #a73e00; /*#b64000;*/ /*#c64309;*/
+    background-color: #a73e00; #b64000; #c64309;
     background-image: none;
-  }
+  }*/
 
 /* Our own spacer for use with Bootstrap error messages / CakePHP Flash messages
 used in may layout page */

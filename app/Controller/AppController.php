@@ -49,9 +49,11 @@ class AppController extends Controller {
     /*
      * Helpers we use:
      * - MyHTML makes de-links hyperlinks for view-only users
+     * - Less.Less @see http://mindthecode.com/using-less-in-cakephp/
      */
     var $helpers = array(
-        'MyHTML'
+        'MyHTML',
+        'Less.Less' 
     );
     
     // return all the organizations the user may be assigned to
@@ -227,6 +229,7 @@ class AppController extends Controller {
      * release number
      */
     function beforeRender() {
+        
         // in the views $user['User']['username'] would display the logged in
         // user's username
         $this->set('user', $this->Auth->user());
