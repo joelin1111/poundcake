@@ -734,7 +734,6 @@ class SitesController extends AppController
             'conditions' => array('project_id' => $this->Session->read('project_id') )
         ));
         $this->set('towertypes',$towertypes);
-        debug($towertypes);
     }
     
     /*
@@ -1048,7 +1047,7 @@ class SitesController extends AppController
                 }
             }            
             
-            $ip_address = '';
+            $address = '';
             $ip_address = $this->getIPAddress($radio['NetworkRadios']['name']);
             $radio['NetworkRadios']['ip_address'] = $ip_address;
             

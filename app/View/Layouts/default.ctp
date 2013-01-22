@@ -37,7 +37,8 @@ $cakeDescription = __d('poundcake', 'Tower DB');
             
             echo $this->Html->css('bootstrap'); // Bootstrap CSS file
             echo $this->Html->css('poundcake'); // Our custom CSS file
-
+            echo $this->Html->css('jasny-bootstrap');  // Jasny is used for the File upload widget
+ 
             // LESS 
             // @see http://mindthecode.com/using-less-in-cakephp/
             // @see https://github.com/leafo/lessphp
@@ -99,7 +100,14 @@ $cakeDescription = __d('poundcake', 'Tower DB');
                 <a class="brand" href="/sites/overview">Tower DB <?php echo $this->Session->read('version');?>&nbsp;&nbsp;</a>
                 <div class="main-navigation">
                     <ul class="nav">
-                    <li> <?php echo $this->Html->link('Map', array('controller' => 'sites', 'action' => 'overview')); ?> </li>
+                    <li class="dropdown" id="menu1">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#menu1">Map<b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                          <li><?php echo $this->Html->link('Overview', array('controller' => 'sites', 'action' => 'overview')); ?> </li>
+                          <li><?php echo $this->Html->link('Topology', array('controller' => 'sites', 'action' => 'topology')); ?> </li>
+<!--                      <li class="divider"></li>-->
+                        </ul>
+                    </li>                   
                     <li> <?php echo $this->Html->link('Sites', array('controller' => 'sites', 'action' => 'index')); ?> </li>
                     <li> <?php echo $this->Html->link('Contacts', array('controller' => 'contacts', 'action' => 'index')); ?> </li>
                     <li> <?php echo $this->Html->link('Radios', array('controller' => 'networkRadios', 'action' => 'index')); ?> </li>
@@ -112,7 +120,6 @@ $cakeDescription = __d('poundcake', 'Tower DB');
                         echo "<LI>".$this->Html->link('Admin', array('controller' => 'admin', 'action' => 'setup'))."</LI>";
                     }
                     ?>
-                    
                 </ul>
                 </div>
             <?php
@@ -126,18 +133,21 @@ $cakeDescription = __d('poundcake', 'Tower DB');
         </div>
     </div> <!--/.navbar -->
     
+    <!-- show banner, if any -- this would be set in AppController::beforeRender -->
     <div class="container">
+    
+    <?php
+        $banner = $this->Session->read('banner');
+        if ( strlen($banner) > 0 ) {
+            echo '<div class="alert" align="center">'.$banner.'</div>';
+        }
+    ?>
     <div class="row">
     <?php        
         $flashClass = "alert-spacer";
         $flashMessage = "";
-        //if (isset($flashMessage) && strlen($flashMessage) > 0 ) {
         if( $this->Session->check('Message.flash') ) {
-            // show banner, if any -- this would be set in AppController::beforeRender
             $flashMessage = $this->Session->flash();
-//            $banner = $this->Session->read('banner');
-//            $flashMessage = $banner;
-//            if (isset($flashMessage) && strlen($flashMessage) > 0
             $flashClass = "alert-success";
             if (strlen(strstr($flashMessage,'Error')) > 0) {
                 $flashClass = "alert-error";
@@ -179,17 +189,6 @@ $cakeDescription = __d('poundcake', 'Tower DB');
         ?>
             
     <?php //echo $this->element('sql_dump'); ?>
-    
-   <?php
-        $host = gethostname();
-        if ($host == 'Catapult-Clarks-MacBook.local') { ?>
-        <BR>
-        <div style="background-color: #ffff66; border: 1px solid black; width: 100%; height:5em;">            
-            <div style="height:3em;padding:1em 0 1em 0">
-                Development version!  <?php echo $host ?>
-            </div>
-        </div>
-    <?php } ?>
     </div> <!-- /footer -->
     </div> <!-- /.container -->
 </body>

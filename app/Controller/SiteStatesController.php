@@ -82,6 +82,9 @@ class SiteStatesController extends AppController {
             throw new NotFoundException('Invalid site state');
         }
         if ($this->request->is('post') || $this->request->is('put')) {
+            
+            // debug( $this->request->data['SiteState'] );
+            
             if (is_uploaded_file($this->request->data['SiteState']['File']['tmp_name'])) {
                     $fileData = fread(fopen($this->request->data['SiteState']['File']['tmp_name'], "r"), $this->request->data['SiteState']['File']['size']);
 

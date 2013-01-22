@@ -479,6 +479,13 @@
     box-shadow: 5px 5px 10px #888;
 }
 
+.map-frame-large {
+    position: relative;
+    float: center;
+    width: 960px;
+    box-shadow: 5px 5px 10px #888;
+}
+
 /* overrides bootstrap.css */
 input,
 textarea,

@@ -4,7 +4,7 @@
     <H3>Actions</H3>
     <ul>
         <li><?php echo $this->Html->link('New Zone', array('action' => 'add')); ?></li>
-        <li><?php echo $this->Html->link('Admin',array('controller'=>'admin','action' => 'setup')); ?></li>
+        <li><?php echo $this->Html->link('Setup',array('controller'=>'admin','action' => 'setup')); ?></li>
     </ul>
 </div><!-- /.span3 .sb-fixed -->
 

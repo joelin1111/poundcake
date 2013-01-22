@@ -62,5 +62,15 @@ class SiteState extends AppModel {
                 //'on' => 'create', // Limit validation to 'create' or 'update' operations
             ),*/
         ),
+        'sequence' => array(
+            'notempty' => array(
+                'rule' => array('notempty'),
+                'message' => 'This field cannot be blank.',
+                //'allowEmpty' => false,
+                'required' => true,
+                //'last' => false, // Stop validation after this rule
+                //'on' => 'create', // Limit validation to 'create' or 'update' operations
+            )
+            )
     );
 }

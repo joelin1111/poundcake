@@ -11,17 +11,15 @@
 ?>
 
 <div class="row">
-<div class="span3">
-    <?php
-        //echo $this->element('Common/search');
-        //echo $this->element('Common/legend');
-    ?>
-</div><!-- /.span3 .sb-fixed -->
-
 <div class="span9">
-    <h2><?php echo $this->Session->read('project_name'); ?> Overview</h2>
-    <div class="map-frame">
-<?php
+    <h2><?php echo $this->Session->read('project_name'); ?> Topology</h2>
+    
+    <p>
+    <i class="icon-warning-sign"></i>&nbsp;This page is in development and should not be relied upon.
+    </p>
+    
+    <div class="map-frame-large">
+    <?php
     // maybe we could have used an Element for creating the map here, but this map
     // is bigger with different options, and so it might take just as much code
     // to do that as it is to just do it again manually
@@ -38,7 +36,7 @@
     // http://plugins.cakephp.org/package/marcferna/CakePHP-Google-Maps-V3-Helper
     $mapOptions = array(
         'id' => 'map_canvas', // Map canvas ID
-        'width' => '700px', // Width of the map
+        'width' => '960px', // Width of the map
         'height'=>'700px', // Height of the map
         //'style' => '', // CSS style for the map canvas
         'style' => '98%; height:700px;', // CSS style for the map canvas
@@ -84,7 +82,6 @@
                 else {
                      $icon = '/img/sites/grey.png';
                 }
-
 
                 //$icon = 'data:'.$site['SiteState']['img_type'].';base64,'.base64_encode( $site['SiteState']['img_data'] );
                 $windowText = $this->Html->link(
@@ -141,3 +138,11 @@
 </div> <!-- /.map-frame -->
 </div> <!-- /.span9 -->
 </div> <!-- /.row -->
+<BR>
+
+<div class="row" align="center">
+    <div class="span3" align="center"> <?php echo $this->Html->image('/img/sites/green.png'); ?> All nodes up</div>
+    <div class="span3" align="center"> <?php echo $this->Html->image('/img/sites/yellow.png'); ?> Some nodes down</div>
+    <div class="span3" align="center"> <?php echo $this->Html->image('/img/sites/red.png'); ?> All nodes down</div>
+    <div class="span3" align="center"> <?php echo $this->Html->image('/img/sites/grey.png'); ?> Node status unknown</div>
+</div>

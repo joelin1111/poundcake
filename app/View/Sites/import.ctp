@@ -1,3 +1,10 @@
+<?php
+    // jQuery to enable/disable fields based on checkbox
+    echo $this->Html->script('snmp_override');
+    
+    echo $this->Html->script('jasny/bootstrap-fileupload'); 
+?>
+
 <div class="row">
 <div class="span3">
     <H3>Actions</H3>
@@ -23,10 +30,20 @@
                     <input type="checkbox" class="checkbox" name="overwrite" value="true">Overwrite sites with same name
                 </label>
             </div>
+        <BR><BR>
         
+        
+        <div class="fileupload fileupload-new" data-provides="fileupload">
+  <div class="input-append">
+    <div class="uneditable-input span3"><i class="icon-file fileupload-exists"></i> <span class="fileupload-preview"></span></div>
+    <span class="btn btn-file"><span class="fileupload-new">Select file</span><span class="fileupload-exists">Change</span><input type="file" name="data[Site][File]"/></span><a href="#" class="btn fileupload-exists" data-dismiss="fileupload">Remove</a>
+  </div>
+</div>
         <?php
-            echo $this->Form->file('File');
-            echo $this->Form->end('Import');
+            //echo $this->Form->file('File');
+            //echo $this->Form->end('Import',array('class'=>'btn'));
+            echo $this->Form->submit('Import', array('div' => false,'class'=>'btn'));
+            echo $this->Form->end(); 
         ?>
         </div>
         

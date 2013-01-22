@@ -229,26 +229,32 @@ class AppController extends Controller {
      * release number
      */
     function beforeRender() {
-        
-        // in the views $user['User']['username'] would display the logged in
-        // user's username
+        $banner_ctr = $this->Session->read('banner_ctr');
         $this->set('user', $this->Auth->user());
+        // only check for this stuff every 10 page loads
         
-        $banner = $this->Session->read('banner'); // system messages
-        $version = $this->Session->read('version'); // current version number
-        if ( !isset($banner) || !isset($version) ) {
+        // echo "banner_ctr: ".$banner_ctr."<BR>";  
+        if ( (is_null($banner_ctr)) || ($banner_ctr  >= 10 )) {
+            $banner_ctr = 0;
+            // Banner stuff
             // I just need an object on which I can call query, ChangeLog seems OK?
             // maybe this doesn't need to be done here
             $query = "select message from notifications";
             $this->loadModel('ChangeLog');
             $result = $this->ChangeLog->query($query);
-            if (count($result) > 0 )
+            if( count( $result ) > 0 )
                 $this->Session->write('banner',$result[0]['notifications']['message']);
-
+            else
+                 $this->Session->write('banner','');
+            
+            // Version stuff
             $query = "select max(version) as version from change_logs";
             $result = $this->ChangeLog->query($query);
             $this->Session->write('version',$result[0][0]['version']);
         }
+        // up our counter
+        $banner_ctr++;
+        $this->Session->write('banner_ctr', $banner_ctr);        
     }
     
     /*

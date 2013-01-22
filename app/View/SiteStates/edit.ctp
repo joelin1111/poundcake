@@ -1,3 +1,8 @@
+<?php
+    // Jasny's file upload
+    echo $this->Html->script('jasny/bootstrap-fileupload'); 
+?>
+
 <div class="row">
 <div class="span3">
     <H3>Actions</H3>
@@ -10,13 +15,29 @@
 
 <div class="span9">
     <?php echo $this->Form->create('SiteState', array('type' => 'file')); ?>
-    <h2>Edit Installation State</h2>
+    <h2>Edit Site State</h2>
     <?php
         echo $this->Form->input('id');
         echo $this->Form->input('name');
         echo $this->Form->input('project_id');
         echo $this->Form->input('sequence');
-        echo $this->Form->file('File');
+        //echo $this->Form->file('File');
+    ?>
+    <p>Image</p>
+    <?php
+        echo '<img src="data:'.$this->request->data['SiteState']['img_type'].';base64,'.base64_encode( $this->request->data['SiteState']['img_data'] ) . '" />';
+    ?>
+    <br><br>
+    <div class="fileupload fileupload-new" data-provides="fileupload">
+      <div class="fileupload-new thumbnail" style="width: 100px; height: 75px;"><img src="http://www.placehold.it/200x150/EFEFEF/AAAAAA&text=no+image" /></div>
+      <div class="fileupload-preview fileupload-exists thumbnail" style="max-width: 200px; max-height: 150px; line-height: 20px;"></div>
+      <div>
+        <span class="btn btn-file"><span class="fileupload-new">Select image</span><span class="fileupload-exists">Change</span><input type="file" name="data[SiteState][File]"/></span>
+        <a href="#" class="btn fileupload-exists" data-dismiss="fileupload">Remove</a>
+      </div>
+    </div>
+    
+    <?php
         echo $this->Form->submit('Save', array('div' => false,'class'=>'btn'));
         echo $this->Form->end(); 
     ?>
