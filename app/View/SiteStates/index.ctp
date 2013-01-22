@@ -24,6 +24,7 @@
                 <tr>
                     <th><?php echo $this->Paginator->sort('name'); ?></th>
                     <th><?php echo $this->Paginator->sort('sequence'); ?></th>
+                    <th><?php echo $this->Paginator->sort('project_id'); ?></th>
                     <th><?php echo 'Actions'; ?></th>
                 </tr>
             </thead>
@@ -33,9 +34,11 @@
 	<tr>
             <td><?php echo $this->Html->link(($siteState['SiteState']['name']), array('action' => 'view', $siteState['SiteState']['id'])); ?></td>
             <td><?php echo $siteState['SiteState']['sequence']; ?></td>
+            <td><?php echo $siteState['Project']['name']; ?></td>
             <td>
             <?php
                 echo $this->Html->link('Edit', array('action' => 'edit', $siteState['SiteState']['id']));
+                echo '&nbsp;';
                 echo $this->Form->postLink('Delete',
                     array('controller'=>'sitestates','action'=>'delete', $siteState['SiteState']['id']),
                     array('method' => 'post','class'=>'confirm','data-dialog_msg'=>'Confirm delete of '.$siteState['SiteState']['name']),

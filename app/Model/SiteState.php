@@ -34,6 +34,13 @@ class SiteState extends AppModel {
     var $order = "SiteState.sequence asc";
 
     /*
+     * Relations
+     */
+    var $belongsTo = array(
+       'Project'
+    );
+    
+    /*
      * Field-level validation rules
      */
     public $validate = array(

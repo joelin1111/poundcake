@@ -197,9 +197,13 @@ class SitesController extends AppController
      * Set an array of site states for use in the legend
      */
     public function buildLegend() {
-        $allSiteStates = $this->Site->SiteState->find('all');
+        // ISNULL here puts any SiteStates that don't have a defined sequence
+        // at the end of the list
+        //$allSiteStates = $this->Site->SiteState->findAllByProjectId( 1 ,array('order' => array('ISNULL(sequence), sequence ASC')));
+        $allSiteStates = $this->Site->SiteState->findAllByProjectId( $this->Session->read('project_id') );
         $this->set('allSiteStates', $allSiteStates);
     }
+    
     
     /*
      * Overivew page with main project map
@@ -293,8 +297,8 @@ class SitesController extends AppController
 //        echo '</pre>';
 //        die;
         
-        //$this->getSiteStates();
-        //$this->buildLegend();
+        $this->getSiteStates();
+        $this->buildLegend();
         $project = $this->Site->Project->findById($this->Session->read('project_id'));
         $this->set('default_lat', $project['Project']['default_lat']);
         $this->set('default_lon', $project['Project']['default_lon']);
@@ -331,7 +335,7 @@ class SitesController extends AppController
                         // Sites need to be in a default state or else they won't
                         // appear on the overview map -- so let's get the first
                         // state manually here
-                        $sid = $this->Site->SiteState->query('select id from site_states where sequence is not null order by sequence limit 1');
+                        $sid = $this->Site->SiteState->query('select id from site_states where sequence is not null and project_id='.$this->Session->read('project_id').' order by sequence limit 1');
                         
                         $this->parseKML( $xml->Document->children(), $overwrite, $sid[0]['site_states']['id'] );
                     }
@@ -705,7 +709,13 @@ class SitesController extends AppController
      * Save an array of site states
      */
     function getSiteStates() {
-        $this->set('sitestates',$this->Site->SiteState->find('list'));
+        //$this->Session->read('project_id');
+        //$this->set('sitestates',$this->Site->SiteState->find('list'));
+       //$sitestates = $this->Site->SiteState->findByProjectId( $this->Session->read('project_id') );
+        $sitestates = $this->Site->SiteState->find('list', array(
+            'conditions' => array('project_id' => $this->Session->read('project_id') )
+        ));
+        $this->set('sitestates',$sitestates);
     }
     
     /*

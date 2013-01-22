@@ -14,6 +14,7 @@
     <?php
         echo $this->Form->input('id');
         echo $this->Form->input('name');
+        echo $this->Form->input('project_id');
         echo $this->Form->input('sequence');
         echo $this->Form->file('File');
         echo $this->Form->submit('Save', array('div' => false,'class'=>'btn'));

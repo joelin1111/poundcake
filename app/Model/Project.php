@@ -41,6 +41,10 @@ class Project extends AppModel {
         'MonitoringSystemType'
     );
     
+    public $hasMany = array(
+        'SiteStates'
+    );
+    
     /*
      * CakePHP behavior to handle encrypting/decrypting sensitive fields when
      * readingor writing to the database.

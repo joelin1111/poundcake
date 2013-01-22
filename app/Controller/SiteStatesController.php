@@ -45,6 +45,8 @@ class SiteStatesController extends AppController {
     }
 
     public function add() {
+        $this->getProjects();
+        
         if ($this->request->is('post')) {
             $this->SiteState->create();
             //echo "<pre>";
@@ -96,9 +98,9 @@ class SiteStatesController extends AppController {
             }
         } else {
             $this->request->data = $this->SiteState->read(null, $id);
+            $this->getProjects();
         }
     }
-
 
     public function delete($id = null) {
         if (!$this->request->is('post')) {
@@ -114,6 +116,20 @@ class SiteStatesController extends AppController {
         }
         $this->Session->setFlash('Error!  Site state was not deleted.');
         $this->redirect(array('action' => 'index'));
+    }
+    
+    /*
+     * Save an array of projects the SiteState may be assigned to
+     */
+    private function getProjects() {
+        // note this does not filter the list of projects available to the
+        // current user -- this returns all projects
+        $this->set('projects',$this->SiteState->Project->find('list',
+            array(
+                'order' => array(
+                    'Project.name'
+            )))
+        );
     }
     
     /* used for downloading files
