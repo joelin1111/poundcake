@@ -42,7 +42,8 @@ class Project extends AppModel {
     );
     
     public $hasMany = array(
-        'SiteStates'
+        'SiteStates',
+        'TowerTypes'
     );
     
     /*

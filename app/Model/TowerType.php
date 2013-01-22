@@ -27,7 +27,12 @@ class TowerType extends AppModel {
      */
     public $displayField = 'name';
     
-    //public $useTable = 'tower_equipment';
+    /*
+     * Relations
+     */
+    var $belongsTo = array(
+       'Project'
+    );
     
     /*
      * Field-level validation rules

@@ -51,6 +51,7 @@ class TowerTypesController extends AppController {
      * Add a new TowerType
      */
     public function add() {
+        $this->getProjects();
         if ($this->request->is('post')) {
             $this->TowerType->create();
             if ($this->TowerType->save($this->request->data)) {
@@ -68,7 +69,7 @@ class TowerTypesController extends AppController {
     public function edit($id = null) {
         $this->TowerType->id = $id;
         if (!$this->TowerType->exists()) {
-                throw new NotFoundException('Invalid tower type');
+            throw new NotFoundException('Invalid tower type');
         }
         if ($this->request->is('post') || $this->request->is('put')) {
             if ($this->TowerType->save($this->request->data)) {
@@ -78,7 +79,8 @@ class TowerTypesController extends AppController {
                 $this->Session->setFlash('Error!  The tower type could not be saved. Please, try again.');
             }
         } else {
-                $this->request->data = $this->TowerType->read(null, $id);
+            $this->getProjects();
+            $this->request->data = $this->TowerType->read(null, $id);
         }
     }
 

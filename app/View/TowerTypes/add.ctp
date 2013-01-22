@@ -12,6 +12,7 @@
     <?php echo $this->Form->create('TowerType'); ?>
     <h2>Add Tower Type</h2>
     <?php
+        echo $this->Form->input('project_id');
         echo $this->Form->input('name');
     ?>
     </fieldset>

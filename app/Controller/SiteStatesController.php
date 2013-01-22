@@ -118,20 +118,6 @@ class SiteStatesController extends AppController {
         $this->redirect(array('action' => 'index'));
     }
     
-    /*
-     * Save an array of projects the SiteState may be assigned to
-     */
-    private function getProjects() {
-        // note this does not filter the list of projects available to the
-        // current user -- this returns all projects
-        $this->set('projects',$this->SiteState->Project->find('list',
-            array(
-                'order' => array(
-                    'Project.name'
-            )))
-        );
-    }
-    
     /* used for downloading files
     function download($id) {
         Configure::write('debug', 0);

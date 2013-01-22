@@ -202,6 +202,25 @@ class AppController extends Controller {
         return false;
     }
     
+    
+    /*
+     * Save an array of projects the SiteState may be assigned to
+     */
+    protected function getProjects() {
+        // get the current model context -- this function is called from
+        // at least the SiteStates and TowerTypes controllers
+        $model = $this->modelClass;
+        
+        // note this does not filter the list of projects available to the
+        // current user -- this returns all projects
+        $this->set('projects',$this->$model->Project->find('list',
+            array(
+                'order' => array(
+                    'Project.name'
+            )))
+        );
+    }
+    
     /*
      * Standard callback function before a view is rendered
      * Used to grab any system messages an admin may have set, and get the 

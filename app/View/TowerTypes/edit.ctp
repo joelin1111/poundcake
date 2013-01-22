@@ -12,8 +12,9 @@
     <?php echo $this->Form->create('TowerType'); ?>
     <h2>Edit Role</h2>
     <?php
-            echo $this->Form->input('id');
-            echo $this->Form->input('name');
+        echo $this->Form->input('id');
+        echo $this->Form->input('project_id');
+        echo $this->Form->input('name');
     ?>
     </fieldset>
     <?php

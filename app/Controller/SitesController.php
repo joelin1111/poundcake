@@ -729,7 +729,12 @@ class SitesController extends AppController
      * Save an array of tower types
      */
     function getTowerTypes() {
-        $this->set('towertypes',$this->Site->TowerType->find('list'));
+        // $this->set('towertypes',$this->Site->TowerType->find('list'));
+        $towertypes = $this->Site->TowerType->find('list', array(
+            'conditions' => array('project_id' => $this->Session->read('project_id') )
+        ));
+        $this->set('towertypes',$towertypes);
+        debug($towertypes);
     }
     
     /*
