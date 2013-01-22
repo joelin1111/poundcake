@@ -230,7 +230,7 @@ class SitesController extends AppController
      * placemarkers at the site to the site's status -- gray (unknown), green
      * (all radios OK), yellow (some radios OK), or red (all radios down).
      */
-    public function overview_links() {
+    public function topology() {
         
         // Because of the complexity of point-to-multipoint radios, and our
         // custom join table that makes traversing those links difficult, I did
@@ -1257,7 +1257,7 @@ class SitesController extends AppController
      */
     public function isAuthorized($user) {
         // pages that anyone (basically with the view rolealias) can access
-        $allowed = array( "index", "view", "overview", "workorder", "cron" );
+        $allowed = array( "index", "view", "overview", "topology", "workorder", "cron" );
         if ( in_array( $this->action, $allowed )) {
             return true;
         }

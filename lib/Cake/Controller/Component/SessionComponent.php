@@ -21,8 +21,8 @@ App::uses('Component', 'Controller');
 App::uses('CakeSession', 'Model/Datasource');
 
 /**
- * The CakePHP SessionComponent provides a way to persist client data between 
- * page requests. It acts as a wrapper for the `$_SESSION` as well as providing 
+ * The CakePHP SessionComponent provides a way to persist client data between
+ * page requests. It acts as a wrapper for the `$_SESSION` as well as providing
  * convenience methods for several `$_SESSION` related functions.
  *
  * @package       Cake.Controller.Component
@@ -110,7 +110,7 @@ class SessionComponent extends Component {
 /**
  * Used to set a session variable that can be used to output messages in the view.
  *
- * In your controller: $this->Session->setFlash('This has been saved.');
+ * In your controller: $this->Session->setFlash('This has been saved');
  *
  * Additional params below can be passed to customize the output, or the Message.[key].
  * You can also set additional parameters when rendering flash messages. See SessionHelper::flash()

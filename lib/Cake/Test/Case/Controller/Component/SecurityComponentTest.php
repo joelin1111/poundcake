@@ -195,6 +195,22 @@ class SecurityComponentTest extends CakeTestCase {
 	}
 
 /**
+ * Ensure that directly requesting the blackholeCallback as the controller
+ * action results in an exception.
+ *
+ * @return void
+ */
+	public function testExceptionWhenActionIsBlackholeCallback() {
+		$this->Controller->request->addParams(array(
+			'controller' => 'posts',
+			'action' => 'fail'
+		));
+		$this->assertFalse($this->Controller->failed);
+		$this->Controller->Security->startup($this->Controller);
+		$this->assertTrue($this->Controller->failed, 'Request was blackholed.');
+	}
+
+/**
  * test that initialize can set properties.
  *
  * @return void
@@ -449,7 +465,7 @@ class SecurityComponentTest extends CakeTestCase {
 	public function testRequireDeleteSucceed() {
 		$_SERVER['REQUEST_METHOD'] = 'DELETE';
 		$this->Controller->request['action'] = 'deleted';
-		$this->Controller->Security->requireDelete('deleted.');
+		$this->Controller->Security->requireDelete('deleted');
 		$this->Controller->Security->startup($this->Controller);
 		$this->assertFalse($this->Controller->failed);
 	}
@@ -462,7 +478,7 @@ class SecurityComponentTest extends CakeTestCase {
 	public function testRequireDeleteSucceedWrongMethod() {
 		$_SERVER['REQUEST_METHOD'] = 'POST';
 		$this->Controller->request['action'] = 'posted';
-		$this->Controller->Security->requireDelete('deleted.');
+		$this->Controller->Security->requireDelete('deleted');
 		$this->Controller->Security->startup($this->Controller);
 		$this->assertFalse($this->Controller->failed);
 	}
