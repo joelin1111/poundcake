@@ -63,13 +63,17 @@ class UsersController extends AppController {
         // with (which is a HABTM relation) easier -- or am I just not doing this
         // right?
         $projects = $this->User->Project->find('list', array( 
-            'conditions' => array('ProjectsUser.user_id' => $this->Auth->user('id')), 
+            'conditions' => array(
+                'ProjectsUser.user_id' => $this->Auth->user('id')
+                ), 
             'joins' => array( 
-                array('table' => 'projects_users', 
-                      'alias' => 'ProjectsUser', 
-                      'type' => 'inner', 
-                      'conditions'=> array('ProjectsUser.project_id = Project.id')) 
-            ) 
+                array(
+                    'table' => 'projects_users', 
+                    'alias' => 'ProjectsUser', 
+                    'type' => 'inner',
+                    'conditions'=> array('ProjectsUser.project_id = Project.id')) 
+            ),
+            'order' => array('Project.name ASC'),
             ));        
         $this->set(compact('projects'));
     }
