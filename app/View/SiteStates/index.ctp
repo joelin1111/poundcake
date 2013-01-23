@@ -39,11 +39,11 @@
             <?php
                 echo $this->Html->link('Edit', array('action' => 'edit', $siteState['SiteState']['id']));
                 echo '&nbsp;';
-                echo $this->Form->postLink('Delete',
-                    array('controller'=>'sitestates','action'=>'delete', $siteState['SiteState']['id']),
-                    array('method' => 'post','class'=>'confirm','data-dialog_msg'=>'Confirm delete of '.$siteState['SiteState']['name']),
-                    null
-                );
+                echo $this->MyHTML->postLinkIfAllowed('Delete',
+                            array('controller'=>'sitestates','action'=>'delete', $siteState['SiteState']['id']),
+                            array('method' => 'post','class'=>'confirm','data-dialog_msg'=>'Confirm delete of '.$siteState['SiteState']['name']),
+                            null
+                        );
             ?>
             </td>
 	</tr>

@@ -26,7 +26,7 @@
             <td>
                     <?php echo $this->Html->link('Edit', array('action' => 'edit', $routerType['RouterType']['id'])); ?>
                     <?php
-                        echo $this->Form->postLink('Delete',
+                        echo $this->MyHTML->postLinkIfAllowed('Delete',
                             array('controller'=>'routertypes','action'=>'delete', $routerType['RouterType']['id']),
                             array('method' => 'post','class'=>'confirm','data-dialog_msg'=>'Confirm delete of '.$routerType['RouterType']['name']),
                             null
