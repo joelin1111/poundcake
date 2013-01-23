@@ -110,20 +110,21 @@
                 echo $this->GoogleMap->addMarker('map_canvas', $i, $position, $markerOptions);
             }
         
-            echo $this->GoogleMap->addPolyline(
-                "map_canvas",
-                "polyline1",
-                array (
-                    "start" => array("latitude" =>$site['src_lat'] ,"longitude"=> $site['src_lon']),
-                    "end" => array("latitude" =>$site['dest_lat'] ,"longitude"=> $site['dest_lon'])
-                ),
-                array (
-                    'strokeColor' => '4747B2',
-                    'strokeOpacity' => '0.5',
-                    'strokeWeight' => '3'
-                )
-            );
-            
+            if ( isset($site['src_lat']) && isset($site['src_lon']) && isset($site['dest_lat']) && isset($site['dest_lon']) ) {
+                echo $this->GoogleMap->addPolyline(
+                    "map_canvas",
+                    "polyline1",
+                    array (
+                        "start" => array("latitude" =>$site['src_lat'] ,"longitude"=> $site['src_lon']),
+                        "end" => array("latitude" =>$site['dest_lat'] ,"longitude"=> $site['dest_lon'])
+                    ),
+                    array (
+                        'strokeColor' => '4747B2',
+                        'strokeOpacity' => '0.5',
+                        'strokeWeight' => '3'
+                    )
+                );
+            }
             // keep track of the last site's name so we don't duplicate placemarkers
             // I am assuming that this array is sorted here... but I think it is
             // a safe assumption since it comes from the Sites->find method
