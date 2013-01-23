@@ -26,7 +26,8 @@
             <td>
             <?php
                 echo $this->Html->link('Edit', array('action' => 'edit', $switchType['SwitchType']['id']));
-                echo $this->Form->postLink('Delete',
+                echo '&nbsp;';
+                echo $this->MyHTML->postLinkIfAllowed('Delete',
                     array('controller'=>'switchtypes','action'=>'delete', $switchType['SwitchType']['id']),
                     array('method' => 'post','class'=>'confirm','data-dialog_msg'=>'Confirm delete of '.$switchType['SwitchType']['name']),
                     null

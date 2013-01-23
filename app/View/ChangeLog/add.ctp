@@ -11,7 +11,7 @@
 <div class="span9">
     <?php echo $this->Form->create('ChangeLog');
     //echo $this->element('sql_dump'); ?>
-    <h2>Add Contact</h2>
+    <h2>Add Change</h2>
     <?php
         echo $this->Form->input('version');
         echo $this->Form->input('release_date', 

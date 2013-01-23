@@ -250,10 +250,21 @@ class SitesController extends AppController
         $sites = $this->Site->find('all', array('conditions' => $conditions));
         
         $s = array();
+        $u = 0;
         $n = 0;
+        
 //        echo '<pre>';
         foreach ($sites as $site ) {
             //print_r( $site );
+            $s[$u]['id'] = $site['Site']['id'];
+            $s[$u]['name'] = $site['Site']['name'];
+            $s[$u]['code'] = $site['Site']['code'];
+            $s[$u]['site_vf'] = $site['Site']['site_vf'];
+            $s[$u]['src_lat'] = $site['Site']['lat'];
+            $s[$u]['src_lon'] = $site['Site']['lon'];
+            $s[$u]['is_down'] = $site['Site']['is_down'];
+            
+            $n = $u;
             foreach ($site['NetworkRadios'] as $radio ) {
                 // for each radio that's attached to a site, we need to find out
                 // what that radio is linked to -- but we do this manually, since
@@ -291,8 +302,19 @@ class SitesController extends AppController
                     $n++;
                 }
                 $results = null;
-            }         
+            }
+            $u = $n;
+            $u++;
+            
+//            $n = count($s);
+//            $s[ ++$n ] = 
+//            debug( $site['NetworkRouter'] );
+//            debug( $site['NetworkSwitch'] );
+            
         }
+//        debug( $s );
+//        die;
+        
         $this->set('sites', $s);
 //        echo '</pre>';
 //        die;
@@ -1101,7 +1123,7 @@ class SitesController extends AppController
      * and is outside Auth authentication.  Currently it is OpenNMS specific
      * and needs to be generalized.
      */
-    public function cron( $project_id ) {
+    public function cron( $project_id, $debug = false ) {
         // there is no view
         // $this->autoRender = false;
         $this->layout = 'blank';
@@ -1139,13 +1161,18 @@ class SitesController extends AppController
                     for( $xmlIterator->rewind(); $xmlIterator->valid(); $xmlIterator->next() ) {
                         if( $xmlIterator->hasChildren() ) {
                             $attrs = $xmlIterator->current()->attributes();
-//                            debug( $attrs );
+                            if ( $debug ) {
+                                debug( $attrs );
+                            }
                             
                             $node_label = $xmlIterator->current()->attributes()->label;
                             $node_id = $xmlIterator->current()->attributes()->id;
                             $node_foreign_id = $xmlIterator->current()->attributes()->foreignId;  
+                            $node_foreign_source = (string)$xmlIterator->current()->attributes()->foreignSource;
                             
-                            echo "$node_label, $node_id, $node_foreign_id <br>";
+                            if ( $debug ) {
+                                echo "Found:  $node_label, $node_id, $node_foreign_id <br>";
+                            }
                             
                             // now get the status of the intefaces on that node
                             $response2 = $HttpSocket->request(
@@ -1159,8 +1186,6 @@ class SitesController extends AppController
                             // debug( $response->body );
                             
                             $xmlIterator2 = new SimpleXMLIterator( $response2->body );
-//                            $u = 0;
-//                            $j = null; // array to hold ip -> status pairs
                             for( $xmlIterator2->rewind(); $xmlIterator2->valid(); $xmlIterator2->next() ) {
                                 if( $xmlIterator2->hasChildren() ) {
                                     
@@ -1175,20 +1200,55 @@ class SitesController extends AppController
                                         $is_down = null;
                                         $radio = null;
 
-                                        // var_dump($xmlIterator->current());
-
+                                        if ( $debug ) {
+                                            var_dump($xmlIterator->current());
+                                        }
+                                        
                                         // get the IP address
                                         $ip = (string)$xmlIterator2->current()->ipAddress;
 //                                        debug($ip);
-
+                                        
                                         // get the status
                                         $is_down = (string)$xmlIterator2->current()->attributes()->isDown;
                                         if ( $is_down === "false" )
                                             $is_down = 0;
                                         else
                                             $is_down = 1;
-//                                        echo "is_down: $is_down <br>";
+                                        
+                                        if ( $debug ) {
+                                            echo "is_down: $is_down <br>";
+                                        }
 
+                                        // the foreignSource string (Radios, Routers, Switches) is defined
+                                        // in model for a NetworkRadio/NetworkRouter/NetworkSwitch
+                                        // this is sort of lame but here we need to align with how they are
+                                        // categorized in OpenNMS, and sicne we can't call the static variable
+                                        // without loading the model, just search for a like word in the foreignSource
+                                        $model = null;
+//                                        debug( $node_foreign_source );
+                                        if ( preg_match("/Radio/i", $node_foreign_source ) ) {
+                                            $model = 'NetworkRadio';
+                                        } elseif ( preg_match("/Router/i", $node_foreign_source ) ) {
+                                            $model = 'NetworkRouter';                                            
+                                        } elseif ( preg_match("/Switch/i", $node_foreign_source ) ) {
+                                            $model = 'NetworkSwitch';
+                                        }
+                                        
+                                        if ( $debug ) {
+                                            debug ($model );
+                                        }
+                                        
+                                        if (isset($model)) {
+                                            $this->loadModel( $model );
+                                            $this->$model->recursive = -1; // we only need radio/router/switch data
+                                            $device = $this->$model->findByForeignId( $node_foreign_id );
+                                            if ( $device != null ) {
+                                                $device[ $model ]['is_down'] = $is_down;
+    //                                            debug( $radio['NetworkRadio'] );
+                                                $this->$model->save( $device );                                            
+                                            }
+                                        }                                        
+                                        /*
                                         // find the radio by the foreign Id
                                         $this->loadModel( 'NetworkRadio' );
                                         $this->NetworkRadio->recursive = -1; // we only need radio data
@@ -1198,6 +1258,7 @@ class SitesController extends AppController
 //                                            debug( $radio['NetworkRadio'] );
                                             $this->NetworkRadio->save( $radio );                                            
                                         }
+                                        */
                                     }
                                 }
                             }
@@ -1214,7 +1275,7 @@ class SitesController extends AppController
                         $count = 0;
                         $is_down_old = $site['Site']['is_down'];
                         if ( is_null($is_down_old) )
-                            $is_down_old = 0;                        
+                            $is_down_old = -1;                        
                         
                         // check all the radios -- if any are down, the site is down
                         foreach( $site['NetworkRadios'] as $r ) {
@@ -1235,9 +1296,15 @@ class SitesController extends AppController
                                 $is_down++;
                         }
                         
+                        //$debug = true;
+                        if ( $debug ) {
+                            debug( $is_down );
+                        }
                         // if there are any devices on the site -- switch, router, radio...
                         if ( $count > 0 ) {
                             $site['Site']['is_down'] = $is_down / $count;
+                            debug( $site['Site']['is_down'] );
+                            debug( $is_down_old );
                             // if the status has changed, save it back to the db
                             if ( $site['Site']['is_down'] != $is_down_old ) {
                                 $this->Site->id = $site['Site']['id'];

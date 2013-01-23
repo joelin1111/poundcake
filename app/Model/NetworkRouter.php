@@ -44,6 +44,11 @@ class NetworkRouter extends AppModel {
     );
     
     /*
+     * The foreignSource name in OpenNMS.
+     */
+    public $foreignSource = 'Routers';
+    
+    /*
      * Relations
      */
     var $belongsTo = array(

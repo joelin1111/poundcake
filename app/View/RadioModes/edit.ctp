@@ -3,8 +3,8 @@
     <H3>Actions</H3>
     <div class="well well-large">
     <ul>
-        <li><?php echo $this->Form->postLink('Delete', array('action' => 'delete', $this->Form->value('RadioMode.id')), null, __('Are you sure you want to delete radio mode %s?', $this->Form->value('RadioMode.name'))); ?></li>
         <li><?php echo $this->Html->link('List Radio Modes', array('action' => 'index')); ?></li>
+        <li><?php echo $this->Html->link('Setup',array('controller'=>'admin','action' => 'setup')); ?></li>
     </ul>
     </div>
 </div><!-- /.span3 .sb-fixed -->

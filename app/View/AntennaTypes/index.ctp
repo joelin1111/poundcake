@@ -27,7 +27,7 @@
                 <?php
                     echo $this->Html->link('Edit', array('action' => 'edit', $antennaType['AntennaType']['id']));
                     echo '&nbsp;';
-                    echo $this->Form->postLink('Delete',
+                    echo $this->MyHTML->postLinkIfAllowed('Delete',
                         array('controller'=>'antennatypes','action'=>'delete', $antennaType['AntennaType']['id']),
                         array('method' => 'post','class'=>'confirm','data-dialog_msg'=>'Confirm delete of '.$antennaType['AntennaType']['name']),
                         null

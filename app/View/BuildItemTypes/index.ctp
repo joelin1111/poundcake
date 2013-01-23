@@ -23,13 +23,14 @@
 	<tr>
             <td><?php echo $item['BuildItemType']['name'];?></td>
             <td>
-            <?php echo $this->Html->link('Edit', array('action' => 'edit', $item['BuildItemType']['id'])); ?>
             <?php
-                echo $this->Form->postLink('Delete',
-                    array('controller'=>'builditemtypes','action'=>'delete', $item['BuildItemType']['id']),
-                    array('method' => 'post','class'=>'confirm','data-dialog_msg'=>'Confirm delete of '.$item['BuildItemType']['name']),
-                    null
-                );
+                echo $this->Html->link('Edit', array('action' => 'edit', $item['BuildItemType']['id']));
+                echo '&nbsp;';
+                echo $this->MyHTML->postLinkIfAllowed('Delete',
+                            array('controller'=>'builditemtypes','action'=>'delete', $item['BuildItemType']['id']),
+                            array('method' => 'post','class'=>'confirm','data-dialog_msg'=>'Confirm delete of '.$item['BuildItemType']['name']),
+                            null
+                        );
             ?>
             </td>
 	</tr>

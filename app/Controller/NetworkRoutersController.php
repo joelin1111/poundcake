@@ -176,9 +176,9 @@ class NetworkRoutersController extends NetworkDeviceController {
         $this->NetworkRouter->read(null, $id);
         $name = $this->NetworkRouter->data['NetworkRouter']['name'];
         // $type = $this->NetworkRadio->data['RadioType']['name'];
-        $type = 'Router';
+        
         $ip_addr = $this->NetworkRouter->data['NetworkRouter']['ip_address'];
-        $foreign_id = parent::provision_node( $name, $type, $ip_addr, true );
+        $foreign_id = parent::provision_node( $name, $ip_addr, true );
         
         if ( !is_null( $foreign_id ) ) {
             $this->NetworkRouter->saveField('foreign_id', $foreign_id);

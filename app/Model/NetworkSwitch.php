@@ -44,6 +44,11 @@ class NetworkSwitch extends AppModel {
     );
     
     /*
+     * The foreignSource name in OpenNMS.
+     */
+    public $foreignSource = 'Switches';
+    
+    /*
      * Relations
      * Returns attached radios sorted by the switch port there's connected to.
      */

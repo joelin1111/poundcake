@@ -24,8 +24,15 @@
 	<tr>
             <td><?php echo $equipmentspace['EquipmentSpace']['name'];?></td>
             <td>
-                <?php echo $this->Html->link('Edit', array('action' => 'edit', $equipmentspace['EquipmentSpace']['id'])); ?>
-                <?php echo $this->Form->postLink('Delete', array('action' => 'delete', $equipmentspace['EquipmentSpace']['id']), null, __('Are you sure you want to delete equipment space %s?', $equipmentspace['EquipmentSpace']['name'])); ?>
+                <?php
+                    echo $this->Html->link('Edit', array('action' => 'edit', $equipmentspace['EquipmentSpace']['id']));
+                    echo '&nbsp;';
+                    echo $this->MyHTML->postLinkIfAllowed('Delete',
+                            array('controller'=>'equipmentspaces','action'=>'delete', $equipmentspace['EquipmentSpace']['id']),
+                            array('method' => 'post','class'=>'confirm','data-dialog_msg'=>'Confirm delete of '.$equipmentspace['EquipmentSpace']['name']),
+                            null
+                        );
+                ?>
             </td>
 	</tr>
         <?php endforeach; ?>

@@ -24,9 +24,10 @@
 	<tr>
             <td><?php echo $item['SnmpType']['name'];?></td>
             <td>
-            <?php echo $this->Html->link('Edit', array('action' => 'edit', $item['SnmpType']['id'])); ?>
             <?php
-                echo $this->Form->postLink('Delete',
+                echo $this->Html->link('Edit', array('action' => 'edit', $item['SnmpType']['id']));
+                echo '&nbsp;';
+                echo $this->MyHTML->postLinkIfAllowed('Delete',
                     array('controller'=>'snmptypes','action'=>'delete', $item['SnmpType']['id']),
                     array('method' => 'post','class'=>'confirm','data-dialog_msg'=>'Confirm delete of '.$item['SnmpType']['name']),
                     null

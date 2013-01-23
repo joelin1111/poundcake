@@ -37,13 +37,16 @@
                     echo date_format($date, 'D m/d/y g:ia');
                     //echo $user['User']['modified']; ?>&nbsp;</td>
 		<td class="actions">
-                    <?php //echo $this->Html->link('View'), array('action' => 'view', $user['User']['id']));
+                    <?php
                         echo $this->Html->link('Edit', array('action' => 'edit', $user['User']['id']));
                         echo '&nbsp;';
-                        //echo $this->Html->link('Password', array('action' => 'password', $user['User']['id']));
                         echo $this->Html->link('Permissions', array('action' => 'permissions', $user['User']['id']));
                         echo '&nbsp;';
-                        echo $this->Form->postLink('Delete', array('action' => 'delete', $user['User']['id']), null, 'Are you sure you want to delete user %s?', $user['User']['username']);
+                        echo $this->MyHTML->postLinkIfAllowed('Delete',
+                            array('controller'=>'users','action'=>'delete', $user['User']['id']),
+                            array('method' => 'post','class'=>'confirm','data-dialog_msg'=>'Confirm delete of '.$user['User']['username']),
+                            null
+                        )
                     ?>
 		</td>
 	</tr>

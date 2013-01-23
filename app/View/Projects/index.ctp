@@ -24,16 +24,14 @@
 	<tr>
             <td><?php echo $this->MyHtml->linkIfAllowed($project['Project']['name'], array('action' => 'view', $project['Project']['id'])); ?></td>
             <td>
-                <?php echo $this->MyHtml->linkIfAllowed('Edit', array('action' => 'edit', $project['Project']['id']));  ?>
-                <?php 
-                    // Standard Cake delete syntax:
-                    // echo $this->Form->postLink('Delete', array('action' => 'delete', $project['Project']['id']), null, 'Are you sure you want to delete project %s?', $project['Project']['name']);
-                    // new Bootbox-compatible delete -- see poundcake.js
-                    echo $this->MyHtml->postLinkIfAllowed('Delete',
-                        array('controller'=>'projects','action'=>'delete', $project['Project']['id']),
-                        array('method' => 'post','class'=>'confirm','data-dialog_msg'=>'Confirm delete of '.$project['Project']['name']),
-                        null
-                    );
+                <?php
+                    echo $this->MyHtml->linkIfAllowed('Edit', array('action' => 'edit', $project['Project']['id']));
+                    echo '&nbsp;';
+                    echo $this->MyHTML->postLinkIfAllowed('Delete',
+                            array('controller'=>'projects','action'=>'delete', $project['Project']['id']),
+                            array('method' => 'post','class'=>'confirm','data-dialog_msg'=>'Confirm delete of '.$project['Project']['name']),
+                            null
+                        );
                 ?>
             </td>
 	</tr>

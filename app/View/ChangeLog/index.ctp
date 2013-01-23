@@ -39,13 +39,14 @@
                 ?>
             </td>
             <td>
-            <?php echo $this->MyHTML->linkIfAdmin('Edit', array('action' => 'edit', $change['ChangeLog']['id'])); ?>
-            <?php 
-                echo $this->Form->postLink('Delete',
-                    array('controller'=>'changelog','action'=>'delete', $change['ChangeLog']['id']),
-                    array('method' => 'post','class'=>'confirm','data-dialog_msg'=>'Confirm delete of '.$change['ChangeLog']['version']),
-                    null
-                );
+            <?php
+                echo $this->MyHTML->linkIfAdmin('Edit', array('action' => 'edit', $change['ChangeLog']['id']));
+                echo '&nbsp;';
+                echo $this->MyHTML->postLinkIfAllowed('Delete',
+                            array('controller'=>'changelog','action'=>'delete', $change['ChangeLog']['id']),
+                            array('method' => 'post','class'=>'confirm','data-dialog_msg'=>'Confirm delete of '.$change['ChangeLog']['name']),
+                            null
+                        );
             ?>
             </td>
 	</tr>

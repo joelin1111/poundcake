@@ -24,13 +24,14 @@
 	<tr>
             <td><?php echo $organization['Organization']['name'];?></td>
             <td>
-                <?php echo $this->Html->link('Edit', array('action' => 'edit', $organization['Organization']['id'])); ?>
                 <?php
-                    echo $this->Form->postLink('Delete',
-                        array('controller'=>'organizations','action'=>'delete', $organization['Organization']['id']),
-                        array('method' => 'post','class'=>'confirm','data-dialog_msg'=>'Confirm delete of '.$organization['Organization']['name']),
-                        null
-                    );
+                    echo $this->Html->link('Edit', array('action' => 'edit', $organization['Organization']['id']));
+                    echo '&nbsp;';
+                    echo $this->MyHTML->postLinkIfAllowed('Delete',
+                            array('controller'=>'organizations','action'=>'delete', $organization['Organization']['id']),
+                            array('method' => 'post','class'=>'confirm','data-dialog_msg'=>'Confirm delete of '.$organization['Organization']['name']),
+                            null
+                        );
                 ?>
             </td>
 	</tr>

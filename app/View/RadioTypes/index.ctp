@@ -24,14 +24,15 @@
 	<tr>
             <td><?php echo $radioType['RadioType']['name'];?></td>
             <td>
-                    <?php echo $this->Html->link('Edit', array('action' => 'edit', $radioType['RadioType']['id'])); ?>
-                    <?php
-                        echo $this->Form->postLink('Delete',
-                            array('controller'=>'radiotypes','action'=>'delete', $radioType['RadioType']['id']),
-                            array('method' => 'post','class'=>'confirm','data-dialog_msg'=>'Confirm delete of '.$radioType['RadioType']['name']),
-                            null
-                        );
-                    ?>
+                <?php
+                    echo $this->Html->link('Edit', array('action' => 'edit', $radioType['RadioType']['id']));
+                    echo '&nbsp;';
+                    echo $this->MyHTML->postLinkIfAllowed('Delete',
+                        array('controller'=>'radiotypes','action'=>'delete', $radioType['RadioType']['id']),
+                        array('method' => 'post','class'=>'confirm','data-dialog_msg'=>'Confirm delete of '.$radioType['RadioType']['name']),
+                        null
+                    );
+                ?>
             </td>
 	</tr>
         <?php endforeach; ?>

@@ -26,7 +26,8 @@
             <td>
             <?php
                 echo $this->Html->link('Edit', array('action' => 'edit', $towermount['TowerMount']['id']));
-                echo $this->Form->postLink('Delete',
+                echo '&nbsp;';
+                echo $this->MyHTML->postLinkIfAllowed('Delete',
                     array('controller'=>'towermounts','action'=>'delete', $towermount['TowerMount']['id']),
                     array('method' => 'post','class'=>'confirm','data-dialog_msg'=>'Confirm delete of '.$towermount['TowerMount']['name']),
                     null

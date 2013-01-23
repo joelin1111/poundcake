@@ -231,9 +231,9 @@ class NetworkSwitchesController extends NetworkDeviceController {
         $this->NetworkSwitch->read(null, $id);
         $name = $this->NetworkSwitch->data['NetworkSwitch']['name'];
         // $type = $this->NetworkRadio->data['RadioType']['name'];
-        $type = 'Switch';
+        
         $ip_addr = $this->NetworkSwitch->data['NetworkSwitch']['ip_address'];
-        $foreign_id = parent::provision_node( $name, $type, $ip_addr, true );
+        $foreign_id = parent::provision_node( $name, $ip_addr, true );
         
         if ( !is_null( $foreign_id ) ) {
             $this->NetworkSwitch->saveField('foreign_id', $foreign_id);

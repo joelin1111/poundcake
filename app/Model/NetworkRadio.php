@@ -56,6 +56,11 @@ class NetworkRadio extends AppModel {
     );
     
     /*
+     * The foreignSource name in OpenNMS.
+     */
+    public static $foreignSource = 'Radios';
+    
+    /*
      * Field-level validation rules
      */
     public $validate = array(

@@ -29,11 +29,11 @@
             <?php
                 echo $this->Html->link('Edit', array('action' => 'edit', $item['NetworkService']['id']));
                 echo '&nbsp;';
-                echo $this->Form->postLink('Delete',
-                    array('controller'=>'networkservices','action'=>'delete', $item['NetworkService']['id']),
-                    array('method' => 'post','class'=>'confirm','data-dialog_msg'=>'Confirm delete of '.$item['NetworkService']['name']),
-                    null
-                );
+                echo $this->MyHTML->postLinkIfAllowed('Delete',
+                        array('controller'=>'networkservices','action'=>'delete', $item['NetworkService']['id']),
+                        array('method' => 'post','class'=>'confirm','data-dialog_msg'=>'Confirm delete of '.$item['NetworkService']['name']),
+                        null
+                    );
             ?>
             </td>
 	</tr>

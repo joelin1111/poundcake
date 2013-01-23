@@ -27,11 +27,11 @@
                 <?php
                     echo $this->Html->link('Edit', array('action' => 'edit', $monitoringSystemType['MonitoringSystemType']['id']));
                     echo '&nbsp;';
-                    echo $this->Form->postLink('Delete',
-                        array('controller'=>'monitoringsystemtypes','action'=>'delete', $monitoringSystemType['MonitoringSystemType']['id']),
-                        array('method' => 'post','class'=>'confirm','data-dialog_msg'=>'Confirm delete of '.$monitoringSystemType['MonitoringSystemType']['name']),
-                        null
-                    );
+                    echo $this->MyHTML->postLinkIfAllowed('Delete',
+                            array('controller'=>'monitoringsystemtypes','action'=>'delete', $monitoringSystemType['MonitoringSystemType']['id']),
+                            array('method' => 'post','class'=>'confirm','data-dialog_msg'=>'Confirm delete of '.$monitoringSystemType['MonitoringSystemType']['name']),
+                            null
+                        );
                 ?>
             </td>
 	</tr>

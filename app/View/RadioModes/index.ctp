@@ -26,8 +26,15 @@
             <td><?php echo $radiomode['RadioMode']['name'];?></td>
             <td><?php echo $radiomode['RadioMode']['inverse_mode_name'];?></td>
             <td>
-                <?php echo $this->Html->link('Edit', array('action' => 'edit', $radiomode['RadioMode']['id'])); ?>
-                <?php echo $this->Form->postLink('Delete', array('action' => 'delete', $radiomode['RadioMode']['id']), null, __('Are you sure you want to delete radio mode %s?', $radiomode['RadioMode']['name'])); ?>
+                <?php
+                    echo $this->Html->link('Edit', array('action' => 'edit', $radiomode['RadioMode']['id']));
+                    echo '&nbsp;';
+                    echo $this->MyHTML->postLinkIfAllowed('Delete',
+                        array('controller'=>'radiomodes','action'=>'delete', $radiomode['RadioMode']['id']),
+                        array('method' => 'post','class'=>'confirm','data-dialog_msg'=>'Confirm delete of '.$radiomode['RadioMode']['name']),
+                        null
+                    );
+                ?>
             </td>
 	</tr>
         <?php endforeach; ?>
