@@ -106,11 +106,12 @@ class NetworkDeviceController extends AppController {
      * 
      */
     protected function provision_node( $name, $ip_addr, $debug ) {
-        $this->autoRender = false;
+//        $this->autoRender = false;
         
         $model = $this->modelClass;
         // foreignSource is a variable on the model for NetworkRadio/NetworkSwitch/NetworkRouter
         $type = $this->$model->foreignSource;
+        debug($model);
         if (isset($type)) {
             
             // creating XML from a data array -- I could not get attributes to work

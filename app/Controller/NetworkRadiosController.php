@@ -418,13 +418,14 @@ class NetworkRadiosController extends NetworkDeviceController {
      * Provisions the device into the monitoring system.
      * @see Identical functions in NetworkSwitch, NetworkRouter, NetworkRadio
      */
-    public function provision( $id = null ) {        
+    public function provision( $id = null ) {       
         // $this->NetworkRadio->id = $id;
         $this->NetworkRadio->read(null, $id);
         $name = $this->NetworkRadio->data['NetworkRadio']['name'];
         // $type = $this->NetworkRadio->data['RadioType']['name'];
         
         $ip_addr = $this->NetworkRadio->data['NetworkRadio']['ip_address'];
+        
         $foreign_id = parent::provision_node( $name, $ip_addr, true );
         
         if ( !is_null( $foreign_id ) ) {
