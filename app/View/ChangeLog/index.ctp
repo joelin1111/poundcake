@@ -44,7 +44,7 @@
                 echo '&nbsp;';
                 echo $this->MyHTML->postLinkIfAllowed('Delete',
                             array('controller'=>'changelog','action'=>'delete', $change['ChangeLog']['id']),
-                            array('method' => 'post','class'=>'confirm','data-dialog_msg'=>'Confirm delete of '.$change['ChangeLog']['name']),
+                            array('method' => 'post','class'=>'confirm','data-dialog_msg'=>'Confirm delete of '.$change['ChangeLog']['version']),
                             null
                         );
             ?>
