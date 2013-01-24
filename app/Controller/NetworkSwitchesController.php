@@ -193,6 +193,9 @@ class NetworkSwitchesController extends NetworkDeviceController {
     public function getSwitchForSite() {
         // revisit: site_id should probably come in as an argument
         
+        // See also NetworkRadiosController::getNetworkSwitch -- which is what is called
+        // when the page first loads, then this one is called by the AJAX
+        
         // get the Site the user selected
         $this->loadModel('Site');
         $this->Site->id = $this->request->data['NetworkRadio']['site_id'];
@@ -205,13 +208,13 @@ class NetworkSwitchesController extends NetworkDeviceController {
             //$this->NetworkSwitch->read($this->NetworkSwitch->id,null);
 
             // now load the SwitchType
-            $this->loadModel('SwitchType', $this->NetworkSwitch->field('switch_type_id'));
+            $this->loadModel('SwitchType');
             $this->SwitchType->id = $this->NetworkSwitch->field('switch_type_id');
 
             $networkswitches = array();        
             if ( $this->NetworkSwitch->field('name') != null ) { 
                 // now load the SwitchType
-                $this->loadModel('SwitchType', $this->NetworkSwitch->field('switch_type_id'));
+                $this->loadModel('SwitchType');
                 $this->SwitchType->id = $this->NetworkSwitch->field('switch_type_id');
 
                 $ports = $this->SwitchType->field('ports');
@@ -223,12 +226,11 @@ class NetworkSwitchesController extends NetworkDeviceController {
                 }
             }
         } else {
-            $networkswitches[0] = $this->Site->field('name').' has no dd switch';            
+            $networkswitches[0] = $this->Site->field('name').' has no switch';            
         }
         
         $this->set('network_switch_id',$this->NetworkSwitch->id);
         $this->set('networkswitches',$networkswitches);
-        //$this->set('networkswitches',array( $this->request->data['NetworkRadio']['site_id'] ));
         $this->layout = 'ajax';
     }
     
