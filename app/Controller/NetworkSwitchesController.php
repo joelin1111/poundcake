@@ -194,38 +194,41 @@ class NetworkSwitchesController extends NetworkDeviceController {
         // revisit: site_id should probably come in as an argument
         
         // get the Site the user selected
-        $this->loadModel('Site', $this->request->data['NetworkRadio']['site_id']);
+        $this->loadModel('Site');
         $this->Site->id = $this->request->data['NetworkRadio']['site_id'];
-                
-        // now get the NetworkSwitch on that site
-        // $network_switch_id = $this->Site->field('network_switch_id');
-        $this->loadModel('NetworkSwitch', $this->Site->field('network_switch_id'));
-        $this->NetworkSwitch->id = $this->Site->field('network_switch_id');
-        //$this->NetworkSwitch->read($this->NetworkSwitch->id,null);
-        
-        // now load the SwitchType
-        $this->loadModel('SwitchType', $this->NetworkSwitch->field('switch_type_id'));
-        $this->SwitchType->id = $this->NetworkSwitch->field('switch_type_id');
 
-        $networkswitches = array();        
-        if ( $this->NetworkSwitch->field('name') != null ) { 
+        if ( $this->Site->field('network_switch_id') > 0 ) {
+            // now get the NetworkSwitch on that site
+            // $network_switch_id = $this->Site->field('network_switch_id');
+            $this->loadModel('NetworkSwitch');
+            $this->NetworkSwitch->id = $this->Site->field('network_switch_id');
+            //$this->NetworkSwitch->read($this->NetworkSwitch->id,null);
+
             // now load the SwitchType
             $this->loadModel('SwitchType', $this->NetworkSwitch->field('switch_type_id'));
             $this->SwitchType->id = $this->NetworkSwitch->field('switch_type_id');
 
-            $ports = $this->SwitchType->field('ports');
-            // switches are labeled 1 to N
-            for ($i = 1; $i <= $ports; $i++) {
-                //$switchports[$i] = $i . " switch id: ".$switch_id ." ports ".$ports."";
-                $networkswitches[$i] = $this->NetworkSwitch->field('name') . ' #'.$i;
-                //$networkswitches[$i] = 'Port '.$i;
+            $networkswitches = array();        
+            if ( $this->NetworkSwitch->field('name') != null ) { 
+                // now load the SwitchType
+                $this->loadModel('SwitchType', $this->NetworkSwitch->field('switch_type_id'));
+                $this->SwitchType->id = $this->NetworkSwitch->field('switch_type_id');
+
+                $ports = $this->SwitchType->field('ports');
+                // switches are labeled 1 to N
+                for ($i = 1; $i <= $ports; $i++) {
+                    //$switchports[$i] = $i . " switch id: ".$switch_id ." ports ".$ports."";
+                    $networkswitches[$i] = $this->NetworkSwitch->field('name') . ' #'.$i;
+                    //$networkswitches[$i] = 'Port '.$i;
+                }
             }
         } else {
-            $networkswitches[0] = $this->Site->field('name').' has no switch';
+            $networkswitches[0] = $this->Site->field('name').' has no dd switch';            
         }
         
         $this->set('network_switch_id',$this->NetworkSwitch->id);
         $this->set('networkswitches',$networkswitches);
+        //$this->set('networkswitches',array( $this->request->data['NetworkRadio']['site_id'] ));
         $this->layout = 'ajax';
     }
     
