@@ -1133,8 +1133,11 @@ class SitesController extends AppController
      */
     public function cron( $project_id, $debug = false ) {
         // there is no view
-        // $this->autoRender = false;
+        $this->autoRender = false;
         $this->layout = 'blank';
+                
+        $debug = true;
+        
         if ( $project_id > 0 ) {
 //            echo $project_id;
 
@@ -1191,7 +1194,9 @@ class SitesController extends AppController
                                 )
                             );
                             
-                            // debug( $response->body );
+                            if ( $debug ) {
+                                var_dump( $response->body );
+                            }
                             
                             $xmlIterator2 = new SimpleXMLIterator( $response2->body );
                             for( $xmlIterator2->rewind(); $xmlIterator2->valid(); $xmlIterator2->next() ) {
@@ -1246,14 +1251,23 @@ class SitesController extends AppController
                                             debug ($model );
                                         }
                                         
-                                        if (isset($model)) {
+                                        echo " A<BR>";
+                                        if ( $model != null ) {
+                                            echo " B<BR>";
                                             $this->loadModel( $model );
                                             $this->$model->recursive = -1; // we only need radio/router/switch data
                                             $device = $this->$model->findByForeignId( $node_foreign_id );
+                                            var_dump( $node_foreign_id );
+                                            var_dump($device);
+                                            //echo " C $device <BR>";
                                             if ( $device != null ) {
+                                                
                                                 $device[ $model ]['is_down'] = $is_down;
     //                                            debug( $radio['NetworkRadio'] );
-                                                $this->$model->save( $device );                                            
+                                                $this->$model->id = $device[ $model ]['id'];
+                                                var_dump($device );
+                                                $this->$model->save( $device[ $model ] );
+                                                echo "Saved!<br>";
                                             }
                                         }                                        
                                         /*
@@ -1277,6 +1291,7 @@ class SitesController extends AppController
                         }
                     }
                     
+                    $debug = true;
                     $sites = $this->Site->findAllByProjectId( $project_id );
                     foreach ( $sites as $site ) {
                         $is_down = 0; // default to not down
@@ -1288,28 +1303,36 @@ class SitesController extends AppController
                         // check all the radios -- if any are down, the site is down
                         foreach( $site['NetworkRadios'] as $r ) {
                             $count++;
-                            if ( $r['is_down'] > 0 )
+                            if ( $r['is_down'] > 0 ) {
+                                echo " Radio ".$r['name']."<br>";
                                 $is_down++;
+                            }
                         }
 
                         if ( $site['NetworkSwitch']['id'] != null ) {
                             $count++;
-                            if ( $site['NetworkSwitch']['is_down'] > 0 )
+                            if ( $site['NetworkSwitch']['is_down'] > 0 ) {
+                                echo " Switch ".$site['NetworkSwitch']['name']."<br>";
                                 $is_down++;                            
+                            }
                         }
 
                         if ( $site['NetworkRouter']['id'] != null ) {
                             $count++;
-                            if ( $site['NetworkRouter']['is_down'] > 0 )
+                            if ( $site['NetworkRouter']['is_down'] > 0 ) {
+                                echo " Router ".$site['NetworkRouter']['name']."<br>";
                                 $is_down++;
+                            }
                         }
                         
                         //$debug = true;
                         if ( $debug ) {
-                            debug( $is_down );
+                            echo $site['Site']['id']. ": Count = $count  is_down = $is_down  is_down_old = $is_down_old<br>";
                         }
+                        
                         // if there are any devices on the site -- switch, router, radio...
-                        if ( $count > 0 ) {
+                        // $is_down > 0 should keep is_down = NULL for any sites w/o provisioned devices
+                        if ( ( $is_down_old > 0 ) && ( $count > 0 )) {
                             $site['Site']['is_down'] = $is_down / $count;
 //                            debug( $site['Site']['is_down'] );
 //                            debug( $is_down_old );
