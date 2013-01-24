@@ -92,11 +92,9 @@ class NetworkSwitchesController extends NetworkDeviceController {
         if ($this->request->is('post')) {
             $this->NetworkSwitch->create();
             if ($this->NetworkSwitch->save($this->request->data)) {
-                // we just saved a switch, but switches don't know about projects
-                // so we need to manually save the switch's id back to the site for the
-                // currently active project
-                $this->loadModel('Site', $this->request->data['NetworkSwitch']['site_id']);
-                $this->Site->id = $this->request->data['NetworkSwitch']['site_id']; // weird to have to do this manually
+                // see comments in NetworkRouter::edit
+                $this->loadModel('Site', $this->request->data['Site']['id']);
+                $this->Site->id = $this->request->data['Site']['id'];
                 $this->Site->saveField('network_switch_id', $this->NetworkSwitch->id);
 
                 $this->Session->setFlash('The switch has been saved.');
@@ -106,25 +104,28 @@ class NetworkSwitchesController extends NetworkDeviceController {
             }
         }
         $this->getSnmpTypes();
+        $project_id = $this->Session->read('project_id');
+        $this->set(compact('project_id'));
     }
 
     /*
      * Edit an existing NetworkSwitch
      */
     public function edit($id = null) {
-        $this->getSwitchTypes();
-        $this->getAllSitesForProject();
         $this->NetworkSwitch->id = $id;
         
         if (!$this->NetworkSwitch->exists()) {
-                throw new NotFoundException('Invalid switch');
+                throw new NotFoundException('Invalid router');
         }
+        
         if ($this->request->is('post') || $this->request->is('put')) {
             if ($this->NetworkSwitch->save($this->request->data)) {
-                // save it back to the site to which it's associated
-                $this->loadModel('Site', $this->request->data['NetworkSwitch']['site_id']);
-                $this->Site->id = $this->request->data['NetworkSwitch']['site_id']; // weird to have to do this manually
-                $this->Site->saveField('network_switch_id', $this->NetworkSwitch->id);
+                // see comments in NetworkRouter::edit
+                $this->loadModel('Site');
+                $this->Site->id = $this->request->data['NetworkSwitch']['old_site_id'];
+                $this->Site->saveField('network_switch_id', null, false );
+                $this->Site->id = $this->request->data['Site']['id']; 
+                $this->Site->saveField('network_switch_id', $this->NetworkSwitch->id, false);
                 
                 $this->Session->setFlash('The switch has been saved.');
                 $this->redirect(array('action' => 'view',$this->NetworkSwitch->id));
@@ -134,7 +135,12 @@ class NetworkSwitchesController extends NetworkDeviceController {
         } else {
             $this->request->data = $this->NetworkSwitch->read(null, $id);
         }
+        $old_site_id = $this->NetworkSwitch->data['Site']['id'];
+        $this->getAllSitesForProject();
+        $this->getSwitchTypes();
         $this->getSnmpTypes();
+        $project_id = $this->Session->read('project_id');
+        $this->set(compact('old_site_id','project_id'));
     }
 
     /*

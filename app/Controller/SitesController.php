@@ -783,14 +783,22 @@ class SitesController extends AppController
      * Save an array of network switches
      */
     function getNetworkSwitches() {
-        $this->set('networkswitches',$this->Site->NetworkSwitch->find('list'));
+        $networkswitches = $this->Site->NetworkSwitch->find('list', array(
+            'conditions' => array('project_id' => $this->Session->read('project_id') )
+        ));
+        $this->set( 'networkswitches',$networkswitches );
+//        $this->set( 'networkswitches', $this->Site->NetworkSwitch->find('list') );
     }
     
     /*
      * Save an array of network routers
      */
     function getNetworkRouters() {
-        $this->set('networkrouters',$this->Site->NetworkRouter->find('list'));
+        $networkrouters = $this->Site->NetworkRouter->find('list', array(
+            'conditions' => array('project_id' => $this->Session->read('project_id') )
+        ));
+        $this->set( 'networkrouters',$networkrouters );
+//        $this->set( 'networkrouters',$this->Site->NetworkRouter->find('list') );
     }
     
     /*
@@ -1303,8 +1311,8 @@ class SitesController extends AppController
                         // if there are any devices on the site -- switch, router, radio...
                         if ( $count > 0 ) {
                             $site['Site']['is_down'] = $is_down / $count;
-                            debug( $site['Site']['is_down'] );
-                            debug( $is_down_old );
+//                            debug( $site['Site']['is_down'] );
+//                            debug( $is_down_old );
                             // if the status has changed, save it back to the db
                             if ( $site['Site']['is_down'] != $is_down_old ) {
                                 $this->Site->id = $site['Site']['id'];

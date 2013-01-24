@@ -57,7 +57,7 @@ class NetworkRoutersController extends NetworkDeviceController {
         $conditions = array(
             'AND' => array(
                 'NetworkRouter.name LIKE' => $name_arg,
-                // only show radios for the currently selected project
+                // only show routers for the currently selected project
                 // saved as a session variable
                 'Site.project_id' => $this->Session->read('project_id')
             ),
@@ -72,9 +72,11 @@ class NetworkRoutersController extends NetworkDeviceController {
                     'NetworkRouter.name' => 'asc',
                 ),
             ));
-        $this->NetworkRouter->recursive = 1;
-        $data = $this->paginate('NetworkRouter');
-        $this->set('networkrouters',$data);
+        //$this->NetworkRouter->recursive = 1;
+        $networkrouters = $this->paginate('NetworkRouter');
+//        debug( $networkrouters );
+        //$this->set('networkrouters',$data);
+        $this->set(compact('networkrouters'));
     }
 
     public function view($id = null) {
@@ -93,7 +95,8 @@ class NetworkRoutersController extends NetworkDeviceController {
         if ($this->request->is('post')) {
             $this->NetworkRouter->create();
             if ($this->NetworkRouter->save($this->request->data)) {
-                $this->Site->id = $this->request->data['NetworkRouter']['site_id']; // weird to have to do this manually
+                // see comments in edit
+                $this->Site->id = $this->request->data['Site']['id']; 
                 $this->Site->saveField('network_router_id', $this->NetworkRouter->id);
                 
                 $this->Session->setFlash('The router has been saved.');
@@ -103,30 +106,44 @@ class NetworkRoutersController extends NetworkDeviceController {
             }
         }
         $this->getSnmpTypes();
+        $project_id = $this->Session->read('project_id');
+        $this->set(compact('project_id'));
     }
 
     public function edit($id = null) {
         $this->NetworkRouter->id = $id;
-        $this->getAllSitesForProject();
-        $this->getRouterTypes();
         
         if (!$this->NetworkRouter->exists()) {
                 throw new NotFoundException('Invalid router');
         }
+        
         if ($this->request->is('post') || $this->request->is('put')) {
-                if ($this->NetworkRouter->save($this->request->data)) {
-                    $this->Site->id = $this->request->data['NetworkRouter']['site_id']; // weird to have to do this manually
-                    $this->Site->saveField('network_router_id', $this->NetworkRouter->id);
+            if ($this->NetworkRouter->save($this->request->data)) {
+                // why do have to do this manually?
+                // I have tried save/saveAll/saveAssociated/array('deep' => true)
+                // either I have the relationship between Site and Router totally
+                // wrong or there's some other issue
+                // I am manually saving the radio
+                $this->loadModel('Site');
+                $this->Site->id = $this->request->data['NetworkRouter']['old_site_id'];
+                $this->Site->saveField('network_router_id', null, false );
+                $this->Site->id = $this->request->data['Site']['id']; 
+                $this->Site->saveField('network_router_id', $this->NetworkRouter->id, false);
                 
-                    $this->Session->setFlash('The router has been saved.');
-                    $this->redirect(array('action' => 'view',$this->NetworkRouter->id));
-                } else {
-                    $this->Session->setFlash('Error!  The router could not be saved. Please, try again.');
-                }
+                $this->Session->setFlash('The router has been saved.');
+                $this->redirect(array('action' => 'view',$this->NetworkRouter->id));
+            } else {
+                $this->Session->setFlash('Error!  The router could not be saved. Please, try again.');
+            }
         } else {
-                $this->request->data = $this->NetworkRouter->read(null, $id);
+            $this->request->data = $this->NetworkRouter->read(null, $id);
         }
+        $old_site_id = $this->NetworkRouter->data['Site']['id'];
+        $this->getAllSitesForProject();
+        $this->getRouterTypes();
         $this->getSnmpTypes();
+        $project_id = $this->Session->read('project_id');
+        $this->set(compact('old_site_id','project_id'));
     }
 
     function getRouterTypes() {

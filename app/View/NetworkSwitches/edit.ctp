@@ -8,7 +8,6 @@
     <H3>Actions</H3>
     <div class="well well-large">
     <ul>
-        <li><?php echo $this->MyHTML->linkIfAllowed('Edit Switch', array('action'=>'edit', $networkswitch['NetworkSwitch']['id']),1);?></li>
         <li><?php echo $this->Html->link('List  Switches', array('action' => 'index')); ?></li>
     </ul>
     </div>
@@ -22,7 +21,9 @@
         echo $this->Form->input('name');
         echo $this->Form->input('serial');
         echo $this->Form->input('switch_type_id', array('type'=>'select','options' => $switchtypes));
-        echo $this->Form->input('site_id', array('type'=>'select','options' => $sites));
+        // see comments in edit for why this field is here
+        echo $this->Form->input('old_site_id', array('type'=>'hidden','value' => $old_site_id ));
+        echo $this->Form->input('Site.id', array('type'=>'select','options' => $sites));
         echo $this->element('Common/snmp_override');  // include fiels for SNMP override
         // the IPv4 behavior is correctly decoding the IP address, but this doesn't
         // seem to populate the form:
@@ -34,6 +35,7 @@
             'value' => $this->data['NetworkSwitch']['ip_address'],
             'placeholder' => 'For Testing'
         ));
+        echo $this->Form->input('project_id', array('type'=>'hidden','value' => $project_id ));
     ?>
     </fieldset>
     <?php
