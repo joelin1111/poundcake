@@ -35,7 +35,7 @@ class User extends AppModel {
     /*
      * Default sort order
      */
-    var $order = 'User.name ASC';
+    var $order = 'User.username ASC';
     
     /*
      * Relations
