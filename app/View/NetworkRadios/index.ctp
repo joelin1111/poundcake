@@ -42,8 +42,9 @@
         <td><?php echo $networkradio['Site']['site_vf'];?></td>
         <td><?php echo $networkradio['RadioType']['name'];?></td>
         <td>
-            <?php echo $this->MyHTML->linkIfAllowed(__('Edit'), array('action' => 'edit', $networkradio['NetworkRadio']['id'])); ?>
-            <?php 
+            <?php
+                echo $this->MyHTML->linkIfAllowed('Edit', array('action' => 'edit', $networkradio['NetworkRadio']['id']));
+                echo '&nbsp;';
                 //echo $this->MyHTML->postLinkIfAllowed(__('Delete'), array('action' => 'delete', $networkradio['NetworkRadio']['id']), null, __('Are you sure you want to delete radio %s?', $networkradio['NetworkRadio']['name']));
                 echo $this->MyHTML->postLinkIfAllowed('Delete',
                     array('controller'=>'networkradios','action'=>'delete', $networkradio['NetworkRadio']['id']),
