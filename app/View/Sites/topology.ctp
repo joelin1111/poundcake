@@ -8,6 +8,8 @@
         echo $this->Html->script('http://maps.google.com/maps/api/js?sensor=true',false);
     }
     echo $this->Html->script('gears_init');
+    echo $this->Html->script('page-refresh');
+    
 ?>
 
 <div class="row">
@@ -147,3 +149,40 @@
     <div class="span3" align="center"> <?php echo $this->Html->image('/img/sites/red.png'); ?> All nodes down</div>
     <div class="span3" align="center"> <?php echo $this->Html->image('/img/sites/grey.png'); ?> Node status unknown</div>
 </div>
+<BR><BR>
+<?php
+    // this refresh is just blatantly copied from
+    // http://cyberschool.fateback.com/how/countdown-refresh.html
+    // can probably be improved upon...
+?>
+<center>
+Next refresh in <span id=counter> </span> seconds.
+<br>
+Or click <a href="javascript:self.location.reload()">here</a> to refresh now.
+</center>
+
+<SCRIPT LANGUAGE="JavaScript">
+<!--
+var counterobj = document.all ? counter : document.getElementById("counter");
+
+var countdownfrom = 60;	//countdown period in seconds
+var currentsecond = counterobj.innerHTML = countdownfrom+1; 
+
+function countdown()
+{
+if (currentsecond!=1)
+{
+currentsecond-=1;
+counterobj.innerHTML = currentsecond;
+}
+else
+{
+self.location.reload();
+return;
+}
+setTimeout("countdown()",1000)
+}
+
+countdown()
+//-->
+</script>
