@@ -30,6 +30,11 @@ class SnmpType extends AppModel {
     public $displayField = 'name';
 
     /*
+     * Default sort order
+     */
+    var $order = 'SnmpType.name ASC';
+    
+    /*
      * Field-level validation rules
      */
     public $validate = array(

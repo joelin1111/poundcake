@@ -27,6 +27,11 @@ class Zone extends AppModel {
      */
     public $displayField = 'name';
 
+    /*
+     * Default sort order
+     */
+    var $order = 'Zone.name ASC';
+    
     public $validate = array(
         'name' => array(
             'notempty' => array(

@@ -37,6 +37,11 @@ class Organization extends AppModel {
     );
     
     /*
+     * Default sort order
+     */
+    var $order = 'Organization.name ASC';
+    
+    /*
      * Relations
      */
     public $hasAndBelongsToMany = array('Project');

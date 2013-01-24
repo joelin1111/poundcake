@@ -34,6 +34,11 @@ class BuildItemType extends AppModel {
     var $hasMany = array('BuildItems');
     
     /*
+     * Default sort order
+     */
+    var $order = 'BuildItemType.name ASC';
+    
+    /*
      * Field-level validation rules
      */
     public $validate = array(

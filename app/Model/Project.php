@@ -47,6 +47,11 @@ class Project extends AppModel {
     );
     
     /*
+     * Default sort order
+     */
+    var $order = 'Project.name ASC';
+    
+    /*
      * CakePHP behavior to handle encrypting/decrypting sensitive fields when
      * readingor writing to the database.
      * 

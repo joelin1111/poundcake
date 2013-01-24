@@ -120,14 +120,14 @@ $cakeDescription = __d('poundcake', 'Tower DB');
     
     <!-- show banner, if any -- this would be set in AppController::beforeRender -->
     <div class="container">
-    
+    <div class="row">
     <?php
         $banner = $this->Session->read('banner');
         if ( strlen($banner) > 0 ) {
             echo '<div class="alert" align="center">'.$banner.'</div>';
         }
     ?>
-    <div class="row">
+    
     <?php        
         $flashClass = "alert-spacer";
         $flashMessage = "";

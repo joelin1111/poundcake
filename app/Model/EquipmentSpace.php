@@ -29,6 +29,11 @@ class EquipmentSpace extends AppModel {
     public $displayField = 'name';
     
     /*
+     * Default sort order
+     */
+    var $order = 'EquipmentSpace.name ASC';
+    
+    /*
      * Field-level validation rules
      */
     public $validate = array(

@@ -29,6 +29,11 @@ class SwitchType extends AppModel {
     public $displayField = 'name';
 
     /*
+     * Default sort order
+     */
+    var $order = 'SwitchType.name ASC';
+    
+    /*
      * Field-level validation rules
      */
     public $validate = array(

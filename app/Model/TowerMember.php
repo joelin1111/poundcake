@@ -29,6 +29,11 @@ class TowerMember extends AppModel {
     public $displayField = 'name';
     
     /*
+     * Default sort order
+     */
+    var $order = 'TowerMember.name ASC';
+    
+    /*
      * Field-level validation rules
      */
     public $validate = array(

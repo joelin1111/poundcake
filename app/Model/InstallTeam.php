@@ -36,6 +36,11 @@ class InstallTeam extends AppModel {
     );
     
     /*
+     * Default sort order
+     */
+    var $order = 'InstallTeam.name ASC';
+    
+    /*
      * Field-level validation rules
      */
     public $validate = array(

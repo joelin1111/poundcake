@@ -29,6 +29,11 @@ class AntennaType extends AppModel {
     public $displayField = 'name';
 
     /*
+     * Default sort order
+     */
+    var $order = 'AntennaType.name ASC';
+    
+    /*
      * Field-level validation rules
      */
     public $validate = array(

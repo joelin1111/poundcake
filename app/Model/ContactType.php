@@ -36,6 +36,11 @@ class ContactType extends AppModel {
     );
     
     /*
+     * Default sort order
+     */
+    var $order = 'ContactType.name ASC';
+    
+    /*
      *  Field-level valiation rules
      */
     public $validate = array(

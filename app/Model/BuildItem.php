@@ -36,6 +36,11 @@ class BuildItem extends AppModel {
     );
     
     /*
+     * Default sort order
+     */
+    var $order = 'BuildItem.name ASC';
+    
+    /*
      * Field-level validation rules
      */
     public $validate = array(

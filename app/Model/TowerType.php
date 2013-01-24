@@ -35,6 +35,11 @@ class TowerType extends AppModel {
     );
     
     /*
+     * Default sort order
+     */
+    var $order = 'TowerType.name ASC';
+    
+    /*
      * Field-level validation rules
      */
     public $validate = array(

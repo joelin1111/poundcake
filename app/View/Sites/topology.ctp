@@ -156,31 +156,35 @@
     // can probably be improved upon...
 ?>
 <center>
-Next refresh in <span id=counter> </span> seconds.
+Next page refresh: <span id=counter> </span>
 <br>
-Or click <a href="javascript:self.location.reload()">here</a> to refresh now.
+<a href="javascript:self.location.reload()">Click</a> to refresh now
 </center>
 
 <SCRIPT LANGUAGE="JavaScript">
 <!--
 var counterobj = document.all ? counter : document.getElementById("counter");
 
-var countdownfrom = 60;	//countdown period in seconds
+var countdownfrom = 140;	//countdown period in seconds
 var currentsecond = counterobj.innerHTML = countdownfrom+1; 
 
-function countdown()
-{
-if (currentsecond!=1)
-{
-currentsecond-=1;
-counterobj.innerHTML = currentsecond;
-}
-else
-{
-self.location.reload();
-return;
-}
-setTimeout("countdown()",1000)
+function countdown() {
+    if (currentsecond != 1) {
+        currentsecond -= 1;
+        
+        hours = parseInt( currentsecond / 3600 ) % 24;
+        minutes = parseInt( currentsecond / 60 ) % 60;
+        seconds = currentsecond % 60;
+        if ( seconds < 10)
+            seconds = "0" + seconds;
+        counterobj.innerHTML = minutes + ":" + seconds;
+        //counterobj.innerHTML = currentsecond;
+        
+    } else {
+        self.location.reload();
+        return;
+    }
+    setTimeout("countdown()",1000)
 }
 
 countdown()

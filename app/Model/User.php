@@ -33,6 +33,11 @@ class User extends AppModel {
     );
     
     /*
+     * Default sort order
+     */
+    var $order = 'User.name ASC';
+    
+    /*
      * Relations
      * @see HABTM example: http://mrphp.com.au/code/working-habtm-form-data-cakephp
      */
