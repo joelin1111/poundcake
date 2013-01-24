@@ -47,7 +47,7 @@
                 echo '&nbsp;';
                 //echo $this->MyHTML->postLinkIfAllowed(__('Delete'), array('action' => 'delete', $networkradio['NetworkRadio']['id']), null, __('Are you sure you want to delete radio %s?', $networkradio['NetworkRadio']['name']));
                 echo $this->MyHTML->postLinkIfAllowed('Delete',
-                    array('controller'=>'networkradios','action'=>'delete', $networkradio['NetworkRadio']['id']),
+                    array('controller'=>'networkRadios','action'=>'delete', $networkradio['NetworkRadio']['id']),
                     array('method' => 'post','class'=>'confirm','data-dialog_msg'=>'Confirm delete of '.$networkradio['NetworkRadio']['name']),
                     null
                 );

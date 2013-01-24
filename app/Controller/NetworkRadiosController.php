@@ -381,7 +381,6 @@ class NetworkRadiosController extends NetworkDeviceController {
      * Delete a NetworkRadio
      */
     public function delete($id = null) {
-        debug($id);
         if (!$this->request->is('post')) {
             throw new MethodNotAllowedException();
         }
