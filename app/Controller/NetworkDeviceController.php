@@ -289,7 +289,7 @@ class NetworkDeviceController extends AppController {
                 $response = $HttpSocket->request(
                         array(
                             'method' => 'PUT',
-                            'uri' => $baseURI.'/'.$type.'/import',
+                            'uri' => $baseURI.'/requisitions/'.$type.'/import',
                             'header' => array('Content-Type' => 'application/xml'),
                             //'body' => $xml_string
                         )
