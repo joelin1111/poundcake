@@ -46,8 +46,17 @@ class NetworkDeviceController extends AppController {
      * 
      */
     private function getMonitoringSystemBaseURI() {
-        $project = ClassRegistry::init('Project')->findById( $this->Session->read('project_id') , array() ); 
-        return $project['Project']['monitoring_system_url'];
+        $project = ClassRegistry::init('Project')->findById( $this->Session->read('project_id') , array() );
+        $uri = $project['Project']['monitoring_system_url'];
+        // append a / if it's missing one
+//        if ( $uri[strlen($uri)-1] != '/' ) {
+//            $uri = $uri.'/';
+//        }
+        // remove the slash if it has one
+        if ( $uri[strlen($uri)-1] === '/' ) {
+            $uri = substr($uri, 0, -1);
+        }
+        return $uri;
     }
     
     /*
@@ -111,7 +120,6 @@ class NetworkDeviceController extends AppController {
         $model = $this->modelClass;
         // foreignSource is a variable on the model for NetworkRadio/NetworkSwitch/NetworkRouter
         $type = $this->$model->foreignSource;
-        debug($model);
         if (isset($type)) {
             
             // creating XML from a data array -- I could not get attributes to work
@@ -219,12 +227,14 @@ class NetworkDeviceController extends AppController {
             // $HttpSocket->configAuth('Basic', 'admin', 'xx');        
             // $HttpSocket = $this->getMonitoringSystemSocket( $this->getMonitoringSystemUsername(), $this->getMonitoringSystemPassword() );
             $HttpSocket = parent::getMonitoringSystemSocket( $this->getMonitoringSystemUsername(), $this->getMonitoringSystemPassword() );
-
-            if ( !is_null($HttpSocket) ) {
+            $baseURI = $this->getMonitoringSystemBaseURI();
+            
+            if ( !is_null($HttpSocket) && ( isset($baseURI))  ) {
                 $response = $HttpSocket->request(
                         array(
                             'method' => 'POST',
-                            'uri' => 'http://lab.inveneo.org:8980/opennms/rest/requisitions/'.$type.'/nodes',
+                            //'uri' => 'http://lab.inveneo.org:8980/opennms/rest/requisitions/'.$type.'/nodes',
+                            'uri' => $baseURI.'/requisitions/'.$type.'/nodes',
                             'header' => array('Content-Type' => 'application/xml'),
                             'body' => $xml_string,
         //                    'header' => array('content-type' => 'application/json'),
@@ -234,7 +244,7 @@ class NetworkDeviceController extends AppController {
 
 
                 if ( $debug ) {
-                    echo "Response:<BR><pre>";
+                    echo "Response 1:<BR><pre>";
                     debug( $response );
                     echo "</pre><BR>";
                 }
@@ -242,8 +252,8 @@ class NetworkDeviceController extends AppController {
                 // now create the XML for SNMP monitoring
                 $snmp_version = $this->getSnmpVersion();
                 $snmp_community = $this->getSnmpCommunity();
-
-                $data = $this->getSnmpConfig( $this->getSnmpVersion(), $this->getSnmpCommunity() );
+                $data = $this->getSnmpConfig( $snmp_version, $snmp_community );
+                
                 if ( $data != null ) {
                     $doc = new DOMDocument( '1.0', 'utf-8' );
                     $doc->xmlStandalone = true; // adds attribute: standalone="yes"
@@ -262,19 +272,35 @@ class NetworkDeviceController extends AppController {
                     $response = $HttpSocket->request(
                             array(
                                 'method' => 'PUT',
-                                'uri' => 'http://lab.inveneo.org:8980/opennms/rest/snmpConfig/'.$ip_addr,
+                                'uri' => $baseURI.'/snmpConfig/'.$ip_addr,
                                 'header' => array('Content-Type' => 'application/xml'),
                                 'body' => $xml_string,
                             )
                     );
 
                     if ( $debug ) {
-                        echo "Response:<BR><pre>";
+                        echo "Response 2:<BR><pre>";
                         debug( $response );
                         echo "</pre><BR>";
                     }
                 }
 
+                // now do the actual import
+                $response = $HttpSocket->request(
+                        array(
+                            'method' => 'PUT',
+                            'uri' => $baseURI.'/'.$type.'/import',
+                            'header' => array('Content-Type' => 'application/xml'),
+                            'body' => $xml_string
+                        )
+                );
+
+
+                if ( $debug ) {
+                    echo "Response 3:<BR><pre>";
+                    debug( $response );
+                    echo "</pre><BR>";
+                }
                 // Get the status code for the response.
                 // OpenNMS seems to return HTTP303 -- because it's an asynchronous call?
                 $code = $response->code;

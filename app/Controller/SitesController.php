@@ -1247,25 +1247,26 @@ class SitesController extends AppController
                                             $model = 'NetworkSwitch';
                                         }
                                         
-                                        if ( $debug ) {
-                                            debug ($model );
-                                        }
-                                        
-                                        echo " A<BR>";
                                         if ( $model != null ) {
-                                            echo " B<BR>";
                                             $this->loadModel( $model );
                                             $this->$model->recursive = -1; // we only need radio/router/switch data
                                             $device = $this->$model->findByForeignId( $node_foreign_id );
-                                            var_dump( $node_foreign_id );
-                                            var_dump($device);
-                                            //echo " C $device <BR>";
+                                            
+                                            if ( $debug ) {
+                                                var_dump( $node_foreign_id );
+                                                var_dump( $device );
+                                            }
+                                            
                                             if ( $device != null ) {
                                                 
                                                 $device[ $model ]['is_down'] = $is_down;
     //                                            debug( $radio['NetworkRadio'] );
                                                 $this->$model->id = $device[ $model ]['id'];
-                                                var_dump($device );
+                                                
+                                                if ( $debug ) {
+                                                    var_dump( $device );
+                                                }
+                                                
                                                 $this->$model->save( $device[ $model ] );
                                                 echo "Saved!<br>";
                                             }
@@ -1293,31 +1294,39 @@ class SitesController extends AppController
                     
                     $debug = true;
                     $sites = $this->Site->findAllByProjectId( $project_id );
+                    
                     foreach ( $sites as $site ) {
                         $is_down = 0; // default to not down
                         $count = 0;
                         $is_down_old = $site['Site']['is_down'];
-                        if ( is_null($is_down_old) )
+                        if ( $is_down_old == null )
                             $is_down_old = -1;                        
+                        
+                        // we only need to check items that have been provisioned
+                        // hence the check if 'foreign_id' is set
                         
                         // check all the radios -- if any are down, the site is down
                         foreach( $site['NetworkRadios'] as $r ) {
-                            $count++;
-                            if ( $r['is_down'] > 0 ) {
-                                echo " Radio ".$r['name']."<br>";
-                                $is_down++;
+                            if ( isset($r['foreign_id'] )) {
+                                echo "counting...<Br>";
+                                $count++;
+                                if ( $r['is_down'] > 0 ) {
+                                    echo " Radio ".$r['name']."<br>";
+                                    $is_down++;
+                                }
                             }
                         }
-
+                        /*
                         if ( $site['NetworkSwitch']['id'] != null ) {
                             $count++;
-                            if ( $site['NetworkSwitch']['is_down'] > 0 ) {
+                            if (( isset($site['NetworkSwitch']['foreign_id'])) && ( $site['NetworkSwitch']['is_down'] > 0 )) {
                                 echo " Switch ".$site['NetworkSwitch']['name']."<br>";
                                 $is_down++;                            
                             }
                         }
-
-                        if ( $site['NetworkRouter']['id'] != null ) {
+                        */
+                        
+                        if ( (isset($site['NetworkRouter']['foreign_id'] )) && ( $site['NetworkRouter']['id'] > 0 )) {
                             $count++;
                             if ( $site['NetworkRouter']['is_down'] > 0 ) {
                                 echo " Router ".$site['NetworkRouter']['name']."<br>";
@@ -1325,22 +1334,27 @@ class SitesController extends AppController
                             }
                         }
                         
-                        //$debug = true;
+                        // if there are devices provisioned and is_down is 0, then the site is up
+                        if (( $count > 0 ) && ( $is_down == 0 ) && ( $is_down_old == -1 )) {
+                            $is_down_old = 0;
+                        }
+                        
                         if ( $debug ) {
                             echo $site['Site']['id']. ": Count = $count  is_down = $is_down  is_down_old = $is_down_old<br>";
                         }
                         
+                        //if ( ($count > 1 ) && () )
                         // if there are any devices on the site -- switch, router, radio...
                         // $is_down > 0 should keep is_down = NULL for any sites w/o provisioned devices
-                        if ( ( $is_down_old > 0 ) && ( $count > 0 )) {
+                        if ( ( $is_down_old >= 0 ) && ( $count > 0 )) {
                             $site['Site']['is_down'] = $is_down / $count;
 //                            debug( $site['Site']['is_down'] );
 //                            debug( $is_down_old );
                             // if the status has changed, save it back to the db
-                            if ( $site['Site']['is_down'] != $is_down_old ) {
+//                            if ( $site['Site']['is_down'] != $is_down_old ) {
                                 $this->Site->id = $site['Site']['id'];
                                 $this->Site->saveField( 'is_down', $site['Site']['is_down'] );
-                            }
+//                            }
                         }
                     }
                 }
