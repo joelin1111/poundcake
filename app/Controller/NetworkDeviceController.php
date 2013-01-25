@@ -291,7 +291,7 @@ class NetworkDeviceController extends AppController {
                             'method' => 'PUT',
                             'uri' => $baseURI.'/'.$type.'/import',
                             'header' => array('Content-Type' => 'application/xml'),
-                            'body' => $xml_string
+                            //'body' => $xml_string
                         )
                 );
 

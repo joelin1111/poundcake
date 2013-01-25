@@ -1270,18 +1270,7 @@ class SitesController extends AppController
                                                 $this->$model->save( $device[ $model ] );
                                                 echo "Saved!<br>";
                                             }
-                                        }                                        
-                                        /*
-                                        // find the radio by the foreign Id
-                                        $this->loadModel( 'NetworkRadio' );
-                                        $this->NetworkRadio->recursive = -1; // we only need radio data
-                                        $radio = $this->NetworkRadio->findByForeignId( $node_foreign_id );
-                                        if ( $radio != null ) {
-                                            $radio['NetworkRadio']['is_down'] = $is_down;
-//                                            debug( $radio['NetworkRadio'] );
-                                            $this->NetworkRadio->save( $radio );                                            
                                         }
-                                        */
                                     }
                                 }
                             }
