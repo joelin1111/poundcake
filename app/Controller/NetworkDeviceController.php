@@ -2,7 +2,7 @@
 /**
  * Super class controller for network devices (radios, routers, switches).
  * 
- * Developed against CakePHP 2.2.3 and PHP 5.4.4.
+ * Developed against CakePHP 2.2.5 and PHP 5.4.4.
  *
  * Copyright 2012, Inveneo, Inc. (http://www.inveneo.org)
  *
@@ -23,7 +23,7 @@ App::uses('AppController', 'Controller');
 class NetworkDeviceController extends AppController {
     
     /*
-     * 
+     * Return the username required to use the monitoring system's API for the current project
      */
     private function getMonitoringSystemUsername() {
         $project = ClassRegistry::init('Project')->findById( $this->Session->read('project_id') , array() ); 
@@ -31,7 +31,8 @@ class NetworkDeviceController extends AppController {
     }
     
     /*
-     * 
+     * Return the password required to use the monitoring system's API for the
+     * current project
      */
     private function getMonitoringSystemPassword() {
         $project = ClassRegistry::init('Project')->findById( $this->Session->read('project_id') , array() ); 
@@ -42,16 +43,29 @@ class NetworkDeviceController extends AppController {
         return $pass;
     }
     
+    
     /*
-     * 
+     * Returns the monitoring system name for the current project
+     */
+    private function getMonitoringSystemName() {
+        $project = ClassRegistry::init('Project')->findById( $this->Session->read('project_id') , array() ); 
+        return $project['MonitoringSystemType']['name'];        
+    }
+    
+    /*
+     * Return the uniform resource identifier (basically the URL) to the API
+     * of the monitoring system for the current project
      */
     private function getMonitoringSystemBaseURI() {
         $project = ClassRegistry::init('Project')->findById( $this->Session->read('project_id') , array() );
         $uri = $project['Project']['monitoring_system_url'];
-        // append a / if it's missing one
-//        if ( $uri[strlen($uri)-1] != '/' ) {
-//            $uri = $uri.'/';
-//        }
+        
+        /*/* append a / if it's missing one
+        if ( $uri[strlen($uri)-1] != '/' ) {
+            $uri = $uri.'/';
+        }
+        */
+        
         // remove the slash if it has one
         if ( $uri[strlen($uri)-1] === '/' ) {
             $uri = substr($uri, 0, -1);
@@ -60,7 +74,7 @@ class NetworkDeviceController extends AppController {
     }
     
     /*
-     * 
+     * Return the SNMP community string for the current project
      */
     private function getSnmpCommunity() {
         $project = ClassRegistry::init('Project')->findById( $this->Session->read('project_id') , array() ); 
@@ -68,7 +82,7 @@ class NetworkDeviceController extends AppController {
     }
     
     /*
-     * 
+     * Return the SNMP version for the current project
      */
     private function getSnmpVersion() {
         $project = ClassRegistry::init('Project')->findById( $this->Session->read('project_id') , array() ); 
@@ -76,28 +90,8 @@ class NetworkDeviceController extends AppController {
     }
     
     /*
+     * Temporary function...
      * 
-     */
-    /*
-    private function getMonitoringSystemSocket( $username, $password ) {
-        App::uses('HttpSocket', 'Network/Http');
-        
-        if ( !(is_null( $username )) && !(is_null( $password )) ) {
-            // for future reference, JSON HttpSocket example:  http://ask.cakephp.org/questions/view/how_to_post_json_with_httpsocket
-            $HttpSocket = new HttpSocket();
-            $HttpSocket->configAuth(
-                    'Basic',
-                    $username,
-                    $password
-                );
-            return $HttpSocket;
-        } else {
-            return null;
-        }
-    }
-    */
-    
-    /*
      * @see This now exists as a model of its own -- NetworkService -- but at
      * the moment we're not using it since it clogs up the UI, and ultimately
      * we'll have a more complex UI for provisioning nodes
@@ -112,50 +106,35 @@ class NetworkDeviceController extends AppController {
     }
     
     /*
-     * 
+     * Called from a sub-class to provision a node (switch, router, radio) into
+     * the project's monitoring system
      */
     protected function provision_node( $name, $ip_addr, $debug ) {
-//        $this->autoRender = false;
+        $system = $this->getMonitoringSystemName();
+        $ret = null;
+        if (preg_match( "/opennms/i", $system )) {
+            $ret = $this->provision_node_opennms( $name, $ip_addr, $debug );
+        }
         
+        return $ret;
+    }
+    /*
+     * Provision a node into OpenNMS
+     */
+    private function provision_node_opennms( $name, $ip_addr, $debug ) {
+        // $this->autoRender = false;        
         $model = $this->modelClass;
-        // foreignSource is a variable on the model for NetworkRadio/NetworkSwitch/NetworkRouter
+        
+        // foreignSource is a variable on the model for each of NetworkRadio/NetworkSwitch/NetworkRouter
         $type = $this->$model->foreignSource;
+        
         if (isset($type)) {
             
             // creating XML from a data array -- I could not get attributes to work
             // using Cake's XML class, so I am doing it this way:
             // http://www.viper007bond.com/2011/06/29/easily-create-xml-in-php-using-a-data-array/
 
-            // build up an array of monitored services
-            /* Array
-               (
-                   [0] => Array
-                       (
-                           [name] => monitored-service
-                           [attributes] => Array
-                               (
-                                   [service-name] => ICMP
-                               )
-
-                           [value] => 
-                       )
-
-                   [1] => Array
-                       (
-                           [name] => monitored-service
-                           [attributes] => Array
-                               (
-                                   [service-name] => SNMP
-                               )
-
-                           [value] => 
-                       )
-
-               )
-             */
-            // random number for the foreign-id
-    //        $digits = 7;
-    //        $foreign_id = rand(pow(10, $digits-1), pow(10, $digits)-1);
+            // random number for the foreign-id field
             $foreign_id = $this->generateRandomString( 15 );
 
             $data = array(
@@ -205,15 +184,8 @@ class NetworkDeviceController extends AppController {
                 ));
             }
 
-            // generate the XML for adding a node
-            $doc = new DOMDocument( '1.0', 'utf-8' );
-            $doc->xmlStandalone = true; // adds attribute: standalone="yes"
-            $child = parent::generateXMLElement( $doc, $data );
-            if ( $child )
-               $doc->appendChild( $child );
-            $doc->formatOutput = true; // add whitespace to make easier to read XML
-
-            $xml_string = $doc->saveXML();
+            $xml_string = $this->getXMLStringFromArray( $data );
+            
             if ( $debug ) {
                 echo 'L/P: '.$this->getMonitoringSystemUsername().' '. $this->getMonitoringSystemPassword().'<BR><pre>';
                 echo "Sending this XML:<BR><pre>";
@@ -250,19 +222,11 @@ class NetworkDeviceController extends AppController {
                 }
 
                 // now create the XML for SNMP monitoring
-                $snmp_version = $this->getSnmpVersion();
-                $snmp_community = $this->getSnmpCommunity();
-                $data = $this->getSnmpConfig( $snmp_version, $snmp_community );
+                $data = $this->getSnmpConfig_opennms( $this->getSnmpVersion(), $this->getSnmpCommunity() );
+                $xml_string = $this->getXMLStringFromArray( $data );
                 
-                if ( $data != null ) {
-                    $doc = new DOMDocument( '1.0', 'utf-8' );
-                    $doc->xmlStandalone = true; // adds attribute: standalone="yes"
-                    $child = parent::generateXMLElement( $doc, $data );
-                    if ( $child )
-                       $doc->appendChild( $child );
-                    $doc->formatOutput = true; // add whitespace to make easier to read XML
+                if ( $xml_string != null ) {
 
-                    $xml_string = $doc->saveXML();
                     if ( $debug ) {
                         echo "Sending this XML:<BR><pre>";
                         debug( $xml_string );
@@ -285,7 +249,7 @@ class NetworkDeviceController extends AppController {
                     }
                 }
 
-                // now do the actual import
+                // now run the actual import
                 $response = $HttpSocket->request(
                         array(
                             'method' => 'PUT',
@@ -295,12 +259,12 @@ class NetworkDeviceController extends AppController {
                         )
                 );
 
-
                 if ( $debug ) {
                     echo "Response 3:<BR><pre>";
                     debug( $response );
                     echo "</pre><BR>";
                 }
+                
                 // Get the status code for the response.
                 // OpenNMS seems to return HTTP303 -- because it's an asynchronous call?
                 $code = $response->code;
@@ -314,10 +278,28 @@ class NetworkDeviceController extends AppController {
         return null;
     }
     
+    
+    
     /*
-     * 
+     * Return proper XML from a given data array
      */
-    private function getSnmpConfig( $snmp_version, $snmp_community ) {
+    private function getXMLStringFromArray( $data ) {        
+        if ( $data != null ) {
+            // generate the XML for adding a node
+            $doc = new DOMDocument( '1.0', 'utf-8' );
+            $doc->xmlStandalone = true; // adds attribute: standalone="yes"
+            $child = parent::generateXMLElement( $doc, $data );
+            if ( $child )
+               $doc->appendChild( $child );
+            $doc->formatOutput = true; // add whitespace to make easier to read XML
+            return $doc->saveXML();
+        }
+    }
+    
+    /*
+     * Returns a data array for the SNMP configuration (format is specific to OpenNMS)
+     */
+    private function getSnmpConfig_opennms( $snmp_version, $snmp_community ) {
         $data = null;
         if ( (isset($snmp_version)) && (isset($snmp_community)) ) {
                 $data = array(
@@ -348,8 +330,8 @@ class NetworkDeviceController extends AppController {
     }
     
     /*
-     * Return a random string of length $length - used for the foreignID
-     * in OpenNMS
+     * Return a random string of length $length (currently used for the foreignID
+     * field when provisioning a node into OpenNMS)
      */
     private function generateRandomString( $length = 20 ) {    
         return substr(str_shuffle("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, $length);

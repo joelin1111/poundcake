@@ -39,7 +39,7 @@
 <table class="table table-condensed table-striped">
 <thead>
    <tr>
-       <th><?php echo $this->Paginator->sort('is_down','Status'); ?></th>
+       <th style="width: 50px;text-align: center;"><?php echo $this->Paginator->sort('is_down','Status'); ?></th>
        <th><?php echo $this->Paginator->sort('code'); ?></th>
        <th><?php echo $this->Paginator->sort('name'); ?></th>
        <th><?php echo $this->Paginator->sort('Organization'); ?></th>
@@ -52,32 +52,10 @@
     <?php
     foreach ($sites as $site): ?>            
        <tr>
-           <?php
-                //print_r($site['Site']);
-                //echo $site['Site']['PowerType'];
-           ?>
-           <td align="center"><?php
-                    // icons from here: http://www.wpclipart.com/blanks/shapes/color_labels/circle/color_label_circle_yellow.png.html                   
-                    $status = $site['Site']['is_down'];
-                    switch ( true ) {
-                        case ( $status == null ):
-                            $icon = 'grey.png';
-                            break;
-                        case ( $status == 0 ):
-                            $icon = 'green.png';
-                            break;
-                        case (( $status > 0 ) && ( $status < 1 )):
-                            $icon = 'yellow.png';
-                            break;
-                        case ( $status == 1 ):
-                            $icon = 'red.png';
-                            break;
-                        default:
-                             $icon = 'gray.png';
-                            break;
-                    }
-
-                    echo $this->Html->image( $icon, array('alt' => 'Status')); 
+           <td style="text-align: center;">
+               <?php
+                    //$status = $site['Site']['is_down'];
+                    echo $this->element('Common/site_status_icon', array('status' => $site['Site']['is_down']));
                 ?>
            </td>
            <td><?php

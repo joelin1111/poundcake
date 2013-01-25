@@ -514,3 +514,11 @@ used in may layout page */
     display: table;
     margin: 0 auto;
 }
+/* align status icons with text */
+.status-icon {
+    /*text-align: text-bottom; */
+    vertical-align: text-bottom;
+}
+.status-icon img{
+    vertical-align: text-bottom;
+}

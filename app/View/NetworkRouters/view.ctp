@@ -19,7 +19,15 @@
 
 <div class="span9">
     <h2>View Router</h2>
-    <P><B>Name:</B>&nbsp;<?php echo $networkrouter['NetworkRouter']['name']; ?></P>
+    <div class="status-icon">
+    <P><B>Name:</B>&nbsp;&nbsp;
+        <?php
+            echo $networkrouter['NetworkRouter']['name'];
+            echo $this->element('Common/site_status_icon', array('status' => $networkrouter['NetworkRouter']['is_down']));
+        ?>
+    </P>
+    </div>
+    
     <P><B>Site:</B>&nbsp;<?php echo $networkrouter['Site']['name']; ?></P>
     <P><B>Foreign ID:</B>&nbsp;<?php echo $networkrouter['NetworkRouter']['foreign_id']; ?></P>
     <P><B>Manufacturer:</B>&nbsp;<?php echo $networkrouter['RouterType']['manufacturer']; ?></P>

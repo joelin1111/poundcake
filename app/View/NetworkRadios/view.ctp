@@ -19,7 +19,14 @@
 
 <div class="span9">
     <h2>View Radio</h2>
-    <P><B>Name:</B>&nbsp;<?php echo $networkradio['NetworkRadio']['name']; ?></P>
+    <div class="status-icon">
+    <P><B>Name:</B>&nbsp;&nbsp;
+        <?php
+            echo $networkradio['NetworkRadio']['name'];
+            echo $this->element('Common/site_status_icon', array('status' => $networkradio['NetworkRadio']['is_down']));
+        ?>
+    </P>
+    </div>
     <P><B>Site:</B>&nbsp;<?php echo $networkradio['Site']['name']; ?></P>
     <P><B>Foreign ID:</B>&nbsp;<?php echo $networkradio['NetworkRadio']['foreign_id']; ?></P>
     <P><B>Serial No:</B>&nbsp;<?php echo $networkradio['NetworkRadio']['serial']; ?></P>
@@ -83,15 +90,19 @@
         <table class="table table-condensed table-striped">
             <thead>
             <tr>
-                <th>Radio Name</th>
+                <th colspan="2">Radio Name</th>
                 <th>Distance</th>
                 <th>True Azimuth</td>
                 <th>Magnetic Azimuth</td>
                 <th>Actions</td>
             </tr>
             <tr>
+                <td style="text-align: center;">
+                <?php echo $this->element('Common/site_status_icon', array('status' => $link['network_radios']['is_down'])); ?>
+                </td>
                 <td>
                     <?php
+                    
                         echo $this->MyHtml->linkIfAllowed(
                             $link['network_radios']['name'],
                             array('action' => 'view',

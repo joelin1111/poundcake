@@ -28,6 +28,7 @@
     <table class="table table-condensed table-striped">
         <thead>
             <tr>
+                <th style="width: 50px; text-align: center;"><?php echo $this->Paginator->sort('is_down','Status'); ?></th>
                 <th><?php echo $this->Paginator->sort('name'); ?></th>
                 <th><?php echo $this->Paginator->sort('site_id'); ?></th>
                 <th><?php echo $this->Paginator->sort('radio_type_id'); ?></th>
@@ -38,6 +39,7 @@
     <?php
     foreach ($networkradios as $networkradio): ?>
     <tr>
+        <td style="text-align: center;"><?php echo $this->element('Common/site_status_icon', array('status' => $networkradio['NetworkRadio']['is_down'])); ?></td>
         <td><?php echo $this->Html->link($networkradio['NetworkRadio']['name'], array('action' => 'view', $networkradio['NetworkRadio']['id']))?></td>
         <td><?php echo $networkradio['Site']['site_vf'];?></td>
         <td><?php echo $networkradio['RadioType']['name'];?></td>

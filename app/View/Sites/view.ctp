@@ -39,8 +39,6 @@
                     if (!isset($contacts)) {
                         echo "None";
                     } else {
-                        //$c = count($contacts);
-                        //echo "<UL>";
                         echo "<P>";
                         foreach ($contacts as $contact) {
                             //echo "<LI>";
@@ -50,9 +48,7 @@
                                 'action' => 'view',
                                 $contact['Contact']['id']));
                             echo "<BR>".$contact['Contact']['phone']."</P>";
-                            //echo "</LI>";
                         }
-                        //echo "</UL>";
                     }
                 ?>
             </P>
@@ -91,45 +87,6 @@
                     'icon' => $icon
                     )
                 );
-        /*/* placemarkers for nearby sites
-        //print_r($nearby);
-        $icon = '';
-        $c = count($nearby);
-        $i = 2;
-        //echo "c is".$c;
-        if ($c > 0) {
-            foreach ($nearby as $s) {
-                //echo "<pre>".print_r($s)."</pre>";
-                //echo $s['distance'];
-                $distance = sprintf ("%01.2f", $s[0]['distance']);
-                $lat = $s[0]['lat'];
-                $lon = $s[0]['lon'];
-                // this result set comes from a stored procedure, and makes the same
-                // site_vf virtual field that's defined in the Site
-                // model -- but technically this is not the same field, so FYI
-                $siteUrl = $this->Html->link(
-                    $s[0]['site_vf'],
-                    array('controller' => 'sites', 'action' => 'view', $s['sites']['id'])
-                );
-                //$windowText = $siteUrl."<BR>".$s['schools']['name']. "<BR>Distance: ".$distance." Km";
-                $windowText = $siteUrl."<BR>Distance: ".$distance." Km";
-
-
-                $markerOptions= array(
-                    'id' => $i, // Id of the marker, on this page we only have 1 so we can hardcode that
-                    'latitude' => $lat,
-                    'longitude' => $lon,
-                    'markerIcon' => $icon, //Custom icon
-                    //'address'=> "", # mysteriously started complaining about this field not being present
-                    //'shadowIcon' => 'http://google-maps-icons.googlecode.com/files/home.png', //Custom shadow
-                    'infoWindow' => true, // Boolean to show an information window when you click the marker or not
-                    'windowText' => $windowText // Text inside the information window
-                );
-                echo $this->AltGoogleMapV3->addMarker('map_canvas', $i, $markerOptions);
-                $i++;
-            }
-        }
-        */
     ?>
     </div> <!-- /.map-frame -->
     </p>
@@ -195,7 +152,11 @@
             echo "<th>Frequency</th>";
             echo "<th>SSID</th>";
             foreach ($site['NetworkRadios'] as $radio) {
+                
                 echo "<tr><td>";
+                echo $this->element('Common/site_status_icon', array('status' => $radio['is_down']));
+                echo '&nbsp;';
+                
                 echo $this->Html->link($radio['name'], array(
                     'controller' => 'networkRadios',
                     'action' => 'view',

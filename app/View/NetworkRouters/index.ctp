@@ -17,7 +17,7 @@
       ?>
     <span class="help-block"></span>
     <?php
-        echo $this->Form->submit(__('Search', true), array('div' => false,'class'=>'btn'));
+        echo $this->Form->submit('Search', array('div' => false,'class'=>'btn'));
         echo $this->Form->end(); 
     ?>
 </div><!-- /.span3 .sb-fixed -->
@@ -27,6 +27,7 @@
 	<table class="table table-condensed table-striped">
             <thead>
                 <tr>
+                    <th style="width: 50px; text-align: center;"><?php echo $this->Paginator->sort('is_down','Status'); ?></th>
                     <th><?php echo $this->Paginator->sort('name'); ?></th>
                     <th><?php echo 'Actions'; ?></th>
                 </tr>
@@ -35,6 +36,7 @@
 	<?php
 	foreach ($networkrouters as $networkrouter): ?>
 	<tr>
+            <td style="text-align: center;"><?php echo $this->element('Common/site_status_icon', array('status' => $networkrouter['NetworkRouter']['is_down'])); ?></td>
             <td><?php echo $this->Html->link($networkrouter['NetworkRouter']['name'], array('action' => 'view', $networkrouter['NetworkRouter']['id'])); ?></td>
             <td>
                 <?php echo $this->MyHTML->linkIfAllowed('Edit', array('action' => 'edit', $networkrouter['NetworkRouter']['id'])); ?>

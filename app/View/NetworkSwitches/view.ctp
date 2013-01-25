@@ -19,7 +19,14 @@
 
 <div class="span9">
     <h2>View Switch</h2>
-    <P><B>Name:</B>&nbsp;<?php echo $networkswitch['NetworkSwitch']['name']; ?></P>
+    <div class="status-icon">
+    <P><B>Name:</B>&nbsp;&nbsp;
+        <?php
+            echo $networkswitch['NetworkSwitch']['name'];
+            echo $this->element('Common/site_status_icon', array('status' => $networkswitch['NetworkSwitch']['is_down']));
+        ?>
+    </P>
+    </div>
     <P><B>Site:</B>&nbsp;<?php echo $networkswitch['Site']['name']; ?></P>
     <P><B>Foreign ID:</B>&nbsp;<?php echo $networkswitch['NetworkSwitch']['foreign_id']; ?></P>
     <P><B>Serial No:</B>&nbsp;<?php echo $networkswitch['NetworkSwitch']['serial']; ?></P>

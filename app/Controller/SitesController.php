@@ -1099,6 +1099,8 @@ class SitesController extends AppController
         $this->set('switch', $switch);
         $this->set('radios', $radios);
         
+        //$this->set(compact('site','towercontacts','router','switch','radios'));
+            
 //        echo '<pre>';
 //        print_r($sites);
 //        echo '</pre>';

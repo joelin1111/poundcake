@@ -85,11 +85,24 @@
                      $icon = '/img/sites/grey.png';
                 }
 
-                //$icon = 'data:'.$site['SiteState']['img_type'].';base64,'.base64_encode( $site['SiteState']['img_data'] );
                 $windowText = $this->Html->link(
                     $site['site_vf'],
                     array('controller' => 'sites', 'action' => 'view', $site['id'])
                 );
+                // is_down of 0 means all sites are up, 1 means all sites are down,
+                // so we'll inverse it here for display only
+                // var_dump($site['is_down']);
+                if ( is_null( $site['is_down'] )) {
+                    $status = 'Unknown';
+                } elseif ( $site['is_down'] > 0 ) {
+                    $status = ( 1 - $site['is_down'] ) * 100;
+                    $status = sprintf("%.0f%%",$status). ' Up';
+                } else {
+                    $status = '100% Up';
+                }
+                
+                $windowText .= "<BR>$status";
+                
                 $position = array(
                     'latitude' => $defaultLat,
                     'longitude' => $defaultLng
