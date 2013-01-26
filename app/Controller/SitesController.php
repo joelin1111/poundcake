@@ -35,7 +35,8 @@ class SitesController extends AppController
         'AjaxMultiUpload.Upload',
         'GoogleMap',
         'MyHTML',
-        'PhpThumb'
+        'PhpThumb',
+        'Fancybox.Fancybox'
     );
     
     /*

@@ -188,11 +188,18 @@ CakeLog::config('error', array(
 
 /*
  * AjaxMultiUpload Plugin for CakePHP
- * http://bakery.cakephp.org/articles/srs2012/2012/03/12/ajaxmultiupload_plugin_for_cake_2_0_x_and_2_1
+ * @see http://bakery.cakephp.org/articles/srs2012/2012/03/12/ajaxmultiupload_plugin_for_cake_2_0_x_and_2_1
  */
 CakePlugin::load('AjaxMultiUpload');
+
 Configure::load('config'); // phpThumb
+
 CakePlugin::load('Less');
+/*
+ * FancyBox plugin to for image management
+ * @see https://github.com/destinydriven/CakePHP-Fancybox-Plugin
+ */
+CakePlugin::load('Fancybox');
 
 
 // Used by the Behavior for storing/retrieving passwords on the monitoring system

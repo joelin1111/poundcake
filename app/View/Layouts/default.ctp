@@ -29,31 +29,34 @@ $cakeDescription = __d('poundcake', 'Tower DB');
             <?php echo $title_for_layout; ?>
 	</title>
 	<?php
-            //echo $this->Html->script('jquery-1.7.2');
+        
+            // JQuery
+            echo $this->Html->script('jquery-1.8.3'); 
+            echo $this->Html->script('jquery-ui-1.9.2.custom.min');
+            echo $this->Html->script('bootstrap'); // Bootstrap's JS file
+            echo $this->Html->script('datepicker');
+            echo $this->Html->script('poundcake');
+            echo $this->Html->script('bootbox');
+            echo $this->Html->script('jquery.form'); // testing this out, see http://www.malsup.com/jquery/form/#download
+            
             echo $this->Html->meta('icon');
             echo $this->fetch('meta');
             echo $this->fetch('css');
             echo $this->fetch('script');            
             
+            // CSS
             echo $this->Html->css('bootstrap'); // Bootstrap CSS file
             echo $this->Html->css('poundcake'); // Our custom CSS file
             echo $this->Html->css('jasny-bootstrap');  // Jasny is used for the File upload widget
- 
+            
             // LESS 
             // @see http://mindthecode.com/using-less-in-cakephp/
             // @see https://github.com/leafo/lessphp
             echo $this->Less->css('variables');
-            echo $this->Less->css('bootswatch');
-//            
-
-            echo $this->Html->script('jquery-1.8.3'); 
-            //echo $this->Html->script('jquery-ui-1.8.21.custom.min'); 
-            echo $this->Html->script('jquery-ui-1.9.2.custom.min');
-            echo $this->Html->script('bootstrap'); // Bootstrap's JS file
-            echo $this->Html->script('datepicker');
-            echo $this->Html->script('poundcake');
-            echo $this->Html->script('bootbox'); // testing this out, see: http://bootboxjs.com/
-            echo $this->Html->script('jquery.form'); // testing this out, see http://www.malsup.com/jquery/form/#download
+            echo $this->Less->css('bootswatch');          
+            
+            
+            
         ?>
     
         <style type="text/css"> 

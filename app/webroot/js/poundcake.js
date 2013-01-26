@@ -134,22 +134,6 @@ $(document).ready(function () {
         //alert($(this).text());
     });
     */
-    
-    /*
-    $("li.active").removeClass("active");
-    //$(selectedItem).parent().addClass("active");
-    $(selectedItem).addClass("active");
-    $(selectedItem).parent().css('background-color','blue');
-    
-//    var str=location.href.toLowerCase();
-//    $(".nav li a").each(function() {
-//        if (str.indexOf(this.href.toLowerCase()) > -1) {
-//            $("li.active").removeClass("active");
-//            $(this).parent().addClass("active");
-//        }            
-//    });
-
-    */
 });
 
 // CakePHP Twitter Bootstrappifier

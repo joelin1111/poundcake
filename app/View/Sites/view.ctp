@@ -1,8 +1,4 @@
 <?php
-    
-    // http://www.appelsiini.net/projects/jeditable
-    // echo $this->Html->script('jquery.jeditable.mini');
-    
     // if we're under SSL we have to give the Google stuff under SSL, too, or
     // else the browser is likely to complain or just not render SSL/non-SSL
     // content together
@@ -11,7 +7,7 @@
     } else {
         echo $this->Html->script('http://maps.google.com/maps/api/js?sensor=true',false);
     }
-    echo $this->Html->script('gears_init');
+    echo $this->Html->script('gears_init');    
 ?>
 
 <div class="row">
@@ -249,19 +245,33 @@
                 foreach ( $images as $image ) {
                     $f = basename($image);                    
                     $url = $baseUrl . "/$f";
-                    echo '<li><a href="'.$url.'" class="thumbnail">';
-                    echo $this->PhpThumb->thumbnail($url, array('w' => 100, 'h' => 100, 'zc' => 1));
-                    echo '</a></li>';
+//                    echo '<li><a href="'.$url.'" class="thumbnail">';
+//                    echo $this->PhpThumb->thumbnail($url, array('w' => 100, 'h' => 100, 'zc' => 1));
+//                    echo '</a></li>';                    
+                    echo '<li class="span3"><a href="'.$url.'" class="fancybox3 fancybox.image" rel="gallery1">';
+                    echo $this->Html->image( $url );
+                    $this->Fancybox->setProperties( array( 
+                        'class' => 'fancybox3',
+                        'className' => 'fancybox.image',
+                        'title' => $f,
+                        'rel' => 'gallery2'
+                         )
+                    );
+                    $this->Fancybox->setPreviewContent( $f );
+                    $this->Fancybox->setMainContent($url); 
+                    echo $this->Fancybox->output(null);
+                    echo '</li>';
+                    
                 }
                 echo '</UL></P>';
+                
+                
             } else {
                 echo "<P><UL><LI>None</LI></UL></P>";
             }
-
-            
-        ?>
+            ?>
     </P>
-    
+
     <?php
         // maybe time format should also be set in the Site properties
         // we already got the date format (above) so just tack on the time
