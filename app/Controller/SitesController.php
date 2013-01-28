@@ -218,12 +218,14 @@ class SitesController extends AppController
         
         $this->Site->recursive = 0;
         $sites = $this->Site->find('all', array('conditions' => $conditions));
-        $this->set('sites', $sites);
+
         $this->getSiteStates();
         $this->buildLegend();
         $project = $this->Site->Project->findById($this->Session->read('project_id'));
-        $this->set('default_lat', $project['Project']['default_lat']);
-        $this->set('default_lon', $project['Project']['default_lon']);
+        $default_lat = $project['Project']['default_lat'];
+        $default_lon = $project['Project']['default_lon'];
+        $default_zoom = $project['Project']['default_zoom'];
+        $this->set(compact( 'sites', 'default_lat', 'default_lon', 'default_zoom' ));
     }
     
     /*
@@ -323,9 +325,11 @@ class SitesController extends AppController
         $this->getSiteStates();
         $this->buildLegend();
         $project = $this->Site->Project->findById($this->Session->read('project_id'));
-        $this->set('default_lat', $project['Project']['default_lat']);
-        $this->set('default_lon', $project['Project']['default_lon']);
+        $default_lat = $project['Project']['default_lat'];
+        $default_lon = $project['Project']['default_lon'];
+        $default_zoom = $project['Project']['default_zoom'];
         
+        $this->set(compact( 'default_lat', 'default_lon', 'default_zoom' ));
              
     }
     

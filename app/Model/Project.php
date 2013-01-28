@@ -80,6 +80,26 @@ class Project extends AppModel {
                 //'on' => 'create', // Limit validation to 'create' or 'update' operations
             )
         ),
+        'default_lat' => array(
+            'notempty' => array(
+                'rule' => array('notempty'),
+                'message' => 'This field cannot be blank.'
+            ),
+            'format' => array(
+                'rule' => '/^-?\d{1,3}\.\d{1,14}$/',
+                'message' => 'Expecting XX.XXXXX or -XX.XXXXX'
+            )
+        ),
+        'default_lon' => array(
+            'notempty' => array(
+                'rule' => array('notempty'),
+                'message' => 'This field cannot be blank.'
+            ),
+            'format' => array(
+                'rule' => '/^-?\d{1,3}\.\d{1,14}$/',
+                'message' => 'Expecting XX.XXXXX or -XX.XXXXX'
+            )
+        ),
     );
     
     /*

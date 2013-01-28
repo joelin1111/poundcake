@@ -7,7 +7,10 @@
         <li><?php echo $this->Html->link('Setup',array('controller'=>'admin','action' => 'setup')); ?></li>
     </ul>
     </div>
-    <?php echo $this->element('Common/date_format'); ?>
+    <?php
+        echo $this->element('Common/date_format');
+        echo $this->element('Common/zoom_level');
+    ?>
 </div><!-- /.span3 .sb-fixed -->
 
 <div class="span9">
@@ -18,8 +21,8 @@
         echo $this->Form->input('default_lat', array( 'label' => 'Default Latitude' ));
         echo $this->Form->input('default_lon', array( 'label' => 'Default Longitude' ));
         echo $this->Form->input('workorder_title', array( 'label' => 'Title for Workorder' ));
-        echo $this->Form->input('datetime_format', array( 'label' => 'Datetime Format (PHP compatible)', 'value' => 'd/m/Y'));
-    
+        echo $this->Form->input('datetime_format', array( 'label' => 'Datetime Format (PHP compatible)', 'value' => 'd/m/Y'));       
+        echo $this->Form->input('default_zoom', array( 'label' => 'Map Zoom Level (1 to 20)', 'value' => '8'));
         echo $this->Form->input('snmp_type_id', array('type'=>'select','options' => $snmptypes, 'label' => 'SNMP Version', 'empty' => true));
         echo $this->Form->input('snmp_community_name', array( 'label' => 'SNMP Community Name' ));
         echo $this->Form->input('monitoring_system_type_id', array('type'=>'select','options' => $monitoringSystemTypes, 'label' => 'Monitoring System Type', 'empty' => true));

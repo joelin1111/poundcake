@@ -31,7 +31,8 @@ $cakeDescription = __d('poundcake', 'Tower DB');
 	<?php
         
             // JQuery
-            echo $this->Html->script('jquery-1.8.3'); 
+            //echo $this->Html->script('jquery-1.8.3'); 
+            echo $this->Html->script('jquery-1.9.0');
             echo $this->Html->script('jquery-ui-1.9.2.custom.min');
             echo $this->Html->script('bootstrap'); // Bootstrap's JS file
             echo $this->Html->script('datepicker');
@@ -125,13 +126,12 @@ $cakeDescription = __d('poundcake', 'Tower DB');
     <div class="container">
     <div class="row">
     <?php
+        
         $banner = $this->Session->read('banner');
         if ( strlen($banner) > 0 ) {
             echo '<div class="alert" align="center">'.$banner.'</div>';
         }
-    ?>
-    
-    <?php        
+           
         $flashClass = "alert-spacer";
         $flashMessage = "";
         if( $this->Session->check('Message.flash') ) {
@@ -143,10 +143,13 @@ $cakeDescription = __d('poundcake', 'Tower DB');
                 $flashClass = "alert-info";
             }
         }
-        echo '<div align="center" id="flash" class="alert '.$flashClass.'">';
-        echo $flashMessage;
-        echo '</div>';
-//        }
+        
+        if ( strlen($flashMessage) > 0 ) {
+            echo '<div align="center" id="flash" class="alert '.$flashClass.'">';
+            echo $flashMessage;
+            echo '</div>';
+        }
+
     ?>
         </div>
         <?php echo $content_for_layout; ?>

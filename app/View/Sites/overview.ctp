@@ -26,12 +26,8 @@
     // is bigger with different options, and so it might take just as much code
     // to do that as it is to just do it again manually
 
-    $defaultLat = 37.7750; 
-    $defaultLng = -122.4183;
-    if (isset($default_lat))
-        $defaultLat = $default_lat;
-    if (isset($default_lon))
-        $defaultLng = $default_lon;
+    if (!isset($default_zoom))
+        $default_zoom = 8;
     
     // https://github.com/marcferna/CakePHP-GoogleMapHelper
     // http://marcferna.tumblr.com/post/3580268729/google-maps-api-v3-cakephp-helper
@@ -42,11 +38,11 @@
         'height'=>'700px', // Height of the map
         //'style' => '', // CSS style for the map canvas
         'style' => '98%; height:700px;', // CSS style for the map canvas
-        'zoom' => 8, // lower = further out
+        'zoom' => $default_zoom, // lower = further out
         'type' => 'TERRAIN', // Type of map (ROADMAP, SATELLITE, HYBRID or TERRAIN)
         //'custom'=>null, // Any other map option not mentioned before and available for the map. For example 'mapTypeControl: true' (http://code.google.com/apis/maps/documentation/javascript/controls.html)
-        'latitude' => $defaultLat,	// default latitude if the browser doesn't support localization or you don't want localization (Latitude & Langitude have priority versus Address)
-        'longitude' => $defaultLng,	// default longitude if the browser doesn't support localization or you don't want localization (Latitude & Langitude have priority versus Address)
+        'latitude' => $default_lat,	// default latitude if the browser doesn't support localization or you don't want localization (Latitude & Langitude have priority versus Address)
+        'longitude' => $default_lon,	// default longitude if the browser doesn't support localization or you don't want localization (Latitude & Langitude have priority versus Address)
         'address' => '', // 1 Infinite Loop, Cupertino", //Default address if the browser doesn't support localization or you don't want localization (Latitude & Langitude have priority versus Address)
         'localize' => false, // boolean to localize your position or not
         'marker' => false, // boolean to put a marker in the position or not
@@ -75,10 +71,10 @@
             
             $windowText .= '<BR>'.$site['Zone']['name'];
             $windowText .= '<BR>'.$site['Organization']['name'];
-            
+
             $position = array(
-                'latitude' => $defaultLat,
-                'longitude' => $defaultLng
+                'latitude' => $default_lat,
+                'longitude' => $default_lon
             );
             
             $markerOptions = array(
