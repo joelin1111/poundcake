@@ -407,7 +407,5 @@ class GoogleMapHelper extends AppHelper {
 			";
 		return $polyline;
 	}
-
-
 }
 ?>

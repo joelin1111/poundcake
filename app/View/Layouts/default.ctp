@@ -16,8 +16,6 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 
-//$banner = 'Tower DB system upgrade Sept 24, 2012 at 1:00 PM (13:00) Pacific';
-
 $cakeDescription = __d('poundcake', 'Tower DB');
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -29,7 +27,6 @@ $cakeDescription = __d('poundcake', 'Tower DB');
             <?php echo $title_for_layout; ?>
 	</title>
 	<?php
-        
             // JQuery
             //echo $this->Html->script('jquery-1.8.3'); 
             echo $this->Html->script('jquery-1.9.0');
@@ -39,6 +36,7 @@ $cakeDescription = __d('poundcake', 'Tower DB');
             echo $this->Html->script('poundcake');
             echo $this->Html->script('bootbox');
             echo $this->Html->script('jquery.form'); // testing this out, see http://www.malsup.com/jquery/form/#download
+            //echo $this->Html->script('jquery-ui-map/jquery.ui.map');
             
             echo $this->Html->meta('icon');
             echo $this->fetch('meta');
@@ -54,10 +52,7 @@ $cakeDescription = __d('poundcake', 'Tower DB');
             // @see http://mindthecode.com/using-less-in-cakephp/
             // @see https://github.com/leafo/lessphp
             echo $this->Less->css('variables');
-            echo $this->Less->css('bootswatch');          
-            
-            
-            
+            echo $this->Less->css('bootswatch');
         ?>
     
         <style type="text/css"> 

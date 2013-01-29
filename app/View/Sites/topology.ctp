@@ -8,8 +8,11 @@
         echo $this->Html->script('http://maps.google.com/maps/api/js?sensor=true',false);
     }
     echo $this->Html->script('gears_init');
-    echo $this->Html->script('page-refresh');
-    
+//    echo $this->Html->script('jquery-ui-map/jquery.ui.map.services');
+//    echo $this->Html->script('jquery-ui-map/jquery.ui.map.extensions');
+//    echo $this->Html->script('jquery-ui-map/jquery.ui.map.microformat');
+//    echo $this->Html->script('jquery-ui-map/jquery.ui.map.overlays');
+//    echo $this->Html->script('jquery-ui-map/jquery.ui.map.services');
 ?>
 
 <div class="row">
@@ -39,6 +42,7 @@
         //'style' => '', // CSS style for the map canvas
         'style' => '98%; height:700px;', // CSS style for the map canvas
         'zoom' => $default_zoom, // lower = further out
+        'tags' => 'foo',
         'type' => 'TERRAIN', // Type of map (ROADMAP, SATELLITE, HYBRID or TERRAIN)
         //'custom'=>null, // Any other map option not mentioned before and available for the map. For example 'mapTypeControl: true' (http://code.google.com/apis/maps/documentation/javascript/controls.html)
         'latitude' => $default_lat,	// default latitude if the browser doesn't support localization or you don't want localization (Latitude & Langitude have priority versus Address)
@@ -110,6 +114,7 @@
                     'longitude' => $lon,
                     'markerIcon' => $icon,
                     'position' => null,
+                    //'markerTitle' => 'foobar',
                     'address' => null, // mysteriously started complaining about this field not being present
                     //'shadowIcon' => 'http://google-maps-icons.googlecode.com/files/home.png', //Custom shadow
                     'infoWindow' => true, // Boolean to show an information window when you click the marker or not
@@ -168,6 +173,8 @@
 Next page refresh: <span id=counter> </span>
 <br>
 <a href="javascript:self.location.reload()">Click</a> to refresh now
+<BR>
+
 </center>
 
 <SCRIPT LANGUAGE="JavaScript">

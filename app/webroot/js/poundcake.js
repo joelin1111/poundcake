@@ -11,6 +11,17 @@ $(document).ready(function () {
     
     bootbox_dialogs();
     
+   jquery_map();
+    
+//    <div id="resize-map">
+//<?php
+//    echo $this->Html->link('Resize','#');
+//?>
+//</div>
+//    $("#resize-map [href]").click( function() {
+//
+//    });
+
     // fade out flash messages after n miliseconds
     // replace with empty block to maintain space
     //$('#flash').fadeTo(4000, 0, function(){ $(this).html().fadeTo(1000, 1); })
@@ -198,7 +209,7 @@ function bootbox_dialogs() {
         // data attribute, data-dialog_msg="Foo"
         var $string = $(this).data( 'dialog_msg' );
         
-        console.log( $action );
+        // console.log( $action );
         
         // bootbox.confirm( "Confirm "+$name+"?", function(confirmed) {
         bootbox.confirm( $string + '?', function(confirmed) {
@@ -218,6 +229,25 @@ function bootbox_dialogs() {
         return false;
     });
 }
+
+function jquery_map() {
+//    $('#google_map_large').animate({width:300},1000);
+//    $('#google_map_large').animate({height:100},1000);
+//    $('#google_map_large').animate({width:300,height:100},1400);
+//    $('#google_map_large').fadeOut(5000);
+//    $('#google_map_large').ready(function(d) {
+//       console.log("foo");
+//       console.log( d );
+//    });
+//   $('#google_map_large').ready(function() {
+//       alert( $(this).data( 'data' ) );
+//       alert( "ok!");
+//    });
+    
+    //$('#google_map_large').gmap();
+    
+}
+
 
 /*
 
