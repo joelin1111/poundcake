@@ -228,9 +228,24 @@ class SitesController extends AppController
         $this->set(compact( 'sites', 'default_lat', 'default_lon', 'default_zoom' ));
     }
     
+    /*
+     * Testing, testing, 1 2 3...
+     */
     public function topotest() {
-        $data = array( 'foo1' => 'bar1' );
-        $this->set('data', $data);
+        $conditions = array(
+            'AND' => array(
+                'Site.project_id' => $this->Session->read('project_id') // only show sites for the current project
+            )
+        );
+        
+        //$this->Site->recursive = 2; // we need to access the Site's NetworkRadio array
+        $sites = $this->Site->find('all', array('conditions' => $conditions));
+        $project = $this->Site->Project->findById($this->Session->read('project_id'));
+        $default_lat = $project['Project']['default_lat'];
+        $default_lon = $project['Project']['default_lon'];
+        
+        $this->getSiteStates();
+        $this->set(compact( 'sites','default_lat','default_lon' ));
     }
     
     /*
@@ -747,6 +762,7 @@ class SitesController extends AppController
         $sitestates = $this->Site->SiteState->find('list', array(
             'conditions' => array('project_id' => $this->Session->read('project_id') )
         ));
+        
         $this->set('sitestates',$sitestates);
     }
     

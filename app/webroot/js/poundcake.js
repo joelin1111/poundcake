@@ -11,7 +11,7 @@ $(document).ready(function () {
     
     bootbox_dialogs();
     
-   jquery_map();
+    jquery_map();
     
 //    <div id="resize-map">
 //<?php
@@ -231,20 +231,65 @@ function bootbox_dialogs() {
 }
 
 function jquery_map() {
-//    $('#google_map_large').animate({width:300},1000);
-//    $('#google_map_large').animate({height:100},1000);
-//    $('#google_map_large').animate({width:300,height:100},1400);
-//    $('#google_map_large').fadeOut(5000);
-//    $('#google_map_large').ready(function(d) {
-//       console.log("foo");
-//       console.log( d );
-//    });
-//   $('#google_map_large').ready(function() {
-//       alert( $(this).data( 'data' ) );
-//       alert( "ok!");
+    //var yourStartLatLng = new google.maps.LatLng(59.3426606750, 18.0736160278);
+    var default_lat = $('#google_mapDefaultLat').val();
+    var default_lon = $('#google_mapDefaultLon').val();
+    //console.log( default_lat );
+    //console.log( default_lon );
+    var centerMapAt = new google.maps.LatLng( default_lat, default_lon );
+    $('#map_canvas').gmap({'center': centerMapAt});
+    
+//    $("input[type='hidden']").each(function() {
+//        console.log($(this).val());
 //    });
     
-    //$('#google_map_large').gmap();
+    $('#map_canvas').gmap().bind('init', function(ev, map) {
+        // adds plcemarkers, data from json_encoded data in view
+        $("[data-gmapping]").each(function(i,el) {
+            var data = $(el).data('gmapping');
+            console.log(data.tags);
+            $('#map_canvas').gmap('addMarker', {'id': data.id, 'tags':data.tags, 'position': new google.maps.LatLng(data.latlng.lat, data.latlng.lng), 'bounds':true }, function(map,marker) {
+                $(el).click(function() {
+                    $(marker).triggerEvent('click');
+                });
+            }).click(function() {
+                $('#map_canvas').gmap('openInfoWindow', { 'content': $(el).find('.info-box').text() }, this);
+            });
+        });        
+    });
+    
+    $('input:checkbox').click(function() {
+        $('#map_canvas').gmap('closeInfoWindow');
+        $('#map_canvas').gmap('set', 'bounds', null);
+        
+        // get an array with the values of all the checked boxes
+        var filters = [];
+        $('input:checkbox:checked').each(function(i, checkbox) {
+            filters.push($(checkbox).val());
+        });
+        
+        if ( filters.length > 0 ) {
+            console.log(filters);
+            $('#map_canvas').gmap('find', 'markers', { 'property': 'tags', 'value': filters, 'operator': 'OR' }, function(marker, isFound) {
+                console.log(isFound);
+                if ( isFound ) {
+                    marker.setVisible(true);
+                    $('#map_canvas').gmap('addBounds', marker.position);
+                } else {
+                    marker.setVisible(false);
+                }
+            });
+        } /*else {
+            $.each($('#map_canvas').gmap('get', 'markers'), function(i, marker) {
+                $('#map_canvas').gmap('addBounds', marker.position);
+                // marker.setVisible(false);
+                // marker.setVisible(true);
+            });
+        }*/
+    });
+
+    
+   
     
 }
 
