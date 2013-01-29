@@ -14,6 +14,7 @@
     <h2>Add Contact</h2>
     <?php
         echo $this->Form->input('name');
+        echo $this->Form->input('project_id');
     ?>
     </fieldset>
     <?php 

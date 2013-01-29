@@ -12,14 +12,14 @@
     <h3>Add Site: <?php echo $this->Session->read('project_name'); ?></h3>
 <?php
     echo $this->Form->create('Site', array('action'=>'add'));
+    echo $this->Form->input('project_id', array('type'=>'hidden','value'=>$this->Session->read('project_id')));
     echo $this->Form->input('Site.name');
     echo $this->Form->input('Site.code');
     echo $this->Form->input('zone_id');
     echo $this->Form->input('lat', array ('label' => 'Latitude','value' => ''));
     echo $this->Form->input('lon', array ('label' => 'Longitude','value' => ''));
     echo $this->Form->input('declination', array('type'=>'hidden'));
-    echo $this->Form->input('project_id', array('type'=>'hidden','value'=>$this->Session->read('project_id')));
-    
+    echo $this->Form->input('install_team_id', array('type'=>'select','options' => $installteams,'label' => 'Install Team', 'empty' => true));
     echo $this->Form->input('install_date', 
         array(
            'class'=>'datepicker', 

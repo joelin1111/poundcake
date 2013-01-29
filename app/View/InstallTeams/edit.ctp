@@ -13,6 +13,7 @@
     <h2>Edit InstallTeam</h2>
     <?php
         echo $this->Form->input('name');;
+        echo $this->Form->input('project_id');
         echo $this->Form->submit('Save', array('div' => false,'class'=>'btn'));
         echo $this->Form->end(); 
     ?>

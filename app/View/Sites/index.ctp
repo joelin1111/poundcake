@@ -23,10 +23,14 @@
     <div class="well well-large">
     <ul>
         <?php
+        if ( count($installteams) > 0 ) {
             foreach ($installteams as $key => $value) {
                 echo '<LI>';
                 echo $this->Html->link(($value), array('action' => 'schedule',$key));
                 echo '</LI>';
+            }
+        } else {
+                echo '<LI>None</LI>';
             }
         ?>
     </ul>

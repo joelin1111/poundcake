@@ -15,6 +15,7 @@
             <thead>
                 <tr>
                     <th><?php echo $this->Paginator->sort('name'); ?></th>
+                    <th><?php echo $this->Paginator->sort('project_id'); ?></th>
                     <th><?php echo 'Actions'; ?></th>
                 </tr>
             </thead>
@@ -23,6 +24,7 @@
 	foreach ($installteams as $team): ?>
 	<tr>
             <td><?php echo $this->Html->link($team['InstallTeam']['name'], array('action' => 'view', $team['InstallTeam']['id'])); ?></td>
+            <td><?php echo $team['Project']['name']; ?></td>
             <td>
             <?php
                 echo $this->Html->link('Edit', array('action' => 'edit', $team['InstallTeam']['id']));            
