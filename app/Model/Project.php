@@ -43,8 +43,10 @@ class Project extends AppModel {
     
     public $hasMany = array(
         'SiteStates',
-        'TowerTypes'
+        'TowerTypes',
+        'InstallTeams'
     );
+    
     
     /*
      * Default sort order

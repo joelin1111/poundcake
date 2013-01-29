@@ -35,6 +35,10 @@ class InstallTeam extends AppModel {
         'Contact'
     );
     
+    public $belongsTo = array(
+        'Project'
+    );
+    
     /*
      * Default sort order
      */

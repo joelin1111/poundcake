@@ -69,6 +69,7 @@ class InstallTeamsController extends AppController {
                 $this->Session->setFlash('Error!  The install team could not be saved. Please, try again.');
             }
         }
+        $this->getProjects();
     }
 
     /*
@@ -89,6 +90,7 @@ class InstallTeamsController extends AppController {
         } else {
             $this->request->data = $this->InstallTeam->read(null, $id);
         }
+        $this->getProjects();
     }
     
     /*
@@ -109,7 +111,7 @@ class InstallTeamsController extends AppController {
         $this->Session->setFlash('Error!  Install Team was not deleted.');
         $this->redirect(array('action' => 'index'));
     }
-
+    
     /*
      * Uses Auth to check the ACL to see if the user is allowed to perform any
      * actions in this controller

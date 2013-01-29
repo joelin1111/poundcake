@@ -191,7 +191,7 @@ class SitesController extends AppController
         
         $data = $this->paginate('Site');     
         $this->set('sites',$data);        
-        $this->set('installteams',$this->Site->InstallTeam->find('list'));
+        $this->getInstallTeams();
     }
  
     /*
@@ -226,6 +226,11 @@ class SitesController extends AppController
         $default_lon = $project['Project']['default_lon'];
         $default_zoom = $project['Project']['default_zoom'];
         $this->set(compact( 'sites', 'default_lat', 'default_lon', 'default_zoom' ));
+    }
+    
+    public function topotest() {
+        $data = array( 'foo1' => 'bar1' );
+        $this->set('data', $data);
     }
     
     /*
@@ -846,6 +851,7 @@ class SitesController extends AppController
     function getInstallTeams() {
         $this->set('installteams',$this->Site->InstallTeam->find('list',
             array(
+                'conditions' => array('project_id' => $this->Session->read('project_id') ),
                 'order' => array(
                     'InstallTeam.name ASC'
             )))
