@@ -22,9 +22,9 @@ $(document).ready(function () {
         //console.log(siteStates);
 
         $('#map_canvas').gmap().bind('init', function(ev, map) {
-
+            
             $('#map_canvas').gmap('addControl', 'control', google.maps.ControlPosition.RIGHT_TOP);           
-
+            
             // adds placemarkers, data from json_encoded data in view
             $("[data-gmapping]").each(function(i,el) {
                 var data = $(el).data('gmapping');
@@ -36,7 +36,10 @@ $(document).ready(function () {
                 }).click(function() {
                     $('#map_canvas').gmap('openInfoWindow', { 'content': $(el).find('.info-box').html() }, this); // was: ('.info-box').text()()
                 });
-            });        
+            });       
+            
+           // $('#map_canvas').gmap('addShape', 'Circle', { 'strokeColor': "#FF0000", 'strokeOpacity': 0.8, 'strokeWeight': 2, 'fillColor': "#FF0000", 'fillOpacity': 0.35, 'center': new google.maps.LatLng(58.12, 12.01), 'radius': 2000 });
+            
         });
 
 

@@ -5,6 +5,13 @@
  */
 
 (function( $ ) {
+    
+    // date picker
+    $( "input.datepicker" ).dp({
+       dateFormat: 'dd.mm.yy',
+       altFormat: 'yy-mm-dd'
+    });
+    
     $.widget( "ui.dp", {
             _create: function() {
                 var el = this.element.hide();

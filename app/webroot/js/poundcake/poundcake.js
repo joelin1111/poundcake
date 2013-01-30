@@ -16,12 +16,6 @@ $(document).ready(function () {
     //$('#flash').fadeTo(4000, 0, function(){ $(this).html().fadeTo(1000, 1); })
     $('#flash').fadeTo(4000, 0, function(){  })
     
-    // date picker
-    $( "input.datepicker" ).dp({
-       dateFormat: 'dd.mm.yy',
-       altFormat: 'yy-mm-dd'
-    });
-    
     // checkbox on Radio add/edit for denoting it as a sector -- enables/disables
     // the true azimuth field
     $('#NetworkRadioSector').click( function() {
