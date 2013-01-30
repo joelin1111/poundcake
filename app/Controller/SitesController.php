@@ -762,7 +762,7 @@ class SitesController extends AppController
         $sitestates = $this->Site->SiteState->find('list', array(
             'conditions' => array('project_id' => $this->Session->read('project_id') )
         ));
-        
+        //debug($sitestates);
         $this->set('sitestates',$sitestates);
     }
     

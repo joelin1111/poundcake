@@ -31,7 +31,18 @@ class SiteStatesController extends AppController {
      * Main listing for all SiteStates
      */
     public function index() {
-        $this->SiteState->recursive = 0;
+        // bind to the projects model so we can sort by project name (first)
+        $this->SiteState->bindModel(array('belongsTo' => array('Project')), false);
+        $this->paginate = array(
+            // limit is the number per page 
+            //'limit' => 20,
+           // 'conditions' => $conditions,
+            'order' => array(
+                'Project.name' => 'asc',
+                'SiteState.sequence' => 'asc',
+            ),
+        );
+        
         $this->set('siteStates', $this->paginate());
     }
 

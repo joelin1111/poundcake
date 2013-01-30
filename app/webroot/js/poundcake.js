@@ -227,7 +227,7 @@ function jquery_map() {
         //var yourStartLatLng = new google.maps.LatLng(59.3426606750, 18.0736160278);
         var default_lat = $('#google_mapDefaultLat').val();
         var default_lon = $('#google_mapDefaultLon').val();
-        //console.log( default_lat );
+        console.log( default_lat );
         //console.log( default_lon );
         var centerMapAt = new google.maps.LatLng( default_lat, default_lon );
         $('#map_canvas').gmap({'center': centerMapAt});
@@ -254,14 +254,16 @@ function jquery_map() {
         $('input:checkbox').click(function() {
             $('#map_canvas').gmap('closeInfoWindow');
             $('#map_canvas').gmap('set', 'bounds', null);
-
+            
             // get an array with the values of all the checked boxes
             var filters = [];
             $('input:checkbox:checked').each(function(i, checkbox) {
                 filters.push($(checkbox).val());
             });
+            
+            console.log("Length"+filters.length);
 
-            if ( filters.length > 0 ) {
+            if ( filters.length >= 0 ) {
                 console.log(filters);
                 $('#map_canvas').gmap('find', 'markers', { 'property': 'tags', 'value': filters, 'operator': 'OR' }, function(marker, isFound) {
                     console.log(isFound);
@@ -272,10 +274,10 @@ function jquery_map() {
                         marker.setVisible(false);
                     }
                 });
-            } /*else {
+            }/* else {
                 $.each($('#map_canvas').gmap('get', 'markers'), function(i, marker) {
                     $('#map_canvas').gmap('addBounds', marker.position);
-                    // marker.setVisible(false);
+                    marker.setVisible(true);
                     // marker.setVisible(true);
                 });
             }*/

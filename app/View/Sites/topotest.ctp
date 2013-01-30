@@ -20,7 +20,8 @@
 <div class="span9">
     <h2><?php echo $this->Session->read('project_name'); ?> Topology</h2>
     
-    <div id="map_canvas" style="width:800px;height:500px"></div>
+    <div id="map-frame-large">
+    <div id="map_canvas" style="width:960px;height:700px"></div>
         <?php
         echo $this->Form->create('google_map');
         echo $this->Form->input( 'default_lat', array('type'=>'hidden','value'=>$default_lat));
@@ -69,7 +70,8 @@
         
         
         ?>
-    <a href="#"
+    </div>
+    
     <p>
     <i class="icon-warning-sign"></i>&nbsp;This page is in development and should not be relied upon.
     </p>
