@@ -1386,7 +1386,7 @@ class SitesController extends AppController
      */
     public function isAuthorized($user) {
         // pages that anyone (basically with the view rolealias) can access
-        $allowed = array( "index", "view", "overview", "topology", "workorder", "cron" );
+        $allowed = array( "index", "view", "overview", "topology", "workorder", "topotest", "cron" );
         if ( in_array( $this->action, $allowed )) {
             return true;
         }
