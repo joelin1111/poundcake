@@ -1259,7 +1259,6 @@ class SitesController extends AppController
                                         
                                         // get the IP address
                                         $ip = (string)$xmlIterator2->current()->ipAddress;
-//                                        debug($ip);
                                         
                                         // get the status
                                         $is_down = (string)$xmlIterator2->current()->attributes()->isDown;
@@ -1300,6 +1299,8 @@ class SitesController extends AppController
                                             if ( $device != null ) {
                                                 
                                                 $device[ $model ]['is_down'] = $is_down;
+                                                $device[ $model ]['checked'] = date("Y-m-d H:i:s");
+                                                
     //                                            debug( $radio['NetworkRadio'] );
                                                 $this->$model->id = $device[ $model ]['id'];
                                                 
