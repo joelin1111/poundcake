@@ -159,11 +159,16 @@ class NetworkRadiosController extends NetworkDeviceController {
             $this->User->id = $this->NetworkRadio->data['NetworkRadio']['provisioned_by'];
             $user = $this->User->read();
             $provisioned_by_name = $user['User']['username'];
+            $checked = $this->NetworkRadio->data['NetworkRadio']['checked'];
         } else {
             $provisioned_by_name = "";
+            $checked = "";
         }
         
-        $this->set(compact('links','sector','provisioned_by_name'));
+        // if we wanted to use the project's datetime format -- which probably doesn't include time
+        // $datetime_format = $this->getDateTimeFormat();
+        
+        $this->set(compact('links','sector','provisioned_by_name', 'checked' ));
     }
 
     /*

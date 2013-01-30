@@ -11,14 +11,13 @@
     <?php
       echo $this->Form->create(
           'NetworkRadio',
-          // calls the search function on the SitesController
           array('action'=>'search','class' => 'well')
       );
       echo $this->Form->input('name',array('escape' => true,'class' => 'search-query'));
       ?>
     <span class="help-block"></span>
     <?php
-        echo $this->Form->submit(__('Search', true), array('div' => false,'class'=>'btn'));
+        echo $this->Form->submit('Search', array('div' => false,'class'=>'btn'));
         echo $this->Form->end(); 
     ?>
 </div><!-- /.span3 .sb-fixed -->

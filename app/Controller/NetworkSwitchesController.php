@@ -88,11 +88,13 @@ class NetworkSwitchesController extends NetworkDeviceController {
             $this->User->id = $this->NetworkSwitch->data['NetworkSwitch']['provisioned_by'];
             $user = $this->User->read();
             $provisioned_by_name = $user['User']['username'];
+            $checked = $this->NetworkSwitch->data['NetworkSwitch']['checked'];
         } else {
             $provisioned_by_name = "";
+            $checked = "";
         }
         
-        $this->set(compact( 'networkswitch', 'provisioned_by_name' ));
+        $this->set(compact( 'networkswitch', 'provisioned_by_name', 'checked' ));
     }
 
     /*

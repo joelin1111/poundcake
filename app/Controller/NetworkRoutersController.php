@@ -95,11 +95,13 @@ class NetworkRoutersController extends NetworkDeviceController {
             $this->User->id = $this->NetworkRouter->data['NetworkRadio']['provisioned_by'];
             $user = $this->User->read();
             $provisioned_by_name = $user['User']['username'];
+            $checked = $this->NetworkRouter->data['NetworkRouter']['checked'];
         } else {
             $provisioned_by_name = "";
+            $checked = "";
         }
         
-        $this->set(compact( 'networkrouter', 'provisioned_by_name' ));        
+        $this->set(compact( 'networkrouter', 'provisioned_by_name', 'checked' ));        
     }
 
     public function add() {

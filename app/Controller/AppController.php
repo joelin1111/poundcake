@@ -115,6 +115,7 @@ class AppController extends Controller {
         $this->set(compact('organizations'));
     }
     
+    
     function getAllSitesForProject() {
         // set sites to the list of sites the currently selected/active project
         // also returns the ID for the first site in that list

@@ -286,6 +286,14 @@ class NetworkDeviceController extends AppController {
     }
     
     
+    /*
+     * Return the datetime format for the current project
+     */
+    protected function getDateTimeFormat() {
+        $model = $this->modelClass;
+        // of course this will error if the item doesn't have a relation to project
+        return $this->$model->Site->Project->field('datetime_format');
+    }
     
     /*
      * Return proper XML from a given data array
