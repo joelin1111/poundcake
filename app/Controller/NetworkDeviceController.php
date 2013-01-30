@@ -112,8 +112,14 @@ class NetworkDeviceController extends AppController {
     protected function provision_node( $name, $ip_addr, $debug ) {
         $system = $this->getMonitoringSystemName();
         $ret = null;
-        if (preg_match( "/opennms/i", $system )) {
-            $ret = $this->provision_node_opennms( $name, $ip_addr, $debug );
+       
+        // filter_var returns success when the IP is 0.0.0.0
+        // ip2long returns false in the case of an invalid IP
+        if( filter_var($ip_addr, FILTER_VALIDATE_IP) && ip2long($ip_addr) ) {
+            
+            if (preg_match( "/opennms/i", $system )) {
+                $ret = $this->provision_node_opennms( $name, $ip_addr, $debug );
+            }
         }
         
         return $ret;
@@ -201,7 +207,7 @@ class NetworkDeviceController extends AppController {
             $HttpSocket = parent::getMonitoringSystemSocket( $this->getMonitoringSystemUsername(), $this->getMonitoringSystemPassword() );
             $baseURI = $this->getMonitoringSystemBaseURI();
             
-            if ( !is_null($HttpSocket) && ( isset($baseURI))  ) {
+            if ( !is_null( $HttpSocket ) && ( isset( $baseURI ))  ) {
                 $response = $HttpSocket->request(
                         array(
                             'method' => 'POST',
@@ -261,6 +267,7 @@ class NetworkDeviceController extends AppController {
 
                 if ( $debug ) {
                     echo "Response 3:<BR><pre>";
+                    debug( $baseURI.'/requisitions/'.$type.'/import' );
                     debug( $response );
                     echo "</pre><BR>";
                 }
