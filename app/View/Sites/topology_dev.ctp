@@ -9,30 +9,37 @@
     }
     echo $this->Html->script('gears_init');
     echo $this->Html->script('jquery-ui-map/jquery.ui.map');
-//    echo $this->Html->script('jquery-ui-map/jquery.ui.map.services');
-//    echo $this->Html->script('jquery-ui-map/jquery.ui.map.extensions');
-//    echo $this->Html->script('jquery-ui-map/jquery.ui.map.microformat');
-//    echo $this->Html->script('jquery-ui-map/jquery.ui.map.overlays');
-//    echo $this->Html->script('jquery-ui-map/jquery.ui.map.services');
 ?>
 
 <div class="row">
 <div class="span9">
-    <h2><?php echo $this->Session->read('project_name'); ?> Topology</h2>
+    <h2><?php echo $this->Session->read('project_name'); ?> Topology (Experimental)</h2>
     
-    <div id="map-frame-large">
-    <div id="map_canvas" style="width:960px;height:700px"></div>
+    <p>
+    <i class="icon-warning-sign"></i>&nbsp;This page is experimental and should not be relied upon.
+    </p>
+    
+    <div class="map-frame-large">
+    <div id="map_canvas" style="width:960px;height:600px"></div>
+    <div id="radios" class="item gradient rounded shadow" style="margin:5px;padding:5px 5px 5px 10px;"></div>
+    
         <?php
         echo $this->Form->create('google_map');
         echo $this->Form->input( 'default_lat', array('type'=>'hidden','value'=>$default_lat));
         echo $this->Form->input( 'default_lon', array('type'=>'hidden','value'=>$default_lon));
         
-        echo '<div class="row" align="center">';
+        $sitestates = array(
+            0 => 'Up',
+            1 => 'Partial Down',
+            2 => 'Down',
+            3 => 'Unknown',
+        );
+        
+        $n = 0;
         foreach ( $sitestates as $key => $val ) {
-            echo '<input type="checkbox" name="'.$key.'" value="'.$key.'" checked>'.$val.' &nbsp;';
-            //echo '<input type="checkbox" name="'.$val.'" value="'.$val.'" checked>'.$val.' &nbsp;';
+            echo $this->Form->input( 'sitestate_'.$n, array('type'=>'hidden','value'=>$val ));
+            $n++;
         }
-        echo '</div>';
         
         echo $this->Form->end();
         
@@ -45,23 +52,28 @@
             $status = $site['is_down'];
             if (isset($status)) {
                 if ( $status == 0 ) {
-                     $icon = '/img/sites/green.png';
+                    $state = $sitestates[0];
+                    $icon = '/img/sites/green.png';
                 } elseif ( ( $status > 0 ) && ( $status < 1 )) {
+                    $state = $sitestates[1];
                     $icon = '/img/sites/yellow.png';
                 } elseif ( $status == 1 ) {
-                     $icon = '/img/sites/red.png';
+                    $state = $sitestates[2];
+                    $icon = '/img/sites/red.png';
                 }
             }
             else {
-                 $icon = '/img/sites/grey.png';
+                $state = $sitestates[3];
+                $icon = '/img/sites/grey.png';
             }
-                
+            
+            // $state = $site['SiteState']['name'];
             $item = array( 
                 'id' => 'm_'.$u,
                 'icon' => $icon,
                 // see this as to why this needs to be an array
                 // http://stackoverflow.com/questions/9881949/filterable-jquery-ui-map-google-map
-                'tags' => array( $site['SiteState']['id']),
+                'tags' => array( $state ),
                 'latlng' => array(
                     'lat' => $site['Site']['lat'],
                     'lng' => $site['Site']['lon'],
@@ -70,29 +82,14 @@
             $item = json_encode($item);
             
             echo "<li data-gmapping='".$item."'>";
-            echo '<p class="info-box">'.$site['Site']['site_vf'].'</p><br>';
-            echo "</li>";
-            
-            //echo $this->Form->input( 'lat'.$u, array('class'=>'info-box','type'=>'hidden','value'=>$site['Site']['site_vf']));
-            //echo $this->Form->input( $u, array('type'=>'hidden','value' => $item ));
-            //die;
-            //echo $this->Form->input( 'lat'.$u, array('type'=>'hidden','value'=>$site['Site']['lat']));
-            //echo $this->Form->input('lon'.$u, array('type'=>'hidden','value'=>$site['Site']['lon']));
+            // echo '<p class="info-box">'.$site['Site']['site_vf'].'</p><br>';
+            echo '<p class="info-box"><a href="/sites/view/'.$site['Site']['id'].'">'.$site['Site']['site_vf'].'</a></p><br>';            
+            echo "</li>";            
             $u++;
         }
         echo '</ul></div>';
-        
-        echo $this->Form->end();
-        
-        
         ?>
-    </div>
-    
-    <p>
-    <i class="icon-warning-sign"></i>&nbsp;This page is in development and should not be relied upon.
-    </p>
-    
-  
+    </div>  
 </div> <!-- /.span9 -->
 </div> <!-- /.row -->
 <BR>

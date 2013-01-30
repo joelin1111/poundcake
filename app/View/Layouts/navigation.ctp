@@ -1,9 +1,11 @@
 <li class="dropdown" id="menu1">
 <a class="dropdown-toggle" data-toggle="dropdown" href="#menu1">Map<b class="caret"></b></a>
     <ul class="dropdown-menu">
-      <li><?php echo $this->Html->link('Overview', array('controller' => 'sites', 'action' => 'overview')); ?> </li>
-      <li><?php echo $this->Html->link('Topology', array('controller' => 'sites', 'action' => 'topology')); ?> </li>
-<!--                      <li class="divider"></li>-->
+        <li><?php echo $this->Html->link('Overview', array('controller' => 'sites', 'action' => 'overview')); ?> </li>
+        <li><?php echo $this->Html->link('Topology', array('controller' => 'sites', 'action' => 'topology')); ?> </li>
+        <li class="divider"></li>
+        <li><?php echo $this->Html->link('Overview (Dev)', array('controller' => 'sites', 'action' => 'overview_dev')); ?> </li>
+        <li><?php echo $this->Html->link('Topology (Dev)', array('controller' => 'sites', 'action' => 'topology_dev')); ?> </li>
     </ul>
 </li>
 <li> <?php echo $this->Html->link('Sites', array('controller' => 'sites', 'action' => 'index')); ?> </li>

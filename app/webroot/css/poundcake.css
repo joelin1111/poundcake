@@ -522,3 +522,28 @@ used in may layout page */
 .status-icon img{
     vertical-align: text-bottom;
 }
+
+/* BEGIN - this is the shaded gray that forms the key for the checkboxes on the Google map */
+.item {
+    padding: 1em;
+    margin: 0 0 2em;
+}
+.shadow {
+    -moz-box-shadow: 0px 2px 4px #999;
+    -webkit-box-shadow: 0px 2px 4px #999;
+    box-shadow: 0px 2px 4px #999;
+}
+.rounded {
+    border-radius: 8px;
+    -moz-border-radius: 8px;
+    -webkit-border-radius: 8px;
+    -khtml-border-radius: 8px;
+}
+.gradient {
+    background: #fff;
+    background: -webkit-gradient(linear, left top, left bottom, from(#fff), to(#eaeaea));
+    background: -moz-linear-gradient(top, #fff, #eaeaea);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#ffffff, endColorstr=#eaeaea);
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#ffffff, endColorstr=#eaeaea)";
+}
+/* END - shaded gray key */

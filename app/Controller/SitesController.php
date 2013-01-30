@@ -228,10 +228,7 @@ class SitesController extends AppController
         $this->set(compact( 'sites', 'default_lat', 'default_lon', 'default_zoom' ));
     }
     
-    /*
-     * Testing, testing, 1 2 3...
-     */
-    public function topotest() {
+    private function setup_maps() {
         $conditions = array(
             'AND' => array(
                 'Site.project_id' => $this->Session->read('project_id') // only show sites for the current project
@@ -240,12 +237,26 @@ class SitesController extends AppController
         
         //$this->Site->recursive = 2; // we need to access the Site's NetworkRadio array
         $sites = $this->Site->find('all', array('conditions' => $conditions));
+        // var_dump($sites);
+        
         $project = $this->Site->Project->findById($this->Session->read('project_id'));
         $default_lat = $project['Project']['default_lat'];
         $default_lon = $project['Project']['default_lon'];
         
-        $this->getSiteStates();
+        // will need this for overview
+        // $this->getSiteStates();
         $this->set(compact( 'sites','default_lat','default_lon' ));
+    }
+    /*
+     * Testing, testing, 1 2 3...
+     */
+    public function topology_dev() {
+        $this->setup_maps();
+    }
+    
+    public function overview_dev() {
+        $this->getSiteStates();
+        $this->setup_maps();
     }
     
     /*
@@ -1316,8 +1327,15 @@ class SitesController extends AppController
                     foreach ( $sites as $site ) {
                         $is_down = 0; // default to not down
                         $count = 0;
+                        echo '<pre>';
+                        print_r($site['Site']['id']);
+                        echo '<BR>';
+                        print_r($site['Site']['is_down']);
+                        echo '</pre>';
+                        
                         $is_down_old = $site['Site']['is_down'];
-                        if ( $is_down_old == null )
+                        // if ( $is_down_old == null )
+                        if ( is_null($is_down_old) )
                             $is_down_old = -1;                        
                         
                         // we only need to check items that have been provisioned
@@ -1367,7 +1385,7 @@ class SitesController extends AppController
                         if ( ( $is_down_old >= 0 ) && ( $count > 0 )) {
                             $site['Site']['is_down'] = $is_down / $count;
 //                            debug( $site['Site']['is_down'] );
-//                            debug( $is_down_old );
+                            debug( $is_down_old );
                             // if the status has changed, save it back to the db
 //                            if ( $site['Site']['is_down'] != $is_down_old ) {
                                 $this->Site->id = $site['Site']['id'];

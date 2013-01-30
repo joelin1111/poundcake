@@ -18,7 +18,7 @@
     echo $this->Form->input('name', array('error' => array('attributes' => array('wrap' => 'span', 'class' => 'label label-important')))); // still testing
     echo $this->Form->input('code');
     echo $this->Form->input('zone_id');
-    echo $this->Form->input('lat', array ('label' => 'Latitude')); // ,'value' => ''
+    echo $this->Form->input('lat', array ('label' => 'Latitude'));
     echo $this->Form->input('lon', array ('label' => 'Longitude'));
     echo $this->Form->input('declination', array('type'=>'hidden'));
     echo $this->Form->input('install_team_id', array('type'=>'select','options' => $installteams,'label' => 'Install Team', 'empty' => true));
