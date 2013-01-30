@@ -32,7 +32,6 @@ $cakeDescription = __d('poundcake', 'Tower DB');
             echo $this->Html->script('jquery-1.9.0');
             echo $this->Html->script('jquery-ui-1.9.2.custom.min');
             echo $this->Html->script('bootstrap'); // Bootstrap's JS file
-            echo $this->Html->script('poundcake/poundcake-datepicker');
             echo $this->Html->script('poundcake/poundcake');
             echo $this->Html->script('bootbox');
             echo $this->Html->script('jquery.form'); // testing this out, see http://www.malsup.com/jquery/form/#download

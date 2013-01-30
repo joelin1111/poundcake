@@ -1,3 +1,8 @@
+<?php
+    // JQuery for the datepicker
+    echo $this->Html->script('poundcake/poundcake-datepicker');
+?>
+
 <div class="row">
 <div class="span3">
     <H3>Actions</H3>
