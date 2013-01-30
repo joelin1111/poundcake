@@ -1334,12 +1334,17 @@ class SitesController extends AppController
                         echo '</pre>';
                         
                         $is_down_old = $site['Site']['is_down'];
-                        // if ( $is_down_old == null )
+                        //if ( $is_down_old == null )
                         if ( is_null($is_down_old) )
                             $is_down_old = -1;                        
                         
                         // we only need to check items that have been provisioned
                         // hence the check if 'foreign_id' is set
+                        // however note that it's possible there isa foreign_id
+                        // but the node was provisioned incorrectly, maybe an error
+                        // (sucn as an IP of 0.0.0.0) which would cause this to fail
+                        // resulting in a site being marked up when it's node is unknown
+                        // see PC-351
                         
                         // check all the radios -- if any are down, the site is down
                         foreach( $site['NetworkRadios'] as $r ) {
