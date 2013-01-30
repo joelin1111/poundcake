@@ -1,7 +1,7 @@
 <?php
     // jQuery to enable/disable fields based on checkbox
     echo $this->Html->script('sector');
-    echo $this->Html->script('snmp_override');
+    echo $this->Html->script('poundcake/poundcake-snmp_override');
 ?>
 
 <div class="row">

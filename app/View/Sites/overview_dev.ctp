@@ -9,6 +9,7 @@
     }
     echo $this->Html->script('gears_init');
     echo $this->Html->script('jquery-ui-map/jquery.ui.map');
+    echo $this->Html->script('poundcake/poundcake-map');
 ?>
 
 <div class="row">
