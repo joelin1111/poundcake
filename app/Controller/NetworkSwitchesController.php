@@ -78,8 +78,21 @@ class NetworkSwitchesController extends NetworkDeviceController {
         if (!$this->NetworkSwitch->exists()) {
             throw new NotFoundException('Invalid switch');
         }
-        $this->set('networkswitch', $this->NetworkSwitch->read(null, $id));        
+        $networkswitch = $this->NetworkSwitch->read(null, $id);        
         $this->checkSnmp(); // check if there is custom SNMP data on this item
+        
+        // retrieve the username of the person who provisioned this device
+        if (isset($this->NetworkSwitch->data['NetworkSwitch']['foreign_id'])) {
+            $this->loadModel('User');
+            $this->User->recursive = -1;
+            $this->User->id = $this->NetworkSwitch->data['NetworkSwitch']['provisioned_by'];
+            $user = $this->User->read();
+            $provisioned_by_name = $user['User']['username'];
+        } else {
+            $provisioned_by_name = "";
+        }
+        
+        $this->set(compact( 'networkswitch', 'provisioned_by_name' ));
     }
 
     /*

@@ -84,8 +84,22 @@ class NetworkRoutersController extends NetworkDeviceController {
         if (!$this->NetworkRouter->exists()) {
             throw new NotFoundException('Invalid router');
         }
-        $this->set('networkrouter', $this->NetworkRouter->read(null, $id));        
+         
         $this->checkSnmp(); // check if there is custom SNMP data on this item
+        $networkrouter = $this->NetworkRouter->read(null, $id);
+        
+        // retrieve the username of the person who provisioned this device
+        if (isset($this->NetworkRadio->data['NetworkRadio']['foreign_id'])) {
+            $this->loadModel('User');
+            $this->User->recursive = -1;
+            $this->User->id = $this->NetworkRouter->data['NetworkRadio']['provisioned_by'];
+            $user = $this->User->read();
+            $provisioned_by_name = $user['User']['username'];
+        } else {
+            $provisioned_by_name = "";
+        }
+        
+        $this->set(compact( 'networkrouter', 'provisioned_by_name' ));        
     }
 
     public function add() {

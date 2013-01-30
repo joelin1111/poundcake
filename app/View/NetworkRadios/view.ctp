@@ -28,7 +28,15 @@
     </P>
     </div>
     <P><B>Site:</B>&nbsp;<?php echo $networkradio['Site']['name']; ?></P>
-    <P><B>Foreign ID:</B>&nbsp;<?php echo $networkradio['NetworkRadio']['foreign_id']; ?></P>
+    
+    <?php echo $this->element('Common/provisioning_info',
+            array(
+                'provisioned_on' => $networkradio['NetworkRadio']['provisioned_on'],
+                'provisioned_by_name' => $provisioned_by_name,
+                'foreign_id' => $networkradio['NetworkRadio']['foreign_id'],
+            ));
+    ?>
+   
     <P><B>Serial No:</B>&nbsp;<?php echo $networkradio['NetworkRadio']['serial']; ?></P>
     <P><B>Sector:</B>&nbsp;<?php echo ($networkradio['NetworkRadio']['sector'] > 0 ? "Yes" : "No"); ?>
     <P><B>Radio Type:</B>&nbsp;<?php echo $networkradio['RadioType']['name']; ?></P>

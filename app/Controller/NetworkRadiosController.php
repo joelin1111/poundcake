@@ -147,16 +147,23 @@ class NetworkRadiosController extends NetworkDeviceController {
                 $u++;
             }
         }
-        $this->set('links', $links);
-        $this->set('sector',$sector);
+        //$this->set('links', $links);
+        //$this->set('sector',$sector);        
+        
         $this->checkSnmp(); // check if there is custom SNMP data on this item
         
-        $i = $this->NetworkRadio->field('ip_address');
-//        debug( $this->NetworkRadio->data );
-        //$this->NetworkRadio->decodeIPv4Address( $i );
-//        $this->NetworkRadio->data['NetworkRadio']['ip_address'] = parent::decodeIPv4Address( $i );
-//        debug( $this->NetworkRadio->data );
+        // retrieve the username of the person who provisioned this device
+        if (isset($this->NetworkRadio->data['NetworkRadio']['foreign_id'])) {
+            $this->loadModel('User');
+            $this->User->recursive = -1;
+            $this->User->id = $this->NetworkRadio->data['NetworkRadio']['provisioned_by'];
+            $user = $this->User->read();
+            $provisioned_by_name = $user['User']['username'];
+        } else {
+            $provisioned_by_name = "";
+        }
         
+        $this->set(compact('links','sector','provisioned_by_name'));
     }
 
     /*
@@ -432,6 +439,8 @@ class NetworkRadiosController extends NetworkDeviceController {
         
         if ( !is_null( $foreign_id ) ) {
             $this->NetworkRadio->saveField('foreign_id', $foreign_id);
+            $this->NetworkRadio->saveField('provisioned_on', date("Y-m-d H:i:s") );
+            $this->NetworkRadio->saveField('provisioned_by', $this->Auth->user('id') );
             $this->Session->setFlash('Provisioned radio.  Foreign ID '.$foreign_id);
             
         } else {

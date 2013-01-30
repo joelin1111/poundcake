@@ -28,7 +28,15 @@
     </P>
     </div>
     <P><B>Site:</B>&nbsp;<?php echo $networkswitch['Site']['name']; ?></P>
-    <P><B>Foreign ID:</B>&nbsp;<?php echo $networkswitch['NetworkSwitch']['foreign_id']; ?></P>
+    
+    <?php echo $this->element('Common/provisioning_info',
+            array(
+                'provisioned_on' => $networkswitches['NetworkSwitch']['provisioned_on'],
+                'provisioned_by_name' => $provisioned_by_name,
+                'foreign_id' => $networkswitch['NetworkSwitch']['foreign_id'],
+            ));
+    ?>
+    
     <P><B>Serial No:</B>&nbsp;<?php echo $networkswitch['NetworkSwitch']['serial']; ?></P>
     <P><B>Switch Type:</B>&nbsp;<?php echo $networkswitch['SwitchType']['name']; ?></P>
     <P><B>Ports:</B>&nbsp;<?php echo $networkswitch['SwitchType']['ports']; ?></P>

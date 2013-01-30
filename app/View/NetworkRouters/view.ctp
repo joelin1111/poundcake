@@ -29,7 +29,15 @@
     </div>
     
     <P><B>Site:</B>&nbsp;<?php echo $networkrouter['Site']['name']; ?></P>
-    <P><B>Foreign ID:</B>&nbsp;<?php echo $networkrouter['NetworkRouter']['foreign_id']; ?></P>
+    
+    <?php echo $this->element('Common/provisioning_info',
+            array(
+                'provisioned_on' => $networkrouter['NetworkRouter']['provisioned_on'],
+                'provisioned_by_name' => $provisioned_by_name,
+                'foreign_id' => $networkrouter['NetworkRouter']['foreign_id'],
+            ));
+    ?>
+    
     <P><B>Manufacturer:</B>&nbsp;<?php echo $networkrouter['RouterType']['manufacturer']; ?></P>
     <P><B>Model:</B>&nbsp;<?php echo $networkrouter['RouterType']['model']; ?></P>
     <P><B>Serial No:</B>&nbsp;<?php echo $networkrouter['NetworkRouter']['serial']; ?></P>
