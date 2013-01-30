@@ -1370,6 +1370,7 @@ class SitesController extends AppController
                             }
                         }
                         
+                        echo '<pre>  count: '. $count .' is_down: '.$is_down.' is_down_old: '.$is_down_old.'<br>';
                         // if there are devices provisioned and is_down is 0, then the site is up
                         if (( $count > 0 ) && ( $is_down == 0 ) && ( $is_down_old == -1 )) {
                             $is_down_old = 0;
@@ -1385,7 +1386,7 @@ class SitesController extends AppController
                         if ( ( $is_down_old >= 0 ) && ( $count > 0 )) {
                             $site['Site']['is_down'] = $is_down / $count;
 //                            debug( $site['Site']['is_down'] );
-                            debug( $is_down_old );
+//                            debug( $is_down_old );
                             // if the status has changed, save it back to the db
 //                            if ( $site['Site']['is_down'] != $is_down_old ) {
                                 $this->Site->id = $site['Site']['id'];
