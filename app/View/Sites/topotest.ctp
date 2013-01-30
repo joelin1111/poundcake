@@ -41,8 +41,24 @@
         echo '<ul>';
         foreach ( $sites as $site ) {
             //var_dump($site);die;
+            
+            $status = $site['is_down'];
+            if (isset($status)) {
+                if ( $status == 0 ) {
+                     $icon = '/img/sites/green.png';
+                } elseif ( ( $status > 0 ) && ( $status < 1 )) {
+                    $icon = '/img/sites/yellow.png';
+                } elseif ( $status == 1 ) {
+                     $icon = '/img/sites/red.png';
+                }
+            }
+            else {
+                 $icon = '/img/sites/grey.png';
+            }
+                
             $item = array( 
                 'id' => 'm_'.$u,
+                'icon' => $icon,
                 // see this as to why this needs to be an array
                 // http://stackoverflow.com/questions/9881949/filterable-jquery-ui-map-google-map
                 'tags' => array( $site['SiteState']['id']),

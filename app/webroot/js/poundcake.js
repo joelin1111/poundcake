@@ -240,8 +240,9 @@ function jquery_map() {
             // adds plcemarkers, data from json_encoded data in view
             $("[data-gmapping]").each(function(i,el) {
                 var data = $(el).data('gmapping');
-                console.log(data.tags);
-                $('#map_canvas').gmap('addMarker', {'id': data.id, 'tags':data.tags, 'position': new google.maps.LatLng(data.latlng.lat, data.latlng.lng), 'bounds':true }, function(map,marker) {
+                console.log(data.icon);
+                
+                $('#map_canvas').gmap('addMarker', {'id': data.id, 'icon':data.icon, 'tags':data.tags, 'position': new google.maps.LatLng(data.latlng.lat, data.latlng.lng), 'bounds':true }, function(map,marker) {
                     $(el).click(function() {
                         $(marker).triggerEvent('click');
                     });
