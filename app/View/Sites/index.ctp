@@ -75,10 +75,11 @@
                 if (strlen($site['Site']['name']) > 20 ) {
                     $name .= "...";
                 }
-                echo $this->Html->link($name,
-                
-                array('controller' => 'sites', 'action' => 'view', $site['Site']['id']));
+                echo $this->Html->link($name, array('controller' => 'sites', 'action' => 'view', $site['Site']['id']));
+                echo '&nbsp;';
+                echo $this->Html->link('  (dev)', array('controller' => 'sites', 'action' => 'view_dev', $site['Site']['id']));
                 ?>
+               
            </td>
            <td><?php echo $site['Organization']['name']; ?></td>
            <td><?php echo $site['SiteState']['name']; ?></td>

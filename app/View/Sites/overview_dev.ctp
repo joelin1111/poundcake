@@ -15,21 +15,28 @@
 ?>
 
 <div class="row">
+<div class="span3">
+<?php
+    echo $this->element('Common/search');
+    echo $this->element('Common/legend');
+?>
+</div><!-- /.span3 .sb-fixed -->
 <div class="span9">
     <h2><?php echo $this->Session->read('project_name'); ?> Overview (Experimental)</h2>
     
-    <p>
-    <i class="icon-warning-sign"></i>&nbsp;This page is experimental and should not be relied upon.
-    </p>
+    <?php echo $this->element('Common/disclaimer'); ?>
     
-    <div class="map-frame-large">
-    <div id="map_canvas" style="width:960px;height:600px"></div>
+    <div class="map-frame">
+    <div id="map_canvas" style="width:700px;height:600px"></div>
     <div id="radios" class="item gradient rounded shadow" style="margin:5px;padding:5px 5px 5px 10px;"></div>
     
         <?php
         echo $this->Form->create('google_map');
-        echo $this->Form->input( 'default_lat', array('type'=>'hidden','value'=>$default_lat));
-        echo $this->Form->input( 'default_lon', array('type'=>'hidden','value'=>$default_lon));
+        echo $this->Form->input( 'default_lat', array( 'type' => 'hidden', 'value' => $default_lat));
+        echo $this->Form->input( 'default_lon', array( 'type' => 'hidden', 'value' => $default_lon));
+        echo $this->Form->input( 'default_zoom', array( 'type' => 'hidden', 'value' => $default_zoom));
+        echo $this->Form->input( 'fit_bounds', array( 'type' => 'hidden', 'value' => 1 ));
+        
         $n = 0;
         foreach ( $sitestates as $key => $val ) {
             echo $this->Form->input( 'sitestate_'.$n, array('type'=>'hidden','value'=>$val ));
@@ -45,9 +52,7 @@
             $icon = 'data:'.$site['SiteState']['img_type'].';base64,'.base64_encode( $site['SiteState']['img_data'] ); 
             $item = array( 
                 'id' => 'm_'.$u,
-                //'icon' => utf8_encode($icon),
                 'icon' => $icon,
-                //'icon' => '',
                 // see this as to why this needs to be an array
                 // http://stackoverflow.com/questions/9881949/filterable-jquery-ui-map-google-map
                 'tags' => array( $site['SiteState']['name'] ),

@@ -18,8 +18,15 @@ $(document).ready(function () {
         //var yourStartLatLng = new google.maps.LatLng(59.3426606750, 18.0736160278);
         var default_lat = $('#google_mapDefaultLat').val();
         var default_lon = $('#google_mapDefaultLon').val();
-        // console.log( default_lat );
-        // console.log( default_lon );
+        // parseInt to convert the string into an integer
+        var default_zoom = parseInt( $('#google_mapDefaultZoom').val() ); // this may be null
+        var fit_bounds = parseInt( $('#google_mapFitBounds').val() );
+        console.log( "Fit bounds 1: " + fit_bounds );
+        if ( fit_bounds == 0 )
+            fit_bounds = false;
+        else
+            fit_bounds = true;
+        console.log( "Fit bounds 2: " + fit_bounds );
         
         // we're going to have to track our marker locations manually
         var marker_locations = [];
@@ -45,31 +52,39 @@ $(document).ready(function () {
             line2
         ];
         */
-        
-        var centerMapAt = new google.maps.LatLng( default_lat, default_lon );
-        $('#map_canvas').gmap({'center': centerMapAt});
-
+       
         // make an array of site states
-        //$("input[type='hidden']").each(function() {
         var siteStates = [];
         $('input[id^=google_mapSitestate]').each(function() {
              siteStates.push( $(this).val() );
         });
-        //console.log(siteStates);
-
+        
+        $('#map_canvas').gmap({'center': new google.maps.LatLng( default_lat, default_lon ) });
+        
+        // zoom will be ignored if 'bounds' to true inside the marker-creation,
+        // that sets the boundry of the map to include all placemarkers
+        // set bounds to false and set the center of the map to the marker-position
+        // instead
+        // get and set the zoom
+        //var zoom = $('#map_canvas').gmap('option', 'zoom');
+        //console.log(default_zoom);
+        if ( !fit_bounds ) {
+            console.log( "Setting zoom to: " + default_zoom );
+            $('#map_canvas').gmap('option', 'zoom', default_zoom);
+        }
+        
         // JavaScript Polyline documentation:
-        // @see https://developers.google.com/maps/documentation/javascript/overlays#PolylineOptions
+        // @see https://developers.google.com/maps/documentation/javascript/overlays#PolylineOptions        
         
         $('#map_canvas').gmap().bind('init', function(ev, map) {
-            
             $('#map_canvas').gmap('addControl', 'control', google.maps.ControlPosition.RIGHT_TOP);           
             
             // adds placemarkers, data from json_encoded data in view
             $("[data-gmapping]").each(function(i,el) {
                 var data = $(el).data('gmapping');
-                //console.log(data.tags);
+                //console.log(data.zoom);
                 
-                $('#map_canvas').gmap('addMarker', {'id': data.id, 'icon':data.icon, 'tags':data.tags, 'position': new google.maps.LatLng(data.latlng.lat, data.latlng.lng), 'bounds':true }, function(map,marker) {
+                $('#map_canvas').gmap('addMarker', {'id': data.id, 'icon':data.icon, 'tags':data.tags, 'position': new google.maps.LatLng(data.latlng.lat, data.latlng.lng), 'bounds': fit_bounds }, function(map,marker) {
                     // keep track of that marker!                    
                     marker_locations.push( marker );
                     $(el).click(function() {
@@ -92,10 +107,8 @@ $(document).ready(function () {
                     new google.maps.LatLng( data.src_lat, data.src_lon ),
                     new google.maps.LatLng( data.dest_lat, data.dest_lon )
                 ];
-
                 lines.push( line );
             });
-            // draw lines - revisit
             drawLines( lines, marker_locations );            
         });
 
@@ -113,8 +126,12 @@ $(document).ready(function () {
         // toggels place marks if un-checked
         $('input:checkbox').click(function() {
             $('#map_canvas').gmap('closeInfoWindow');
-            $('#map_canvas').gmap('set', 'bounds', null);
-
+            if ( !fit_bounds ) {
+                $('#map_canvas').gmap('set', 'bounds', fit_bounds );
+            } else {
+                $('#map_canvas').gmap('set', 'bounds', null );
+            }
+            
             // get an array with the values of all the checked boxes
             var filters = [];
             $('input:checkbox:checked').each(function(i, checkbox) {
@@ -129,8 +146,9 @@ $(document).ready(function () {
                     // console.log(isFound);
                     if ( isFound ) {
                         marker.setVisible(true);
-                        $('#map_canvas').gmap('addBounds', marker.position);
-                        // drawLines( lines, marker_locations );
+                        if ( fit_bounds ) {
+                            $('#map_canvas').gmap('addBounds', marker.position);
+                        }
                     } else {
                         // hide the place marker itself
                         marker.setVisible(false);
@@ -140,7 +158,7 @@ $(document).ready(function () {
                     }
                 });
                 
-                // clear all the lines
+                // clear and re-draw all the lines
                 $("#map_canvas").gmap('clear', 'overlays');
                 drawLines( lines, marker_locations );
             }

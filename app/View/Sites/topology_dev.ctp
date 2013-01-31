@@ -17,9 +17,7 @@
 <div class="span9">
     <h2><?php echo $this->Session->read('project_name'); ?> Topology (Experimental)</h2>
     
-    <p>
-    <i class="icon-warning-sign"></i>&nbsp;This page is experimental and should not be relied upon.
-    </p>
+    <?php echo $this->element('Common/disclaimer'); ?>
     
     <div class="map-frame-large">
     <div id="map_canvas" style="width:960px;height:600px"></div>
@@ -27,8 +25,10 @@
     
         <?php
         echo $this->Form->create('google_map');
-        echo $this->Form->input( 'default_lat', array('type'=>'hidden','value'=>$default_lat));
-        echo $this->Form->input( 'default_lon', array('type'=>'hidden','value'=>$default_lon));
+        echo $this->Form->input( 'default_lat', array( 'type' => 'hidden', 'value' => $default_lat));
+        echo $this->Form->input( 'default_lon', array( 'type' => 'hidden', 'value' => $default_lon));
+        echo $this->Form->input( 'default_zoom', array( 'type' => 'hidden', 'value' => $default_zoom));
+        echo $this->Form->input( 'fit_bounds', array( 'type' => 'hidden', 'value' => 1 ));
         
         $sitestates = array(
             0 => 'Up',

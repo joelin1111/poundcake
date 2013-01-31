@@ -221,11 +221,18 @@ class SitesController extends AppController
         
         $this->getSiteStates();
         $this->buildLegend();
-        $project = $this->Site->Project->findById($this->Session->read('project_id'));
-        $default_lat = $project['Project']['default_lat'];
-        $default_lon = $project['Project']['default_lon'];
-        $default_zoom = $project['Project']['default_zoom'];
-        $this->set(compact( 'sites', 'default_lat', 'default_lon', 'default_zoom' ));
+        $this->setDefaultLatLongZoom( $this->Session->read('project_id') );
+        $this->set(compact( 'sites' ));
+    }
+    
+    private function setDefaultLatLongZoom( $id ) {
+        if ( $id > 0 ) {
+            $project = $this->Site->Project->findById( $id );
+            $default_lat = $project['Project']['default_lat'];
+            $default_lon = $project['Project']['default_lon'];
+            $default_zoom = $project['Project']['default_zoom'];        
+        }
+        $this->set(compact( 'default_lat', 'default_lon', 'default_zoom' ));
     }
     
     private function setup_maps() {
@@ -238,15 +245,11 @@ class SitesController extends AppController
         //$this->Site->recursive = 2; // we need to access the Site's NetworkRadio array
         $this->Site->recursive = 1;
         $sites = $this->Site->find('all', array('conditions' => $conditions));
-        // var_dump($sites);
-        
-        $project = $this->Site->Project->findById($this->Session->read('project_id'));
-        $default_lat = $project['Project']['default_lat'];
-        $default_lon = $project['Project']['default_lon'];
+        $this->setDefaultLatLongZoom( $this->Session->read('project_id') );
         
         // will need this for overview
         // $this->getSiteStates();
-        $this->set(compact( 'sites','default_lat','default_lon' ));
+        $this->set(compact( 'sites' ));
     }
     /*
      * Testing, testing, 1 2 3...
@@ -333,16 +336,12 @@ class SitesController extends AppController
         
         //$this->getSiteStates();
         //$this->buildLegend();
-        $project = $this->Site->Project->findById($this->Session->read('project_id'));
-        $default_lat = $project['Project']['default_lat'];
-        $default_lon = $project['Project']['default_lon'];
-        //$default_zoom = $project['Project']['default_zoom'];
-        
-        $this->set(compact( 'default_lat', 'default_lon'  ));
+        $this->setDefaultLatLongZoom( $this->Session->read('project_id') );
     }
     
     public function overview_dev() {
         $this->getSiteStates();
+        $this->buildLegend();
         $this->setup_maps();
     }
     
@@ -442,13 +441,7 @@ class SitesController extends AppController
         
         $this->getSiteStates();
         $this->buildLegend();
-        $project = $this->Site->Project->findById($this->Session->read('project_id'));
-        $default_lat = $project['Project']['default_lat'];
-        $default_lon = $project['Project']['default_lon'];
-        $default_zoom = $project['Project']['default_zoom'];
-        
-        $this->set(compact( 'default_lat', 'default_lon', 'default_zoom' ));
-             
+        $this->setDefaultLatLongZoom( $this->Session->read('project_id') );
     }
     
     /*
@@ -744,6 +737,14 @@ class SitesController extends AppController
         $query = 'select * from projects_users where user_id='.$uid.' and project_id='.$project_id;
         $result = $this->Site->query($query);
         return (sizeof($result) > 0 ? true : false);
+    }
+    
+    /*
+     * Testing
+     */
+    function view_dev($id = null) {
+        $this->view( $id );
+        $this->setDefaultLatLongZoom( $this->Session->read('project_id') );
     }
     
     /*
@@ -1355,6 +1356,8 @@ class SitesController extends AppController
                                         else
                                             $is_down = 1;
                                         
+                                        //$node_id = (string)$xmlIterator2->current()->attributes();
+                                        
                                         if ( $debug ) {
                                             echo "is_down: $is_down <br>";
                                         }
@@ -1387,6 +1390,7 @@ class SitesController extends AppController
                                             if ( $device != null ) {
                                                 
                                                 $device[ $model ]['is_down'] = $is_down;
+                                                $device[ $model ]['node_id'] = $node_id;
                                                 $device[ $model ]['checked'] = date("Y-m-d H:i:s");
                                                 
     //                                            debug( $radio['NetworkRadio'] );
@@ -1502,7 +1506,7 @@ class SitesController extends AppController
      */
     public function isAuthorized($user) {
         // pages that anyone (basically with the view rolealias) can access
-        $allowed = array( "index", "view", "overview", "topology", "workorder", "topology_dev", "overview_dev", "cron" );
+        $allowed = array( "index", "view", "overview", "topology", "workorder", "topology_dev", "view_dev", "overview_dev", "cron" );
         if ( in_array( $this->action, $allowed )) {
             return true;
         }
