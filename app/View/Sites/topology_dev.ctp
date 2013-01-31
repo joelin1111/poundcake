@@ -49,9 +49,8 @@
         echo "<div style='visibility:hidden; position:absolute;'>";
         echo '<ul>';
         foreach ( $sites as $site ) {
-            //var_dump($site);die;
-            
-            $status = $site['is_down'];
+            // var_dump($site);            
+            $status = $site['Site']['is_down'];
             if (isset($status)) {
                 if ( $status == 0 ) {
                     $state = $sitestates[0];
