@@ -236,6 +236,7 @@ class SitesController extends AppController
         );
         
         //$this->Site->recursive = 2; // we need to access the Site's NetworkRadio array
+        $this->Site->recursive = -1;
         $sites = $this->Site->find('all', array('conditions' => $conditions));
         // var_dump($sites);
         
@@ -1194,6 +1195,7 @@ class SitesController extends AppController
                 $HttpSocket = parent::getMonitoringSystemSocket( $ms_user, $ms_pass );
                 
                 if ( !is_null( $HttpSocket ) ) {
+                    // begin commented block for testing is_down
                     
                     // we need to correlate node IDs with devices in our system
                     // so first, go get all the nodes in the system
@@ -1321,7 +1323,7 @@ class SitesController extends AppController
                             $node_foreign_id = null;
                         }
                     }
-                    
+                    // end commented block for testing is_down
                     $debug = true;
                     $sites = $this->Site->findAllByProjectId( $project_id );
                     
@@ -1358,7 +1360,7 @@ class SitesController extends AppController
                                 }
                             }
                         }
-                        /*
+                        
                         if ( $site['NetworkSwitch']['id'] != null ) {
                             $count++;
                             if (( isset($site['NetworkSwitch']['foreign_id'])) && ( $site['NetworkSwitch']['is_down'] > 0 )) {
@@ -1366,7 +1368,7 @@ class SitesController extends AppController
                                 $is_down++;                            
                             }
                         }
-                        */
+                        
                         
                         if ( (isset($site['NetworkRouter']['foreign_id'] )) && ( $site['NetworkRouter']['id'] > 0 )) {
                             $count++;
@@ -1377,8 +1379,11 @@ class SitesController extends AppController
                         }
                         
                         echo '<pre>  count: '. $count .' is_down: '.$is_down.' is_down_old: '.$is_down_old.'<br>';
-                        // if there are devices provisioned and is_down is 0, then the site is up
-                        if (( $count > 0 ) && ( $is_down == 0 ) && ( $is_down_old == -1 )) {
+                        // if there are devices provisioned ($count > 0)
+                        // ...and at least one of them is down (is_down > 0)
+                        // ...and we've not yet updated the site's status ($is_down_old = -1)
+                        // set is_down_old to 0 so that the update happens below
+                        if (( $count > 0 ) && ( $is_down > 0 ) && ( $is_down_old == -1 )) {
                             $is_down_old = 0;
                         }
                         
@@ -1411,7 +1416,7 @@ class SitesController extends AppController
      */
     public function isAuthorized($user) {
         // pages that anyone (basically with the view rolealias) can access
-        $allowed = array( "index", "view", "overview", "topology", "workorder", "topotest", "cron" );
+        $allowed = array( "index", "view", "overview", "topology", "workorder", "topology_dev", "overview_dev", "cron" );
         if ( in_array( $this->action, $allowed )) {
             return true;
         }
