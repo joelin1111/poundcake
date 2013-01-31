@@ -24,6 +24,12 @@ $(document).ready(function () {
         // we're going to have to track our marker locations manually
         var marker_locations = [];
         
+        // this array is for our poly lines
+        var lines = [];
+        
+        /*
+        Testing poly lines:
+        
         var line1 = [ // INV to San Bruno
             new google.maps.LatLng(37.78171, -122.40840),
             new google.maps.LatLng( 37.67805, -122.40130)
@@ -38,7 +44,8 @@ $(document).ready(function () {
             line1,
             line2
         ];
-
+        */
+        
         var centerMapAt = new google.maps.LatLng( default_lat, default_lon );
         $('#map_canvas').gmap({'center': centerMapAt});
 
@@ -74,6 +81,19 @@ $(document).ready(function () {
                 
             });
             
+            $("[data-gmaplines]").each(function(i,el) {
+                var data = $(el).data('gmaplines');
+//                console.log( data.src_lat );
+//                console.log( data.src_lon );
+//                console.log( data.dest_lat );
+//                console.log( data.dest_lon );                
+                var line = [
+                    new google.maps.LatLng( data.src_lat, data.src_lon ),
+                    new google.maps.LatLng( data.dest_lat, data.dest_lon )
+                ];
+
+                lines.push( line );
+            });
             // draw lines - revisit
             drawLines( lines, marker_locations );            
         });
@@ -208,6 +228,7 @@ function hidePolyLinesAtMarker( marker, lines ) {
     var marker_lng = marker.getPosition().lng();
     // console.log( "Marker: " + marker_lat + ', ' + marker_lng );
 
+//    console.log( "Length of lines array: " + lines.length );
     // run through our array of lines and if any of them start or end
     // at our marker, then we need to hide them
     $.each( lines, function( key, value ) {
@@ -218,7 +239,14 @@ function hidePolyLinesAtMarker( marker, lines ) {
         if (( marker_lat == start_lat && marker_lng == start_lng ) || ( marker_lat == end_lat && marker_lng == end_lng )) {
             // this really isn't hiding a line, it's removing it from the
             // array of Polylines -- it will need to be re-drawn
-            $('#map_canvas').gmap('get', 'overlays > Polyline')[ key ].setMap( null );            
+//            console.log( "  Key: " + key );
+//            console.log( $('#map_canvas').gmap('get', 'overlays > Polyline') );
+            var myOverlay = $('#map_canvas').gmap('get', 'overlays > Polyline');
+            if ( myOverlay != null ) {
+                if ( myOverlay[ key ] != null ) {
+                    myOverlay[ key ].setMap( null ); 
+                }
+            }
         }        
     }); 
 }

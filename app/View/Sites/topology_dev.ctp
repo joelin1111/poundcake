@@ -50,7 +50,7 @@
         echo '<ul>';
         foreach ( $sites as $site ) {
             // var_dump($site);            
-            $status = $site['Site']['is_down'];
+            $status = $site['is_down'];
             if (isset($status)) {
                 if ( $status == 0 ) {
                     $state = $sitestates[0];
@@ -76,16 +76,24 @@
                 // http://stackoverflow.com/questions/9881949/filterable-jquery-ui-map-google-map
                 'tags' => array( $state ),
                 'latlng' => array(
-                    'lat' => $site['Site']['lat'],
-                    'lng' => $site['Site']['lon'],
+                    'lat' => $site['src_lat'], // $site['Site']['lat'],
+                    'lng' => $site['src_lon'], // $site['Site']['lon'],
                 )
             );
-            $item = json_encode($item);
             
-            echo "<li data-gmapping='".$item."'>";
-            // echo '<p class="info-box">'.$site['Site']['site_vf'].'</p><br>';
-            echo '<p class="info-box"><a href="/sites/view/'.$site['Site']['id'].'">'.$site['Site']['site_vf'].'</a></p><br>';            
-            echo "</li>";            
+            echo "<li data-gmapping='".json_encode($item)."'>";
+            echo '<p class="info-box"><a href="/sites/view/'.$site['id'].'">'.$site['site_vf'].'</a></p><br>';
+            echo "</li>"; 
+            
+            // this is our array of lat/long pairs that define both endpoints of a link
+            $item2 = array( 
+                'src_lat' => $site['src_lat'],
+                'src_lon' => $site['src_lon'],
+                'dest_lat' => $site['dest_lat'],
+                'dest_lon' => $site['dest_lon']
+            );        
+            echo "<li data-gmaplines='".json_encode($item2)."'></li>";
+            
             $u++;
         }
         echo '</ul></div>';
