@@ -68,6 +68,7 @@ $(document).ready(function () {
             $("[data-gmapping]").each(function(i,el) {
                 var data = $(el).data('gmapping');
                 //console.log(data.tags);
+                
                 $('#map_canvas').gmap('addMarker', {'id': data.id, 'icon':data.icon, 'tags':data.tags, 'position': new google.maps.LatLng(data.latlng.lat, data.latlng.lng), 'bounds':true }, function(map,marker) {
                     // keep track of that marker!                    
                     marker_locations.push( marker );

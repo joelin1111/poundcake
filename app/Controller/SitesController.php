@@ -218,7 +218,7 @@ class SitesController extends AppController
         
         $this->Site->recursive = 0;
         $sites = $this->Site->find('all', array('conditions' => $conditions));
-
+        
         $this->getSiteStates();
         $this->buildLegend();
         $project = $this->Site->Project->findById($this->Session->read('project_id'));
@@ -236,7 +236,7 @@ class SitesController extends AppController
         );
         
         //$this->Site->recursive = 2; // we need to access the Site's NetworkRadio array
-        $this->Site->recursive = -1;
+        $this->Site->recursive = 1;
         $sites = $this->Site->find('all', array('conditions' => $conditions));
         // var_dump($sites);
         

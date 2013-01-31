@@ -10,6 +10,8 @@
     echo $this->Html->script('gears_init');
     echo $this->Html->script('jquery-ui-map/jquery.ui.map');
     echo $this->Html->script('poundcake/poundcake-map');
+    
+    //$this->RequestHandler->respondAs('text/javascript');
 ?>
 
 <div class="row">
@@ -28,23 +30,24 @@
         echo $this->Form->create('google_map');
         echo $this->Form->input( 'default_lat', array('type'=>'hidden','value'=>$default_lat));
         echo $this->Form->input( 'default_lon', array('type'=>'hidden','value'=>$default_lon));
-        
         $n = 0;
         foreach ( $sitestates as $key => $val ) {
             echo $this->Form->input( 'sitestate_'.$n, array('type'=>'hidden','value'=>$val ));
             $n++;
         }
-        
         echo $this->Form->end();
+        
         
         $u = 0;
         echo "<div style='visibility:hidden; position:absolute;'>";
         echo '<ul>';
         foreach ( $sites as $site ) {
-            $icon = 'data:'.$site['SiteState']['img_type'].';base64,'.base64_encode( $site['SiteState']['img_data'] );            
+            $icon = 'data:'.$site['SiteState']['img_type'].';base64,'.base64_encode( $site['SiteState']['img_data'] ); 
             $item = array( 
                 'id' => 'm_'.$u,
+                //'icon' => utf8_encode($icon),
                 'icon' => $icon,
+                //'icon' => '',
                 // see this as to why this needs to be an array
                 // http://stackoverflow.com/questions/9881949/filterable-jquery-ui-map-google-map
                 'tags' => array( $site['SiteState']['name'] ),
@@ -53,10 +56,7 @@
                     'lng' => $site['Site']['lon'],
                 )
             );
-            $item = json_encode($item);
-            
-            echo "<li data-gmapping='".$item."'>";
-            //echo '<p class="info-box">'.$site['Site']['site_vf'].'</p><br>';
+            echo "<li data-gmapping='".json_encode($item)."'>";
             echo '<p class="info-box"><a href="/sites/view/'.$site['Site']['id'].'">'.$site['Site']['site_vf'].'</a></p><br>';
             echo "</li>";            
             $u++;
@@ -66,4 +66,3 @@
     </div>  
 </div> <!-- /.span9 -->
 </div> <!-- /.row -->
-<BR>
