@@ -11,7 +11,10 @@
                 null,
                 null );
             ?>
-        </li> 
+        </li>
+        <?php if (isset($node_detail_url)) {
+            echo '<li><a href="'.$node_detail_url .'" target="_blank">More Details</a></li>';
+        } ?>  
         <li><?php echo $this->Html->link('List Switches', array('action' => 'index')); ?>
     </ul>
     </div>
@@ -31,7 +34,7 @@
     
     <?php echo $this->element('Common/provisioning_info',
             array(
-                'provisioned_on' => $networkswitches['NetworkSwitch']['provisioned_on'],
+                'provisioned_on' => $networkswitch['NetworkSwitch']['provisioned_on'],
                 'provisioned_by_name' => $provisioned_by_name,
                 'foreign_id' => $networkswitch['NetworkSwitch']['foreign_id'],
             ));

@@ -168,6 +168,7 @@ class NetworkRadiosController extends NetworkDeviceController {
         // if we wanted to use the project's datetime format -- which probably doesn't include time
         // $datetime_format = $this->getDateTimeFormat();
         
+        $this->getMonitoringSystemLink( $this->NetworkRadio->data['NetworkRadio']['node_id'] );        
         $this->set(compact('links','sector','provisioned_by_name', 'checked' ));
     }
 

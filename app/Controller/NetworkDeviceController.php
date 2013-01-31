@@ -124,6 +124,42 @@ class NetworkDeviceController extends AppController {
         
         return $ret;
     }
+    
+    private function endswith($string, $test) {
+        $strlen = strlen($string);
+        $testlen = strlen($test);
+        if ($testlen > $strlen) return false;
+        return substr_compare($string, $test, -$testlen) === 0;
+    }
+
+    /*
+     * 
+     */
+    protected function getMonitoringSystemLink( $id ) {
+        $new_url = null;
+        if ( $id > 0 ) {
+            $system = $this->getMonitoringSystemName();
+            if (preg_match( "/opennms/i", $system )) {
+                // http://lab.inveneo.org:8980/opennms/element/node.jsp?node=50               
+                $baseURI = $this->getMonitoringSystemBaseURI();
+                //$baseURI = preg_replace( $pattern, $baseURI );
+                $info = parse_url($baseURI);
+                //var_dump($info);                
+                $info["path"]=dirname($info["path"]);
+                $new_url = $info["scheme"]."://".$info["host"].':'.$info["port"];
+                $new_url .= $info["path"];
+                if(!empty($info["query"])) $new_url .= "?".$info["query"];
+                if(!empty($info["fragment"])) $new_url .= "#".$info["fragment"];
+                // append a slash if it's not already there
+                if ( !$this->endswith( '/', $new_url) )
+                    $new_url .= '/';
+                $new_url .= 'element/node.jsp?node='.$id;
+                //debug($new_url);
+            }
+        }
+        $this->set('node_detail_url', $new_url );
+    }
+    
     /*
      * Provision a node into OpenNMS
      */

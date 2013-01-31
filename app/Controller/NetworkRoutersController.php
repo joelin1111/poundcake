@@ -101,6 +101,7 @@ class NetworkRoutersController extends NetworkDeviceController {
             $checked = "";
         }
         
+        $this->getMonitoringSystemLink( $this->NetworkRouter->data['NetworkRouter']['node_id'] );
         $this->set(compact( 'networkrouter', 'provisioned_by_name', 'checked' ));        
     }
 

@@ -11,7 +11,10 @@
                 null,
                 null );
             ?>
-        </li>                    
+        </li>
+        <?php if (isset($node_detail_url)) {
+            echo '<li><a href="'.$node_detail_url .'" target="_blank">More Details</a></li>';
+        } ?>       
         <li><?php echo $this->Html->link('List Radios', array('action' => 'index')); ?></li>        
     </ul>
     </div>
