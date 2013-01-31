@@ -7,6 +7,20 @@
         <li><?php echo $this->Html->link('Setup',array('controller'=>'admin','action' => 'setup')); ?></li>
     </ul>
     </div>
+    
+    <H3>Search</H3>
+    <?php
+      echo $this->Form->create(
+          'User',
+          array('action'=>'search','class' => 'well')
+      );
+      echo $this->Form->input('username',array('escape' => true,'class' => 'search-query'));
+      ?>
+    <span class="help-block"></span>
+    <?php
+        echo $this->Form->submit('Search', array('div' => false,'class'=>'btn'));
+        echo $this->Form->end(); 
+    ?>
 </div><!-- /.span3 .sb-fixed -->
 
 <div class="span9">

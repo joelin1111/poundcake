@@ -39,6 +39,32 @@ class UsersController extends AppController {
      * Main listing for all Users
      */
     public function index() {
+        $name_arg = "";
+        if (isset($this->passedArgs['User.username'])) {
+            $name_arg = str_replace('*','%',$this->passedArgs['User.username']);
+        }
+        
+        // if no argument was passed, default to a wildcard
+        if ($name_arg == "") {
+            $name_arg = '%';
+        }
+        
+        $conditions = array(
+            'AND' => array(
+                'User.username LIKE' => $name_arg,
+            ),
+        );
+        
+        $this->paginate = array(
+            'User' => array(
+                // limit is the number per page 
+                // 'limit' => 20,
+                'conditions' => $conditions,
+                'order' => array(
+                    'User.name_vf' => 'asc',
+                ),
+            ));
+        
         $this->User->recursive = 0;
         $this->set('users', $this->paginate());
     }

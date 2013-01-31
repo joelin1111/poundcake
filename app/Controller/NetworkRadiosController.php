@@ -53,7 +53,6 @@ class NetworkRadiosController extends NetworkDeviceController {
      * Main listing for all NetworkRadios
      */
     public function index() {
-        // begin search stuff
         $name_arg = "";
         if (isset($this->passedArgs['NetworkRadio.name'])) {
             $name_arg = str_replace('*','%',$this->passedArgs['NetworkRadio.name']);
