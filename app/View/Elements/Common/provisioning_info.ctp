@@ -5,6 +5,6 @@
     <?php
         $date = new DateTime( $checked );
         //echo $date->format($datetime_format);
-        echo $date->format( 'g:ia \o\n l jS F Y' );
+        echo $date->format( 'g:i a \o\n l, F j, Y' );
     ?>
 </P>

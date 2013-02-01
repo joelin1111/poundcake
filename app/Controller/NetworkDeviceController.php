@@ -191,7 +191,7 @@ class NetworkDeviceController extends AppController {
                 if( $xmlIterator->hasChildren() ) {
                     // $attrs = $xmlIterator->current()->attributes();
                     // can filter by alarms of major severity here
-                    // var_dump( $attrs );
+//                    var_dump( $xmlIterator->current() );
                     // iterate through all alarms 
                     foreach( $xmlIterator->children() as $alarm ) { 
 //                        var_dump( $alarm );
@@ -199,8 +199,10 @@ class NetworkDeviceController extends AppController {
                         $node_alarm = array();
                         $severity = (string)$alarm->attributes()->severity;
                         $description = (string)$alarm->description;
+                        $firstEventTime = (string)$alarm->firstEventTime;
                         array_push( $node_alarm, $severity );
-                        array_push( $node_alarm, $description );                        
+                        array_push( $node_alarm, $description ); 
+                        array_push( $node_alarm, $firstEventTime );                        
                         array_push( $alarms, $node_alarm );
                     }
                 }

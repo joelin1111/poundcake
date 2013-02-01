@@ -14,7 +14,11 @@
             $class = 'alert-info';
         }
         
+       
+        $date = new DateTime( $alarm[ 2 ] );
+        $date = $date->format( 'g:i a \o\n l, F j, Y' );
         echo '<div class="alert '.$class.'"><h4>'.$alarm[ 0 ].'</h4></div>';
-        echo $alarm[ 1 ] . '<BR>';
+        // echo '<div class="alert '.$class.'"><h4>'.$alarm[ 0 ].'</h4></div>';
+        echo '<p>'.$date.'<BR>'.$alarm[ 1 ] . '</p><BR><BR><BR>';
     }
 ?>

@@ -175,7 +175,8 @@ class NetworkRadiosController extends NetworkDeviceController {
         $this->NetworkRadio->id = $id;
         $this->NetworkRadio->read();
         $alarms = parent::getAlarms();
-        $this->set(compact( 'alarms', 'id' ));
+        $name = $this->NetworkRadio->data['NetworkRadio']['name'];
+        $this->set(compact( 'alarms', 'id', 'name' ));
     }
 
     /*

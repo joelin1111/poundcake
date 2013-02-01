@@ -229,7 +229,8 @@ class NetworkRoutersController extends NetworkDeviceController {
         $this->NetworkRouter->id = $id;
         $this->NetworkRouter->read();
         $alarms = parent::getAlarms();
-        $this->set(compact( 'alarms', 'id' ));
+        $name = $this->NetworkRouter->data['NetworkRouter']['name'];
+        $this->set(compact( 'alarms', 'id', 'name' ));
     }
     
     /*

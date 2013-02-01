@@ -277,7 +277,8 @@ class NetworkSwitchesController extends NetworkDeviceController {
         $this->NetworkSwitch->id = $id;
         $this->NetworkSwitch->read();
         $alarms = parent::getAlarms();
-        $this->set(compact( 'alarms', 'id' ));
+        $name = $this->NetworkSwitch->data['NetworkSwitch']['name'];
+        $this->set(compact( 'alarms', 'id', 'name' ));
     }
     
     /*
