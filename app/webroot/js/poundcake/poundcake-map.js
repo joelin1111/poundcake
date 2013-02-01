@@ -77,7 +77,7 @@ $(document).ready(function () {
         // @see https://developers.google.com/maps/documentation/javascript/overlays#PolylineOptions        
         
         $('#map_canvas').gmap().bind('init', function(ev, map) {
-            $('#map_canvas').gmap('addControl', 'control', google.maps.ControlPosition.RIGHT_TOP);           
+            $('#map_canvas').gmap('addControl', 'control', google.maps.ControlPosition.LEFT_TOP);  
             
             // adds placemarkers, data from json_encoded data in view
             $("[data-gmapping]").each(function(i,el) {
@@ -114,7 +114,7 @@ $(document).ready(function () {
 
 
         // setup the map's key -- extra styling needed for the checkboxes themselves
-        $('#map_canvas').gmap('addControl', 'radios', google.maps.ControlPosition.BOTTOM_LEFT);
+        $('#map_canvas').gmap('addControl', 'radios', google.maps.ControlPosition.RIGHT_BOTTOM);
         $.each(siteStates, function(i, tag) {
             //console.log(tag);
             var str = '<label style="margin-right:5px;display:block;"><input type="checkbox" style="margin-right:3px" value="';

@@ -25,16 +25,14 @@
     );
 ?>
     
-<div align="center">
-    <a rel="sitestate_search" href="#select_all">Check All</a> |  
-    <a rel="sitestate_search" href="#select_none">Check None</a><br>
-    <a rel="sitestate_search" href="#clear_all">Clear Search</a><BR><BR>
-</div>
-    
-<!--<span class="help-block">Search is greedy, case-insensitive, * to wildcard further</span>-->
-
-<?php
-    echo $this->Form->submit('Search', array('div' => false,'class'=>'btn'));
-    echo $this->Form->end(); 
-?>
+    <div align="center">
+        <a rel="sitestate_search" href="#select_all">Check All</a> |  
+        <a rel="sitestate_search" href="#select_none">Check None</a><br>
+        <a rel="sitestate_search" href="#clear_all">Clear Search</a><BR><BR>
+        <!--<span class="help-block">Search is greedy, case-insensitive, * to wildcard further</span>-->
+        <?php
+            echo $this->Form->submit('Search', array('div' => false,'class'=>'btn'));
+            echo $this->Form->end(); 
+        ?>
+    </div>
 </div>  <!--/.well well-large -->
