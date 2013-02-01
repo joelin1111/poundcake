@@ -51,7 +51,8 @@
                 //echo $this->Form->submit('Import', array('div' => false,'class'=>'btn'));
                 //echo $this->Form->end();
             ?>
-                <input  class="btn" type="submit" value="Import"/>
+                <input class="btn" type="submit" value="Import"/>
+                <input class="btn" type="button" name="cancel" value="Cancel" onclick="window.location='/sites/index'" />
             </form>
         </div>
     </div> <!-- ./row -->
