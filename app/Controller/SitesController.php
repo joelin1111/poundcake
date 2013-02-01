@@ -480,13 +480,17 @@ class SitesController extends AppController
                         $sites = array();
                         $sid = $this->Site->SiteState->query('select id from site_states where sequence is not null and project_id='.$this->Session->read('project_id').' order by sequence limit 1');                        
                         if ( $sid > 0 ) {
-                            $sites = $this->parseKML( $xml->Document->children(), $overwrite, $sid[0]['site_states']['id'] );
+                            $sites = $this->parseKML( $xml->Document->children(), $sid[0]['site_states']['id'] );
                         }
-                        $this->set(compact('sites'));
                         // debug( $sites );
-                        $this->render('confirm');
+                        $this->set(compact('sites'));
+                        if ( sizeof( $sites ) > 0 ) {
+                            $this->render('confirm');
+                        } else {
+                            $this->Session->setFlash('Error! No placemarks found in KML.');
+                            $this->redirect(array('action' => 'index'));
+                        }
                     }
-                    //$this->redirect(array('action' => 'index'));
                 }
             }
         }        
@@ -495,26 +499,27 @@ class SitesController extends AppController
     /*
      * Recursive KML parser
      */
-    private function parseKML( $xml, $overwrite, $default_state ) {
+    private function parseKML( $xml, $default_state ) {
         $sites = array();
         if ( $xml != null ) {
-//            debug ($xml);
+            //debug ($xml  );
             if ( isset( $xml->Folder ) ) {
                 // this is untested, but should recurse if there are nested folders
                 // $this->parseKML( $xml->Document->children(), $overwrite, $default_state );
-                array_push($sites, $this->parseKML( $xml->Document->children(), $overwrite, $default_state ));                        
-            } else {
+                $sites = $this->parseKML( $xml->Folder->children(), $default_state );                
+                //array_merge( $sites, $this->parseKML( $xml->Folder->children(), $default_state ) );
+            } elseif ( isset( $xml->Placemark ) ) {
                 $count = $xml->Placemark->count();
                 $i = 0;
                 while ( $i < $count ) {
                     // debug($xml);
                     // must cast to string here
                     $name = (string)$xml->Placemark[$i]->name;
-                    
+
                     $coords = explode(",", $xml->Placemark[$i]->Point->coordinates);
                     $lon = $coords[0];
                     $lat = $coords[1];
-                    
+
                     // we need a site code -- remove all special characters,
                     // whitespace, grab the first 6 characters and make it
                     // uppercase -- the user can change it later
@@ -522,13 +527,13 @@ class SitesController extends AppController
                     preg_replace('/[^a-zA-Z0-9_ %\[\]\.\(\)%&-]/s', '', $code);
                     $code = str_replace(' ', '', $code);
                     $code = strtoupper( substr($code, 0, 6) );
-                    
-                    if ( $overwrite ) {
-                        $site = $this->Site->findByname( $name );
-                        if (isset( $site['Site']['id'] )) {
-                            $this->Site->delete( $site['Site']['id'] );
-                        }
-                    }
+
+//                    if ( $overwrite ) {
+//                        $site = $this->Site->findByname( $name );
+//                        if (isset( $site['Site']['id'] )) {
+//                            $this->Site->delete( $site['Site']['id'] );
+//                        }
+//                    }
                     // echo( "$name, Code: $code, is at $lat, $lon<br>" );
                     /*
                     $this->Site->create();
@@ -555,13 +560,16 @@ class SitesController extends AppController
                     array_push( $sites, $data );
                 }
             }
-        }        
+        }
+//        echo "Returning:<BR>";
+//        debug( $sites );
+//        die;
         return $sites;
     }
     
     public function import_sites( ) {
         if ($this->request->is('post')) {
-            // debug( $this->request->data );
+            $s = sizeof( $this->request->data );
             foreach( $this->request->data['Site'] as $data ) {
                 $site = explode( "|", $data );                
                 $site['Site']['name'] = $site[0];
@@ -572,10 +580,18 @@ class SitesController extends AppController
                 $site['Site']['project_id'] = $site[5];
                 // $data['Site']['project_id'] = $this->Session->read('project_id');
                 $this->Site->create();
-                $id = $this->Site->save( $site, false ); // no field validation               
+                $newsite = $this->Site->save( $site, false ); // no field validation
+                $id = $newsite['Site']['id']; // this is the ID of the most recently saved Site
             }
             $this->Session->setFlash('Success! KML import complete.');
-            $this->redirect(array('action' => 'index'));
+            
+            // if they imported just one site, take them to that page, otherwise
+            // go to the index listing
+            if ( ( $s == 1 ) && ( $id > 0 )) {
+                $this->redirect(array('controller' => 'sites', 'action' => 'view', $id ));
+            } else {
+                $this->redirect(array('action' => 'index'));
+            }
         }
         $this->Session->setFlash('Error!  KML import failed.');
         $this->redirect(array('action' => 'index'));

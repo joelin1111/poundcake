@@ -15,9 +15,9 @@
 
 <div class="span9">
     <div class="row">
-        <h2>Confirm Upload</h2>        
+        <h2>Confirm Import</h2>        
         <div class="span9">
-        <P>Confirm sites to upload now.</p>
+        <P>Un-checked sites will not be imported.</p>
         <div class="controls span9">
             
             <form action="/sites/import_sites" id="SitesImportSitesForm" method="post">
@@ -38,12 +38,13 @@
                     //debug( $site );
                     $site_i = implode( '|', $site['Site'] );
                     //echo $site_i;
+                    $code = $site['Site']['code'];
                     $name = $site['Site']['name'];
                     $lat = sprintf( '%.5f', $site['Site']['lat'] );
                     $lon = sprintf( '%.5f', $site['Site']['lon'] );
                     echo '<label class="checkbox">';
                     echo '<input type="checkbox" value="'.$site_i.'" checked name="Site['.$u.']">';
-                    echo $name . ' at  '.$lat.', '.$lon;
+                    echo '('.$code.') '.$name . ' at  '.$lat.', '.$lon;
                     echo '</label>';
                     //echo $this->Form->checkbox('name', array('hiddenField' => false));
                     $u++;
