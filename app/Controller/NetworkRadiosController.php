@@ -166,9 +166,16 @@ class NetworkRadiosController extends NetworkDeviceController {
         
         // if we wanted to use the project's datetime format -- which probably doesn't include time
         // $datetime_format = $this->getDateTimeFormat();
-        
         $this->getMonitoringSystemLink( $this->NetworkRadio->data['NetworkRadio']['node_id'] );        
         $this->set(compact('links','sector','provisioned_by_name', 'checked' ));
+    }
+    
+    public function alarms( $id ) {
+        $this->NetworkRadio->recursive = -1;
+        $this->NetworkRadio->id = $id;
+        $this->NetworkRadio->read();
+        $alarms = parent::getAlarms();
+        $this->set(compact( 'alarms', 'id' ));
     }
 
     /*
@@ -440,7 +447,7 @@ class NetworkRadiosController extends NetworkDeviceController {
         
         $ip_addr = $this->NetworkRadio->data['NetworkRadio']['ip_address'];
         
-        $foreign_id = parent::provision_node( $name, $ip_addr, true );
+        $foreign_id = parent::provisionNode( $name, $ip_addr, true );
         
         if ( !is_null( $foreign_id ) ) {
             $this->NetworkRadio->saveField('foreign_id', $foreign_id);
@@ -454,13 +461,14 @@ class NetworkRadiosController extends NetworkDeviceController {
         $this->redirect(array('action' => 'view',$this->NetworkRadio->id));
     }
     
+            
     /*
      * Uses Auth to check the ACL to see if the user is allowed to perform any
      * actions in this controller
      */
     public function isAuthorized($user) {
-        // everyone can see the list and view individual Contacts
-        if ($this->action === 'index' || $this->action === 'view') {
+
+        if ($this->action === 'index' || $this->action === 'view' || $this->action === 'alarms' ) {
             return true;
         }
         

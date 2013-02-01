@@ -260,7 +260,7 @@ class NetworkSwitchesController extends NetworkDeviceController {
         // $type = $this->NetworkRadio->data['RadioType']['name'];
         
         $ip_addr = $this->NetworkSwitch->data['NetworkSwitch']['ip_address'];
-        $foreign_id = parent::provision_node( $name, $ip_addr, true );
+        $foreign_id = parent::provisionNode( $name, $ip_addr, true );
         
         if ( !is_null( $foreign_id ) ) {
             $this->NetworkSwitch->saveField('foreign_id', $foreign_id);
@@ -272,13 +272,20 @@ class NetworkSwitchesController extends NetworkDeviceController {
         $this->redirect(array('action' => 'view',$this->NetworkSwitch->id));
     }
     
+    public function alarms( $id ) {
+        $this->NetworkSwitch->recursive = -1;
+        $this->NetworkSwitch->id = $id;
+        $this->NetworkSwitch->read();
+        $alarms = parent::getAlarms();
+        $this->set(compact( 'alarms', 'id' ));
+    }
+    
     /*
      * Uses Auth to check the ACL to see if the user is allowed to perform any
      * actions in this controller
      */
     public function isAuthorized($user) {
-        // everyone can see the list and view individual Contacts
-        if ($this->action === 'index' || $this->action === 'view') {
+        if ($this->action === 'index' || $this->action === 'view' || $this->action === 'alarms' ) {
             return true;
         }
         

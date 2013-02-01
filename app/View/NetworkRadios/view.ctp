@@ -3,6 +3,7 @@
     <H3>Actions</H3>
     <div class="well well-large">
     <ul>
+        <li><?php echo $this->MyHTML->linkIfAllowed('View Alarms', array('action'=>'alarms', $networkradio['NetworkRadio']['id']),1);?></li>
         <li><?php echo $this->MyHTML->linkIfAllowed('Edit Radio', array('action'=>'edit', $networkradio['NetworkRadio']['id']),1);?></li>
         <li><?php
             echo $this->MyHTML->postLinkIfAdmin('Provision Radio',
@@ -22,6 +23,7 @@
 
 <div class="span9">
     <h2>View Radio</h2>
+<!--    <div class="page-header"><h2>View Radio</h2></div>-->
     <div class="status-icon">
     <P><B>Name:</B>&nbsp;&nbsp;
         <?php

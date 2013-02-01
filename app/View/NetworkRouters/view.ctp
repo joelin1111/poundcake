@@ -3,6 +3,7 @@
     <H3>Actions</H3>
     <div class="well well-large">
     <ul>
+        <li><?php echo $this->MyHTML->linkIfAllowed('View Alarms', array('action'=>'alarms', $networkrouter['NetworkRouter']['id']),1);?></li>
         <li><?php echo $this->MyHTML->linkIfAllowed('Edit Router', array('action'=>'edit', $networkrouter['NetworkRouter']['id']),1);?></li>
         <li><?php
             echo $this->MyHTML->postLinkIfAdmin('Provision Router',

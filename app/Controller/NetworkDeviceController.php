@@ -109,7 +109,7 @@ class NetworkDeviceController extends AppController {
      * Called from a sub-class to provision a node (switch, router, radio) into
      * the project's monitoring system
      */
-    protected function provision_node( $name, $ip_addr, $debug ) {
+    protected function provisionNode( $name, $ip_addr, $debug ) {
         $system = $this->getMonitoringSystemName();
         $ret = null;
        
@@ -118,14 +118,17 @@ class NetworkDeviceController extends AppController {
         if( filter_var($ip_addr, FILTER_VALIDATE_IP) && ip2long($ip_addr) ) {
             
             if (preg_match( "/opennms/i", $system )) {
-                $ret = $this->provision_node_opennms( $name, $ip_addr, $debug );
+                $ret = $this->provisionNodeOpenNMS( $name, $ip_addr, $debug );
             }
         }
         
         return $ret;
     }
     
-    private function endswith($string, $test) {
+    /*
+     * Returns true or false if a string ends with a specific character
+     */
+    private function endsWith($string, $test) {
         $strlen = strlen($string);
         $testlen = strlen($test);
         if ($testlen > $strlen) return false;
@@ -151,7 +154,7 @@ class NetworkDeviceController extends AppController {
                 if(!empty($info["query"])) $new_url .= "?".$info["query"];
                 if(!empty($info["fragment"])) $new_url .= "#".$info["fragment"];
                 // append a slash if it's not already there
-                if ( !$this->endswith( '/', $new_url) )
+                if ( !$this->endsWith( '/', $new_url) )
                     $new_url .= '/';
                 $new_url .= 'element/node.jsp?node='.$id;
                 //debug($new_url);
@@ -161,9 +164,56 @@ class NetworkDeviceController extends AppController {
     }
     
     /*
+     * Return alarms for a given node
+     */
+    protected function getAlarms() {
+        // revisit - need to add caluses for other network monitoring systems
+        $alarms = array();        
+        $model = $this->modelClass;
+        $type = $this->$model->foreignSource;
+        $baseURI = $this->getMonitoringSystemBaseURI();
+        $id = $this->$model->data[ $model ]['foreign_id'];
+        // http://localhost:8980/opennms/rest/alarms?node.foreignSource=Routers&node.foreignId=1001
+        $url = $baseURI.'/alarms?node.foreignSource='.$type.'&node.foreignId='.$id;
+        $HttpSocket = parent::getMonitoringSystemSocket( $this->getMonitoringSystemUsername(), $this->getMonitoringSystemPassword() );
+        if ( !is_null( $HttpSocket ) && ( isset( $url ))  ) {
+            $response = $HttpSocket->request(
+                        array(
+                            'method' => 'GET',
+                            //'uri' => 'http://lab.inveneo.org:8980/opennms/rest/requisitions/'.$type.'/nodes',
+                            'uri' => $url
+                        )
+                );
+            //var_dump( $response );
+            
+            $xmlIterator = new SimpleXMLIterator( $response->body );            
+            for( $xmlIterator->rewind(); $xmlIterator->valid(); $xmlIterator->next() ) {
+                if( $xmlIterator->hasChildren() ) {
+                    // $attrs = $xmlIterator->current()->attributes();
+                    // can filter by alarms of major severity here
+                    // var_dump( $attrs );
+                    // iterate through all alarms 
+                    foreach( $xmlIterator->children() as $alarm ) { 
+//                        var_dump( $alarm );
+//                        echo "<BR>";
+                        $node_alarm = array();
+                        $severity = (string)$alarm->attributes()->severity;
+                        $description = (string)$alarm->description;
+                        array_push( $node_alarm, $severity );
+                        array_push( $node_alarm, $description );                        
+                        array_push( $alarms, $node_alarm );
+                    }
+                }
+            }
+        }        
+        // debug( $alarms );
+        return $alarms;
+    }
+    
+    /*
      * Provision a node into OpenNMS
      */
-    private function provision_node_opennms( $name, $ip_addr, $debug ) {
+    private function provisionNodeOpenNMS( $name, $ip_addr, $debug ) {
         // $this->autoRender = false;        
         $model = $this->modelClass;
         

@@ -212,7 +212,7 @@ class NetworkRoutersController extends NetworkDeviceController {
         // $type = $this->NetworkRadio->data['RadioType']['name'];
         
         $ip_addr = $this->NetworkRouter->data['NetworkRouter']['ip_address'];
-        $foreign_id = parent::provision_node( $name, $ip_addr, true );
+        $foreign_id = parent::provisionNode( $name, $ip_addr, true );
         
         if ( !is_null( $foreign_id ) ) {
             $this->NetworkRouter->saveField('foreign_id', $foreign_id);
@@ -224,13 +224,20 @@ class NetworkRoutersController extends NetworkDeviceController {
         $this->redirect(array('action' => 'view',$this->NetworkRouter->id));
     }
     
+    public function alarms( $id ) {
+        $this->NetworkRouter->recursive = -1;
+        $this->NetworkRouter->id = $id;
+        $this->NetworkRouter->read();
+        $alarms = parent::getAlarms();
+        $this->set(compact( 'alarms', 'id' ));
+    }
+    
     /*
      * Uses Auth to check the ACL to see if the user is allowed to perform any
      * actions in this controller
      */
     public function isAuthorized($user) {
-        // everyone can see the list and view individual Contacts
-        if ($this->action === 'index' || $this->action === 'view') {
+        if ($this->action === 'index' || $this->action === 'view' || $this->action === 'alarms' ) {
             return true;
         }
         
