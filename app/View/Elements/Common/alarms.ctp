@@ -15,6 +15,6 @@
         }
         
         echo '<div class="alert '.$class.'"><h4>'.$alarm[ 0 ].'</h4></div>';
-        echo $alarm[ 1 ];
+        echo $alarm[ 1 ] . '<BR>';
     }
 ?>
