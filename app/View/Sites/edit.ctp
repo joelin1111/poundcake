@@ -1,6 +1,8 @@
 <?php
     // JQuery for the datepicker
     echo $this->Html->script('poundcake/poundcake-datepicker');
+    // disable mouse scroll in the lat/lon fields
+    echo $this->Html->script('poundcake/poundcake-scroll');
 ?>
 
 <div class="row">
@@ -23,8 +25,15 @@
     echo $this->Form->input('name', array('error' => array('attributes' => array('wrap' => 'span', 'class' => 'label label-important')))); // still testing
     echo $this->Form->input('code');
     echo $this->Form->input('zone_id');
-    echo $this->Form->input('lat', array ('label' => 'Latitude'));
-    echo $this->Form->input('lon', array ('label' => 'Longitude'));
+    ?>
+    <div class="scroller">
+    <?php
+        // div class of scroller is jQuery to disable scroll in these 2 fields
+        echo $this->Form->input('lat', array ('label' => 'Latitude'));
+        echo $this->Form->input('lon', array ('label' => 'Longitude'));
+    ?>
+    </div>
+    <?php
     echo $this->Form->input('declination', array('type'=>'hidden'));
     echo $this->Form->input('install_team_id', array('type'=>'select','options' => $installteams,'label' => 'Install Team', 'empty' => true));
     echo $this->Form->input('install_date', 
