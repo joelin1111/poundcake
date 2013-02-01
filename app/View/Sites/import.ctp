@@ -17,19 +17,24 @@
 
 <div class="span9">
     <div class="row">
-        <h2>KML File Uplod</h2>        
+        <h2>KML Import</h2>        
         <div class="span9">
-        <P>Google Earth KML files only.  Google Earth KMZ (compressed KML) files will be quietly ignored.</p>
+        <P>Select a Google Earth KML file with sites to import into the 
+            <?php echo $this->Session->read('project_name') ?> project.
+        </p>
+        <p>
+            You will have an opportunity to review the sites before the import is
+            complete.
+        </p>
+        <p>Note that Google Earth KMZ (compressed KML) files will be quietly ignored.</p>
         <?php        
             echo $this->Form->create('Site', array('type' => 'file'));
-            echo "<p>Sites will be imported into the project: ".$this->Session->read('project_name')."</p>";
-            echo $this->Form->create('Site', array('type' => 'file'));
         ?>
-            <div class="controls span9">
+<!--            <div class="controls span9">
                 <label class="checkbox">
                     <input type="checkbox" class="checkbox" name="overwrite" value="true">Overwrite sites with same name
                 </label>
-            </div>
+            </div>-->
         <BR><BR>
         
         

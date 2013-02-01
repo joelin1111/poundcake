@@ -425,19 +425,9 @@ class SitesController extends AppController
             }
             $u = $n;
             $u++;
-            
-//            $n = count($s);
-//            $s[ ++$n ] = 
-//            debug( $site['NetworkRouter'] );
-//            debug( $site['NetworkSwitch'] );
-            
         }
-//        debug( $s );
-//        die;
         
         $this->set('sites', $s);
-//        echo '</pre>';
-//        die;
         
         $this->getSiteStates();
         $this->buildLegend();
@@ -448,6 +438,20 @@ class SitesController extends AppController
      * Import a KML file of sites
      */
     public function import() {
+        /*
+         'name' => 'Udot school wifi mast (1).kml',
+	'type' => 'application/vnd.google-earth.kml+xml',
+	'tmp_name' => '/Applications/MAMP/tmp/php/phpgHN5ul',
+	'error' => (int) 0,
+	'size' => (int) 1516
+)
+         */
+//        $this->request->data['Site']['File']['name'] = 'Udot school wifi mast (1).kml';
+//        $this->request->data['Site']['File']['type'] = 'application/vnd.google-earth.kml+xml';
+//        $this->request->data['Site']['File']['tmp_name'] = '/Applications/MAMP/tmp/php/phpgHN5ul';
+//        $this->request->data['Site']['File']['error'] = 0;
+//        $this->request->data['Site']['File']['size'] = 1516;
+        
         if ($this->request->data != null ) {
             
             $overwrite = false;
@@ -457,6 +461,7 @@ class SitesController extends AppController
                 }
             }
             
+            // debug($this->request->data['Site']['File']);
             if (is_uploaded_file( $this->request->data['Site']['File']['tmp_name'] )) {
                 $fileData = fread(fopen($this->request->data['Site']['File']['tmp_name'], "r"), $this->request->data['Site']['File']['size']);
 
@@ -468,31 +473,36 @@ class SitesController extends AppController
                 if ( $mime == 'application/xml' ) {
                     $xml = simplexml_load_file( $filename );
                     if ( $xml != null ) {
-                        // $this->parseKML( $xml->Document->Folder->children(), $overwrite );
-                        
                         // Sites need to be in a default state or else they won't
                         // appear on the overview map -- so let's get the first
                         // state manually here
+                        
+                        $sites = array();
                         $sid = $this->Site->SiteState->query('select id from site_states where sequence is not null and project_id='.$this->Session->read('project_id').' order by sequence limit 1');                        
                         if ( $sid > 0 ) {
-                            $this->parseKML( $xml->Document->children(), $overwrite, $sid[0]['site_states']['id'] );
+                            $sites = $this->parseKML( $xml->Document->children(), $overwrite, $sid[0]['site_states']['id'] );
                         }
+                        $this->set(compact('sites'));
+                        // debug( $sites );
+                        $this->render('confirm');
                     }
-                    $this->redirect(array('action' => 'index'));
+                    //$this->redirect(array('action' => 'index'));
                 }
             }
-        }
+        }        
     }
     
     /*
      * Recursive KML parser
      */
     private function parseKML( $xml, $overwrite, $default_state ) {
+        $sites = array();
         if ( $xml != null ) {
 //            debug ($xml);
             if ( isset( $xml->Folder ) ) {
                 // this is untested, but should recurse if there are nested folders
-                $this->parseKML( $xml->Document->children(), $overwrite );
+                // $this->parseKML( $xml->Document->children(), $overwrite, $default_state );
+                array_push($sites, $this->parseKML( $xml->Document->children(), $overwrite, $default_state ));                        
             } else {
                 $count = $xml->Placemark->count();
                 $i = 0;
@@ -531,21 +541,44 @@ class SitesController extends AppController
                     $data = $this->Site->save();
                     print_r( $data );
                     */
-                    $this->Site->create();
+                    //$this->Site->create();
                     $data['Site']['name'] = $name;
                     $data['Site']['code'] = $code;
                     $data['Site']['lat'] = $lat;
                     $data['Site']['lon'] = $lon;
                     $data['Site']['site_state_id'] = $default_state;
                     $data['Site']['project_id'] = $this->Session->read('project_id');
-                    $id = $this->Site->save( $data, false );
+                    //$id = $this->Site->save( $data, false );
 //                    debug( $data );
 //                    debug( "Saved with new id of ".$id );
                     $i++;
+                    array_push( $sites, $data );
                 }
             }
         }        
-        return;
+        return $sites;
+    }
+    
+    public function import_sites( ) {
+        if ($this->request->is('post')) {
+            // debug( $this->request->data );
+            foreach( $this->request->data['Site'] as $data ) {
+                $site = explode( "|", $data );                
+                $site['Site']['name'] = $site[0];
+                $site['Site']['code'] = $site[1];
+                $site['Site']['lat'] = $site[2];
+                $site['Site']['lon'] = $site[3];
+                $site['Site']['site_state_id'] = $site[4];
+                $site['Site']['project_id'] = $site[5];
+                // $data['Site']['project_id'] = $this->Session->read('project_id');
+                $this->Site->create();
+                $id = $this->Site->save( $site, false ); // no field validation               
+            }
+            $this->Session->setFlash('Success! KML import complete.');
+            $this->redirect(array('action' => 'index'));
+        }
+        $this->Session->setFlash('Error!  KML import failed.');
+        $this->redirect(array('action' => 'index'));
     }
     
     /*
