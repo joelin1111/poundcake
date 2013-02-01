@@ -473,9 +473,10 @@ class SitesController extends AppController
                         // Sites need to be in a default state or else they won't
                         // appear on the overview map -- so let's get the first
                         // state manually here
-                        $sid = $this->Site->SiteState->query('select id from site_states where sequence is not null and project_id='.$this->Session->read('project_id').' order by sequence limit 1');
-                        
-                        $this->parseKML( $xml->Document->children(), $overwrite, $sid[0]['site_states']['id'] );
+                        $sid = $this->Site->SiteState->query('select id from site_states where sequence is not null and project_id='.$this->Session->read('project_id').' order by sequence limit 1');                        
+                        if ( $sid > 0 ) {
+                            $this->parseKML( $xml->Document->children(), $overwrite, $sid[0]['site_states']['id'] );
+                        }
                     }
                     $this->redirect(array('action' => 'index'));
                 }
@@ -491,12 +492,12 @@ class SitesController extends AppController
 //            debug ($xml);
             if ( isset( $xml->Folder ) ) {
                 // this is untested, but should recurse if there are nested folders
-                $this->parseKML( $xml->Folder->children(), $overwrite );
+                $this->parseKML( $xml->Document->children(), $overwrite );
             } else {
                 $count = $xml->Placemark->count();
                 $i = 0;
                 while ( $i < $count ) {
-//                    debug($xml);
+                    // debug($xml);
                     // must cast to string here
                     $name = (string)$xml->Placemark[$i]->name;
                     
@@ -518,7 +519,8 @@ class SitesController extends AppController
                             $this->Site->delete( $site['Site']['id'] );
                         }
                     }
-//                    echo( "$name, Code: $code, is at $lat, $lon<br>" );
+                    // echo( "$name, Code: $code, is at $lat, $lon<br>" );
+                    /*
                     $this->Site->create();
                     $this->Site->set( 'name', $name );
                     $this->Site->set( 'code', $code );
@@ -527,8 +529,18 @@ class SitesController extends AppController
                     $this->Site->set( 'site_state_id', $default_state );
                     $this->Site->set( 'project_id', $this->Session->read('project_id') );
                     $data = $this->Site->save();
-                    //print_r( $data );
-                    //$this->Site->saveAssociated( $data );
+                    print_r( $data );
+                    */
+                    $this->Site->create();
+                    $data['Site']['name'] = $name;
+                    $data['Site']['code'] = $code;
+                    $data['Site']['lat'] = $lat;
+                    $data['Site']['lon'] = $lon;
+                    $data['Site']['site_state_id'] = $default_state;
+                    $data['Site']['project_id'] = $this->Session->read('project_id');
+                    $id = $this->Site->save( $data, false );
+//                    debug( $data );
+//                    debug( "Saved with new id of ".$id );
                     $i++;
                 }
             }
