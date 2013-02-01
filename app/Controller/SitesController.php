@@ -630,7 +630,8 @@ class SitesController extends AppController
      * Export sites into a KML file
      * @see https://developers.google.com/kml/articles/phpmysqlkml
      */
-    public function export() {
+    public function export( $id = null ) {
+        
         $dom = new DOMDocument('1.0', 'UTF-8');
         // Creates the root KML element and appends it to the root document.
         $node = $dom->createElementNS('http://earth.google.com/kml/2.1', 'kml');
@@ -660,14 +661,27 @@ class SitesController extends AppController
         $barStyleNode->appendChild($barIconstyleNode);
         $docNode->appendChild($barStyleNode);
 
-        // if the user ran a search then grab that search and generate the KML
-        // based on that set of sites, else grab all sites for this project
-        $conditions = $this->Session->read('conditions');
         $this->Site->recursive = -1; // we only need Site data, not related data
-        if ( $conditions != null ) {
-            $sites = $this->Site->find('all',array('conditions' => $conditions ));
+        if ( $id > 0 ) {
+            $this->Site->id = $id;
+            $this->set('id',$id);
+            $site = $this->Site->read(null, $id);
+            $sites = array( $site ); // ehough we're only getting one site
+            $filename = $this->Site->data['Site']['name'];
+            
         } else {
-            $sites = $this->Site->findAllByProjectId( $this->Session->read('project_id') );
+            // if the user ran a search then grab that search and generate the KML
+            // based on that set of sites, else grab all sites for this project
+            $conditions = $this->Session->read('conditions');
+            
+            if ( $conditions != null ) {
+                $sites = $this->Site->find('all',array('conditions' => $conditions ));
+            } else {
+                $sites = $this->Site->findAllByProjectId( $this->Session->read('project_id') );
+            }
+            
+            //$project_name = preg_replace('/\s+/', '', $this->Session->read('project_name'));
+            $filename = preg_replace('/(\(|\))/', '', $this->Session->read('project_name'));
         }
         
         foreach ($sites as $site ) {
@@ -676,7 +690,10 @@ class SitesController extends AppController
             // Creates an id attribute and assign it the value of id column.
             $placeNode->setAttribute('id', 'placemark' . $site['Site']['id']); // CakePHP primary key -- not sure if this should be code?
             // Create name, and description elements and assigns them the values of the name and address columns from the results.
-            $nameNode = $dom->createElement('name',htmlentities($site['Site']['name']));
+            // cleanup the name -- some names (e.g. Goâve) result in KML
+            // that Google Earth cannot accept
+            $name = preg_replace('/[^(\x20-\x7F)]*/','', $site['Site']['name']);
+            $nameNode = $dom->createElement('name',htmlentities( $name ));
             $placeNode->appendChild($nameNode);
             // Creates a Point element.
             $pointNode = $dom->createElement('Point');
@@ -690,9 +707,8 @@ class SitesController extends AppController
         $kmlOutput = $dom->saveXML();
         $this->set('data',$kmlOutput);
         
-        $project_name = preg_replace('/\s+/', '', $this->Session->read('project_name'));
-        $project_name = preg_replace('/(\(|\))/', '', $project_name);
-        $this->set('filename',$project_name);
+        
+        $this->set('filename',$filename);
         
         $this->layout = 'blank';
         $this->render('export');

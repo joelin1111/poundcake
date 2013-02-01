@@ -9,9 +9,9 @@
         <li><?php
             // make the KML link that appears in the URL bar a little prettier by removing: whitespace, (, )
             // this is basiclly duplicated in SitesController::export
-            $project_name = preg_replace('/\s+/', '', $this->Session->read('project_name'));
-            $project_name = preg_replace('/(\(|\))/', '', $project_name);
-            echo $this->MyHTML->linkIfAllowed('KML Export', array('action'=>'export', 'ext'=>'kml', $project_name));
+            //$project_name = preg_replace('/\s+/', '', $this->Session->read('project_name'));
+            //$project_name = preg_replace('/(\(|\))/', '', $project_name);
+            echo $this->MyHTML->linkIfAllowed('KML Export', array('action'=>'export', 'ext'=>'kml' ));
             ?>
         </li>        
     </ul>

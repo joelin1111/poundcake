@@ -15,6 +15,14 @@
     <H3>Actions</H3>
     <div class="well well-large">
     <ul>
+        <li><?php
+            // make the KML link that appears in the URL bar a little prettier by removing: whitespace, (, )
+            // this is basiclly duplicated in SitesController::export
+            $project_name = preg_replace('/\s+/', '', $this->Session->read('project_name'));
+            $project_name = preg_replace('/(\(|\))/', '', $project_name);
+            echo $this->MyHTML->linkIfAllowed('KML Export', array('action'=>'export', 'ext'=>'kml', $site['Site']['id']));
+            ?>
+        </li>
         <li><?php echo $this->MyHTML->linkIfAllowed('Edit Site', array('action'=>'edit', $site['Site']['id']),1);?></li>
         <li><?php echo $this->Html->link('List Sites', array('action'=>'index')); ?></li>
         <li><?php echo $this->Html->link('Equipment List', array('action'=>'view', 'ext'=>'pdf', $site['Site']['id']));?></li>
