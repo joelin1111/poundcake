@@ -26,50 +26,43 @@
         </li>
     </ul>
     </div>
+    
+
 </div><!-- /.span3 .sb-fixed -->
 
-<div class="span9">
-    <div class="row">
-        <h2><?php echo $site['Site']['code']." ".$site['Site']['name'].' ('.$site['SiteState']['name'].')'?> </h2>    
-        
+<div class="row">
+    <div class="span9">
+        <h2><?php echo $site['Site']['code']." ".$site['Site']['name'].' ('.$site['SiteState']['name'].')'?> </h2>   
         <?php echo $this->element('Common/disclaimer'); ?>
         
-        <div class="span6">
-            <P><B>Site contacts:</B>&nbsp;
-                <?php
-                    if (!isset($contacts)) {
-                        echo "None";
-                    } else {
-                        echo "<P>";
-                        foreach ($contacts as $contact) {
-                            //echo "<LI>";
-                            echo "<I>Priority ".$contact['Contact']['priority']."</I><BR>";
-                            echo $this->Html->link(($contact['Contact']['name_vf']), array(
-                                'controller' => 'contacts',
-                                'action' => 'view',
-                                $contact['Contact']['id']));
-                            echo "<BR>".$contact['Contact']['phone']."</P>";
-                        }
-                    }
-                ?>
-            </P>
-            <P><B>GPS Coordinates:</B>&nbsp;<?php echo sprintf("%01.5f",$site['Site']['lat']) . ' ' . sprintf("%01.5f",$site['Site']['lon']) . '<br>'; ?> </P>
-            <P><B>Magnetic declination:</B>&nbsp;<?php echo sprintf("%01.5f",$site['Site']['declination']); ?></P>
-        </div>
-        <div class="span3">
-        <P><B>Quick Stats:</B>&nbsp;
+        <P><B>Quick Stats:</B>
         <?php
-            echo $this->Form->create('Site', array('action' => 'view'));
-            echo $this->Form->input('sites', array('type'=>'select','options' => $sites,'label' => ''));
-            echo $this->Form->end;
+        echo $this->Form->create('Site', array('action' => 'view'));
+        echo $this->Form->input('sites', array('type'=>'select','options' => $sites,'label' => 'Select Remote Site' ));
+        echo $this->Form->end();
         ?>
-        <div id="RemoteSite">
-            (Select Remote Site)
-        </div>
-    </div> <!-- ./well -->
-    </div> <!-- ./row -->
-    
-    <P><B>Zone:</B>&nbsp;<?php echo $site['Zone']['name']; ?></P>
+        <div id="RemoteSite"></div>
+        <P><B>Site contacts:</B>&nbsp;
+            <?php
+                if (!isset($contacts)) {
+                    echo "None";
+                } else {
+                    echo "<P>";
+                    foreach ($contacts as $contact) {
+                        //echo "<LI>";
+                        echo "<I>Priority ".$contact['Contact']['priority']."</I><BR>";
+                        echo $this->Html->link(($contact['Contact']['name_vf']), array(
+                            'controller' => 'contacts',
+                            'action' => 'view',
+                            $contact['Contact']['id']));
+                        echo "<BR>".$contact['Contact']['phone']."</P>";
+                    }
+                }
+            ?>
+        </P>
+        <P><B>GPS Coordinates:</B>&nbsp;<?php echo sprintf("%01.5f",$site['Site']['lat']) . ' ' . sprintf("%01.5f",$site['Site']['lon']) . '<br>'; ?> </P>
+        <P><B>Magnetic declination:</B>&nbsp;<?php echo sprintf("%01.5f",$site['Site']['declination']); ?></P>
+   <P><B>Zone:</B>&nbsp;<?php echo $site['Zone']['name']; ?></P>
     
     <div class="map-frame">
     <div id="map_canvas" style="width:700px;height:400px"></div>
@@ -303,8 +296,8 @@
     ?>
     <P><B>Site last modified:</B>&nbsp; <?php echo date($format, strtotime( $site['Site']['modified'] )); ?>    
     </P>            
-    </div> <!-- /.span9 -->
-</div> <!-- /.row -->
+    </div> <!-- /.row -->
+</div> <!-- /.span9 -->
 
 <?php
     //$this->Js->get('#SiteSites')->event('change', $this->Js->alert('Compute Distance To Selected Site'));    

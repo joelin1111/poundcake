@@ -12,9 +12,9 @@
     echo $this->Html->script('jquery-ui-map/jquery.ui.map.overlays'); // for polyLine support
     echo $this->Html->script('poundcake/poundcake-map');
 ?>
-
 <div class="row">
-<div class="span9">
+<div class="span12">
+
     <h2><?php echo $this->Session->read('project_name'); ?> Topology (Experimental)</h2>
     
     <?php echo $this->element('Common/disclaimer'); ?>
@@ -99,8 +99,10 @@
         echo '</ul></div>';
         ?>
     </div>  
-</div> <!-- /.span9 -->
+
+</div> <!-- /.span12 -->
 </div> <!-- /.row -->
+
 <BR>
 
 <div class="row" align="center">

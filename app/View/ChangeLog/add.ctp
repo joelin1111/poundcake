@@ -14,8 +14,7 @@
 </div><!-- /.span3 .sb-fixed -->
 
 <div class="span9">
-    <?php echo $this->Form->create('ChangeLog');
-    //echo $this->element('sql_dump'); ?>
+    <?php echo $this->Form->create('ChangeLog'); ?>
     <h2>Add Change</h2>
     <?php
         echo $this->Form->input('version');

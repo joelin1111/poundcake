@@ -10,7 +10,14 @@ $(document).ready(function () {
     errorstrap();
     
     bootbox_dialogs();
-
+    
+    // datepicker
+//    $( "input.datepicker" ).dp({
+//        dateFormat: 'dd.mm.yy', 
+//        altFormat: 'yy-mm-dd'
+//    });
+    // the res of the datepicker is in poundcake-datepicker.js
+   
     // fade out flash messages after n miliseconds
     // replace with empty block to maintain space
     //$('#flash').fadeTo(4000, 0, function(){ $(this).html().fadeTo(1000, 1); })
