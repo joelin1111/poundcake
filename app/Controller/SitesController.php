@@ -292,53 +292,61 @@ class SitesController extends AppController
                 // typically this is an array of 1 item, but there could be
                 // many -- which would be the case of a P2MP radio
                 foreach( $results as $dest_radio ) {
-//                    print_r( $dest_radio['radios_radios']['dest_radio_id'] );
-                    $s[$n]['id'] = $site['Site']['id'];
-                    $s[$n]['name'] = $site['Site']['name'];
-                    $s[$n]['code'] = $site['Site']['code'];
-                    $s[$n]['site_vf'] = $site['Site']['site_vf'];
-                    $s[$n]['src_lat'] = $site['Site']['lat'];
-                    $s[$n]['src_lon'] = $site['Site']['lon'];
-                    $s[$n]['is_down'] = $site['Site']['is_down'];
-                    
                     // we now have to load the other radio to get the name of the site
                     // that it is attached to
                     $this->loadModel('NetworkRadio', $dest_radio['radios_radios']['dest_radio_id'] );
                     $this->NetworkRadio->id = $dest_radio['radios_radios']['dest_radio_id'];
                     $dest_site = $this->NetworkRadio->read();
                     
-                    // save the other radio's lat/lon to our array
-                    $s[$n]['dest_lat'] = $dest_site['Site']['lat'];
-                    $s[$n]['dest_lon'] = $dest_site['Site']['lon'];
-                    
+                    // we want to avoid adding links in both directions
+                    // this is a little sloppy, maybe someone smarter than me can
+                    // design a better way to do this
+                    // echo "Ckecking:  ".$site['Site']['name'].": ".$site['Site']['lat'].", ".$site['Site']['lon']." --> ".$dest_site['Site']['lat'].", ".$dest_site['Site']['lon']."<BR>";
+                    if ( ! $this->oppositeLinkExists( $s, $site['Site']['lat'], $site['Site']['lon'] ) ) {                    
+                        $s[$n]['id'] = $site['Site']['id'];
+                        $s[$n]['name'] = $site['Site']['name'];
+                        $s[$n]['code'] = $site['Site']['code'];
+                        $s[$n]['site_vf'] = $site['Site']['site_vf'];
+                        $s[$n]['src_lat'] = $site['Site']['lat'];
+                        $s[$n]['src_lon'] = $site['Site']['lon'];
+                        $s[$n]['is_down'] = $site['Site']['is_down'];
+                        $s[$n]['dest_lat'] = $dest_site['Site']['lat'];
+                        $s[$n]['dest_lon'] = $dest_site['Site']['lon'];
+                        $n++;
+                    }
 //                    print_r($dest_site);
 //                    echo ' > '.$site['Site']['name'].' links to '.$dest_site['Site']['name'].'<br>';
                     $dest_site = null;
-                    $n++;
+                    //$n++;
                 }
                 $results = null;
             }
             $u = $n;
             $u++;
             
-//            $n = count($s);
-//            $s[ ++$n ] = 
-//            debug( $site['NetworkRouter'] );
-//            debug( $site['NetworkSwitch'] );
-            
         }
-//        debug( $s );
-//        die;
-        
         $this->set('sites', $s);
-//        echo '</pre>';
-//        die;
-        
-        //$this->getSiteStates();
-        //$this->buildLegend();
         $this->setDefaultLatLongZoom( $this->Session->read('project_id') );
     }
     
+    /*
+     * Check if the link exists in our array
+     */
+    private function oppositeLinkExists( $s, $lat, $lon ) {
+        foreach ($s as $site ) {
+            //var_dump( $site );
+            if (array_key_exists('dest_lat', $site)) {
+                if ( ( $site['dest_lat'] == $lat ) && ( $site['dest_lon'] == $lon ) ) {
+                    //echo "Found:<BR>";
+                    //var_dump($site);
+                    //die;
+                    return 1;
+                }
+            }
+        }
+        return 0;
+    }
+        
     public function overview_dev() {
         $this->getSiteStates();
         $this->buildLegend();
