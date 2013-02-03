@@ -76,6 +76,7 @@ class ProjectsController extends AppController {
             $this->Project->create();
             // set http if it was not set
             $this->request->data['Project']['monitoring_system_url'] = $this->cleanUrl( $this->request->data['Project']['monitoring_system_url'] );
+            // see beforeSave callback in the Project model
             if ($this->Project->save($this->request->data)) {
                 $this->Session->setFlash('The project has been saved.');
                 $this->redirect(array('action' => 'index'));
@@ -97,7 +98,8 @@ class ProjectsController extends AppController {
         }
         if ($this->request->is('post') || $this->request->is('put')) {
             // set http if it was not set
-            $this->request->data['Project']['monitoring_system_url'] = $this->cleanUrl( $this->request->data['Project']['monitoring_system_url'] );
+            $this->request->data['Project']['monitoring_system_url'] = $this->cleanUrl( $this->request->data['Project']['monitoring_system_url'] );            
+            // see beforeSave callback in the Project model
             if ($this->Project->save($this->request->data)) {
                 $this->Session->setFlash('The project has been saved.');
                 $this->redirect(array('action' => 'index'));
@@ -109,8 +111,9 @@ class ProjectsController extends AppController {
         }
         $this->getSnmpTypes();
         $this->getMonitoringSystemTypes();
+        
     }
-
+    
     /*
      * Delete an existing project
      */

@@ -235,7 +235,8 @@ class UsersController extends AppController {
             $new_projects = $this->request->data['Project']['Project'];
             
             if ( in_array( $last_project_id,  $new_projects ) == 0 ) {
-                // just assign them to the first item in the set of new projects
+                // just assign them a default of the first item in the set of
+                // new projects
                 $this->User->saveField('project_id',$new_projects[0]);              
             }
             
