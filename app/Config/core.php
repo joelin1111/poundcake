@@ -38,6 +38,7 @@
         $dbg = 2;
     else
         $dbg = 0;
+    Configure::write('debug', $dbg);
     
 /**
  * Configure the Error handler used to handle errors for your application.  By default
