@@ -175,6 +175,9 @@ Next page refresh: <span id=counter> </span>
 <a href="javascript:self.location.reload()">Click</a> to refresh now
 <BR>
 
+<?php
+    echo "Debug level: " . Configure::read('debug');
+?>
 </center>
 
 <SCRIPT LANGUAGE="JavaScript">

@@ -33,10 +33,10 @@ $cakeDescription = __d('poundcake', 'Tower DB');
             // echo $this->Html->script('jquery-ui-1.9.2.custom.min');
             echo $this->Html->script('jquery-ui/jquery-ui-1.10.0.custom.min');
             
-            echo $this->Html->script('bootstrap'); // Bootstrap's JS file
-            echo $this->Html->script('poundcake/poundcake');
-            echo $this->Html->script('bootbox');
-            echo $this->Html->script('jquery.form'); // testing this out, see http://www.malsup.com/jquery/form/#download
+            echo $this->Html->script('bootstrap'); // Bootstrap's jQuery file
+            echo $this->Html->script('poundcake/poundcake'); // Our custom jQuery file
+            echo $this->Html->script('bootbox'); // Bootbox jQuery -- for the dialogs
+            echo $this->Html->script('jquery.form'); // Testing this out, see http://www.malsup.com/jquery/form/#download
             
             echo $this->Html->meta('icon');
             echo $this->fetch('meta');
@@ -44,7 +44,7 @@ $cakeDescription = __d('poundcake', 'Tower DB');
             echo $this->fetch('script');            
             
             // CSS
-            echo $this->Html->css('bootstrap'); // Bootstrap CSS file
+            echo $this->Html->css('bootstrap'); // Bootstrap's CSS file
             echo $this->Html->css('poundcake'); // Our custom CSS file
             echo $this->Html->css('jasny-bootstrap');  // Jasny is used for the File upload widget
             
