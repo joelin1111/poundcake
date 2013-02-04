@@ -78,7 +78,7 @@ class UsersController extends AppController {
     }
     
     /*
-     * Set an array of projects this user is assigned to
+     * Save an array of projects this user is assigned to
      */
     function getUsersProjects() {
         // this really would be more useful to take a user id as a parameter
@@ -105,7 +105,7 @@ class UsersController extends AppController {
     }
     
     /*
-     * Set an array of all projects in the system
+     * Save an array of all projects in the system
      */
     function getAllProjects() {
         // return all projects
@@ -297,16 +297,6 @@ class UsersController extends AppController {
         $this->Session->setFlash('Error!  User was not deleted.');
         $this->redirect(array('action' => 'index'));
     }
-    
-    /*
-     * Standard callback function
-     */
-    /*
-    public function beforeFilter() {
-        // deprecated?  cannot recall why this is here -- doesn't do much...
-        parent::beforeFilter();
-    }
-    */
     
     /*
      * Login is our main login routine

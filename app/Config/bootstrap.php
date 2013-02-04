@@ -192,9 +192,11 @@ CakeLog::config('error', array(
  */
 CakePlugin::load('AjaxMultiUpload');
 
-Configure::load('config'); // phpThumb
-
+/*
+ * LESS CSS support.
+ */
 CakePlugin::load('Less');
+
 /*
  * FancyBox plugin to for image management
  * @see https://github.com/destinydriven/CakePHP-Fancybox-Plugin
@@ -202,9 +204,11 @@ CakePlugin::load('Less');
 CakePlugin::load('Fancybox');
 
 
-// Used by the Behavior for storing/retrieving passwords on the monitoring system
-// see http://bakery.cakephp.org/articles/utoxin/2009/08/01/cryptable-behavior
-// used by Project to store
+/*
+ * Used by the Behavior for storing/retrieving passwords on the monitoring system
+ * @see http://bakery.cakephp.org/articles/utoxin/2009/08/01/cryptable-behavior
+ * used by Project to store
+ */
 Configure::write('Cryptable.cipher', 'tripledes'); 
 Configure::write('Cryptable.key','b5g39w485L}EA381'); 
 $td = mcrypt_module_open('tripledes', '', 'ecb', ''); 

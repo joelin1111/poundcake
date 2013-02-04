@@ -58,7 +58,7 @@ class BuildItemTypesController extends AppController {
     }
 
     /*
-     * Set an array of  all the sites to allow the build item to be assigned to
+     * Save an array of  all the sites to allow the build item to be assigned to
      */
     function getSites() {
         $this->set('sites',$this->BuildItemType->Site->find('list',

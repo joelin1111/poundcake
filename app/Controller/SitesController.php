@@ -29,13 +29,11 @@ class SitesController extends AppController
      * - GoogleMap is the Marc Fernandez Google Map helper (previously renamed
      * AltGoogleMapV3 if that's visible in the comments anyplace)
      * - MyHTML makes de-links hyperlinks for view-only users
-     * - PhpThumb does image thumbnails for attached images
      */
     var $helpers = array(
         'AjaxMultiUpload.Upload',
         'GoogleMap',
         'MyHTML',
-        'PhpThumb',
         'Fancybox.Fancybox'
     );
     
@@ -195,7 +193,7 @@ class SitesController extends AppController
     }
  
     /*
-     * Set an array of site states for use in the legend
+     * Save an array of site states for use in the legend
      */
     public function buildLegend() {
         // ISNULL here puts any SiteStates that don't have a defined sequence
@@ -209,7 +207,7 @@ class SitesController extends AppController
     /*
      * Overivew page with main project map
      */
-    public function overview() {
+    public function overview_old() {
         $conditions = array(
             'AND' => array(
                 'Site.project_id' => $this->Session->read('project_id') // only show sites for the current project
@@ -254,7 +252,7 @@ class SitesController extends AppController
     /*
      * Testing, testing, 1 2 3...
      */
-    public function topology_dev() {
+    public function topology() {
         $conditions = array(
             'AND' => array(
                 'Site.project_id' => $this->Session->read('project_id') // only show sites for the current project
@@ -347,7 +345,7 @@ class SitesController extends AppController
         return 0;
     }
         
-    public function overview_dev() {
+    public function overview() {
         $this->getSiteStates();
         $this->buildLegend();
         $this->setup_maps();
@@ -358,7 +356,7 @@ class SitesController extends AppController
      * placemarkers at the site to the site's status -- gray (unknown), green
      * (all radios OK), yellow (some radios OK), or red (all radios down).
      */
-    public function topology() {
+    public function topology_old() {
         
         // Because of the complexity of point-to-multipoint radios, and our
         // custom join table that makes traversing those links difficult, I did
@@ -1591,7 +1589,7 @@ class SitesController extends AppController
      */
     public function isAuthorized($user) {
         // pages that anyone (basically with the view rolealias) can access
-        $allowed = array( "index", "view", "overview", "topology", "workorder", "topology_dev", "view_dev", "overview_dev", "cron" );
+        $allowed = array( "index", "view", "overview", "topology", "workorder", "topology_old", "view_dev", "overview_old", "cron" );
         if ( in_array( $this->action, $allowed )) {
             return true;
         }

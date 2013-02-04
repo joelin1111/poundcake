@@ -135,14 +135,14 @@ class ContactsController extends AppController {
     }
     
     /*
-     * Set an array of all the installation teams
+     * Save an array of all the installation teams
      */
     function getInstallTeams() {
         $this->set('installteams',$this->Contact->InstallTeam->find('list'));
     }
     
     /*
-     * Set an array of ContactTypes
+     * Save an array of ContactTypes
      */
     function getContactTypeOptions() {
         $this->set('contacttypes',$this->Contact->ContactType->find('list'));

@@ -180,7 +180,7 @@ class NetworkSwitchesController extends NetworkDeviceController {
     }
     
     /*
-     * Set an array of SwitchTypes
+     * Save an array of SwitchTypes
      */
     function getSwitchTypes() {
         $this->set('switchtypes',$this->NetworkSwitch->SwitchType->find('list',
@@ -272,6 +272,9 @@ class NetworkSwitchesController extends NetworkDeviceController {
         $this->redirect(array('action' => 'view',$this->NetworkSwitch->id));
     }
     
+    /*
+     * Save an array of alarms or alerts from the monitoring system
+     */
     public function alarms( $id ) {
         $this->NetworkSwitch->recursive = -1;
         $this->NetworkSwitch->id = $id;

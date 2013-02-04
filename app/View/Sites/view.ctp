@@ -253,9 +253,6 @@
                 foreach ( $images as $image ) {
                     $f = basename($image);                    
                     $url = $baseUrl . "/$f";
-//                    echo '<li><a href="'.$url.'" class="thumbnail">';
-//                    echo $this->PhpThumb->thumbnail($url, array('w' => 100, 'h' => 100, 'zc' => 1));
-//                    echo '</a></li>';                    
                     echo '<li class="span3"><a href="'.$url.'" class="fancybox3 fancybox.image" rel="gallery1">';
                     echo $this->Html->image( $url );
                     $this->Fancybox->setProperties( array( 

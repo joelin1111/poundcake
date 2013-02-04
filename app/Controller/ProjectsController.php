@@ -56,6 +56,9 @@ class ProjectsController extends AppController {
         $this->set('project', $this->Project->read(null, $id));
     }
 
+    /*
+     * Append http:// to an URL if it is missing, also remove "/" from the end
+     */
     private function cleanUrl( $url ) {
         if ( $url != "" ) {
             // if there is no http, append it

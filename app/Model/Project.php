@@ -105,7 +105,8 @@ class Project extends AppModel {
     );
     
     /*
-     *  If there are Sites that match this project's id, then prevent the delete
+     * Standard call back function -- if there are Sites that match this
+     * project's id, return false to prevent the delete.
      */
     public function beforeDelete($cascade = true) {
         // loadModel returning an error here
@@ -118,7 +119,9 @@ class Project extends AppModel {
     }
     
     /*
-     * Automatically give admins (users with roleid of 1) access to the project
+     * Standard call back function -- automatically give admins
+     * (or users with roleid of 1) access to the project, called
+     * on both add and edit.
      */
     public function beforeSave($options = array()) {
         // find all the admins

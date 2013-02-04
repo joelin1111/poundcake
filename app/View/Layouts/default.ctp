@@ -27,10 +27,12 @@ $cakeDescription = __d('poundcake', 'Tower DB');
             <?php echo $title_for_layout; ?>
 	</title>
 	<?php
-            // JQuery
-            //echo $this->Html->script('jquery-1.8.3'); 
-            echo $this->Html->script('jquery-1.9.0');
-            echo $this->Html->script('jquery-ui-1.9.2.custom.min');
+            // jQuery                
+            // echo $this->Html->script('jquery-1.9.0');
+            echo $this->Html->script('jquery-1.9.0.min');
+            // echo $this->Html->script('jquery-ui-1.9.2.custom.min');
+            echo $this->Html->script('jquery-ui/jquery-ui-1.10.0.custom.min');
+            
             echo $this->Html->script('bootstrap'); // Bootstrap's JS file
             echo $this->Html->script('poundcake/poundcake');
             echo $this->Html->script('bootbox');
@@ -90,7 +92,6 @@ $cakeDescription = __d('poundcake', 'Tower DB');
         <![endif]-->
 </head>
 <body>
-
 <div class="navbar navbar-fixed-top"> <!-- was: navbar-fixed-top -->    
         <div class="navbar-inner">
             <div class="container">

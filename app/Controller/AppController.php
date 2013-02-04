@@ -23,15 +23,10 @@
 App::uses('Controller', 'Controller');
 
 class AppController extends Controller {
-    
+
     /*
-    // default pagination
-    public $paginate = array(
-        'limit' => 20 // may be overridden in other controllers!
-    );
-    */
-    
-    // used for the login/ACL
+     * Compinents - used for the login/ACL
+     */
     public $components = array(
         'Session',
         'Auth' => array(
@@ -56,7 +51,9 @@ class AppController extends Controller {
         'Less.Less' 
     );
     
-    // return all the organizations the user may be assigned to
+    /*
+     * Save an array of all the organizations the user may be assigned to
+     */
     public function getOrganizationsForCurrentProject($obj) {
         // $this->set('organizations',$this->Contact->Organization->find('list'));
         // the above does not give us what we want -- it gives us a list of all
@@ -66,44 +63,44 @@ class AppController extends Controller {
         // I could not sort out how to do this with a Cake join (see below)
         // so I'm doing it manually by running my own SQL and creating the array manually
 
-        // NOTE: this is basically 
-//        begin does not work:
-//        $orgs = $this->Contact->Organization->find('list');
-//        echo '<pre>';
-//        echo "For Project ID: ".$this->Session->read('project_id');
-//        echo "<br>";
-//        print_r($orgs);
-//        
-//        foreach ($orgs as $key => $value) {
-//            $this->loadModel('Organization', $key);
-//            $org = $this->Organization->read(null, $key);
-//            echo ">";
-//            print_r($org);
-//        }
-//        echo '</pre>';
-//        echo "------------";
+        /* begin does not work:
+        $orgs = $this->Contact->Organization->find('list');
+        echo '<pre>';
+        echo "For Project ID: ".$this->Session->read('project_id');
+        echo "<br>";
+        print_r($orgs);
         
-//        $this->Contact->Organization->bindModel(array('hasOne' => array('OrganizationsProjects')));
-//        $organizations = $this->Contact->Organization->find('all',array(
-//            'fields' => array('DISTINCT Organization.name'),
-//            //'fields' => array('Organization.id', 'Organization.name'),
-//            'conditions'=> array(
-//                    //'Contact.organization_id = OrganizationsProject.organization_id',
-//                    'OrganizationsProject.project_id' => $this->Session->read('project_id'),
-//                    //'OrganizationsProject.organization_id' => 14
-//                ),
-//            'recursive' => 0,
-//            'joins' => array( 
-//                array('table' => 'organizations_projects', 
-//                'alias' => 'OrganizationsProject', 
-//                'type' => 'INNER',  
-//                'conditions'=> array(
-//                    //'Contact.organization_id = OrganizationsProject.organization_id',
-//                    'OrganizationsProject.project_id' => $this->Session->read('project_id'),
-//                    //'OrganizationsProject.organization_id' => 14
-//                )
-//        ))));
-//        end does not work:
+        foreach ($orgs as $key => $value) {
+            $this->loadModel('Organization', $key);
+            $org = $this->Organization->read(null, $key);
+            echo ">";
+            print_r($org);
+        }
+        echo '</pre>';
+        echo "------------";
+        
+        $this->Contact->Organization->bindModel(array('hasOne' => array('OrganizationsProjects')));
+        $organizations = $this->Contact->Organization->find('all',array(
+            'fields' => array('DISTINCT Organization.name'),
+            //'fields' => array('Organization.id', 'Organization.name'),
+            'conditions'=> array(
+                    //'Contact.organization_id = OrganizationsProject.organization_id',
+                    'OrganizationsProject.project_id' => $this->Session->read('project_id'),
+                    //'OrganizationsProject.organization_id' => 14
+                ),
+            'recursive' => 0,
+            'joins' => array( 
+                array('table' => 'organizations_projects', 
+                'alias' => 'OrganizationsProject', 
+                'type' => 'INNER',  
+                'conditions'=> array(
+                    //'Contact.organization_id = OrganizationsProject.organization_id',
+                    'OrganizationsProject.project_id' => $this->Session->read('project_id'),
+                    //'OrganizationsProject.organization_id' => 14
+                )
+        ))));
+        end does not work
+        */
         
         $sql = "select distinct organization_id, name from organizations_projects, organizations where project_id=".$this->Session->read('project_id');
         $sql .= " and organizations.id=organizations_projects.organization_id";
@@ -115,7 +112,9 @@ class AppController extends Controller {
         $this->set(compact('organizations'));
     }
     
-    
+    /*
+     * Return all the sites for the current project
+     */
     function getAllSitesForProject() {
         // set sites to the list of sites the currently selected/active project
         // also returns the ID for the first site in that list
@@ -130,7 +129,9 @@ class AppController extends Controller {
         return key($sites); // return the ID of the first site        
     }
     
-    // used for the login/ACL
+    /*
+     * Standard call back function -- used for the login/ACL.
+     */
     public function beforeFilter() {
         // tell the AuthComponent to not require a login for all index and
         // view actions, in every controller. We want our visitors to be able to
@@ -171,8 +172,7 @@ class AppController extends Controller {
                 $snmp_community = true;
             }
         }
-        $this->set('snmp_override',$snmp_override);
-        $this->set('snmp_community',$snmp_community);
+        $this->set(compact('snmp_override','snmp_community'));
     }
     
     /*
@@ -259,49 +259,23 @@ class AppController extends Controller {
     }
     
     /*
-     * Make strings filename safe
+     * Build a URL with all the search elements in it - the resulting URL will
+     * be: example.com/cake/posts/index/Search.keywords:mykeyword/Search.tag_id:3        
      */
-//    function sanitizeName( $string ) {
-//        return preg_replace(array('/\s/', '/\.[\.]+/', '/[^\w_\.\-]/'), array('_', '.', ''), $string);
-//    }
-    
-    
     function search() {
         // the page we will redirect to at the end
         $url['action'] = 'index';
-
-        // build a URL will all the search elements in it
-        // the resulting URL will be 
-        // example.com/cake/posts/index/Search.keywords:mykeyword/Search.tag_id:3
         foreach ($this->data as $k=>$v) {
-            //print_r($v);
             foreach ($v as $kk=>$vv){
-                //echo "<BR>VV is".$vv."<br>";
                 $vv .= '*';
                 // remove forward slashes -- site codes may have them!
                 $vv = str_replace('/','*',$vv);
-                //$vv .= '%';
                 $url[$k.'.'.$kk]=$vv; 
             } 
         }
         // redirect the user to the url
         $this->redirect($url, null, true);
     }
-    
-      // this would check for uniqueness among fields in the same instance
-//    function checkUnique($data, $fields) {
-//        if (!is_array($fields)) {
-//                $fields = array($fields);
-//            }
-//            foreach($fields as $key) {
-//                $tmp[$key] = $this->data[$this->name][$key];
-//            }
-//        if (isset($this->data[$this->name][$this->primaryKey]) && $this->data[$this->name][$this->primaryKey] > 0) {
-//                $tmp[$this->primaryKey." !="] = $this->data[$this->name][$this->primaryKey];
-//            }
-//        //return false;
-//        return $this->isUnique($tmp, false); 
-//    }
     
     /*
      * Return IP addresses (note: plural) for a given item name, used for the
@@ -333,14 +307,14 @@ class AppController extends Controller {
         return ClassRegistry::init('IPAddress')->getGatewayAddress($name);
     }
     
-    /**
-     * Prettifies an XML string into a human-readable and indented work of art 
+    /*
+     * Utility function to make an XML string into a human-readable, an 
+     * indented work of art
      * 
-     * @param string $xml The XML as a string 
-     * @param boolean $html_output True if the output should be escaped (for use in HTML) 
+     * @param string $xml
+     * @param boolean $html_output
+     * @see: http://gdatatips.blogspot.com/2008/11/xml-php-pretty-printer.html
      */
-    
-    // see: http://gdatatips.blogspot.com/2008/11/xml-php-pretty-printer.html
     public function xmlpp($xml, $html_output=false) {  
         $xml_obj = new SimpleXMLElement($xml);  
         $level = 4;  
@@ -425,7 +399,6 @@ class AppController extends Controller {
         }
 
         return $element;
-    }
-    
+    }    
 }
 ?>

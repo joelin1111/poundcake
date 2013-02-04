@@ -36,7 +36,7 @@ class OrganizationsController extends AppController {
     }
     
     /*
-     * Set an array of contacts for an Organization.
+     * Save an array of contacts for an Organization.
      */
     function getContacts() {
         $this->set('contacts',$this->Organization->Contact->find('list'));        

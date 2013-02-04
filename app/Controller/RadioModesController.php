@@ -99,7 +99,7 @@ class RadioModesController extends AppController {
     }
 
     /*
-     * Set an array of RadioModes to -- used in the add/edit select list for
+     * Save an array of RadioModes to -- used in the add/edit select list for
      * picking the inverse mode
      */
     public function getRadioModes() {

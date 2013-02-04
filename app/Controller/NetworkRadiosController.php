@@ -170,6 +170,9 @@ class NetworkRadiosController extends NetworkDeviceController {
         $this->set(compact('links','sector','provisioned_by_name', 'checked' ));
     }
     
+    /*
+     * Save an array of alarms or alerts from the monitoring system
+     */
     public function alarms( $id ) {
         $this->NetworkRadio->recursive = -1;
         $this->NetworkRadio->id = $id;
@@ -180,7 +183,7 @@ class NetworkRadiosController extends NetworkDeviceController {
     }
 
     /*
-     * Set an array of allowed radio types (preconfigured by an administrator).
+     * Save an array of allowed radio types (preconfigured by an administrator).
      */
     function getRadioTypes() {
         $this->set('radiotypes',$this->NetworkRadio->RadioType->find('list',
@@ -192,7 +195,7 @@ class NetworkRadiosController extends NetworkDeviceController {
     }
     
     /*
-     * Set an array of antenna types (preconfigured by an administrator).
+     * Save an array of antenna types (preconfigured by an administrator).
      */
     function getAntennaTypes() {
         $this->set('antennatypes',$this->NetworkRadio->AntennaType->find('list',
@@ -204,7 +207,7 @@ class NetworkRadiosController extends NetworkDeviceController {
     }
     
     /*
-     * Set an array of allowed radio modes (preconfigured by an administrator).
+     * Save an array of allowed radio modes (preconfigured by an administrator).
      */
     function getRadioModes() {
         $this->set('radiomodes',$this->NetworkRadio->RadioMode->find('list',
@@ -421,7 +424,7 @@ class NetworkRadiosController extends NetworkDeviceController {
     }
     
     /*
-     * Set an array of frequencies for the select dropdown.  
+     * Save an array of frequencies for the select dropdown.  
      * Note Ubiquity devices support 4920 MHz to 6100 MHz in 5 MHz increments
      * and that 4920 starting value is hard-coded.
      */
@@ -461,7 +464,6 @@ class NetworkRadiosController extends NetworkDeviceController {
         }
         $this->redirect(array('action' => 'view',$this->NetworkRadio->id));
     }
-    
             
     /*
      * Uses Auth to check the ACL to see if the user is allowed to perform any

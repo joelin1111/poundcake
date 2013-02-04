@@ -224,6 +224,9 @@ class NetworkRoutersController extends NetworkDeviceController {
         $this->redirect(array('action' => 'view',$this->NetworkRouter->id));
     }
     
+    /*
+     * Save an array of alarms or alerts from the monitoring system
+     */
     public function alarms( $id ) {
         $this->NetworkRouter->recursive = -1;
         $this->NetworkRouter->id = $id;
