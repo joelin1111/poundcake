@@ -33,12 +33,12 @@
  * In development mode, you need to click the flash message to continue.
  */
     
-    $host = php_uname('n');
-    if ( $host === 'Catapult-Clarks-MacBook.local' )
-        $dbg = 2;
-    else
-        $dbg = 0;
-    Configure::write('debug', $dbg);
+//    $host = php_uname('n');
+//    if ( $host === 'Catapult-Clarks-MacBook.local' )
+//        $dbg = 2;
+//    else
+//        $dbg = 0;
+    Configure::write('debug', 2 );
     
 /**
  * Configure the Error handler used to handle errors for your application.  By default
