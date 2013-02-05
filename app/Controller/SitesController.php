@@ -200,20 +200,16 @@ class SitesController extends AppController
         $this->set('allSiteStates', $allSiteStates);
     }
     
-    private function setup_maps() {
-        $conditions = array(
-            'AND' => array(
-                'Site.project_id' => $this->Session->read('project_id') // only show sites for the current project
-            )
-        );
-        
-        //$this->Site->recursive = 2; // we need to access the Site's NetworkRadio array
-        $this->Site->recursive = 1;
-        $sites = $this->Site->find('all', array('conditions' => $conditions));
-        
-        // will need this for overview
-        // $this->getSiteStates();
-        $this->set(compact( 'sites' ));
+    /*
+     * Save variables with the project's default lat/lon
+     */    
+    private function setDefaultLatLon( $id ) {
+        if ( $id > 0 ) {
+            $project = $this->Site->Project->findById( $id );
+            $default_lat = $project['Project']['default_lat'];
+            $default_lon = $project['Project']['default_lon'];
+        }
+        $this->set(compact( 'default_lat', 'default_lon', 'default_zoom' ));
     }
     
     /*
@@ -292,7 +288,8 @@ class SitesController extends AppController
             $u++;
             
         }
-        $this->set('sites', $s);       
+        $this->set('sites', $s);
+        $this->setDefaultLatLon( $this->Session->read('project_id') );
     }
     
     /*
@@ -314,9 +311,18 @@ class SitesController extends AppController
     }
         
     public function overview() {
+        $conditions = array(
+            'AND' => array(
+                'Site.project_id' => $this->Session->read('project_id') // only show sites for the current project
+            )
+        );
+        
+        $this->Site->recursive = 1;
+        $sites = $this->Site->find('all', array('conditions' => $conditions));
+        $this->setDefaultLatLon( $this->Session->read('project_id') );
+        $this->set(compact( 'sites' ));
         $this->getSiteStates();
         $this->buildLegend();
-        $this->setup_maps();
     }
     
     /*

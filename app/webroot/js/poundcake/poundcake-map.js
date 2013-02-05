@@ -20,12 +20,12 @@ $(document).ready(function () {
         var default_lon = $('#google_mapDefaultLon').val();
         // parseInt to convert the string into an integer
         var fit_bounds = parseInt( $('#google_mapFitBounds').val() );
-        console.log( "Fit bounds 1: " + fit_bounds );
+        //console.log( "Fit bounds 1: " + fit_bounds );
         if ( fit_bounds == 0 )
             fit_bounds = false;
         else
             fit_bounds = true;
-        console.log( "Fit bounds 2: " + fit_bounds );
+        //console.log( "Fit bounds 2: " + fit_bounds );
         
         // we're going to have to track our marker locations manually
         var marker_locations = [];
@@ -68,8 +68,8 @@ $(document).ready(function () {
         //var zoom = $('#map_canvas').gmap('option', 'zoom');
         //console.log(default_zoom);
         if ( !fit_bounds ) {
-            console.log( "Setting zoom to: " + default_zoom );
-            $('#map_canvas').gmap('option', 'zoom', default_zoom);
+            //console.log( "Setting zoom to: " + default_zoom );
+            $('#map_canvas').gmap('option', 'zoom', 13);
         }
         
         // JavaScript Polyline documentation:
