@@ -26,13 +26,10 @@ class SitesController extends AppController
     /*
      * Helpers we use:
      * - AjaxMultiUpload is used for the file upload plugin
-     * - GoogleMap is the Marc Fernandez Google Map helper (previously renamed
-     * AltGoogleMapV3 if that's visible in the comments anyplace)
      * - MyHTML makes de-links hyperlinks for view-only users
      */
     var $helpers = array(
         'AjaxMultiUpload.Upload',
-        'GoogleMap',
         'MyHTML',
         'Fancybox.Fancybox'
     );
@@ -204,25 +201,6 @@ class SitesController extends AppController
     }
     
     
-    /*
-     * Overivew page with main project map
-     */
-    public function overview_old() {
-        $conditions = array(
-            'AND' => array(
-                'Site.project_id' => $this->Session->read('project_id') // only show sites for the current project
-            )
-        );
-        
-        $this->Site->recursive = 0;
-        $sites = $this->Site->find('all', array('conditions' => $conditions));
-        
-        $this->getSiteStates();
-        $this->buildLegend();
-        $this->setDefaultLatLongZoom( $this->Session->read('project_id') );
-        $this->set(compact( 'sites' ));
-    }
-    
     private function setDefaultLatLongZoom( $id ) {
         if ( $id > 0 ) {
             $project = $this->Site->Project->findById( $id );
@@ -249,8 +227,11 @@ class SitesController extends AppController
         // $this->getSiteStates();
         $this->set(compact( 'sites' ));
     }
+    
     /*
-     * Testing, testing, 1 2 3...
+     * Draw the overview map but show links in-between sites, color code the
+     * placemarkers at the site to the site's status -- gray (unknown), green
+     * (all radios OK), yellow (some radios OK), or red (all radios down).
      */
     public function topology() {
         $conditions = array(
@@ -349,95 +330,6 @@ class SitesController extends AppController
         $this->getSiteStates();
         $this->buildLegend();
         $this->setup_maps();
-    }
-    
-    /*
-     * Draw the overview map but show links in-between sites, color code the
-     * placemarkers at the site to the site's status -- gray (unknown), green
-     * (all radios OK), yellow (some radios OK), or red (all radios down).
-     */
-    public function topology_old() {
-        
-        // Because of the complexity of point-to-multipoint radios, and our
-        // custom join table that makes traversing those links difficult, I did
-        // not want to recursively step through sites and radios in the view file.
-        // So instead my approach here is to hand craft a relatively simple array
-        // that has basic site info (id, name, etc), coordinates of the start of
-        // the link and coordinates at the end of a link.  The view can then be
-        // a simple loop drawing polylines for each element in the array.
-                
-        $conditions = array(
-            'AND' => array(
-                'Site.project_id' => $this->Session->read('project_id') // only show sites for the current project
-            )
-        );
-        
-        $this->Site->recursive = 1; // we need to access the Site's NetworkRadio array
-        $sites = $this->Site->find('all', array('conditions' => $conditions));
-        
-        $s = array();
-        $u = 0;
-        $n = 0;
-        
-//        echo '<pre>';
-        foreach ($sites as $site ) {
-            //print_r( $site );
-            $s[$u]['id'] = $site['Site']['id'];
-            $s[$u]['name'] = $site['Site']['name'];
-            $s[$u]['code'] = $site['Site']['code'];
-            $s[$u]['site_vf'] = $site['Site']['site_vf'];
-            $s[$u]['src_lat'] = $site['Site']['lat'];
-            $s[$u]['src_lon'] = $site['Site']['lon'];
-            $s[$u]['is_down'] = $site['Site']['is_down'];
-            
-            $n = $u;
-            foreach ($site['NetworkRadios'] as $radio ) {
-                // for each radio that's attached to a site, we need to find out
-                // what that radio is linked to -- but we do this manually, since
-                // one radio can be linked to many radios
-                
-//                echo( 'Radio ID '. $radio['id'].'<br>');                               
-                $query = 'select dest_radio_id from radios_radios where src_radio_id=('.$radio['id'].')';
-                $results = $this->Site->query( $query );
-
-                // typically this is an array of 1 item, but there could be
-                // many -- which would be the case of a P2MP radio
-                foreach( $results as $dest_radio ) {
-//                    print_r( $dest_radio['radios_radios']['dest_radio_id'] );
-                    $s[$n]['id'] = $site['Site']['id'];
-                    $s[$n]['name'] = $site['Site']['name'];
-                    $s[$n]['code'] = $site['Site']['code'];
-                    $s[$n]['site_vf'] = $site['Site']['site_vf'];
-                    $s[$n]['src_lat'] = $site['Site']['lat'];
-                    $s[$n]['src_lon'] = $site['Site']['lon'];
-                    $s[$n]['is_down'] = $site['Site']['is_down'];
-                    
-                    // we now have to load the other radio to get the name of the site
-                    // that it is attached to
-                    $this->loadModel('NetworkRadio', $dest_radio['radios_radios']['dest_radio_id'] );
-                    $this->NetworkRadio->id = $dest_radio['radios_radios']['dest_radio_id'];
-                    $dest_site = $this->NetworkRadio->read();
-                    
-                    // save the other radio's lat/lon to our array
-                    $s[$n]['dest_lat'] = $dest_site['Site']['lat'];
-                    $s[$n]['dest_lon'] = $dest_site['Site']['lon'];
-                    
-//                    print_r($dest_site);
-//                    echo ' > '.$site['Site']['name'].' links to '.$dest_site['Site']['name'].'<br>';
-                    $dest_site = null;
-                    $n++;
-                }
-                $results = null;
-            }
-            $u = $n;
-            $u++;
-        }
-        
-        $this->set('sites', $s);
-        
-        $this->getSiteStates();
-        $this->buildLegend();
-        $this->setDefaultLatLongZoom( $this->Session->read('project_id') );
     }
     
     /*
@@ -1581,7 +1473,7 @@ class SitesController extends AppController
      */
     public function isAuthorized($user) {
         // pages that anyone (basically with the view rolealias) can access
-        $allowed = array( "index", "view", "overview", "topology", "workorder", "topology_old", "view_dev", "overview_old", "cron" );
+        $allowed = array( "index", "view", "overview", "topology", "workorder", "view_dev", "cron" );
         if ( in_array( $this->action, $allowed )) {
             return true;
         }
