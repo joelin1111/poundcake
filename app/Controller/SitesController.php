@@ -200,17 +200,6 @@ class SitesController extends AppController
         $this->set('allSiteStates', $allSiteStates);
     }
     
-    
-    private function setDefaultLatLongZoom( $id ) {
-        if ( $id > 0 ) {
-            $project = $this->Site->Project->findById( $id );
-            $default_lat = $project['Project']['default_lat'];
-            $default_lon = $project['Project']['default_lon'];
-            $default_zoom = $project['Project']['default_zoom'];        
-        }
-        $this->set(compact( 'default_lat', 'default_lon', 'default_zoom' ));
-    }
-    
     private function setup_maps() {
         $conditions = array(
             'AND' => array(
@@ -221,7 +210,6 @@ class SitesController extends AppController
         //$this->Site->recursive = 2; // we need to access the Site's NetworkRadio array
         $this->Site->recursive = 1;
         $sites = $this->Site->find('all', array('conditions' => $conditions));
-        $this->setDefaultLatLongZoom( $this->Session->read('project_id') );
         
         // will need this for overview
         // $this->getSiteStates();
@@ -304,8 +292,7 @@ class SitesController extends AppController
             $u++;
             
         }
-        $this->set('sites', $s);
-        $this->setDefaultLatLongZoom( $this->Session->read('project_id') );
+        $this->set('sites', $s);       
     }
     
     /*

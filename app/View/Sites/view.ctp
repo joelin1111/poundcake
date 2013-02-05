@@ -71,7 +71,6 @@
     echo $this->Form->create( 'google_map' );
     echo $this->Form->input( 'default_lat', array('type'=>'hidden','value' => $site['Site']['lat']));
     echo $this->Form->input( 'default_lon', array('type'=>'hidden','value' => $site['Site']['lon']));
-    echo $this->Form->input( 'default_zoom', array( 'type' => 'hidden', 'value' => 15));
     echo $this->Form->input( 'fit_bounds', array( 'type' => 'hidden', 'value' => 0 ));
 
     $sitestates = array( 'name' => $site['Site']['code'] );

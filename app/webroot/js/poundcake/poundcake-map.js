@@ -19,7 +19,6 @@ $(document).ready(function () {
         var default_lat = $('#google_mapDefaultLat').val();
         var default_lon = $('#google_mapDefaultLon').val();
         // parseInt to convert the string into an integer
-        var default_zoom = parseInt( $('#google_mapDefaultZoom').val() ); // this may be null
         var fit_bounds = parseInt( $('#google_mapFitBounds').val() );
         console.log( "Fit bounds 1: " + fit_bounds );
         if ( fit_bounds == 0 )

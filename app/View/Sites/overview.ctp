@@ -34,7 +34,6 @@
         echo $this->Form->create('google_map');
         echo $this->Form->input( 'default_lat', array( 'type' => 'hidden', 'value' => $default_lat));
         echo $this->Form->input( 'default_lon', array( 'type' => 'hidden', 'value' => $default_lon));
-        echo $this->Form->input( 'default_zoom', array( 'type' => 'hidden', 'value' => $default_zoom));
         echo $this->Form->input( 'fit_bounds', array( 'type' => 'hidden', 'value' => 1 ));
         
         $n = 0;

@@ -15,7 +15,6 @@
     <P><B>Coordinates:</B>&nbsp;<?php echo sprintf("%01.5f", $project['Project']['default_lat']) .', '. sprintf("%01.5f", $project['Project']['default_lon']) ?></P>
     <P><B>Workorder Title:</B>&nbsp;<?php echo $project['Project']['workorder_title']; ?></P>
     <P><B>Datetime Format:</B>&nbsp;<?php echo $project['Project']['datetime_format']; ?></P>
-    <P><B>Map Zoom Level:</B>&nbsp;<?php echo $project['Project']['default_zoom']; ?></P>
     <P><B>SNMP Version:</B>&nbsp;<?php echo $project['SnmpType']['name']; ?></P>
     <P><B>SNMP Community Name:</B>&nbsp;<?php echo $project['Project']['snmp_community_name']; ?></P>
     <P><B>Monitoring System Type:</B>&nbsp;<?php echo $project['MonitoringSystemType']['name']; ?></P>

@@ -23,7 +23,6 @@
         echo $this->Form->input('default_lon', array( 'label' => 'Default Longitude' ));
         echo $this->Form->input('workorder_title', array( 'label' => 'Title for Workorder' ));
         echo $this->Form->input('datetime_format', array( 'label' => 'Datetime Format (PHP compatible)' ));
-        echo $this->Form->input('default_zoom', array( 'label' => 'Map Zoom Level (1 to 20)'));
         echo $this->Form->input('snmp_type_id', array('type'=>'select','options' => $snmptypes, 'label' => 'SNMP Version', 'empty' => true));
         echo $this->Form->input('snmp_community_name', array( 'label' => 'SNMP Community Name' ));
         echo $this->Form->input('monitoring_system_type_id', array('type'=>'select','options' => $monitoringSystemTypes, 'label' => 'Monitoring System Type', 'empty' => true));
