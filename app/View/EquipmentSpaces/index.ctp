@@ -27,7 +27,7 @@
                 <?php
                     echo $this->Html->link('Edit', array('action' => 'edit', $equipmentspace['EquipmentSpace']['id']));
                     echo '&nbsp;';
-                    echo $this->MyHTML->postLinkIfAllowed('Delete',
+                    echo $this->PoundcakeHTML->postLinkIfAllowed('Delete',
                             array('controller'=>'equipmentspaces','action'=>'delete', $equipmentspace['EquipmentSpace']['id']),
                             array('method' => 'post','class'=>'confirm','data-dialog_msg'=>'Confirm delete of '.$equipmentspace['EquipmentSpace']['name']),
                             null

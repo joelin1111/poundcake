@@ -82,7 +82,7 @@
             //$radio['name'] = "test";
             //debug( $radio['name'] );
             //debug( $radio['id'] );
-            echo $this->MyHtml->linkIfAllowed($radio['name'], array(
+            echo $this->PoundcakeHTML->linkIfAllowed($radio['name'], array(
                 'controller' => 'networkRadios',
                 'action' => 'view',
                 $radio['id']));

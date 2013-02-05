@@ -3,7 +3,7 @@
     <H3>Actions</H3>
     <div class="well well-large">
     <ul>
-        <li><?php echo $this->MyHTML->linkIfAllowed('New Radio', array('action' => 'add')); ?></li>
+        <li><?php echo $this->PoundcakeHTML->linkIfAllowed('New Radio', array('action' => 'add')); ?></li>
     </ul>
     </div>
     
@@ -44,10 +44,10 @@
         <td><?php echo $networkradio['RadioType']['name'];?></td>
         <td>
             <?php
-                echo $this->MyHTML->linkIfAllowed('Edit', array('action' => 'edit', $networkradio['NetworkRadio']['id']));
+                echo $this->PoundcakeHTML->linkIfAllowed('Edit', array('action' => 'edit', $networkradio['NetworkRadio']['id']));
                 echo '&nbsp;';
-                //echo $this->MyHTML->postLinkIfAllowed(__('Delete'), array('action' => 'delete', $networkradio['NetworkRadio']['id']), null, __('Are you sure you want to delete radio %s?', $networkradio['NetworkRadio']['name']));
-                echo $this->MyHTML->postLinkIfAllowed('Delete',
+                //echo $this->PoundcakeHTML->postLinkIfAllowed(__('Delete'), array('action' => 'delete', $networkradio['NetworkRadio']['id']), null, __('Are you sure you want to delete radio %s?', $networkradio['NetworkRadio']['name']));
+                echo $this->PoundcakeHTML->postLinkIfAllowed('Delete',
                     array('controller'=>'networkRadios','action'=>'delete', $networkradio['NetworkRadio']['id']),
                     array('method' => 'post','class'=>'confirm','data-dialog_msg'=>'Confirm delete of '.$networkradio['NetworkRadio']['name']),
                     null

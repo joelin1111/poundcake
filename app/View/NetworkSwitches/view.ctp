@@ -3,10 +3,10 @@
     <H3>Actions</H3>
     <div class="well well-large">
     <ul>
-        <li><?php echo $this->MyHTML->linkIfAllowed('View Alarms', array('action'=>'alarms', $networkswitch['NetworkSwitch']['id']),1);?></li>
-        <li><?php echo $this->MyHTML->linkIfAllowed('Edit Switch', array('action'=>'edit', $networkswitch['NetworkSwitch']['id']),1);?></li>
+        <li><?php echo $this->PoundcakeHTML->linkIfAllowed('View Alarms', array('action'=>'alarms', $networkswitch['NetworkSwitch']['id']),1);?></li>
+        <li><?php echo $this->PoundcakeHTML->linkIfAllowed('Edit Switch', array('action'=>'edit', $networkswitch['NetworkSwitch']['id']),1);?></li>
         <li><?php
-            echo $this->MyHTML->postLinkIfAdmin('Provision Switch',
+            echo $this->PoundcakeHTML->postLinkIfAdmin('Provision Switch',
                 array('controller'=>'networkSwitches','action'=>'provision', $networkswitch['NetworkSwitch']['id'] ),
                 array('method' => 'post','class'=>'confirm','data-dialog_msg'=>'Provision switch '.$networkswitch['NetworkSwitch']['name'].' into monitoring system'),
                 null,

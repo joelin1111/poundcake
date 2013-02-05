@@ -27,7 +27,7 @@
                 <?php
                     echo $this->Html->link('Edit', array('action' => 'edit', $monitoringSystemType['MonitoringSystemType']['id']));
                     echo '&nbsp;';
-                    echo $this->MyHTML->postLinkIfAllowed('Delete',
+                    echo $this->PoundcakeHTML->postLinkIfAllowed('Delete',
                             array('controller'=>'monitoringsystemtypes','action'=>'delete', $monitoringSystemType['MonitoringSystemType']['id']),
                             array('method' => 'post','class'=>'confirm','data-dialog_msg'=>'Confirm delete of '.$monitoringSystemType['MonitoringSystemType']['name']),
                             null

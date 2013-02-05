@@ -31,7 +31,7 @@ class ChangeLogController extends AppController {
      * Uses our custom HTML helper to handle hyperlinks based on ACL permissions
      */
     var $helpers = array(
-        'MyHTML',
+        'PoundcakeHTML',
     );
     
     /*

@@ -25,9 +25,9 @@
             <td><?php echo $role['Role']['name'];?></td>
             <td>
                 <?php
-                    echo $this->MyHtml->linkIfAllowed('Edit', array('action' => 'edit', $role['Role']['id']));
+                    echo $this->PoundcakeHTML->linkIfAllowed('Edit', array('action' => 'edit', $role['Role']['id']));
                     echo '&nbsp;';
-                    echo $this->MyHTML->postLinkIfAllowed('Delete',
+                    echo $this->PoundcakeHTML->postLinkIfAllowed('Delete',
                         array('controller'=>'roles','action'=>'delete', $role['Role']['id']),
                         array('method' => 'post','class'=>'confirm','data-dialog_msg'=>'Confirm delete of '.$role['Role']['name']),
                         null

@@ -27,9 +27,9 @@ App::uses('NetworkDeviceController', 'Controller');
 class NetworkSwitchesController extends NetworkDeviceController {
 
     /*
-     * MyHTML makes de-links hyperlinks for view-only users
+     * PoundcakeHTML makes de-links hyperlinks for view-only users
      */
-    var $helpers = array('MyHTML');
+    var $helpers = array('PoundcakeHTML');
     
     /*
      * Main listing for all NetworkSwitches

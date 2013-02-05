@@ -3,7 +3,7 @@
     <H3>Actions</H3>
     <div class="well well-large">
     <ul>
-        <li><?php echo $this->MyHTML->linkIfAllowed('View Switch', array('action'=>'view', $id ));?></li>
+        <li><?php echo $this->PoundcakeHTML->linkIfAllowed('View Switch', array('action'=>'view', $id ));?></li>
     </ul>
     </div>
 </div><!-- /.span3 .sb-fixed -->

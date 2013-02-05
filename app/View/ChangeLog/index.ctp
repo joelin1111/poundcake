@@ -3,7 +3,7 @@
     <H3>Actions</H3>
     <div class="well well-large">
     <ul>
-        <li><?php echo $this->MyHtml->linkIfAllowed('New Change', array('action' => 'add')); ?></li>
+        <li><?php echo $this->PoundcakeHTML->linkIfAllowed('New Change', array('action' => 'add')); ?></li>
     </ul>
     </div>
 </div><!-- /.span3 .sb-fixed -->
@@ -40,9 +40,9 @@
             </td>
             <td>
             <?php
-                echo $this->MyHTML->linkIfAdmin('Edit', array('action' => 'edit', $change['ChangeLog']['id']));
+                echo $this->PoundcakeHTML->linkIfAdmin('Edit', array('action' => 'edit', $change['ChangeLog']['id']));
                 echo '&nbsp;';
-                echo $this->MyHTML->postLinkIfAllowed('Delete',
+                echo $this->PoundcakeHTML->postLinkIfAllowed('Delete',
                             array('controller'=>'changelog','action'=>'delete', $change['ChangeLog']['id']),
                             array('method' => 'post','class'=>'confirm','data-dialog_msg'=>'Confirm delete of '.$change['ChangeLog']['version']),
                             null

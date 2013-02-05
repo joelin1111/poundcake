@@ -26,11 +26,11 @@ class SitesController extends AppController
     /*
      * Helpers we use:
      * - AjaxMultiUpload is used for the file upload plugin
-     * - MyHTML makes de-links hyperlinks for view-only users
+     * - PoundcakeHTML makes de-links hyperlinks for view-only users
      */
     var $helpers = array(
         'AjaxMultiUpload.Upload',
-        'MyHTML',
+        'PoundcakeHTML',
         'Fancybox.Fancybox'
     );
     

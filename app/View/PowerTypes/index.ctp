@@ -27,7 +27,7 @@
                 <?php
                     echo $this->Html->link('Edit', array('action' => 'edit', $powerType['PowerType']['id']));
                     echo '&nbsp;';
-                    echo $this->MyHTML->postLinkIfAllowed('Delete',
+                    echo $this->PoundcakeHTML->postLinkIfAllowed('Delete',
                         array('controller'=>'powertypes','action'=>'delete', $powerType['PowerType']['id']),
                         array('method' => 'post','class'=>'confirm','data-dialog_msg'=>'Confirm delete of '.$powerType['PowerType']['name']),
                         null

@@ -29,7 +29,7 @@
             <?php
                 echo $this->Html->link('Edit', array('action' => 'edit', $towerequipment['TowerType']['id']));
                 echo '&nbsp;';
-                echo $this->MyHTML->postLinkIfAllowed('Delete',
+                echo $this->PoundcakeHTML->postLinkIfAllowed('Delete',
                     array('controller'=>'towertypes','action'=>'delete', $towerequipment['TowerType']['id']),
                     array('method' => 'post','class'=>'confirm','data-dialog_msg'=>'Confirm delete of '.$towerequipment['TowerType']['name']),
                     null

@@ -27,7 +27,7 @@
                 <?php
                     echo $this->Html->link('Edit', array('action' => 'edit', $radioType['RadioType']['id']));
                     echo '&nbsp;';
-                    echo $this->MyHTML->postLinkIfAllowed('Delete',
+                    echo $this->PoundcakeHTML->postLinkIfAllowed('Delete',
                         array('controller'=>'radiotypes','action'=>'delete', $radioType['RadioType']['id']),
                         array('method' => 'post','class'=>'confirm','data-dialog_msg'=>'Confirm delete of '.$radioType['RadioType']['name']),
                         null

@@ -31,10 +31,10 @@ class ProjectsController extends AppController {
 
     /*
      * Helpers we use:
-     * - MyHTML makes de-links hyperlinks for view-only users
+     * - PoundcakeHTML makes de-links hyperlinks for view-only users
      */
     var $helpers = array(
-        'MyHTML'
+        'PoundcakeHTML'
     );
     
     /*

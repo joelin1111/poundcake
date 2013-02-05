@@ -3,7 +3,7 @@
     <H3>Actions</H3>
     <div class="well well-large">
     <ul>
-        <li><?php echo $this->MyHTML->linkIfAllowed('New Contact', array('action' => 'add')); ?></li>
+        <li><?php echo $this->PoundcakeHTML->linkIfAllowed('New Contact', array('action' => 'add')); ?></li>
     </ul>
     </div>
     <H3>Search</H3>
@@ -64,10 +64,10 @@
             <td><?php echo $contact['Organization']['name'];?></td>
             <td><?php echo $contact['Contact']['priority'];?></td>
             <td>
-            <?php echo $this->MyHTML->linkIfAllowed(('Edit'), array('action' => 'edit', $contact['Contact']['id'])); ?>
-            <?php //echo $this->MyHTML->postLinkIfAllowed(('Delete'), array('action' => 'delete', $contact['Contact']['id']), null, __('Are you sure you want to delete contact %s?', $contact['Contact']['first_name'])); ?>
+            <?php echo $this->PoundcakeHTML->linkIfAllowed(('Edit'), array('action' => 'edit', $contact['Contact']['id'])); ?>
+            <?php //echo $this->PoundcakeHTML->postLinkIfAllowed(('Delete'), array('action' => 'delete', $contact['Contact']['id']), null, __('Are you sure you want to delete contact %s?', $contact['Contact']['first_name'])); ?>
             <?php
-                echo $this->MyHTML->postLinkIfAllowed('Delete',
+                echo $this->PoundcakeHTML->postLinkIfAllowed('Delete',
                     array('controller'=>'contacts','action'=>'delete', $contact['Contact']['id']),
                     array('method' => 'post','class'=>'confirm','data-dialog_msg'=>'Confirm delete of '.$contact['Contact']['name_vf']),
                     null

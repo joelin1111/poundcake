@@ -27,7 +27,7 @@
                 <?php
                     echo $this->Html->link('Edit', array('action' => 'edit', $contactType['ContactType']['id']));
                     echo '&nbsp;';
-                    echo $this->MyHTML->postLinkIfAllowed('Delete',
+                    echo $this->PoundcakeHTML->postLinkIfAllowed('Delete',
                             array('controller'=>'contacttypes','action'=>'delete', $contactType['ContactType']['id']),
                             array('method' => 'post','class'=>'confirm','data-dialog_msg'=>'Confirm delete of '.$contactType['ContactType']['name']),
                             null

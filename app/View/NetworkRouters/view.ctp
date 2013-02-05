@@ -3,10 +3,10 @@
     <H3>Actions</H3>
     <div class="well well-large">
     <ul>
-        <li><?php echo $this->MyHTML->linkIfAllowed('View Alarms', array('action'=>'alarms', $networkrouter['NetworkRouter']['id']),1);?></li>
-        <li><?php echo $this->MyHTML->linkIfAllowed('Edit Router', array('action'=>'edit', $networkrouter['NetworkRouter']['id']),1);?></li>
+        <li><?php echo $this->PoundcakeHTML->linkIfAllowed('View Alarms', array('action'=>'alarms', $networkrouter['NetworkRouter']['id']),1);?></li>
+        <li><?php echo $this->PoundcakeHTML->linkIfAllowed('Edit Router', array('action'=>'edit', $networkrouter['NetworkRouter']['id']),1);?></li>
         <li><?php
-            echo $this->MyHTML->postLinkIfAdmin('Provision Router',
+            echo $this->PoundcakeHTML->postLinkIfAdmin('Provision Router',
                 array('controller'=>'networkRouters','action'=>'provision', $networkrouter['NetworkRouter']['id'] ),
                 array('method' => 'post','class'=>'confirm','data-dialog_msg'=>'Provision router '.$networkrouter['NetworkRouter']['name'].' into monitoring system'),
                 null,

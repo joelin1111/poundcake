@@ -3,10 +3,10 @@
     <H3>Actions</H3>
     <div class="well well-large">
     <ul>
-        <li><?php echo $this->MyHTML->linkIfAllowed('View Alarms', array('action'=>'alarms', $networkradio['NetworkRadio']['id']),1);?></li>
-        <li><?php echo $this->MyHTML->linkIfAllowed('Edit Radio', array('action'=>'edit', $networkradio['NetworkRadio']['id']),1);?></li>
+        <li><?php echo $this->PoundcakeHTML->linkIfAllowed('View Alarms', array('action'=>'alarms', $networkradio['NetworkRadio']['id']),1);?></li>
+        <li><?php echo $this->PoundcakeHTML->linkIfAllowed('Edit Radio', array('action'=>'edit', $networkradio['NetworkRadio']['id']),1);?></li>
         <li><?php
-            echo $this->MyHTML->postLinkIfAdmin('Provision Radio',
+            echo $this->PoundcakeHTML->postLinkIfAdmin('Provision Radio',
                 array('controller'=>'networkRadios','action'=>'provision', $networkradio['NetworkRadio']['id'] ),
                 array('method' => 'post','class'=>'confirm','data-dialog_msg'=>'Provision radio '.$networkradio['NetworkRadio']['name'].' into monitoring system'),
                 null,
@@ -116,7 +116,7 @@
                 <td>
                     <?php
                     
-                        echo $this->MyHtml->linkIfAllowed(
+                        echo $this->PoundcakeHTML->linkIfAllowed(
                             $link['network_radios']['name'],
                             array('action' => 'view',
                                 $link['radios_radios']['dest_radio_id']
@@ -151,7 +151,7 @@
                 <td>
                     <?php
                         /*
-                        echo $this->MyHTML->postLinkIfAllowed(
+                        echo $this->PoundcakeHTML->postLinkIfAllowed(
                             'Pull Config',
                             array(
                                 'action' => 'pullConfig',
@@ -162,7 +162,7 @@
                             null,
                             'Pull SSID, frequency and mode from '.$link['network_radios']['name'].'?');
                         */
-                        echo $this->MyHTML->postLinkIfAllowed('Pull Config',
+                        echo $this->PoundcakeHTML->postLinkIfAllowed('Pull Config',
                             array('controller'=>'networkRadios','action'=>'pullConfig', $networkradio['NetworkRadio']['id'],$link['radios_radios']['dest_radio_id']),
                             array('method' => 'post','class'=>'confirm','data-dialog_msg'=>'Pull config from '.$networkradio['NetworkRadio']['name']),
                             null,

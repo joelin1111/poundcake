@@ -43,11 +43,11 @@ class AppController extends Controller {
 
     /*
      * Helpers we use:
-     * - MyHTML makes de-links hyperlinks for view-only users
+     * - PoundcakeHTML makes de-links hyperlinks for view-only users
      * - Less.Less @see http://mindthecode.com/using-less-in-cakephp/
      */
     var $helpers = array(
-        'MyHTML',
+        'PoundcakeHTML',
         'Less.Less' 
     );
     

@@ -25,9 +25,9 @@ App::uses('NetworkDeviceController', 'Controller');
 class NetworkRoutersController extends NetworkDeviceController {
 
     /*
-     * MyHTML makes de-links hyperlinks for view-only users
+     * PoundcakeHTML makes de-links hyperlinks for view-only users
      */
-    var $helpers = array('MyHTML');
+    var $helpers = array('PoundcakeHTML');
     
     /*
      * Custom pagination, sort order on index listing

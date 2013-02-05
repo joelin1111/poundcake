@@ -8,7 +8,7 @@
 //        
 //        //echo '&nbsp;'.$allSiteStates[$i]['SiteState']['name'];
 //        echo '&nbsp;';
-//        echo $this->MyHTML->linkIfAllowed(
+//        echo $this->PoundcakeHTML->linkIfAllowed(
 //                $allSiteStates[$i]['SiteState']['name'],
 //                array(
 //                    'controller' => 'sites',
@@ -27,7 +27,7 @@
         echo '<img src="data:'.$allSiteStates[$i]['SiteState']['img_type'].';base64,'.base64_encode( $allSiteStates[$i]['SiteState']['img_data'] ) . '" />';
         //echo '&nbsp;'.$allSiteStates[$i]['SiteState']['name'];
         echo '</td><td>';
-        echo $this->MyHTML->linkIfAllowed(
+        echo $this->PoundcakeHTML->linkIfAllowed(
                 $allSiteStates[$i]['SiteState']['name'],
                 array(
                     'controller' => 'sites',

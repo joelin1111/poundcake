@@ -22,12 +22,12 @@
 	<?php
 	foreach ($projects as $project): ?>
 	<tr>
-            <td><?php echo $this->MyHtml->linkIfAllowed($project['Project']['name'], array('action' => 'view', $project['Project']['id'])); ?></td>
+            <td><?php echo $this->PoundcakeHTML->linkIfAllowed($project['Project']['name'], array('action' => 'view', $project['Project']['id'])); ?></td>
             <td>
                 <?php
-                    echo $this->MyHtml->linkIfAllowed('Edit', array('action' => 'edit', $project['Project']['id']));
+                    echo $this->PoundcakeHTML->linkIfAllowed('Edit', array('action' => 'edit', $project['Project']['id']));
                     echo '&nbsp;';
-                    echo $this->MyHTML->postLinkIfAllowed('Delete',
+                    echo $this->PoundcakeHTML->postLinkIfAllowed('Delete',
                             array('controller'=>'projects','action'=>'delete', $project['Project']['id']),
                             array('method' => 'post','class'=>'confirm','data-dialog_msg'=>'Confirm delete of '.$project['Project']['name']),
                             null

@@ -27,7 +27,7 @@
             <?php
                 echo $this->Html->link('Edit', array('action' => 'edit', $towermember['TowerMember']['id']));
                 echo '&nbsp;';
-                echo $this->MyHTML->postLinkIfAllowed('Delete',
+                echo $this->PoundcakeHTML->postLinkIfAllowed('Delete',
                             array('controller'=>'towermembers','action'=>'delete', $towermember['TowerMember']['id']),
                             array('method' => 'post','class'=>'confirm','data-dialog_msg'=>'Confirm delete of '.$towermember['TowerMember']['name']),
                             null

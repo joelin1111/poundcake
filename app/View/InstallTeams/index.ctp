@@ -29,7 +29,7 @@
             <?php
                 echo $this->Html->link('Edit', array('action' => 'edit', $team['InstallTeam']['id']));            
                 echo '&nbsp;';
-                echo $this->MyHTML->postLinkIfAllowed('Delete',
+                echo $this->PoundcakeHTML->postLinkIfAllowed('Delete',
                             array('controller'=>'installteams','action'=>'delete', $team['InstallTeam']['id']),
                             array('method' => 'post','class'=>'confirm','data-dialog_msg'=>'Confirm delete of '.$team['InstallTeam']['name']),
                             null

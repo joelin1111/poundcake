@@ -28,7 +28,7 @@
                 <?php
                     echo $this->Html->link('Edit', array('action' => 'edit', $zone['Zone']['id']));
                     echo '&nbsp;';
-                    echo $this->MyHTML->postLinkIfAllowed('Delete',
+                    echo $this->PoundcakeHTML->postLinkIfAllowed('Delete',
                         array('controller'=>'zones','action'=>'delete', $zone['Zone']['id']),
                         array('method' => 'post','class'=>'confirm','data-dialog_msg'=>'Confirm delete of '.$zone['Zone']['name']),
                         null

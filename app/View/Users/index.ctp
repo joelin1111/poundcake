@@ -56,7 +56,7 @@
                         echo '&nbsp;';
                         echo $this->Html->link('Permissions', array('action' => 'permissions', $user['User']['id']));
                         echo '&nbsp;';
-                        echo $this->MyHTML->postLinkIfAllowed('Delete',
+                        echo $this->PoundcakeHTML->postLinkIfAllowed('Delete',
                             array('controller'=>'users','action'=>'delete', $user['User']['id']),
                             array('method' => 'post','class'=>'confirm','data-dialog_msg'=>'Confirm delete of '.$user['User']['username']),
                             null

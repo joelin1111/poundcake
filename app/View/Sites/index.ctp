@@ -4,14 +4,14 @@
     <H3>Actions</H3>
     <div class="well well-large">
         <ul>
-        <li><?php echo $this->MyHTML->linkIfAllowed('New Site', array('action' => 'add')); ?></li>
-        <li><?php echo $this->MyHTML->linkIfAdmin('KML Import', array('action' => 'import')); ?></li>
+        <li><?php echo $this->PoundcakeHTML->linkIfAllowed('New Site', array('action' => 'add')); ?></li>
+        <li><?php echo $this->PoundcakeHTML->linkIfAdmin('KML Import', array('action' => 'import')); ?></li>
         <li><?php
             // make the KML link that appears in the URL bar a little prettier by removing: whitespace, (, )
             // this is basiclly duplicated in SitesController::export
             //$project_name = preg_replace('/\s+/', '', $this->Session->read('project_name'));
             //$project_name = preg_replace('/(\(|\))/', '', $project_name);
-            echo $this->MyHTML->linkIfAllowed('KML Export', array('action'=>'export', 'ext'=>'kml' ));
+            echo $this->PoundcakeHTML->linkIfAllowed('KML Export', array('action'=>'export', 'ext'=>'kml' ));
             ?>
         </li>        
     </ul>
@@ -83,10 +83,10 @@
            <td><?php echo $site['Zone']['name']; ?></td>
            <td>
 <!--               <button class="btn btn-mini"></button>-->
-            <?php echo $this->MyHTML->linkIfAllowed('Edit', array('action'=>'edit', $site['Site']['id']));?>
+            <?php echo $this->PoundcakeHTML->linkIfAllowed('Edit', array('action'=>'edit', $site['Site']['id']));?>
             <?php
-                // echo $this->MyHTML->postLinkIfAllowed('Delete', array('action' => 'delete', $site['Site']['id']), null, 'Are you sure?' )
-                echo $this->MyHTML->postLinkIfAllowed('Delete',
+                // echo $this->PoundcakeHTML->postLinkIfAllowed('Delete', array('action' => 'delete', $site['Site']['id']), null, 'Are you sure?' )
+                echo $this->PoundcakeHTML->postLinkIfAllowed('Delete',
                         array('controller'=>'sites','action'=>'delete', $site['Site']['id']),
                         array('method' => 'post','class'=>'confirm','data-dialog_msg'=>'Confirm delete of '.$site['Site']['name']),
                         null
