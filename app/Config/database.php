@@ -109,7 +109,7 @@ class DATABASE_CONFIG {
             'persistent' => false,
             'host' => '200.113.226.67',
             'login' => 'addrpool_viewer',
-            'password' => '#S+B{~5G#^|mV8L',
+            'password' => 'jM3MsXsH4j0Q4J5',
             'database' => 'addrpool',
             'prefix' => '',
             //'encoding' => 'utf8',
