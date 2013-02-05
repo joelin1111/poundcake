@@ -17,7 +17,7 @@
     <H3>Actions</H3>
     <div class="well well-large">
     <ul>
-        <li><?php echo $this->MyHTML->linkIfAllowed('Edit Site', array('action'=>'edit', $site['Site']['id']),1);?></li>
+        <li><?php echo $this->PoundcakeHTML->linkIfAllowed('Edit Site', array('action'=>'edit', $site['Site']['id']),1);?></li>
         <li><?php echo $this->Html->link('List Sites', array('action'=>'index')); ?></li>
         <li><?php echo $this->Html->link('Equipment List', array('action'=>'view', 'ext'=>'pdf', $site['Site']['id']));?></li>
         <li><?php
@@ -133,20 +133,29 @@
     
     <P><B>Power Type:</B>&nbsp;<?php echo $site['PowerType']['name']; ?></P>
     <P><B>Switch:</B>&nbsp;<?php
-        echo $this->Html->link(
-                $site['NetworkSwitch']['name'],
-                array(
-                    'controller' => 'networkSwitches',
-                    'action' => 'view',
-                    $site['NetworkSwitch']['id']));
+        if ( isset($site['NetworkSwitch']['name']) ) {
+            echo $this->element('Common/site_status_icon', array('status' => $site['NetworkSwitch']['is_down']));
+            echo '&nbsp;';
+            echo $this->Html->link(
+                    $site['NetworkSwitch']['name'],
+                    array(
+                        'controller' => 'networkSwitches',
+                        'action' => 'view',
+                        $site['NetworkSwitch']['id']));
+        }
     ?></P>
-    <P><B>Router:</B>&nbsp;<?php
-        echo $this->Html->link(
-                $site['NetworkRouter']['name'],
-                array(
-                    'controller' => 'networkRouters',
-                    'action' => 'view',
-                    $site['NetworkRouter']['id']));
+    <P><B>Router:</B>&nbsp;        
+        <?php
+        if ( isset($site['NetworkRouter']['name']) ) {
+            echo $this->element('Common/site_status_icon', array('status' => $site['NetworkRouter']['is_down']));
+            echo '&nbsp;';
+            echo $this->Html->link(
+                    $site['NetworkRouter']['name'],
+                    array(
+                        'controller' => 'networkRouters',
+                        'action' => 'view',
+                        $site['NetworkRouter']['id']));
+        }
     ?></P>
     
     <P><B>Radios:</B>&nbsp;
