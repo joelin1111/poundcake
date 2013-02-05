@@ -59,61 +59,70 @@
  */
 class DATABASE_CONFIG {
 
-	public $default = array(
-		'datasource' => 'Database/Mysql',
-		'persistent' => false,
-		'host' => 'localhost',
-		'login' => 'poundcake',
-		'password' => 'poundcake',
-		'database' => 'poundcake',
-		'prefix' => '',
-		'encoding' => 'utf8',
-	);
-        /*
-	public $addrpool = array(
-		'datasource' => 'Database/Mysql',
-		'persistent' => false,
-		'host' => '10.0.2.6',
-		'login' => 'addrpool-viewer',
-		'password' => '{*6<j0:fLV<k,93',
-		'database' => 'addrpool',
-		'prefix' => '',
-		//'encoding' => 'utf8',
-	);
-        */
-        public $addrpool = array(
-		'datasource' => 'Database/Mysql',
-		'persistent' => false,
-		'host' => 'localhost',
-		'login' => 'root',
-		'password' => 'root',
-		'database' => 'addrpool',
-		'prefix' => '',
-		//'encoding' => 'utf8',
-	);
-        
+    /*
+     * Tower DB in Clark's development environment
+     */
+    var $default_dev = array(
+            'datasource' => 'Database/Mysql',
+            'persistent' => false,
+            'host' => 'localhost',
+            'login' => 'poundcake',
+            'password' => 'poundcake',
+            'database' => 'poundcake',
+            'prefix' => '',
+            'encoding' => 'utf8',
+    );
+
+    /*
+     * Addrpool in Clark's development environment
+     */
+    public $addrpool_dev = array(
+            'datasource' => 'Database/Mysql',
+            'persistent' => false,
+            'host' => 'localhost',
+            'login' => 'root',
+            'password' => 'root',
+            'database' => 'addrpool',
+            'prefix' => '',
+            //'encoding' => 'utf8',
+    );
+    
+    /*
+     * Tower DB on waldorf.inveneo.org
+     */
+    public $default_prod = array(
+            'datasource' => 'Database/Mysql',
+            'persistent' => false,
+            'host' => 'localhost',
+            'login' => 'poundcake',
+            'password' => '#S+B{~5G#^|mV8L',
+            'database' => 'poundcake',
+            'prefix' => '',
+            'encoding' => 'utf8',
+    );
+
+    /*
+     * Addrpool on waldorf.inveneo.org
+     */
+    public $addrpool_prod = array(
+            'datasource' => 'Database/Mysql',
+            'persistent' => false,
+            'host' => 'localhost',
+            'login' => 'poundcake',
+            'password' => '#S+B{~5G#^|mV8L',
+            'database' => 'addrpool',
+            'prefix' => '',
+            //'encoding' => 'utf8',
+    );
+
+    public function __construct() {
+        $host = php_uname('n');
+        if ( $host === 'Catapult-Clarks-MacBook.local' ) {
+            $this->default = $this->default_dev;
+            $this->addrpool = $this->addrpool_dev;
+        } else {
+            $this->default = $this->default_prod;
+            $this->addrpool = $this->addrpool_prod;
+        }
+    }
 }
-
-/*
- * http://www.edwardawebb.com/web-development/cakephp/automatically-choose-database-connections-cakephp
-
-// the construct function is called automatically, and chooses prod or dev. UPdate! works for baking now
-	function __construct ()
-	{		
-		//check to see if server name is set (thanks Frank)
-		if(isset($_SERVER['SERVER_NAME'])){
-			switch($_SERVER['SERVER_NAME']){
-				case 'digbiz.localhost':
-					$this->default = $this->dev;
-					break;
-				case 'digbiz.example.com':
-					$this->default = $this->prod;
-					break;
-			}
-		}
-	    else // we are likely baking, use our local db
-	    {
-	        $this->default = $this->dev;
-	    }
-	}
- */

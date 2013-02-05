@@ -823,17 +823,9 @@ class SitesController extends AppController
     }
     
     /*
-     * View a site
-     */
-    function view($id = null) {
-        $this->view( $id );
-        $this->setDefaultLatLongZoom( $this->Session->read('project_id') );
-    }
-    
-    /*
      * View a site (original, now deprecated)
      */
-    function view_old($id = null) {
+    function view($id = null) {
         $this->Site->id = $id;
         $this->set('id',$id);
         
@@ -1552,7 +1544,7 @@ class SitesController extends AppController
                         }
                         
                         echo '<pre>  count: '. $count .' is_down: '.$is_down.' is_down_old: '.$is_down_old.'<br>';
-                        // if there are devices provisioned ($count > 0)
+                        // if there are 829ices provisioned ($count > 0)
                         // ...and at least one of them is down (is_down > 0)
                         // ...and we've not yet updated the site's status ($is_down_old = -1)
                         // set is_down_old to 0 so that the update happens below

@@ -34,10 +34,12 @@
  */
     
     $host = php_uname('n');
-    if ( $host === 'Catapult-Clarks-MacBook.local' )
+    if ( $host === 'Catapult-Clarks-MacBook.local' ) {
         $dbg = 2;
-    else
+    } else {
         $dbg = 0;
+    }
+    
     Configure::write('debug', $dbg );
     
 /**
