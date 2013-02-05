@@ -18,14 +18,14 @@
       ?>
     <span class="help-block"></span>
     <?php
-        echo $this->Form->submit('Search', array('div' => false,'class'=>'btn'));
+        echo $this->Form->submit('Search', array('div' => false,'class'=>'btn btn-primary'));
         echo $this->Form->end(); 
     ?>
 </div><!-- /.span3 .sb-fixed -->
 
 <div class="span9">
 	<h2>Users</h2>
-	<table class="table table-condensed table-striped">
+	<table class="table table-condensed table-striped table-hover">
             <thead>
                 <tr>
                     <th><?php echo $this->Paginator->sort('name'); ?></th>

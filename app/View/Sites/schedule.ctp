@@ -15,7 +15,7 @@
         echo $teamname;
         ?>
     </h3>
-<table class="table table-condensed table-striped">
+<table class="table table-condensed table-striped table-hover">
 <thead>
    <tr>
        <th>Date</th>

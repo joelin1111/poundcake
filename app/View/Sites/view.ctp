@@ -7,7 +7,9 @@
     } else {
         echo $this->Html->script('http://maps.google.com/maps/api/js?sensor=true',false);
     }
-    echo $this->Html->script('gears_init');    
+    echo $this->Html->script('gears_init');
+    echo $this->Html->script('jquery-ui-map/jquery.ui.map');
+    echo $this->Html->script('poundcake/poundcake-map');
 ?>
 
 <div class="row">
@@ -15,14 +17,6 @@
     <H3>Actions</H3>
     <div class="well well-large">
     <ul>
-        <li><?php
-            // make the KML link that appears in the URL bar a little prettier by removing: whitespace, (, )
-            // this is basiclly duplicated in SitesController::export
-            $project_name = preg_replace('/\s+/', '', $this->Session->read('project_name'));
-            $project_name = preg_replace('/(\(|\))/', '', $project_name);
-            echo $this->MyHTML->linkIfAllowed('KML Export', array('action'=>'export', 'ext'=>'kml', $site['Site']['id']));
-            ?>
-        </li>
         <li><?php echo $this->MyHTML->linkIfAllowed('Edit Site', array('action'=>'edit', $site['Site']['id']),1);?></li>
         <li><?php echo $this->Html->link('List Sites', array('action'=>'index')); ?></li>
         <li><?php echo $this->Html->link('Equipment List', array('action'=>'view', 'ext'=>'pdf', $site['Site']['id']));?></li>
@@ -32,69 +26,84 @@
         </li>
     </ul>
     </div>
+    
+
 </div><!-- /.span3 .sb-fixed -->
 
-<div class="span9">
-    <div class="row">
-        <h2><?php echo $site['Site']['code']." ".$site['Site']['name'].' ('.$site['SiteState']['name'].')'?> </h2>            
-        <div class="span4">
-            <P><B>Site contacts:</B>&nbsp;
-                <?php
-                    if (!isset($contacts)) {
-                        echo "None";
-                    } else {
-                        echo "<P>";
-                        foreach ($contacts as $contact) {
-                            //echo "<LI>";
-                            echo "<I>Priority ".$contact['Contact']['priority']."</I><BR>";
-                            echo $this->Html->link(($contact['Contact']['name_vf']), array(
-                                'controller' => 'contacts',
-                                'action' => 'view',
-                                $contact['Contact']['id']));
-                            echo "<BR>".$contact['Contact']['phone']."</P>";
-                        }
-                    }
-                ?>
-            </P>
-            <P><B>GPS Coordinates:</B>&nbsp;<?php echo sprintf("%01.5f",$site['Site']['lat']) . ' ' . sprintf("%01.5f",$site['Site']['lon']) . '<br>'; ?> </P>
-            <P><B>Magnetic declination:</B>&nbsp;<?php echo sprintf("%01.5f",$site['Site']['declination']); ?></P>
-        </div>
-        <div class="well well-small span4">
-        <P><B>Quick Stats:</B>&nbsp;
+<div class="row">
+    <div class="span9">
+        <h2><?php echo $site['Site']['code']." ".$site['Site']['name'].' ('.$site['SiteState']['name'].')'?> </h2>   
+        <?php echo $this->element('Common/disclaimer'); ?>
+        
+        <P><B>Quick Stats:</B>
         <?php
-            echo $this->Form->create('Site', array('action' => 'view'));
-            echo $this->Form->input('sites', array('type'=>'select','options' => $sites,'label' => ''));
-            echo $this->Form->end;
+        echo $this->Form->create('Site', array('action' => 'view'));
+        echo $this->Form->input('sites', array('type'=>'select','options' => $sites,'label' => 'Select Remote Site' ));
+        echo $this->Form->end();
         ?>
-        <div id="RemoteSite">
-            (Select Remote Site)
-        </div>
-    </div> <!-- ./well -->
-    </div> <!-- ./row -->
-    
-    <P><B>Zone:</B>&nbsp;<?php echo $site['Zone']['name']; ?></P>
+        <div id="RemoteSite"></div>
+        <P><B>Site contacts:</B>&nbsp;
+            <?php
+                if (!isset($contacts)) {
+                    echo "None";
+                } else {
+                    echo "<P>";
+                    foreach ($contacts as $contact) {
+                        //echo "<LI>";
+                        echo "<I>Priority ".$contact['Contact']['priority']."</I><BR>";
+                        echo $this->Html->link(($contact['Contact']['name_vf']), array(
+                            'controller' => 'contacts',
+                            'action' => 'view',
+                            $contact['Contact']['id']));
+                        echo "<BR>".$contact['Contact']['phone']."</P>";
+                    }
+                }
+            ?>
+        </P>
+        <P><B>GPS Coordinates:</B>&nbsp;<?php echo sprintf("%01.5f",$site['Site']['lat']) . ' ' . sprintf("%01.5f",$site['Site']['lon']) . '<br>'; ?> </P>
+        <P><B>Magnetic declination:</B>&nbsp;<?php echo sprintf("%01.5f",$site['Site']['declination']); ?></P>
+   <P><B>Zone:</B>&nbsp;<?php echo $site['Zone']['name']; ?></P>
     
     <div class="map-frame">
+    <div id="map_canvas" style="width:700px;height:400px"></div>
+    <div id="radios" class="item gradient rounded shadow" style="margin:5px;padding:5px 5px 5px 10px;"></div>
+    
     <?php
-        // some of the sites may have apostrophes in their name
-        // addslashes seems to take care of that (since the map
-        // will throw an exception)
-        $windowText = addslashes($site['Site']['site_vf']);
-        
-        // draw the main map
-        $icon = 'data:'.$site['SiteState']['img_type'].';base64,'.base64_encode( $site['SiteState']['img_data'] );
-        echo $this->element('Common/map',
-                array(
-                    'windowText' => 'oo',//$windowText,
-                    'lat' => $site['Site']['lat'],
-                    'lon' => $site['Site']['lon'],
-                    'icon' => $icon
-                    )
-                );
+    echo $this->Form->create( 'google_map' );
+    echo $this->Form->input( 'default_lat', array('type'=>'hidden','value' => $site['Site']['lat']));
+    echo $this->Form->input( 'default_lon', array('type'=>'hidden','value' => $site['Site']['lon']));
+    echo $this->Form->input( 'default_zoom', array( 'type' => 'hidden', 'value' => 15));
+    echo $this->Form->input( 'fit_bounds', array( 'type' => 'hidden', 'value' => 0 ));
+
+    $sitestates = array( 'name' => $site['Site']['code'] );
+    $n = 0;
+    foreach ( $sitestates as $key => $val ) {
+        echo $this->Form->input( 'sitestate_'.$n, array('type'=>'hidden','value'=>$val ));
+        $n++;
+    }
+    echo $this->Form->end();
+    
+    $u = 0;
+    echo "<div style='visibility:hidden; position:absolute;'>";
+    echo '<ul>';
+    $icon = 'data:'.$site['SiteState']['img_type'].';base64,'.base64_encode( $site['SiteState']['img_data'] ); 
+    $item = array( 
+        'id' => 'm_'.$u,
+        'icon' => $icon,
+        // see this as to why this needs to be an array
+        // http://stackoverflow.com/questions/9881949/filterable-jquery-ui-map-google-map
+        'tags' => array( $site['Site']['code'] ),
+        'latlng' => array(
+            'lat' => $site['Site']['lat'],
+            'lng' => $site['Site']['lon'],
+        )
+    );
+    echo "<li data-gmapping='".json_encode($item)."'>";
+    echo '<p class="info-box"><a href="/sites/view/'.$site['Site']['id'].'">'.$site['Site']['site_vf'].'</a></p><br>';
+    echo "</li></ul></div>";
     ?>
     </div> <!-- /.map-frame -->
-    </p>
-
+    <BR>
     <P><B>Tower Guard</B>:&nbsp;<?php echo $site['Site']['tower_guard'];?></P>
     <P><B>Structure Type</B>:&nbsp;<?php echo $site['Site']['structure_type'];?></P>
     <P><B>Description</B>:&nbsp;<?php echo $site['Site']['description'];?></P>
@@ -253,6 +262,9 @@
                 foreach ( $images as $image ) {
                     $f = basename($image);                    
                     $url = $baseUrl . "/$f";
+//                    echo '<li><a href="'.$url.'" class="thumbnail">';
+//                    echo $this->PhpThumb->thumbnail($url, array('w' => 100, 'h' => 100, 'zc' => 1));
+//                    echo '</a></li>';                    
                     echo '<li class="span3"><a href="'.$url.'" class="fancybox3 fancybox.image" rel="gallery1">';
                     echo $this->Html->image( $url );
                     $this->Fancybox->setProperties( array( 
@@ -284,64 +296,8 @@
     ?>
     <P><B>Site last modified:</B>&nbsp; <?php echo date($format, strtotime( $site['Site']['modified'] )); ?>    
     </P>            
-    </div> <!-- /.span9 -->
-</div> <!-- /.row -->
-
-<?php
-    // draw links to remote sites
-    // and put placemarkers there, too
-    $i = 1; // markers must start at 1
-    if (count($radios) > 0) {
-        //echo '<pre>';
-        foreach ($radios as $radio) {
-            // it seems it's possible for a radio to get here without a lat/lon set on its link?
-            if (isset($radio['NetworkRadios']['link_lat'])) {
-                $link_lat = $radio['NetworkRadios']['link_lat'];
-                $link_lon = $radio['NetworkRadios']['link_lon'];
-                $windowText = $radio['NetworkRadios']['window_text'];
-                if (($link_lat != null) && ($link_lon != null)) {
-                    echo $this->GoogleMap->addPolyline(
-                            "map_canvas",
-                            "polyline1",
-                            array (
-                                "start" => array("latitude" =>$site['Site']['lat'] ,"longitude"=> $site['Site']['lon']),
-                                "end" => array("latitude" =>$link_lat ,"longitude"=> $link_lon)
-                            ),
-                            array (
-                                'strokeColor' => '4747B2',
-                                'strokeOpacity' => '0.5',
-                                'strokeWeight' => '3'
-                            )
-                            );
-
-                    $markerOptions = array (
-                       'id' => $i, // Id of the marker
-                       'latitude' => $link_lat,
-                       'longitude' => $link_lon,
-                       'markerIcon' => $radio['NetworkRadios']['link_icon'],
-                       'position' => null,
-                       'address' => null, // mysteriously started complaining about this field not being present
-                       //'shadowIcon' => 'http://google-maps-icons.googlecode.com/files/home.png', //Custom shadow
-                       'infoWindow' => true, // Boolean to show an information window when you click the marker or not
-                       'windowText' => $windowText // Text inside the information window
-                   );
-
-                    //echo '</pre>';
-                    // position is required by addMarker
-                    $position = array(
-                        'latitude' => $site['Site']['lat'],
-                        'longitude' => $site['Site']['lon']
-                    );
-                    //echo "<pre>".print_r($markerOptions)."</pre>";
-                    echo $this->GoogleMap->addMarker('map_canvas', $i, $position, $markerOptions);
-                    $i++;
-                }
-            }
-        }
-        
-    }
-    
-?>
+    </div> <!-- /.row -->
+</div> <!-- /.span9 -->
 
 <?php
     //$this->Js->get('#SiteSites')->event('change', $this->Js->alert('Compute Distance To Selected Site'));    

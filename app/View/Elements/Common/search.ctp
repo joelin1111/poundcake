@@ -31,7 +31,7 @@
         <a rel="sitestate_search" href="#clear_all">Clear Search</a><BR><BR>
         <!--<span class="help-block">Search is greedy, case-insensitive, * to wildcard further</span>-->
         <?php
-            echo $this->Form->submit('Search', array('div' => false,'class'=>'btn'));
+            echo $this->Form->submit('Search', array('div' => false,'class'=>'btn btn-primary'));
             echo $this->Form->end(); 
         ?>
     </div>

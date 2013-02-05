@@ -56,6 +56,6 @@
     echo $this->Form->input('Site.notes',array('style' => 'width:100%'));
     
     // no upload field since we don't have a Site.id until after save
-    echo $this->Form->end('Save', array('div' => false,'class'=>'btn'));
+    echo $this->Form->end('Save', array('div' => false,'class'=>'btn btn-primary'));
 ?>
 </fieldset>

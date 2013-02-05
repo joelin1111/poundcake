@@ -49,7 +49,7 @@
                     //echo $this->Form->checkbox('name', array('hiddenField' => false));
                     $u++;
                 }
-                //echo $this->Form->submit('Import', array('div' => false,'class'=>'btn'));
+                //echo $this->Form->submit('Import', array('div' => false,'class'=>'btn btn-primary'));
                 //echo $this->Form->end();
             ?>
                 <input class="btn" type="submit" value="Import"/>

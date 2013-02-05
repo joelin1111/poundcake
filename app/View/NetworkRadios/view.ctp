@@ -100,7 +100,7 @@
         
     <P><B>Link Information:</B>&nbsp;
         <?php foreach ($links as $link) { ?>
-        <table class="table table-condensed table-striped">
+        <table class="table table-condensed table-striped table-hover">
             <thead>
             <tr>
                 <th colspan="2">Radio Name</th>

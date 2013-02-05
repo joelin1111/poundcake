@@ -10,7 +10,7 @@
 
 <div class="span9">
     <h2>Switches</h2>
-    <table class="table table-condensed table-striped">
+    <table class="table table-condensed table-striped table-hover">
         <thead>
             <tr>
                 <th style="text-align: center;"><?php echo $this->Paginator->sort('is_down','Status'); ?></th>

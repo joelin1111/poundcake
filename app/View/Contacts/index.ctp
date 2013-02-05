@@ -27,7 +27,7 @@
             //'name' => 'Update',
             //'div' => array(        'class' => 'glass-pill',    ));
             'div' => false,
-            'class'=>'btn'
+            'class'=>'btn btn-primary'
             );
         echo $this->Form->end($options);
     ?>
@@ -35,7 +35,7 @@
 
 <div class="span9">
 	<h2>Contacts</h2>
-	<table class="table table-condensed table-striped">
+	<table class="table table-condensed table-striped table-hover">
             <thead>
                 <tr>
                     <th><?php echo $this->Paginator->sort('name_vf','Name'); ?></th>

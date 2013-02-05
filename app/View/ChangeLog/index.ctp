@@ -10,7 +10,7 @@
 
 <div class="span9">
 	<h2>Changes</h2>
-	<table class="table table-condensed table-striped">
+	<table class="table table-condensed table-striped table-hover">
             <thead>
                 <tr>
                     <th><?php echo $this->Paginator->sort('version'); ?></th>

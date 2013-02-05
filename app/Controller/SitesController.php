@@ -823,17 +823,17 @@ class SitesController extends AppController
     }
     
     /*
-     * Testing
+     * View a site
      */
-    function view_dev($id = null) {
+    function view($id = null) {
         $this->view( $id );
         $this->setDefaultLatLongZoom( $this->Session->read('project_id') );
     }
     
     /*
-     * View a site
+     * View a site (original, now deprecated)
      */
-    function view($id = null) {
+    function view_old($id = null) {
         $this->Site->id = $id;
         $this->set('id',$id);
         

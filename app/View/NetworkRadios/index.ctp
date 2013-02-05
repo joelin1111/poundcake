@@ -17,14 +17,14 @@
       ?>
     <span class="help-block"></span>
     <?php
-        echo $this->Form->submit('Search', array('div' => false,'class'=>'btn'));
+        echo $this->Form->submit('Search', array('div' => false,'class'=>'btn btn-primary'));
         echo $this->Form->end(); 
     ?>
 </div><!-- /.span3 .sb-fixed -->
 
 <div class="span9">
     <h2>Radios</h2>
-    <table class="table table-condensed table-striped">
+    <table class="table table-condensed table-striped table-hover">
         <thead>
             <tr>
                 <th style="width: 50px; text-align: center;"><?php echo $this->Paginator->sort('is_down','Status'); ?></th>

@@ -14,7 +14,7 @@
   </div>
 
   <div class="control-group">
-      <?php echo $this->Form->submit('Login', array('div' => false,'class'=>'btn')); ?>
+      <?php echo $this->Form->submit('Login', array('div' => false,'class'=>'btn btn-primary')); ?>
   </div>
 
   <div align="center">

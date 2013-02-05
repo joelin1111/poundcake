@@ -93,3 +93,27 @@ class DATABASE_CONFIG {
 	);
         
 }
+
+/*
+ * http://www.edwardawebb.com/web-development/cakephp/automatically-choose-database-connections-cakephp
+
+// the construct function is called automatically, and chooses prod or dev. UPdate! works for baking now
+	function __construct ()
+	{		
+		//check to see if server name is set (thanks Frank)
+		if(isset($_SERVER['SERVER_NAME'])){
+			switch($_SERVER['SERVER_NAME']){
+				case 'digbiz.localhost':
+					$this->default = $this->dev;
+					break;
+				case 'digbiz.example.com':
+					$this->default = $this->prod;
+					break;
+			}
+		}
+	    else // we are likely baking, use our local db
+	    {
+	        $this->default = $this->dev;
+	    }
+	}
+ */

@@ -28,14 +28,11 @@ $cakeDescription = __d('poundcake', 'Tower DB');
 	</title>
 	<?php
             // jQuery                
-            // echo $this->Html->script('jquery-1.9.0');
             echo $this->Html->script('jquery-1.9.0.min');
-            // echo $this->Html->script('jquery-ui-1.9.2.custom.min');
             echo $this->Html->script('jquery-ui/jquery-ui-1.10.0.custom.min');
-            
-            echo $this->Html->script('bootstrap'); // Bootstrap's jQuery file
+            echo $this->Html->script('bootstrap.min'); // Bootstrap's jQuery file
             echo $this->Html->script('poundcake/poundcake'); // Our custom jQuery file
-            echo $this->Html->script('bootbox'); // Bootbox jQuery -- for the dialogs
+            echo $this->Html->script('bootbox.min'); // Bootbox jQuery -- for the dialogs
             echo $this->Html->script('jquery.form'); // Testing this out, see http://www.malsup.com/jquery/form/#download
             
             echo $this->Html->meta('icon');
@@ -170,7 +167,11 @@ $cakeDescription = __d('poundcake', 'Tower DB');
             if ($current_year > 2012)
                 $copyright = '<BR>Copyright © 2012-'.$current_year;
             echo $copyright . ' All Rights Reserved.<BR>';
-            echo $this->Html->link(('Version History'), array('action' => 'index', 'controller' => 'changeLog'));
+            
+            // again, only show if logged in
+            if ( !(is_null($project_name))) {
+                echo $this->Html->link(('Version History'), array('action' => 'index', 'controller' => 'changeLog'));
+            }
         ?>
             
     <?php //echo $this->element('sql_dump'); ?>

@@ -46,8 +46,8 @@
 </div>
         <?php
             //echo $this->Form->file('File');
-            //echo $this->Form->end('Import',array('class'=>'btn'));
-            echo $this->Form->submit('Import', array('div' => false,'class'=>'btn'));
+            //echo $this->Form->end('Import',array('class'=>'btn btn-primary'));
+            echo $this->Form->submit('Import', array('div' => false,'class'=>'btn btn-primary'));
             echo $this->Form->end(); 
         ?>
         </div>

@@ -14,7 +14,7 @@
     <h2>Edit SNMP Version</h2>
     <?php
         echo $this->Form->input('name');
-        echo $this->Form->submit('Save', array('div' => false,'class'=>'btn'));
+        echo $this->Form->submit('Save', array('div' => false,'class'=>'btn btn-primary'));
         echo $this->Form->end(); 
     ?>
 </div> <!-- /.span9 -->

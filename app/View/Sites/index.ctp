@@ -38,9 +38,8 @@
 </div><!-- /.span3 .sb-fixed -->
 
 <div class="span9">
-    
-    <h3>Sites</h3>
-<table class="table table-condensed table-striped">
+<h2>Sites</h2>
+<table class="table table-condensed table-striped table-hover">
 <thead>
    <tr>
        <th style="width: 50px;text-align: center;"><?php echo $this->Paginator->sort('is_down','Status'); ?></th>
@@ -75,9 +74,9 @@
                 if (strlen($site['Site']['name']) > 20 ) {
                     $name .= "...";
                 }
-                echo $this->Html->link($name, array('controller' => 'sites', 'action' => 'view', $site['Site']['id']));
+                //echo $this->Html->link($name, array('controller' => 'sites', 'action' => 'view', $site['Site']['id']));
                 echo '&nbsp;';
-                echo $this->Html->link('  (dev)', array('controller' => 'sites', 'action' => 'view_dev', $site['Site']['id']));
+                echo $this->Html->link ($name, array('controller' => 'sites', 'action' => 'view_dev', $site['Site']['id']));
                 ?>
                
            </td>

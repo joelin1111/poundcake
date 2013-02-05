@@ -15,7 +15,7 @@
         echo $this->Form->input('name');
         echo $this->Form->input('quantity');
         echo $this->Form->input('build_item_type_id', array('type'=>'select','options' => $builditemtypes)); //,'empty' => true));
-        echo $this->Form->submit('Save', array('div' => false,'class'=>'btn'));
+        echo $this->Form->submit('Save', array('div' => false,'class'=>'btn btn-primary'));
         echo $this->Form->end(); 
     ?>
 </div> <!-- /.span9 -->

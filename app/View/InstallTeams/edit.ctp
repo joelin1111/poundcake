@@ -14,7 +14,7 @@
     <?php
         echo $this->Form->input('name');;
         echo $this->Form->input('project_id');
-        echo $this->Form->submit('Save', array('div' => false,'class'=>'btn'));
+        echo $this->Form->submit('Save', array('div' => false,'class'=>'btn btn-primary'));
         echo $this->Form->end(); 
     ?>
 </div> <!-- /.span9 -->
