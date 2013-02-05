@@ -107,8 +107,8 @@ class DATABASE_CONFIG {
     public $addrpool_prod = array(
             'datasource' => 'Database/Mysql',
             'persistent' => false,
-            'host' => 'localhost',
-            'login' => 'poundcake',
+            'host' => '200.113.226.67',
+            'login' => 'addrpool_viewer',
             'password' => '#S+B{~5G#^|mV8L',
             'database' => 'addrpool',
             'prefix' => '',

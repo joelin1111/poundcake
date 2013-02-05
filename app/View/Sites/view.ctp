@@ -33,7 +33,6 @@
 <div class="row">
     <div class="span9">
         <h2><?php echo $site['Site']['code']." ".$site['Site']['name'].' ('.$site['SiteState']['name'].')'?> </h2>   
-        <?php echo $this->element('Common/disclaimer'); ?>
         
         <P><B>Quick Stats:</B>
         <?php
