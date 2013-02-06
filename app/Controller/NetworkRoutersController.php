@@ -237,6 +237,17 @@ class NetworkRoutersController extends NetworkDeviceController {
     }
     
     /*
+     * Save an array of performance graphs from the monitoring system
+     */
+    public function graphs( $id = null ) {
+        $this->NetworkRouter->id = $id;
+        $this->NetworkRouter->read();
+        $name = $this->NetworkRouter->data['NetworkRouter']['name'];
+        $this->getPerformanceGraphs( $this->NetworkRouter->data['NetworkRouter']['node_id'] );
+        $this->set(compact( 'id', 'name'));
+    }
+    
+    /*
      * Uses Auth to check the ACL to see if the user is allowed to perform any
      * actions in this controller
      */

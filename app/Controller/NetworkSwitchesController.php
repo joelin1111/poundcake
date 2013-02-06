@@ -285,6 +285,17 @@ class NetworkSwitchesController extends NetworkDeviceController {
     }
     
     /*
+     * Save an array of performance graphs from the monitoring system
+     */
+    public function graphs( $id = null ) {
+        $this->NetworkSwitch->id = $id;
+        $this->NetworkSwitch->read();
+        $name = $this->NetworkSwitch->data['NetworkSwitch']['name'];
+        $this->getPerformanceGraphs( $this->NetworkSwitch->data['NetworkSwitch']['node_id'] );
+        $this->set(compact( 'id', 'name'));
+    }
+    
+    /*
      * Uses Auth to check the ACL to see if the user is allowed to perform any
      * actions in this controller
      */

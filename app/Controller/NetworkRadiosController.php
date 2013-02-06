@@ -166,8 +166,19 @@ class NetworkRadiosController extends NetworkDeviceController {
         
         // if we wanted to use the project's datetime format -- which probably doesn't include time
         // $datetime_format = $this->getDateTimeFormat();
-        $this->getMonitoringSystemLink( $this->NetworkRadio->data['NetworkRadio']['node_id'] );        
+        $this->getMonitoringSystemLink( $this->NetworkRadio->data['NetworkRadio']['node_id'] );
         $this->set(compact('links','sector','provisioned_by_name', 'checked' ));
+    }
+    
+    /*
+     * Save an array of performance graphs from the monitoring system
+     */
+    public function graphs( $id = null ) {
+        $this->NetworkRadio->id = $id;
+        $this->NetworkRadio->read();
+        $name = $this->NetworkRadio->data['NetworkRadio']['name'];
+        $this->getPerformanceGraphs( $this->NetworkRadio->data['NetworkRadio']['node_id'] );
+        $this->set(compact( 'id', 'name'));
     }
     
     /*

@@ -140,7 +140,7 @@ class NetworkDeviceController extends AppController {
      * 
      */
     protected function getMonitoringSystemLink( $id ) {
-        $new_url = null;
+        $url = null;
         if ( $id > 0 ) {           
             $system = $this->getMonitoringSystemType();
             
@@ -148,23 +148,40 @@ class NetworkDeviceController extends AppController {
                 // http://lab.inveneo.org:8980/opennms/element/node.jsp?node=50               
                 $baseURI = $this->getMonitoringSystemBaseURI();
                 //$baseURI = preg_replace( $pattern, $baseURI );
-                $info = parse_url($baseURI);
-                //var_dump($info);                
-                $info["path"]=dirname($info["path"]);
-                $new_url = $info["scheme"]."://".$info["host"].':'.$info["port"];
-                $new_url .= $info["path"];
-                if(!empty($info["query"])) $new_url .= "?".$info["query"];
-                if(!empty($info["fragment"])) $new_url .= "#".$info["fragment"];
-                // append a slash if it's not already there
-                if ( !$this->endsWith( '/', $new_url) )
-                    $new_url .= '/';
-                $new_url .= 'element/node.jsp?node='.$id;
+//                $info = parse_url($baseURI);
+//                //var_dump($info);                
+//                $info["path"]=dirname($info["path"]);
+//                $new_url = $info["scheme"]."://".$info["host"].':'.$info["port"];
+//                $new_url .= $info["path"];
+//                if(!empty($info["query"])) $new_url .= "?".$info["query"];
+//                if(!empty($info["fragment"])) $new_url .= "#".$info["fragment"];
+//                // append a slash if it's not already there
+//                if ( !$this->endsWith( '/', $new_url) )
+//                    $new_url .= '/';
+                $url = $this->removeRestFromURL( $this->getMonitoringSystemBaseURI() );
+                $url .= 'element/node.jsp?node='.$id;
                 //debug($new_url);
             }
         }
-        $this->set('node_detail_url', $new_url );
+        $this->set('node_detail_url', $url );
     }
     
+    /*
+     * Remove "/rest" from the end of the OpenNMS url
+     */
+    private function removeRestFromURL( $url ) {
+        $info = parse_url( $url );
+        //var_dump($info);                
+        $info["path"]=dirname($info["path"]);
+        $new_url = $info["scheme"]."://".$info["host"].':'.$info["port"];
+        $new_url .= $info["path"];
+        if(!empty($info["query"])) $new_url .= "?".$info["query"];
+        if(!empty($info["fragment"])) $new_url .= "#".$info["fragment"];
+        // append a slash if it's not already there
+        if ( !$this->endsWith( '/', $new_url) )
+            $new_url .= '/';
+        return $new_url;
+    }
     /*
      * Return alarms for a given node
      */
@@ -387,6 +404,61 @@ class NetworkDeviceController extends AppController {
         return $ret;
     }
     
+    /*
+    // this assumes you already have found the nodeId via a previous REST call or some other means.  Provided more as an example than what you might want.
+    private function getNodeInterfaces( $node_id ) {
+        $baseURI = $this->getMonitoringSystemBaseURI();
+        
+        $url = $baseURI."/nodes/".$node_id."/snmpinterfaces";
+        
+        $HttpSocket = parent::getMonitoringSystemSocket( $this->getMonitoringSystemUsername(), $this->getMonitoringSystemPassword() );
+        if ( !is_null( $HttpSocket ) && ( isset( $url ))  ) {
+            $response = $HttpSocket->request(
+                        array(
+                            'method' => 'GET',
+                            'uri' => $url
+                        )
+                );
+        }
+        return simplexml_load_string( $response );
+    }
+    */
+    
+    protected function getPerformanceGraphs( $node_id ) {
+        // $ints = $this->getNodeInterfaces( $node_id );
+        $performance_graphs = array();
+        
+        $days = 7;
+        $chars = array('/','.',':','-',' ');
+        $endtime = time();
+        $starttime = (string)(time() - ($days * 24 * 60 * 60)) ;
+
+        $endtime = $endtime . '000';
+        $starttime = $starttime . '000';
+        $model = $this->modelClass;
+        $ip_address = $this->$model->data[$model]['ip_address'];
+        
+        /*
+        http://lab.inveneo.org:8980/opennms/graph/graph.png?resourceId=node[86].responseTime[10.50.0.20]&report=icmp&start=1359544402267&end=1360149202267
+        */
+        $url = $this->removeRestFromURL( $this->getMonitoringSystemBaseURI() );
+        $url .= "graph/graph.png?reports=all&resourceId=node[$node_id].responseTime[$ip_address]";
+        $url .= "&report=icmp&start=$starttime&end=$endtime";
+        //echo( "<a href=\"$url\">$url</a>" ); die;
+        
+        $HttpSocket = parent::getMonitoringSystemSocket( $this->getMonitoringSystemUsername(), $this->getMonitoringSystemPassword() );
+        if ( !is_null( $HttpSocket ) && ( isset( $url ))  ) {
+            $response = $HttpSocket->request(
+                        array(
+                            'method' => 'GET',
+                            'uri' => $url
+                        )
+                );
+        }
+        
+        array_push( $performance_graphs, $response->body );
+        $this->set(compact('performance_graphs')); 
+    }
     /*
      * Return the datetime format for the current project
      */

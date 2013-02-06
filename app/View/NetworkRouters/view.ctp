@@ -12,7 +12,8 @@
                 null,
                 null );
             ?>
-        </li> 
+        </li>
+        <li><?php echo $this->PoundcakeHTML->linkIfAllowed('Graphs', array('action'=>'graphs', $networkrouter['NetworkRouter']['id']),1);?></li>
         <?php if (isset($node_detail_url)) {
             echo '<li><a href="'.$node_detail_url .'" target="_blank">More Details</a></li>';
         } ?>    
