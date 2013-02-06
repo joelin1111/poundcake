@@ -480,35 +480,38 @@ class NetworkDeviceController extends AppController {
             
             if ( $response != null ) {
                 $ints = simplexml_load_string( $response->body );
-
+                // var_dump($ints);
                 if ( $ints != null ) {
                     for ( $i = 0; $i < $ints->attributes()->count; $i++ ) { // count or totalCount?
                         // var_dump( $ints->snmpInterface[$i] );
                         $ifname = $ints->snmpInterface[$i]->ifDescr;
-                        $mac = $ints->snmpInterface[$i]->physAddr;
-                        if ( $mac != '' ) { // l0 has no MAC address
-                            $mac_and_if = $ifname .'-'. $mac;
-                            $if = str_replace($chars, "_", $ifname);
-                            if ( strlen(trim($mac)) < 12 ) { $mac_and_if = $if; } else { $mac_and_if = $if .'-'. $mac; };
-                            // debug($mac_and_if);
+                        // ath0 is the only interface we seem to care about...
+                        if ( $ifname == 'ath0' ) {
+                            $mac = $ints->snmpInterface[$i]->physAddr;
+                            if ( $mac != '' ) { // l0 has no MAC address
+                                $mac_and_if = $ifname .'-'. $mac;
+                                $if = str_replace($chars, "_", $ifname);
+                                if ( strlen(trim($mac)) < 12 ) { $mac_and_if = $if; } else { $mac_and_if = $if .'-'. $mac; };
+                                // debug($mac_and_if);
 
-                            // http://lab.inveneo.org:8980/opennms/graph/graph.png?resourceId=node%5b50%5d.interfaceSnmp%5bath0-00156deeaa78%5d&report=mib2.bits&start=1360070293212&end=1360156693212
-                            $url = $this->removeRestFromURL( $this->getMonitoringSystemBaseURI() );
-                            $url .= "graph/graph.png?resourceId=node[$node_id].interfaceSnmp[$mac_and_if]&report=mib2.bits";
-                            $url .= "&start=$starttime&end=$endtime";
-                            //echo "<a href=\"$url\">$url</a>";
+                                // http://lab.inveneo.org:8980/opennms/graph/graph.png?resourceId=node%5b50%5d.interfaceSnmp%5bath0-00156deeaa78%5d&report=mib2.bits&start=1360070293212&end=1360156693212
+                                $url = $this->removeRestFromURL( $this->getMonitoringSystemBaseURI() );
+                                $url .= "graph/graph.png?resourceId=node[$node_id].interfaceSnmp[$mac_and_if]&report=mib2.bits";
+                                $url .= "&start=$starttime&end=$endtime";
+                                //echo "<a href=\"$url\">$url</a>";
 
-                            if ( !is_null( $HttpSocket ) && ( isset( $url ))  ) {
-                                $response2 = $HttpSocket->request(
-                                    array(
-                                        'method' => 'GET',
-                                        'uri' => $url
-                                    )
-                                );
+                                if ( !is_null( $HttpSocket ) && ( isset( $url ))  ) {
+                                    $response2 = $HttpSocket->request(
+                                        array(
+                                            'method' => 'GET',
+                                            'uri' => $url
+                                        )
+                                    );
+                                }
+
+                                array_push( $performance_graphs, array( $response2->body, "$day Day Throughput, $ifname" ));
+                                $response2 = null;
                             }
-
-                            array_push( $performance_graphs, array( $response2->body, "$day Day Throughput, $ifname" ));
-                            $response2 = null;
                         }
                     }
                 }
