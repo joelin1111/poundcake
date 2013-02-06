@@ -22,6 +22,8 @@ App::uses('AppController', 'Controller');
 
 class NetworkDeviceController extends AppController {
     
+    const OPENNMS = 1;
+    
     /*
      * Return the username required to use the monitoring system's API for the current project
      */
@@ -110,14 +112,13 @@ class NetworkDeviceController extends AppController {
      * the project's monitoring system
      */
     protected function provisionNode( $name, $ip_addr, $debug ) {
-        $system = $this->getMonitoringSystemName();
+        $system = $this->getMonitoringSystemType();
         $ret = null;
        
         // filter_var returns success when the IP is 0.0.0.0
         // ip2long returns false in the case of an invalid IP
         if( filter_var($ip_addr, FILTER_VALIDATE_IP) && ip2long($ip_addr) ) {
-            
-            if (preg_match( "/opennms/i", $system )) {
+            if ( $system == self::OPENNMS ) {
                 $ret = $this->provisionNodeOpenNMS( $name, $ip_addr, $debug );
             }
         }
@@ -140,9 +141,10 @@ class NetworkDeviceController extends AppController {
      */
     protected function getMonitoringSystemLink( $id ) {
         $new_url = null;
-        if ( $id > 0 ) {
-            $system = $this->getMonitoringSystemName();
-            if (preg_match( "/opennms/i", $system )) {
+        if ( $id > 0 ) {           
+            $system = $this->getMonitoringSystemType();
+            
+            if ( $system == self::OPENNMS ) {
                 // http://lab.inveneo.org:8980/opennms/element/node.jsp?node=50               
                 $baseURI = $this->getMonitoringSystemBaseURI();
                 //$baseURI = preg_replace( $pattern, $baseURI );
@@ -373,6 +375,17 @@ class NetworkDeviceController extends AppController {
         return null;
     }
     
+    /*
+     * Return a class constant (enumarated value) for the monitoring system type
+     */
+    private function getMonitoringSystemType() {
+        $ret = null;
+        $system = $this->getMonitoringSystemName();
+        if (preg_match( "/opennms/i", $system )) {
+            $ret = self::OPENNMS;
+        }
+        return $ret;
+    }
     
     /*
      * Return the datetime format for the current project
