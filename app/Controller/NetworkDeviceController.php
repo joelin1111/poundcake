@@ -455,7 +455,7 @@ class NetworkDeviceController extends AppController {
                 );
             }
 
-            array_push( $performance_graphs, array( $response->body, "$day Day ICMP Response Time" ));
+            array_push( $performance_graphs, array( $response->body, "$day-Day ICMP Response Time" ));
             $response = null;
         }
         
@@ -485,8 +485,8 @@ class NetworkDeviceController extends AppController {
                     for ( $i = 0; $i < $ints->attributes()->count; $i++ ) { // count or totalCount?
                         // var_dump( $ints->snmpInterface[$i] );
                         $ifname = $ints->snmpInterface[$i]->ifDescr;
-                        // ath0 is the only interface we seem to care about...
-                        if ( $ifname == 'ath0' ) {
+                        // only look at eth interfaces
+                        if (preg_match( "/eth/i", $ifname )) {
                             $mac = $ints->snmpInterface[$i]->physAddr;
                             if ( $mac != '' ) { // l0 has no MAC address
                                 $mac_and_if = $ifname .'-'. $mac;
@@ -509,7 +509,7 @@ class NetworkDeviceController extends AppController {
                                     );
                                 }
 
-                                array_push( $performance_graphs, array( $response2->body, "$day Day Throughput, $ifname" ));
+                                array_push( $performance_graphs, array( $response2->body, "$day-Day Throughput, $ifname" ));
                                 $response2 = null;
                             }
                         }
