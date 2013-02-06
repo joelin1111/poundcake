@@ -87,6 +87,7 @@ class NetworkSwitchesController extends NetworkDeviceController {
             $this->User->recursive = -1;
             $this->User->id = $this->NetworkSwitch->data['NetworkSwitch']['provisioned_by'];
             $user = $this->User->read();
+            //debug($this->NetworkSwitch->data['NetworkSwitch']);die;
             $provisioned_by_name = $user['User']['username'];
             $checked = $this->NetworkSwitch->data['NetworkSwitch']['checked'];
         } else {
@@ -264,6 +265,8 @@ class NetworkSwitchesController extends NetworkDeviceController {
         
         if ( !is_null( $foreign_id ) ) {
             $this->NetworkSwitch->saveField('foreign_id', $foreign_id);
+            $this->NetworkSwitch->saveField('provisioned_on', date("Y-m-d H:i:s") );
+            $this->NetworkSwitch->saveField('provisioned_by', $this->Auth->user('id') );
             $this->Session->setFlash('Provisioned switch.  Foreign ID '.$foreign_id);
             
         } else {

@@ -468,6 +468,7 @@ class NetworkRadiosController extends NetworkDeviceController {
             $this->NetworkRadio->saveField('foreign_id', $foreign_id);
             $this->NetworkRadio->saveField('provisioned_on', date("Y-m-d H:i:s") );
             $this->NetworkRadio->saveField('provisioned_by', $this->Auth->user('id') );
+            //debug($this->NetworkRadio->data); die;
             $this->Session->setFlash('Provisioned radio.  Foreign ID '.$foreign_id);
             
         } else {

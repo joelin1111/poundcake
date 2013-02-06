@@ -89,10 +89,10 @@ class NetworkRoutersController extends NetworkDeviceController {
         $networkrouter = $this->NetworkRouter->read(null, $id);
         
         // retrieve the username of the person who provisioned this device
-        if (isset($this->NetworkRadio->data['NetworkRadio']['foreign_id'])) {
+        if (isset($this->NetworkRouter->data['NetworkRouter']['foreign_id'])) {
             $this->loadModel('User');
             $this->User->recursive = -1;
-            $this->User->id = $this->NetworkRouter->data['NetworkRadio']['provisioned_by'];
+            $this->User->id = $this->NetworkRouter->data['NetworkRouter']['provisioned_by'];
             $user = $this->User->read();
             $provisioned_by_name = $user['User']['username'];
             $checked = $this->NetworkRouter->data['NetworkRouter']['checked'];
@@ -216,6 +216,9 @@ class NetworkRoutersController extends NetworkDeviceController {
         
         if ( !is_null( $foreign_id ) ) {
             $this->NetworkRouter->saveField('foreign_id', $foreign_id);
+            $this->NetworkRouter->saveField('provisioned_on', date("Y-m-d H:i:s") );
+            $this->NetworkRouter->saveField('provisioned_by', $this->Auth->user('id') );
+            
             $this->Session->setFlash('Provisioned router.  Foreign ID '.$foreign_id);
             
         } else {
