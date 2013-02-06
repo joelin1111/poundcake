@@ -428,35 +428,93 @@ class NetworkDeviceController extends AppController {
         // $ints = $this->getNodeInterfaces( $node_id );
         $performance_graphs = array();
         
-        $days = 7;
-        $chars = array('/','.',':','-',' ');
-        $endtime = time();
-        $starttime = (string)(time() - ($days * 24 * 60 * 60)) ;
-
-        $endtime = $endtime . '000';
-        $starttime = $starttime . '000';
+        $HttpSocket = parent::getMonitoringSystemSocket( $this->getMonitoringSystemUsername(), $this->getMonitoringSystemPassword() );
         $model = $this->modelClass;
         $ip_address = $this->$model->data[$model]['ip_address'];
-        
-        /*
-        http://lab.inveneo.org:8980/opennms/graph/graph.png?resourceId=node[86].responseTime[10.50.0.20]&report=icmp&start=1359544402267&end=1360149202267
-        */
-        $url = $this->removeRestFromURL( $this->getMonitoringSystemBaseURI() );
-        $url .= "graph/graph.png?reports=all&resourceId=node[$node_id].responseTime[$ip_address]";
-        $url .= "&report=icmp&start=$starttime&end=$endtime";
-        //echo( "<a href=\"$url\">$url</a>" ); die;
-        
-        $HttpSocket = parent::getMonitoringSystemSocket( $this->getMonitoringSystemUsername(), $this->getMonitoringSystemPassword() );
-        if ( !is_null( $HttpSocket ) && ( isset( $url ))  ) {
-            $response = $HttpSocket->request(
-                        array(
-                            'method' => 'GET',
-                            'uri' => $url
-                        )
+            
+        // ping response time
+        $days = array( 1, 7 ); // days response time
+        foreach ( $days as $day ) {
+            $chars = array('/','.',':','-',' ');
+            $endtime = time();
+            $starttime = (string)(time() - ($day * 24 * 60 * 60)) ;
+            $endtime = $endtime . '000';
+            $starttime = $starttime . '000';          
+
+            // http://lab.inveneo.org:8980/opennms/graph/graph.png?resourceId=node[86].responseTime[10.50.0.20]&report=icmp&start=1359544402267&end=1360149202267
+            $url = $this->removeRestFromURL( $this->getMonitoringSystemBaseURI() );
+            $url .= "graph/graph.png?reports=all&resourceId=node[$node_id].responseTime[$ip_address]";
+            $url .= "&report=icmp&start=$starttime&end=$endtime";
+            
+            if ( !is_null( $HttpSocket ) && ( isset( $url ))  ) {
+                $response = $HttpSocket->request(
+                    array(
+                        'method' => 'GET',
+                        'uri' => $url
+                    )
                 );
+            }
+
+            array_push( $performance_graphs, array( $response->body, "$day Day ICMP Response Time" ));
+            $response = null;
         }
         
-        array_push( $performance_graphs, $response->body );
+        // throughput
+        $baseURI = $this->getMonitoringSystemBaseURI();
+        
+        if ( !is_null( $HttpSocket ) && ( isset( $baseURI ))  ) {
+            $response = $HttpSocket->request(
+                    array(
+                        'method' => 'GET',
+                        'uri' => $baseURI.'/nodes/'.$node_id.'/snmpinterfaces',
+                    )
+            );
+        }
+        
+        foreach ( $days as $day ) {
+            $chars = array('/','.',':','-',' ');
+            $endtime = time();
+            $starttime = (string)(time() - ($day * 24 * 60 * 60)) ;
+            $endtime = $endtime . '000';
+            $starttime = $starttime . '000';          
+            
+            if ( $response != null ) {
+                $ints = simplexml_load_string( $response->body );
+
+                if ( $ints != null ) {
+                    for ( $i = 0; $i < $ints->attributes()->count; $i++ ) { // count or totalCount?
+                        // var_dump( $ints->snmpInterface[$i] );
+                        $ifname = $ints->snmpInterface[$i]->ifDescr;
+                        $mac = $ints->snmpInterface[$i]->physAddr;
+                        if ( $mac != '' ) { // l0 has no MAC address
+                            $mac_and_if = $ifname .'-'. $mac;
+                            $if = str_replace($chars, "_", $ifname);
+                            if ( strlen(trim($mac)) < 12 ) { $mac_and_if = $if; } else { $mac_and_if = $if .'-'. $mac; };
+                            // debug($mac_and_if);
+
+                            // http://lab.inveneo.org:8980/opennms/graph/graph.png?resourceId=node%5b50%5d.interfaceSnmp%5bath0-00156deeaa78%5d&report=mib2.bits&start=1360070293212&end=1360156693212
+                            $url = $this->removeRestFromURL( $this->getMonitoringSystemBaseURI() );
+                            $url .= "graph/graph.png?resourceId=node[$node_id].interfaceSnmp[$mac_and_if]&report=mib2.bits";
+                            $url .= "&start=$starttime&end=$endtime";
+                            //echo "<a href=\"$url\">$url</a>";
+
+                            if ( !is_null( $HttpSocket ) && ( isset( $url ))  ) {
+                                $response2 = $HttpSocket->request(
+                                    array(
+                                        'method' => 'GET',
+                                        'uri' => $url
+                                    )
+                                );
+                            }
+
+                            array_push( $performance_graphs, array( $response2->body, "$day Day Throughput, $ifname" ));
+                            $response2 = null;
+                        }
+                    }
+                }
+            }
+        }
+        //die;
         $this->set(compact('performance_graphs')); 
     }
     /*

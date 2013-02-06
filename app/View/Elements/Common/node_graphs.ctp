@@ -1,10 +1,21 @@
 <div class="span9">
     <h2>View Graphs: <?php echo $name; ?> </h2>
-    <h4>7 Day ICMP Response Time</h4>
-    <img src="
-        <?php
-            $base64   = base64_encode( $performance_graphs[0] ); 
+    
+    <?php
+    
+    foreach ( $performance_graphs as $graph ) {
+        
+        if ( $graph[0] != null ) {
+            $title = $graph[1];
+            echo "<h4>$title</h4>";
+
+            $base64   = base64_encode( $graph[0] ); 
+            echo "<img class=\"img-polaroid\" src=\"";
             echo 'data:image/png;base64,' . $base64;
-        ?>"
-    alt="7 Day ICMP Response Time"/>
+            echo "\"><BR><BR>";
+        }
+    }
+    ?>
+    
+    
 </div>
