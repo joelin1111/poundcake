@@ -56,6 +56,7 @@
         Router::connect('/admin/:controller/:action/*', array(), array('controller' => 'buildItems'));
         Router::connect('/admin/:controller/:action/*', array(), array('controller' => 'contactTypes'));
         Router::connect('/admin/:controller/:action/*', array(), array('controller' => 'installTeams'));
+        Router::connect('/admin/:controller/:action/*', array(), array('controller' => 'notifications'));
         Router::connect('/admin/:controller/:action/*', array(), array('controller' => 'monitoringSystemTypes'));
         Router::connect('/admin/:controller/:action/*', array(), array('controller' => 'routerTypes'));
         Router::connect('/admin/:controller/:action/*', array(), array('controller' => 'switchTypes'));
