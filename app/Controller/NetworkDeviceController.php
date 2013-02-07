@@ -455,7 +455,10 @@ class NetworkDeviceController extends AppController {
                 );
             }
 
-            array_push( $performance_graphs, array( $response->body, "$day-Day ICMP Response Time" ));
+            if ( $response->body != null ) {
+                array_push( $performance_graphs, array( $response->body, "$day-Day ICMP Response Time" ));
+            }
+            
             $response = null;
         }
         
@@ -509,7 +512,10 @@ class NetworkDeviceController extends AppController {
                                     );
                                 }
 
-                                array_push( $performance_graphs, array( $response2->body, "$day-Day Throughput, $ifname" ));
+                                if ( $response2->body != null ) {
+                                    array_push( $performance_graphs, array( $response2->body, "$day-Day Throughput, $ifname" ));
+                                }
+                                
                                 $response2 = null;
                             }
                         }

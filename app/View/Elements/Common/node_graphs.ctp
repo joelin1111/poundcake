@@ -1,5 +1,8 @@
 <div class="span9">
-    <h2>View Graphs: <?php echo $name; ?> </h2>
+    <?php
+        echo count($performance_graphs);
+        if ( count($performance_graphs) > 0 ) { ?>
+        <h2>View Graphs: <?php echo $name; ?> </h2>
     
     <?php
     
@@ -14,6 +17,7 @@
             echo 'data:image/png;base64,' . $base64;
             echo "\"><BR><BR>";
         }
+    }
     }
     ?>
     

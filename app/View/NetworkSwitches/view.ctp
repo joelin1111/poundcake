@@ -13,7 +13,15 @@
                 null );
             ?>
         </li>
-        <li><?php echo $this->PoundcakeHTML->linkIfAllowed('Graphs', array('action'=>'graphs', $networkswitch['NetworkSwitch']['id']),1);?></li>
+        <?php
+            // not sure if this is the best way to decide to show/hide the graphs
+            // link
+            if ( isset($networkswitch['NetworkSwitch']['foreign_id']) ) {
+                echo '<li>';
+                echo $this->PoundcakeHTML->linkIfAllowed('Graphs', array('action'=>'graphs', $networkswitch['NetworkSwitch']['id']),1);
+                echo '</li>';
+            }
+        ?>
         <?php if (isset($node_detail_url)) {
             echo '<li><a href="'.$node_detail_url .'" target="_blank">More Details</a></li>';
         } ?>  
