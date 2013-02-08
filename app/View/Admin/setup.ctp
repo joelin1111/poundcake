@@ -11,12 +11,13 @@
 
     <div class="alert">
         <button type="button" class="close" data-dismiss="alert">&times;</button>
-        <strong>Caution!</strong> Many items in Tower DB are configurable by an administrator, and some of these may have system or project-wide impacts.
+        <strong>Caution!</strong> Many items in Tower DB are configurable by users with administrator permissions (e.g. you).
+        Changing some of these values may have unintended impacts to existing projects.  Proceed with some caution.
     </div>
     
     <div class="row">
         <div class="span4">
-            <H3>Projects, Roles, Users</H3>
+            <H4>Basic Administration</H4><hr>
             <UL>
                 <li><?php echo $this->Html->link('Projects', '/admin/projects/index'); ?></li>
                 <li><?php echo $this->Html->link('Roles', '/admin/roles/index'); ?></li>
@@ -25,7 +26,7 @@
         </div>
         
         <div class="span4">
-            <H3>Monitoring</H3>
+            <H4>Monitoring</H4><hr>
             <UL>    
                 <li><?php echo $this->Html->link('Monitoring System Types', '/admin/monitoringSystemTypes/index'); ?></li>
                 <li><?php echo $this->Html->link('Network Services', '/admin/networkServices/index'); ?></li>        
@@ -36,7 +37,7 @@
     
     <div class="row">
         <div class="span4">
-            <H3>Sites</H3>
+            <H4>Sites</H4><hr>
             <UL>
                 <li><?php echo $this->Html->link('Equipment Spaces', '/admin/equipmentSpaces/index'); ?></li>
                 <li><?php echo $this->Html->link('Organizations', '/admin/organizations/index'); ?></li>    
@@ -48,7 +49,7 @@
         </div> <!-- /.span4 -->
         
         <div class="span4">
-            <H3>Network Equipment</H3>
+            <H4>Network Equipment</H4><hr>
             <UL>
                 <li><?php echo $this->Html->link('Antenna Types', '/admin/antennaTypes/index'); ?></li>
                 <li><?php echo $this->Html->link('Radio Modes', '/admin/radioModes/index'); ?> </li>
@@ -61,7 +62,7 @@
     
     <div class="row">
         <div class="span4">
-            <H3>Miscellaneous</H3>
+            <H4>Miscellaneous</H4><hr>
             <UL>    
                 <li><?php echo $this->Html->link('Build Items', '/admin/buildItems/index'); ?></li>
                 <li><?php echo $this->Html->link('Contact Types', '/admin/contactTypes/index'); ?></li>
