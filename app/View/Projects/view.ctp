@@ -21,5 +21,15 @@
     <P><B>Monitoring System Username:</B>&nbsp;<?php echo $project['Project']['monitoring_system_username']; ?></P>
     <P><B>Monitoring System Password:</B>&nbsp;<?php echo $project['Project']['monitoring_system_password']; ?></P>
     <P><B>Monitoring System ReST URL:</B>&nbsp;<?php echo $project['Project']['monitoring_system_url']; ?></P>
+    <P><B>Users with access to this project:</B>
+    <UL>
+    <?php
+        foreach ($project['User'] as $user ) {
+            echo '<LI>'.$user['username'].'</LI>';
+        }
+    ?>
+    </UL>
+    
+    
 </div> <!-- /.span9 -->
 </div> <!-- /.row -->
