@@ -50,12 +50,13 @@ class ProjectsController extends AppController {
      */
     public function view($id = null) {
         $this->Project->id = $id;
-        $this->Project->recursive = 1; // we also want users on this project
+        $this->Project->recursive = 2; // we also want users on this project and their roles
         if (!$this->Project->exists()) {
             throw new NotFoundException('Invalid project');
         }
         //$project = $this->Project->read(null, $id);
         //$this->set(compact('project'));
+        //var_dump($project);
         $this->set('project', $this->Project->read(null, $id));
     }
 

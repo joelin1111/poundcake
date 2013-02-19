@@ -25,7 +25,10 @@
     <UL>
     <?php
         foreach ($project['User'] as $user ) {
-            echo '<LI>'.$user['username'].'</LI>';
+            echo '<LI>';
+            echo $user['username'];
+            echo ', '.$user['Role']['name'];
+            echo '</LI>';
         }
     ?>
     </UL>
