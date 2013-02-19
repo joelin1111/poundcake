@@ -89,6 +89,10 @@ class ProjectsController extends AppController {
         }
         $this->getSnmpTypes();
         $this->getMonitoringSystemTypes();
+        // projects default to San Francisco
+        $default_lat = '37.7750';
+        $default_lon = '-122.4183';
+        $this->set(compact('default_lat','default_lon'));
     }
 
     /*

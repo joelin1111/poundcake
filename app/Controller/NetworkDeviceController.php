@@ -182,6 +182,7 @@ class NetworkDeviceController extends AppController {
             $new_url .= '/';
         return $new_url;
     }
+    
     /*
      * Return alarms for a given node
      */
@@ -199,36 +200,89 @@ class NetworkDeviceController extends AppController {
             $response = $HttpSocket->request(
                         array(
                             'method' => 'GET',
-                            //'uri' => 'http://lab.inveneo.org:8980/opennms/rest/requisitions/'.$type.'/nodes',
                             'uri' => $url
                         )
                 );
-            //var_dump( $response );
-            
-            $xmlIterator = new SimpleXMLIterator( $response->body );            
-            for( $xmlIterator->rewind(); $xmlIterator->valid(); $xmlIterator->next() ) {
-                if( $xmlIterator->hasChildren() ) {
-                    // $attrs = $xmlIterator->current()->attributes();
-                    // can filter by alarms of major severity here
-//                    var_dump( $xmlIterator->current() );
-                    // iterate through all alarms 
-                    foreach( $xmlIterator->children() as $alarm ) { 
-//                        var_dump( $alarm );
-//                        echo "<BR>";
-                        $node_alarm = array();
-                        $severity = (string)$alarm->attributes()->severity;
-                        $description = (string)$alarm->description;
-                        $firstEventTime = (string)$alarm->firstEventTime;
-                        array_push( $node_alarm, $severity );
-                        array_push( $node_alarm, $description ); 
-                        array_push( $node_alarm, $firstEventTime );                        
-                        array_push( $alarms, $node_alarm );
+//            var_dump( $response );
+//            die;
+            if ( $response->body != null ) {
+                $xmlIterator = new SimpleXMLIterator( $response->body );            
+                for( $xmlIterator->rewind(); $xmlIterator->valid(); $xmlIterator->next() ) {
+                    if( $xmlIterator->hasChildren() ) {
+                        // $attrs = $xmlIterator->current()->attributes();
+                        // can filter by alarms of major severity here
+    //                    var_dump( $xmlIterator->current() );
+                        // iterate through all alarms 
+                        foreach( $xmlIterator->children() as $alarm ) { 
+    //                        var_dump( $alarm );
+    //                        echo "<BR>";
+                            $node_alarm = array();
+                            $severity = (string)$alarm->attributes()->severity;
+                            $description = (string)$alarm->description;
+                            $firstEventTime = (string)$alarm->firstEventTime;
+                            array_push( $node_alarm, $severity );
+                            array_push( $node_alarm, $description ); 
+                            array_push( $node_alarm, $firstEventTime );                        
+                            array_push( $alarms, $node_alarm );
+                        }
                     }
                 }
             }
         }        
         // debug( $alarms );
         return $alarms;
+    }
+    
+    /*
+     * Return events for a given node
+     */
+    protected function getEvents() {
+        // revisit - need to add caluses for other network monitoring systems
+        $events = array();        
+        $model = $this->modelClass;
+        $type = $this->$model->foreignSource;
+        $baseURI = $this->getMonitoringSystemBaseURI();
+        //$id = $this->$model->data[ $model ]['foreign_id'];
+        $id = $this->$model->data[ $model ]['node_id'];
+        // http://localhost:8980/opennms/rest/alarms?node.foreignSource=Routers&node.foreignId=1001
+        $url = $baseURI.'/events?node.id='.$id;
+//        debug($url);
+        $HttpSocket = parent::getMonitoringSystemSocket( $this->getMonitoringSystemUsername(), $this->getMonitoringSystemPassword() );
+        if ( !is_null( $HttpSocket ) && ( isset( $url ))  ) {
+            $response = $HttpSocket->request(
+                        array(
+                            'method' => 'GET',
+                            'uri' => $url
+                        )
+                );
+//            var_dump( $response );
+//            die;
+            if ( $response->body != null ) {
+                $xmlIterator = new SimpleXMLIterator( $response->body );            
+                for( $xmlIterator->rewind(); $xmlIterator->valid(); $xmlIterator->next() ) {
+                    if( $xmlIterator->hasChildren() ) {
+                        // $attrs = $xmlIterator->current()->attributes();
+                        // can filter by alarms of major severity here
+    //                    var_dump( $xmlIterator->current() );
+                        // iterate through all alarms 
+                        foreach( $xmlIterator->children() as $event ) { 
+    //                        var_dump( $event );
+    //                        echo "<BR>";
+                            $node_event = array();
+                            $severity = (string)$event->attributes()->severity;
+                            $description = (string)$event->description;
+                            $createTime = (string)$event->createTime;
+                            array_push( $node_event, $severity );
+                            array_push( $node_event, $description ); 
+                            array_push( $node_event, $createTime );                        
+                            array_push( $events, $node_event );
+                        }
+                    }
+                }
+            }
+        }        
+//        debug( $events );
+        return $events;
     }
     
     /*

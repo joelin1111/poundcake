@@ -194,6 +194,19 @@ class NetworkRadiosController extends NetworkDeviceController {
     }
 
     /*
+     * Save an array of events from the monitoring system -- is basically
+     * identical to alarms()
+     */
+    public function events( $id ) {
+        $this->NetworkRadio->recursive = -1;
+        $this->NetworkRadio->id = $id;
+        $this->NetworkRadio->read();
+        $events = parent::getEvents();
+        $name = $this->NetworkRadio->data['NetworkRadio']['name'];
+        $this->set(compact( 'events', 'id', 'name' ));
+    }
+    
+    /*
      * Save an array of allowed radio types (preconfigured by an administrator).
      */
     function getRadioTypes() {

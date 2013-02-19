@@ -4,6 +4,7 @@
     <div class="well well-large">
     <ul>
         <li><?php echo $this->PoundcakeHTML->linkIfAllowed('View Alarms', array('action'=>'alarms', $networkradio['NetworkRadio']['id']),1);?></li>
+        <li><?php echo $this->PoundcakeHTML->linkIfAllowed('View Events', array('action'=>'events', $networkradio['NetworkRadio']['id']),1);?></li>
         <li><?php echo $this->PoundcakeHTML->linkIfAllowed('Edit Radio', array('action'=>'edit', $networkradio['NetworkRadio']['id']),1);?></li>
         <li><?php
             echo $this->PoundcakeHTML->postLinkIfAdmin('Provision Radio',

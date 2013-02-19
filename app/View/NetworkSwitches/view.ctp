@@ -4,6 +4,7 @@
     <div class="well well-large">
     <ul>
         <li><?php echo $this->PoundcakeHTML->linkIfAllowed('View Alarms', array('action'=>'alarms', $networkswitch['NetworkSwitch']['id']),1);?></li>
+        <li><?php echo $this->PoundcakeHTML->linkIfAllowed('View Events', array('action'=>'events', $networkswitch['NetworkSwitch']['id']),1);?></li>
         <li><?php echo $this->PoundcakeHTML->linkIfAllowed('Edit Switch', array('action'=>'edit', $networkswitch['NetworkSwitch']['id']),1);?></li>
         <li><?php
             echo $this->PoundcakeHTML->postLinkIfAdmin('Provision Switch',

@@ -18,8 +18,8 @@
     <h2>Add Project</h2>
     <?php
         echo $this->Form->input('name');
-        echo $this->Form->input('default_lat', array( 'label' => 'Default Latitude' ));
-        echo $this->Form->input('default_lon', array( 'label' => 'Default Longitude' ));
+        echo $this->Form->input('default_lat', array( 'label' => 'Default Latitude','value' => $default_lat ));
+        echo $this->Form->input('default_lon', array( 'label' => 'Default Longitude','value' => $default_lon ));
         echo $this->Form->input('workorder_title', array( 'label' => 'Title for Workorder' ));
         echo $this->Form->input('datetime_format', array( 'label' => 'Datetime Format (PHP compatible)', 'value' => 'd/m/Y'));       
         echo $this->Form->input('snmp_type_id', array('type'=>'select','options' => $snmptypes, 'label' => 'SNMP Version', 'empty' => true));

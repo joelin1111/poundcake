@@ -288,6 +288,19 @@ class NetworkSwitchesController extends NetworkDeviceController {
     }
     
     /*
+     * Save an array of events from the monitoring system -- is basically
+     * identical to alarms()
+     */
+    public function events( $id ) {
+        $this->NetworkSwitch->recursive = -1;
+        $this->NetworkSwitch->id = $id;
+        $this->NetworkSwitch->read();
+        $events = parent::getEvents();
+        $name = $this->NetworkSwitch->data['NetworkSwitch']['name'];
+        $this->set(compact( 'events', 'id', 'name' ));
+    }
+    
+    /*
      * Save an array of performance graphs from the monitoring system
      */
     public function graphs( $id = null ) {

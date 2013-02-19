@@ -257,7 +257,7 @@ class SitesController extends AppController
                 foreach( $results as $dest_radio ) {
                     // we now have to load the other radio to get the name of the site
                     // that it is attached to
-                    $this->loadModel('NetworkRadio', $dest_radio['radios_radios']['dest_radio_id'] );
+                    $this->loadModel('NetworkRadio'); //, $dest_radio['radios_radios']['dest_radio_id'] );
                     $this->NetworkRadio->id = $dest_radio['radios_radios']['dest_radio_id'];
                     $dest_site = $this->NetworkRadio->read();
                     
@@ -265,7 +265,9 @@ class SitesController extends AppController
                     // this is a little sloppy, maybe someone smarter than me can
                     // design a better way to do this
                     // echo "Ckecking:  ".$site['Site']['name'].": ".$site['Site']['lat'].", ".$site['Site']['lon']." --> ".$dest_site['Site']['lat'].", ".$dest_site['Site']['lon']."<BR>";
-                    if ( ! $this->oppositeLinkExists( $s, $site['Site']['lat'], $site['Site']['lon'] ) ) {                    
+                    //if ( 1 ) {
+                    // if ( ! $this->oppositeLinkExists( $s, $site['Site']['lat'], $site['Site']['lon'] ) ) { 
+                    if ( ! $this->oppositeLinkExists( $s, $site['Site']['lat'], $site['Site']['lon'], $dest_site['Site']['lat'], $dest_site['Site']['lon'] ) ) {     
                         $s[$n]['id'] = $site['Site']['id'];
                         $s[$n]['name'] = $site['Site']['name'];
                         $s[$n]['code'] = $site['Site']['code'];
@@ -288,6 +290,8 @@ class SitesController extends AppController
             $u++;
             
         }
+//        debug($s);
+//        die;
         $this->set('sites', $s);
         $this->setDefaultLatLon( $this->Session->read('project_id') );
     }
@@ -295,14 +299,16 @@ class SitesController extends AppController
     /*
      * Check if the link exists in our array
      */
-    private function oppositeLinkExists( $s, $lat, $lon ) {
+    private function oppositeLinkExists( $s, $src_lat, $src_lon, $dest_lat, $dest_lon ) {
         foreach ($s as $site ) {
-            //var_dump( $site );
-            if (array_key_exists('dest_lat', $site)) {
-                if ( ( $site['dest_lat'] == $lat ) && ( $site['dest_lon'] == $lon ) ) {
-                    //echo "Found:<BR>";
-                    //var_dump($site);
-                    //die;
+            // var_dump( $site );
+            // we need to check if the dest_lat key exists in the site,
+            // otherwise we'll get a key does not exist error below
+            if ( array_key_exists( 'dest_lat', $site ) ) {
+                if ( ( $site['src_lat'] == $dest_lat ) && ( $site['src_lon'] == $dest_lon ) && ( $site['dest_lat'] == $src_lat ) && ( $site['dest_lon'] == $src_lon ) ) {
+    //                    echo "<B>Found</B><BR>";
+    //                    var_dump($site);
+    //                    die;
                     return 1;
                 }
             }
