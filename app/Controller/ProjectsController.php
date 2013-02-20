@@ -54,9 +54,6 @@ class ProjectsController extends AppController {
         if (!$this->Project->exists()) {
             throw new NotFoundException('Invalid project');
         }
-        //$project = $this->Project->read(null, $id);
-        //$this->set(compact('project'));
-        //var_dump($project);
         $this->set('project', $this->Project->read(null, $id));
     }
 
@@ -104,6 +101,7 @@ class ProjectsController extends AppController {
      */
     public function edit($id = null) {
         $this->Project->id = $id;
+        $this->Project->recursive = 2; // we also want users on this project and their roles
         if (!$this->Project->exists()) {
             throw new NotFoundException('Invalid project');
         }
@@ -111,7 +109,19 @@ class ProjectsController extends AppController {
             // set http if it was not set
             $this->request->data['Project']['monitoring_system_url'] = $this->cleanUrl( $this->request->data['Project']['monitoring_system_url'] );            
             // see beforeSave callback in the Project model
-            if ($this->Project->save($this->request->data)) {
+            
+//            echo '<pre>';
+//            print_r( $this->request->data );
+//            echo '</pre>';
+            //die;
+            //
+            if ($this->Project->save($this->request->data )) {
+            //if ( $this->Project->save( $this->request->data , array('deep' => true)) ) {
+            // if ($this->Project->saveAll( $this->request->data, array('deep' => true) )) {
+                //$this->loadModel('ProjectRoles');
+                //$this->Project->ProjectRoles->saveAll( $this->request->data );
+                //echo "after saveAll";
+                //die;
                 $this->Session->setFlash('The project has been saved.');
                 $this->redirect(array('action' => 'index'));
             } else {
@@ -122,7 +132,17 @@ class ProjectsController extends AppController {
         }
         $this->getSnmpTypes();
         $this->getMonitoringSystemTypes();
-        
+        $this->getRoles();
+    }
+    
+    /*
+     * Get all the roles defined in the system (except the admin)
+     */
+    public function getRoles() {
+        $this->loadModel('Role');
+        $roles = $this->Role->find('list');
+        array_shift( $roles ); // remove the 0th element, which is the admin role
+        $this->set(compact('roles'));
     }
     
     /*

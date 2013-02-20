@@ -73,8 +73,12 @@ class UsersController extends AppController {
      * Get all the roles defined in the system
      */
     function getRoles() {
-        $roles = $this->User->Role->find('list');
-        $this->set('roles',$roles);
+//        $roles = $this->User->Role->find('list');
+//        $this->set('roles',$roles);
+        $this->loadModel('Role');
+        $roles = $this->Role->find('list');
+        array_shift( $roles ); // remove the 0th element, which is the admin role
+        $this->set(compact('roles'));
     }
     
     /*
@@ -109,6 +113,7 @@ class UsersController extends AppController {
      */
     function getAllProjects() {
         // return all projects
+        // $projects = $this->User->ProjectMembership->Project->find('list');
         $projects = $this->User->Project->find('list');
         $this->set('projects',$projects);
     }
@@ -233,7 +238,6 @@ class UsersController extends AppController {
             
             // get an array of projects the user is now currently assigned to
             $new_projects = $this->request->data['Project']['Project'];
-            
             if ( in_array( $last_project_id,  $new_projects ) == 0 ) {
                 // just assign them a default of the first item in the set of
                 // new projects

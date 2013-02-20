@@ -16,14 +16,17 @@
         echo $this->Form->input('id');
         echo "Username:  ".$this->Form->value('username'); //,array('disabled' => true));
         echo $this->Form->input('User.role_id', array('type'=>'select','options' => $roles));
-        echo $this->Form->input('Project',array(
-            'label' => __('Projects',true),
-            'type' => 'select',
-            'multiple' => 'checkbox',
-            'options' => $projects,
-            'selected' => $this->Html->value('Project.Project'),
-        ));
-        echo $this->Form->submit('Save', array('div' => false,'class'=>'btn btn-primary'));
+//        echo $this->Form->input('Project',array(
+//            'label' => 'Projects',
+//            'type' => 'select',
+//            'multiple' => 'checkbox',
+//            'options' => $projects,
+//            'selected' => $this->Html->value('Project.Project'),
+//        ));
+
+        echo $this->Form->input( 'Project', array( 'multiple'=>'checkbox', 'label' => 'Projects' ));
+        //echo $this->Form->input( 'Role', array( 'multiple'=>'checkbox' ));
+        echo $this->Form->submit( 'Save', array( 'div' => false,'class'=>'btn btn-primary' ));
         echo $this->Form->end(); 
     ?>
 </div> <!-- /.span9 -->

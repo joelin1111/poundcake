@@ -31,6 +31,29 @@
         //echo $this->Form->input('monitoring_system_password', array( 'label' => 'Monitoring System Password' ));
         echo $this->Form->input('monitoring_system_url', array( 'label' => 'Complete URL to ReST API','placeholder' => '' ));
     ?>
+    
+    <table class="table table-condensed table-striped">
+        <tr>
+            <th>Username</th>
+            <th>Role</th>
+        </tr>
+        <?php
+            $project_id = $this->request->data['Project']['id'];
+            $n = 0;
+            var_dump( $this->request->data );
+            foreach ($this->request->data['User'] as $user ) {
+                //var_dump( $user );
+                echo '<tr><td>'.$user['username'].'</td>';
+                echo $this->Form->input('ProjectRoles.'.$n.'.project_id',array( 'type' => 'hidden', 'value' => $project_id ));
+                echo $this->Form->input('ProjectRoles.'.$n.'.user_id',array( 'type' => 'hidden', 'value' => $user['id']));
+                //echo $this->Form->input("User.{$user['id']}.user_id",array( 'type' => 'hidden', 'value' => $user['id']));
+                //echo '<td>'.$this->Form->input("Role.{$user['id']}.role_id", array('type'=>'select','options' => $roles, 'label' => '')).'</td></tr>';
+                //echo '<td>'.$this->Form->input("Project.{$user['id']}.role_id", array('type'=>'select','options' => $roles, 'label' => '')).'</td></tr>';
+                echo '<td>'.$this->Form->input('ProjectRoles.'.$n.'.role_id', array('type'=>'select','options' => $roles, 'label' => '')).'</td></tr>';
+                $n++;
+            }
+        ?>
+    </table>
     </fieldset>
     <?php
         echo $this->Form->submit('Save', array('div' => false,'class'=>'btn btn-primary'));

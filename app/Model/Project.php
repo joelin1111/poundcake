@@ -32,6 +32,36 @@ class Project extends AppModel {
      * Relations
      */
     public $hasAndBelongsToMany = array('User');
+    /*
+    public $hasAndBelongsToMany = array(
+        'User' => 
+            array('className'    => 'User', 
+                  'joinTable'    => 'projects_users', 
+                  'foreignKey'   => 'project_id', 
+                  'associationForeignKey'=> 'user_id', 
+                  //'conditions'   => 'group by user_id',
+                  //'conditions'   => '(1=1) group by user_id',
+                  'order'        => '', 
+                  'limit'        => '', 
+                  'unique'       => true, 
+                  'finderQuery'  => '', 
+                  'deleteQuery'  => '', 
+            ), 
+//        'Role' => 
+//           array('className'    => 'Role', 
+//                 'joinTable'    => 'projects_users', 
+//                 'foreignKey'   => 'project_id', 
+//                 'associationForeignKey'=> 'role_id', 
+//                 //'conditions'   => '(1=1) group by role_id', 
+//                 //'conditions'   => 'group by role_id', 
+//                 'order'        => '', 
+//                 'limit'        => '', 
+//                 'unique'       => true, 
+//                 'finderQuery'  => '', 
+//                 'deleteQuery'  => '', 
+//           ) 
+    );
+    */
     
     /*
      * Relations
@@ -41,12 +71,15 @@ class Project extends AppModel {
         'MonitoringSystemType'
     );
     
+    /*
+     * Relations
+     */
     public $hasMany = array(
         'SiteStates',
         'TowerTypes',
-        'InstallTeams'
+        'InstallTeams',
+        //'ProjectMembership'  // this is a "hasMany through" relation, similar to HABTM
     );
-    
     
     /*
      * Default sort order
