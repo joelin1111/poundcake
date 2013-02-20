@@ -31,7 +31,7 @@ class Project extends AppModel {
     /*
      * Relations
      */
-    public $hasAndBelongsToMany = array('User');
+    //public $hasAndBelongsToMany = array('User');
     /*
     public $hasAndBelongsToMany = array(
         'User' => 
@@ -78,7 +78,7 @@ class Project extends AppModel {
         'SiteStates',
         'TowerTypes',
         'InstallTeams',
-        //'ProjectMembership'  // this is a "hasMany through" relation, similar to HABTM
+        'ProjectMembership'  // this is a "hasMany through" relation, similar to HABTM
     );
     
     /*

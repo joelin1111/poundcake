@@ -113,8 +113,8 @@ class UsersController extends AppController {
      */
     function getAllProjects() {
         // return all projects
-        // $projects = $this->User->ProjectMembership->Project->find('list');
-        $projects = $this->User->Project->find('list');
+        $projects = $this->User->ProjectMembership->Project->find('list');
+        //$projects = $this->User->Project->find('list');
         $this->set('projects',$projects);
     }
     
@@ -235,9 +235,10 @@ class UsersController extends AppController {
             
             // get the id of the last project the user accessed
             $last_project_id = $this->User->field('project_id');
-            
+            //var_dump( $this->request->data );
             // get an array of projects the user is now currently assigned to
-            $new_projects = $this->request->data['Project']['Project'];
+            //$new_projects = $this->request->data['Project']['Project'];
+            $new_projects = $this->request->data['User']['Project'];
             if ( in_array( $last_project_id,  $new_projects ) == 0 ) {
                 // just assign them a default of the first item in the set of
                 // new projects

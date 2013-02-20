@@ -39,14 +39,14 @@ class User extends AppModel {
      * Relations
      * @see HABTM example: http://mrphp.com.au/code/working-habtm-form-data-cakephp
      */
-    public $hasAndBelongsToMany = array('Project');
+    //public $hasAndBelongsToMany = array('Project');
     
     /*
      * Relations
      * @see hasMany through (The Join Model)
      * http://book.cakephp.org/1.3/en/The-Manual/Developing-with-CakePHP/Models.html
      */
-    // public $hasMany = array( 'ProjectMembership' ); // this is a "hasMany through" relation, similar to HABTM
+    public $hasMany = array( 'ProjectMembership' ); // this is a "hasMany through" relation, similar to HABTM
     
     /*
      * Field-level validation rules
