@@ -40,7 +40,7 @@
                 <tr>
                     <th><?php echo $this->Paginator->sort('name_vf','Name'); ?></th>
                     <th><?php echo $this->Paginator->sort('title'); ?></th>
-                    <th><?php echo $this->Paginator->sort('Organization'); ?></th>
+                    <th><?php echo $this->Paginator->sort('Organization.name','Organization'); ?></th>
                     <th><?php echo $this->Paginator->sort('priority'); ?></th>
                     <th><?php echo ('Actions'); ?></th>
                 </tr>
