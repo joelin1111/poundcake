@@ -113,15 +113,15 @@
     ?>
     </div> <!-- /.map-frame -->
     <BR>
-    <P><B>Tower Guard</B>:&nbsp;<?php echo $site['Site']['tower_guard'];?></P>
-    <P><B>Structure Type</B>:&nbsp;<?php echo $site['Site']['structure_type'];?></P>
-    <P><B>Description</B>:&nbsp;<?php echo $site['Site']['description'];?></P>
-    <P><B>Mounting</B>:&nbsp;<?php echo $site['Site']['mounting'];?></P>
-    <P><B>Access</B>:&nbsp;<?php echo $site['Site']['access'];?></P>
-    <P><B>Storage</B>:&nbsp;<?php echo $site['Site']['storage'];?></P>
-    <P><B>Accommodations</B>:&nbsp;<?php echo $site['Site']['accommodations'];?></P>
-    <P><B>Notes</B>:&nbsp;<?php echo $site['Site']['notes'];?></P>
-    <P><B>Install Team:</B>&nbsp;<?php echo $site['InstallTeam']['name']; ?></P>
+    <P><B>Tower Guard</B>:&nbsp;<?php echo $site['Site']['tower_guard']; ?></P>
+    <P><B>Structure Type</B>:&nbsp;<?php echo nl2br( $site['Site']['structure_type'] ); ?></P>
+    <P><B>Description</B>:&nbsp;<?php echo nl2br( $site['Site']['description'] ); ?></P>
+    <P><B>Mounting</B>:&nbsp;<?php echo nl2br( $site['Site']['mounting'] ); ?></P>
+    <P><B>Access</B>:&nbsp;<?php echo nl2br( $site['Site']['access'] ); ?></P>
+    <P><B>Storage</B>:&nbsp;<?php echo nl2br( $site['Site']['storage'] ); ?></P>
+    <P><B>Accommodations</B>:&nbsp;<?php echo nl2br( $site['Site']['accommodations'] ); ?></P>
+    <P><B>Notes</B>:&nbsp;<?php echo nl2br( $site['Site']['notes'] ); ?></P>
+    <P><B>Install Team:</B>&nbsp;<?php echo nl2br( $site['InstallTeam']['name'] ); ?></P>
     <P><B>Install Date:</B>&nbsp;<?php
         // format the date as per the project's defined format
         $date = $site['Site']['install_date'];
