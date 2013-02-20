@@ -238,16 +238,18 @@ class UsersController extends AppController {
             //var_dump( $this->request->data );
             // get an array of projects the user is now currently assigned to
             //$new_projects = $this->request->data['Project']['Project'];
-            $new_projects = $this->request->data['User']['Project'];
+            $new_projects = $this->request->data['Project']['project_id'];
             if ( in_array( $last_project_id,  $new_projects ) == 0 ) {
                 // just assign them a default of the first item in the set of
                 // new projects
                 $this->User->saveField('project_id',$new_projects[0]);              
             }
             
+            var_dump( $this->request->data );
             // $blackList is also used above
             $blackList = array('password', 'username');
-            if ($this->User->save($this->request->data, true, array_diff(array_keys($this->User->schema()), $blackList))) {
+            if ($this->User->ProjectMembership->saveAll($this->request->data['Project'], array('deep' => true) )) {
+            //if ($this->User->save($this->request->data, true, array_diff(array_keys($this->User->schema()), $blackList))) {
                 $this->Session->setFlash('The user has been saved.');
                 $this->redirect(array('action' => 'index'));
             } else {
