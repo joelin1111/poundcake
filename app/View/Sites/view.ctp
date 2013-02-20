@@ -43,7 +43,7 @@
         <div id="RemoteSite"></div>
         <P><B>Site contacts:</B>&nbsp;
             <?php
-                if (!isset($contacts)) {
+                if ( count($contacts) == 0 ) {
                     echo "None";
                 } else {
                     echo "<P>";
@@ -54,7 +54,18 @@
                             'controller' => 'contacts',
                             'action' => 'view',
                             $contact['Contact']['id']));
-                        echo "<BR>".$contact['Contact']['phone']."</P>";
+                        // show the phone number if it's defined
+                        // else show the email if it's defined
+                        if ( $contact['Contact']['phone'] != null ) {
+                            $contact_info = $contact['Contact']['phone'];
+                        } else if ( $contact['Contact']['email'] != null ) {
+                            $contact_info = $contact['Contact']['email'];
+                        }
+                        
+                        if ( $contact_info != null ) {
+                            echo ", ".$contact_info;
+                        }
+                        echo "</P>";
                     }
                 }
             ?>
@@ -167,10 +178,10 @@
             echo "None";
         } else {
             echo "<table class=\"table table-condensed table-striped\">";
-            echo "<th>Radio</th>";
+            echo "<tr><th>Name</th>";
             echo "<th>Switch Port</th>";
             echo "<th>Frequency</th>";
-            echo "<th>SSID</th>";
+            echo "<th>SSID</th></tr>";
             foreach ($site['NetworkRadios'] as $radio) {
                 
                 echo "<tr><td>";
