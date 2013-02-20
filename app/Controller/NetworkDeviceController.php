@@ -520,74 +520,84 @@ class NetworkDeviceController extends AppController {
         // BEGIN Negotiated link rate
         $days = array( 1, 7 ); // days response time
         foreach ( $days as $day ) {
-            $chars = array('/','.',':','-',' ');
-            $endtime = time();
-            $starttime = (string)(time() - ($day * 24 * 60 * 60)) ;
-            $endtime = $endtime . '000';
-            $starttime = $starttime . '000';          
+            // we have to query mtxrWlStatIndex[5] and mtxrWlStatIndex[5]
+            $mtxrWlStatIndex = array( 5, 7 );
+            foreach ( $mtxrWlStatIndex as $mtxr ) {
+                $chars = array('/','.',':','-',' ');
+                $endtime = time();
+                $starttime = (string)(time() - ($day * 24 * 60 * 60)) ;
+                $endtime = $endtime . '000';
+                $starttime = $starttime . '000';          
 
-            // http://192.168.15.38:8980/opennms/graph/graph.png?resourceId=node%5b41%5d
-            // .mtxrWlStatIndex%5b7%5d&report=mikrotik.wlstatbps
-            // &start=1360080834448&end=1360081479225&graph_width=&graph_height=
-            
-            $url = $this->removeRestFromURL( $this->getMonitoringSystemBaseURI() );
-            $url .= "graph/graph.png?resourceId=node[$node_id]";
-            $url .= ".mtxrWlStatIndex[7]&report=mikrotik.wlstatbps";
-            $url .= "&start=$starttime&end=$endtime";
-            // echo "<a href=\"$url\">$url</a><br>";
-            // die;
-            
-            if ( !is_null( $HttpSocket ) && ( isset( $url ))  ) {
-                $response = $HttpSocket->request(
-                    array(
-                        'method' => 'GET',
-                        'uri' => $url
-                    )
-                );
-            }
+                // http://192.168.15.38:8980/opennms/graph/graph.png?resourceId=node%5b41%5d
+                // .mtxrWlStatIndex%5b7%5d&report=mikrotik.wlstatbps
+                // &start=1360080834448&end=1360081479225&graph_width=&graph_height=
 
-            if ( $response->body != null ) {
-                array_push( $performance_graphs, array( $response->body, "$day-Day Negotiated Link Rate" ));
+                $url = $this->removeRestFromURL( $this->getMonitoringSystemBaseURI() );
+                $url .= "graph/graph.png?resourceId=node[$node_id]";
+                $url .= ".mtxrWlStatIndex[$mtxr]&report=mikrotik.wlstatbps";
+                $url .= "&start=$starttime&end=$endtime";
+                // echo "<a href=\"$url\">$url</a><br>";
+                // die;
+
+                if ( !is_null( $HttpSocket ) && ( isset( $url ))  ) {
+                    $response = $HttpSocket->request(
+                        array(
+                            'method' => 'GET',
+                            'uri' => $url
+                        )
+                    );
+                }
+
+                if ( $response->body != null ) {
+                    array_push( $performance_graphs, array( $response->body, "$day-Day Negotiated Link Rate" ));
+                }
+
+                $response = null;
             }
-            
-            $response = null;
         }
         // END Negotiated link rate
         
         // BEGIN RSSI
         $days = array( 1, 7 ); // days response time
         foreach ( $days as $day ) {
-            $chars = array('/','.',':','-',' ');
-            $endtime = time();
-            $starttime = (string)(time() - ($day * 24 * 60 * 60)) ;
-            $endtime = $endtime . '000';
-            $starttime = $starttime . '000';          
+            // we have to query mtxrWlStatIndex[5] and mtxrWlStatIndex[5]
+            $mtxrWlStatIndex = array( 5, 7 );
+            foreach ( $mtxrWlStatIndex as $mtxr ) {
+                
+                $chars = array('/','.',':','-',' ');
+                $endtime = time();
+                $starttime = (string)(time() - ($day * 24 * 60 * 60)) ;
+                $endtime = $endtime . '000';
+                $starttime = $starttime . '000';          
 
-            // http://192.168.15.38:8980/opennms/graph/graph.png?resourceId=node%5b41%5d
-            // .mtxrWlStatIndex%5b7%5d&report=mikrotik.wlstatbps
-            // &start=1360080834448&end=1360081479225&graph_width=&graph_height=
-            
-            $url = $this->removeRestFromURL( $this->getMonitoringSystemBaseURI() );
-            $url .= "graph/graph.png?resourceId=node[$node_id]";            
-            $url .= ".mtxrWlStatIndex[7]&report=mikrotik.wlstatrssi";
-            $url .= "&start=$starttime&end=$endtime";
-            // echo "<a href=\"$url\">$url</a><br>";
-            // die;
-            
-            if ( !is_null( $HttpSocket ) && ( isset( $url ))  ) {
-                $response = $HttpSocket->request(
-                    array(
-                        'method' => 'GET',
-                        'uri' => $url
-                    )
-                );
-            }
+                // http://192.168.15.38:8980/opennms/graph/graph.png?resourceId=node%5b41%5d
+                // .mtxrWlStatIndex%5b7%5d&report=mikrotik.wlstatbps
+                // &start=1360080834448&end=1360081479225&graph_width=&graph_height=
 
-            if ( $response->body != null ) {
-                array_push( $performance_graphs, array( $response->body, "$day-Day RSSI" ));
+                $url = $this->removeRestFromURL( $this->getMonitoringSystemBaseURI() );
+                $url .= "graph/graph.png?resourceId=node[$node_id]";            
+                $url .= ".mtxrWlStatIndex[$mtxr]&report=mikrotik.wlstatrssi";
+                $url .= "&start=$starttime&end=$endtime";
+
+                //echo ">> <a href=\"$url\">$url</a><br>";
+                //die;
+
+                if ( !is_null( $HttpSocket ) && ( isset( $url ))  ) {
+                    $response = $HttpSocket->request(
+                        array(
+                            'method' => 'GET',
+                            'uri' => $url
+                        )
+                    );
+                }
+
+                if ( $response->body != null ) {
+                    array_push( $performance_graphs, array( $response->body, "$day-Day RSSI" ));
+                }
+
+                $response = null;
             }
-            
-            $response = null;
         }
         // END RSSI
         
