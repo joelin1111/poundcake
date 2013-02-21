@@ -161,7 +161,8 @@ $cakeDescription = __d('poundcake', 'Tower DB');
                 echo " | ";
                 echo $this->Html->link(('Switch Project'), array('action' => 'project', 'controller' => 'users', CakeSession::read("Auth.User.id")));
             }
-            
+            echo '<br><small>Current Role: '.$this->Session->read('role');
+           
             $copyright = 'Copyright © 2012';
             $current_year = date("Y");
             if ($current_year > 2012)
@@ -172,6 +173,8 @@ $cakeDescription = __d('poundcake', 'Tower DB');
             if ( !(is_null($project_name))) {
                 echo $this->Html->link(('Version History'), array('action' => 'index', 'controller' => 'changeLog'));
             }
+            echo '</small>';
+            
         ?>
             
     <?php //echo $this->element('sql_dump'); ?>

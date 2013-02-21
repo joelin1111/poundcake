@@ -194,13 +194,11 @@ class AppController extends Controller {
      * the controller
      */
     public function isAuthorized( $user ) {
-        return true;
-        
         // there are 3 role alias' in the system:  admin, edit, view
         // users with the rolealias of admin can access every page
         // some controllers override this to allow the rolealias' of
         // edit or view to access the page    
-        if (isset($user['Role']['rolealias']) && $user['Role']['rolealias'] === 'admin') {
+        if ( $this->Session->read('role') === 'admin' ) {
             return true;
         }
 

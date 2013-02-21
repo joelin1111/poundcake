@@ -490,18 +490,19 @@ class NetworkRadiosController extends NetworkDeviceController {
     }
             
     /*
-     * Uses Auth to check the ACL to see if the user is allowed to perform any
-     * actions in this controller
+     * Check the user's role to determine if sufficient permission to perform
+     * the intended action.
      */
     public function isAuthorized($user) {
-
-        if ($this->action === 'index' || $this->action === 'view' || $this->action === 'alarms' ) {
+        
+        $allowed = array( "index", "view", "alarms", "events", "graphs" );
+        if ( in_array( $this->action, $allowed )) {
             return true;
         }
         
-        // allow users with the rolealias of "edit" to add/edit/delete
-        if ($this->action === 'add' || $this->action === 'edit' || $this->action === 'delete') {
-            if (isset($user['Role']['rolealias']) && $user['Role']['rolealias'] === 'edit') {
+        $allowed = array( "add", "edit", "delete" );
+        if ( in_array( $this->action, $allowed )) {
+            if ( $this->Session->read('role') === 'edit') {
                 return true;
             }
         }

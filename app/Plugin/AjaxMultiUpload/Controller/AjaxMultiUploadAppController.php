@@ -23,7 +23,7 @@ class AjaxMultiUploadAppController extends AppController {
         
         // The role of admin can access every action, huzzah!
         if (isset($user['Role']['rolealias'])) {
-            if (isset($user['Role']['rolealias']) && $user['Role']['rolealias'] === 'edit') {
+            if ( $this->Session->read('role') === 'edit') {
                 return true;
             }
         }

@@ -11,6 +11,13 @@
 
 <div class="span9">
 	<h2>Roles</h2>
+        
+        <div class="alert">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <strong>Caution!</strong> Roles are not totally dynamic in Tower DB.
+            Adding or editing an existing role is likely to have unintended consequences.
+        </div>
+        
 	<table class="table table-condensed table-striped table-hover">
             <thead>
                 <tr>

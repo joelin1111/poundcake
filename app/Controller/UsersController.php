@@ -87,17 +87,20 @@ class UsersController extends AppController {
     function getUsersProjects() {
         $projects = $this->User->ProjectMembership->Project->find('list', array( 
             'conditions' => array(
-                'ProjectsUser.user_id' => $this->Auth->user('id')
+                'ProjectMembership.user_id' => $this->Auth->user('id')
                 ), 
             'joins' => array( 
                 array(
-                    'table' => 'projects_users', 
-                    'alias' => 'ProjectsUser', 
+                    'table' => 'project_memberships', 
+                    'alias' => 'ProjectMembership', 
                     'type' => 'inner',
-                    'conditions'=> array('ProjectsUser.project_id = Project.id')) 
+                    'conditions'=> array('ProjectMembership.project_id = Project.id')) 
             ),
             'order' => array('Project.name ASC'),
             ));        
+//        debug( $projects);
+//        die;
+        
         $this->set(compact('projects'));
         
         /*
@@ -317,6 +320,7 @@ class UsersController extends AppController {
                        
             $row_id = 0;
             foreach ( $this->request->data['ProjectMembership'] as $project ) {
+//                var_dump( $project );                
                 if ( is_array($project) && array_key_exists('project_id', $project) && array_key_exists('role_id', $project) ) {
                     
                     $pm['ProjectMembership']['user_id'] = $id;
@@ -352,7 +356,12 @@ class UsersController extends AppController {
         $existing_projects = $this->User->data['ProjectMembership'];
         $assigned_projects = array();
         foreach ( $existing_projects as $p ) {
-            array_push( $assigned_projects, $p['Project']['id'] );
+            array_push( $assigned_projects,
+                    array( 
+                        'project_id' => $p['Project']['id'],
+                        'role_id' => $p['role_id']
+                        )
+                    );
         }
         $this->set(compact('assigned_projects','roles','username', 'id'));
     }
@@ -369,8 +378,24 @@ class UsersController extends AppController {
             throw new NotFoundException('Invalid user');
         }
         
+        $ret = true;
         if ($this->request->is('post') || $this->request->is('put')) {
-            if ( $this->User->saveField('password',$this->request->data['User']['password'] )) {
+            $orig_password = $this->User->field('password');
+            $new_password = "";
+            $tmp_password = $this->request->data['User']['password'];
+            if ( $tmp_password != '' ) {
+                $new_password = AuthComponent::password( $this->request->data['User']['password'] );
+            }
+//            var_dump( $orig_password );
+//            var_dump( $tmp_password );
+//            var_dump( $new_password );
+            
+            if (( $orig_password != $new_password ) && ( $new_password != "" )) {
+                echo "changing password";
+                $ret = $this->User->saveField( 'password',$this->request->data['User']['password'] );
+                // I assume $ret will be null if the save failed?
+            }
+            if ( $ret && $this->User->saveField('admin',$this->request->data['User']['admin'] ) ) {
                 $this->Session->setFlash('The user has been saved.');
                 $this->redirect(array('action' => 'index'));
             } else {

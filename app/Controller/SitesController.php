@@ -1467,12 +1467,12 @@ class SitesController extends AppController
     }
     
     /*
-     * Uses Auth to check the ACL to see if the user is allowed to perform any
-     * actions in this controller
+     * Check the user's role to determine if sufficient permission to perform
+     * the intended action.
      */
     public function isAuthorized($user) {
         // pages that anyone (basically with the view rolealias) can access
-        $allowed = array( "index", "view", "overview", "topology", "workorder", "view_dev", "cron" );
+        $allowed = array( "index", "view", "overview", "topology", "workorder", "cron" );
         if ( in_array( $this->action, $allowed )) {
             return true;
         }
@@ -1481,12 +1481,11 @@ class SitesController extends AppController
         $allowed = array( "add","edit", "delete", "export" );
         if ( in_array( $this->action, $allowed )) {
             // maybe this is duplicative to check role here...
-            if (isset($user['Role']['rolealias']) && $user['Role']['rolealias'] === 'edit') {
+            if ( $this->Session->read('role') === 'edit') {
                 return true;
             }
         }
-        
-        // else you must be an admin
+                
         return parent::isAuthorized($user);
     }   
 }

@@ -50,8 +50,6 @@
         
         $i = 0;
         foreach ( $projects as $p ) {
-//            var_dump( $p );
-            
             echo "<tr><td>";
             
             // the ID of the record in the ProjectMembership table -- we need this
@@ -69,8 +67,16 @@
             // take care of this for us
             echo '<label class="checkbox">';
             echo '<input type="checkbox" class="checkbox" name="ProjectMembership['.$i.'][project_id]" value="'.$p['Project']['id'].'"';
-            if( in_array( $p['Project']['id'], $assigned_projects) ) {
-                echo ' checked';
+            
+            $role = 0;
+            foreach ( $assigned_projects as $ap ) {
+//                echo "Looking for Project ID of ".$p['Project']['id'];
+//                var_dump( $ap );
+                if ( $p['Project']['id'] == $ap['project_id'] ) {
+                // if( in_array( $p['Project']['id'], $ap ) ) {
+                    echo ' checked';
+                    $role = $ap['role_id'];
+                }
             }
             echo '>' . $p['Project']['name'];
             echo '</label>';
@@ -78,15 +84,23 @@
             echo "</td><td>";
             
             echo '<label class="radio">';
-            echo '<input type="radio" name="ProjectMembership['.$i.'][role_id]" id="permissions1" value="'.$roles[1]['Role']['id'].'" checked>';
+            echo '<input type="radio" name="ProjectMembership['.$i.'][role_id]" id="permissions1" value="'.$roles[1]['Role']['id'].'" ';
+            if ( $role == $roles[1]['Role']['id'] ) {
+                echo " checked";
+            }
+            echo ">";
             echo $roles[1]['Role']['name'];
             echo '</label>';
             
             echo "</td><td>";
             
             echo '<label class="radio">';
-            echo '<input type="radio" name="ProjectMembership['.$i.'][role_id]" id="permissions2" value="'.$roles[2]['Role']['id'].'">';
-             echo $roles[2]['Role']['name'];
+            echo '<input type="radio" name="ProjectMembership['.$i.'][role_id]" id="permissions2" value="'.$roles[2]['Role']['id'].'" ';
+            if ( $role == $roles[2]['Role']['id'] || $role == 0 ) {
+                echo " checked";
+            }
+            echo ">";
+            echo $roles[2]['Role']['name'];
             echo '</label>';
             
             echo "</td></tr>";

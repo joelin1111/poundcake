@@ -18,12 +18,7 @@
 <?php
     // this doesn't really belong here, should probably serve up a different
     // view for admins
-    
-    // temporary!!!
-    $user['Role']['name'] = 'admin';
-    $user['Role']['rolealias'] = 'admin';
-    
-    if ($user['Role']['name'] === 'admin') {
+    if ( $this->Session->read('role') === 'admin') {
         echo "<LI>".$this->Html->link('Admin', array('controller' => 'admin', 'action' => 'setup'))."</LI>";
     }
 ?>

@@ -113,18 +113,19 @@ class InstallTeamsController extends AppController {
     }
     
     /*
-     * Uses Auth to check the ACL to see if the user is allowed to perform any
-     * actions in this controller
+     * Check the user's role to determine if sufficient permission to perform
+     * the intended action.
      */
     public function isAuthorized($user) {
-        // everyone can see the list and view individual install teams
-        if ($this->action === 'index' || $this->action === 'view') {
+        
+        $allowed = array( "index", "view" );
+        if ( in_array( $this->action, $allowed )) {
             return true;
         }
         
-        // allow users with the rolealias of "edit" to add/edit/delete
-        if ($this->action === 'add' || $this->action === 'edit' || $this->action === 'delete') {
-            if (isset($user['Role']['rolealias']) && $user['Role']['rolealias'] === 'edit') {
+        $allowed = array( "add", "edit", "delete" );
+        if ( in_array( $this->action, $allowed )) {
+            if ( $this->Session->read('role') === 'edit') {
                 return true;
             }
         }
