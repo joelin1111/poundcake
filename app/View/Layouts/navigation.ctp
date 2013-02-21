@@ -16,9 +16,14 @@
 <li> <?php echo $this->Html->link('Routers', array('controller' => 'networkRouters', 'action' => 'index')); ?> </li>
 <li> <?php echo $this->Html->link('Switches', array('controller' => 'networkSwitches', 'action' => 'index')); ?> </li>                    
 <?php
-// this doesn't really belong here, should probably serve up a different
-// view for admins
-if ($user['Role']['name'] === 'admin') {
-    echo "<LI>".$this->Html->link('Admin', array('controller' => 'admin', 'action' => 'setup'))."</LI>";
-}
+    // this doesn't really belong here, should probably serve up a different
+    // view for admins
+    
+    // temporary!!!
+    $user['Role']['name'] = 'admin';
+    $user['Role']['rolealias'] = 'admin';
+    
+    if ($user['Role']['name'] === 'admin') {
+        echo "<LI>".$this->Html->link('Admin', array('controller' => 'admin', 'action' => 'setup'))."</LI>";
+    }
 ?>

@@ -15,17 +15,7 @@
     <?php
         echo $this->Form->input('id');
         echo $this->Form->input('password');
-        /*
-        echo $this->Form->input('User.role_id', array('type'=>'select','options' => $roles));
-        echo $this->Form->input('Project.Project',array('label'=>'Project (Note: Experimental Feature)'));
-        echo $this->Form->input('Project.Project',array(
-            'label' => __('Projects (Note: Experimental Feature)',true),
-            'type' => 'select',
-            'multiple' => 'checkbox',
-            'options' => $projects,
-            'selected' => $this->Html->value('Project.Project'),
-        ));
-        */
+        echo $this->Form->input('admin', array('label' => 'System Administrator'));        
         echo $this->Form->submit('Save', array('div' => false,'class'=>'btn btn-primary'));
         echo $this->Form->end(); 
     ?>

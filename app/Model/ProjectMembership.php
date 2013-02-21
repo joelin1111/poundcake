@@ -27,10 +27,29 @@ App::uses('AppModel', 'Model');
 class ProjectMembership extends AppModel {
 
     /*
-    * @see hasMany through (The Join Model)
-    * http://book.cakephp.org/1.3/en/The-Manual/Developing-with-CakePHP/Models.html
-    */
+     * hasMany through (The Join Model) is a lot like HABTM except that you can
+     * have additional attributes in the join table -- something that HABTM does
+     * not support
+     * 
+     * Unfortunatley it's a poorly documented relationship.  Here are some references:
+     * 
+     * @see
+     * http://book.cakephp.org/1.3/en/The-Manual/Developing-with-CakePHP/Models.html
+     * 
+     * http://bitfluxx.com/2008/05/27/cakephp-best-practices-rethinking-the-hasandbelongstomany-association.html
+     * 
+     */
     
-    public $belongsTo = array( 'User', 'Project' );
+    //public $belongsTo = array( 'User', 'Project' );
+    public $belongsTo = array(
+        'User' => array(
+            'className'    => 'User',
+            'foreignKey'   => 'user_id'
+        ),
+       'Project' => array(
+            'className'    => 'Project',
+            'foreignKey'   => 'project_id'
+        )
+    );
     
 }

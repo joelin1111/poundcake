@@ -29,7 +29,6 @@
             <thead>
                 <tr>
                     <th><?php echo $this->Paginator->sort('name'); ?></th>
-                    <th><?php echo $this->Paginator->sort('role_id'); ?></th>
                     <th><?php echo $this->Paginator->sort('last_login'); ?></th>
                     <th><?php echo 'Actions'; ?></th>
                 </tr>
@@ -39,13 +38,6 @@
         foreach ($users as $user): ?>
 	<tr>
 		<td><?php echo $user['User']['username']; ?>&nbsp;</td>
-		<td>
-                    <?php
-                        //echo $this->Html->link($user['Role']['name'], array('controller' => 'roles', 'action' => 'view', $user['Role']['id']));
-                        echo $user['Role']['name'];
-                    ?>
-		</td>
-<!--		<td><?php // echo $user['User']['created']; ?>&nbsp;</td>-->
 		<td><?php
                     $date = new DateTime($user['User']['last_login']);
                     echo date_format($date, 'D m/d/y g:ia');
@@ -54,8 +46,17 @@
                     <?php
                         echo $this->Html->link('Edit', array('action' => 'edit', $user['User']['id']));
                         echo '&nbsp;';
-                        echo $this->Html->link('Permissions', array('action' => 'permissions', $user['User']['id']));
+                        
+                        // if the user is an administrator, don't make this a hyperlink
+                        // thoush someone could manually craft the url to get to the page
+                        // any edits to ProjectMembers will be ignored
+                        if ( $user['User']['admin'] ) {
+                            echo "Permissions";
+                        } else {
+                            echo $this->Html->link('Permissions', array('action' => 'permissions', $user['User']['id']));
+                        }
                         echo '&nbsp;';
+                        
                         echo $this->PoundcakeHTML->postLinkIfAllowed('Delete',
                             array('controller'=>'users','action'=>'delete', $user['User']['id']),
                             array('method' => 'post','class'=>'confirm','data-dialog_msg'=>'Confirm delete of '.$user['User']['username']),

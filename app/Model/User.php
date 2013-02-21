@@ -28,7 +28,7 @@ class User extends AppModel {
     /*
      * Relations
      */
-    var $belongsTo = array( 'Role' );
+    // var $belongsTo = array( 'Role' );
     
     /*
      * Default sort order
@@ -39,7 +39,7 @@ class User extends AppModel {
      * Relations
      * @see HABTM example: http://mrphp.com.au/code/working-habtm-form-data-cakephp
      */
-    //public $hasAndBelongsToMany = array('Project');
+    // public $hasAndBelongsToMany = array('Project');
     
     /*
      * Relations

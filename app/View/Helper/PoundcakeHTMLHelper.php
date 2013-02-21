@@ -25,14 +25,13 @@ class PoundcakeHTMLHelper extends AppHelper {
     /*
      * Other helpers this helper relies on
      */
-    var $helpers = array('Html','Form'); // maybe we should have extendedHtmlHelper versus just using it?
+    var $helpers = array('Html','Form','Session'); // maybe we should have extendedHtmlHelper versus just using it?
     
     /*
      * Returns hyperlink if permissions permit.
      */
     function linkIfAllowed($title, $url) {
-        //debug( $url );
-        $role = $this->getRoleAlias();
+        $role = $this->Session->read('role');
         if (($role === 'edit') || ($role === 'admin') ) {
           return $this->Html->link($title, $url);
         } else {
@@ -44,7 +43,7 @@ class PoundcakeHTMLHelper extends AppHelper {
      * Returns hyperlink if administrator
      */
     function linkIfAdmin($title, $url) {
-        $role = $this->getRoleAlias();
+        $role = $this->Session->read('role');
         if ($role === 'admin') {
           return $this->Html->link($title, $url);
         } else {
@@ -57,7 +56,7 @@ class PoundcakeHTMLHelper extends AppHelper {
     */
     function postLinkIfAllowed($title, $url = null, $options = array(), $confirmMessage = false) {
          // this should probably be in PoundcakeFormHelper ;-)
-        $role = $this->getRoleAlias();
+        $role = $this->Session->read('role');
         if (($role === 'edit') || ($role === 'admin') ) {
             return $this->Form->postLink($title,$url,$options,$confirmMessage);
         } else {
@@ -69,7 +68,7 @@ class PoundcakeHTMLHelper extends AppHelper {
     * Returns postLink if administrator
     */
     function postLinkIfAdmin($title, $url = null, $options = array(), $confirmMessage = false) {
-        $role = $this->getRoleAlias();
+        $role = $this->Session->read('role');
         if ( $role === 'admin') {
             return $this->Form->postLink($title,$url,$options,$confirmMessage);
         } else {
@@ -78,19 +77,12 @@ class PoundcakeHTMLHelper extends AppHelper {
     }
     
     function postLinkAltMessage($title, $url = null, $options = array(), $confirmMessage = false, $alternateString) {
-        $role = $this->getRoleAlias();
+        $role = $this->Session->read('role');
         if (($role === 'edit') || ($role === 'admin') ) {
             return $this->Form->postLink($title,$url,$options,$confirmMessage);
         } else {
             return $title;
         }
-    }
-    
-    /*
-     * Return the user's role
-     */
-    private function getRoleAlias() {
-        return $_SESSION['Auth']['User']['Role']['rolealias'];
     }
 }
 

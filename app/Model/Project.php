@@ -31,7 +31,7 @@ class Project extends AppModel {
     /*
      * Relations
      */
-    //public $hasAndBelongsToMany = array('User');
+    // public $hasAndBelongsToMany = array('User');
     /*
     public $hasAndBelongsToMany = array(
         'User' => 

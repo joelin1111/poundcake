@@ -85,10 +85,26 @@ class UsersController extends AppController {
      * Save an array of projects this user is assigned to
      */
     function getUsersProjects() {
+        $projects = $this->User->ProjectMembership->Project->find('list', array( 
+            'conditions' => array(
+                'ProjectsUser.user_id' => $this->Auth->user('id')
+                ), 
+            'joins' => array( 
+                array(
+                    'table' => 'projects_users', 
+                    'alias' => 'ProjectsUser', 
+                    'type' => 'inner',
+                    'conditions'=> array('ProjectsUser.project_id = Project.id')) 
+            ),
+            'order' => array('Project.name ASC'),
+            ));        
+        $this->set(compact('projects'));
+        
+        /*
         // this really would be more useful to take a user id as a parameter
         // and return an array of projects
         
-        //$projects = $this->User->Project->find('list');
+        // $projects = $this->User->Project->find('list');
         // I thought Cake would make finding all projects this user is associated
         // with (which is a HABTM relation) easier -- or am I just not doing this
         // right?
@@ -106,14 +122,21 @@ class UsersController extends AppController {
             'order' => array('Project.name ASC'),
             ));        
         $this->set(compact('projects'));
+        */
     }
     
     /*
      * Save an array of all projects in the system
      */
-    function getAllProjects() {
-        // return all projects
-        $projects = $this->User->ProjectMembership->Project->find('list');
+    function getAllProjects( $all = false ) {
+        if ( !$all ) {
+            // return all projects
+            $projects = $this->User->ProjectMembership->Project->find('list');
+        } else {
+            $this->User->ProjectMembership->Project->recursive = -1;
+            $projects = $this->User->ProjectMembership->Project->find('all');
+        }
+        
         //$projects = $this->User->Project->find('list');
         $this->set('projects',$projects);
     }
@@ -148,6 +171,9 @@ class UsersController extends AppController {
                     // listing page goes to sites in the newly selected project
                     $this->Session->write( 'conditions', null );
                 }
+                
+                $this->setRole( $id );
+                
                 $this->Session->setFlash('The project has been set.');
                 $this->redirect(array('controller' => 'sites','action' => 'overview'));
             } else {
@@ -217,48 +243,118 @@ class UsersController extends AppController {
     
     /*
      * Grant a user permissions in other projects
+     */  
+//    public function permissions_orig($id = null) {
+//        $this->User->id = $id;
+//        $this->getRoles();
+//        $this->getAllProjects();
+//        
+//        if (!$this->User->exists()) {
+//            throw new NotFoundException('Invalid user');
+//        }
+//        if ($this->request->is('post') || $this->request->is('put')) {
+//            //unset($this->User->validate['password']);
+//            
+//            // we need to check if the user has been removed from a project
+//            // they were previously assigned to and possibly clear/change
+//            // their project_id field -- otherwise the user will still have access
+//            
+//            // get the id of the last project the user accessed
+//            $last_project_id = $this->User->field('project_id');
+//            
+//            // get an array of projects the user is now currently assigned to
+//            $new_projects = $this->request->data['Project']['Project'];
+//            if ( in_array( $last_project_id,  $new_projects ) == 0 ) {
+//                // just assign them a default of the first item in the set of
+//                // new projects
+//                $this->User->saveField('project_id',$new_projects[0]);              
+//            }
+//            
+//            // $blackList is also used above
+//            $blackList = array('password', 'username');
+//            if ($this->User->save($this->request->data, true, array_diff(array_keys($this->User->schema()), $blackList))) {
+//                $this->Session->setFlash('The user has been saved.');
+//                $this->redirect(array('action' => 'index'));
+//            } else {
+//                $this->Session->setFlash('Error!  The user could not be saved. Please, try again.');
+//            }
+//        } else {
+//            $this->request->data = $this->User->read(null, $id);
+//            unset($this->request->data['User']['password']);
+//        }
+//    }
+    
+    /*
+     * Grant a user permissions in other projects
      */
     public function permissions($id = null) {
+        $this->User->recursive = 2;
+        
         $this->User->id = $id;
-        $this->getRoles();
-        $this->getAllProjects();
+        $this->User->read();
+        $username = $this->User->data['User']['username'];
+
+        // $this->getRoles();
+        $this->loadModel('Role');
+        $roles = $this->Role->find('all'); // we need all role info
+        
+        $this->getAllProjects( true );
         
         if (!$this->User->exists()) {
             throw new NotFoundException('Invalid user');
         }
         if ($this->request->is('post') || $this->request->is('put')) {
-            //unset($this->User->validate['password']);
             
-            // we need to check if the user has been removed from a project
-            // they were previously assigned to and possibly clear/change
-            // their project_id field -- otherwise the user will still have access
+//            echo '<pre>';
+//            print_r( $this->request->data );
+//            echo '</pre>';
             
-            // get the id of the last project the user accessed
-            $last_project_id = $this->User->field('project_id');
-            //var_dump( $this->request->data );
-            // get an array of projects the user is now currently assigned to
-            //$new_projects = $this->request->data['Project']['Project'];
-            $new_projects = $this->request->data['Project']['project_id'];
-            if ( in_array( $last_project_id,  $new_projects ) == 0 ) {
-                // just assign them a default of the first item in the set of
-                // new projects
-                $this->User->saveField('project_id',$new_projects[0]);              
+            // $blackList is also used above
+            // $blackList = array('password', 'username');
+            // if ($this->User->save($this->request->data, true, array_diff(array_keys($this->User->schema()), $blackList))) {
+            
+            $this->User->ProjectMembership->deleteAll(array('ProjectMembership.user_id' => $id ));
+                       
+            $row_id = 0;
+            foreach ( $this->request->data['ProjectMembership'] as $project ) {
+                if ( is_array($project) && array_key_exists('project_id', $project) && array_key_exists('role_id', $project) ) {
+                    
+                    $pm['ProjectMembership']['user_id'] = $id;
+                    $pm['ProjectMembership']['project_id'] = $project['project_id'];
+                    $pm['ProjectMembership']['role_id'] = $project['role_id'];
+                    
+//                    echo "Saving: ";
+//                    var_dump( $pm );                    
+                    $this->User->ProjectMembership->create();
+                    $this->User->ProjectMembership->save( $pm );      
+                    $row_id = $this->User->ProjectMembership->id;                    
+//                    echo "Got back: ";
+//                    var_dump( $row_id );
+                    // the user may have been removed from a project they were on
+                    // this is a little sloppy but just assign them a new default
+                    // project -- this should probably be outside this loop, too
+                    $this->User->saveField( 'project_id', $pm['ProjectMembership']['project_id']  );                      
+                }
             }
             
-            var_dump( $this->request->data );
-            // $blackList is also used above
-            $blackList = array('password', 'username');
-            if ($this->User->ProjectMembership->saveAll($this->request->data['Project'], array('deep' => true) )) {
-            //if ($this->User->save($this->request->data, true, array_diff(array_keys($this->User->schema()), $blackList))) {
-                $this->Session->setFlash('The user has been saved.');
+            if ( $row_id > 0 ) {
+                $this->Session->setFlash('The permissions have been saved.');
                 $this->redirect(array('action' => 'index'));
             } else {
-                $this->Session->setFlash('Error!  The user could not be saved. Please, try again.');
+                $this->Session->setFlash('Error!  The permissions could not be saved. Please, try again.');
             }
-        } else {
-            $this->request->data = $this->User->read(null, $id);
-            unset($this->request->data['User']['password']);
+            
         }
+
+        // we need a simple array of project_ids the user us alrady assigned to
+        // so that we can manually check the box on the edit page -- this is stuff
+        // HABTM would do for us, but we have to do it manually
+        $existing_projects = $this->User->data['ProjectMembership'];
+        $assigned_projects = array();
+        foreach ( $existing_projects as $p ) {
+            array_push( $assigned_projects, $p['Project']['id'] );
+        }
+        $this->set(compact('assigned_projects','roles','username', 'id'));
     }
     
     /*
@@ -321,11 +417,11 @@ class UsersController extends AppController {
 
                 // load the last project the user had viewed -- which was saved
                 // to the user table as project_id
-                $project = $this->User->Project->findById($this->Auth->user('project_id'));
-
+                $project = $this->User->ProjectMembership->Project->findById($this->Auth->user('project_id'));
+                
                 // if there is no project_id (last viewed project), just give them their first assigned project
                 if ( $project == null ) {
-                    $project = $this->User->Project->find('first');
+                    $project = $this->User->ProjectMembership->Project->find('first');
                 }
                 $project_id = $project['Project']['id'];
                 $project_name = $project['Project']['name'];
@@ -337,11 +433,45 @@ class UsersController extends AppController {
                 // log the user's login time
                 $this->User->saveField('last_login', date( "Y-m-d H:i:s", time() ));
                 // send them on their way
+                
+                $this->setRole( $this->User->id );
+                
                 $this->redirect($this->Auth->redirect());
             } else {
                 $this->Session->setFlash('Error!  Invalid username or password, try again.');
             }
         }
+    }
+    
+    /*
+     * This function sets a session variable named "role" to the user's rolealias
+     * for the current project -- whereas this used to come from User->Role now
+     * we have to query for it via the ProjectMembership join table
+     */
+    private function setRole( $id ) {
+        $role = null;
+        $this->User->id = $id;
+        $this->User->read();
+        if ( $this->User->data['User']['admin'] ) {
+            $role = 'admin';
+        } else {
+            // get current project ID
+            $project_id = $this->Session->read('project_id');
+            // get all the projects the user is assigned to
+            $projects = $this->User->data['ProjectMembership'];
+            foreach ( $projects as $project ) {
+                // when we've found the current project
+                if ( $project['project_id'] == $project_id ) {
+                    $this->loadModel('Role');
+                    $this->Role->id = $project['role_id'];
+                    $this->Role->read();
+                    $role = $this->Role->data['Role']['rolealias'];
+                }
+            }
+            
+        }
+        $this->Session->write( 'role', $role );
+        // var_dump( $this->Session->read('role') );
     }
     
     /*
