@@ -24,10 +24,12 @@
     <P><B>Users with access to this project:</B>
     <UL>
     <?php
-        foreach ($project['User'] as $user ) {
+        //var_dump( $project['ProjectMembership'] );
+        
+        foreach ($project_users as $user ) {
             echo '<LI>';
             echo $user['username'];
-            echo ', '.$user['Role']['name'];
+            echo ', '.$user['role'];
             echo '</LI>';
         }
     ?>

@@ -54,7 +54,29 @@ class ProjectsController extends AppController {
         if (!$this->Project->exists()) {
             throw new NotFoundException('Invalid project');
         }
-        $this->set('project', $this->Project->read(null, $id));
+        
+        $project =  $this->Project->read(null, $id);
+        
+        // we're going to make it easy on the view, and prepare a nice, tidy
+        // array of users on this project and their roles
+        $users = $this->Project->read(null, $id);
+        $project_users = array();
+        foreach ( $users['ProjectMembership'] as $user ) {
+            //var_dump( $user );
+            $this->loadModel('Role');
+            $this->Role->id = $user['role_id'];
+            $role = $this->Role->read();            
+            // var_dump( $role );
+            $uid = $user['User']['id'];
+            $u = array(
+                'username' => $user['User']['username'],
+                'role' => $role['Role']['name']
+            );
+            
+            array_push( $project_users, $u );
+        }
+        
+        $this->set(compact('project','project_users'));
     }
 
     /*
