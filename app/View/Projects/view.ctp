@@ -24,8 +24,6 @@
     <P><B>Users with access to this project:</B>
     <UL>
     <?php
-        //var_dump( $project['ProjectMembership'] );
-        
         foreach ($project_users as $user ) {
             echo '<LI>';
             echo $user['username'];
