@@ -193,11 +193,13 @@ class UsersController extends AppController {
         $this->getRoles();
         if ($this->request->is('post')) {
             
+            /*
             // if they were not assigned to any projects, make them try again
             if ( !isset($this->request->data['Project']['Project'][0] )) {
                 $this->Session->setFlash('Error!  The user must be assigned to at least one project.');
                 $this->redirect(array('controller' => 'users','action' => 'add'));
             }
+            */
             
             $this->User->create();
             // project_id is the project the user defaults to when they login
