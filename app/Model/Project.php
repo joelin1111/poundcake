@@ -151,28 +151,30 @@ class Project extends AppModel {
        }
     }
     
+    
     /*
      * Standard call back function -- automatically give admins
      * (or users with roleid of 1) access to the project, called
      * on both add and edit.
      */
-    public function beforeSave($options = array()) {
-        // find all the admins
-        $admins = ClassRegistry::init('User')->findAllByRoleId( 1 );
-        $admin_ids = array();
-        foreach ( $admins as $admin ) {
-            array_push($admin_ids, $admin['User']['id'] );
-        }
-        $this->data['User']['User'] = $admin_ids;
-        /*
-         * manually verify that admins have access to this following the save:
-         * 
-         * select users.id,users.username,projects.name
-         * from users,projects,projects_users
-         * where users.role_id=1 and
-         * users.id = projects_users.user_id
-         * and projects.id = projects_users.project_id;
-        */
-        return true;
-    }
+//    public function beforeSave($options = array()) {
+//        // find all the admins
+//        $admins = ClassRegistry::init('User')->findAllByRoleId( 1 );
+//        $admin_ids = array();
+//        foreach ( $admins as $admin ) {
+//            array_push($admin_ids, $admin['User']['id'] );
+//        }
+//        $this->data['User']['User'] = $admin_ids;
+//        /*
+//         * manually verify that admins have access to this following the save:
+//         * 
+//         * select users.id,users.username,projects.name
+//         * from users,projects,projects_users
+//         * where users.role_id=1 and
+//         * users.id = projects_users.user_id
+//         * and projects.id = projects_users.project_id;
+//        */
+//        return true;
+//    }
+    
 }

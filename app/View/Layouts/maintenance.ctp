@@ -11,9 +11,9 @@
             <img src="/img/maintenance.png"><BR>
             <h1>Site Maintenance</p></h1>
             
-            <p class="lead">Tower DB is getting little tune-up behind the scenes, please check back later!</p>
+            <p class="lead">Tower DB is getting little tune-up behind the scenes</p>
             
-            <h4>Currently estimates it will come back online at 4pm (1600) Pacific.</h4>
+            <h4>We currently estimate things will be complete by 4pm (1600) Pacific</h4>
             
         </div>
   </div>  

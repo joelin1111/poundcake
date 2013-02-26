@@ -192,21 +192,11 @@ class UsersController extends AppController {
     public function add() {
         $this->getRoles();
         if ($this->request->is('post')) {
-            
-            /*
-            // if they were not assigned to any projects, make them try again
-            if ( !isset($this->request->data['Project']['Project'][0] )) {
-                $this->Session->setFlash('Error!  The user must be assigned to at least one project.');
-                $this->redirect(array('controller' => 'users','action' => 'add'));
-            }
-            */
-            
             $this->User->create();
             // project_id is the project the user defaults to when they login
             // this should be getting set by the login routine but we can set
             // it here just the same -- give them the first project to which they are assigned
             // if the admin didn't assign them to any projects this will return an error
-            // $this->request->data['User']['project_id'] = $this->request->data['Project']['Project'][0];
             //debug($this->request->data,false);
             if ($this->User->save($this->request->data)) {
                 $this->Session->setFlash('The user has been saved.');
