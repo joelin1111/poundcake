@@ -206,7 +206,7 @@ class UsersController extends AppController {
             // this should be getting set by the login routine but we can set
             // it here just the same -- give them the first project to which they are assigned
             // if the admin didn't assign them to any projects this will return an error
-            $this->request->data['User']['project_id'] = $this->request->data['Project']['Project'][0];
+            // $this->request->data['User']['project_id'] = $this->request->data['Project']['Project'][0];
             //debug($this->request->data,false);
             if ($this->User->save($this->request->data)) {
                 $this->Session->setFlash('The user has been saved.');
