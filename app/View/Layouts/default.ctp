@@ -92,7 +92,9 @@ $cakeDescription = __d('poundcake', 'Tower DB');
 <body>
     
 <?
-define('MAINTENANCE', 1); 
+// set this to 1 to enable the maintenance page
+define( 'MAINTENANCE', 0 ); 
+// 24.20.20.146 -- Clark's office at TenPod
 if( MAINTENANCE > 0 && $_SERVER['REMOTE_ADDR'] != '24.20.20.146' ) {
     include( 'maintenance.ctp');
     die(); 
