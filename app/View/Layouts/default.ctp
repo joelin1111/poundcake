@@ -16,6 +16,7 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 
+
 $cakeDescription = __d('poundcake', 'Tower DB');
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -89,6 +90,15 @@ $cakeDescription = __d('poundcake', 'Tower DB');
         <![endif]-->
 </head>
 <body>
+    
+<?
+define('MAINTENANCE', 1); 
+if( MAINTENANCE > 0 && $_SERVER['REMOTE_ADDR'] != '24.20.20.146' ) {
+    include( 'maintenance.ctp');
+    die(); 
+}
+?>
+    
 <div class="navbar navbar-fixed-top"> <!-- was: navbar-fixed-top -->    
         <div class="navbar-inner">
             <div class="container">
