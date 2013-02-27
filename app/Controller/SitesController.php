@@ -378,7 +378,7 @@ class SitesController extends AppController
                         $sid = $this->Site->SiteState->query('select id from site_states where sequence is not null and project_id='.$this->Session->read('project_id').' order by sequence limit 1');                        
                         // we cannot import sites unless there is at least one SiteState defined for the project
                         if ( sizeof($sid) == 0) {
-                            $this->Session->setFlash('Error! Cannot import sites until at least one Site State defined.');
+                            $this->Session->setFlash('Error! Cannot import sites until at least one Site State is defined in the project.');
                             $this->redirect(array('action' => 'index'));                            
                         } else {
                             if ( $sid > 0 ) {

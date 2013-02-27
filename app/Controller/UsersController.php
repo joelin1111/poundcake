@@ -86,31 +86,44 @@ class UsersController extends AppController {
      */
     function getUsersProjects() {
         
-        $this->User->id = $this->Auth->user('id');
+        $uid = $this->Auth->user('id');
+        $this->User->id = $uid;
         $this->User->read();
+//        var_dump( $this->User->field('admin') );
         
         // if the user is an administrator, then show them all projects
         if ( $this->User->field('admin') ) {
             $projects = $this->User->ProjectMembership->Project->find('list');            
-                   
         } else {
             // otherwise they get the list of projects to which they are assigned,
             // and this is done by joining on the project_memberships table
-            $projects = $this->User->ProjectMembership->Project->find('list', array( 
-                $conditions = array(
-                        'ProjectMembership.user_id' => $this->Auth->user('id')
-                ),
-                'joins' => array( 
-                    array(
-                        'table' => 'project_memberships', 
-                        'alias' => 'ProjectMembership', 
-                        'type' => 'inner',
-                        'conditions'=> array('ProjectMembership.project_id = Project.id')) 
-                ),
-                'order' => array('Project.name ASC'),
-                ));
+//            $projects = $this->User->ProjectMembership->Project->find('list', array( 
+//                $conditions = array(
+//                    'ProjectMembership.user_id' => $uid
+//                ),
+//                'joins' => array( 
+//                    array(
+//                        'table' => 'project_memberships', 
+//                        'alias' => 'ProjectMembership', 
+//                        'type' => 'inner',
+//                        'conditions'=> array(
+//                            'ProjectMembership.project_id = Project.id'
+//                            )
+//                        ) 
+//                ),
+//                'order' => array('Project.name ASC'),
+//                ));
+            $projects_all = $this->User->ProjectMembership->findAllByUserId( $uid );
+            $projects = array();
+            foreach ( $projects_all as $p ) {
+//                array_push( $projects, array( $id => $p['Project']['name'] ));
+                $projects[$p['Project']['id']] = $p['Project']['name'];
+            }
         }
-        
+//        var_dump( $projects );
+//        $log = $this->User->ProjectMembership->Project->getDataSource()->getLog(false, false);
+//        debug($log);
+//        die;
         $this->set(compact('projects'));
     }
     
@@ -417,29 +430,59 @@ class UsersController extends AppController {
                 $this->loadModel('User',$uid);
                 $this->User->id = $uid;
                 $user = $this->User->read();
-
-                // load the last project the user had viewed -- which was saved
-                // to the user table as project_id
-                $project = $this->User->ProjectMembership->Project->findById($this->Auth->user('project_id'));
                 
-                // if there is no project_id (last viewed project), just give them their first assigned project
-                if ( $project == null ) {
-                    $project = $this->User->ProjectMembership->Project->find('first');
+                // get the ID of the last project thi user was assigned
+                $last_project_id = $this->User->field('project_id');
+                
+                // get all the projects to which this user is assigned
+                $projects = $this->User->ProjectMembership->findAllByUserId( $uid );
+                
+               
+//                echo "Last project ID:  $last_project_id";
+//                var_dump( $last_project_id );
+//                var_dump( $projects );
+//              
+                // check that the user is still assigned to their last accessed project
+                $ok_to_login = false;
+                foreach ( $projects as $project ) {
+                    // var_dump( $project['Project']['id'] );
+                    if ( $last_project_id == $project['Project']['id'] ) {
+                        $ok_to_login = true;
+                    }
                 }
-                $project_id = $project['Project']['id'];
-                $project_name = $project['Project']['name'];
+                
+                if ( !$ok_to_login && ( count($projects) == 0 )) {
+                    $this->Session->setFlash('Error!  User has no assigned projects.  Contact an Administrator.'); 
+                    return;
+                } elseif ( !$ok_to_login && ( count($projects) > 0 )) { 
+                    // if the user is not assigned to their last project, but is still assigned
+                    // to other projects, let's use one of those as the project to send them to
+                    $project = $this->User->ProjectMembership->findByUserId( $uid );
+                    // set this project as their new last accessed project
+                    $this->User->saveField( 'project_id', $project['Project']['id'] );                    
+                } else {
+                    // otherwise, give them their last accessed project
+                    $project = $this->User->ProjectMembership->Project->findById( $last_project_id );
+                }
+//                var_dump( $projects );
+//                die;
 
-                // save the project ID and name as session variables
-                // see also projects() in this controller
-                $this->Session->write('project_id', $project_id);
-                $this->Session->write('project_name', $project_name);
-                // log the user's login time
-                $this->User->saveField('last_login', date( "Y-m-d H:i:s", time() ));
-                // send them on their way
-                
-                $this->setRole( $this->User->id );
-                
-                $this->redirect($this->Auth->redirect());
+                if ( sizeof($project) > 0 ) { 
+                    $project_id = $project['Project']['id'];
+                    $project_name = $project['Project']['name'];
+
+                    // save the project ID and name as session variables
+                    // see also projects() in this controller
+                    $this->Session->write('project_id', $project_id);
+                    $this->Session->write('project_name', $project_name);
+                    // log the user's login time
+                    $this->User->saveField('last_login', date( "Y-m-d H:i:s", time() ));
+                    // send them on their way
+
+                    $this->setRole( $this->User->id );
+
+                    $this->redirect($this->Auth->redirect());
+                }
             } else {
                 $this->Session->setFlash('Error!  Invalid username or password, try again.');
             }
