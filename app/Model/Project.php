@@ -157,13 +157,19 @@ class Project extends AppModel {
      * (or users with roleid of 1) access to the project, called
      * on both add and edit.
      */
+//    PC-390 makes this irrelevant now that we don't have a HABTM relation
+//    keeping this commented out for now
+//    
 //    public function beforeSave($options = array()) {
 //        // find all the admins
-//        $admins = ClassRegistry::init('User')->findAllByRoleId( 1 );
+//        $admins = ClassRegistry::init('User')->findAllByAdmin( 1 );
 //        $admin_ids = array();
 //        foreach ( $admins as $admin ) {
 //            array_push($admin_ids, $admin['User']['id'] );
 //        }
+//        $this->recursive = 2;
+//        debug( $this->data );
+//        die;
 //        $this->data['User']['User'] = $admin_ids;
 //        /*
 //         * manually verify that admins have access to this following the save:

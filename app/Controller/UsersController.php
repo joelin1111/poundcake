@@ -85,47 +85,33 @@ class UsersController extends AppController {
      * Save an array of projects this user is assigned to
      */
     function getUsersProjects() {
-        $projects = $this->User->ProjectMembership->Project->find('list', array( 
-            'conditions' => array(
-                'ProjectMembership.user_id' => $this->Auth->user('id')
-                ), 
-            'joins' => array( 
-                array(
-                    'table' => 'project_memberships', 
-                    'alias' => 'ProjectMembership', 
-                    'type' => 'inner',
-                    'conditions'=> array('ProjectMembership.project_id = Project.id')) 
-            ),
-            'order' => array('Project.name ASC'),
-            ));        
-//        debug( $projects);
-//        die;
+        
+        $this->User->id = $this->Auth->user('id');
+        $this->User->read();
+        
+        // if the user is an administrator, then show them all projects
+        if ( $this->User->field('admin') ) {
+            $projects = $this->User->ProjectMembership->Project->find('list');            
+                   
+        } else {
+            // otherwise they get the list of projects to which they are assigned,
+            // and this is done by joining on the project_memberships table
+            $projects = $this->User->ProjectMembership->Project->find('list', array( 
+                $conditions = array(
+                        'ProjectMembership.user_id' => $this->Auth->user('id')
+                ),
+                'joins' => array( 
+                    array(
+                        'table' => 'project_memberships', 
+                        'alias' => 'ProjectMembership', 
+                        'type' => 'inner',
+                        'conditions'=> array('ProjectMembership.project_id = Project.id')) 
+                ),
+                'order' => array('Project.name ASC'),
+                ));
+        }
         
         $this->set(compact('projects'));
-        
-        /*
-        // this really would be more useful to take a user id as a parameter
-        // and return an array of projects
-        
-        // $projects = $this->User->Project->find('list');
-        // I thought Cake would make finding all projects this user is associated
-        // with (which is a HABTM relation) easier -- or am I just not doing this
-        // right?
-        $projects = $this->User->Project->find('list', array( 
-            'conditions' => array(
-                'ProjectsUser.user_id' => $this->Auth->user('id')
-                ), 
-            'joins' => array( 
-                array(
-                    'table' => 'projects_users', 
-                    'alias' => 'ProjectsUser', 
-                    'type' => 'inner',
-                    'conditions'=> array('ProjectsUser.project_id = Project.id')) 
-            ),
-            'order' => array('Project.name ASC'),
-            ));        
-        $this->set(compact('projects'));
-        */
     }
     
     /*

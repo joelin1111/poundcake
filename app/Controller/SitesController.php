@@ -376,16 +376,22 @@ class SitesController extends AppController
                         
                         $sites = array();
                         $sid = $this->Site->SiteState->query('select id from site_states where sequence is not null and project_id='.$this->Session->read('project_id').' order by sequence limit 1');                        
-                        if ( $sid > 0 ) {
-                            $sites = $this->parseKML( $xml->Document->children(), $sid[0]['site_states']['id'] );
-                        }
-                        // debug( $sites );
-                        $this->set(compact('sites'));
-                        if ( sizeof( $sites ) > 0 ) {
-                            $this->render('confirm');
+                        // we cannot import sites unless there is at least one SiteState defined for the project
+                        if ( sizeof($sid) == 0) {
+                            $this->Session->setFlash('Error! Cannot import sites until at least one Site State defined.');
+                            $this->redirect(array('action' => 'index'));                            
                         } else {
-                            $this->Session->setFlash('Error! No placemarks found in KML.');
-                            $this->redirect(array('action' => 'index'));
+                            if ( $sid > 0 ) {
+                                $sites = $this->parseKML( $xml->Document->children(), $sid[0]['site_states']['id'] );
+                            }
+                            // debug( $sites );
+                            $this->set(compact('sites'));
+                            if ( sizeof( $sites ) > 0 ) {
+                                $this->render('confirm');
+                            } else {
+                                $this->Session->setFlash('Error! No placemarks found in KML.');
+                                $this->redirect(array('action' => 'index'));
+                            }
                         }
                     }
                 }
@@ -707,10 +713,23 @@ class SitesController extends AppController
      * against the projects table
      */
     function isAllowed($project_id, $uid) {
-        //  There is probably a Cake-ier way to do this!
-        $query = 'select * from project_memberships where user_id='.$uid.' and project_id='.$project_id;
-        $result = $this->Site->query($query);
-        return (sizeof($result) > 0 ? true : false);
+        $this->loadModel('User');    
+        $this->User->id = $this->Auth->user('id');
+        $this->User->read();
+        // if the user is an administrator, then they are allowed
+        
+        $ret = false;
+        if ( $this->User->field('admin') ) {
+            $ret = true;
+        } else {
+            //  There is probably a Cake-ier way to do this, sometimes you gotta
+            //  go bare metal
+            $query = 'select * from project_memberships where user_id='.$uid.' and project_id='.$project_id;
+            $result = $this->Site->query($query);
+            $ret = (sizeof($result) > 0 ? true : false);
+        }
+        
+        return $ret;
     }
     
     /*
