@@ -708,7 +708,7 @@ class SitesController extends AppController
      */
     function isAllowed($project_id, $uid) {
         //  There is probably a Cake-ier way to do this!
-        $query = 'select * from projects_users where user_id='.$uid.' and project_id='.$project_id;
+        $query = 'select * from project_memberships where user_id='.$uid.' and project_id='.$project_id;
         $result = $this->Site->query($query);
         return (sizeof($result) > 0 ? true : false);
     }

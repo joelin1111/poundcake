@@ -44,7 +44,7 @@
         echo $this->Form->input( 'user_id' ,array( 'type' => 'hidden', 'value' => $id ));
         
         echo "<table class=\"table table-condensed table-striped\">";
-        echo "<tr><th>Project</th>";
+        echo "<tr><th>Project Access</th>";
         echo "<th colspan=\"2\">Permission</th>";
         echo "</tr>";
         
