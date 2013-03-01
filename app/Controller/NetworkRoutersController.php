@@ -188,15 +188,15 @@ class NetworkRoutersController extends NetworkDeviceController {
      */
     public function delete($id = null) {
         if (!$this->request->is('post')) {
-                throw new MethodNotAllowedException();
+            throw new MethodNotAllowedException();
         }
         $this->NetworkRouter->id = $id;
         if (!$this->NetworkRouter->exists()) {
-                throw new NotFoundException('Invalid router');
+            throw new NotFoundException('Invalid router');
         }
         if ($this->NetworkRouter->delete()) {
-                $this->Session->setFlash('Router deleted.');
-                $this->redirect(array('action' => 'index'));
+            $this->Session->setFlash('Router deleted.');
+            $this->redirect(array('action' => 'index'));
         }
         $this->Session->setFlash('Error!  Router was not deleted.');
         $this->redirect(array('action' => 'index'));
@@ -219,9 +219,7 @@ class NetworkRoutersController extends NetworkDeviceController {
                 $this->NetworkRouter->saveField('foreign_id', $foreign_id);
                 $this->NetworkRouter->saveField('provisioned_on', date("Y-m-d H:i:s") );
                 $this->NetworkRouter->saveField('provisioned_by', $this->Auth->user('id') );
-
                 $this->Session->setFlash('Provisioned router.  Foreign ID '.$foreign_id);
-
             } else {
                 $this->Session->setFlash('Error!  Problem provisioning router.');
             }

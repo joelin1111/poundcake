@@ -33,7 +33,7 @@ class TowerTypesController extends AppController {
     public function index() {
         $this->TowerType->recursive = 0;
         // yes, I do realize that the plural of equipment is equipment
-        $this->set('towerequipments', $this->paginate());
+        $this->set('towertypes', $this->paginate());
     }
 
     /*
@@ -42,9 +42,9 @@ class TowerTypesController extends AppController {
     public function view($id = null) {
         $this->TowerType->id = $id;
         if (!$this->TowerType->exists()) {
-                throw new NotFoundException('Invalid tower type');
+            throw new NotFoundException('Invalid tower type');
         }
-        $this->set('towerequipment', $this->TowerType->read(null, $id));
+        $this->set('towertype', $this->TowerType->read(null, $id));
     }
 
     /*
@@ -96,10 +96,10 @@ class TowerTypesController extends AppController {
             throw new NotFoundException('Invalid tower type');
         }
         if ($this->TowerType->delete()) {
-            $this->Session->setFlash('Tower equipment deleted.');
+            $this->Session->setFlash('Tower type deleted.');
             $this->redirect(array('action' => 'index'));
         }
-        $this->Session->setFlash('Error!  Tower equipment was not deleted.');
+        $this->Session->setFlash('Error!  Tower type was not deleted.');
         $this->redirect(array('action' => 'index'));
     }
         

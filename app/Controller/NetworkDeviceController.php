@@ -117,7 +117,7 @@ class NetworkDeviceController extends AppController {
         
         $system = $this->getMonitoringSystemType();
         $ret = null;
-       
+
         // filter_var returns success when the IP is 0.0.0.0
         // ip2long returns false in the case of an invalid IP
         if( filter_var($ip_addr, FILTER_VALIDATE_IP) && ip2long($ip_addr) ) {

@@ -1,6 +1,6 @@
 <?php
     // jQuery to enable/disable fields based on checkbox
-    echo $this->Html->script('sector');
+    // echo $this->Html->script('poundcake/sector');
     echo $this->Html->script('poundcake/poundcake-snmp-override');
 ?>
 
@@ -56,4 +56,6 @@
     // include the JQuery to handle updating the list of available
     // switches for the selected site
     echo $this->element('Common/site_change');
+    // and when the radip changes, update the frequecines
+    echo $this->element('Common/radio_change');
 ?>

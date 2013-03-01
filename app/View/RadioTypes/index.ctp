@@ -15,6 +15,7 @@
             <thead>
                 <tr>
                     <th><?php echo $this->Paginator->sort('name'); ?></th>
+                    <th><?php echo $this->Paginator->sort('radio_band_id'); ?></th>
                     <th><?php echo 'Actions'; ?></th>
                 </tr>
             </thead>
@@ -23,6 +24,7 @@
 	foreach ($radioTypes as $radioType): ?>
 	<tr>
             <td><?php echo $radioType['RadioType']['name'];?></td>
+            <td><?php echo $radioType['RadioBand']['name'];?></td>
             <td>
                 <?php
                     echo $this->Html->link('Edit', array('action' => 'edit', $radioType['RadioType']['id']));

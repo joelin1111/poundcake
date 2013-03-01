@@ -3,7 +3,7 @@
     <H3>Actions</H3>
     <div class="well well-large">
     <ul>
-        <li><?php echo $this->Html->link('List Tower Type', array('action' => 'index')); ?>
+        <li><?php echo $this->Html->link('List Tower Types', array('action' => 'index')); ?>
     </ul>
     </div>
 </div><!-- /.span3 .sb-fixed -->

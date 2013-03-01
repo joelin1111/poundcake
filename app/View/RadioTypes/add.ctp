@@ -12,7 +12,8 @@
     <?php echo $this->Form->create('RadioType'); ?>
     <h2>Add Radio Type</h2>
     <?php
-            echo $this->Form->input('name');
+        echo $this->Form->input('name');
+        echo $this->Form->input('radio_band_id', array('type'=>'select','options' => $radiobands));
     ?>
     </fieldset>
     <?php

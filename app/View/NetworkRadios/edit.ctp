@@ -60,7 +60,9 @@
 </div> <!-- /.row -->
 
 <?php
-    // include the JQuery to handle updating the list of available
+    // include the jQuery to handle updating the list of available
     // switches for the selected site
     echo $this->element('Common/site_change');
+    // and when the radip changes, update the frequecines
+    echo $this->element('Common/radio_change');
 ?>

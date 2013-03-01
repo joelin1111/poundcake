@@ -1,15 +1,15 @@
 <?php
-    $this->Js->get('#NetworkRadioSiteId')->event('change', $this->Js->alert('changed'));    
-    $this->Js->get('#NetworkRadioSiteId');    
+//    $this->Js->get('#NetworkRadioRadioTypeId')->event('change', $this->Js->alert('changed'));    
+    $this->Js->get('#NetworkRadioRadioTypeId');    
     $this->Js->event('change',
         $this->Js->request(
                 array(
-                    'controller' => 'networkSwitches',
-                    'action' => 'getSwitchForSite'
+                    'controller' => 'radioTypes',
+                    'action' => 'getFrequenciesForRadioType'
                 ),
                 array(
                     'async' => true,
-                    'update' => '#NetworkRadioSwitchPort',
+                    'update' => '#NetworkRadioFrequency',
                     'dataExpression' => true,
                     'data'=> $this->Js->serializeForm (
                             array(

@@ -80,7 +80,7 @@
     </P>
     <P><B>Min. Height (meters):</B>&nbsp;<?php echo $networkradio['NetworkRadio']['min_height']; ?></P>
     <P><B>Frequency:</B>&nbsp;
-        <?php echo $networkradio['NetworkRadio']['frequency'];
+        <?php echo $networkradio['Frequency']['name'].' ('.$networkradio['NetworkRadio']['frequency'].' MHz)';
         if ( $sector && isset($links[0]) ) 
             echo '<BR><I>Frequency for '.$links[0]['network_radios']['name'].': '.$links[0]['network_radios']['frequency'] . '</I>';
         ?></P>

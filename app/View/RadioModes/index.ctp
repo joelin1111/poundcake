@@ -10,7 +10,7 @@
 </div><!-- /.span3 .sb-fixed -->
 
 <div class="span9">
-	<h2>Radio Mode</h2>
+	<h2>Radio Modes</h2>
 	<table class="table table-condensed table-striped table-hover">
             <thead>
                 <tr>

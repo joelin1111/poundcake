@@ -59,6 +59,7 @@ class RadioTypesController extends AppController {
                 $this->Session->setFlash('Error!  The radio type could not be saved. Please, try again.');
             }
         }
+        $this->getRadioBands();
     }
 
     /*
@@ -79,6 +80,7 @@ class RadioTypesController extends AppController {
         } else {
             $this->request->data = $this->RadioType->read(null, $id);
         }
+        $this->getRadioBands();
     }
 
     /*
@@ -99,7 +101,41 @@ class RadioTypesController extends AppController {
         $this->Session->setFlash('Error!  Radio type was not deleted.');
         $this->redirect(array('action' => 'index'));
     }
-
+    
+    /*
+     * Save an array of radio bands
+     */
+    private function getRadioBands() {
+        $this->set('radiobands', $this->RadioType->RadioBand->find('list'));
+    }
+    
+    /*
+     * 
+     */
+    public function getFrequenciesForRadioType() {
+        // this is called by jQuery when the user changes the radio type on
+        // NetworkRadio add/edit page
+        
+        // Contanable can help here, yes?  Why can't I get it to work!?!
+        
+        // get the Site the user selected
+        $this->loadModel('RadioType');
+        $this->RadioType->id = $this->request->data['NetworkRadio']['radio_type_id'];
+        $this->RadioType->read();
+        $radio_band_id = $this->RadioType->field('radio_band_id');
+        
+        $this->loadModel('RadioBand');
+        $this->RadioBand->id = $radio_band_id;
+        $this->RadioBand->read();
+        $f = $this->RadioBand->Frequency->findAllByRadioBandId( $radio_band_id );
+        foreach ($f as $k ) {
+            $label = $k['Frequency']['name'].' ('. $k['Frequency']['frequency'].') MHz';
+            $frequencies[ $k['Frequency']['frequency'] ] = $label;
+        }
+        $this->set('frequencies',$frequencies );
+        $this->layout = 'ajax';
+    }
+    
     /*
      * Uses Auth to check the ACL to see if the user is allowed to perform any
      * actions in this controller

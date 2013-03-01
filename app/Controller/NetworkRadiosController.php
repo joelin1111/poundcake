@@ -104,7 +104,7 @@ class NetworkRadiosController extends NetworkDeviceController {
         $query = 'call sp_get_remote_links('.$id.')';
         $links = $this->NetworkRadio->query( $query );
         
-        $this->set('networkradio', $this->NetworkRadio->read(null, $id));
+        $networkradio = $this->NetworkRadio->read(null, $id);
         $ip_addresses = $this->getAllIPAddresses($this->NetworkRadio->field('name'));
         $this->set(compact('ip_addresses'));
         
@@ -164,10 +164,18 @@ class NetworkRadiosController extends NetworkDeviceController {
             $checked = "";
         }
         
+        // we're cheating here -- I can't seem to figure out how to get to the
+        // Frequency name from the related model, so we're going to retireve it
+        // manually and manually set it so it displays right in the view
+        $this->loadModel('Frequency');
+        $f = $this->Frequency->findByFrequency( $this->NetworkRadio->data['NetworkRadio']['frequency']);
+        $networkradio['Frequency']['name'] = $f['Frequency']['name'];
+        
+        // var_dump( $this->NetworkRadio->data );
         // if we wanted to use the project's datetime format -- which probably doesn't include time
         // $datetime_format = $this->getDateTimeFormat();
         $this->getMonitoringSystemLink( $this->NetworkRadio->data['NetworkRadio']['node_id'] );
-        $this->set(compact('links','sector','provisioned_by_name', 'checked' ));
+        $this->set(compact('networkradio','links','sector','provisioned_by_name', 'checked' ));
     }
     
     /*
@@ -332,7 +340,7 @@ class NetworkRadiosController extends NetworkDeviceController {
         $this->getRadioTypes();
         $this->getAntennaTypes();
         $this->getRadioModes();
-        $this->getFrequencies(); // for the frequency dropdown
+        $this->getFrequencies();
         $first_site = $this->getAllSitesForProject();
         $this->getNetworkSwitch($first_site);
         
@@ -448,19 +456,25 @@ class NetworkRadiosController extends NetworkDeviceController {
     }
     
     /*
-     * Save an array of frequencies for the select dropdown.  
-     * Note Ubiquity devices support 4920 MHz to 6100 MHz in 5 MHz increments
-     * and that 4920 starting value is hard-coded.
+     * Save an array of frequencies for the select dropdown.
      */
     private function getFrequencies() {
+        // I could not figure out how to use Containable here... what's wrong with me?
+        // see also getFrequenciesForRadioType in RadioTypes controller which does the
+        // same thing -- only via AJAX when the user switches the radio
+        $radio_band_id = $this->NetworkRadio->RadioType->field('radio_band_id');
+        $this->NetworkRadio->RadioType->RadioBand->Frequency->recursive = -1;
+        $frequencies_list = $this->NetworkRadio->RadioType->RadioBand->Frequency->findAllByRadioBandId( $radio_band_id );
         $frequencies = array();
-        $frequency = 4920;        
-        for ($i = 0; $i <= 236; ++$i) {
-            // we want the key and value in this array be the same here
-            $frequencies[$frequency] = $frequency;
-            $frequency += 5;
+        foreach ( $frequencies_list as $f ) {
+            $label = $f['Frequency']['name'].' ('.$f['Frequency']['frequency'].' MHz)';
+            $frequencies[ $f['Frequency']['frequency'] ] = $label;
         }
-        $this->set('frequencies',$frequencies);
+//        var_dump( $frequency_list );
+//        die;
+        
+        $this->set( 'frequencies', $frequencies );
+        
     }
     
     /*

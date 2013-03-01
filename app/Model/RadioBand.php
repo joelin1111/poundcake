@@ -1,53 +1,51 @@
 <?php
 /**
- * Model for radio type.
+ * Model for radio bands.
  *
- * Developed against CakePHP 2.2.3 and PHP 5.4.4.
+ * Developed against CakePHP 2.3.0 and PHP 5.4.4.
  *
- * Copyright 2012, Inveneo, Inc. (http://www.inveneo.org)
+ * Copyright 2013, Inveneo, Inc. (http://www.inveneo.org)
  *
  * Licensed under XYZ License.
  * 
  * Redistributions of files must retain the above copyright notice.
  *
- * @copyright     Copyright 2012, Inveneo, Inc. (http://www.inveneo.org)
+ * @copyright     Copyright 2013, Inveneo, Inc. (http://www.inveneo.org)
  * @author        Clark Ritchie <clark@inveneo.org>
  * @link          http://www.inveneo.org
  * @package       app.Model
- * @since         RadioType precedes Poundcake v2.2.1
+ * @since         RadioBand was introduced in Poundcake v2.7
  * @license       XYZ License
  */
 
 
 App::uses('AppModel', 'Model');
 
-class RadioType extends AppModel {
+class RadioBand extends AppModel {
 
     /*
      * Display field for select lists
      */
     public $displayField = 'name';
-
+    
     /*
      * Default sort order
      */
-    var $order = 'RadioType.name ASC';
-    
-    /*
-     * Relations
-     */
-    var $belongsTo = array(
-       'RadioBand'
-    );
-    
+    var $order = "RadioBand.name asc";
+
     /*
      * Relations
      */
     var $hasMany = array(
-       'NetworkRadios'
+       'Frequency'
     );
     
-    // var $actsAs = array('Containable');
+    /*
+     * Relations
+     */
+    var $hasOne = array(
+       'RadioType'
+    );
     
     /*
      * Field-level validation rules
@@ -65,4 +63,3 @@ class RadioType extends AppModel {
         )
     );
 }
-?>

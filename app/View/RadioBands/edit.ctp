@@ -3,17 +3,16 @@
     <H3>Actions</H3>
     <div class="well well-large">
     <ul>
-        <li><?php echo $this->Html->link('List Tower Types', array('action' => 'index')); ?></li>
+        <li><?php echo $this->Html->link('List Radio Bands', array('action' => 'index')); ?></li>
     </ul>
     </div>
 </div><!-- /.span3 .sb-fixed -->
 
 <div class="span9">
-    <?php echo $this->Form->create('TowerType'); ?>
-    <h2>Edit Tower Type</h2>
+    <?php echo $this->Form->create('RadioBand'); ?>
+    <h2>Edit Role</h2>
     <?php
         echo $this->Form->input('id');
-        echo $this->Form->input('project_id');
         echo $this->Form->input('name');
     ?>
     </fieldset>
