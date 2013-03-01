@@ -467,25 +467,28 @@ class NetworkRadiosController extends NetworkDeviceController {
      * Provisions the device into the monitoring system.
      * @see Identical functions in NetworkSwitch, NetworkRouter, NetworkRadio
      */
-    public function provision( $id = null ) {       
+    public function provision( $id = null ) {     
         // $this->NetworkRadio->id = $id;
         $this->NetworkRadio->read(null, $id);
-        $name = $this->NetworkRadio->data['NetworkRadio']['name'];
-        // $type = $this->NetworkRadio->data['RadioType']['name'];
         
-        $ip_addr = $this->NetworkRadio->data['NetworkRadio']['ip_address'];
-        
-        $foreign_id = parent::provisionNode( $name, $ip_addr, true );
-        
-        if ( !is_null( $foreign_id ) ) {
-            $this->NetworkRadio->saveField('foreign_id', $foreign_id);
-            $this->NetworkRadio->saveField('provisioned_on', date("Y-m-d H:i:s") );
-            $this->NetworkRadio->saveField('provisioned_by', $this->Auth->user('id') );
-            $this->Session->setFlash('Provisioned radio.  Foreign ID '.$foreign_id);
-            
+        // don't allow provisioning if the project is set to read-only integration
+        $ro = $this->NetworkRadio->Site->Project->field('read_only');
+        if ( !$ro ) {
+            $name = $this->NetworkRadio->data['NetworkRadio']['name'];
+            $ip_addr = $this->NetworkRadio->data['NetworkRadio']['ip_address'];
+            $foreign_id = parent::provisionNode( $name, $ip_addr, true );
+            if ( !is_null( $foreign_id ) ) {
+                $this->NetworkRadio->saveField('foreign_id', $foreign_id);
+                $this->NetworkRadio->saveField('provisioned_on', date("Y-m-d H:i:s") );
+                $this->NetworkRadio->saveField('provisioned_by', $this->Auth->user('id') );
+                $this->Session->setFlash('Provisioned radio.  Foreign ID '.$foreign_id);
+            } else {
+                $this->Session->setFlash('Error!  Problem provisioning radio.');
+            }
         } else {
-            $this->Session->setFlash('Error provisioning radio.');
+            $this->Session->setFlash('Error!  Project is set for read-only integration with monitoring system.');
         }
+        
         $this->redirect(array('action' => 'view',$this->NetworkRadio->id));
     }
             

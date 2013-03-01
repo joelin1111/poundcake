@@ -21,9 +21,10 @@
         echo $this->Form->input('default_lat', array( 'label' => 'Default Latitude','value' => $default_lat ));
         echo $this->Form->input('default_lon', array( 'label' => 'Default Longitude','value' => $default_lon ));
         echo $this->Form->input('workorder_title', array( 'label' => 'Title for Workorder' ));
-        echo $this->Form->input('datetime_format', array( 'label' => 'Datetime Format (PHP compatible)', 'value' => 'd/m/Y'));       
+        echo $this->Form->input('datetime_format', array( 'label' => 'Datetime Format (PHP compatible)', 'value' => 'd/m/Y'));  
         echo $this->Form->input('snmp_type_id', array('type'=>'select','options' => $snmptypes, 'label' => 'SNMP Version', 'empty' => true));
         echo $this->Form->input('snmp_community_name', array( 'label' => 'SNMP Community Name' ));
+        echo $this->Form->input('read_only', array( 'label' => 'Read-Only Monitoring System Integration' ));
         echo $this->Form->input('monitoring_system_type_id', array('type'=>'select','options' => $monitoringSystemTypes, 'label' => 'Monitoring System Type', 'empty' => true));
         echo $this->Form->input('monitoring_system_username', array( 'label' => 'Monitoring System Username' ));
         echo $this->Form->input('monitoring_system_password', array( 'type'=>'password', 'label' => 'Monitoring System Password' ));

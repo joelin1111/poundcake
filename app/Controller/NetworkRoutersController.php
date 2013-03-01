@@ -208,22 +208,27 @@ class NetworkRoutersController extends NetworkDeviceController {
      */
     public function provision( $id = null ) {        
         $this->NetworkRouter->read(null, $id);
-        $name = $this->NetworkRouter->data['NetworkRouter']['name'];
-        // $type = $this->NetworkRadio->data['RadioType']['name'];
         
-        $ip_addr = $this->NetworkRouter->data['NetworkRouter']['ip_address'];
-        $foreign_id = parent::provisionNode( $name, $ip_addr, true );
-        
-        if ( !is_null( $foreign_id ) ) {
-            $this->NetworkRouter->saveField('foreign_id', $foreign_id);
-            $this->NetworkRouter->saveField('provisioned_on', date("Y-m-d H:i:s") );
-            $this->NetworkRouter->saveField('provisioned_by', $this->Auth->user('id') );
-            
-            $this->Session->setFlash('Provisioned router.  Foreign ID '.$foreign_id);
-            
+        // don't allow provisioning if the project is set to read-only integration
+        $ro = $this->NetworkRouter->Site->Project->field('read_only');
+        if ( !$ro ) {
+            $name = $this->NetworkRouter->data['NetworkRouter']['name'];
+            $ip_addr = $this->NetworkRouter->data['NetworkRouter']['ip_address'];
+            $foreign_id = parent::provisionNode( $name, $ip_addr, true );
+            if ( !is_null( $foreign_id ) ) {
+                $this->NetworkRouter->saveField('foreign_id', $foreign_id);
+                $this->NetworkRouter->saveField('provisioned_on', date("Y-m-d H:i:s") );
+                $this->NetworkRouter->saveField('provisioned_by', $this->Auth->user('id') );
+
+                $this->Session->setFlash('Provisioned router.  Foreign ID '.$foreign_id);
+
+            } else {
+                $this->Session->setFlash('Error!  Problem provisioning router.');
+            }
         } else {
-            $this->Session->setFlash('Error provisioning router.');
+            $this->Session->setFlash('Error!  Project is set for read-only integration with monitoring system.');
         }
+        
         $this->redirect(array('action' => 'view',$this->NetworkRouter->id));
     }
     

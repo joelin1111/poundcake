@@ -257,21 +257,25 @@ class NetworkSwitchesController extends NetworkDeviceController {
      */
     public function provision( $id = null ) {        
         $this->NetworkSwitch->read(null, $id);
-        $name = $this->NetworkSwitch->data['NetworkSwitch']['name'];
-        // $type = $this->NetworkRadio->data['RadioType']['name'];
         
-        $ip_addr = $this->NetworkSwitch->data['NetworkSwitch']['ip_address'];
-        $foreign_id = parent::provisionNode( $name, $ip_addr, true );
-        
-        if ( !is_null( $foreign_id ) ) {
-            $this->NetworkSwitch->saveField('foreign_id', $foreign_id);
-            $this->NetworkSwitch->saveField('provisioned_on', date("Y-m-d H:i:s") );
-            $this->NetworkSwitch->saveField('provisioned_by', $this->Auth->user('id') );
-            $this->Session->setFlash('Provisioned switch.  Foreign ID '.$foreign_id);
-            
+        // don't allow provisioning if the project is set to read-only integration
+        $ro = $this->NetworkSwitch->Site->Project->field('read_only');
+        if ( !$ro ) {
+            $name = $this->NetworkSwitch->data['NetworkSwitch']['name'];
+            $ip_addr = $this->NetworkSwitch->data['NetworkSwitch']['ip_address'];
+            $foreign_id = parent::provisionNode( $name, $ip_addr, true );
+            if ( !is_null( $foreign_id ) ) {
+                $this->NetworkSwitch->saveField('foreign_id', $foreign_id);
+                $this->NetworkSwitch->saveField('provisioned_on', date("Y-m-d H:i:s") );
+                $this->NetworkSwitch->saveField('provisioned_by', $this->Auth->user('id') );
+                $this->Session->setFlash('Provisioned switch.  Foreign ID '.$foreign_id);
+            } else {
+                $this->Session->setFlash('Error!  Problem provisioning switch.');
+            }
         } else {
-            $this->Session->setFlash('Error provisioning switch.');
+            $this->Session->setFlash('Error!  Project is set for read-only integration with monitoring system.');
         }
+        
         $this->redirect(array('action' => 'view',$this->NetworkSwitch->id));
     }
     
