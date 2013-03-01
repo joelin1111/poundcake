@@ -95,7 +95,7 @@ class OrganizationsController extends AppController {
      * Return the projects this user has access to
      */
     function getUsersAssignedProjects() {
-        // 
+        /*/* 
         $this->loadModel('User');
         $uid = CakeSession::read("Auth.User.id");
         $options['joins'] = array(
@@ -109,9 +109,12 @@ class OrganizationsController extends AppController {
                 )
             )
         );
+        
         $projects = $this->User->Project->find('list', $options);
         $this->set('projects',$projects);
         return $projects;
+        */
+        parent::getProjects();
     }
     
     /*
