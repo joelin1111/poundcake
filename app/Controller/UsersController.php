@@ -308,7 +308,9 @@ class UsersController extends AppController {
             // if ($this->User->save($this->request->data, true, array_diff(array_keys($this->User->schema()), $blackList))) {
             
             $this->User->ProjectMembership->deleteAll(array('ProjectMembership.user_id' => $id ));
-                       
+
+//            var_dump( $this->request->data['ProjectMembership'] );
+            
             $row_id = 0;
             foreach ( $this->request->data['ProjectMembership'] as $project ) {
 //                var_dump( $project );                

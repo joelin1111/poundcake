@@ -1,3 +1,8 @@
+<?php
+    // jQuery to enable/disable permissions of project is un/checked
+    echo $this->Html->script('poundcake/poundcake-project-acl');
+?>
+
 
 <div class="row">
 <div class="span3">
@@ -66,9 +71,11 @@
             // hasMany through (The Join Model) relation -- HABTM would otherwise
             // take care of this for us
             echo '<label class="checkbox">';
-            echo '<input type="checkbox" class="checkbox" name="ProjectMembership['.$i.'][project_id]" value="'.$p['Project']['id'].'"';
+            $name = "ProjectMembership[$i][project_id]";
+            echo '<input type="checkbox" class="checkbox" name="'.$name.'" value="'.$p['Project']['id'].'"';
             
             $role = 0;
+            $project_is_checked = false;
             foreach ( $assigned_projects as $ap ) {
 //                echo "Looking for Project ID of ".$p['Project']['id'];
 //                var_dump( $ap );
@@ -76,6 +83,7 @@
                 // if( in_array( $p['Project']['id'], $ap ) ) {
                     echo ' checked';
                     $role = $ap['role_id'];
+                    $project_is_checked = true;
                 }
             }
             echo '>' . $p['Project']['name'];
@@ -84,20 +92,28 @@
             echo "</td><td>";
             
             echo '<label class="radio">';
-            echo '<input type="radio" name="ProjectMembership['.$i.'][role_id]" id="permissions1" value="'.$roles[1]['Role']['id'].'" ';
+            echo '<input type="radio" name="ProjectMembership['.$i.'][role_id]" id="edit" value="'.$roles[1]['Role']['id'].'" ';
             if ( $role == $roles[1]['Role']['id'] ) {
                 echo " checked";
             }
+            if ( !$project_is_checked ) {
+                echo " disabled";
+            }
+
             echo ">";
             echo $roles[1]['Role']['name'];
             echo '</label>';
             
             echo "</td><td>";
             
+            //echo '<label class="radio" name="'.$name.'-radio">';
             echo '<label class="radio">';
-            echo '<input type="radio" name="ProjectMembership['.$i.'][role_id]" id="permissions2" value="'.$roles[2]['Role']['id'].'" ';
+            echo '<input type="radio" name="ProjectMembership['.$i.'][role_id]" id="view" value="'.$roles[2]['Role']['id'].'" ';
             if ( $role == $roles[2]['Role']['id'] || $role == 0 ) {
                 echo " checked";
+            }
+            if ( !$project_is_checked ) {
+                echo " disabled";
             }
             echo ">";
             echo $roles[2]['Role']['name'];
