@@ -40,6 +40,8 @@ class Frequency extends AppModel {
        'RadioBand'
     );
     
+    var $actsAs = array('Containable');
+    
     /*
      * Field-level validation rules
      */

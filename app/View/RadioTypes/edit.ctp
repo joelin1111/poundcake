@@ -15,6 +15,13 @@
         echo $this->Form->input('id');
         echo $this->Form->input('name');
         echo $this->Form->input('radio_band_id', array('type'=>'select','options' => $radiobands));
+        // checkboxes for compatable antenna types
+        echo $this->Form->input('AntennaType.AntennaType',array(
+            'label' => 'Compatible Antennas',
+            'type' => 'select',
+            'multiple' => 'checkbox',
+            'options' => $antennaTypes,
+        ));
     ?>
     </fieldset>
     <?php

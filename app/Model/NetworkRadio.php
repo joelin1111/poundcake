@@ -40,7 +40,8 @@ class NetworkRadio extends AppModel {
             'fields' => array( 
                 'ip_address'
             ) 
-        ) 
+        ),
+        'Containable'
     );
     
     /*

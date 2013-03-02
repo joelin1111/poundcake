@@ -34,6 +34,11 @@ class AntennaType extends AppModel {
     var $order = 'AntennaType.name ASC';
     
     /*
+     * Relations
+     */
+    public $hasAndBelongsToMany = array('RadioType');
+    
+    /*
      * Field-level validation rules
      */
     public $validate = array(

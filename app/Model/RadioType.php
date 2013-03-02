@@ -47,7 +47,12 @@ class RadioType extends AppModel {
        'NetworkRadios'
     );
     
-    // var $actsAs = array('Containable');
+    /*
+     * Relations
+     */
+    public $hasAndBelongsToMany = array('AntennaType');
+    
+    var $actsAs = array('Containable');
     
     /*
      * Field-level validation rules

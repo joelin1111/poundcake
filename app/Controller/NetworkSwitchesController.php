@@ -211,7 +211,7 @@ class NetworkSwitchesController extends NetworkDeviceController {
         // revisit: site_id should probably come in as an argument
         
         // See also NetworkRadiosController::getNetworkSwitch -- which is what is called
-        // when the page first loads, then this one is called by the AJAX
+        // when the page first loads, then this one is called by jQuery
         
         // get the Site the user selected
         $this->loadModel('Site');

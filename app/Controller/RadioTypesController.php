@@ -60,6 +60,7 @@ class RadioTypesController extends AppController {
             }
         }
         $this->getRadioBands();
+        $this->getAntennaTypes();
     }
 
     /*
@@ -81,8 +82,17 @@ class RadioTypesController extends AppController {
             $this->request->data = $this->RadioType->read(null, $id);
         }
         $this->getRadioBands();
+        $this->getAntennaTypes();
     }
 
+    /*
+     * Save an array of antenna types
+     */
+    private function getAntennaTypes() {
+        $antennaTypes = $this->RadioType->AntennaType->find('list',array('fields'=>array('id','name')));
+        $this->set(compact('antennaTypes'));
+    }
+    
     /*
      * Delete an existing RadioType
      */

@@ -58,7 +58,6 @@ class OrganizationsController extends AppController {
      * Add a new Organization
      */
     public function add() {
-        $this->getUsersAssignedProjects();
         if ($this->request->is('post')) {
             $this->Organization->create();
             if ($this->Organization->save($this->request->data)) {
@@ -68,6 +67,7 @@ class OrganizationsController extends AppController {
                 $this->Session->setFlash('Error!  The organization could not be saved. Please, try again.');
             }
         }
+        parent::getProjects();
     }
 
     /*
@@ -75,7 +75,6 @@ class OrganizationsController extends AppController {
      */
     public function edit($id = null) {
         $this->Organization->id = $id;
-        $this->getUsersAssignedProjects();
         if (!$this->Organization->exists()) {
             throw new NotFoundException('Invalid organization');
         }
@@ -89,31 +88,6 @@ class OrganizationsController extends AppController {
         } else {
             $this->request->data = $this->Organization->read(null, $id);
         }
-    }
-
-    /*
-     * Return the projects this user has access to
-     */
-    function getUsersAssignedProjects() {
-        /*/* 
-        $this->loadModel('User');
-        $uid = CakeSession::read("Auth.User.id");
-        $options['joins'] = array(
-            array('table' => 'projects_users',
-                'alias' => 'ProjectsUser',
-                'type' => 'INNER',
-                'conditions' => array(
-                    //"Site.project_id  =  Project.id",
-                    'ProjectsUser.user_id =  '.$uid,
-                    'ProjectsUser.project_id = Project.id'
-                )
-            )
-        );
-        
-        $projects = $this->User->Project->find('list', $options);
-        $this->set('projects',$projects);
-        return $projects;
-        */
         parent::getProjects();
     }
     

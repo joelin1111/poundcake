@@ -12,8 +12,15 @@
     <?php echo $this->Form->create('AntennaType'); ?>
     <h2>Edit Antenna Type</h2>
     <?php
-            echo $this->Form->input('id');
-            echo $this->Form->input('name');
+        echo $this->Form->input('id');
+        echo $this->Form->input('name');
+        // checkboxes for compatable radio types
+        echo $this->Form->input('RadioType.RadioType',array(
+            'label' => 'Compatible Radios',
+            'type' => 'select',
+            'multiple' => 'checkbox',
+            'options' => $radioTypes,
+        ));
     ?>
     </fieldset>
     <?php

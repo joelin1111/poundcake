@@ -59,6 +59,7 @@ class AntennaTypesController extends AppController {
                 $this->Session->setFlash('Error!  The antenna type could not be saved. Please, try again.');
             }
         }
+        $this->getRadioTypes();
     }
 
     /*
@@ -79,6 +80,15 @@ class AntennaTypesController extends AppController {
         } else {
             $this->request->data = $this->AntennaType->read(null, $id);
         }
+        $this->getRadioTypes();
+    }
+    
+    /*
+     * Save an array of radio types
+     */
+    private function getRadioTypes() {
+        $radioTypes = $this->AntennaType->RadioType->find('list',array('fields'=>array('id','name')));
+        $this->set(compact('radioTypes'));
     }
 
     /*
