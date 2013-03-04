@@ -227,15 +227,32 @@ class NetworkRadiosController extends NetworkDeviceController {
     }
     
     /*
-     * Save an array of antenna types (preconfigured by an administrator).
+     * Save an array of antenna types
      */
     function getAntennaTypes() {
-        $this->set('antennatypes',$this->NetworkRadio->AntennaType->find('list',
-            array(
-                'order' => array(
-                    'AntennaType.name ASC'
-            )))
-        );
+        // $antenna = $this->NetworkRadio->RadioType->AntennaType->find('list');
+        $radio_type_id = $this->NetworkRadio->RadioType->find('first', array('fields' => array('RadioType.id')));
+        $radio_type_id = $radio_type_id['RadioType']['id'];
+        
+        // $this->NetworkRadio->recursive = -1;
+        $antennatypes_tmp = $this->NetworkRadio->RadioType->find('all', array(
+            'conditions' => array('RadioType.id' => $radio_type_id ),
+            'contain' => array('AntennaType')
+            // sort order?
+        ));
+        $antennatypes = array();
+        foreach ( $antennatypes_tmp[0]['AntennaType'] as $at ) {
+            $antennatypes[ $at['id'] ] = $at['name'];            
+        }
+
+        $this->set(compact('antennatypes'));
+        
+//        $this->set('antennatypes',$this->NetworkRadio->AntennaType->find('list',
+//            array(
+//                'order' => array(
+//                    'AntennaType.name ASC'
+//            )))
+//        );
     }
     
     /*

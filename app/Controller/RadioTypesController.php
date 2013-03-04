@@ -120,19 +120,20 @@ class RadioTypesController extends AppController {
     }
     
     /*
+     * Save an array of frequencies for chosen radio's RadioType
      * 
+     * This is called by jQuery when the user changes the radio type on the
+     * NetworkRadio add/edit page.
      */
     public function getFrequenciesForRadioType() {
-        // this is called by jQuery when the user changes the radio type on
-        // NetworkRadio add/edit page
+         // this is basiclly a duplicate of getFrequencies in the NetworkRadio controller
         
-        // Contanable can help here, yes?  Why can't I get it to work!?!
-        
-        // get the Site the user selected
+        // get the RadioType the user selected
         $this->loadModel('RadioType');
         $this->RadioType->id = $this->request->data['NetworkRadio']['radio_type_id'];
         $this->RadioType->read();
         $radio_band_id = $this->RadioType->field('radio_band_id');
+        // $radio_band_id = $this->getRadioBandId( $this->request->data['NetworkRadio']['radio_type_id'] );
         
         $this->loadModel('RadioBand');
         $this->RadioBand->id = $radio_band_id;
@@ -143,6 +144,30 @@ class RadioTypesController extends AppController {
             $frequencies[ $k['Frequency']['frequency'] ] = $label;
         }
         $this->set('frequencies',$frequencies );
+        $this->layout = 'ajax';
+    }
+    
+    /*
+     * Save an array of antenna types for chosen radio's RadioType
+     * 
+     * This is called by jQuery when the user changes the radio type on the
+     * NetworkRadio add/edit page.
+     */
+    public function getAntennasForRadioType() {
+         // this is basiclly a duplicate of getantennaTypes in the NetworkRadio controller
+        $radio_type_id = $this->request->data['NetworkRadio']['radio_type_id'];
+        $antennatypes_tmp = $this->RadioType->find('all', array(
+            'conditions' => array('RadioType.id' => $radio_type_id ),
+            'contain' => array('AntennaType'),
+            // 'order' => array('AntennaType.name' => 'DESC')
+        ));
+        
+        $antennatypes = array();
+        foreach ( $antennatypes_tmp[0]['AntennaType'] as $at ) {
+            $antennatypes[ $at['id'] ] = $at['name'];            
+        }
+        
+        $this->set(compact('antennatypes'));
         $this->layout = 'ajax';
     }
     

@@ -41,7 +41,7 @@ class NetworkRadio extends AppModel {
                 'ip_address'
             ) 
         ),
-        'Containable'
+        //'Containable'
     );
     
     /*
@@ -51,7 +51,7 @@ class NetworkRadio extends AppModel {
         'Site',
         'RadioType',
         'NetworkSwitch',
-        'AntennaType',
+        //'AntennaType',
         'RadioMode',
         'SnmpType'
     );

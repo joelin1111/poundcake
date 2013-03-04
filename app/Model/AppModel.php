@@ -34,6 +34,8 @@ class AppModel extends Model {
     
     var $components= array('Session');
     
+    var $actsAs = array('Containable');
+    
     function getDistance($lat1, $lon1, $lat2, $lon2) {
         // uses Haversine formula
         // http://sgowtham.net/blog/2009/08/04/php-calculating-distance-between-two-locations-given-their-gps-coordinates/

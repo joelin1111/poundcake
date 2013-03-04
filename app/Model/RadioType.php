@@ -52,7 +52,7 @@ class RadioType extends AppModel {
      */
     public $hasAndBelongsToMany = array('AntennaType');
     
-    var $actsAs = array('Containable');
+    // var $actsAs = array('Containable');
     
     /*
      * Field-level validation rules

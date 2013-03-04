@@ -47,7 +47,7 @@ class RadioBand extends AppModel {
        'RadioType'
     );
     
-    var $actsAs = array('Containable');
+    // var $actsAs = array('Containable');
     
     /*
      * Field-level validation rules
