@@ -63,6 +63,6 @@
     // include the jQuery to handle updating the list of available
     // switches for the selected site
     echo $this->element('Common/site_change');
-    // and when the radip changes, update the frequecines
+    // and when the radio changes, update the frequecines and antennas
     echo $this->element('Common/radio_change');
 ?>

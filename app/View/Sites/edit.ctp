@@ -183,4 +183,7 @@
     );
     echo $this->Js->writeBuffer(); // Write cached scripts
     */
+    
+    // and when the radio changes, update the list of antennas
+    echo $this->element('Common/radio_change');
 ?>

@@ -19,7 +19,7 @@
             
             <p class="lead">Tower DB is getting little tune-up behind the scenes</p>
             
-            <h4>Things should be back by 4pm (1600) Pacific, so come back!</h4>
+            <h4>Hopefully this won't take long, please check back soon!</h4>
             
         </div>
   </div>  

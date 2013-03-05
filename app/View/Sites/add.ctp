@@ -56,6 +56,12 @@
     echo $this->Form->input('Site.notes',array('style' => 'width:100%'));
     
     // no upload field since we don't have a Site.id until after save
-    echo $this->Form->end('Save', array('div' => false,'class'=>'btn btn-primary'));
+    echo $this->Form->submit('Save', array('div' => false,'class'=>'btn btn-primary'));
+    echo $this->Form->end(); 
 ?>
 </fieldset>
+
+<?php
+    // when the radio changes, update the list of antennas
+    echo $this->element('Common/radio_change');
+?>

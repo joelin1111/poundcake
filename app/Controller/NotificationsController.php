@@ -26,6 +26,7 @@ App::uses('AppController', 'Controller');
 
 class NotificationsController extends AppController {
 
+    
     /*
      * Edit the notification -- there should only be one!
      */
@@ -38,6 +39,23 @@ class NotificationsController extends AppController {
         }
         
         if ($this->request->is('post') || $this->request->is('put')) {
+//            echo '<pre>';
+//            var_dump( $this->request->data );
+            // '<i class="icon-search"></i>';
+//            $icon = $this->request->data['icons'];
+//           
+//            if ( $icon != 'None') {                 
+////                $icon_f = '<i class="'.$icon.'"></i>';
+////                echo "Icon:";
+////                print_r( $icon_f );
+//                $icon = "<i class\"$icon\"></i>";
+//                $msg = $this->request->data['Notification']['message'];
+//                $this->request->data['Notification']['message'] = $icon . $msg;
+//            }
+//            echo "Data:";
+//            print_r( $this->request->data['Notification']['message'] );
+//            echo "done";
+//            die;
             if ($this->Notification->save($this->request->data)) {
                     $this->Session->setFlash('The notification has been saved.');
                     $this->redirect(array('controller' => 'admin', 'action' => 'setup'));
@@ -47,7 +65,18 @@ class NotificationsController extends AppController {
         } else {
             $this->request->data = $this->Notification->read(null, $id);
         }
+//        $this->getIcons();
     }
+    
+//    private function getIcons() {
+//        // http://twitter.github.com/bootstrap/base-css.html#images
+//        $icons[ 'none' ] = 'None';
+//        $icons[ 'icon-hand-right' ] = '<i class="icon-hand-right"></i>';
+//        $icons[ 'icon-star' ] = '<i class="icon-star"></i>';
+//        $icons[ 'icon-wrench' ] = '<i class="icon-wrench"></i>';
+//        
+//        $this->set(compact('icons'));
+//    }
     
     /*
      * Uses Auth to check the ACL to see if the user is allowed to perform any

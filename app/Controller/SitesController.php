@@ -382,7 +382,7 @@ class SitesController extends AppController
                             $this->redirect(array('action' => 'index'));                            
                         } else {
                             if ( $sid > 0 ) {
-                                $sites = $this->parseKML( $xml->Document->children(), $sid[0]['site_states']['id'] );
+                                $sites = $this->parseKML( $xml->children(), $sid[0]['site_states']['id'] );
                             }
                             // debug( $sites );
                             $this->set(compact('sites'));
@@ -404,14 +404,15 @@ class SitesController extends AppController
      */
     private function parseKML( $xml, $default_state ) {
         $sites = array();
-        if ( $xml != null ) {
-            //debug ($xml  );
+//        var_dump( count($xml) );
+        if ( count($xml) > 0 ) {
+//            debug ($xml  );
             if ( isset( $xml->Folder ) ) {
                 // this is untested, but should recurse if there are nested folders
                 // $this->parseKML( $xml->Document->children(), $overwrite, $default_state );
                 $sites = $this->parseKML( $xml->Folder->children(), $default_state );                
                 //array_merge( $sites, $this->parseKML( $xml->Folder->children(), $default_state ) );
-            } elseif ( isset( $xml->Placemark ) ) {
+            } elseif ( isset( $xml->Placemark ) && ( $xml->Placemark != null) ) {
                 $count = $xml->Placemark->count();
                 $i = 0;
                 while ( $i < $count ) {
@@ -937,7 +938,7 @@ class SitesController extends AppController
      * Save an array of antenna types
      */
     function getAntennaTypes() {
-        $this->set('antennatypes',$this->Site->NetworkRadio->AntennaType->find('list',
+        $this->set('antennatypes',$this->Site->NetworkRadio->RadioType->AntennaType->find('list',
             array(
                 'order' => array(
                     'AntennaType.name ASC'
@@ -1109,7 +1110,8 @@ class SitesController extends AppController
                 if (isset($this->request->data['NetworkRadio'])) {
                     foreach ($this->request->data['NetworkRadio'] as $key => $value) {
                         //echo "Key: $key; Value: $value<br />\n";
-                        $this->request->data['NetworkRadio'][$key]['site_id'] = $this->Site->id;
+                        //$this->request->data['NetworkRadio'][$key]['site_id'] = $this->Site->id;
+                        $this->request->data['NetworkRadio']['site_id'] = $this->Site->id;
                     }
                     $this->Site->NetworkRadio->saveAll($this->request->data['NetworkRadio']);
                 }
@@ -1482,6 +1484,23 @@ class SitesController extends AppController
                     }
                 }
             }
+        }
+    }
+    
+    /*
+     * 
+     */
+    public function sitesurvey() {
+        if ($this->request->is('post') || $this->request->is('put')) {
+             if (is_uploaded_file( $this->request->data['Site']['File']['tmp_name'] )) {
+                $tmpname = $this->request->data['Site']['File']['tmp_name'];
+                foreach( str_getcsv ( file_get_contents( $tmpname ), $line = "\n" ) as $row ) 
+                    $csv[] = str_getcsv( $row, $delim = ',', $enc = '"' );
+                echo '<pre>';
+                print_r( $csv );
+                echo '</pre>';
+                die;
+             }
         }
     }
     

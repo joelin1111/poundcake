@@ -100,6 +100,7 @@ class NetworkRadiosController extends NetworkDeviceController {
         if (!$this->NetworkRadio->exists()) {
             throw new NotFoundException('Invalid radio');
         }
+        
         // get all the radios this radio may be linked to
         $query = 'call sp_get_remote_links('.$id.')';
         $links = $this->NetworkRadio->query( $query );
@@ -165,11 +166,24 @@ class NetworkRadiosController extends NetworkDeviceController {
         }
         
         // we're cheating here -- I can't seem to figure out how to get to the
-        // Frequency name from the related model, so we're going to retireve it
+        // Frequency name from the related model, so we're going to get it
         // manually and manually set it so it displays right in the view
         $this->loadModel('Frequency');
         $f = $this->Frequency->findByFrequency( $this->NetworkRadio->data['NetworkRadio']['frequency']);
-        $networkradio['Frequency']['name'] = $f['Frequency']['name'];
+        $frequency_name = "";
+        if ( $f != null ) {
+            $frequency_name = $f['Frequency']['name'];
+        }
+        $networkradio['Frequency']['name'] = $frequency_name;
+        
+        // as above, cheating a bit
+        $this->loadModel('AntennaType');
+        $a = $this->AntennaType->findById( $this->NetworkRadio->data['NetworkRadio']['antenna_type_id']);
+        $antennatype = "";
+        if ( $f != null ) {
+            $antennatype = $a['AntennaType']['name'];
+        }
+        $networkradio['AntennaType']['name'] = $antennatype;
         
         // var_dump( $this->NetworkRadio->data );
         // if we wanted to use the project's datetime format -- which probably doesn't include time

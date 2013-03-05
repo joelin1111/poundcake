@@ -79,3 +79,5 @@ app/Vendor/dompdf/lib/fonts/log.htm
 app/Vendor/dompdf/lib/fonts/log.htm
 app/webroot/files/*
 app/webroot/thumbs/*
+
+app/maintenance.txt

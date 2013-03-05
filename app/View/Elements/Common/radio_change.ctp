@@ -1,5 +1,6 @@
 <?php
-//    $this->Js->get('#NetworkRadioRadioTypeId')->event('change', $this->Js->alert('changed'));
+    //$this->Js->get('#NetworkRadio0RadioTypeId')->event('change', $this->Js->alert('changed'));
+
     // update the list of available frequencies when the user picks a radio from
     // the drop down of radio types
     $this->Js->get('#NetworkRadioRadioTypeId');    
