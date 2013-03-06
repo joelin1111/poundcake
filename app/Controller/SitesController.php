@@ -1144,16 +1144,16 @@ class SitesController extends AppController
      */
     public function workorder($id) {
         $conditions = '';
-        $sites = $this->Site->findById($id);
+        
+        $site = $this->Site->findById($id);
         $conditions = array (
             "Contact.contact_type_id" => "2", // 2 is the primary key of the technical contact
             "Contact.priority" => "1", // 1 is the base priority level
-            "Contact.organization_id" => $sites['Site']['organization_id']
-        );
+            "Contact.organization_id" => $site['Site']['organization_id']
+        );        
         $towercontacts = $this->Site->Organization->Contact->find('all',array('conditions' => $conditions));        
-        $router = $this->Site->NetworkRouter->findByRouterTypeId($sites['NetworkRouter']['router_type_id']);
-        $switch = $this->Site->NetworkSwitch->findBySwitchTypeId($sites['NetworkSwitch']['switch_type_id']);
-        
+        $router = $this->Site->NetworkRouter->findByRouterTypeId($site['NetworkRouter']['router_type_id']);
+        $switch = $this->Site->NetworkSwitch->findBySwitchTypeId($site['NetworkSwitch']['switch_type_id']);        
         $radios = $this->Site->NetworkRadios->findAllBySiteId($id,array(),array('NetworkRadios.switch_port' => 'ASC'));
         
         // this seems kind of crazy -- and it is -- but since I'm not saving the link distance or bearing on the
@@ -1164,7 +1164,7 @@ class SitesController extends AppController
         foreach ($radios as $radio) {
             //echo $radio['NetworkRadio']['name']."<br>";
             $this->loadModel('NetworkRadio');
-            
+            $this->NetworkRadio->recursive = 2;
             // get all the radios this radio may be linked to
             $query = 'call sp_get_remote_links('.$radio['NetworkRadios']['id'].')';
             $links = $this->NetworkRadio->query( $query );       
@@ -1198,6 +1198,10 @@ class SitesController extends AppController
             $gw_address = $this->getGatewayAddress($radio['NetworkRadios']['name']);
             $radio['NetworkRadios']['gw_address'] = $gw_address;
             
+            $antenna_type_id = $radio['NetworkRadios']['antenna_type_id'];
+            $antenna_type = $this->NetworkRadio->RadioType->AntennaType->findById( $antenna_type_id );
+            $radio['AntennaType']['name'] = $antenna_type['AntennaType']['name'];
+            
             $radios[$n] = $radio;
             $n++;
         }
@@ -1206,14 +1210,7 @@ class SitesController extends AppController
 //        print_r($radios);
 //        echo '</pre>';
 //        die;
-        $this->set('site', $sites);
-        $this->set('towercontacts', $towercontacts);
-        $this->set('router', $router);
-        $this->set('switch', $switch);
-        $this->set('radios', $radios);
-        
-        //$this->set(compact('site','towercontacts','router','switch','radios'));
-            
+                    
 //        echo '<pre>';
 //        print_r($sites);
 //        echo '</pre>';
@@ -1225,8 +1222,8 @@ class SitesController extends AppController
         } else {
             $title = 'Inveneo Work Order';
         }
-        $this->set('title',$title);
-        
+
+        $this->set(compact('site','title','towercontacts','router','switch','radios'));
         // generate the Excel file but without all the other stuff
         // in the layout -- so set the layout to null then set it back
         //$layout = $this->layout;
