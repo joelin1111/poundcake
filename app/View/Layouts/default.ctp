@@ -29,7 +29,7 @@ $cakeDescription = __d('poundcake', 'Tower DB');
 	</title>
 	<?php
             // jQuery                
-            echo $this->Html->script('jquery-1.9.0.min');
+            echo $this->Html->script('jquery-1.9.1.min');
             echo $this->Html->script('jquery-ui/jquery-ui-1.10.0.custom.min');
             echo $this->Html->script('bootstrap.min'); // Bootstrap's jQuery file
             echo $this->Html->script('poundcake/poundcake'); // Our custom jQuery file
