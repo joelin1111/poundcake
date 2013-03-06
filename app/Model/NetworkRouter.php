@@ -71,6 +71,7 @@ class NetworkRouter extends AppModel {
             'notempty' => array(
                 'rule' => array('notempty'),
                 'message' => 'This field cannot be blank.',
+                'required' => false
                 //'allowEmpty' => false,
                 //'required' => false,
                 //'last' => false, // Stop validation after this rule

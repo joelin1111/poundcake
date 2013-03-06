@@ -855,39 +855,48 @@ class SitesController extends AppController
      * Save an array of power types
      */
     function getPowerTypes() {
-        $this->set('powertypes',$this->Site->PowerType->find('list'));
+        $powertypes = array( 0 => 'Unknown' );
+        $powertypes += $this->Site->PowerType->find('list');
+        $this->set(compact('powertypes'));
     }
     
     /*
      * Save an array of tower types
      */
     function getTowerTypes() {
-        // $this->set('towertypes',$this->Site->TowerType->find('list'));
-        $towertypes = $this->Site->TowerType->find('list', array(
+        // TowerTypes are project-specific, so the find is a little different here
+        $towertypes = array( 0 => 'Unknown' );
+        $towertypes += $this->Site->TowerType->find('list', array(
             'conditions' => array('project_id' => $this->Session->read('project_id') )
         ));
-        $this->set('towertypes',$towertypes);
+        $this->set(compact('towertypes'));
     }
     
     /*
      * Save an array of tower members
      */
     function getTowerMembers() {
-        $this->set('towermembers',$this->Site->TowerMember->find('list'));
+        $towermembers = array( 0 => 'Unknown' );
+        $towermembers += $this->Site->TowerMember->find('list');
+        $this->set(compact('towermembers'));
     }
     
     /*
      * Save an array of equipment spaces
      */
     function getEquipmentSpace() {
-        $this->set('equipmentspace',$this->Site->EquipmentSpace->find('list'));
+        $equipmentspace = array( 0 => 'Unknown' );
+        $equipmentspace += $this->Site->EquipmentSpace->find('list');
+        $this->set(compact('equipmentspace'));
     }
     
     /*
      * Save an array of tower mounts
      */
     function getTowerMounts() {
-        $this->set('towermounts',$this->Site->TowerMount->find('list'));
+        $towermounts = array( 0 => 'Unknown' );
+        $towermounts += $this->Site->TowerMount->find('list');
+        $this->set(compact('towermounts'));
     }   
     
     /*
@@ -990,7 +999,6 @@ class SitesController extends AppController
         $this->getRadioTypes();
         $this->getAntennaTypes();
         $this->getInstallTeams();
-        //$this->getUserProjects();
         $this->getZones();
         
         // the user clicked Save on Add screen
@@ -1072,8 +1080,8 @@ class SitesController extends AppController
             // see comments in add
             unset($this->Site->NetworkRadio->validate['site_id']);
             $this->data = Set::filter($this->data);
-            //echo '<pre>';print_r($this->request->data);echo '</pre>';
-            
+//            echo '<pre>';print_r($this->request->data);echo '</pre>';
+//            die;
             // it appears that on edit, we should save the related data using
             // the right controller
             // http://book.cakephp.org/2.0/en/models/saving-your-data.html

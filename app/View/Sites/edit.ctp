@@ -44,26 +44,23 @@
     );
     
     echo $this->Form->input('Site.site_state_id', array('type'=>'select','options' => $sitestates));
-    echo $this->Form->input('Site.organization_id', array('type'=>'select','options' => $organizations));
-    
-    echo $this->Form->input('Site.tower_type_id', array('type'=>'select','options' => $towertypes, 'empty' => true));
-    echo $this->Form->input('Site.tower_member_id', array('type'=>'select','options' => $towermembers, 'empty' => 'Pick One'));
-    echo $this->Form->input('Site.tower_mount_id', array('type'=>'select','options' => $towermounts, 'empty' => true));
+    echo $this->Form->input('Site.organization_id', array('type'=>'select','options' => $organizations ));
+    echo $this->Form->input('Site.tower_type_id', array('type'=>'select','options' => $towertypes ));
+    echo $this->Form->input('Site.tower_member_id', array('type'=>'select','options' => $towermembers ));
+    echo $this->Form->input('Site.tower_mount_id', array('type'=>'select','options' => $towermounts ));
     echo $this->Form->input('Site.equipment_space_id', array('type'=>'select','options' => $equipmentspace,'label' => 'Equipment Space'));
-    
-    
     echo $this->Form->input('Site.power_type_id', array('type'=>'select','options' => $powertypes));
     
     // if the site has no switch, give them the option to add one -- otherwise, give them a pick list
     if (empty($this->request->data['NetworkSwitch']['name'])) {
-        echo $this->Form->input('NetworkSwitch.name',array('label' => 'Add New Switch'));
+        echo $this->Form->input('NetworkSwitch.name',array('label' => 'Add New Switch', 'required' => false));
     } else {
         echo $this->Form->input('Site.network_switch_id', array('type'=>'select','options' => $networkswitches,'label' => 'Switch'));
     }
         
     // ditto for routers
     if (empty($this->request->data['NetworkRouter']['name'])) {
-        echo $this->Form->input('NetworkRouter.name',array('label' => 'Add New Router'));
+        echo $this->Form->input('NetworkRouter.name',array('label' => 'Add New Router', 'required' => false));
     } else {
         echo $this->Form->input('Site.network_router_id', array('type'=>'select','options' => $networkrouters,'label' => 'Router'));
     }

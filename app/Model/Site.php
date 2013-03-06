@@ -125,17 +125,25 @@ class Site extends AppModel {
             // since Jan 2013 they appear to want the month now as part of the URL
             // so just get the current month number
             $month = date('m');
-            $url='http://www.ngdc.noaa.gov/geomag-web/calculators/calculateDeclination?lat1='.$lat.'&startMonth='.$month.'&lon1='.$lon.'&resultFormat=csv';
-            $x = file_get_contents($url);
-            $y = str_getcsv($x);            
-            // count should be > 1 unless the web service is down or some other network error
+            $url = 'http://www.ngdc.noaa.gov/geomag-web/calculators/calculateDeclination?lat1='.$lat.'&startMonth='.$month.'&lon1='.$lon.'&resultFormat=csv';
+            
+            $ch = curl_init();  
+            // set URL and other appropriate options  
+            curl_setopt($ch, CURLOPT_URL, $url);  
+            curl_setopt($ch, CURLOPT_HEADER, 0);  
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);  
+
+            $output = curl_exec($ch);
+            // var_dump( $output );
+            $y = str_getcsv( $output );      
             if (count($y) > 1) {
                 $dec = $y[3];
-            } else {
-                $dec = 0;
             }
+            
+            curl_close( $ch );
         }
-        
+//        echo "Dec is $dec";
+//        die;
         return $dec;
     }      
 }

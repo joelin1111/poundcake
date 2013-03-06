@@ -105,7 +105,7 @@ class AppController extends Controller {
         $sql = "select distinct organization_id, name from organizations_projects, organizations where project_id=".$this->Session->read('project_id');
         $sql .= " and organizations.id=organizations_projects.organization_id";
         $results = $this->$obj->query($sql);        
-        $organizations = array();
+        $organizations = array( 0 => 'Unknown' );
         foreach ($results as $key => $value) {
             $organizations[$value['organizations_projects']['organization_id']] = $value['organizations']['name'];
         }
