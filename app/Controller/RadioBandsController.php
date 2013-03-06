@@ -26,8 +26,7 @@ class RadioBandsController extends AppController {
      * Main listing for all TowerrTypes
      */
     public function index() {
-        $this->RadioBand->recursive = 0;
-        // yes, I do realize that the plural of equipment is equipment
+        $this->RadioBand->recursive = -1;
         $this->set('radiobands', $this->paginate());
     }
 
