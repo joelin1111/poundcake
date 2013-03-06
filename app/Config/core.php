@@ -37,7 +37,7 @@
     if ( $host === 'Catapult-Clarks-MacBook.local' ) {
         $dbg = 2;
     } else {
-        $dbg = 0;
+        $dbg = 1;
     }
     
     Configure::write('debug', $dbg );
