@@ -73,7 +73,7 @@ class RadioType extends AppModel {
     /*
      * 
      */
-    public function getFrequencies( $radio_band_id ) {
+    public function getFrequencies( $radio_band_id = null ) {
         // this was originally in NetworkRadiosController (called when the NetworkRadio edit page
         // was displayed -- and also in the RadioTypes controller (called via jQuery when the
         // user pieced a different RadioType) -- cominging here into one model function used by
@@ -81,6 +81,7 @@ class RadioType extends AppModel {
         if ( $radio_band_id == null ) {
             $radio_band_id = $this->field('radio_band_id');
         }
+        
         $this->RadioBand->Frequency->recursive = -1;
         $frequencies_list = $this->RadioBand->Frequency->findAllByRadioBandId( $radio_band_id );
         $frequencies = array();
@@ -89,6 +90,27 @@ class RadioType extends AppModel {
             $frequencies[ $f['Frequency']['frequency'] ] = $label;
         }
         return $frequencies;
+    }
+    
+    public function getAntennas( $radio_type_id = null ) {
+        
+        if ( $radio_type_id == null ) {
+            $radio_type_id = $this->field('radio_type_id');
+        }
+        
+        $antennatypes_tmp = $this->find('all', array(
+            'conditions' => array('RadioType.id' => $radio_type_id ),
+            'contain' => array('AntennaType'),
+            // 'order' => array('AntennaType.name' => 'DESC')
+        ));
+        
+        $antennatypes = array();
+        foreach ( $antennatypes_tmp[0]['AntennaType'] as $at ) {
+            $antennatypes[ $at['id'] ] = $at['name'];            
+        }
+//        $antennatypes[0] = 'foo1';$antennatypes[1] = 'bar1';
+        
+        return $antennatypes;
     }
 }
 ?>

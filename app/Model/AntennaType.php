@@ -52,6 +52,6 @@ class AntennaType extends AppModel {
                 //'on' => 'create', // Limit validation to 'create' or 'update' operations
             )
         )
-    );
+    );    
 }
 ?>

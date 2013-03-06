@@ -145,17 +145,9 @@ class RadioTypesController extends AppController {
     public function getAntennasForRadioType() {
          // this is basiclly a duplicate of getantennaTypes in the NetworkRadio controller
         $radio_type_id = $this->request->data['NetworkRadio']['radio_type_id'];
-        $antennatypes_tmp = $this->RadioType->find('all', array(
-            'conditions' => array('RadioType.id' => $radio_type_id ),
-            'contain' => array('AntennaType'),
-            // 'order' => array('AntennaType.name' => 'DESC')
-        ));
-        
-        $antennatypes = array();
-        foreach ( $antennatypes_tmp[0]['AntennaType'] as $at ) {
-            $antennatypes[ $at['id'] ] = $at['name'];            
-        }
-        
+        $antennatypes = $this->RadioType->getAntennas( $radio_type_id );
+        //var_dump( $antennatypes );die;
+        //$antennatypes[0] = 'foo';$antennatypes[1] = 'bar';
         $this->set(compact('antennatypes'));
         $this->layout = 'ajax';
     }

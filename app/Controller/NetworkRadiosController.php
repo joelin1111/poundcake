@@ -243,30 +243,14 @@ class NetworkRadiosController extends NetworkDeviceController {
     /*
      * Save an array of antenna types
      */
-    function getAntennaTypes() {
-        // $antenna = $this->NetworkRadio->RadioType->AntennaType->find('list');
-        $radio_type_id = $this->NetworkRadio->RadioType->find('first', array('fields' => array('RadioType.id')));
-        $radio_type_id = $radio_type_id['RadioType']['id'];
-        
-        // $this->NetworkRadio->recursive = -1;
-        $antennatypes_tmp = $this->NetworkRadio->RadioType->find('all', array(
-            'conditions' => array('RadioType.id' => $radio_type_id ),
-            'contain' => array('AntennaType')
-            // sort order?
-        ));
-        $antennatypes = array();
-        foreach ( $antennatypes_tmp[0]['AntennaType'] as $at ) {
-            $antennatypes[ $at['id'] ] = $at['name'];            
-        }
-
-        $this->set(compact('antennatypes'));
-        
-//        $this->set('antennatypes',$this->NetworkRadio->AntennaType->find('list',
-//            array(
-//                'order' => array(
-//                    'AntennaType.name ASC'
-//            )))
-//        );
+    private function getAntennaTypes() { 
+        // $radio_type_id = $this->NetworkRadio->RadioType->find('first', array('fields' => array('RadioType.id')));
+        // $radio_type_id = $radio_type_id['RadioType']['id'];
+        // we default the add to 1 -- a Rocket M5, otherwise the code above
+        // or something like it would work OK
+        $radio_type_id = 1;        
+        $antennatypes = $this->NetworkRadio->RadioType->getAntennas( $radio_type_id );   
+        $this->set( 'antennatypes', $antennatypes );        
     }
     
     /*
