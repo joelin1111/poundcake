@@ -69,5 +69,26 @@ class RadioType extends AppModel {
             )
         )
     );
+    
+    /*
+     * 
+     */
+    public function getFrequencies( $radio_band_id ) {
+        // this was originally in NetworkRadiosController (called when the NetworkRadio edit page
+        // was displayed -- and also in the RadioTypes controller (called via jQuery when the
+        // user pieced a different RadioType) -- cominging here into one model function used by
+        // both
+        if ( $radio_band_id == null ) {
+            $radio_band_id = $this->field('radio_band_id');
+        }
+        $this->RadioBand->Frequency->recursive = -1;
+        $frequencies_list = $this->RadioBand->Frequency->findAllByRadioBandId( $radio_band_id );
+        $frequencies = array();
+        foreach ( $frequencies_list as $f ) {
+            $label = $f['Frequency']['name'].' ('.$f['Frequency']['frequency'].' MHz)';
+            $frequencies[ $f['Frequency']['frequency'] ] = $label;
+        }
+        return $frequencies;
+    }
 }
 ?>

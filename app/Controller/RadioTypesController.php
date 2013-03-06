@@ -126,24 +126,13 @@ class RadioTypesController extends AppController {
      * NetworkRadio add/edit page.
      */
     public function getFrequenciesForRadioType() {
-         // this is basiclly a duplicate of getFrequencies in the NetworkRadio controller
-        
         // get the RadioType the user selected
         $this->loadModel('RadioType');
         $this->RadioType->id = $this->request->data['NetworkRadio']['radio_type_id'];
-        $this->RadioType->read();
-        $radio_band_id = $this->RadioType->field('radio_band_id');
-        // $radio_band_id = $this->getRadioBandId( $this->request->data['NetworkRadio']['radio_type_id'] );
-        
-        $this->loadModel('RadioBand');
-        $this->RadioBand->id = $radio_band_id;
-        $this->RadioBand->read();
-        $f = $this->RadioBand->Frequency->findAllByRadioBandId( $radio_band_id );
-        foreach ($f as $k ) {
-            $label = $k['Frequency']['name'].' ('. $k['Frequency']['frequency'].') MHz';
-            $frequencies[ $k['Frequency']['frequency'] ] = $label;
-        }
-        $this->set('frequencies',$frequencies );
+        // call the RadioType model function getFrequencies to ge the list of
+        // frequencies for the selected radio's RadioType
+        $frequencies = $this->RadioType->getFrequencies( $this->RadioType->field('radio_band_id') );
+        $this->set( 'frequencies', $frequencies );
         $this->layout = 'ajax';
     }
     

@@ -487,82 +487,12 @@ class NetworkRadiosController extends NetworkDeviceController {
     }
     
     /*
-     * Save an array of frequencies for the select dropdown.
+     * Save an array of frequencies for the RadioType
+     * 
+     * This is called on edit page load.
      */
-    private function getFrequencies() {
-        // see also getFrequenciesForRadioType in RadioTypes controller which does
-        // the same thing -- only via jQuery when the user switches the radio on
-        // the add/edit view
-        
-        $radio_band_id = $this->NetworkRadio->RadioType->field('radio_band_id');
-        $this->NetworkRadio->RadioType->RadioBand->Frequency->recursive = -1;
-        $frequencies_list = $this->NetworkRadio->RadioType->RadioBand->Frequency->findAllByRadioBandId( $radio_band_id );
-        $frequencies = array();
-        foreach ( $frequencies_list as $f ) {
-            $label = $f['Frequency']['name'].' ('.$f['Frequency']['frequency'].' MHz)';
-            $frequencies[ $f['Frequency']['frequency'] ] = $label;
-        }
-        
-        
-        // I think this is roughly the same as above but using Containable
-        // Really -- is this any easier?  You still need to traverse the array of arrays
-        // and that is not easier
-        // 
-        // See this example:
-        // http://nuts-and-bolts-of-cakephp.com/2008/09/05/example-of-cakephps-containable-for-deep-model-bindings/
-        // 
-        // And this one suggests you have to setup the joins manually:
-        // http://stackoverflow.com/questions/8249978/cakephp-conditions-on-deep-model-associations
-        /*
-        $type = 'inner';
-//        $this->NetworkRadio->contain();
-        $frequency_list = $this->NetworkRadio->find('first', array(
-            'contain'=>array(
-               'RadioType' => array(
-                   'fields' => array('id','name'),
-                    'RadioBand' => array(
-                        'fields' => array('id','name'),
-                        'Frequency' => array(
-                            'fields'=>array('id', 'name', 'frequency')                       
-                         )
-                    ),
-                )
-             ),
-            'conditions' => array( 'NetworkRadio.id' => $this->NetworkRadio->id ),
-//            'joins' => array(
-//                array(
-//                     'table' => 'radio_types',
-//                     'alias' => 'RadioTypes',
-//                     'type' => $type,
-//                     'conditions' => array ( 'RadioTypes.id' => 'network_radios.radio_type_id' )
-//                ),
-////                array(
-////                    'table'=>'radio_bands',
-////                    'alias'=>'RadioBands',
-////                    'type'=>$type,
-////                    'conditions'=>array(
-////                        'RadioBands.id'=>'RadioTypes.radio_band_id'
-////                    )
-////                ),
-////                array(
-////                    'table'=>'frequencies',
-////                    'alias'=>'Frequencies',
-////                    'type'=>$type,
-////                    'conditions'=>array(
-////                        'Frequencies.radio_band_id'=>'RadioBands.id'
-////                    )
-////                )
-//            )
-         ));
-        
-        echo '<pre>';
-        $log = $this->NetworkRadio->getDataSource()->getLog(false, false);
-        debug($log);
-        print_r( $frequency_list );
-        echo '</pre>';
-        die;
-        */
-        
+    private function getFrequencies() {        
+        $frequencies = $this->NetworkRadio->RadioType->getFrequencies();        
         $this->set( 'frequencies', $frequencies );        
     }
     
