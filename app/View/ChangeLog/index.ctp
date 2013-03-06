@@ -10,6 +10,18 @@
 
 <div class="span9">
 	<h2>Changes</h2>
+        <p>
+        <h4>What is in a version?</h4>
+        <p>Tower DB releases employ the following convention:  (Major version).(Minor version).(Revision number)</p>
+
+        <ul>
+        <li>A <b>major version</b> change is a release that introduces several significant new pieces of functionality.  For example, the 2.0.0 release of Tower DB added support for Point-to-Multipoint radios.</li>
+        <li>A <b>minor version</b> change is a release with roughly 10 minor changes, generally at least one new feature and possibly some bug fixes.</li>
+        <li>A change in the <b>revision number</b> is a release with fewer than 10 changes, almost entirely bug fixes.</li>
+        </ul>
+        <p>We use JIRA to track issues.  If you think you found a bug, please create an issue by emailing towerdb@inveneo.org.  If you need access to JIRA, please contact towerdb-access@inveneo.org.
+        </p>
+
 	<table class="table table-condensed table-striped table-hover">
             <thead>
                 <tr>
