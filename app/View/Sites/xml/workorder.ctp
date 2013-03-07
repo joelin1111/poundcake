@@ -204,207 +204,214 @@ $row++;
 // ****************************************************************************
 // Router
 // ****************************************************************************
-$row += 2;
-$sheet1->writeString($row,1,'ROUTER',$fmtBanner);
-$sheet1->cellMerge($row,1,4,0);
-$sheet1->rowHeight($row,$fmtBannerHeight);
-$row += 2;
+if ( $site['NetworkRouter']['name'] != null ) {
+    
+    $row += 2;
+    $sheet1->writeString($row,1,'ROUTER1',$fmtBanner);
+    $sheet1->cellMerge($row,1,4,0);
+    $sheet1->rowHeight($row,$fmtBannerHeight);
+    $row += 2;
 
-$sheet1->writeString($row,1,"Name",$fmt3);
-$sheet1->writeString($row,2,$site['NetworkRouter']['name'],$fmt4);
-$row++;
+    $sheet1->writeString($row,1,"Name",$fmt3);
+    $sheet1->writeString($row,2,$site['NetworkRouter']['name'],$fmt4);
+    $row++;
 
-$sheet1->writeString($row,1,"Manufacturer",$fmt3);
-$sheet1->writeString($row,2,$router['RouterType']['manufacturer'],$fmt4);
-$row++;
+    $sheet1->writeString($row,1,"Manufacturer",$fmt3);
+    $sheet1->writeString($row,2,$router['RouterType']['manufacturer'],$fmt4);
+    $row++;
 
-$sheet1->writeString($row,1,"Model",$fmt3);
-$sheet1->writeString($row,2,$router['RouterType']['model'],$fmt4);
-$row++;
+    $sheet1->writeString($row,1,"Model",$fmt3);
+    $sheet1->writeString($row,2,$router['RouterType']['model'],$fmt4);
+    $row++;
 
-$sheet1->writeString($row,1,"Connection",$fmt3);
-$sheet1->writeString($row,2,'Router port 1 always on switch GB uplink',$fmt4);
-$row++;
+    $sheet1->writeString($row,1,"Connection",$fmt3);
+    $sheet1->writeString($row,2,'Router port 1 always on switch GB uplink',$fmt4);
+    $row++;
 
-$sheet1->writeString($row,1,"VLAN2 IP",$fmt3);
-$sheet1->writeString($row,2,"",$fmt4);
-$row++;
+    $sheet1->writeString($row,1,"VLAN2 IP",$fmt3);
+    $sheet1->writeString($row,2,"",$fmt4);
+    $row++;
 
-$sheet1->writeString($row,1,"VLAN11 IP",$fmt3);
-$sheet1->writeString($row,2,"",$fmt4);
-$row++;
+    $sheet1->writeString($row,1,"VLAN11 IP",$fmt3);
+    $sheet1->writeString($row,2,"",$fmt4);
+    $row++;
 
-$sheet1->writeString($row,1,"VLAN12 IP",$fmt3);
-$sheet1->writeString($row,2,"",$fmt4);
-$row++;
+    $sheet1->writeString($row,1,"VLAN12 IP",$fmt3);
+    $sheet1->writeString($row,2,"",$fmt4);
+    $row++;
 
-$sheet1->writeString($row,1,"VLAN13 IP",$fmt3);
-$sheet1->writeString($row,2,"",$fmt4);
-$row++;
+    $sheet1->writeString($row,1,"VLAN13 IP",$fmt3);
+    $sheet1->writeString($row,2,"",$fmt4);
+    $row++;
 
-$sheet1->writeString($row,1,"VLAN14 IP",$fmt3);
-$sheet1->writeString($row,2,"",$fmt4);
-$row++;
+    $sheet1->writeString($row,1,"VLAN14 IP",$fmt3);
+    $sheet1->writeString($row,2,"",$fmt4);
+    $row++;
 
-$sheet1->writeString($row,1,"VLAN15 IP",$fmt3);
-$sheet1->writeString($row,2,"",$fmt4);
-$row++;
+    $sheet1->writeString($row,1,"VLAN15 IP",$fmt3);
+    $sheet1->writeString($row,2,"",$fmt4);
+    $row++;
 
-$sheet1->writeString($row,1,"VLAN16 IP",$fmt3);
-$sheet1->writeString($row,2,"",$fmt4);
-$row++;
+    $sheet1->writeString($row,1,"VLAN16 IP",$fmt3);
+    $sheet1->writeString($row,2,"",$fmt4);
+    $row++;
 
-$sheet1->writeString($row,1,"VLAN17 IP",$fmt3);
-$sheet1->writeString($row,2,"",$fmt4);
-$row++;
+    $sheet1->writeString($row,1,"VLAN17 IP",$fmt3);
+    $sheet1->writeString($row,2,"",$fmt4);
+    $row++;
 
-$sheet1->writeString($row,1,"VLAN18 IP",$fmt3);
-$sheet1->writeString($row,2,"",$fmt4);
-$row++;
+    $sheet1->writeString($row,1,"VLAN18 IP",$fmt3);
+    $sheet1->writeString($row,2,"",$fmt4);
+    $row++;
 
-$sheet1->writeString($row,1,"VLAN99 IP",$fmt3);
-$sheet1->writeString($row,2,"",$fmt4);
-$row++;
+    $sheet1->writeString($row,1,"VLAN99 IP",$fmt3);
+    $sheet1->writeString($row,2,"",$fmt4);
+    $row++;
+}
 
 // ****************************************************************************
 // Switch
 // ****************************************************************************
-$row += 2;
-$sheet1->writeString($row,1,'SWITCH',$fmtBanner);
-$sheet1->cellMerge($row,1,4,0);
-$sheet1->rowHeight($row,$fmtBannerHeight);
-$row += 2;
+if ( $switch != null ) {
+    
+    $row += 2;
+    $sheet1->writeString($row,1,'SWITCH',$fmtBanner);
+    $sheet1->cellMerge($row,1,4,0);
+    $sheet1->rowHeight($row,$fmtBannerHeight);
+    $row += 2;
 
-$sheet1->writeString($row,1,'Name',$fmt3);
-$sheet1->writeString($row,2,$switch['SwitchType']['name'],$fmt4);
-$row++;
+    $sheet1->writeString($row,1,'Name',$fmt3);
+    $sheet1->writeString($row,2,$switch['SwitchType']['name'],$fmt4);
+    $row++;
 
-$sheet1->writeString($row,1,'Manufacturer',$fmt3);
-$sheet1->writeString($row,2,$switch['SwitchType']['manufacturer'],$fmt4);
-$row++;
+    $sheet1->writeString($row,1,'Manufacturer',$fmt3);
+    $sheet1->writeString($row,2,$switch['SwitchType']['manufacturer'],$fmt4);
+    $row++;
 
-$sheet1->writeString($row,1,'Model',$fmt3);
-$sheet1->writeString($row,2,$switch['SwitchType']['model'],$fmt4);
-$row++;
+    $sheet1->writeString($row,1,'Model',$fmt3);
+    $sheet1->writeString($row,2,$switch['SwitchType']['model'],$fmt4);
+    $row++;
 
-$sheet1->writeString($row,1,'Ports',$fmt3);
-$sheet1->writeString($row,2,$switch['SwitchType']['ports'],$fmt4);
-$row++;
+    $sheet1->writeString($row,1,'Ports',$fmt3);
+    $sheet1->writeString($row,2,$switch['SwitchType']['ports'],$fmt4);
+    $row++;
 
-$sheet1->writeString($row,1,"Power",$fmt3);
-$sheet1->writeString($row,2,"",$fmt4);
-$row++;
+    $sheet1->writeString($row,1,"Power",$fmt3);
+    $sheet1->writeString($row,2,"",$fmt4);
+    $row++;
 
-$sheet1->writeString($row,1,"Link Mgmt. IP",$fmt3);
-$sheet1->writeString($row,2,"",$fmt4);
-$row++;
+    $sheet1->writeString($row,1,"Link Mgmt. IP",$fmt3);
+    $sheet1->writeString($row,2,"",$fmt4);
+    $row++;
 
-$sheet1->writeString($row,1,"Link Mgmt. VLAN",$fmt3);
-$sheet1->writeString($row,2,"",$fmt4);
-$row++;
+    $sheet1->writeString($row,1,"Link Mgmt. VLAN",$fmt3);
+    $sheet1->writeString($row,2,"",$fmt4);
+    $row++;
 
-$sheet1->writeString($row,1,"Admin IP",$fmt3);
-$sheet1->writeString($row,2,"",$fmt4);
-$row++;
+    $sheet1->writeString($row,1,"Admin IP",$fmt3);
+    $sheet1->writeString($row,2,"",$fmt4);
+    $row++;
 
-$sheet1->writeString($row,1,"Admin VLAN",$fmt3);
-$sheet1->writeString($row,2,"",$fmt4);
-$row++;
+    $sheet1->writeString($row,1,"Admin VLAN",$fmt3);
+    $sheet1->writeString($row,2,"",$fmt4);
+    $row++;
 
-$sheet1->writeString($row,1,"Admin Port",$fmt3);
-$sheet1->writeString($row,2,"",$fmt4);
-$row++;
+    $sheet1->writeString($row,1,"Admin Port",$fmt3);
+    $sheet1->writeString($row,2,"",$fmt4);
+    $row++;
 
-$sheet1->writeString($row,1,"Admin Gateway",$fmt3);
-$sheet1->writeString($row,2,"",$fmt4);
-$row++;
+    $sheet1->writeString($row,1,"Admin Gateway",$fmt3);
+    $sheet1->writeString($row,2,"",$fmt4);
+    $row++;
 
-$sheet1->writeString($row,1,"Bridged Ports",$fmt3);
-$sheet1->writeString($row,2,"",$fmt4);
-$row++;
-
+    $sheet1->writeString($row,1,"Bridged Ports",$fmt3);
+    $sheet1->writeString($row,2,"",$fmt4);
+    $row++;
+}
 
 
 // ****************************************************************************
 // Radios
 // ****************************************************************************
-$row += 2;
-$sheet1->writeString($row,1,'RADIOS',$fmtBanner);
-$sheet1->cellMerge($row,1,4,0);
-$sheet1->rowHeight($row,$fmtBannerHeight);
-$row += 2;
+if ( $radios != null ) {
+    $row += 2;
+    $sheet1->writeString($row,1,'RADIOS',$fmtBanner);
+    $sheet1->cellMerge($row,1,4,0);
+    $sheet1->rowHeight($row,$fmtBannerHeight);
+    $row += 2;
 
 
-foreach ($radios as $radio) {
-//    echo '<pre>';
-//    print_r($radio);
-//    echo '</pre>';
-//    die;
-    
-    $sheet1->writeString($row,1,'Name',$fmt3);
-    $sheet1->writeString($row,2,$radio['NetworkRadios']['name'],$fmt4);
-    $sheet1->writeString($row,4,'Min. Height (meters)',$fmt3);
-    $sheet1->writeString($row,5,$radio['NetworkRadios']['min_height'],$fmt4);
-    $row++;
-    
-    $sheet1->writeString($row,1,'Radio Type',$fmt3);
-    $sheet1->writeString($row,2,$radio['RadioType']['name'],$fmt4);
-    $sheet1->writeString($row,4,'Frequency',$fmt3);
-    $sheet1->writeString($row,5,$radio['NetworkRadios']['frequency'],$fmt4);
-    $row++;
-    
-    $sheet1->writeString($row,1,'Antenna Type',$fmt3);
-    $sheet1->writeString($row,2,$radio['AntennaType']['name'],$fmt4);
-    $sheet1->writeString($row,4,'SSID',$fmt3);
-    $sheet1->writeString($row,5,$radio['NetworkRadios']['ssid'],$fmt4);
-    $row++;
-    
-    $sheet1->writeString($row,1,'Link Distance',$fmt3);
-    if (isset($radio['NetworkRadios']['distance'])) {
-        $d = sprintf("%01.2f",$radio['NetworkRadios']['distance']);
-        $sheet1->writeString($row,2,$d." Km",$fmt4);
-    }
-    $sheet1->writeString($row,4,'Switch Port',$fmt3);
-    $sheet1->writeString($row,5,$radio['NetworkRadios']['switch_port'],$fmt4);
-    $row++;
-    
-    $sheet1->writeString($row,1,'Azimuth (True)',$fmt3);
-    $d = round($radio['NetworkRadios']['true_azimuth']);
-    if (isset($d))
-        $sheet1->writeString($row,2,$d."°",$fmt4);
-    $sheet1->writeString($row,4,'IP',$fmt3);
-    $sheet1->writeString($row,5,$radio['NetworkRadios']['ip_address'],$fmt4);
-    $row++;
-    
-    // if it's not a sector radio, calculate the magnetic azimuth
-    if (( $radio['NetworkRadios']['sector'] == 0 ) && ( $radio['NetworkRadios']['true_azimuth'] > 0 )) {
-        $mag_azimuth = $radio['NetworkRadios']['true_azimuth'] - $site['Site']['declination'];
-    } else {
-        // we have a sector radio, so grab the value directly
-        $mag_azimuth = $radio['NetworkRadios']['mag_azimuth'];
-    }
-    
-    $sheet1->writeString($row,1,'Azimuth (Magnetic)',$fmt3);
-    //$d = sprintf("%01.2f",$mag_azimuth);
-    $d = round($mag_azimuth);
-    //if (isset($d))
-        $sheet1->writeString($row,2,$d."°",$fmt4);
-    $sheet1->writeString($row,4,'Gateway',$fmt3);
-    $sheet1->writeString($row,5,$radio['NetworkRadios']['gw_address'],$fmt4);
-    $row++;
+    foreach ($radios as $radio) {
+    //    echo '<pre>';
+    //    print_r($radio);
+    //    echo '</pre>';
+    //    die;
 
-    $sheet1->writeString($row,1,'Elevaton',$fmt3);
-    if (isset($radio['NetworkRadios']['elevation']))
-        $sheet1->writeString($row,2,$radio['NetworkRadios']['elevation']."°",$fmt4);
-    $sheet1->writeString($row,4,'Mode',$fmt3);
-    $sheet1->writeString($row,5,$radio['RadioMode']['name'],$fmt4);
-    
-    $row++;
-    for ($u = 1; $u <= 5; $u++) {
-        $sheet1->writeString($row,$u,'',$fmt5);
+        $sheet1->writeString($row,1,'Name',$fmt3);
+        $sheet1->writeString($row,2,$radio['NetworkRadios']['name'],$fmt4);
+        $sheet1->writeString($row,4,'Min. Height (meters)',$fmt3);
+        $sheet1->writeString($row,5,$radio['NetworkRadios']['min_height'],$fmt4);
+        $row++;
+
+        $sheet1->writeString($row,1,'Radio Type',$fmt3);
+        $sheet1->writeString($row,2,$radio['RadioType']['name'],$fmt4);
+        $sheet1->writeString($row,4,'Frequency',$fmt3);
+        $sheet1->writeString($row,5,$radio['NetworkRadios']['frequency'],$fmt4);
+        $row++;
+
+        $sheet1->writeString($row,1,'Antenna Type',$fmt3);
+        $sheet1->writeString($row,2,$radio['AntennaType']['name'],$fmt4);
+        $sheet1->writeString($row,4,'SSID',$fmt3);
+        $sheet1->writeString($row,5,$radio['NetworkRadios']['ssid'],$fmt4);
+        $row++;
+
+        $sheet1->writeString($row,1,'Link Distance',$fmt3);
+        if (isset($radio['NetworkRadios']['distance'])) {
+            $d = sprintf("%01.2f",$radio['NetworkRadios']['distance']);
+            $sheet1->writeString($row,2,$d." Km",$fmt4);
+        }
+        $sheet1->writeString($row,4,'Switch Port',$fmt3);
+        $sheet1->writeString($row,5,$radio['NetworkRadios']['switch_port'],$fmt4);
+        $row++;
+
+        $sheet1->writeString($row,1,'Azimuth (True)',$fmt3);
+        $d = round($radio['NetworkRadios']['true_azimuth']);
+        if (isset($d))
+            $sheet1->writeString($row,2,$d."°",$fmt4);
+        $sheet1->writeString($row,4,'IP',$fmt3);
+        $sheet1->writeString($row,5,$radio['NetworkRadios']['ip_address'],$fmt4);
+        $row++;
+
+        // if it's not a sector radio, calculate the magnetic azimuth
+        if (( $radio['NetworkRadios']['sector'] == 0 ) && ( $radio['NetworkRadios']['true_azimuth'] > 0 )) {
+            $mag_azimuth = $radio['NetworkRadios']['true_azimuth'] - $site['Site']['declination'];
+        } else {
+            // we have a sector radio, so grab the value directly
+            $mag_azimuth = $radio['NetworkRadios']['mag_azimuth'];
+        }
+
+        $sheet1->writeString($row,1,'Azimuth (Magnetic)',$fmt3);
+        //$d = sprintf("%01.2f",$mag_azimuth);
+        $d = round($mag_azimuth);
+        //if (isset($d))
+            $sheet1->writeString($row,2,$d."°",$fmt4);
+        $sheet1->writeString($row,4,'Gateway',$fmt3);
+        $sheet1->writeString($row,5,$radio['NetworkRadios']['gw_address'],$fmt4);
+        $row++;
+
+        $sheet1->writeString($row,1,'Elevaton',$fmt3);
+        if (isset($radio['NetworkRadios']['elevation']))
+            $sheet1->writeString($row,2,$radio['NetworkRadios']['elevation']."°",$fmt4);
+        $sheet1->writeString($row,4,'Mode',$fmt3);
+        $sheet1->writeString($row,5,$radio['RadioMode']['name'],$fmt4);
+
+        $row++;
+        for ($u = 1; $u <= 5; $u++) {
+            $sheet1->writeString($row,$u,'',$fmt5);
+        }
+
+        $row += 2;    
     }
-   
-    $row += 2;    
 }
 
 // Send the headers, then output the data
