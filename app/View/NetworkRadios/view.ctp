@@ -89,6 +89,8 @@
         if ( $sector && isset($links[0]) ) 
             echo '<BR><I>SSID for '.$links[0]['network_radios']['name'].': '.$links[0]['network_radios']['ssid'] . '</I>';
         ?></P>
+    <P><B>Multipoint end of P2MP link:</B>&nbsp;<?php echo ($networkradio['NetworkRadio']['p2mp'] > 0 ? "Yes" : "No");?>
+    
     <P><B>Switch:</B>&nbsp;<?php echo $networkradio['NetworkSwitch']['name']; ?></P>
     <P><B>Switch Port:</B>&nbsp;<?php echo $networkradio['NetworkRadio']['switch_port']; ?></P>
     

@@ -39,6 +39,7 @@
         echo $this->Form->input('min_height', array('label'=>'Min. Height (meters)'));
         echo $this->Form->input('frequency', array('type'=>'select','options' => $frequencies));
         echo $this->Form->input('ssid', array('label'=>'SSID'));
+        echo $this->Form->input('p2mp', array('label'=>'Multipoint end of P2MP link'));
         // the IPv4 behavior is correctly decoding the IP address, but this doesn't
         // seem to populate the form:
         // echo $this->Form->input('ip_address', array('label'=>'Primary IP'));

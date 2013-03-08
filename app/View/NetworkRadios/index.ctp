@@ -31,6 +31,7 @@
                 <th><?php echo $this->Paginator->sort('name'); ?></th>
                 <th><?php echo $this->Paginator->sort('site_id'); ?></th>
                 <th><?php echo $this->Paginator->sort('radio_type_id'); ?></th>
+                <th><?php echo $this->Paginator->sort('ssid'); ?></th>
                 <th><?php echo 'Actions'; ?></th>
             </tr>
         </thead>
@@ -42,6 +43,7 @@
         <td><?php echo $this->Html->link($networkradio['NetworkRadio']['name'], array('action' => 'view', $networkradio['NetworkRadio']['id']))?></td>
         <td><?php echo $networkradio['Site']['site_vf'];?></td>
         <td><?php echo $networkradio['RadioType']['name'];?></td>
+        <td><?php echo $networkradio['NetworkRadio']['ssid'];?></td>
         <td>
             <?php
                 echo $this->PoundcakeHTML->linkIfAllowed('Edit', array('action' => 'edit', $networkradio['NetworkRadio']['id']));
