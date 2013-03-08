@@ -152,6 +152,10 @@ BEGIN
 END $$
 DELIMITER ;
 
+-- **************************************************************************************
+-- This trigger cleans up the join table when a radio is deleted
+-- **************************************************************************************
+
 DROP TRIGGER IF EXISTS tr_network_radio_delete;
 DELIMITER $$ 
 CREATE TRIGGER tr_network_radio_delete
