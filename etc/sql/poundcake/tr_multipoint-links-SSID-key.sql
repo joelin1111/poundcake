@@ -149,7 +149,7 @@ BEGIN
 	-- with the same SSID will link to.  Check if there is already a radio with that SSID
 	-- that is marked as the multipoint end
 	SET link_to = ( SELECT id FROM network_radios WHERE ssid = NEW.ssid AND p2mp > 0 );
-	insert into temp1 values (link_to,'before');
+	-- insert into temp1 values (link_to,'before');
 	-- if a radio has already been marked as the multipoint end, we need to link the radio
 	-- currently being inserted to it -- otherwise, this would not happen in the loop below
 	IF link_to > 0 THEN
@@ -167,7 +167,7 @@ BEGIN
 	IF link_to IS NULL OR NEW.p2mp > 0 THEN
 		SET link_to = NEW.id;		
 	END IF;
-	insert into temp1 values (link_to,'after');
+	-- insert into temp1 values (link_to,'after');
 	
 	OPEN matching_ssids_cursor;
 	matching_ssids_loop: LOOP
