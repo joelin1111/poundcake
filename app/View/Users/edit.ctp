@@ -22,7 +22,7 @@
     
     <?php
         echo $this->Form->input('id');
-        echo $this->Form->input('password');
+        echo $this->Form->input('password',array('required'=>false));
         echo $this->Form->input('admin', array('label' => 'System Administrator'));        
         echo $this->Form->submit('Save', array('div' => false,'class'=>'btn btn-primary'));
         echo $this->Form->end(); 
