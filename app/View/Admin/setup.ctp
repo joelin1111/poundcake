@@ -30,7 +30,7 @@
             <H4>Projects</H4><hr>
             <UL>    
                 <li><?php echo $this->Html->link('Projects', '/admin/projects/index'); ?></li>
-                <li><?php echo $this->Html->link('Project IP Spaces', '/admin/projects/ipspaces'); ?></li>
+                <li><?php echo $this->Html->link('Root IP Spaces', '/admin/projects/ipspaces'); ?></li>
             </UL>            
         </div> <!-- /.span4 -->  
     </div>
