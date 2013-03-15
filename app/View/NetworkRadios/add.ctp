@@ -41,6 +41,7 @@
         echo $this->Form->input('min_height', array('label'=>'Min. Height (meters)','value'=>'20')); // default value set in model?  Setting _schema not working?!
         echo $this->Form->input('frequency', array('type'=>'select','options' => $frequencies));
         echo $this->Form->input('ssid', array('label'=>'SSID'));
+        echo $this->Form->input('p2mp', array('label'=>'Multipoint end of P2MP link'));
         echo $this->Form->input('ip_address',
                 array('type' => 'text',
                     'label'=>'Primary IP Address'
