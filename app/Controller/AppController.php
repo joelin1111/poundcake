@@ -24,6 +24,8 @@ App::uses('Controller', 'Controller');
 
 class AppController extends Controller {
 
+    const MAX_CIDRS = 32;
+    
     /*
      * Compinents - used for the login/ACL
      */
@@ -225,6 +227,17 @@ class AppController extends Controller {
         );
     }
     
+    /*
+   * 
+   */
+    protected function getCidrs( $c ) {
+        $cidrs = array();
+        for ($n = $c + 1; $n <=  self::MAX_CIDRS; $n++ ) {
+            $cidrs[ $n ] = '/'.$n;
+        }         
+        $this->set(compact('cidrs'));
+    }
+  
     /*
      * Standard callback function before a view is rendered
      * Used to grab any system messages an admin may have set, and get the 

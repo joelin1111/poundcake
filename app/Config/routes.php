@@ -63,7 +63,7 @@
         Router::connect('/admin/:controller/:action/*', array(), array('controller' => 'networkServices'));
         Router::connect('/admin/:controller/:action/*', array(), array('controller' => 'frequencies'));
         Router::connect('/admin/:controller/:action/*', array(), array('controller' => 'radioBands'));
-        Router::connect('/admin/:controller/:action/*', array(), array('controller' => 'ipSpaces'));
+        //Router::connect('/admin/:controller/:action/*', array(), array('controller' => 'ipSpaces'));
         
 /**
  * ...and connect the rest of 'Pages' controller's urls.

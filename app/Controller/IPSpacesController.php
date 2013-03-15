@@ -25,31 +25,13 @@ App::uses('AppController', 'Controller');
 
 class IpSpacesController extends AppController {
 
+    //const MAX_CIDRS = 32;
+    
     /*
      * Main listing for all IpSpaces
      */
-    public function index() {
-        $this->IpSpace->recursive = 0;
-        // Distinct cannot be used with a find('list') so we do a find('all')...
-//        $ip_spaces = $this->IpSpace->find('all', array( 
-//            'fields' => array('DISTINCT (IpSpace.project_id) AS project_id, IpSpace.name, Project.name'),
-//        )); 
-        
-        $fields = array('DISTINCT IpSpace.project_id', 'IpSpace.id', 'IpSpace.name', 'Project.name');
-        $this->paginate = array(
-            'fields' => $fields,
-            'group' => array('IpSpace.project_id')
-        ); 
-        $this->set('ip_spaces', $this->paginate('IpSpace'));        
-    }
-
-    /*
-     * View an IpSpace
-     */
-    public function view( $id = null ) {
-        $ip_space_tmp = $this->IpSpace->findById($id);
-        
-        $project_id = $ip_space_tmp['IpSpace']['project_id'];  // $this->Session->read('ip_space_project_id' );        
+    public function index( $id = null ) {
+        $project_id = $this->Session->read('project_id' );        
         $ip_spaces = $this->IpSpace->find('threaded', array( 
            'order' => array('IpSpace.lft'),
            'conditions' => array('IpSpace.project_id' => $project_id)
@@ -57,35 +39,18 @@ class IpSpacesController extends AppController {
 //        echo '<pre>';
 //        print_r($ip_spaces);
 //        echo '</pre>';
-        $this->Session->write('ip_space_project_id', $ip_spaces[0]['IpSpace']['project_id'] );
-        $this->set('ip_spaces', $ip_spaces); 
-    }
-
-    public function root( $parent_id = null ) {
-        if ($this->request->is('post')) {
-            $this->IpSpace->create();
-            if ($this->IpSpace->save($this->request->data)) {
-                $this->Session->setFlash('The Root IP Space has been created.');
-                $this->Session->write('ip_space_project_id', $this->request->data['IpSpace']['project_id'] );
-                $this->redirect(array('action' => 'index'));
-            } else {
-                $this->Session->setFlash('Error!  The RootIP Space could not be saved. Please, try again.');
-            }
-        }
-        $this->getCidrs( 7 );
-        $this->getProjects();
+        $this->set(compact('ip_spaces', 'project_id')); 
     }
     
     /*
      * Add a new IpSpace
      */
     public function add( $parent_id = null ) {
+        $project_id = $this->Session->read('project_id');
+        
         if ($this->request->is('post')) {
-            $project_id = $this->Session->read('ip_space_project_id');
-            
 //            echo '<pre>';
 //            print_r( $this->request->data );
-            
             $new_cidr = $this->request->data['IpSpace']['cidr'];
             // load the parent IP Space
             $this->IpSpace->recursive = -1;
@@ -117,7 +82,7 @@ class IpSpacesController extends AppController {
                 
                 if ( $children >= $pos_nets ) {
                     $this->Session->setFlash('Error!  Parent subnet is a /'.$parent_cidr.' - Maximum possible subnets reached.');
-                    $this->redirect(array('action' => 'view', $parent_id ));
+                    $this->redirect(array('action' => 'index', $parent_id ));
                 }
                 
 //                echo( "A /$new_cidr in a /$parent_cidr has $pos_nets possible networks<br>" );
@@ -166,7 +131,7 @@ class IpSpacesController extends AppController {
             if ($this->IpSpace->save($this->request->data)) {
                 $this->Session->setFlash('The IP Space has been saved.');
                 //$this->redirect(array('action' => 'view','parent_id'=>$parent_id,'project_id'=>$project_id));
-                $this->redirect(array('action' => 'view/'.$parent_id.'/'.$project_id));
+                $this->redirect(array('action' => 'index/'.$parent_id));
             } else {
                 $this->Session->setFlash('Error!  The IP Space could not be saved. Please, try again.');
 //                $log = $this->IpSpace->getDataSource()->getLog(false, false);
@@ -182,11 +147,15 @@ class IpSpacesController extends AppController {
         } else {
             $parent_cidr = 7;
         }
+//        var_dump($parent_cidr);
+        if ( $parent_cidr >= self::MAX_CIDRS ) {
+            $this->Session->setFlash('Error!  No more spaces can be added.');
+            $this->redirect(array( 'action' => 'index/'.$parent_id ));
+        }
         
         $this->getCidrs( $parent_cidr );
         $this->set(compact( 'parent_id', 'ip_address', 'project_id' ));
     }
-    
 
 //    private function getIpRange2($from, $to) {
 //        $start = ip2long($from);
@@ -217,7 +186,7 @@ class IpSpacesController extends AppController {
         }
         if ($this->IpSpace->delete()) {
             $this->Session->setFlash('IP Space deleted.');
-            $this->redirect(array('action' => 'view', $parent_id ));
+            $this->redirect(array('action' => 'index', $parent_id ));
         }
         $this->Session->setFlash('Error!  IP Space was not deleted.');
         $this->redirect(array('action' => 'index'));
@@ -253,24 +222,6 @@ class IpSpacesController extends AppController {
         return array( $start, $end );
   }
   
-  private function getCidrs( $c ) {
-      $cidrs = array();
-      for ($n = $c + 1; $n <= 32; $n++ ) {
-          $cidrs[ $n ] = $n;
-      }
-      $this->set(compact('cidrs'));
-  }
-  
-
-//    private function getSlashes() {
-//        $slashes[ 0 ] = '8';
-//        $slashes[ 1 ] = '13';
-//        $slashes[ 2 ] = '17';
-//        $slashes[ 3 ] = '22';
-//        $slashes[ 4 ] = '32';
-//        $this->set(compact('slashes'));
-//    }
-
     /*
      * Uses Auth to check the ACL to see if the user is allowed to perform any
      * actions in this controller
