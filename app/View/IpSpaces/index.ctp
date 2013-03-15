@@ -11,9 +11,13 @@
 <div class="span9">
 	<h2>IP Spaces</h2>
         <?php
+        if ( sizeof($ip_spaces) == 0 ) {
+            echo "<p>No IP Spaces defined for the".$this->Session->read('project_name')." project.  Contact an Administrator for setup.</p>";
+        } else {
             // Using CakePHP Tree Behavior
             // For this view, see http://bakery.cakephp.org/articles/blackbit/2012/12/20/display_tree_index_with_ol_and_li
             recursiveIpSpaces( $ip_spaces, $this->Session->read('role') );
+        }
         ?>
 </div> <!-- /.span9 -->
 </div> <!-- /.row -->
