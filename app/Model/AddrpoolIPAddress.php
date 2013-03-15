@@ -1,6 +1,6 @@
 <?php
 /**
- * Model for IP addresses.
+ * Model for IP addresses from the addrpool database.
  * 
  * Note this model is unique within Poundcake -- it representats the addrpool
  * application, an external (Python, not CakePHP) system Inveneo uses for IP
@@ -24,7 +24,7 @@
 
 App::uses('AppModel', 'Model');
 
-class IPAddress extends AppModel {
+class AddrpoolIPAddress extends AppModel {
 
     /*
      * Display field for select lists
@@ -49,7 +49,7 @@ class IPAddress extends AppModel {
         $addresses = '';
         if (isset($name)) {
             $query = 'call sp_get_all_ip_addresses("'.$name.'%")';
-            $addresses = ClassRegistry::init('IPAddress')->query( $query );
+            $addresses = ClassRegistry::init('AddrpoolIPAddress')->query( $query );
         }
         return $addresses;
     }
@@ -63,7 +63,7 @@ class IPAddress extends AppModel {
         $value = '';
         if (isset($name)) {    
             $query = 'select sp_get_ip_address("'.$name.'")';          
-            $ip_address = ClassRegistry::init('IPAddress')->query($query);
+            $ip_address = ClassRegistry::init('AddrpoolIPAddress')->query($query);
             if (is_array($ip_address)) {
                 foreach ($ip_address[0][0] as $key => $value) {
                     $ip_address = $value;
@@ -79,7 +79,7 @@ class IPAddress extends AppModel {
     public function getGatewayAddress($name) {
         if (isset($name)) {
             $query = 'call sp_get_gw("'.$name.'")';
-            $address = ClassRegistry::init('IPAddress')->query( $query );
+            $address = ClassRegistry::init('AddrpoolIPAddress')->query( $query );
             if (is_array($address)) {
                 //echo "results";
                 foreach ($address[0][0] as $key => $value) {

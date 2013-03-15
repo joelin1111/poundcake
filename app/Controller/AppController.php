@@ -301,7 +301,7 @@ class AppController extends Controller {
         $project_id = $this->Session->read('project_id');
         // only return addrpool data for HRBN projects
         if ( ($project_id == 1 ) || ($project_id == 9 ) ) {
-            return ClassRegistry::init('IPAddress')->getAllIPAddresses($name);
+            return ClassRegistry::init('AddrpoolIPAddress')->getAllIPAddresses($name);
         }
         return false;
     }
@@ -316,7 +316,7 @@ class AppController extends Controller {
         $project_id = $this->Session->read('project_id');
         // only return addrpool data for HRBN projects
         if ( ($project_id == 1 ) || ($project_id == 9 ) ) {
-            return ClassRegistry::init('IPAddress')->getIPAddress($name);
+            return ClassRegistry::init('AddrpoolIPAddress')->getIPAddress($name);
         }
         return false;
     }
@@ -331,7 +331,7 @@ class AppController extends Controller {
         $project_id = $this->Session->read('project_id');
         // only return addrpool data for HRBN projects
         if ( ($project_id == 1 ) || ($project_id == 9 )) {
-            return ClassRegistry::init('IPAddress')->getGatewayAddress($name);
+            return ClassRegistry::init('AddrpoolIPAddress')->getGatewayAddress($name);
         }
         return false;
     }
