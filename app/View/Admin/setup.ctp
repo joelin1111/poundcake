@@ -20,19 +20,17 @@
             <H4>Basic Administration</H4><hr>
             <UL>
                 <li><?php echo $this->Html->link('Projects', '/admin/projects/index'); ?></li>
-                <li><?php echo $this->Html->link('System Banner', '/admin/notifications/edit'); ?></li>
                 <li><?php echo $this->Html->link('Roles', '/admin/roles/index'); ?></li>
                 <li><?php echo $this->Html->link('Site States', '/admin/siteStates/index'); ?></li>
+                <li><?php echo $this->Html->link('System Banner', '/admin/notifications/edit'); ?></li>
                 <li><?php echo $this->Html->link('Users', '/admin/users/index'); ?></li>            
             </UL>
         </div>
         
         <div class="span4">
-            <H4>Monitoring</H4><hr>
+            <H4>IP Address Management</H4><hr>
             <UL>    
-                <li><?php echo $this->Html->link('Monitoring System Types', '/admin/monitoringSystemTypes/index'); ?></li>
-                <li><?php echo $this->Html->link('Network Services', '/admin/networkServices/index'); ?></li>        
-                <li><?php echo $this->Html->link('SNMP Versions', '/admin/snmpTypes/index'); ?></li>        
+                <li><?php echo $this->Html->link('IP Spaces', '/admin/ipSpaces/index'); ?></li>               
             </UL>            
         </div> <!-- /.span4 -->    
     </div>
@@ -74,6 +72,16 @@
                 <li><?php echo $this->Html->link('Zones', '/admin/zones/index'); ?></li>
             </UL>
         </div> <!-- /.span4 -->   
+        
+        <div class="span4">
+            <H4>Monitoring</H4><hr>
+            <UL>    
+                <li><?php echo $this->Html->link('Monitoring System Types', '/admin/monitoringSystemTypes/index'); ?></li>
+                <li><?php echo $this->Html->link('Network Services', '/admin/networkServices/index'); ?></li>        
+                <li><?php echo $this->Html->link('SNMP Versions', '/admin/snmpTypes/index'); ?></li>        
+            </UL>            
+        </div> <!-- /.span4 -->  
+        
     </div> <!-- /.row -->
 </div> <!-- /.span9 -->
 </div> <!-- /.row -->

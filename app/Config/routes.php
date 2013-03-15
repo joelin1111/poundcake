@@ -41,18 +41,15 @@
         Router::connect('/admin/:controller/:action/*', array(), array('controller' => 'projects'));
         Router::connect('/admin/:controller/:action/*', array(), array('controller' => 'roles'));
         Router::connect('/admin/:controller/:action/*', array(), array('controller' => 'users'));
-        
         Router::connect('/admin/:controller/:action/*', array(), array('controller' => 'antennaTypes'));
         Router::connect('/admin/:controller/:action/*', array(), array('controller' => 'radioModes'));
         Router::connect('/admin/:controller/:action/*', array(), array('controller' => 'radioTypes'));
-        
         Router::connect('/admin/:controller/:action/*', array(), array('controller' => 'equipmentSpaces'));
         Router::connect('/admin/:controller/:action/*', array(), array('controller' => 'organizations'));
         Router::connect('/admin/:controller/:action/*', array(), array('controller' => 'powerTypes'));
         Router::connect('/admin/:controller/:action/*', array(), array('controller' => 'towerMembers'));
         Router::connect('/admin/:controller/:action/*', array(), array('controller' => 'towerMounts'));
         Router::connect('/admin/:controller/:action/*', array(), array('controller' => 'towerTypes'));
-        
         Router::connect('/admin/:controller/:action/*', array(), array('controller' => 'buildItems'));
         Router::connect('/admin/:controller/:action/*', array(), array('controller' => 'contactTypes'));
         Router::connect('/admin/:controller/:action/*', array(), array('controller' => 'installTeams'));
@@ -62,16 +59,12 @@
         Router::connect('/admin/:controller/:action/*', array(), array('controller' => 'switchTypes'));
         Router::connect('/admin/:controller/:action/*', array(), array('controller' => 'siteStates'));
         Router::connect('/admin/:controller/:action/*', array(), array('controller' => 'zones'));
-        
         Router::connect('/admin/:controller/:action/*', array(), array('controller' => 'snmpTypes'));
-        
         Router::connect('/admin/:controller/:action/*', array(), array('controller' => 'networkServices'));
         Router::connect('/admin/:controller/:action/*', array(), array('controller' => 'frequencies'));
         Router::connect('/admin/:controller/:action/*', array(), array('controller' => 'radioBands'));
+        Router::connect('/admin/:controller/:action/*', array(), array('controller' => 'ipSpaces'));
         
-        //Router::connect('/admin/:controller/:action', array('prefix' => 'admin'));
-        //Router::connect('/admin/projects/:action/*', array(), array('controller' => 'projects', 'action' => ':action'));
-
 /**
  * ...and connect the rest of 'Pages' controller's urls.
  */
