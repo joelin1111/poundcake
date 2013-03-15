@@ -104,7 +104,7 @@ class NetworkRadiosController extends NetworkDeviceController {
         // get all the radios this radio may be linked to
         $query = 'call sp_get_remote_links('.$id.')';
         $links = $this->NetworkRadio->query( $query );
-        
+//        var_dump($links);die;
         $networkradio = $this->NetworkRadio->read(null, $id);
         $ip_addresses = $this->getAllIPAddresses($this->NetworkRadio->field('name'));
         $this->set(compact('ip_addresses'));

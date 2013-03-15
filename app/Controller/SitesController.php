@@ -1496,41 +1496,77 @@ class SitesController extends AppController
         
         if ($this->request->is('post') || $this->request->is('put')) {
             $this->Site->recursive = -1;
+            $id1 = $this->request->data['Site']['site1-id'];
+            $id2 = $this->request->data['Site']['site2-id'];
             
-            $this->Site->id = $this->request->data['Site']['site1-id'];
-            $site1 = $this->Site->read();
-            $site1code = $site1['Site']['code'];
-            
-            $this->Site->id = $this->request->data['Site']['site2-id'];
-            $site2 = $this->Site->read();
-            $site2code = $site2['Site']['code'];
+            if ( $id1 != $id2 ) {
+                $this->Site->id = $id1;
+                $site1 = $this->Site->read();
+                $site1code = $site1['Site']['code'];
 
-            $this->loadModel('NetworkRadio');
-            $this->NetworkRadio->create();
-            
-            // 1st radio
-            $data1 = array(
-                'site_id' => $site1['Site']['id'],
-                'name' => $site1code.'-'.$site2code,
-                'ssid' => $site1code.'-'.$site2code
-            );
-            
-            // 2nd radio
-            $data2 = array(
-                'site_id' => $site2['Site']['id'],
-                'name' => $site2code.'-'.$site1code, // opposite 1st radio
-                'ssid' => $site1code.'-'.$site2code // same as 1st radio
-            );
-            
-            // both radios!
-            $data = array(
-                array('NetworkRadio' => $data1),
-                array('NetworkRadio' => $data2)
-            );
-            // save both at the same time
-            $this->NetworkRadio->saveMany($data, array('deep' => true));
-            $this->Session->setFlash('Success! Radios created and sites linked.');
-            $this->redirect(array('controller'=>'network_radios','action' => 'index'));
+                $this->Site->id = $id2;
+                $site2 = $this->Site->read();
+                $site2code = $site2['Site']['code'];
+
+                // we should probably allow an admin define default RadioType
+                // for now let's just assume these 2 radios will be the first
+                // in the list
+                $this->loadModel('RadioType');
+                $radio_type_tmp = $this->RadioType->find('first');
+                $radio_type_id = $radio_type_tmp['RadioType']['id'];
+
+                // as above
+                $this->loadModel('AntennaType');
+                $antenna_type_tmp = $this->AntennaType->find('first');
+                $antenna_type_id = $antenna_type_tmp['AntennaType']['id'];
+
+                // as above
+                $this->loadModel('RadioMode');
+                $radio_modes_tmp = $this->RadioMode->find('first');
+                $radio_mode_id_1 = $radio_modes_tmp['RadioMode']['id'];
+                $radio_mode_id_2 = $radio_modes_tmp['RadioMode']['inverse_mode_id'];
+    //            var_dump($radio_mode_id);
+    //            die;
+
+                $this->loadModel('NetworkRadio');
+                $this->NetworkRadio->create();
+
+
+                // 1st radio
+                $data1 = array(
+                    'site_id' => $site1['Site']['id'],
+                    'name' => $site1code.'-'.$site2code,
+                    'ssid' => $site1code.'-'.$site2code,
+                    'radio_type_id' => $radio_type_id,
+                    'antenna_type_id' => $antenna_type_id,
+                    'radio_mode_id' => $radio_mode_id_1
+                );
+
+                // 2nd radio
+                $data2 = array(
+                    'site_id' => $site2['Site']['id'],
+                    'name' => $site2code.'-'.$site1code, // opposite 1st radio
+                    'ssid' => $site1code.'-'.$site2code, // same as 1st radio
+                    'radio_type_id' => $radio_type_id, // same as 1st radio
+                    'antenna_type_id' => $antenna_type_id, // same as 1st radio
+                    'radio_mode_id' => $radio_mode_id_2
+                );
+
+                // both radios!
+                $data = array(
+                    array('NetworkRadio' => $data1),
+                    array('NetworkRadio' => $data2)
+                );
+                // save both at the same time
+                $this->NetworkRadio->saveMany($data, array('deep' => true));
+                $this->Session->setFlash('Success! Radios created and sites linked.');
+                // $this->redirect(array('controller'=>'network_radios','action' => 'index'));
+                $this->redirect(array('action' => 'index'));
+            } else {
+                $this->Session->setFlash('Error! Cannot link a site to itself.');
+                // $this->redirect(array('controller'=>'network_radios','action' => 'index'));
+                $this->redirect(array('action' => 'index'));
+            }
         }
     
         $conditions = array(

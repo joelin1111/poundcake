@@ -18,6 +18,22 @@
 <div class="span9">
     <?php echo $this->Form->create('Site'); ?>
     <h3>Site Linker</h3>
+    <P>
+        The Site linker is a basic way to quickly link 2 sites.  What it does:
+    <UL>
+        <LI>Create and attach two radios:
+            <UL>
+                <LI>Radio attached to Site 1, named: site1-site2</LI>
+                <LI>Radio attached to Site 2, named: site2-site1</LI>
+            </UL>
+        </LI>
+        <LI>Set the SSID of both radios: site1-site2</LI>
+        <LI>Set the radio type</LI>
+        <LI>Set the antenna type</LI>
+        <LI>Set the radio mode</LI>
+    </UL>
+    </P>
+    <hr>
     <div class="span9">
     <div class="span3">
        <?php
