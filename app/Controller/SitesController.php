@@ -1492,6 +1492,66 @@ class SitesController extends AppController
         }
     }
     
+    public function linker() {
+        
+        if ($this->request->is('post') || $this->request->is('put')) {
+            $this->Site->recursive = -1;
+            
+            $this->Site->id = $this->request->data['Site']['site1-id'];
+            $site1 = $this->Site->read();
+            $site1code = $site1['Site']['code'];
+            
+            $this->Site->id = $this->request->data['Site']['site2-id'];
+            $site2 = $this->Site->read();
+            $site2code = $site2['Site']['code'];
+
+            $this->loadModel('NetworkRadio');
+            $this->NetworkRadio->create();
+            
+            // 1st radio
+            $data1 = array(
+                'site_id' => $site1['Site']['id'],
+                'name' => $site1code.'-'.$site2code,
+                'ssid' => $site1code.'-'.$site2code
+            );
+            
+            // 2nd radio
+            $data2 = array(
+                'site_id' => $site2['Site']['id'],
+                'name' => $site2code.'-'.$site1code, // opposite 1st radio
+                'ssid' => $site1code.'-'.$site2code // same as 1st radio
+            );
+            
+            // both radios!
+            $data = array(
+                array('NetworkRadio' => $data1),
+                array('NetworkRadio' => $data2)
+            );
+            // save both at the same time
+            $this->NetworkRadio->saveMany($data, array('deep' => true));
+            $this->Session->setFlash('Success! Radios created and sites linked.');
+            $this->redirect(array('controller'=>'network_radios','action' => 'index'));
+        }
+    
+        $conditions = array(
+            'AND' => array(
+                'Site.project_id' => $this->Session->read('project_id') // only show sites for the current project
+            )
+        );
+        
+        $this->Site->recursive = -1;
+        $sites = $this->Site->find('list',
+                array(
+                    //'fields' => array('Site.id', 'Site.name_vf'),
+                    'conditions' => $conditions,                    
+            ));
+        
+//        echo '<pre>';
+//        var_dump($sites);
+//        echo '</pre>';
+        $this->set(compact('sites'));
+    }
+    
     /*
      * 
      */

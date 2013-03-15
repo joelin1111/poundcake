@@ -5,6 +5,7 @@
     <div class="well well-large">
         <ul>
         <li><?php echo $this->PoundcakeHTML->linkIfAllowed('New Site', array('action' => 'add')); ?></li>
+        <li><?php echo $this->PoundcakeHTML->linkIfAllowed('Site Linker', array('action' => 'linker')); ?></li>
         <li><?php echo $this->PoundcakeHTML->linkIfAdmin('KML Import', array('action' => 'import')); ?></li>
         <li><?php
             // make the KML link that appears in the URL bar a little prettier by removing: whitespace, (, )

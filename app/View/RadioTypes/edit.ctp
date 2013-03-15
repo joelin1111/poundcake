@@ -22,9 +22,6 @@
             'multiple' => 'checkbox',
             'options' => $antennaTypes,
         ));
-    ?>
-    </fieldset>
-    <?php
         echo $this->Form->submit('Save', array('div' => false,'class'=>'btn btn-primary'));
         echo $this->Form->end(); 
     ?>
