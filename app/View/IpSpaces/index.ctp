@@ -27,7 +27,7 @@
             <td><?php echo $ip_space['Project']['name'];?></td>
             <td>
                 <?php
-                    echo $this->Html->link('View', array('action' => 'view', $ip_space['IpSpace']['id'], $ip_space['IpSpace']['project_id']));
+                    echo $this->Html->link('View', array('action' => 'view', $ip_space['IpSpace']['id']));
                     echo '&nbsp;';
                     echo $this->PoundcakeHTML->postLinkIfAllowed('Delete',
                         array('controller'=>'ipspaces','action'=>'delete', $ip_space['IpSpace']['id']),

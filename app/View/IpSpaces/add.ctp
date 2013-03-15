@@ -12,10 +12,12 @@
     <?php echo $this->Form->create('IpSpace'); ?>
     <h2>Add IP Space</h2>
     <?php
+        // echo "Adding to project ID ".$this->Session->read('ip_space_project_id');
+        
         echo $this->Form->hidden('parent_id', array( 'value' => $parent_id ));        
         echo $this->Form->input('name', array( 'value' => 'subnet' ));
         echo $this->Form->input('cidr', array( 'label' => 'CIDR', 'options' => $cidrs, 'selected'=> '0' ));
-        echo $this->Form->hidden('project_id', array( 'value' => $project_id ));         
+        echo $this->Form->hidden('project_id', array( 'value' => $this->Session->read('ip_space_project_id') ));         
     ?>
     </fieldset>
     <?php

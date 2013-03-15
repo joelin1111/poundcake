@@ -31,14 +31,15 @@ function RecursiveIpSpaces($array) {
             echo ' /'.$vals['IpSpace']['cidr']; 
             
             echo '&nbsp; - &nbsp;';
+            echo '<a href="/ipspaces/add/'.$vals['IpSpace']['id'].'"><i class="icon-plus-sign"></i></a>';
             // There is no direct specification for passing multiple parameters
             // from view to controller, plus I'm not using the helpr here anyhow
             // This link is sort of relevant:
             // http://glidingphenomena.blogspot.com/2010/05/cakephp-passing-multiple-parameters.html
-            echo '<a href="/ipspaces/add/'.$vals['IpSpace']['id'].'&'.$vals['IpSpace']['project_id'].'"><i class="icon-plus-sign"></i></a>';
+            // echo '<a href="/ipspaces/add/'.$vals['IpSpace']['id'].'&'.$vals['IpSpace']['project_id'].'"><i class="icon-plus-sign"></i></a>';
             
             echo '&nbsp;';
-            echo '<a href="delete/'.$vals['IpSpace']['id'].'"><i class="icon-remove"></i></a>';
+            echo '<a href="/ipspaces/delete/'.$vals['IpSpace']['id'].'"><i class="icon-remove"></i></a>';
             
             if (count($vals['children'])) { 
                 RecursiveIpSpaces($vals['children']); 

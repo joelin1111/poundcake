@@ -46,12 +46,18 @@ class IpSpacesController extends AppController {
     /*
      * View an IpSpace
      */
-    public function view( $id = null, $project_id = null ) {
+    public function view( $id = null ) {
+        $ip_space_tmp = $this->IpSpace->findById($id);
+        
+        $project_id = $ip_space_tmp['IpSpace']['project_id'];  // $this->Session->read('ip_space_project_id' );        
         $ip_spaces = $this->IpSpace->find('threaded', array( 
-            'order' => array('IpSpace.lft'),
+           'order' => array('IpSpace.lft'),
            'conditions' => array('IpSpace.project_id' => $project_id)
         )); 
-        //var_dump($ip_spaces);
+//        echo '<pre>';
+//        print_r($ip_spaces);
+//        echo '</pre>';
+        $this->Session->write('ip_space_project_id', $ip_spaces[0]['IpSpace']['project_id'] );
         $this->set('ip_spaces', $ip_spaces); 
     }
 
@@ -60,6 +66,7 @@ class IpSpacesController extends AppController {
             $this->IpSpace->create();
             if ($this->IpSpace->save($this->request->data)) {
                 $this->Session->setFlash('The Root IP Space has been created.');
+                $this->Session->write('ip_space_project_id', $this->request->data['IpSpace']['project_id'] );
                 $this->redirect(array('action' => 'index'));
             } else {
                 $this->Session->setFlash('Error!  The RootIP Space could not be saved. Please, try again.');
@@ -73,14 +80,9 @@ class IpSpacesController extends AppController {
      * Add a new IpSpace
      */
     public function add( $parent_id = null ) {
-        // note that $parent_id is overloaded -- it is both $parent_id
-        // and project_id -- see the <a href which is created in the recursive
-        // loop in the view file -- it's how we pass the project_id here
-        $args = explode( '&', $parent_id );
-        $parent_id = $args[ 0 ];
-        $project_id = $args[ 1 ];
-        
         if ($this->request->is('post')) {
+            $project_id = $this->Session->read('ip_space_project_id');
+            
 //            echo '<pre>';
 //            print_r( $this->request->data );
             
@@ -115,7 +117,7 @@ class IpSpacesController extends AppController {
                 
                 if ( $children >= $pos_nets ) {
                     $this->Session->setFlash('Error!  Parent subnet is a /'.$parent_cidr.' - Maximum possible subnets reached.');
-                    $this->redirect(array('action' => 'index'));
+                    $this->redirect(array('action' => 'view', $parent_id ));
                 }
                 
 //                echo( "A /$new_cidr in a /$parent_cidr has $pos_nets possible networks<br>" );
@@ -163,7 +165,8 @@ class IpSpacesController extends AppController {
             $this->IpSpace->create();
             if ($this->IpSpace->save($this->request->data)) {
                 $this->Session->setFlash('The IP Space has been saved.');
-                $this->redirect(array('action' => 'view','parent_id'=>$parent_id,'project_id'=>$project_id));
+                //$this->redirect(array('action' => 'view','parent_id'=>$parent_id,'project_id'=>$project_id));
+                $this->redirect(array('action' => 'view/'.$parent_id.'/'.$project_id));
             } else {
                 $this->Session->setFlash('Error!  The IP Space could not be saved. Please, try again.');
 //                $log = $this->IpSpace->getDataSource()->getLog(false, false);
@@ -204,13 +207,17 @@ class IpSpacesController extends AppController {
             throw new MethodNotAllowedException();
         }
         */
+        
         $this->IpSpace->id = $id;
+        $this->IpSpace->read();
+        $parent_id = $this->IpSpace->field('parent_id');
+        
         if (!$this->IpSpace->exists()) {
             throw new NotFoundException('Invalid IP Space');
         }
         if ($this->IpSpace->delete()) {
             $this->Session->setFlash('IP Space deleted.');
-            $this->redirect(array('action' => 'index'));
+            $this->redirect(array('action' => 'view', $parent_id ));
         }
         $this->Session->setFlash('Error!  IP Space was not deleted.');
         $this->redirect(array('action' => 'index'));
