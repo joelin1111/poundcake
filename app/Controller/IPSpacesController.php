@@ -222,11 +222,20 @@ class IpSpacesController extends AppController {
         return array( $start, $end );
   }
   
-    /*
-     * Uses Auth to check the ACL to see if the user is allowed to perform any
-     * actions in this controller
-     */
     public function isAuthorized($user) {
+        
+        $allowed = array( "index", "view" );
+        if ( in_array( $this->action, $allowed )) {
+            return true;
+        }
+        
+//        $allowed = array( "add", "edit", "delete" );
+//        if ( in_array( $this->action, $allowed )) {
+//            if ( $this->Session->read('role') === 'edit') {
+//                return true;
+//            }
+//        }
+        
         return parent::isAuthorized($user);
     }
 }

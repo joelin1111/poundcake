@@ -13,13 +13,13 @@
         <?php
             // Using CakePHP Tree Behavior
             // For this view, see http://bakery.cakephp.org/articles/blackbit/2012/12/20/display_tree_index_with_ol_and_li
-            recursiveIpSpaces( $ip_spaces );
+            recursiveIpSpaces( $ip_spaces, $this->Session->read('role') );
         ?>
 </div> <!-- /.span9 -->
 </div> <!-- /.row -->
 
 <?php 
-function recursiveIpSpaces($array) { 
+function recursiveIpSpaces( $array ,$role ) { 
 
     if (count($array)) { 
         echo "\n<ul>\n";
@@ -31,17 +31,19 @@ function recursiveIpSpaces($array) {
             echo ' '.$vals['IpSpace']['ip_address'];
             echo ' /'.$vals['IpSpace']['cidr']; 
             
-            echo '&nbsp;&nbsp;&nbsp;';
-            echo '<a href="/ipspaces/add/'.$vals['IpSpace']['id'].'"><i class="icon-plus-sign"></i></a>';
-            
-            // don't allow them to delete the root space
-            if ( $vals['IpSpace']['parent_id'] != null ) {
-                echo '&nbsp;';
-                echo '<a href="/ipspaces/delete/'.$vals['IpSpace']['id'].'"><i class="icon-remove"></i></a>';
+            // must be an admin to see add/delete buttons
+            if ( $role === 'admin' ) {
+                echo '&nbsp;&nbsp;&nbsp;';
+                echo '<a href="/ipspaces/add/'.$vals['IpSpace']['id'].'"><i class="icon-plus-sign"></i></a>';
+
+                // don't allow them to delete the root space
+                if ( $vals['IpSpace']['parent_id'] != null ) {
+                    echo '&nbsp;';
+                    echo '<a href="/ipspaces/delete/'.$vals['IpSpace']['id'].'"><i class="icon-remove"></i></a>';
+                }
             }
-            
             if (count($vals['children'])) { 
-                recursiveIpSpaces($vals['children']); 
+                recursiveIpSpaces( $vals['children'], $role ); 
             } 
             echo "</li>\n";
         } 
