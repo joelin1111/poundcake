@@ -53,7 +53,8 @@ class NetworkRouter extends AppModel {
      */
     var $belongsTo = array(
         'RouterType',
-        'SnmpType'
+        'SnmpType',
+        'IpSpace'
     );
     
     /*

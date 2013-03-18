@@ -44,9 +44,10 @@
         echo $this->Form->input('p2mp', array('label'=>'Multipoint end of P2MP link'));
         echo $this->Form->input('ip_address',
                 array('type' => 'text',
-                    'label'=>'Primary IP Address'
+                    'label'=>'Primary IP Address (Legacy)'
                 )
         );
+        echo $this->Form->input('ip_space_id', array('type'=>'select','label'=>'IP Address','options' => $ip_spaces));
         echo $this->Form->submit('Save', array('div' => false,'class'=>'btn btn-primary'));
         echo $this->Form->end(); 
     ?>

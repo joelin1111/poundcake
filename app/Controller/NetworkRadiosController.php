@@ -370,6 +370,7 @@ class NetworkRadiosController extends NetworkDeviceController {
             }
         }
         $this->getSnmpTypes();
+        $this->getIpSpaces();
     }
 
     /*
@@ -402,6 +403,7 @@ class NetworkRadiosController extends NetworkDeviceController {
             $this->request->data = $this->NetworkRadio->read(null, $id);
         }
         $this->getSnmpTypes();
+        $this->getIpSpaces();
     }
     
     /*

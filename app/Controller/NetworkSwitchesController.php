@@ -121,6 +121,7 @@ class NetworkSwitchesController extends NetworkDeviceController {
             }
         }
         $this->getSnmpTypes();
+        $this->getIpSpaces();
         $project_id = $this->Session->read('project_id');
         $this->set(compact('project_id'));
     }
@@ -156,6 +157,7 @@ class NetworkSwitchesController extends NetworkDeviceController {
         $this->getAllSitesForProject();
         $this->getSwitchTypes();
         $this->getSnmpTypes();
+        $this->getIpSpaces();
         $project_id = $this->Session->read('project_id');
         $this->set(compact('old_site_id','project_id'));
     }

@@ -61,7 +61,8 @@ class NetworkSwitch extends AppModel {
      */
     var $belongsTo = array(
         'SwitchType',
-        'SnmpType'
+        'SnmpType',
+        'IpSpace'
     );
 
     /*

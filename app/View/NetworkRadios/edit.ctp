@@ -44,12 +44,13 @@
         // seem to populate the form:
         // echo $this->Form->input('ip_address', array('label'=>'Primary IP'));
         echo $this->Form->input('ip_address', array(
-            'label' => 'Primary IP Address',
+            'label' => 'Primary IP Address (Legacy)',
             'type' => 'text',
             // 'value' => '1\.2\.3\.4'
             'value' => $this->data['NetworkRadio']['ip_address'],
             'placeholder' => 'For Testing'
         ));
+        echo $this->Form->input('ip_space_id', array('type'=>'select','label'=>'IP Address','options' => $ip_spaces));
         echo $this->element('Common/snmp_override');  // include fiels for SNMP override
     ?>
     </fieldset>

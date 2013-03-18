@@ -25,9 +25,10 @@
         echo $this->Form->input('ip_address',
                 array(
                     'type' => 'text',
-                    'label'=>'Primary IP Address'
+                    'label'=>'Primary IP Address (Legacy)'
                 )
         );
+        echo $this->Form->input('ip_space_id', array('type'=>'select','label'=>'IP Address','options' => $ip_spaces));
         echo $this->Form->input('project_id', array('type'=>'hidden','value' => $project_id ));
     ?>
     </fieldset>

@@ -30,12 +30,13 @@
         // seem to populate the form:
         // echo $this->Form->input('ip_address', array('label'=>'Primary IP'));
         echo $this->Form->input('ip_address', array(
-            'label' => 'Primary IP Address',
+            'label' => 'Primary IP Address (Legacy)',
             'type' => 'text',
             // 'value' => '1\.2\.3\.4'
             'value' => $this->data['NetworkRouter']['ip_address'],
             'placeholder' => 'For Testing'
         ));
+        echo $this->Form->input('ip_space_id', array('type'=>'select','label'=>'IP Address','options' => $ip_spaces));
         echo $this->Form->input('project_id', array('type'=>'hidden','value' => $project_id ));
     ?>
     </fieldset>

@@ -33,7 +33,7 @@ class IpSpacesController extends AppController {
     public function index( $id = null ) {
         $project_id = $this->Session->read('project_id' );        
         $ip_spaces = $this->IpSpace->find('threaded', array( 
-           'order' => array('IpSpace.lft'),
+           // 'order' => array('IpSpace.lft'),
            'conditions' => array('IpSpace.project_id' => $project_id),
             // sort by ip address in case some were deleted and then
             // re-added, which would otherwise make them out of sequence
