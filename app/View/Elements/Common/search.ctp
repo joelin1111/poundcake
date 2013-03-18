@@ -12,9 +12,9 @@
   );
   //echo $this->Form->input('code',array('escape' => true,'class' => 'span2'));
   //echo '<div style="width:10px;">';
-  echo $this->Form->input('code',array('escape' => false,'class' => 'search-query'));
+  echo $this->Form->input('code',array('escape' => false,'class' => 'search-query', 'required' => false));
   echo '<br>'; 
-  echo $this->Form->input('name',array('class' => 'search-query'));
+  echo $this->Form->input('name',array('class' => 'search-query', 'required' => false));
   echo '<br>';
  
   echo $this->Form->select(
