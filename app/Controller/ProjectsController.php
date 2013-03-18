@@ -30,14 +30,6 @@ App::uses('AppController', 'Controller');
 class ProjectsController extends AppController {
 
     /*
-     * Helpers we use:
-     * - PoundcakeHTML makes de-links hyperlinks for view-only users
-     */
-    var $helpers = array(
-        'PoundcakeHTML'
-    );
-    
-    /*
      * Main listing for all Projects
      */
     public function index() {
@@ -75,8 +67,6 @@ class ProjectsController extends AppController {
             
             array_push( $project_users, $u );
         }
-        
-        $this->loadIpAddresses( $id );
         
         $this->set(compact('project','project_users'));
     }
@@ -120,42 +110,6 @@ class ProjectsController extends AppController {
         $default_lon = '-122.4183';
         $this->set(compact('default_lat','default_lon'));
     }
-
-    public function ipspaces() {
-        // this all sort of belongs in the IP spaces controller, but it's also a
-        // project-level thing that only admins should handle
-        $this->loadModel('IpSpace');
-        $this->IpSpace->recursive = 0;
-        $fields = array('DISTINCT IpSpace.project_id', 'IpSpace.id', 'IpSpace.name', 'IpSpace.ip_address', 'IpSpace.cidr', 'Project.name');
-        $this->paginate = array(
-            'fields' => $fields,
-            'group' => array('IpSpace.project_id')
-        ); 
-        $this->set('ip_spaces', $this->paginate('IpSpace'));        
-    }
-    
-//    public function root( $parent_id = null ) {
-//        // as with function ipspaces -- this probably belongs in the IP Spaces
-//        // controller
-//        if ($this->request->is('post')) {
-//             $this->loadModel('IpSpace');
-//             $this->IpSpace->create();
-//            if ($this->IpSpace->save($this->request->data)) {
-//                $this->Session->setFlash('The Root IP Space has been created.');
-//                $this->redirect(array('action' => 'ipspaces'));
-//            } else {
-//                $this->Session->setFlash('Error!  The Root IP Space could not be saved. Please, try again.');
-//            }
-//        }
-//        $this->getCidrs( 7 );
-//        // $this->getProjects();
-//        $this->set('projects',$this->Project->find('list',
-//            array(
-//                'order' => array(
-//                    'Project.name'
-//            )))
-//        );
-//    }
     
     /*
      * Edit an existing project

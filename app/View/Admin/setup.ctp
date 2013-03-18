@@ -1,15 +1,9 @@
 <div class="row">
-<div class="span3">
-<!--    <H3>Actions</H3>-->
-<!--    <ul>
-        <li></li>
-    </ul>-->
-&nbsp;
-</div><!-- /.span3 .sb-fixed -->
-<div class="span9">
+
+<div class="span12">
     <H2>Setup</H2>
 
-    <div class="alert">
+    <div class="alert" align="center">
         <button type="button" class="close" data-dismiss="alert">&times;</button>
         <strong>Caution!</strong> Many items in Tower DB are configurable by users with administrator permissions (e.g. you).
         Changing some of these values may have unintended impacts to existing projects.  Proceed with some caution.
@@ -32,7 +26,17 @@
                 <li><?php echo $this->Html->link('Projects', '/admin/projects/index'); ?></li>
 <!--                <li><?php //echo $this->Html->link('Root IP Spaces', '/admin/projects/ipspaces'); ?></li>-->
             </UL>            
-        </div> <!-- /.span4 -->  
+        </div> <!-- /.span4 -->
+        
+        <div class="span4">
+            <H4>Miscellaneous</H4><hr>
+            <UL>    
+                <li><?php echo $this->Html->link('Build Items', '/admin/buildItems/index'); ?></li>
+                <li><?php echo $this->Html->link('Contact Types', '/admin/contactTypes/index'); ?></li>
+                <li><?php echo $this->Html->link('Install Teams', '/admin/installTeams/index'); ?></li>        
+                <li><?php echo $this->Html->link('Zones', '/admin/zones/index'); ?></li>
+            </UL>
+        </div> <!-- /.span4 -->   
     </div>
     
     <div class="row">
@@ -60,27 +64,15 @@
                 <li><?php echo $this->Html->link('Switch Types', '/admin/switchTypes/index'); ?> </li>
             </UL>
         </div>
-    </div>
-    
-    <div class="row">
-        <div class="span4">
-            <H4>Miscellaneous</H4><hr>
-            <UL>    
-                <li><?php echo $this->Html->link('Build Items', '/admin/buildItems/index'); ?></li>
-                <li><?php echo $this->Html->link('Contact Types', '/admin/contactTypes/index'); ?></li>
-                <li><?php echo $this->Html->link('Install Teams', '/admin/installTeams/index'); ?></li>        
-                <li><?php echo $this->Html->link('Zones', '/admin/zones/index'); ?></li>
-            </UL>
-        </div> <!-- /.span4 -->   
         
-       <div class="span4">
+        <div class="span4">
             <H4>Monitoring</H4><hr>
             <UL>    
                 <li><?php echo $this->Html->link('Monitoring System Types', '/admin/monitoringSystemTypes/index'); ?></li>
                 <li><?php echo $this->Html->link('Network Services', '/admin/networkServices/index'); ?></li>        
                 <li><?php echo $this->Html->link('SNMP Versions', '/admin/snmpTypes/index'); ?></li>        
             </UL>            
-        </div> <!-- /.span4 -->          
-    </div> <!-- /.row -->
-</div> <!-- /.span9 -->
+        </div> <!-- /.span4 --> 
+    </div>    
+</div> <!-- /.span12 -->
 </div> <!-- /.row -->

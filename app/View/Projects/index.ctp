@@ -3,8 +3,8 @@
     <H3>Actions</H3>
     <div class="well well-large">
     <ul>
-        <li><?php echo $this->Html->link('New Project', array('action' => 'add')); ?></li>
-        <li><?php echo $this->Html->link('Setup',array('controller'=>'admin','action' => 'setup')); ?></li>
+        <li><?php echo $this->PoundcakeHTML->link('New Project', array('action' => 'add')); ?></li>
+        <li><?php echo $this->PoundcakeHTML->link('Setup',array('controller'=>'admin','action' => 'setup')); ?></li>
     </ul>
     </div>
 </div><!-- /.span3 .sb-fixed -->
@@ -22,7 +22,7 @@
 	<?php
 	foreach ($projects as $project): ?>
 	<tr>
-            <td><?php echo $this->PoundcakeHTML->linkIfAllowed($project['Project']['name'], array('action' => 'view', $project['Project']['id'])); ?></td>
+            <td><?php echo $this->Html->link($project['Project']['name'], array('action' => 'view', $project['Project']['id'])); ?></td>
             <td>
                 <?php
                     echo $this->PoundcakeHTML->linkIfAllowed('Edit', array('action' => 'edit', $project['Project']['id']));

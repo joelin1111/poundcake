@@ -31,7 +31,7 @@ class IpSpace extends AppModel {
     /*
      * Default sort order
      */
-    // var $order = 'PowerType.name ASC';
+    // var $order = 'IpSpace.ip_address ASC';
     
     /*
      * Relations
@@ -47,23 +47,23 @@ class IpSpace extends AppModel {
             ) 
         ),
         'Tree' // @see http://book.cakephp.org/2.0/en/core-libraries/behaviors/tree.html
-        //'Containable'
     );
+    
     
     /*
      * Field-level validation rules
      */
-    public $validate = array(
-    'name' => array(
-        'notempty' => array(
-            'rule' => array('notempty'),
-            'message' => 'This field cannot be blank.',
-            //'allowEmpty' => false,
-            //'required' => false,
-            //'last' => false, // Stop validation after this rule
-            //'on' => 'create', // Limit validation to 'create' or 'update' operations
-        )
-    )
-    );
+//    public $validate = array(
+//        'name' => array(
+//            'notempty' => array(
+//                'rule' => array('notempty'),
+//                'message' => 'This field cannot be blank.',
+//                //'allowEmpty' => false,
+//                //'required' => false,
+//                //'last' => false, // Stop validation after this rule
+//                //'on' => 'create', // Limit validation to 'create' or 'update' operations
+//            )
+//        )
+//    );
 }
 ?>

@@ -26,7 +26,7 @@
         <?php if (isset($node_detail_url)) {
             echo '<li><a href="'.$node_detail_url .'" target="_blank">More Details</a></li>';
         } ?>    
-        <li><?php echo $this->Html->link('List Routers', array('action' => 'index')); ?>
+        <li><?php echo $this->PoundcakeHTML->link('List Routers', array('action' => 'index')); ?>
     </ul>
     </div>
 </div><!-- /.span3 .sb-fixed -->
@@ -56,7 +56,12 @@
     <P><B>Model:</B>&nbsp;<?php echo $networkrouter['RouterType']['model']; ?></P>
     <P><B>Serial No:</B>&nbsp;<?php echo $networkrouter['NetworkRouter']['serial']; ?></P>
     <P><B>SNMP Override:</B>&nbsp;<?php echo ($networkrouter['NetworkRouter']['snmp_override'] > 0 ? "Yes" : "No");?>
-    <P><B>Primary IP Address:</B>&nbsp;<?php echo $networkrouter['NetworkRouter']['ip_address']; ?>
+    <P><B>Primary IP Address (Legacy):</B>&nbsp;<?php echo $networkrouter['NetworkRouter']['ip_address']; ?>
+    <P><B>Primary IP Address:</B>&nbsp;<?php
+        // revisit: the IpV4 behavior should decode this field for us -- why am
+        // I having to decode it manually?
+        echo long2ip($networkrouter['IpSpace']['ip_address']);
+    ?>
     <?php
         if ( $snmp_override ) {
             echo '<ul>';

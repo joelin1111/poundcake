@@ -3,8 +3,8 @@
     <H3>Actions</H3>
     <div class="well well-large">
     <ul>
-        <li><?php echo $this->Html->link('List Projects', array('action' => 'index')); ?>
-        <li><?php echo $this->Html->link('Setup',array('controller'=>'admin','action' => 'setup')); ?></li>
+        <li><?php echo $this->PoundcakeHTML->link('List Projects', array('action' => 'index')); ?>
+        <li><?php echo $this->PoundcakeHTML->link('Setup',array('controller'=>'admin','action' => 'setup')); ?></li>
     </ul>
     </div>
 </div><!-- /.span3 .sb-fixed -->
@@ -22,14 +22,6 @@
     <P><B>Monitoring System Username:</B>&nbsp;<?php echo $project['Project']['monitoring_system_username']; ?></P>
     <P><B>Monitoring System Password:</B>&nbsp;<?php echo $project['Project']['monitoring_system_password']; ?></P>
     <P><B>Monitoring System ReST URL:</B>&nbsp;<?php echo $project['Project']['monitoring_system_url']; ?></P>
-    <P><B>Other IP addresses</B>&nbsp;
-        <?php
-            echo '<ul>';
-            foreach( $ip_addresses as $ip ) {
-                echo '<li>'.$ip.'</li>';
-            }
-            echo '</ul>';
-        ?></P>
     <P><B>Users with access to this project:</B>
     <UL>
     <?php

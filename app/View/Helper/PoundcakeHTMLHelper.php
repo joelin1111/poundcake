@@ -27,15 +27,40 @@ class PoundcakeHTMLHelper extends AppHelper {
      */
     var $helpers = array('Html','Form','Session'); // maybe we should have extendedHtmlHelper versus just using it?
     
+    // http://twitter.github.com/bootstrap/base-css.html#images
+    const ICON_LIST = '<i class="icon-list-alt"></i>'; 
+    //const ICON_LIST = '<i class="icon-list"></i>';  
+    //const ICON_LIST = '<i class="icon-arrow-left"></i>';
+    //const ICON_NEW = '<i class="icon-pencil"></i>'; 
+    const ICON_NEW = '<i class="icon-edit"></i>'; 
+    const ICON_EDIT = '<i class="icon-edit"></i>';
+    const ICON_DELETE = '<i class="icon-remove"></i>';
+    const ICON_FILE = '<i class="icon-file"></i>';
+    const ICON_SETUP = '<i class="icon-wrench"></i>';
+    
+    const ICON_DEFAULT = '<i class="icon-circle-arrow-right"></i>';
+    //const ICON_DEFAULT = '<i class="icon-play-circle"></i>';
+   
+    
+    function link($title, $url) {
+        return $this->linkIfAllowed( $title, $url );
+    }
+    
     /*
      * Returns hyperlink if permissions permit.
      */
-    function linkIfAllowed($title, $url) {
+    function linkIfAllowed($title, $url, $icon = true) {
         $role = $this->Session->read('role');
+        
+        // third argument is a flag to not show any icon
+        $i = null;
+        if ( $icon )
+            $i = $this->getIcon($title);
+        
         if (($role === 'edit') || ($role === 'admin') ) {
-          return $this->Html->link($title, $url);
+          return $i.$this->Html->link($title, $url);
         } else {
-            return $title;
+            return $i.$title;
         }
     }
     
@@ -45,9 +70,9 @@ class PoundcakeHTMLHelper extends AppHelper {
     function linkIfAdmin($title, $url) {
         $role = $this->Session->read('role');
         if ($role === 'admin') {
-          return $this->Html->link($title, $url);
+          return $this->getIcon($title).$this->Html->link($title, $url);
         } else {
-            return $title;
+            return $this->getIcon($title).$title;
         }
     }
 
@@ -58,9 +83,9 @@ class PoundcakeHTMLHelper extends AppHelper {
          // this should probably be in PoundcakeFormHelper ;-)
         $role = $this->Session->read('role');
         if (($role === 'edit') || ($role === 'admin') ) {
-            return $this->Form->postLink($title,$url,$options,$confirmMessage);
+            return $this->getIcon($title).$this->Form->postLink($title,$url,$options,$confirmMessage);
         } else {
-            return $title;
+            return $this->getIcon($title).$title;
         }
     }
     
@@ -70,19 +95,46 @@ class PoundcakeHTMLHelper extends AppHelper {
     function postLinkIfAdmin($title, $url = null, $options = array(), $confirmMessage = false) {
         $role = $this->Session->read('role');
         if ( $role === 'admin') {
-            return $this->Form->postLink($title,$url,$options,$confirmMessage);
+            return $this->getIcon($title).$this->Form->postLink($title,$url,$options,$confirmMessage);
         } else {
-            return $title;
+            return $this->getIcon($title).$title;
         }
     }
     
     function postLinkAltMessage($title, $url = null, $options = array(), $confirmMessage = false, $alternateString) {
         $role = $this->Session->read('role');
         if (($role === 'edit') || ($role === 'admin') ) {
-            return $this->Form->postLink($title,$url,$options,$confirmMessage);
+            return $this->getIcon($title).$this->Form->postLink($title,$url,$options,$confirmMessage);
         } else {
-            return $title;
+            return $this->getIcon($title).$title;
         }
+    }
+    
+    private function getIcon( $string ) {
+        $i='';
+        if (stripos(trim($string), "New") === 0)
+           $i = self::ICON_NEW;
+        elseif (stripos(trim($string), "Edit") === 0)
+            $i = self::ICON_EDIT;
+        elseif (stripos(trim($string), "Delete") === 0)
+            $i = self::ICON_DELETE;
+        elseif (stripos(trim($string), "List") === 0)
+            $i = self::ICON_LIST;
+        
+        // File -related
+        elseif (stripos(trim($string), "Equipment") === 0)
+            $i = self::ICON_FILE;
+        elseif (stripos(trim($string), "Work") === 0)
+            $i = self::ICON_FILE;
+        elseif (stripos(trim($string), "KML") === 0)
+            $i = self::ICON_FILE;
+         
+        elseif (stripos(trim($string), "Setup") === 0)
+            $i = self::ICON_SETUP;
+        
+        else
+            $i = self::ICON_DEFAULT;
+        return $i;//.'&nbsp;';
     }
 }
 

@@ -3,8 +3,8 @@
     <H3>Actions</H3>
     <div class="well well-large">
     <ul>
-        <li><?php echo $this->Html->link('New Build Item', array('action' => 'add')); ?></li>
-        <li><?php echo $this->Html->link('Setup',array('controller'=>'admin','action' => 'setup')); ?></li>
+        <li><?php echo $this->PoundcakeHTML->link('New Build Item', array('action' => 'add')); ?></li>
+        <li><?php echo $this->PoundcakeHTML->link('Setup',array('controller'=>'admin','action' => 'setup')); ?></li>
     </ul>
     </div>
 </div><!-- /.span3 .sb-fixed -->
@@ -25,11 +25,16 @@
 	foreach ($builditems as $item): ?>
 	<tr>
             <td><?php echo $item['BuildItem']['quantity'];?></td>
-            <td><?php echo $item['BuildItem']['name'];?></td>
+            <td><?php
+                // some of these are long, so truncate as appropriate
+                $len = 40;
+                $str = $item['BuildItem']['name'];
+                echo (strlen($str) > $len) ? substr($str,0,$len).'...' : $str;
+            ?></td>
             <td><?php echo $item['BuildItemType']['name'];?></td>
             <td>
             <?php
-                echo $this->Html->link('Edit', array('action' => 'edit', $item['BuildItem']['id']));
+                echo $this->PoundcakeHTML->link('Edit', array('action' => 'edit', $item['BuildItem']['id']));
                 echo '&nbsp;';
                 echo $this->PoundcakeHTML->postLinkIfAllowed('Delete',
                             array('controller'=>'builditems','action'=>'delete', $item['BuildItem']['id']),

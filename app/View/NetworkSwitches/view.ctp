@@ -70,7 +70,14 @@
             echo '</li></ul>';            
         }
     ?>
-    <P><B>Primary IP Address:</B>&nbsp;<?php echo $networkswitch['NetworkSwitch']['ip_address']; ?>
+    <P><B>Primary IP Address (Legacy):</B>&nbsp;<?php echo $networkswitch['NetworkSwitch']['ip_address']; ?>
+    <P><B>Primary IP Address:</B>&nbsp;
+        <?php
+        // revisit: the IpV4 behavior should decode this field for us -- why am
+        // I having to decode it manually?
+        echo long2ip($networkswitch['IpSpace']['ip_address']);
+        ?>
+            
     <P><B>Attached Radios:</B>&nbsp;
     <?php
         if (!isset($networkswitch['NetworkRadio'])) {

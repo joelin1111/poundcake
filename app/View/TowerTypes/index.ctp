@@ -3,8 +3,8 @@
     <H3>Actions</H3>
     <div class="well well-large">
     <ul>
-        <li><?php echo $this->Html->link('New Tower Type', array('action' => 'add')); ?></li>
-        <li><?php echo $this->Html->link('Setup',array('controller'=>'admin','action' => 'setup')); ?></li>
+        <li><?php echo $this->PoundcakeHTML->link('New Tower Type', array('action' => 'add')); ?></li>
+        <li><?php echo $this->PoundcakeHTML->link('Setup',array('controller'=>'admin','action' => 'setup')); ?></li>
     </ul>
     </div>
 </div><!-- /.span3 .sb-fixed -->
@@ -27,7 +27,7 @@
             <td><?php echo $towertype['Project']['name'];?></td>
             <td>
             <?php
-                echo $this->Html->link('Edit', array('action' => 'edit', $towertype['TowerType']['id']));
+                echo $this->PoundcakeHTML->link('Edit', array('action' => 'edit', $towertype['TowerType']['id']));
                 echo '&nbsp;';
                 echo $this->PoundcakeHTML->postLinkIfAllowed('Delete',
                     array('controller'=>'towertypes','action'=>'delete', $towertype['TowerType']['id']),

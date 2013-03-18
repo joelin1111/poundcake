@@ -556,3 +556,8 @@ input::-webkit-inner-spin-button {
     margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
 }
 /* END - Remove up/down arrows */
+
+/* remove bullet points from LI in navigation well-large */
+div.well-large li {
+    list-style-type: none;
+}

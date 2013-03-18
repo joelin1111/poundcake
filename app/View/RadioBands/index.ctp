@@ -3,8 +3,8 @@
     <H3>Actions</H3>
     <div class="well well-large">
     <ul>
-        <li><?php echo $this->Html->link('New Radio Band', array('action' => 'add')); ?></li>
-        <li><?php echo $this->Html->link('Setup',array('controller'=>'admin','action' => 'setup')); ?></li>
+        <li><?php echo $this->PoundcakeHTML->link('New Radio Band', array('action' => 'add')); ?></li>
+        <li><?php echo $this->PoundcakeHTML->link('Setup',array('controller'=>'admin','action' => 'setup')); ?></li>
     </ul>
     </div>
 </div><!-- /.span3 .sb-fixed -->
@@ -25,7 +25,7 @@
             <td><?php echo $radioband['RadioBand']['name'];?></td>
             <td>
             <?php
-                echo $this->Html->link('Edit', array('action' => 'edit', $radioband['RadioBand']['id']));
+                echo $this->PoundcakeHTML->link('Edit', array('action' => 'edit', $radioband['RadioBand']['id']));
                 echo '&nbsp;';
                 echo $this->PoundcakeHTML->postLinkIfAllowed('Delete',
                     array('controller'=>'radiobands','action'=>'delete', $radioband['RadioBand']['id']),

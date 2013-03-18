@@ -4,7 +4,7 @@
 </div><!-- /.span3 .sb-fixed -->
 
 <div class="span9">
-    <h2>Update Password</h2>
+    <h2>Change Password</h2>
     <?php
         // http://stackoverflow.com/questions/2868665/is-there-a-better-way-to-change-user-password-in-cakephp-using-auth
         echo $this->Form->create('User');

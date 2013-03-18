@@ -25,7 +25,7 @@ App::uses('AppController', 'Controller');
 
 class IpSpacesController extends AppController {
 
-    //const MAX_CIDRS = 32;
+    //const MAX_CIDRS = 32;    
     
     /*
      * Main listing for all IpSpaces

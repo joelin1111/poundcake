@@ -13,7 +13,7 @@
     <h2>Add IP Space</h2>
     <?php
         echo $this->Form->hidden('parent_id', array( 'value' => $parent_id ));        
-        echo $this->Form->input('name', array( 'value' => 'subnet' ));
+        echo $this->Form->input('name', array( 'value' => 'subnet', 'required' => false ));
         echo $this->Form->input('cidr', array( 'label' => 'CIDR', 'options' => $cidrs, 'selected'=> '0' ));
         echo $this->Form->hidden('project_id', array( 'value' => $project_id ));        
     ?>

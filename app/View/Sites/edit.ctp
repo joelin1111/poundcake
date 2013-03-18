@@ -10,8 +10,8 @@
     <H3>Actions</H3>
     <div class="well well-large">
     <ul>
-        <li><?php echo $this->Html->link('View Site', array('action' => 'view', $this->Form->value('Site.id')))?></li>
-        <li><?php echo $this->Html->link('List Sites', array('action' => 'index')); ?></li>
+        <li><?php echo $this->PoundcakeHTML->link('View Site', array('action' => 'view', $this->Form->value('Site.id')))?></li>
+        <li><?php echo $this->PoundcakeHTML->link('List Sites', array('action' => 'index')); ?></li>
     </ul>
     </div>
 </div><!-- /.span3 .sb-fixed -->

@@ -3,8 +3,8 @@
     <H3>Actions</H3>
     <div class="well well-large">
     <ul>
-        <li><?php echo $this->Html->link('New Install Team', array('action' => 'add')); ?></li>
-        <li><?php echo $this->Html->link('Setup',array('controller'=>'admin','action' => 'setup')); ?></li>
+        <li><?php echo $this->PoundcakeHTML->link('New Install Team', array('action' => 'add')); ?></li>
+        <li><?php echo $this->PoundcakeHTML->link('Setup',array('controller'=>'admin','action' => 'setup')); ?></li>
     </ul>
     </div>
 </div><!-- /.span3 .sb-fixed -->
@@ -27,7 +27,7 @@
             <td><?php echo $team['Project']['name']; ?></td>
             <td>
             <?php
-                echo $this->Html->link('Edit', array('action' => 'edit', $team['InstallTeam']['id']));            
+                echo $this->PoundcakeHTML->link('Edit', array('action' => 'edit', $team['InstallTeam']['id']));            
                 echo '&nbsp;';
                 echo $this->PoundcakeHTML->postLinkIfAllowed('Delete',
                             array('controller'=>'installteams','action'=>'delete', $team['InstallTeam']['id']),

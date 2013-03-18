@@ -3,8 +3,8 @@
     <H3>Actions</H3>
     <div class="well well-large">
     <ul>
-        <li><?php echo $this->Html->link('New User', array('action' => 'add')); ?></li>
-        <li><?php echo $this->Html->link('Setup',array('controller'=>'admin','action' => 'setup')); ?></li>
+        <li><?php echo $this->PoundcakeHTML->link('New User', array('action' => 'add')); ?></li>
+        <li><?php echo $this->PoundcakeHTML->link('Setup',array('controller'=>'admin','action' => 'setup')); ?></li>
     </ul>
     </div>
     
@@ -44,16 +44,16 @@
                     //echo $user['User']['modified']; ?>&nbsp;</td>
 		<td class="actions">
                     <?php
-                        echo $this->Html->link('Edit', array('action' => 'edit', $user['User']['id']));
+                        echo $this->PoundcakeHTML->link('Edit', array('action' => 'edit', $user['User']['id']));
                         echo '&nbsp;';
                         
                         // if the user is an administrator, don't make this a hyperlink
                         // thoush someone could manually craft the url to get to the page
                         // any edits to ProjectMembers will be ignored
                         if ( $user['User']['admin'] ) {
-                            echo "Permissions";
+                            echo '<i class="icon-play-circle"></i>Permissions';
                         } else {
-                            echo $this->Html->link('Permissions', array('action' => 'permissions', $user['User']['id']));
+                            echo $this->PoundcakeHTML->link('Permissions', array('action' => 'permissions', $user['User']['id']));
                         }
                         echo '&nbsp;';
                         

@@ -10,7 +10,7 @@
     <H3>Actions</H3>
     <div class="well well-large">
     <ul>
-        <li><?php echo $this->Html->link('List Sites', array('action' => 'index')); ?></li>
+        <li><?php echo $this->PoundcakeHTML->link('List Sites', array('action' => 'index')); ?></li>
     </ul>
     </div>
 </div><!-- /.span3 .sb-fixed -->
@@ -35,7 +35,7 @@
     </P>
     <hr>
     <div class="span9">
-    <div class="span3">
+    <div class="span4">
        <?php
             echo $this->Form->label('Site 1');
             echo $this->Form->input('site1-id',array(
@@ -46,7 +46,7 @@
         ?>
         <BR><BR>
     </div> <!-- ./span4 -->
-    
+    <div class="span1"></div>
     <div class="span4">
         <?php
             echo $this->Form->label('Site 2');

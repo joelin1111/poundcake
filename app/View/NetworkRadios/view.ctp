@@ -26,7 +26,7 @@
         <?php if (isset($node_detail_url)) {
             echo '<li><a href="'.$node_detail_url .'" target="_blank">More Details</a></li>';
         } ?>       
-        <li><?php echo $this->Html->link('List Radios', array('action' => 'index')); ?></li>        
+        <li><?php echo $this->PoundcakeHTML->linkIfAllowed('List Radios', array('action' => 'index')); ?></li>        
     </ul>
     </div>
 </div><!-- /.span3 .sb-fixed -->
@@ -108,7 +108,13 @@
             echo '</li></ul>';            
         }
     ?>
-    <P><B>Primary IP Address:</B>&nbsp;<?php echo $networkradio['NetworkRadio']['ip_address']; ?>
+    <P><B>Primary IP Address (Legacy):</B>&nbsp;<?php echo $networkradio['NetworkRadio']['ip_address']; ?>
+    <P><B>Primary IP Address:</B>&nbsp;
+        <?php
+        // revisit: the IpV4 behavior should decode this field for us -- why am
+        // I having to decode it manually?
+        echo long2ip($networkradio['IpSpace']['ip_address']);
+     ?>
         
     <P><B>Link Information:</B>&nbsp;
         <?php foreach ($links as $link) { ?>
