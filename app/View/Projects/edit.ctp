@@ -38,6 +38,19 @@
                 echo $this->Form->input('monitoring_system_password', array( 'type'=>'password', 'label' => 'Monitoring System Password' ));
                 //echo $this->Form->input('monitoring_system_password', array( 'label' => 'Monitoring System Password' ));
                 echo $this->Form->input('monitoring_system_url', array( 'label' => 'Complete URL to ReST API','placeholder' => '' ));
+                
+//                $ips = null;
+//                $size = sizeof($ip_addresses);
+//                $u = 0;
+//                foreach ( $ip_addresses as $key => $val ) {
+//                   $ips .= $val;
+//                   if ( $u < $size-1 ) {
+//                       $ips .= ',';
+//                   }
+//                   $u++;
+//                }
+//                
+//                echo $this->Form->input('ip_addresses', array( 'value'=> $ips, 'label'=>'Public IP Addresses', 'rows' => '5', 'cols' => '5'));
                 echo $this->Form->submit('Save', array('div' => false,'class'=>'btn btn-primary'));
                 echo $this->Form->end(); 
             ?>

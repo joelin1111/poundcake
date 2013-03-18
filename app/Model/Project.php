@@ -78,7 +78,9 @@ class Project extends AppModel {
         'SiteStates',
         'TowerTypes',
         'InstallTeams',
-        'ProjectMembership'  // this is a "hasMany through" relation, similar to HABTM
+        'ProjectMembership', // NOTE:  this is a "hasMany through" relation, similar to HABTM
+        'IpAddress',
+        'IpSpace'
     );
     
     /*

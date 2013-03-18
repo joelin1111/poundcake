@@ -22,6 +22,14 @@
     <P><B>Monitoring System Username:</B>&nbsp;<?php echo $project['Project']['monitoring_system_username']; ?></P>
     <P><B>Monitoring System Password:</B>&nbsp;<?php echo $project['Project']['monitoring_system_password']; ?></P>
     <P><B>Monitoring System ReST URL:</B>&nbsp;<?php echo $project['Project']['monitoring_system_url']; ?></P>
+    <P><B>Other IP addresses</B>&nbsp;
+        <?php
+            echo '<ul>';
+            foreach( $ip_addresses as $ip ) {
+                echo '<li>'.$ip.'</li>';
+            }
+            echo '</ul>';
+        ?></P>
     <P><B>Users with access to this project:</B>
     <UL>
     <?php

@@ -13,7 +13,7 @@
     <h2>Add Root IP Space</h2>
     <?php
         echo $this->Form->hidden('parent_id', array( 'value' => null ));        
-        echo $this->Form->input('name', array( 'value' => '' ));
+        echo $this->Form->input('name', array( 'value' => $project_name ));
         echo $this->Form->input('cidr', array( 'label' => 'CIDR', 'options' => $cidrs, 'selected'=> '0' ));
         echo $this->Form->input('ip_address',
                 array(

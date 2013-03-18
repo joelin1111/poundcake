@@ -1,6 +1,6 @@
 <?php
 /**
- * Model for single IP address.
+ * Model for network address.
  *
  * Developed against CakePHP 2.3.0 and PHP 5.4.4.
  *
@@ -21,7 +21,7 @@
 
 App::uses('AppModel', 'Model');
 
-class IpSpace extends AppModel {
+class IpAddress extends AppModel {
 
     /*
      * Display field for select lists
@@ -45,25 +45,23 @@ class IpSpace extends AppModel {
             'fields' => array( 
                 'ip_address'
             ) 
-        ),
-        'Tree' // @see http://book.cakephp.org/2.0/en/core-libraries/behaviors/tree.html
-        //'Containable'
+        ),        
     );
     
     /*
      * Field-level validation rules
      */
     public $validate = array(
-    'name' => array(
-        'notempty' => array(
-            'rule' => array('notempty'),
-            'message' => 'This field cannot be blank.',
-            //'allowEmpty' => false,
-            //'required' => false,
-            //'last' => false, // Stop validation after this rule
-            //'on' => 'create', // Limit validation to 'create' or 'update' operations
+        'ip_address' => array(
+            'notempty' => array(
+                'rule' => array('notempty'),
+                'message' => 'This field cannot be blank.',
+                //'allowEmpty' => false,
+                //'required' => false,
+                //'last' => false, // Stop validation after this rule
+                //'on' => 'create', // Limit validation to 'create' or 'update' operations
+            )
         )
-    )
     );
 }
 ?>

@@ -1072,6 +1072,8 @@ class SitesController extends AppController
         $this->getAntennaTypes();
         $this->getInstallTeams();
 
+        $this->getAllIpAddressesForProject();
+        
         if (!$this->Site->exists()) {
             throw new NotFoundException('Invalid site');
         }

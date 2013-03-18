@@ -76,6 +76,8 @@ class ProjectsController extends AppController {
             array_push( $project_users, $u );
         }
         
+        $this->loadIpAddresses( $id );
+        
         $this->set(compact('project','project_users'));
     }
 
@@ -104,6 +106,7 @@ class ProjectsController extends AppController {
             $this->request->data['Project']['monitoring_system_url'] = $this->cleanUrl( $this->request->data['Project']['monitoring_system_url'] );
             // see beforeSave callback in the Project model
             if ($this->Project->save($this->request->data)) {
+//                $this->saveIpAddresses( $this->request->data['Project']['ip_addresses'], $this->request->data['Project']['id'] );
                 $this->Session->setFlash('The project has been saved.');
                 $this->redirect(array('action' => 'index'));
             } else {
@@ -131,28 +134,28 @@ class ProjectsController extends AppController {
         $this->set('ip_spaces', $this->paginate('IpSpace'));        
     }
     
-    public function root( $parent_id = null ) {
-        // as with function ipspaces -- this probably belongs in the IP Spaces
-        // controller
-        if ($this->request->is('post')) {
-             $this->loadModel('IpSpace');
-             $this->IpSpace->create();
-            if ($this->IpSpace->save($this->request->data)) {
-                $this->Session->setFlash('The Root IP Space has been created.');
-                $this->redirect(array('action' => 'ipspaces'));
-            } else {
-                $this->Session->setFlash('Error!  The Root IP Space could not be saved. Please, try again.');
-            }
-        }
-        $this->getCidrs( 7 );
-        // $this->getProjects();
-        $this->set('projects',$this->Project->find('list',
-            array(
-                'order' => array(
-                    'Project.name'
-            )))
-        );
-    }
+//    public function root( $parent_id = null ) {
+//        // as with function ipspaces -- this probably belongs in the IP Spaces
+//        // controller
+//        if ($this->request->is('post')) {
+//             $this->loadModel('IpSpace');
+//             $this->IpSpace->create();
+//            if ($this->IpSpace->save($this->request->data)) {
+//                $this->Session->setFlash('The Root IP Space has been created.');
+//                $this->redirect(array('action' => 'ipspaces'));
+//            } else {
+//                $this->Session->setFlash('Error!  The Root IP Space could not be saved. Please, try again.');
+//            }
+//        }
+//        $this->getCidrs( 7 );
+//        // $this->getProjects();
+//        $this->set('projects',$this->Project->find('list',
+//            array(
+//                'order' => array(
+//                    'Project.name'
+//            )))
+//        );
+//    }
     
     /*
      * Edit an existing project
@@ -167,19 +170,8 @@ class ProjectsController extends AppController {
             // set http if it was not set
             $this->request->data['Project']['monitoring_system_url'] = $this->cleanUrl( $this->request->data['Project']['monitoring_system_url'] );            
             // see beforeSave callback in the Project model
-            
-//            echo '<pre>';
-//            print_r( $this->request->data );
-//            echo '</pre>';
-            //die;
-            //
-            if ($this->Project->save($this->request->data )) {
-            //if ( $this->Project->save( $this->request->data , array('deep' => true)) ) {
-            // if ($this->Project->saveAll( $this->request->data, array('deep' => true) )) {
-                //$this->loadModel('ProjectRoles');
-                //$this->Project->ProjectRoles->saveAll( $this->request->data );
-                //echo "after saveAll";
-                //die;
+            if ($this->Project->save( $this->request->data )) {
+//                $this->saveIpAddresses( $this->request->data['Project']['ip_addresses'], $this->request->data['Project']['id'] );
                 $this->Session->setFlash('The project has been saved.');
                 $this->redirect(array('action' => 'index'));
             } else {
@@ -191,7 +183,32 @@ class ProjectsController extends AppController {
         $this->getSnmpTypes();
         $this->getMonitoringSystemTypes();
         $this->getRoles();
+//        $this->loadIpAddresses( $id );
     }
+    
+//    private function loadIpAddresses( $project_id ) {
+//        $ips = $this->Project->IpAddress->findAllByProjectId( $project_id );
+//        $ip_addresses = array();
+//        foreach ( $ips as $ip ) {
+//            array_push( $ip_addresses, $ip['IpAddress']['ip_address']);
+//        }
+//        $this->set(compact('ip_addresses'));
+//    }
+    
+//    private function saveIpAddresses( $args, $project_id ) {
+//        $ip_addresses = explode(',', $args );
+//        $data = array();
+//        $this->loadModel('IpAddress');
+//        foreach ( $ip_addresses as $a ) {
+//            $ip_data = array(
+//                'ip_address' => $a,
+//                'project_id' => $project_id
+//            );
+//            array_push($data, array( 'IpAddress' => $ip_data ));
+//        }
+//        
+//        $this->IpAddress->saveMany($data, array('deep' => true));
+//    }
     
     /*
      * Get all the roles defined in the system (except the admin)

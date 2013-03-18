@@ -11,3 +11,12 @@ CREATE TABLE ip_spaces (
     project_id INTEGER(10) DEFAULT NULL,
     PRIMARY KEY  (id)
 );
+
+
+DROP TABLE IF EXISTS `ip_addresses`;
+CREATE TABLE ip_addresses (
+    id INTEGER(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+    ip_address int unsigned default 0,
+    project_id INTEGER(10) NOT NULL,
+    PRIMARY KEY  (id)
+);

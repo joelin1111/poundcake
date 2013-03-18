@@ -397,6 +397,30 @@ class AppController extends Controller {
         }
     }
     
+    // currently testing this
+    protected function getAllIpAddressesForProject() {
+        $project_id = $this->Session->read('project_id');
+        
+        $this->Site->Project->IpAddress->recursive = -1;
+        $extra_ips = $this->Site->Project->IpAddress->findAllByProjectId( $project_id );
+        $this->Site->Project->IpSpace->recursive = -1;
+        $ip_spaces = $this->Site->Project->IpSpace->findAllByProjectId( $project_id );
+
+        echo '<pre>';
+        $ips = array();
+        foreach ( $extra_ips as $a ) {
+            array_push( $ips, $a['IpAddress']['ip_address'] );
+        }
+        foreach ( $ip_spaces as $b ) {
+            array_push( $ips, $b['IpSpace']['ip_address'] );
+        }
+        
+        print_r($ips);
+        echo '</pre>';
+        
+        die;
+    }
+    
     /*
      * This function generates XML from a data array
      * 
