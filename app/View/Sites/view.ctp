@@ -56,13 +56,14 @@
                             $contact['Contact']['id']));
                         // show the phone number if it's defined
                         // else show the email if it's defined
+                        $contact_info = null;
                         if ( $contact['Contact']['phone'] != null ) {
                             $contact_info = $contact['Contact']['phone'];
                         } else if ( $contact['Contact']['email'] != null ) {
                             $contact_info = $contact['Contact']['email'];
                         }
                         
-                        if ( $contact_info != null ) {
+                        if ( !is_null( $contact_info )) {
                             echo ", ".$contact_info;
                         }
                         echo "</P>";
