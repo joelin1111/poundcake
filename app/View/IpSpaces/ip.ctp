@@ -17,7 +17,7 @@
         echo $this->Form->input('name', array( 'value' => 'ISP Assigned IP' ));
         // we set this to a type of text otherwise CakePHP will only accept an
         // integer, and a dotted quad is not considered an integer
-//        echo $this->Form->input('ip_address', array( 'label' => 'IP Address', 'type' => 'text', 'value' => '199.241.202.20' ));  
+        //  echo $this->Form->input('ip_address', array( 'label' => 'IP Address', 'type' => 'text', 'value' => '199.241.202.20' ));
         echo $this->Form->input('ip_address', array( 'label' => 'IP Address', 'type' => 'text', 'value' => '' ));  
         echo $this->Form->hidden('project_id', array( 'value' => $project_id ));        
     ?>

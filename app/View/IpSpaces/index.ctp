@@ -4,11 +4,11 @@
     <div class="well well-large">
     <ul>
         <li><?php
-            if ( sizeof($ip_spaces) == 0 ) {
+            if ( $internal_space_count == 0 ) {
                 echo $this->PoundcakeHTML->linkIfAdmin('New Root IP Space', array('action' => 'root')); 
-            } else {
+            } /* else {
                 echo $this->PoundcakeHTML->linkIfAdmin('New IP Space', array('action' => 'add'));
-            }    
+            } */ 
             ?>
         </li>
         <li><?php echo $this->PoundcakeHTML->linkIfAdmin('New Public /32', array('action' => 'ip')); ?></li>
@@ -67,12 +67,12 @@ function recursiveIpSpaces( $array ,$role, $delete_confirm_html ) {
                 
                 // don't allow them to delete the root space
                 // unless it's a /32
-                if (( $vals['IpSpace']['parent_id'] != null ) || ( $vals['IpSpace']['cidr'] == 32 )) {
+                //if (( $vals['IpSpace']['parent_id'] != null ) || ( $vals['IpSpace']['cidr'] == 32 )) {
                     $delete_confirm_html = preg_replace( '/(DELETE_ID)/', $vals['IpSpace']['id'], $delete_confirm_html);
-                    //echo '&nbsp;';
-                    //echo '<a href="/ipspaces/delete/'.$vals['IpSpace']['id'].'"><i class="icon-minus-sign"></i></a>';
-                    echo $delete_confirm_html;
-                }
+                    // echo '&nbsp;';
+                    // echo '<a href="/ipspaces/delete/'.$vals['IpSpace']['id'].'"><i class="icon-minus-sign"></i></a>';
+                    echo $delete_confirm_html; // Spit out the HTML we (manually) created above
+                //}
             }
             if (count($vals['children'])) { 
                 recursiveIpSpaces( $vals['children'], $role, $delete_confirm_html ); 

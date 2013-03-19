@@ -23,7 +23,6 @@
                 )
         );
         echo $this->Form->hidden('project_id', array( 'value' => $project_id ));     
-        
     ?>
     </fieldset>
     <?php

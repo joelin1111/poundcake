@@ -38,11 +38,14 @@ class IpSpacesController extends AppController {
             // sort by ip address in case some were deleted and then
             // re-added, which would otherwise make them out of sequence
            'order' => array('IpSpace.ip_address')
-        )); 
-//        echo '<pre>';
-//        print_r($ip_spaces);
-//        echo '</pre>';
-        $this->set(compact('ip_spaces', 'project_id')); 
+        ));
+        
+        // this will be 0 if there are no *internal* IP spaces set for this project
+        $internal_space_count = $this->IpSpace->find('count', array( 
+           'conditions' => array('IpSpace.project_id' => $project_id,'cidr <' => 32),
+        ));
+        
+        $this->set(compact('ip_spaces', 'project_id','internal_space_count')); 
     }
     
     /*
@@ -270,7 +273,7 @@ class IpSpacesController extends AppController {
             $this->IpSpace->create();
             if ($this->IpSpace->save($this->request->data)) {
                 $this->Session->setFlash('The Root IP Space has been created.');
-                $this->redirect(array('action' => 'ipspaces'));
+                $this->redirect(array('action' => 'index'));
             } else {
                 $this->Session->setFlash('Error!  The Root IP Space could not be saved. Please, try again.');
             }
