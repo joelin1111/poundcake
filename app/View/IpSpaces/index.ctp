@@ -55,7 +55,7 @@ function recursiveIpSpaces( $array ,$role ) {
                 // unless it's a /32
                 if (( $vals['IpSpace']['parent_id'] != null ) || ( $vals['IpSpace']['cidr'] == 32 )) {
                     echo '&nbsp;';
-                    echo '<a href="/ipspaces/delete/'.$vals['IpSpace']['id'].'"><i class="icon-remove"></i></a>';
+                    echo '<a href="/ipspaces/delete/'.$vals['IpSpace']['id'].'"><i class="icon-minus-sign"></i></a>';
                 }
             }
             if (count($vals['children'])) { 
