@@ -40,7 +40,6 @@ class PoundcakeHTMLHelper extends AppHelper {
     
     const ICON_DEFAULT = '<i class="icon-circle-arrow-right"></i>';
     //const ICON_DEFAULT = '<i class="icon-play-circle"></i>';
-   
     
     function link($title, $url) {
         return $this->linkIfAllowed( $title, $url );
@@ -68,24 +67,44 @@ class PoundcakeHTMLHelper extends AppHelper {
      * Returns hyperlink if administrator
      */
     function linkIfAdmin($title, $url) {
+        $i = $this->getIcon($title);
         $role = $this->Session->read('role');
         if ($role === 'admin') {
-          return $this->getIcon($title).$this->Html->link($title, $url);
+          return $i.$this->Html->link($title, $url);
         } else {
-            return $this->getIcon($title).$title;
+            return $i.$title;
         }
     }
 
    /*
     * Returns postLink if permissions permit
     */
-    function postLinkIfAllowed($title, $url = null, $options = array(), $confirmMessage = false) {
+    function postLinkIfAllowed($title, $url = null, $options = array(), $confirmMessage = false, $showText = true) {
          // this should probably be in PoundcakeFormHelper ;-)
+        $i = $this->getIcon($title);
         $role = $this->Session->read('role');
-        if (($role === 'edit') || ($role === 'admin') ) {
-            return $this->getIcon($title).$this->Form->postLink($title,$url,$options,$confirmMessage);
-        } else {
-            return $this->getIcon($title).$title;
+        
+        // if we're not showing any text on this link, let's use the image in
+        // lieu of it and make the image itself clickable
+        // see basically this technique:
+        // http://stackoverflow.com/questions/8105450/cakephp-formhelper-postlink-image
+        if ( !$showText ) {
+            $title = $i;
+        }
+        
+        if (($showText) && (($role === 'edit') || ($role === 'admin'))) {
+            return $i.$this->Form->postLink($title,$url,$options,$confirmMessage);
+        } elseif ((!$showText) && (($role === 'edit') || ($role === 'admin'))) {
+            // as from the article above, we need to add an escape=>false to the
+            // options array so the resulting HTML is escaped properly
+            // at the moment the only place where this is used is in delete of
+            // an IP Space            
+            $more_options = array('escape' => false );
+            $options = array_merge( $options, $more_options );
+            return $this->Form->postLink($title,$url,$options,$confirmMessage);
+        }
+        else {
+            return $i.$title;
         }
     }
     
@@ -93,20 +112,22 @@ class PoundcakeHTMLHelper extends AppHelper {
     * Returns postLink if administrator
     */
     function postLinkIfAdmin($title, $url = null, $options = array(), $confirmMessage = false) {
+        $i = $this->getIcon($title);
         $role = $this->Session->read('role');
         if ( $role === 'admin') {
-            return $this->getIcon($title).$this->Form->postLink($title,$url,$options,$confirmMessage);
+            return $i.$this->Form->postLink($title,$url,$options,$confirmMessage);
         } else {
-            return $this->getIcon($title).$title;
+            return $i.$title;
         }
     }
     
     function postLinkAltMessage($title, $url = null, $options = array(), $confirmMessage = false, $alternateString) {
+        $i = $this->getIcon($title);
         $role = $this->Session->read('role');
         if (($role === 'edit') || ($role === 'admin') ) {
-            return $this->getIcon($title).$this->Form->postLink($title,$url,$options,$confirmMessage);
+            return $i.$this->Form->postLink($title,$url,$options,$confirmMessage);
         } else {
-            return $this->getIcon($title).$title;
+            return $i.$title;
         }
     }
     

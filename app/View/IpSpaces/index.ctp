@@ -19,19 +19,33 @@
 <div class="span9">
 	<h2>IP Spaces</h2>
         <?php
-        if ( sizeof($ip_spaces) == 0 ) {
-            echo "<p>Please create a root IP space for ".$this->Session->read('project_name').".</p>";
-        } else {
-            // Using CakePHP Tree Behavior
-            // For this view, see http://bakery.cakephp.org/articles/blackbit/2012/12/20/display_tree_index_with_ol_and_li
-            recursiveIpSpaces( $ip_spaces, $this->Session->read('role') );
-        }
+            if ( sizeof($ip_spaces) == 0 ) {
+                echo "<p>Please create a root IP space for ".$this->Session->read('project_name').".</p>";
+            } else {
+                // Because we're using a recursive/static function below
+                // (recursiveIpSpaces) to draw our Tree structure, we
+                // don't have access to $this -- which means we cannot use the
+                // HTML helper to create our delete confirmation dialog box as we
+                // are doing everywhere else in the application -- so here is our
+                // workaround -- get the HTML that the HTML helper would otherwise
+                // create for us, then do a string replace substituting
+                // DELETE_ID with the id to delete
+                $delete_confirm_html = $this->PoundcakeHTML->postLinkIfAllowed('Delete',
+                    array('controller'=>'ipspaces', 'action'=>'delete', 'DELETE_ID'),
+                    array('method' => 'post','class'=>'confirm','data-dialog_msg'=>'Confirm delete of IP Space'),
+                    null,
+                    false // don't show the text "Delete" -- icon only
+                );
+                // Using CakePHP Tree Behavior
+                // For this view, see http://bakery.cakephp.org/articles/blackbit/2012/12/20/display_tree_index_with_ol_and_li
+                recursiveIpSpaces( $ip_spaces, $this->Session->read('role'), $delete_confirm_html );
+            }
         ?>
 </div> <!-- /.span9 -->
 </div> <!-- /.row -->
 
 <?php 
-function recursiveIpSpaces( $array ,$role ) { 
+function recursiveIpSpaces( $array ,$role, $delete_confirm_html ) { 
 
     if (count($array)) { 
         echo "\n<ul>\n";
@@ -54,12 +68,14 @@ function recursiveIpSpaces( $array ,$role ) {
                 // don't allow them to delete the root space
                 // unless it's a /32
                 if (( $vals['IpSpace']['parent_id'] != null ) || ( $vals['IpSpace']['cidr'] == 32 )) {
-                    echo '&nbsp;';
-                    echo '<a href="/ipspaces/delete/'.$vals['IpSpace']['id'].'"><i class="icon-minus-sign"></i></a>';
+                    $delete_confirm_html = preg_replace( '/(DELETE_ID)/', $vals['IpSpace']['id'], $delete_confirm_html);
+                    //echo '&nbsp;';
+                    //echo '<a href="/ipspaces/delete/'.$vals['IpSpace']['id'].'"><i class="icon-minus-sign"></i></a>';
+                    echo $delete_confirm_html;
                 }
             }
             if (count($vals['children'])) { 
-                recursiveIpSpaces( $vals['children'], $role ); 
+                recursiveIpSpaces( $vals['children'], $role, $delete_confirm_html ); 
             } 
             echo "</li>\n";
         } 
