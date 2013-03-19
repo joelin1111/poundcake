@@ -57,7 +57,10 @@ class IpSpacesController extends AppController {
 //            print_r( $this->request->data );
             $new_cidr = $this->request->data['IpSpace']['cidr'];
             $parent_id = $this->request->data['IpSpace']['parent_id'];
-            $children = 0;      
+            $children = 0;
+            
+            // this first case is when the user has added an ISP-assigned
+            // /32 that is outside the scope of the project's private IP Space
             if (( $new_cidr == 32 ) && ( $parent_id == null )) {
                 $parent_ip = $this->request->data['IpSpace']['ip_address'];
             } else {
@@ -81,6 +84,7 @@ class IpSpacesController extends AppController {
                 
             } elseif ( $children == 0 ) {
                 $new_ip = $parent_ip;
+                $new_ip++; // add one since this would otherwise assign a .0
             } else {                
                 $parent_cidr = $this->IpSpace->field('cidr');
 //                echo $parent_ip.'<br>';
