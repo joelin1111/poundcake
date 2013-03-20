@@ -28,7 +28,7 @@
                     <th><?php echo $this->Paginator->sort('version'); ?></th>
                     <th><?php echo $this->Paginator->sort('release_date'); ?></th>
                     <th><?php echo $this->Paginator->sort('descrption'); ?></th>
-                    <th><?php echo 'Actions'; ?></th>
+                    <th class="actions"><?php echo 'Actions'; ?></th>
                 </tr>
             </thead>
             <tbody>
@@ -50,7 +50,7 @@
                     echo $this->Html->link($desc, array('action' => 'view', $change['ChangeLog']['id']));
                 ?>
             </td>
-            <td>
+            <td class="actions">
             <?php
                 echo $this->PoundcakeHTML->linkIfAdmin('Edit', array('action' => 'edit', $change['ChangeLog']['id']));
                 echo '&nbsp;';

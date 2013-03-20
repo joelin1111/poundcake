@@ -17,7 +17,7 @@
                     <th><?php echo $this->Paginator->sort('quantity'); ?></th>
                     <th><?php echo $this->Paginator->sort('name'); ?></th>
                     <th><?php echo $this->Paginator->sort('build_item_type_id'); ?></th>
-                    <th><?php echo 'Actions'; ?></th>
+                    <th class="actions"><?php echo 'Actions'; ?></th>
                 </tr>
             </thead>
             <tbody>
@@ -32,7 +32,7 @@
                 echo (strlen($str) > $len) ? substr($str,0,$len).'...' : $str;
             ?></td>
             <td><?php echo $item['BuildItemType']['name'];?></td>
-            <td>
+            <td class="actions">
             <?php
                 echo $this->PoundcakeHTML->link('Edit', array('action' => 'edit', $item['BuildItem']['id']));
                 echo '&nbsp;';

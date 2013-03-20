@@ -13,7 +13,7 @@
 	<h2>Roles</h2>
         
         <div class="alert">
-            <button type="button" class="close" data-dismiss="alert">&times;</button>
+<!--            <button type="button" class="close" data-dismiss="alert">&times;</button>-->
             <strong>Caution!</strong> Roles are not totally dynamic in Tower DB.
             Adding or editing an existing role is likely to have unintended consequences.
         </div>
@@ -22,7 +22,7 @@
             <thead>
                 <tr>
                     <th><?php echo $this->Paginator->sort('name'); ?></th>
-                    <th><?php echo 'Actions'; ?></th>
+                    <th class="actions"><?php echo 'Actions'; ?></th>
                 </tr>
             </thead>
             <tbody>
@@ -30,7 +30,8 @@
 	foreach ($roles as $role): ?>
 	<tr>
             <td><?php echo $role['Role']['name'];?></td>
-            <td>
+<!--            <td class="actions">-->
+            <td class="actions">
                 <?php
                     echo $this->PoundcakeHTML->linkIfAllowed('Edit', array('action' => 'edit', $role['Role']['id']));
                     echo '&nbsp;';

@@ -29,7 +29,7 @@
                 <tr>
                     <th style="width: 50px; text-align: center;"><?php echo $this->Paginator->sort('is_down','Status'); ?></th>
                     <th><?php echo $this->Paginator->sort('name'); ?></th>
-                    <th><?php echo 'Actions'; ?></th>
+                    <th class="actions"><?php echo 'Actions'; ?></th>
                 </tr>
             </thead>
             <tbody>
@@ -38,7 +38,7 @@
 	<tr>
             <td style="text-align: center;"><?php echo $this->element('Common/site_status_icon', array('status' => $networkrouter['NetworkRouter']['is_down'])); ?></td>
             <td><?php echo $this->Html->link($networkrouter['NetworkRouter']['name'], array('action' => 'view', $networkrouter['NetworkRouter']['id'])); ?></td>
-            <td>
+            <td class="actions">
                 <?php echo $this->PoundcakeHTML->linkIfAllowed('Edit', array('action' => 'edit', $networkrouter['NetworkRouter']['id'])); ?>
                 <?php
                     //echo $this->PoundcakeHTML->postLinkIfAllowed('Delete', array('action' => 'delete', $networkrouter['NetworkRouter']['id']), null, __('Are you sure you want to delete router %s?', $networkrouter['NetworkRouter']['name']));

@@ -16,7 +16,7 @@
                 <tr>
                     <th><?php echo $this->Paginator->sort('name'); ?></th>
                     <th><?php echo 'Checked'; ?></th>
-                    <th><?php echo 'Actions'; ?></th>
+                    <th class="actions"><?php echo 'Actions'; ?></th>
                 </tr>
             </thead>
             <tbody>
@@ -25,7 +25,7 @@
 	<tr>
             <td><?php echo $item['NetworkService']['name'];?></td>
             <td><?php if ( $item['NetworkService']['default'] > 0 ) { echo "Yes"; } ?></td>
-            <td>
+            <td class="actions">
             <?php
                 echo $this->PoundcakeHTML->link('Edit', array('action' => 'edit', $item['NetworkService']['id']));
                 echo '&nbsp;';

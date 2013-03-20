@@ -16,7 +16,7 @@
                 <tr>
                     <th><?php echo $this->Paginator->sort('name'); ?></th>
                     <th><?php echo $this->Paginator->sort('project_id'); ?></th>
-                    <th><?php echo 'Actions'; ?></th>
+                    <th class="actions"><?php echo 'Actions'; ?></th>
                 </tr>
             </thead>
             <tbody>
@@ -25,7 +25,7 @@
 	<tr>
             <td><?php echo $towertype['TowerType']['name'];?></td>
             <td><?php echo $towertype['Project']['name'];?></td>
-            <td>
+            <td class="actions">
             <?php
                 echo $this->PoundcakeHTML->link('Edit', array('action' => 'edit', $towertype['TowerType']['id']));
                 echo '&nbsp;';

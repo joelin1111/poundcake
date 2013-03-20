@@ -17,7 +17,7 @@
                     <th><?php echo $this->Paginator->sort('name'); ?></th>
                     <th><?php echo $this->Paginator->sort('frequency'); ?></th>
                     <th><?php echo $this->Paginator->sort('radio_band_id'); ?></th>
-                    <th><?php echo 'Actions'; ?></th>
+                    <th class="actions"><?php echo 'Actions'; ?></th>
                 </tr>
             </thead>
             <tbody>
@@ -27,7 +27,7 @@
             <td><?php echo $frequency['Frequency']['name'];?></td>
             <td><?php echo $frequency['Frequency']['frequency'];?></td>
             <td><?php echo $frequency['RadioBand']['name'];?></td>
-            <td>
+            <td class="actions">
             <?php
                 echo $this->PoundcakeHTML->link('Edit', array('action' => 'edit', $frequency['Frequency']['id']));
                 echo '&nbsp;';

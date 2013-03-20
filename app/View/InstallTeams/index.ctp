@@ -16,7 +16,7 @@
                 <tr>
                     <th><?php echo $this->Paginator->sort('name'); ?></th>
                     <th><?php echo $this->Paginator->sort('project_id'); ?></th>
-                    <th><?php echo 'Actions'; ?></th>
+                    <th class="actions"><?php echo 'Actions'; ?></th>
                 </tr>
             </thead>
             <tbody>
@@ -25,7 +25,7 @@
 	<tr>
             <td><?php echo $this->Html->link($team['InstallTeam']['name'], array('action' => 'view', $team['InstallTeam']['id'])); ?></td>
             <td><?php echo $team['Project']['name']; ?></td>
-            <td>
+            <td class="actions">
             <?php
                 echo $this->PoundcakeHTML->link('Edit', array('action' => 'edit', $team['InstallTeam']['id']));            
                 echo '&nbsp;';

@@ -15,7 +15,7 @@
             <thead>
                 <tr>
                     <th><?php echo $this->Paginator->sort('name'); ?></th>
-                    <th><?php echo 'Actions'; ?></th>
+                    <th class="actions"><?php echo 'Actions'; ?></th>
                 </tr>
             </thead>
             <tbody>
@@ -23,7 +23,7 @@
 	foreach ($projects as $project): ?>
 	<tr>
             <td><?php echo $this->Html->link($project['Project']['name'], array('action' => 'view', $project['Project']['id'])); ?></td>
-            <td>
+            <td class="actions">
                 <?php
                     echo $this->PoundcakeHTML->linkIfAllowed('Edit', array('action' => 'edit', $project['Project']['id']));
                     echo '&nbsp;';

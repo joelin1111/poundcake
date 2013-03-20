@@ -15,7 +15,7 @@
             <thead>
                 <tr>
                     <th><?php echo $this->Paginator->sort('name'); ?></th>
-                    <th><?php echo 'Actions'; ?></th>
+                    <th class="actions"><?php echo 'Actions'; ?></th>
                 </tr>
             </thead>
             <tbody>
@@ -23,7 +23,7 @@
 	foreach ($contactTypes as $contactType): ?>
 	<tr>
             <td><?php echo $contactType['ContactType']['name'];?></td>
-            <td>
+            <td class="actions">
                 <?php
                     echo $this->PoundcakeHTML->link('Edit', array('action' => 'edit', $contactType['ContactType']['id']));
                     echo '&nbsp;';

@@ -49,7 +49,7 @@
        <th><?php echo $this->Paginator->sort('Organization'); ?></th>
        <th><?php echo $this->Paginator->sort('site_state_id'); ?></th>
        <th><?php echo $this->Paginator->sort('Zone.name','Zone');?></th> <!-- zone_id -->
-       <th>Actions</th>
+       <th class="actions">Actions</th>
    </tr>
 </thead>
 <tbody>

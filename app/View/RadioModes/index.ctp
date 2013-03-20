@@ -16,7 +16,7 @@
                 <tr>
                     <th><?php echo $this->Paginator->sort('name'); ?></th>
                     <th><?php echo $this->Paginator->sort('inverse_mode_name'); ?></th>
-                    <th><?php echo 'Actions'; ?></th>
+                    <th class="actions"><?php echo 'Actions'; ?></th>
                 </tr>
             </thead>
             <tbody>
@@ -25,7 +25,7 @@
 	<tr>
             <td><?php echo $radiomode['RadioMode']['name'];?></td>
             <td><?php echo $radiomode['RadioMode']['inverse_mode_name'];?></td>
-            <td>
+            <td class="actions">
                 <?php
                     echo $this->PoundcakeHTML->link('Edit', array('action' => 'edit', $radiomode['RadioMode']['id']));
                     echo '&nbsp;';

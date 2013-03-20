@@ -25,7 +25,7 @@
                     <th><?php echo $this->Paginator->sort('name'); ?></th>
                     <th><?php echo $this->Paginator->sort('sequence'); ?></th>
                     <th><?php echo $this->Paginator->sort('project_id'); ?></th>
-                    <th><?php echo 'Actions'; ?></th>
+                    <th class="actions"><?php echo 'Actions'; ?></th>
                 </tr>
             </thead>
             <tbody>
@@ -35,7 +35,7 @@
             <td><?php echo $this->Html->link(($siteState['SiteState']['name']), array('action' => 'view', $siteState['SiteState']['id'])); ?></td>
             <td><?php echo $siteState['SiteState']['sequence']; ?></td>
             <td><?php echo $siteState['Project']['name']; ?></td>
-            <td>
+            <td class="actions">
             <?php
                 echo $this->PoundcakeHTML->link('Edit', array('action' => 'edit', $siteState['SiteState']['id']));
                 echo '&nbsp;';

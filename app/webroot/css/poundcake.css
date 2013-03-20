@@ -561,3 +561,8 @@ input::-webkit-inner-spin-button {
 div.well li {
     list-style-type: none;
 }
+
+.table th.actions,
+.table td.actions {
+    text-align: center;
+}

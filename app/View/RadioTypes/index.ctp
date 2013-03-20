@@ -16,7 +16,7 @@
                 <tr>
                     <th><?php echo $this->Paginator->sort('name'); ?></th>
                     <th><?php echo $this->Paginator->sort('radio_band_id'); ?></th>
-                    <th><?php echo 'Actions'; ?></th>
+                    <th class="actions"><?php echo 'Actions'; ?></th>
                 </tr>
             </thead>
             <tbody>
@@ -25,7 +25,7 @@
 	<tr>
             <td><?php echo $radioType['RadioType']['name'];?></td>
             <td><?php echo $radioType['RadioBand']['name'];?></td>
-            <td>
+            <td class="actions">
                 <?php
                     echo $this->PoundcakeHTML->link('Edit', array('action' => 'edit', $radioType['RadioType']['id']));
                     echo '&nbsp;';

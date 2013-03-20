@@ -15,7 +15,7 @@
             <thead>
                 <tr>
                     <th><?php echo $this->Paginator->sort('name'); ?></th>
-                    <th><?php echo 'Actions'; ?></th>
+                    <th class="actions"><?php echo 'Actions'; ?></th>
                 </tr>
             </thead>
             <tbody>
@@ -23,15 +23,15 @@
 	foreach ($routerTypes as $routerType): ?>
 	<tr>
             <td><?php echo $routerType['RouterType']['name'];?></td>
-            <td>
-                    <?php echo $this->PoundcakeHTML->link('Edit', array('action' => 'edit', $routerType['RouterType']['id'])); ?>
-                    <?php
-                        echo $this->PoundcakeHTML->postLinkIfAllowed('Delete',
-                            array('controller'=>'routertypes','action'=>'delete', $routerType['RouterType']['id']),
-                            array('method' => 'post','class'=>'confirm','data-dialog_msg'=>'Confirm delete of '.$routerType['RouterType']['name']),
-                            null
-                        );
-                    ?>
+            <td class="actions">
+                <?php echo $this->PoundcakeHTML->link('Edit', array('action' => 'edit', $routerType['RouterType']['id'])); ?>
+                <?php
+                    echo $this->PoundcakeHTML->postLinkIfAllowed('Delete',
+                        array('controller'=>'routertypes','action'=>'delete', $routerType['RouterType']['id']),
+                        array('method' => 'post','class'=>'confirm','data-dialog_msg'=>'Confirm delete of '.$routerType['RouterType']['name']),
+                        null
+                    );
+                ?>
             </td>
 	</tr>
         <?php endforeach; ?>
