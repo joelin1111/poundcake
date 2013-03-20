@@ -1,5 +1,5 @@
 <H3>Search</H3>
-<div class="well well-large">
+<div class="well"> <!-- was: well-large -->
 <fieldset id="sitestate_search">
 <?php
   echo $this->Form->create(

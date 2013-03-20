@@ -117,17 +117,24 @@ class AppController extends Controller {
     /*
      * Return all the sites for the current project
      */
-    function getAllSitesForProject() {
+    function getAllSitesForProject( $exclude_id = '*' ) {
         // set sites to the list of sites the currently selected/active project
         // also returns the ID for the first site in that list
+        // optionally allow the caller to filter out a specific site from that list
+        // by passing in a site_id (as exclude_id)
         $conditions = array (
-            'conditions' => array('Site.project_id' => $this->Session->read('project_id'))
-            );
+            'conditions' => array(
+                'Site.project_id' => $this->Session->read('project_id'),
+                'Site.id <>' => $exclude_id
+                
+        ));
         $this->loadModel('Site');
         // list or findByProjectId?  Hmm...
         //$this->set('sites', $this->Site->find('list', $conditions));
         $sites = $this->Site->find('list', $conditions);
         $this->set( 'sites', $sites );
+//        echo $exclude_id.'<br>';
+//        echo '<pre>';print_r($sites); echo '</pre>';die;
         return key($sites); // return the ID of the first site        
     }
     

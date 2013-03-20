@@ -11,6 +11,18 @@ $(document).ready(function () {
     
     bootbox_dialogs();
     
+    // this calls the dialog function in the UsersController which sets a session
+    // variable to not display dialog box any more once the user has closed it
+    $('.alert').bind('close', function () {
+//        console.log("closed");        
+        $.ajax({
+            url: '/users/dialog'//,
+//            success: function (response) {//response is value returned from php (for your example it's "bye bye"
+//              alert(response);
+//            }
+         });
+    });
+    
     // datepicker
 //    $( "input.datepicker" ).dp({
 //        dateFormat: 'dd.mm.yy', 

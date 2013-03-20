@@ -1,7 +1,7 @@
 <div class="row">
 <div class="span3">
     <H3>Actions</H3>
-    <div class="well well-large">
+    <div class="well"> <!-- was: well-large -->
     <ul>
         <li><?php echo $this->PoundcakeHTML->link('List Organizations', array('action' => 'index')); ?>
     </ul>
@@ -10,9 +10,10 @@
 
 <div class="span9">
     <h2>View Organization</h2>
-    <P><B>Name:</B>&nbsp;<?php echo $organization['Organization']['name']; ?></P>
-    
-    <P><B>Contacts:</B>&nbsp;
+    <dl>
+    <dt>Name</dt>
+    <dd><?php echo $organization['Organization']['name']; ?></dd>
+    <dt>Contacts</dt>
         <?php
             //echo print_r($organization);
             //echo "<pre>";
@@ -24,16 +25,16 @@
                 echo "None";
             } else {
                 foreach ($organization['Contact'] as $contact) {
-                    echo "<LI>";
+                    echo "<dd>";
                     echo $this->Html->link($contact['name_vf'], array(
                         'controller' => 'contacts',
                         'action' => 'view',
                         $contact['id']));
-                    echo "</LI>";
+                    echo "</dd>";
                 }
             }
         ?>
-    </P>
+    </dl>
 </div> <!-- /.span9 -->
 </div> <!-- /.row -->
 

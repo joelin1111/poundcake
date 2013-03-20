@@ -22,7 +22,10 @@
 ?>
 </div><!-- /.span3 .sb-fixed -->
 <div class="span9">
-    <h2><?php echo $this->Session->read('project_name'); ?> Overview</h2>
+    <h2>Overview</h2>
+    <dl>
+        <dt>Project</dt><dd><?php echo $this->Session->read('project_name'); ?></dd>
+    </dl>
     
     <?php //echo $this->element('Common/disclaimer'); ?>
     

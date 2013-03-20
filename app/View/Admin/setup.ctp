@@ -1,10 +1,14 @@
+<?php
+    echo $this->Html->script('poundcake/poundcake-close-dialog');
+?>
+
 <div class="row">
 
 <div class="span12">
     <H2>Setup</H2>
 
     <div class="alert" align="center">
-        <button type="button" class="close" data-dismiss="alert">&times;</button>
+<!--        <button type="button" id="1" class="close" data-dismiss="alert">&times;</button>-->
         <strong>Caution!</strong> Many items in Tower DB are configurable by users with administrator permissions (e.g. you).
         Changing some of these values may have unintended impacts to existing projects.  Proceed with some caution.
     </div>

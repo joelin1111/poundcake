@@ -558,6 +558,6 @@ input::-webkit-inner-spin-button {
 /* END - Remove up/down arrows */
 
 /* remove bullet points from LI in navigation well-large */
-div.well-large li {
+div.well li {
     list-style-type: none;
 }

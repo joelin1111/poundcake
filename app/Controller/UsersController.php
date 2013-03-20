@@ -545,6 +545,9 @@ class UsersController extends AppController {
         }
     }
     
+    public function dialog() {
+        $this->Session->write('dialog_closed',true);
+    }
     /*
      * Uses Auth to check the ACL to see if the user is allowed to perform any
      * actions in this controller

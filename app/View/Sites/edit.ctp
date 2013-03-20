@@ -8,7 +8,7 @@
 <div class="row">
 <div class="span3">
     <H3>Actions</H3>
-    <div class="well well-large">
+    <div class="well"> <!-- was: well-large -->
     <ul>
         <li><?php echo $this->PoundcakeHTML->link('View Site', array('action' => 'view', $this->Form->value('Site.id')))?></li>
         <li><?php echo $this->PoundcakeHTML->link('List Sites', array('action' => 'index')); ?></li>

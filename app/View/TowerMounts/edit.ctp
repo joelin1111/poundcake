@@ -1,7 +1,7 @@
 <div class="row">
 <div class="span3">
     <H3>Actions</H3>
-    <div class="well well-large">
+    <div class="well"> <!-- was: well-large -->
     <ul>
         <li><?php echo $this->PoundcakeHTML->link('List Tower Mounts', array('action' => 'index')); ?></li>
     </ul>

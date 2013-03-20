@@ -1,7 +1,7 @@
 <div class="row">
 <div class="span3">
     <H3>Actions</H3>
-    <div class="well well-large">
+    <div class="well"> <!-- was: well-large -->
     <ul>
         <li><?php echo $this->PoundcakeHTML->linkIfAllowed('View Alarms', array('action'=>'alarms', $networkradio['NetworkRadio']['id']),1);?></li>
         <li><?php echo $this->PoundcakeHTML->linkIfAllowed('View Events', array('action'=>'events', $networkradio['NetworkRadio']['id']),1);?></li>
@@ -24,7 +24,7 @@
             }
         ?>
         <?php if (isset($node_detail_url)) {
-            echo '<li><a href="'.$node_detail_url .'" target="_blank">More Details</a></li>';
+            echo '<li><i class="icon-info-sign"></i><a href="'.$node_detail_url .'" target="_blank">More Details</a></li>';
         } ?>       
         <li><?php echo $this->PoundcakeHTML->linkIfAllowed('List Radios', array('action' => 'index')); ?></li>        
     </ul>
@@ -33,16 +33,17 @@
 
 <div class="span9">
     <h2>View Radio</h2>
-<!--    <div class="page-header"><h2>View Radio</h2></div>-->
+    <dl class="dl-horizontal">
     <div class="status-icon">
-    <P><B>Name:</B>&nbsp;&nbsp;
+    <dt>Name</dt>
+    <dd>
         <?php
             echo $networkradio['NetworkRadio']['name'];
             echo $this->element('Common/site_status_icon', array('status' => $networkradio['NetworkRadio']['is_down']));
         ?>
-    </P>
+    </dd>
     </div>
-    <P><B>Site:</B>&nbsp;<?php echo $networkradio['Site']['name']; ?></P>
+    <dt>Site</dt><dd><?php echo $networkradio['Site']['name']; ?></dd>
     
     <?php echo $this->element('Common/provisioning_info',
             array(
@@ -52,49 +53,55 @@
             ));
     ?>
    
-    <P><B>Serial No:</B>&nbsp;<?php echo $networkradio['NetworkRadio']['serial']; ?></P>
-    <P><B>Sector:</B>&nbsp;<?php echo ($networkradio['NetworkRadio']['sector'] > 0 ? "Yes" : "No"); ?>
-    <P><B>Radio Type:</B>&nbsp;<?php echo $networkradio['RadioType']['name']; ?></P>
-    <P><B>Antenna:</B>&nbsp;<?php echo $networkradio['AntennaType']['name']; ?></P>
-    <P><B>Radio Mode:</B>&nbsp;
-        <?php echo $networkradio['RadioMode']['name'];
+    <dt>Serial No</dt><dd><?php echo $networkradio['NetworkRadio']['serial'] ? : 'Unknown'; ?></dd>
+    <dt>Sector</dt><dd><?php echo ($networkradio['NetworkRadio']['sector'] > 0 ? "Yes" : "No"); ?>
+    <dt>Radio Type</dt><dd><?php echo $networkradio['RadioType']['name'] ? : 'Unknown'; ?></dd>
+    <dt>Antenna</dt><dd><?php echo $networkradio['AntennaType']['name'] ? : 'Unknown'; ?></dd>
+    <dt>Radio Mode</dt><dd>
+        <?php
+        echo $networkradio['RadioMode']['name'] ? : 'Unknown';
         if ($networkradio['NetworkRadio']['sector'] = 0)
             echo '<BR><I>Radio Mode for '.$links[0]['network_radios']['name'].': '.$links[0]['radio_modes']['radio_mode_name'] . '</I>';        
-    ?></P>    
+    ?></dd>    
     <?php
         // if this is a sector radio, show the true/mag azimuth values from the database
         if ( $sector ) {
-            echo '<P><B>True Azimuth:</B>&nbsp;';
+            echo '<dt>True Azimuth</dt><dd>';
             echo sprintf("%01.2f",$networkradio['NetworkRadio']['true_azimuth']).'°';
             echo '</P>';
-            echo '<P><B>Magnetic Azimuth:</B>&nbsp;';
+            echo '<dt>Magnetic Azimuth</dt><dd>';
             echo sprintf("%01.2f",$networkradio['NetworkRadio']['mag_azimuth']).'°';
             echo '</P>';
         }
     ?>
     
-    <P><B>Elevation:</B>&nbsp;<?php
-        if (isset($networkradio['NetworkRadio']['elevation']))
-            echo $networkradio['NetworkRadio']['elevation'].'°';
+    <dt>Elevation</dt><dd><?php
+        echo $networkradio['NetworkRadio']['elevation'] ? : 'Unknown';
+        if ( isset($networkradio['NetworkRadio']['elevation']) )
+            echo '°';
     ?>
-    </P>
-    <P><B>Min. Height (meters):</B>&nbsp;<?php echo $networkradio['NetworkRadio']['min_height']; ?></P>
-    <P><B>Frequency:</B>&nbsp;
-        <?php echo $networkradio['Frequency']['name'].' ('.$networkradio['NetworkRadio']['frequency'].' MHz)';
-        if ( $sector && isset($links[0]) ) 
-            echo '<BR><I>Frequency for '.$links[0]['network_radios']['name'].': '.$links[0]['network_radios']['frequency'] . '</I>';
-        ?></P>
-    <P><B>SSID:</B>&nbsp;
-        <?php echo $networkradio['NetworkRadio']['ssid'];
+    </dd>
+    <dt>Min. Height (meters)</dt><dd><?php echo $networkradio['NetworkRadio']['min_height'] ? : 'Unknown'; ?></dd>
+    <dt>Frequency</dt><dd>
+        <?php
+            echo $networkradio['Frequency']['name'] ? : 'Unknown';
+            //echo $networkradio['NetworkRadio']['frequency'] ? : '???'.' MHz';
+            //if ( $sector && isset($links[0]) ) 
+                //echo '<BR><I>Frequency for '.$links[0]['network_radios']['name'].': '.$links[0]['network_radios']['frequency'] . '</I>';
+        ?></dd>
+    <dt>SSID</dt>
+    <dd>
+        <?php echo $networkradio['NetworkRadio']['ssid'] ? : 'Unknown';
         if ( $sector && isset($links[0]) ) 
             echo '<BR><I>SSID for '.$links[0]['network_radios']['name'].': '.$links[0]['network_radios']['ssid'] . '</I>';
-        ?></P>
-    <P><B>Multipoint end of P2MP link:</B>&nbsp;<?php echo ($networkradio['NetworkRadio']['p2mp'] > 0 ? "Yes" : "No");?>
+        ?>
+    </dd>
+    <dt>Multipoint Link</dt><dd><?php echo ($networkradio['NetworkRadio']['p2mp'] > 0 ? "Yes" : "No");?></dd>
     
-    <P><B>Switch:</B>&nbsp;<?php echo $networkradio['NetworkSwitch']['name']; ?></P>
-    <P><B>Switch Port:</B>&nbsp;<?php echo $networkradio['NetworkRadio']['switch_port']; ?></P>
+    <dt>Switch</dt><dd><?php echo $networkradio['NetworkSwitch']['name'] ? : 'Unknown'; ?></dd>
+    <dt>Switch Port</dt><dd><?php echo $networkradio['NetworkRadio']['switch_port'] ? : 'Unknown'; ?></dd>
     
-    <P><B>SNMP Override:</B>&nbsp;<?php echo ($networkradio['NetworkRadio']['snmp_override'] > 0 ? "Yes" : "No");?>
+    <dt>SNMP Override</dt><dd><?php echo ($networkradio['NetworkRadio']['snmp_override'] > 0 ? "Yes" : "No");?>
     <?php
         if ( $snmp_override ) {
             echo '<ul>';
@@ -108,16 +115,22 @@
             echo '</li></ul>';            
         }
     ?>
-    <P><B>Primary IP Address (Legacy):</B>&nbsp;<?php echo $networkradio['NetworkRadio']['ip_address']; ?>
-    <P><B>Primary IP Address:</B>&nbsp;
+    <dt>IP Address (Legacy)</dt><dd><?php echo $networkradio['NetworkRadio']['ip_address']; ?>
+    <dt>IP Address</dt><dd>
         <?php
         // revisit: the IpV4 behavior should decode this field for us -- why am
         // I having to decode it manually?
         echo long2ip($networkradio['IpSpace']['ip_address']);
      ?>
-        
-    <P><B>Link Information:</B>&nbsp;
-        <?php foreach ($links as $link) { ?>
+    </dl>
+    <dl>
+    <dt>Link Information</dt>
+    <dd>
+        <?php
+        if (count($links) == 0 ) {
+            echo "None";
+        } else {
+        foreach ($links as $link) { ?>
         <table class="table table-condensed table-striped table-hover">
             <thead>
             <tr>
@@ -138,8 +151,8 @@
                             $link['network_radios']['name'],
                             array('action' => 'view',
                                 $link['radios_radios']['dest_radio_id']
-                                )
-                            );
+                                ),
+                            null);
                     ?>
                 </td>
                 <td>
@@ -190,7 +203,8 @@
                 </td>
             </tr>
         </table>
-    <?php } ?>
+    <?php }} ?>
+    </dd>
     <?php echo $this->element('Common/addrpool_data'); ?>
 </div> <!-- /.span9 -->
 </div> <!-- /.row -->

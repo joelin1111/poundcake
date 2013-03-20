@@ -8,7 +8,7 @@
     <?php echo $this->Html->addCrumb('Radios', '/networkRadios'); ?>
 <div class="span3">
     <H3>Actions</H3>
-    <div class="well well-large">
+    <div class="well"> <!-- was: well-large -->
     <ul>
         <li><?php echo $this->Html->link('List Radios', array('action' => 'index')); ?>
     </ul>
@@ -44,7 +44,7 @@
         echo $this->Form->input('p2mp', array('label'=>'Multipoint end of P2MP link'));
         echo $this->Form->input('ip_address',
                 array('type' => 'text',
-                    'label'=>'Primary IP Address (Legacy)'
+                    'label'=>'IP Address (Legacy)'
                 )
         );
         echo $this->Form->input('ip_space_id', array('type'=>'select','label'=>'IP Address','options' => $ip_spaces));

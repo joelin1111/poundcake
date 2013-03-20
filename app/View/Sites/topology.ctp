@@ -11,12 +11,14 @@
     echo $this->Html->script('jquery-ui-map/jquery.ui.map');
     echo $this->Html->script('jquery-ui-map/jquery.ui.map.overlays'); // for polyLine support
     echo $this->Html->script('poundcake/poundcake-map');
+    
 ?>
 <div class="row">
 <div class="span12">
-
-    <h2><?php echo $this->Session->read('project_name'); ?> Topology</h2>
-    
+<h2>Topology</h2>
+    <dl>
+        <dt>Project</dt><dd><?php echo $this->Session->read('project_name'); ?></dd>
+    </dl>
     <?php //echo $this->element('Common/disclaimer'); ?>
     
     <div class="map-frame-large">

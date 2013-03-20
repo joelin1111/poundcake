@@ -1,7 +1,7 @@
 <div class="row">
 <div class="span3">
     <H3>Actions</H3>
-    <div class="well well-large">
+    <div class="well"> <!-- was: well-large -->
     <ul>
         <li><?php echo $this->PoundcakeHTML->linkIfAllowed('View Alarms', array('action'=>'alarms', $networkrouter['NetworkRouter']['id']),1);?></li>
         <li><?php echo $this->PoundcakeHTML->linkIfAllowed('View Events', array('action'=>'events', $networkrouter['NetworkRouter']['id']),1);?></li>
@@ -24,7 +24,7 @@
             }
         ?>
         <?php if (isset($node_detail_url)) {
-            echo '<li><a href="'.$node_detail_url .'" target="_blank">More Details</a></li>';
+            echo '<li><i class="icon-info-sign"></i><a href="'.$node_detail_url .'" target="_blank">More Details</a></li>';
         } ?>    
         <li><?php echo $this->PoundcakeHTML->link('List Routers', array('action' => 'index')); ?>
     </ul>
@@ -33,16 +33,18 @@
 
 <div class="span9">
     <h2>View Router</h2>
+    <dl class="dl-horizontal">
     <div class="status-icon">
-    <P><B>Name:</B>&nbsp;&nbsp;
+    <dt>Name</dt>
+    <dd>
         <?php
             echo $networkrouter['NetworkRouter']['name'];
             echo $this->element('Common/site_status_icon', array('status' => $networkrouter['NetworkRouter']['is_down']));
         ?>
-    </P>
+    </dd>
     </div>
     
-    <P><B>Site:</B>&nbsp;<?php echo $networkrouter['Site']['name']; ?></P>
+    <dt>Site</dt><dd><?php echo $networkrouter['Site']['name']; ?></dd>
     
     <?php echo $this->element('Common/provisioning_info',
             array(
@@ -52,12 +54,12 @@
             ));
     ?>
     
-    <P><B>Manufacturer:</B>&nbsp;<?php echo $networkrouter['RouterType']['manufacturer']; ?></P>
-    <P><B>Model:</B>&nbsp;<?php echo $networkrouter['RouterType']['model']; ?></P>
-    <P><B>Serial No:</B>&nbsp;<?php echo $networkrouter['NetworkRouter']['serial']; ?></P>
-    <P><B>SNMP Override:</B>&nbsp;<?php echo ($networkrouter['NetworkRouter']['snmp_override'] > 0 ? "Yes" : "No");?>
-    <P><B>Primary IP Address (Legacy):</B>&nbsp;<?php echo $networkrouter['NetworkRouter']['ip_address']; ?>
-    <P><B>Primary IP Address:</B>&nbsp;<?php
+    <dt>Manufacturer</dt><dd><?php echo $networkrouter['RouterType']['manufacturer']; ?></dd>
+    <dt>Model</dt><dd><?php echo $networkrouter['RouterType']['model']; ?></dd>
+    <dt>Serial No</dt><dd><?php echo $networkrouter['NetworkRouter']['serial'] ? : 'Unknown'; ?></dd>
+    <dt>SNMP Override</dt><dd><?php echo ($networkrouter['NetworkRouter']['snmp_override'] > 0 ? "Yes" : "No");?>
+    <dt>IP Address (Legacy)</dt><dd><?php echo $networkrouter['NetworkRouter']['ip_address']; ?>
+    <dt>IP Address</dt><dd><?php
         // revisit: the IpV4 behavior should decode this field for us -- why am
         // I having to decode it manually?
         echo long2ip($networkrouter['IpSpace']['ip_address']);
@@ -75,6 +77,7 @@
             echo '</li></ul>';            
         }
     ?>
+    </dl>
 </div> <!-- /.span9 -->
 </div> <!-- /.row -->
 

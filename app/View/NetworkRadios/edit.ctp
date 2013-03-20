@@ -6,7 +6,7 @@
 <div class="row">
 <div class="span3">
     <H3>Actions</H3>
-    <div class="well well-large">
+    <div class="well"> <!-- was: well-large -->
     <ul>
         <li><?php echo $this->PoundcakeHTML->link('List Radios', array('action' => 'index')); ?></li>
     </ul>
@@ -44,7 +44,7 @@
         // seem to populate the form:
         // echo $this->Form->input('ip_address', array('label'=>'Primary IP'));
         echo $this->Form->input('ip_address', array(
-            'label' => 'Primary IP Address (Legacy)',
+            'label' => 'IP Address (Legacy)',
             'type' => 'text',
             // 'value' => '1\.2\.3\.4'
             'value' => $this->data['NetworkRadio']['ip_address'],

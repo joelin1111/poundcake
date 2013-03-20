@@ -32,7 +32,7 @@ $cakeDescription = __d('poundcake', 'Tower DB');
             echo $this->Html->script('jquery-1.9.1.min');
             echo $this->Html->script('jquery-ui/jquery-ui-1.10.0.custom.min');
             echo $this->Html->script('bootstrap.min'); // Bootstrap's jQuery file
-            echo $this->Html->script('poundcake/poundcake'); // Our custom jQuery file
+            echo $this->Html->script('poundcake/poundcake'); // Our custom jQuery file available to all pages
             echo $this->Html->script('bootbox.min'); // Bootbox jQuery -- for the dialogs
             echo $this->Html->script('jquery.form'); // Testing this out, see http://www.malsup.com/jquery/form/#download
             
@@ -43,7 +43,10 @@ $cakeDescription = __d('poundcake', 'Tower DB');
             
             // CSS
             echo $this->Html->css('bootstrap'); // Bootstrap's CSS file
-            echo $this->Html->css('poundcake'); // Our custom CSS file
+            //echo $this->Html->css('cosmo/bootstrap-bootstrap.min'); // testing Cosmo from Bootswatch
+            //echo $this->Html->css('cerulean/cerulean-bootstrap.min'); // testing Cerulean from Bootswatch
+            //echo $this->Html->css('spacelab/spacelab-bootstrap.min'); // testing Spacelab from Bootswatch
+            echo $this->Html->css('poundcake'); // our own custom CSS file
             echo $this->Html->css('jasny-bootstrap');  // Jasny is used for the File upload widget
             
             // LESS 
@@ -51,6 +54,12 @@ $cakeDescription = __d('poundcake', 'Tower DB');
             // @see https://github.com/leafo/lessphp
             echo $this->Less->css('variables');
             echo $this->Less->css('bootswatch');
+            //echo $this->Less->css('cosmo/cosmo-variables'); // testing Cosmo from Bootswatch
+            //echo $this->Less->css('cosmo/cosmo-bootswatch'); // testing Cosmo from Bootswatch
+            //echo $this->Less->css('cerulean/cerulean-variables'); // testing Cerulean from Bootswatch
+            //echo $this->Less->css('cerulean/cerulean-bootswatch'); // testing Cerulean from Bootswatch
+            //echo $this->Less->css('spacelab/spacelab-variables'); // testing Spacelab from Bootswatch
+            //echo $this->Less->css('spacelab/spacelab-bootswatch'); // testing Spacelab from Bootswatch
         ?>
     
         <style type="text/css"> 
@@ -133,12 +142,17 @@ $cakeDescription = __d('poundcake', 'Tower DB');
     <div class="container">
     <div class="row">
     <?php
-        
-        $banner = $this->Session->read('banner');
-        if ( strlen($banner) > 0 ) {
-            echo '<div class="alert" align="center">'.$banner.'</div>';
+        // if the user has already dismissed the dialog box, then don't show it again
+        $dialog_closed = $this->Session->read('dialog_closed');
+        if ( ! $dialog_closed ) {
+            $banner = $this->Session->read('banner');
+            if ( strlen($banner) > 0 ) {
+                echo '<div class="alert" align="center">';
+                echo '<button type="button" id="1" class="close" data-dismiss="alert">&times;</button>';
+                echo $banner;
+                echo '</div>';
+            }
         }
-           
         $flashClass = "alert-spacer";
         $flashMessage = "";
         if( $this->Session->check('Message.flash') ) {

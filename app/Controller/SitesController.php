@@ -752,7 +752,7 @@ class SitesController extends AppController
         }
         
         $this->getContacts($id);
-        $this->getAllSitesForProject();
+        $this->getAllSitesForProject( $id ); // exclude this site from the list of sites
         
         $this->getBuildItems();
         $code = $this->Site->data['Site']['code'];       
@@ -777,8 +777,7 @@ class SitesController extends AppController
         $this->set('radios', $radios);
         
         $ip_addresses = $this->getAllIPAddresses($code);
-        $this->set(compact('ip_addresses'));
-        $this->set('site', $site);
+        $this->set(compact('site', 'ip_addresses'));
     }
 
     /*
