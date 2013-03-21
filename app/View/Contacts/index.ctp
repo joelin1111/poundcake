@@ -38,11 +38,11 @@
 	<table class="table table-condensed table-striped table-hover">
             <thead>
                 <tr>
-                    <th><?php echo $this->Paginator->sort('name_vf','Name'); ?></th>
-                    <th><?php echo $this->Paginator->sort('title'); ?></th>
-                    <th><?php echo $this->Paginator->sort('Organization.name','Organization'); ?></th>
-                    <th><?php echo $this->Paginator->sort('priority'); ?></th>
-                    <th class="actions"><?php echo ('Actions'); ?></th>
+                    <th class="index-item"><?php echo $this->Paginator->sort('name_vf','Name'); ?></th>
+                    <th class="index-item"><?php echo $this->Paginator->sort('title'); ?></th>
+                    <th class="index-item"><?php echo $this->Paginator->sort('Organization.name','Organization'); ?></th>
+                    <th class="index-item"><?php echo $this->Paginator->sort('priority'); ?></th>
+                    <th class="index-action"><?php echo ('Actions'); ?></th>
                 </tr>
             </thead>
             <tbody>
@@ -54,16 +54,16 @@
 //                echo '</pre>';
                 ?>
 	<tr>
-            <td><?php
+            <td class="index-item"><?php
                 //echo $contact['Contact']['name_vf'];
                     echo $this->Html->link($contact['Contact']['name_vf'],
                     array('controller' => 'contacts', 'action' => 'view', $contact['Contact']['id']));
                 ?>
             </td>
-            <td><?php echo $contact['Contact']['title'];?></td>
-            <td><?php echo $contact['Organization']['name'];?></td>
-            <td><?php echo $contact['Contact']['priority'];?></td>
-            <td>
+            <td class="index-item"><?php echo $contact['Contact']['title'];?></td>
+            <td class="index-item"><?php echo $contact['Organization']['name'];?></td>
+            <td class="index-item"><?php echo $contact['Contact']['priority'];?></td>
+            <td class="index-action">
             <?php echo $this->PoundcakeHTML->linkIfAllowed(('Edit'), array('action' => 'edit', $contact['Contact']['id'])); ?>
             <?php //echo $this->PoundcakeHTML->postLinkIfAllowed(('Delete'), array('action' => 'delete', $contact['Contact']['id']), null, __('Are you sure you want to delete contact %s?', $contact['Contact']['first_name'])); ?>
             <?php

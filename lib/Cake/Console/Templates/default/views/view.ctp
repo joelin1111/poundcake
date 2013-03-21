@@ -109,7 +109,7 @@ foreach ($relations as $alias => $details):
 				echo "\t\t<th><?php echo __('" . Inflector::humanize($field) . "'); ?></th>\n";
 			}
 ?>
-		<th class="actions"><?php echo "<?php echo __('Actions'); ?>"; ?></th>
+		<th class="index-actions"><?php echo "<?php echo __('Actions'); ?>"; ?></th>
 	</tr>
 <?php
 echo "\t<?php

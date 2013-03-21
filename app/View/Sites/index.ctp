@@ -43,31 +43,31 @@
 <table class="table table-condensed table-striped table-hover">
 <thead>
    <tr>
-       <th style="width: 50px;text-align: center;"><?php echo $this->Paginator->sort('is_down','Status'); ?></th>
-       <th><?php echo $this->Paginator->sort('code'); ?></th>
-       <th><?php echo $this->Paginator->sort('name'); ?></th>
-       <th><?php echo $this->Paginator->sort('Organization'); ?></th>
-       <th><?php echo $this->Paginator->sort('site_state_id'); ?></th>
-       <th><?php echo $this->Paginator->sort('Zone.name','Zone');?></th> <!-- zone_id -->
-       <th class="actions">Actions</th>
+       <th class="index-status"><?php echo $this->Paginator->sort('is_down','Status'); ?></th>
+       <th class="index-item"><?php echo $this->Paginator->sort('code'); ?></th>
+       <th class="index-item"><?php echo $this->Paginator->sort('name'); ?></th>
+       <th class="index-item"><?php echo $this->Paginator->sort('Organization'); ?></th>
+       <th class="index-item"><?php echo $this->Paginator->sort('site_state_id'); ?></th>
+       <th class="index-item"><?php echo $this->Paginator->sort('Zone.name','Zone');?></th> <!-- zone_id -->
+       <th class="index-action">Actions</th>
    </tr>
 </thead>
 <tbody>
     <?php
     foreach ($sites as $site): ?>            
        <tr>
-           <td style="text-align: center;">
+           <td class="index-status">
                <?php
                     //$status = $site['Site']['is_down'];
                     echo $this->element('Common/site_status_icon', array('status' => $site['Site']['is_down']));
                 ?>
            </td>
-           <td><?php
+           <td class="index-item"><?php
                     echo $this->Html->link($site['Site']['code'],
                     array('controller' => 'sites', 'action' => 'view', $site['Site']['id']));
                 ?>
            </td>
-           <td>
+           <td class="index-item">
                <?php
                 //echo $this->Html->link($site['Site']['name'],
                // truncate site names longer than 20 characters
@@ -79,10 +79,10 @@
                 ?>
                
            </td>
-           <td><?php echo $site['Organization']['name']; ?></td>
-           <td><?php echo $site['SiteState']['name']; ?></td>
-           <td><?php echo $site['Zone']['name']; ?></td>
-           <td>
+           <td class="index-item"><?php echo $site['Organization']['name']; ?></td>
+           <td class="index-item"><?php echo $site['SiteState']['name']; ?></td>
+           <td class="index-item"><?php echo $site['Zone']['name']; ?></td>
+           <td class="index-item">
 <!--               <button class="btn btn-mini"></button>-->
             <?php echo $this->PoundcakeHTML->linkIfAllowed('Edit', array('action'=>'edit', $site['Site']['id']));?>
             <?php

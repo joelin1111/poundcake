@@ -13,18 +13,18 @@
     <table class="table table-condensed table-striped table-hover">
         <thead>
             <tr>
-                <th style="text-align: center;"><?php echo $this->Paginator->sort('is_down','Status'); ?></th>
-                <th><?php echo $this->Paginator->sort('name'); ?></th>
-                <th class="actions"><?php echo 'Actions'; ?></th>
+                <th class="index-status"><?php echo $this->Paginator->sort('is_down','Status'); ?></th>
+                <th class="index-item"><?php echo $this->Paginator->sort('name'); ?></th>
+                <th class="index-action"><?php echo 'Actions'; ?></th>
             </tr>
         </thead>
         <tbody>
     <?php
     foreach ($networkswitches as $networkswitch): ?>
     <tr>
-        <td style="width: 50px; text-align: center;"><?php echo $this->element('Common/site_status_icon', array('status' => $networkswitch['NetworkSwitch']['is_down'])); ?></td>
-        <td><?php echo $this->Html->link($networkswitch['NetworkSwitch']['name'], array('action' => 'view', $networkswitch['NetworkSwitch']['id'])); ?></td>
-        <td class="actions">
+        <td class="index-status"><?php echo $this->element('Common/site_status_icon', array('status' => $networkswitch['NetworkSwitch']['is_down'])); ?></td>
+        <td class="index-item"><?php echo $this->Html->link($networkswitch['NetworkSwitch']['name'], array('action' => 'view', $networkswitch['NetworkSwitch']['id'])); ?></td>
+        <td class="index-action">
             <?php echo $this->PoundcakeHTML->linkIfAllowed(('Edit'), array('action' => 'edit', $networkswitch['NetworkSwitch']['id'])); ?>
             <?php echo $this->PoundcakeHTML->postLinkIfAllowed(('Delete'), array('action' => 'delete', $networkswitch['NetworkSwitch']['id']), null, __('Are you sure you want to delete switch %s?', $networkswitch['NetworkSwitch']['name'])); ?>
         </td>

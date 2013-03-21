@@ -13,16 +13,16 @@
 	<table class="table table-condensed table-striped table-hover">
             <thead>
                 <tr>
-                    <th><?php echo $this->Paginator->sort('name'); ?></th>
-                    <th class="actions"><?php echo 'Actions'; ?></th>
+                    <th class="index-item"><?php echo $this->Paginator->sort('name'); ?></th>
+                    <th class="index-action"><?php echo 'Actions'; ?></th>
                 </tr>
             </thead>
             <tbody>
 	<?php
 	foreach ($builditemtypes as $item): ?>
 	<tr>
-            <td><?php echo $item['BuildItemType']['name'];?></td>
-            <td class="actions">
+            <td class="index-item"><?php echo $item['BuildItemType']['name'];?></td>
+            <td class="index-action">
             <?php
                 echo $this->PoundcakeHTML->link('Edit', array('action' => 'edit', $item['BuildItemType']['id']));
                 echo '&nbsp;';

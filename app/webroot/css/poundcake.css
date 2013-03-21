@@ -562,7 +562,30 @@ div.well li {
     list-style-type: none;
 }
 
-.table th.actions,
-.table td.actions {
+.table th.index-action,
+.table td.index-action {
     text-align: center;
+    white-space: nowrap;
+/*    width: auto;*/
+/*    margin: 0;
+    white-space: nowrap;    */
+/*    min-width: 10px;
+    max-width: 100px;*/
+/*    width: 100%;*/
+/*    background-color: red; This is just for us to be able to see the width
+    display: table-cell;
+    word-wrap: break-word;
+    word-break: break-word;*/
+}
+
+.table th.index-item,
+.table td.index-item {
+    width: 100%;
+    white-space: nowrap;
+}
+
+.table th.index-status,
+.table td.index-status {
+    width: auto;
+    white-space: nowrap;
 }

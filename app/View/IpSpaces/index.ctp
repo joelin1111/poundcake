@@ -20,7 +20,7 @@
 	<h2>IP Spaces</h2>
         <?php
             if ( sizeof($ip_spaces) == 0 ) {
-                echo "<p>Please create a root IP space for ".$this->Session->read('project_name').".</p>";
+                echo "<p>No Root IP Space or Public /32 is defined for ".$this->Session->read('project_name').".</p>";
             } else {
                 // Because we're using a recursive/static function below
                 // (recursiveIpSpaces) to draw our Tree structure, we

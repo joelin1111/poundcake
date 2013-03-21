@@ -25,24 +25,24 @@
 	<table class="table table-condensed table-striped table-hover">
             <thead>
                 <tr>
-                    <th><?php echo $this->Paginator->sort('version'); ?></th>
-                    <th><?php echo $this->Paginator->sort('release_date'); ?></th>
-                    <th><?php echo $this->Paginator->sort('descrption'); ?></th>
-                    <th class="actions"><?php echo 'Actions'; ?></th>
+                    <th class="index-item"><?php echo $this->Paginator->sort('version'); ?></th>
+                    <th class="index-item"><?php echo $this->Paginator->sort('release_date'); ?></th>
+                    <th class="index-item"><?php echo $this->Paginator->sort('descrption'); ?></th>
+                    <th class="index-action"><?php echo 'Actions'; ?></th>
                 </tr>
             </thead>
             <tbody>
 	<?php
 	foreach ($changeLogs as $change): ?>
 	<tr>
-            <td><?php echo $change['ChangeLog']['version'];?></td>
-            <td>
+            <td class="index-item"><?php echo $change['ChangeLog']['version'];?></td>
+            <td class="index-item">
             <?php
                 $date = new DateTime($change['ChangeLog']['release_date']);
                 echo $date->format('Y-m-d');
                 ?>
             </td>
-            <td><?php
+            <td class="index-item"><?php
                     $desc = substr($change['ChangeLog']['description'], 0, 40);
                     if (strlen($change['ChangeLog']['description']) > 40 ) {
                         $desc .= "...";
@@ -50,7 +50,7 @@
                     echo $this->Html->link($desc, array('action' => 'view', $change['ChangeLog']['id']));
                 ?>
             </td>
-            <td class="actions">
+            <td class="index-action">
             <?php
                 echo $this->PoundcakeHTML->linkIfAdmin('Edit', array('action' => 'edit', $change['ChangeLog']['id']));
                 echo '&nbsp;';

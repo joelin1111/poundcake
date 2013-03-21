@@ -28,21 +28,21 @@
 	<table class="table table-condensed table-striped table-hover">
             <thead>
                 <tr>
-                    <th><?php echo $this->Paginator->sort('name'); ?></th>
-                    <th><?php echo $this->Paginator->sort('last_login'); ?></th>
-                    <th class="actions"><?php echo 'Actions'; ?></th>
+                    <th class="index-item"><?php echo $this->Paginator->sort('name'); ?></th>
+                    <th class="index-item"><?php echo $this->Paginator->sort('last_login'); ?></th>
+                    <th class="index-action"><?php echo 'Actions'; ?></th>
                 </tr>
             </thead>
             <tbody>
 	<?php
         foreach ($users as $user): ?>
 	<tr>
-		<td><?php echo $user['User']['username']; ?>&nbsp;</td>
-		<td><?php
+		<td class="index-item"><?php echo $user['User']['username']; ?>&nbsp;</td>
+		<td class="index-item"><?php
                     $date = new DateTime($user['User']['last_login']);
                     echo date_format($date, 'D m/d/y g:ia');
                     //echo $user['User']['modified']; ?>&nbsp;</td>
-		<td class="actions">
+		<td class="index-action">
                     <?php
                         echo $this->PoundcakeHTML->link('Edit', array('action' => 'edit', $user['User']['id']));
                         echo '&nbsp;';

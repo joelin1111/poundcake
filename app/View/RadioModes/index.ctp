@@ -14,18 +14,18 @@
 	<table class="table table-condensed table-striped table-hover">
             <thead>
                 <tr>
-                    <th><?php echo $this->Paginator->sort('name'); ?></th>
-                    <th><?php echo $this->Paginator->sort('inverse_mode_name'); ?></th>
-                    <th class="actions"><?php echo 'Actions'; ?></th>
+                    <th class="index-item"><?php echo $this->Paginator->sort('name'); ?></th>
+                    <th class="index-item"><?php echo $this->Paginator->sort('inverse_mode_name'); ?></th>
+                    <th class="index-action"><?php echo 'Actions'; ?></th>
                 </tr>
             </thead>
             <tbody>
 	<?php
 	foreach ($radiomodes as $radiomode): ?>
 	<tr>
-            <td><?php echo $radiomode['RadioMode']['name'];?></td>
-            <td><?php echo $radiomode['RadioMode']['inverse_mode_name'];?></td>
-            <td class="actions">
+            <td class="index-item"><?php echo $radiomode['RadioMode']['name'];?></td>
+            <td class="index-item"><?php echo $radiomode['RadioMode']['inverse_mode_name'];?></td>
+            <td class="index-action">
                 <?php
                     echo $this->PoundcakeHTML->link('Edit', array('action' => 'edit', $radiomode['RadioMode']['id']));
                     echo '&nbsp;';

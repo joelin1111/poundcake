@@ -22,20 +22,20 @@
 	<table class="table table-condensed table-striped table-hover">
             <thead>
                 <tr>
-                    <th><?php echo $this->Paginator->sort('name'); ?></th>
-                    <th><?php echo $this->Paginator->sort('sequence'); ?></th>
-                    <th><?php echo $this->Paginator->sort('project_id'); ?></th>
-                    <th class="actions"><?php echo 'Actions'; ?></th>
+                    <th class="index-item"><?php echo $this->Paginator->sort('name'); ?></th>
+                    <th class="index-item"><?php echo $this->Paginator->sort('sequence'); ?></th>
+                    <th class="index-item"><?php echo $this->Paginator->sort('project_id'); ?></th>
+                    <th class="index-action"><?php echo 'Actions'; ?></th>
                 </tr>
             </thead>
             <tbody>
 	<?php
 	foreach ($siteStates as $siteState): ?>
 	<tr>
-            <td><?php echo $this->Html->link(($siteState['SiteState']['name']), array('action' => 'view', $siteState['SiteState']['id'])); ?></td>
-            <td><?php echo $siteState['SiteState']['sequence']; ?></td>
-            <td><?php echo $siteState['Project']['name']; ?></td>
-            <td class="actions">
+            <td class="index-item"><?php echo $this->Html->link(($siteState['SiteState']['name']), array('action' => 'view', $siteState['SiteState']['id'])); ?></td>
+            <td class="index-item"><?php echo $siteState['SiteState']['sequence']; ?></td>
+            <td class="index-item"><?php echo $siteState['Project']['name']; ?></td>
+            <td class="index-action">
             <?php
                 echo $this->PoundcakeHTML->link('Edit', array('action' => 'edit', $siteState['SiteState']['id']));
                 echo '&nbsp;';
