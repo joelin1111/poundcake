@@ -44,5 +44,98 @@ class AdminController extends AppController {
     public function isAuthorized($user) {
         return parent::isAuthorized($user);
     }
+    
+    function stats() {
+        $this->loadModel('Project');
+        $project_count = $this->Project->find('count');
+        
+        $this->loadModel('Site');
+        $site_count = $this->Site->find('count');
+        
+        /*
+        select sites.name, network_radios.name
+        from sites, network_radios
+        where sites.id=network_radios.site_id
+        and sites.code='DLPCH';
+
+
+        select sites.name, count(network_radios.id)
+        from sites, network_radios
+        where sites.id=network_radios.site_id
+        -- and sites.code='DLPCH'
+        group by sites.id
+        order by sites.name;
+        
+        http://stackoverflow.com/questions/2231495/mysql-avgcount-orders-by-day-of-week-query 
+        
+        select avg(radio_count) from (
+                select sites.id as site_id, sites.name as site_name, count(network_radios.id) as radio_count
+                from sites, network_radios
+                where sites.id=network_radios.site_id
+                group by sites.id
+                order by sites.name
+                )
+        temp 
+        */
+        $qry = 'select avg(radio_count) as avg_radio_count,
+                max(radio_count) as max_radio_count           
+                from (
+                    select sites.id as site_id, sites.name as site_name, count(network_radios.id) as radio_count
+                    from sites, network_radios
+                    where sites.id=network_radios.site_id
+                    group by sites.id
+                    order by sites.name
+                )
+                temp';
+        $radio_counts = $this->Site->query( $qry );
+        $avg_radio_count = $radio_counts[0][0]['avg_radio_count'];
+        $max_radio_count = $radio_counts[0][0]['max_radio_count'];
+        
+        $qry = 'select count(mp_radios) as mp_radio_count from (
+                select sum(dest_radio_id) as mp_radios
+                from radios_radios
+                group by dest_radio_id
+                HAVING COUNT( DISTINCT src_radio_id ) > 1
+        ) temp;';
+        $mp_radio_count = $this->Site->query( $qry );
+        $mp_radio_count = $mp_radio_count[0][0]['mp_radio_count'];
+        
+        $this->loadModel('NetworkRadio');
+        $radio_count = $this->NetworkRadio->find('count');
+        
+        $this->loadModel('NetworkRouter');
+        $router_count = $this->NetworkRouter->find('count');
+        
+        $this->loadModel('NetworkSwitch');
+        $switch_count = $this->NetworkSwitch->find('count');
+        
+        $this->loadModel('User');
+        $user_count = $this->User->find('count');
+        $this->User->recursive = -1;
+        $last_logged_in_user = $this->User->find('first', array('order' => array('User.last_login DESC')));
+        $last_logged_in_user = $last_logged_in_user['User']['username'];
+        
+        $this->loadModel('ChangeLog');
+        $last_update = $this->ChangeLog->find('first', array('order' => array('ChangeLog.release_date DESC')));
+        $last_update = $last_update['ChangeLog']['release_date'];
+        
+        $alphabet = array('a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z');
+        $distribution = array();
+        foreach ($alphabet as $letter ) {
+            $qry = "select count(*) as count from sites where lower(name) like '".$letter."%'";
+            $results = $this->ChangeLog->query( $qry );
+//            echo '<pre>';
+//            print_r($results);
+//            echo '</pre>';
+            $distribution[ $letter ] = $results[0][0]['count'];
+        }
+//        echo '<pre>';
+//        print_r($distribution);
+//        echo '</pre>';
+//        die;
+        
+        $this->set(compact('project_count','site_count','avg_radio_count','max_radio_count','mp_radio_count','radio_count','router_count','switch_count','user_count','last_logged_in_user','last_update'));
+        $this->set(compact('distribution'));
+    }
 }
 ?>
