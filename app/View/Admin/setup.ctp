@@ -7,13 +7,16 @@
 <div class="span12">
     <H2>Setup</H2>
 
-    <div class="alert" align="center">
-<!--        <button type="button" id="1" class="close" data-dismiss="alert">&times;</button>-->
-        <strong>Caution!</strong> Many items in Tower DB are configurable by users with administrator permissions (e.g. you).
-        Changing some of these values may have unintended impacts to existing projects.  Proceed with some caution.
-    </div>
-    
     <div class="row">
+    
+        <div class="alert" align="center">
+    <!--        <button type="button" id="1" class="close" data-dismiss="alert">&times;</button>-->
+            <strong>Caution!</strong> Many items in Tower DB are configurable by users with administrator<BR>
+            permissions.  Changing some of these values may have an unintended impact to<BR>
+            existing projects or the system, overall.  Please proceed with caution.
+        </div>
+    
+    
         <div class="span4">
             <H4>Basic Administration</H4><hr>
             <UL>
@@ -38,7 +41,9 @@
                 <li><?php echo $this->Html->link('Build Items', '/admin/buildItems/index'); ?></li>
                 <li><?php echo $this->Html->link('Contact Types', '/admin/contactTypes/index'); ?></li>
                 <li><?php echo $this->Html->link('Install Teams', '/admin/installTeams/index'); ?></li>        
+                <li><?php echo $this->Html->link('Stats', '/admin/stats'); ?></li>
                 <li><?php echo $this->Html->link('Zones', '/admin/zones/index'); ?></li>
+                
             </UL>
         </div> <!-- /.span4 -->   
     </div>

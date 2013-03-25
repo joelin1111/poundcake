@@ -168,13 +168,16 @@ class Site extends AppModel {
 //            echo "Dirty<BR>";
 //        else
 //            echo "NOT Dirty<BR>";
-        // $dirty = true;
+//        $dirty = true;
         if ( $dirty ) {
             // since Jan 2013 they appear to want the month now as part of the URL
             // so just get the current month number
             $month = date('m');
             $url = 'http://www.ngdc.noaa.gov/geomag-web/calculators/calculateDeclination?lat1='.$lat.'&startMonth='.$month.'&lon1='.$lon.'&resultFormat=csv';
-
+            
+            // for testing error codes
+            // $url = 'http://httpstat.us/503';
+            
             $ch = curl_init();  
             // set URL and other appropriate options  
             curl_setopt($ch, CURLOPT_URL, $url);  
@@ -198,7 +201,7 @@ class Site extends AppModel {
                     $dec = $y[3];
                 }
             }
-//            echo"<BR>Dec is $dec<BR>";
+//            echo"<BR>$url<BR>Dec is $dec<BR>";
 //            die;            
             curl_close( $ch );
             

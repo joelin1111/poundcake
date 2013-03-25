@@ -46,8 +46,9 @@ $cakeDescription = __d('poundcake', 'Tower DB');
             //echo $this->Html->css('cosmo/bootstrap-bootstrap.min'); // testing Cosmo from Bootswatch
             //echo $this->Html->css('cerulean/cerulean-bootstrap.min'); // testing Cerulean from Bootswatch
             //echo $this->Html->css('spacelab/spacelab-bootstrap.min'); // testing Spacelab from Bootswatch
-            echo $this->Html->css('poundcake'); // our own custom CSS file
+            echo $this->Html->css('poundcake'); // our own custom CSS file -- some of this overrides Bootstrap's CSS
             echo $this->Html->css('jasny-bootstrap');  // Jasny is used for the File upload widget
+            echo $this->Html->css('jquery-ui'); // used at least by the Datepicker, not sure what else uses jQuery UI
             
             // LESS 
             // @see http://mindthecode.com/using-less-in-cakephp/

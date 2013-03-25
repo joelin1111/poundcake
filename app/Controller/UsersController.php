@@ -384,7 +384,7 @@ class UsersController extends AppController {
 //            var_dump( $new_password );
             
             if (( $orig_password != $new_password ) && ( $new_password != "" )) {
-                echo "changing password";
+//                echo "changing password";
                 $ret = $this->User->saveField( 'password',$this->request->data['User']['password'] );
                 // I assume $ret will be null if the save failed?
             }
