@@ -61,7 +61,7 @@ class UsersController extends AppController {
                 // 'limit' => 20,
                 'conditions' => $conditions,
                 'order' => array(
-                    'User.name_vf' => 'asc',
+                    'User.username' => 'asc',
                 ),
             ));
         
@@ -477,12 +477,11 @@ class UsersController extends AppController {
                     // see also projects() in this controller
                     $this->Session->write('project_id', $project_id);
                     $this->Session->write('project_name', $project_name);
-                    // log the user's login time
+                    // log the user's login time and IP address
                     $this->User->saveField('last_login', date( "Y-m-d H:i:s", time() ));
+                    $this->User->saveField('ip_address', ip2long($this->request->clientIp()));                    
                     // send them on their way
-
                     $this->setRole( $this->User->id );
-
                     $this->redirect($this->Auth->redirect());
                 }
             } else {

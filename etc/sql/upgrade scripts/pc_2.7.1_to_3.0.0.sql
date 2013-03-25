@@ -46,3 +46,4 @@ CREATE TABLE ip_addresses (
 alter table network_radios add ip_space_id int(10) after ip_address;
 alter table network_switches add ip_space_id int(10) after ip_address;
 alter table network_routers add ip_space_id int(10) after ip_address;
+alter table users add ip_address int unsigned default 0;

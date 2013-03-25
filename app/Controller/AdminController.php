@@ -109,6 +109,33 @@ class AdminController extends AppController {
         $this->loadModel('NetworkSwitch');
         $switch_count = $this->NetworkSwitch->find('count');
         
+        $this->loadModel('RadioType');
+        $radio_types_tmp = $this->RadioType->find('list');
+//        echo '<pre>';print_r($radio_types); echo '</pre>';
+        $radio_types = array();
+        foreach( $radio_types_tmp as $key => $val ) {
+            $r = $this->NetworkRadio->find('count', array('conditions' => array('NetworkRadio.radio_type_id' => $key )));
+            $radio_types[ $val ] = $r;
+        }
+        
+        $this->loadModel('AntennaType');
+        $antenna_types_tmp = $this->AntennaType->find('list');
+//        echo '<pre>';print_r($radio_types); echo '</pre>';
+        $antenna_types = array();
+        foreach( $antenna_types_tmp as $key => $val ) {
+            $r = $this->NetworkRadio->find('count', array('conditions' => array('NetworkRadio.antenna_type_id' => $key )));
+            $antenna_types[ $val ] = $r;
+        }
+        
+        $this->loadModel('PowerType');
+        $power_types_tmp = $this->PowerType->find('list');
+//        echo '<pre>';print_r($radio_types); echo '</pre>';
+        $power_types = array();
+        foreach( $power_types_tmp as $key => $val ) {
+            $r = $this->Site->find('count', array('conditions' => array('Site.power_type_id' => $key )));
+            $power_types[ $val ] = $r;
+        }
+        
         $this->loadModel('User');
         $user_count = $this->User->find('count');
         $this->User->recursive = -1;
@@ -135,7 +162,7 @@ class AdminController extends AppController {
 //        die;
         
         $this->set(compact('project_count','site_count','avg_radio_count','max_radio_count','mp_radio_count','radio_count','router_count','switch_count','user_count','last_logged_in_user','last_update'));
-        $this->set(compact('distribution'));
+        $this->set(compact('distribution','radio_types','antenna_types','power_types'));
     }
 }
 ?>

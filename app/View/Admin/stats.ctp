@@ -10,68 +10,123 @@
 
 <div class="span9">
 	<h2>Stats</h2>
-        <dl class="dl-horizontal">
-            <P>
-                A smattering of Tower DB statistics for your viewing pleasure.
-            </P>
-            
-            <h4>Total number of...</h4>
-            
-            <dt>Projects</dt>
-            <dd><?php echo $project_count; ?></dt>
-                
-            <dt>Sites</dt>
-            <dd><?php echo $site_count; ?></dt>
-                
-            <dt>Radios</dt>
-            <dd><?php echo $radio_count; ?></dt>
-                
-            <dt>Routers</dt>
-            <dd><?php echo $router_count; ?></dt>
-                
-            <dt>Switches</dt>
-            <dd><?php echo $switch_count; ?></dt>
-            
-            <dt>Users</dt>
-            <dd><?php echo $user_count; ?></dt>
-        </dl>
         
-        <dl class="dl-horizontal">
-            <h4>Errata</h4>
+        <P>
+            I can haz random Tower DB statistics!
+        </P>
+                    
+            <div class="row">
+            <div class="span4">
+                <dl class="dl-horizontal">
+                    <h4>Totals</h4>
+                    <hr>
+
+                    <dt>Projects</dt>
+                    <dd><?php echo $project_count; ?></dt>
+
+                    <dt>Sites</dt>
+                    <dd><?php echo $site_count; ?></dt>
+
+                    <dt>Radios</dt>
+                    <dd><?php echo $radio_count; ?></dt>
+
+                    <dt>Routers</dt>
+                    <dd><?php echo $router_count; ?></dt>
+
+                    <dt>Switches</dt>
+                    <dd><?php echo $switch_count; ?></dt>
+
+                    <dt>Users</dt>
+                    <dd><?php echo $user_count; ?></dt>
+                </dl>
+            </div>
+                
+            <div class="span4"> 
+                
+                <dl class="dl-horizontal">
+                    <h4>Errata</h4>
+                    <hr>
+
+                    <dt>Avg. Radios per Site</dt>
+                    <dd><?php echo sprintf("%.2f",$avg_radio_count); ?></dt>
+
+                    <dt>Most Radios at a Site</dt>
+                    <dd><?php echo $max_radio_count; ?></dt>
+
+                    <dt>No. Multipoint Radios</dt>
+                    <dd><?php echo $mp_radio_count; ?></dt>
+
+                    <dt>Most Recent Login</dt>
+                    <dd><?php echo $last_logged_in_user; ?></dt>
+
+                    <dt>Last Code Update</dt>
+                    <dd><?php echo date_format(new DateTime($last_update), 'l, F jS, Y'); ?></dt>      
+                </dl>
+                
+            </div>
+            </div> <!-- ./ row -->
             
-            <dt>Avg. Radios per Site</dt>
-            <dd><?php echo sprintf("%.2f",$avg_radio_count); ?></dt>
-                
-            <dt>Most Radios at a Site</dt>
-            <dd><?php echo $max_radio_count; ?></dt>
+            <div class="row">
+                <div class="span4">
+                    <dl class="dl-horizontal">
+                        <h4>Radio Counts, by Type</h4>
+                        <hr>
+
+                        <?php foreach ($radio_types as $key => $val): ?>
+                        <dt><?php echo $key;?></dt>
+                        <dd><?php echo $val; ?></dd>
+                        <?php endforeach; ?>
+                    </dl>
+
+                </div>
+
+                <div class="span4">
+                    <dl class="dl-horizontal">
+                        <h4>Antenna Counts, by Type</h4>
+                        <hr>
+
+                        <?php foreach ($antenna_types as $key => $val): ?>
+                        <dt><?php echo $key;?></dt>
+                        <dd><?php echo $val; ?></dd>
+                        <?php endforeach; ?>
+                    </dl>
+                </div>
+            </div> <!-- ./ row -->
             
-            <dt>No. Multipoint Radios</dt>
-            <dd><?php echo $mp_radio_count; ?></dt>
-                
-            <dt>Most Recent Login</dt>
-            <dd><?php echo $last_logged_in_user; ?></dt>
-                
-            <dt>Last Code Update</dt>
-            <dd><?php echo date_format(new DateTime($last_update), 'l, F jS, Y'); ?></dt>      
-        </dl>
-        
-        <dl>
-            <h4>Even More Errata</h4>
-            <dt>Site Name Distribution (by Letter)</dt>
-        </dl>
-        <dl class="dl-horizontal">
-            <?php foreach ($distribution as $key => $val):
-                    $percent = ( $val / $site_count ) * 100;
-                    //echo $percent."<BR>";
-                ?>
-                <dt><?php echo strtoupper($key);?></dt>
-                <dd>
-                    <div class="progress progress-info">
-                        <div class="bar" style="width: <?php echo $percent; ?>%"></div>
-                    </div>
-                </dd>
-            <?php endforeach; ?>
-        </dl>
+            <div class="row">
+                <div class="span4">
+                    <dl class="dl-horizontal">
+                        <h4>Power Type Counts</h4>
+                        <hr>
+
+                        <?php foreach ($power_types as $key => $val): ?>
+                        <dt><?php echo $key;?></dt>
+                        <dd><?php echo $val; ?></dd>
+                        <?php endforeach; ?>
+                    </dl>
+
+                </div>
+            </div> <!-- ./ row -->
+            
+            <div class="row">
+                <div class="span9">
+                    <dl class="dl-horizontal">
+                        <h4>Site Name Distribution, by Letter</h4>
+                        <hr>
+                        <?php foreach ($distribution as $key => $val):
+                                $percent = ( $val / $site_count ) * 100;
+                                //echo $percent."<BR>";
+                            ?>
+                            <dt><?php echo strtoupper($key);?></dt>
+                            <dd>
+                                <div class="progress progress-info">
+                                    <div class="bar" style="width: <?php echo $percent; ?>%"></div>
+                                </div>
+                            </dd>
+                        <?php endforeach; ?>
+                    </dl>
+                </div>
+            </div> <!-- ./ row -->
         
 </div> <!-- /.span9 -->
 </div> <!-- /.row -->
