@@ -103,30 +103,78 @@ class Site extends AppModel {
     var $order = 'Site.code ASC';
 
     /*
-     * Constructor - Note: cannot remember why we defined a constructor here
+     * Constructor - Note: I cannot remember why I defined a constructor here
      */
     public function __construct($id = false,$table = null,$ids = null) {
         parent::__construct($id,$table,$ids);
     }
     
     /*
-     * Rreturns true if a site is owned by a user (was created by)
+     * Returns true if a site is owned by a user (was created by)
      */
     public function isOwnedBy($site, $user) {
         return $this->field('id', array('id' => $site, 'user_id' => $user)) === $site;
     }
     
     /*
+     * Check if there are dirty fields
+     */
+//    function beforeSave($options = array()) {
+//        // if the user edited the lat or lon fields these will be
+//        // new_lat/new_lon
+//        $new_lat = $this->data['Site']['lat'];
+//        $new_lon = $this->data['Site']['lon'];
+//        
+//        // old_lat/old_lon are the original lat/lon fields
+//        $this->old = $this->findById( $this->id );
+//        $old_lat = $this->old['Site']['lat'];
+//        $old_lon = $this->old['Site']['lon'];
+//        
+//        // if they are different, than we need to get the declination
+//        if (($new_lat != $old_lat) || ( $new_lon != $old_lon)) {
+//            echo "Dirty fields"; die;
+//        }
+//        echo "No dirty";
+//        die;        
+//    }
+    
+    /*
      * Returns the declination for a given lat/lon pair using NOAA web service
      */
     function getDeclination($lat, $lon) {
-        $dec = null;
-        if (isset($lat) && isset($lon)) {
+        // old_lat/old_lon are the original lat/lon fields
+        $this->old = $this->findById( $this->id );
+        $old_lat = $this->old['Site']['lat'];
+        $old_lon = $this->old['Site']['lon'];
+        
+        // we will return the original declination if neither the lat or lon
+        // fields changed
+        $dec = $this->old['Site']['declination'];
+        
+        $dirty = false;
+        // echo "$old_lat vs $lat <BR> $old_lon vs $lon <BR>";
+        // if they are different, than we need to get the declination
+        if (($lat != $old_lat) || ( $lon != $old_lon)) {
+            $dirty = true;
+        }
+        
+        // OR... if lat/lon are defined and there is no declination for this
+        // Site, let's try and get it -- so set dirty to true
+        if ( isset($lat) && isset($lon) && ($dec == null) ) {
+            $dirty = true;
+        }
+        
+//        if ($dirty)
+//            echo "Dirty<BR>";
+//        else
+//            echo "NOT Dirty<BR>";
+        
+        if ( $dirty ) {
             // since Jan 2013 they appear to want the month now as part of the URL
             // so just get the current month number
             $month = date('m');
             $url = 'http://www.ngdc.noaa.gov/geomag-web/calculators/calculateDeclination?lat1='.$lat.'&startMonth='.$month.'&lon1='.$lon.'&resultFormat=csv';
-            
+
             $ch = curl_init();  
             // set URL and other appropriate options  
             curl_setopt($ch, CURLOPT_URL, $url);  
@@ -139,11 +187,10 @@ class Site extends AppModel {
             if (count($y) > 1) {
                 $dec = $y[3];
             }
-            
+
             curl_close( $ch );
+            
         }
-//        echo "Dec is $dec";
-//        die;
         return $dec;
     }      
 }
