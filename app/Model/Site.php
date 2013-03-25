@@ -168,7 +168,7 @@ class Site extends AppModel {
 //            echo "Dirty<BR>";
 //        else
 //            echo "NOT Dirty<BR>";
-        
+        // $dirty = true;
         if ( $dirty ) {
             // since Jan 2013 they appear to want the month now as part of the URL
             // so just get the current month number
@@ -181,13 +181,25 @@ class Site extends AppModel {
             curl_setopt($ch, CURLOPT_HEADER, 0);  
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);  
 
-            $output = curl_exec($ch);
-            // var_dump( $output );
-            $y = str_getcsv( $output );      
-            if (count($y) > 1) {
-                $dec = $y[3];
+            /*
+            if( curl_exec($ch) === false ) {
+                echo 'Curl error: ' . curl_error($ch);
+            } else {
+                echo 'Operation completed without any errors';
             }
-
+            */
+            
+            $output = curl_exec($ch);
+            // the web service returned successfully, the string
+            // "Declination Values" should appear within the output
+            if ( preg_match("/.*Declination\sValues.*/", $output ) ) {
+                $y = str_getcsv( $output );      
+                if (count($y) > 1) {
+                    $dec = $y[3];
+                }
+            }
+//            echo"<BR>Dec is $dec<BR>";
+//            die;            
             curl_close( $ch );
             
         }
