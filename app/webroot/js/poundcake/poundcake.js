@@ -196,7 +196,7 @@ function bootbox_dialogs() {
     
     /*
      * Generic way to handle Bootbox dialog boxes for confirmation
-     * from users on an action such a "Delete"
+     * from users on an action such a "Delete" from a href link
      */
     $('a.confirm').removeAttr('onclick');
     $('a.confirm').click(function(e) {

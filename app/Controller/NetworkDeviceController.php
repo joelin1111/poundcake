@@ -112,7 +112,6 @@ class NetworkDeviceController extends AppController {
      * the project's monitoring system
      */
     protected function provisionNode( $name, $ip_addr, $debug ) {
-        
         $model = $this->modelClass;
         
         $system = $this->getMonitoringSystemType();

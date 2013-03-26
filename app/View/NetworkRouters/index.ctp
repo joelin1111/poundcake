@@ -16,10 +16,12 @@
       echo $this->Form->input('name',array('escape' => true,'class' => 'search-query'));
       ?>
     <span class="help-block"></span>
-    <?php
-        echo $this->Form->submit('Search', array('div' => false,'class'=>'btn btn-primary'));
-        echo $this->Form->end(); 
-    ?>
+    <div align="center">
+        <?php
+            echo $this->Form->submit('Search', array('div' => false,'class'=>'btn btn-primary'));
+            echo $this->Form->end(); 
+        ?>
+    </div>
 </div><!-- /.span3 .sb-fixed -->
 
 <div class="span9">

@@ -29,6 +29,7 @@
         <li><?php echo $this->PoundcakeHTML->linkIfAllowed('List Radios', array('action' => 'index')); ?></li>        
     </ul>
     </div>
+    
 </div><!-- /.span3 .sb-fixed -->
 
 <div class="span9">

@@ -189,8 +189,22 @@ class NetworkRadiosController extends NetworkDeviceController {
         // if we wanted to use the project's datetime format -- which probably doesn't include time
         // $datetime_format = $this->getDateTimeFormat();
         $this->getMonitoringSystemLink( $this->NetworkRadio->data['NetworkRadio']['node_id'] );
+        
+        // $this->getNetworkServices();
         $this->set(compact('networkradio','links','sector','provisioned_by_name', 'checked' ));
     }
+    
+//    protected function getNetworkServices() {
+//        $this->loadModel('NetworkServices');
+//        $networkservices = $this->NetworkServices->find('list');
+//        // get all services that should be checked by default
+//        $services = $this->NetworkServices->findAllByDefault( 1 );
+//        $selected = array();
+//        foreach( $services as $k => $v ) {
+//            array_push($selected, $v['NetworkServices']['id']);
+//        }
+//        $this->set(compact('networkservices','selected'));
+//    }
     
     /*
      * Save an array of performance graphs from the monitoring system
@@ -489,7 +503,11 @@ class NetworkRadiosController extends NetworkDeviceController {
     public function provision( $id = null ) {     
         // $this->NetworkRadio->id = $id;
         $this->NetworkRadio->read(null, $id);
-        
+        //var_dump($this->request->data);
+//        $this->Session->setFlash( var_dump($this->request->data) );
+//        $this->Session->setFlash( print_r($this->request->data) );
+//        die;
+//        
         // don't allow provisioning if the project is set to read-only integration
         $ro = $this->NetworkRadio->Site->Project->field('read_only');
         if ( !$ro ) {
