@@ -2,6 +2,18 @@
 #
 # initial setup:
 # mkdir poundcake; git clone -b addrpool-2 git@github.com:clarkritchie/poundcake.git
+
+function deploy {
+	# put the site into maintenance mode
+	sudo sh -c "echo 1 > $MAINT_FILE"
+	cd $TOWERDB/poundcake
+	sudo chown -R critchie $TOWERDB
+	git pull origin $BRANCH
+	sudo chown -R www-data $TOWERDB
+	echo "*** REMEMBER TO DISABLE MAINTENANCE MODE ***"
+	echo "    sudo sh -c \"echo 0 > $MAINT_FILE\" "
+}
+
 echo "Usage: $0 [git branch] [staging]"
 
 if [ "x$1" = "x" ]; then 
@@ -27,27 +39,11 @@ while true; do
     read -p "Do you wish to deploy the site?  [Press Y to continue] " yn
     case $yn in
         [Yy]* )
-        	# put the site into maintenance mode
-			sudo sh -c "echo 1 > $MAINT_FILE"
-        	cd $TOWERDB/poundcake
-			sudo chown -R critchie $TOWERDB
-			git pull origin $BRANCH
-			sudo chown -R www-data $TOWERDB
-			echo "*** REMEMBER TO DISABLE MAINTENANCE MODE ***"
-			echo "    sudo sh -c \"echo 0 > $MAINT_FILE\" "
+        	deploy
 			exit;;
         [Nn]* ) exit;;
         * ) echo "Please answer Y or y to continue deployment.";;
     esac
 done
 
-# put the site into maintenance mode
-# sudo sh -c "echo 1 > $MAINT_FILE"
-
-#cd $TOWERDB/poundcake
-#sudo chown -R critchie $TOWERDB
-#git pull origin $BRANCH
-#sudo chown -R www-data $TOWERDB
-
-#echo "*** REMEMBER TO DISABLE MAINTENANCE MODE ***"
-#echo "    sudo sh -c \"echo 0 > $MAINT_FILE\" "
+exit 0
