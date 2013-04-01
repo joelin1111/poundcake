@@ -87,7 +87,7 @@ class IpSpacesController extends AppController {
                 
             } elseif ( $children == 0 ) {
                 $new_ip = $parent_ip;
-                $new_ip++; // add one since this would otherwise assign a .0
+                //$new_ip++; // add one since this would otherwise assign a .0
             } else {                
                 $parent_cidr = $this->IpSpace->field('cidr');
 //                echo $parent_ip.'<br>';
@@ -110,17 +110,6 @@ class IpSpacesController extends AppController {
                     echo( "Start at: ".long2ip($range[0])."<br>" );
                     echo( "End at: ".long2ip($range[1])."<br><br>" );
                 }
-                
-                /* my original code (that did not account for deleting subnets out of order
-                $i=0;
-                $start_at = $range[0];
-                $jump_by = ( $range[1] - $range[0] ) / $pos_nets;
-                
-                while ($i < $children ) {  
-                    $start_at += $jump_by;
-                    $i++;
-                }
-                */
                 
                 $i=0;
                 $start_at = $range[0];
@@ -157,9 +146,9 @@ class IpSpacesController extends AppController {
             
             
             // /32s cannot end with .0 so add one
-//            if ( $new_cidr == 32 ) {
-//                $new_ip = long2ip( ip2long( $new_ip ) + 1 );
-//            }
+            if ( $new_cidr == 32 ) {
+                $new_ip = long2ip( ip2long( $new_ip ) + 1 );
+            }
             if ( $dbg ) {
                 echo( " New IP: ".$new_ip."<br>");
             }
