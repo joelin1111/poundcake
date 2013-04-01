@@ -1,5 +1,5 @@
 <?php
-    $this->Js->get('#NetworkRadioSiteId')->event('change', $this->Js->alert('changed'));    
+    //$this->Js->get('#NetworkRadioSiteId')->event('change', $this->Js->alert('changed'));    
     $this->Js->get('#NetworkRadioSiteId');    
     $this->Js->event('change',
         $this->Js->request(
