@@ -70,10 +70,13 @@ function recursiveIpSpaces( $array ,$role, $delete_confirm_html ) {
                 // don't allow them to delete the root space
                 // unless it's a /32
                 //if (( $vals['IpSpace']['parent_id'] != null ) || ( $vals['IpSpace']['cidr'] == 32 )) {
-                    $delete_confirm_html = preg_replace( '/(DELETE_ID)/', $vals['IpSpace']['id'], $delete_confirm_html);
-                    // echo '&nbsp;';
+                    $delete_id = $vals['IpSpace']['id'];
+                    $delete_confirm_html_tmp = preg_replace( '/(DELETE_ID)/', $delete_id, $delete_confirm_html);
+                    //var_dump($delete_confirm_html);
+                    //// echo '&nbsp;';
                     // echo '<a href="/ipspaces/delete/'.$vals['IpSpace']['id'].'"><i class="icon-minus-sign"></i></a>';
-                    echo $delete_confirm_html; // Spit out the HTML we (manually) created above
+                    echo $delete_confirm_html_tmp; // Spit out the HTML we (manually) created above
+                    $delete_confirm_html_tmp = null;
                 //}
             }
             if (count($vals['children'])) { 
