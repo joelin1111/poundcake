@@ -64,7 +64,7 @@ function recursiveIpSpaces( $array ,$role, $delete_confirm_html ) {
                 echo '&nbsp;&nbsp;&nbsp;';
                 // don't show the plus sign if it's a /32
                 if ( $vals['IpSpace']['cidr'] < 32 ) {
-                    echo '<a href="/ipspaces/add/'.$vals['IpSpace']['id'].'"><i class="icon-plus-sign"></i></a>';
+                    echo '<a href="/ipSpaces/add/'.$vals['IpSpace']['id'].'"><i class="icon-plus-sign"></i></a>';
                 }
                 
                 // don't allow them to delete the root space
