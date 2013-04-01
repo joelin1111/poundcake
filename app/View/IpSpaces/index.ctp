@@ -33,7 +33,7 @@
                 // create for us, then do a string replace substituting
                 // DELETE_ID with the id to delete
                 $delete_confirm_html = $this->PoundcakeHTML->postLinkIfAllowed('Delete',
-                    array('controller'=>'ipspaces', 'action'=>'delete', 'DELETE_ID'),
+                    array('controller'=>'ipSpaces', 'action'=>'delete', 'DELETE_ID'),
                     array('method' => 'post','class'=>'confirm','data-dialog_msg'=>'Confirm delete of IP Space'),
                     null,
                     false // don't show the text "Delete" -- icon only
