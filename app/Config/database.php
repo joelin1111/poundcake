@@ -60,7 +60,7 @@
 class DATABASE_CONFIG {
 
     /*
-     * Tower DB in Clark's development environment
+     * DEVELOPMENT Tower DB on Clark's laptop
      */
     var $default_dev = array(
             'datasource' => 'Database/Mysql',
@@ -74,7 +74,7 @@ class DATABASE_CONFIG {
     );
 
     /*
-     * Addrpool in Clark's development environment
+     * DEVELOPMENT Addrpool on Clark's laptop
      */
     public $addrpool_dev = array(
             'datasource' => 'Database/Mysql',
@@ -88,7 +88,23 @@ class DATABASE_CONFIG {
     );
     
     /*
-     * Tower DB on waldorf.inveneo.org
+     * STAGING Tower DB on waldorf.inveneo.org
+     */
+    public $default_staging = array(
+            'datasource' => 'Database/Mysql',
+            'persistent' => false,
+            'host' => 'localhost',
+            'login' => 'poundcake-staging',
+            'password' => '0A7bIj192l9821s',
+            'database' => 'poundcake-staging',
+            'prefix' => '',
+            'encoding' => 'utf8',
+    );
+    
+    // There is no STAGING addrpool db
+    
+    /*
+     * PRODUCTION Tower DB on waldorf.inveneo.org
      */
     public $default_prod = array(
             'datasource' => 'Database/Mysql',
@@ -102,7 +118,7 @@ class DATABASE_CONFIG {
     );
 
     /*
-     * Addrpool on waldorf.inveneo.org
+     * PRODUCTION addrpool in Haiti network
      */
     public $addrpool_prod = array(
             'datasource' => 'Database/Mysql',
@@ -117,12 +133,17 @@ class DATABASE_CONFIG {
 
     public function __construct() {
         $host = php_uname('n');
-        if ( $host === 'Catapult-Clarks-MacBook.local' ) {
+        if ( ( $host === 'Catapult-Clarks-MacBook.local' ) || ( $host === 'localhost' ) ) {
             $this->default = $this->default_dev;
             $this->addrpool = $this->addrpool_dev;
         } else {
-            $this->default = $this->default_prod;
-            $this->addrpool = $this->addrpool_prod;
+            if ( $_SERVER['SERVER_NAME'] === 'towerdb.inveneo.org' ) {
+                $this->default = $this->default_prod;
+                $this->addrpool = $this->addrpool_prod;
+            } else {
+                $this->default = $this->default_staging;
+                $this->addrpool = $this->addrpool_prod;
+            }
         }
     }
 }
