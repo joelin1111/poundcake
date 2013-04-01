@@ -21,7 +21,7 @@
         <li> <?php echo $this->Html->link('Routers', array('controller' => 'networkRouters', 'action' => 'index')); ?> </li>
         <li> <?php echo $this->Html->link('Switches', array('controller' => 'networkSwitches', 'action' => 'index')); ?> </li>
         <li class="divider"></li>
-        <li><?php echo $this->Html->link('IP Spaces', array('controller' => 'ipspaces', 'action' => 'index')); ?> </li>
+        <li><?php echo $this->Html->link('IP Spaces', array('controller' => 'ipSpaces', 'action' => 'index')); ?> </li>
     </ul>
 </li> <!-- ./menu2 -->
 
