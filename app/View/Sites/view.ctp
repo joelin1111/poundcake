@@ -144,7 +144,7 @@
                      <BR>
                      <dl class="dl-horizontal">
                         <dt>Tower Guard</dt>
-                        <dd><?php echo $site['Site']['tower_guard']; ?></dd>
+                        <dd><?php echo $site['Site']['tower_guard'] ? : 'None'; ?></dd>
 
                         <dt>Structure Type</dt>
                         <dd><?php echo nl2br( $site['Site']['structure_type'] ) ? : 'None'; ?></dd>
