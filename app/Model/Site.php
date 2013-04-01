@@ -67,6 +67,16 @@ class Site extends AppModel {
                 //'last' => false, // Stop validation after this rule
                 //'on' => 'create', // Limit validation to 'create' or 'update' operations
             )
+        ),
+        'code' => array(
+            'notempty' => array(
+                'rule' => array('notempty'),
+                'message' => 'This field cannot be blank',
+                //'allowEmpty' => false,
+                //'required' => false,
+                //'last' => false, // Stop validation after this rule
+                //'on' => 'create', // Limit validation to 'create' or 'update' operations
+            )
         )
         ,
         'lat' => array(
@@ -144,12 +154,18 @@ class Site extends AppModel {
     function getDeclination($lat, $lon) {
         // old_lat/old_lon are the original lat/lon fields
         $this->old = $this->findById( $this->id );
-        $old_lat = $this->old['Site']['lat'];
-        $old_lon = $this->old['Site']['lon'];
+        $old_lat = null;
+        $old_lon = null;
+        $dec = null;
         
-        // we will return the original declination if neither the lat or lon
-        // fields changed
-        $dec = $this->old['Site']['declination'];
+        if ( array_key_exists('Site',$this->old)) {
+            $old_lat = $this->old['Site']['lat'];
+            $old_lon = $this->old['Site']['lon'];
+
+            // we will return the original declination if neither the lat or lon
+            // fields changed
+            $dec = $this->old['Site']['declination'];
+        }
         
         $dirty = false;
         // echo "$old_lat vs $lat <BR> $old_lon vs $lon <BR>";

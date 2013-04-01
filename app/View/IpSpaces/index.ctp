@@ -4,14 +4,16 @@
     <div class="well"> <!-- was: well-large -->
     <ul>
         <li><?php
-            if ( $internal_space_count == 0 ) {
-                echo $this->PoundcakeHTML->linkIfAdmin('New Root IP Space', array('action' => 'root')); 
-            } /* else {
+            /*if ( $internal_space_count == 0 ) {
+                // echo $this->PoundcakeHTML->linkIfAdmin('New Root IP Space', array('action' => 'root'));
+                echo $this->PoundcakeHTML->linkIfAdmin('New IP Space', array('action' => 'root')); 
+            }  else {
                 echo $this->PoundcakeHTML->linkIfAdmin('New IP Space', array('action' => 'add'));
             } */ 
+            echo $this->PoundcakeHTML->linkIfAdmin('New IP Space', array('action' => 'root')); 
             ?>
         </li>
-        <li><?php echo $this->PoundcakeHTML->linkIfAdmin('New Public /32', array('action' => 'ip')); ?></li>
+<!--        <li><?php //echo $this->PoundcakeHTML->linkIfAdmin('New Public /32', array('action' => 'ip')); ?></li>-->
     </ul>
     </div>
 </div> <!-- /.span3 .sb-fixed -->
@@ -21,7 +23,8 @@
         <?php
             if ( sizeof($ip_spaces) == 0 ) {
                 echo '<div class="alert">';
-                echo "<strong>Notice!</strong>  There is no Root IP Space or Public /32 is defined for ".$this->Session->read('project_name').".";
+                // echo "<strong>Notice!</strong>  There is no Root IP Space or Public /32 is defined for ".$this->Session->read('project_name').".";
+                echo "<strong>Notice!</strong>  There are no IP Spaces defined for ".$this->Session->read('project_name').".";
                 echo '</div>';
             } else {
                 // Because we're using a recursive/static function below
