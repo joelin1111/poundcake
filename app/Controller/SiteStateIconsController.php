@@ -39,7 +39,7 @@ class SiteStateIconsController extends AppController {
         $this->set('siteStateIcons', $this->paginate());
     }
 
-    
+    /*
     public function view($id = null) {
         $this->SiteStateIcon->id = $id;
         if (!$this->SiteStateIcon->exists()) {
@@ -47,7 +47,8 @@ class SiteStateIconsController extends AppController {
         }
         $this->set('siteState', $this->SiteStateIcon->read(null, $id));
     }
-
+    */
+    
     public function add() {
         if ($this->request->is('post')) {
             $this->SiteStateIcon->create();
@@ -77,19 +78,8 @@ class SiteStateIconsController extends AppController {
             }
         }        
     }
-
-    /*
-    private function getExistingSiteStateIconIcons() {
-//        $conditions = array(
-//            'fields' => array('DISTINCT SiteStateIcon.img_data AS img_data')
-//        );
-        
-        //$all_icons = $this->SiteStateIcon->find('all',array('fields' => array('DISTINCT SiteStateIcon.img_data,SiteStateIcon.img_type')));
-        $this->set(compact('all_icons'));
-        
-    }
-    */
     
+    /*
     public function edit($id = null) {
         $this->SiteStateIcon->id = $id;
         if (!$this->SiteStateIcon->exists()) {
@@ -117,7 +107,8 @@ class SiteStateIconsController extends AppController {
             $this->request->data = $this->SiteStateIcon->read(null, $id);
         }
     }
-
+    */
+    
     public function delete($id = null) {
         if (!$this->request->is('post')) {
             throw new MethodNotAllowedException();

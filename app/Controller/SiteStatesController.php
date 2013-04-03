@@ -60,24 +60,6 @@ class SiteStatesController extends AppController {
         
         if ($this->request->is('post')) {
             $this->SiteState->create();
-            //echo "<pre>";
-            //print_r($this->request->data['SiteState']);
-            //echo "</pre>";
-            
-            // http://cakebaker.42dh.com/2006/04/15/file-upload-with-cakephp/
-            if (is_uploaded_file($this->request->data['SiteState']['File']['tmp_name'])) {
-                    $fileData = fread(fopen($this->request->data['SiteState']['File']['tmp_name'], "r"), $this->request->data['SiteState']['File']['size']);
-
-                    $this->request->data['SiteState']['img_name'] = $this->request->data['SiteState']['File']['name'];
-                    $this->request->data['SiteState']['img_type'] = $this->request->data['SiteState']['File']['type'];
-                    $this->request->data['SiteState']['img_size'] = $this->request->data['SiteState']['File']['size'];
-                    $this->request->data['SiteState']['img_data'] = $fileData;
-                
-                //echo "img_name " . $this->request->data['SiteState']['img_name'] . "<BR>";
-                //echo "img_type " . $this->request->data['SiteState']['img_type'] . "<BR>";
-                //echo "img_size " . $this->request->data['SiteState']['img_size'] . "<BR>";
-                //echo "img_data " . $this->request->data['SiteState']['img_data'];
-                }        
             if ($this->SiteState->save($this->request->data)) {
                 $this->Session->setFlash('The site state has been saved.');
                 $this->redirect(array('action' => 'index'));
@@ -92,7 +74,6 @@ class SiteStatesController extends AppController {
 //        $conditions = array(
 //            'fields' => array('DISTINCT SiteState.img_data AS img_data')
 //        );
-        
         $all_icons = $this->SiteState->SiteStateIcon->find('all');
         $this->set(compact('all_icons'));
         
@@ -105,15 +86,6 @@ class SiteStatesController extends AppController {
         }
         
         if ($this->request->is('post') || $this->request->is('put')) {
-            
-            if (is_uploaded_file($this->request->data['SiteState']['File']['tmp_name'])) {
-                    $fileData = fread(fopen($this->request->data['SiteState']['File']['tmp_name'], "r"), $this->request->data['SiteState']['File']['size']);
-
-                    $this->request->data['SiteState']['img_name'] = $this->request->data['SiteState']['File']['name'];
-                    $this->request->data['SiteState']['img_type'] = $this->request->data['SiteState']['File']['type'];
-                    $this->request->data['SiteState']['img_size'] = $this->request->data['SiteState']['File']['size'];
-                    $this->request->data['SiteState']['img_data'] = $fileData;
-            }
             if ($this->SiteState->save($this->request->data)) {
                 $this->Session->setFlash('The site state has been saved.');
                 $this->redirect(array('action' => 'index'));

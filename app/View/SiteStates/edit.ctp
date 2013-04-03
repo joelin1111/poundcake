@@ -14,59 +14,17 @@
 </div><!-- /.span3 .sb-fixed -->
 
 <div class="span9">
-    <?php echo $this->Form->create('SiteState', array('type' => 'file')); ?>
+    <?php  ?>
     <h2>Edit Site State</h2>
     <?php
+        echo $this->Form->create('SiteState');
         echo $this->Form->input('id');
         echo $this->Form->input('name');
         echo $this->Form->input('project_id');
         echo $this->Form->input('sequence');
-        //echo $this->Form->file('File');
-   ?>
-    <table>
-    <?php
-        $u = 1;
-        $mod_by = 11;
-        foreach ( $all_icons as $icon ) {
-            if ( ( $u % $mod_by ) === 0 ) {
-                echo '<tr>';
-                $u = 1;
-            }
-            echo '<td align="center"><img src="data:'.$icon['SiteStateIcon']['img_type'].';base64,'.base64_encode( $icon['SiteStateIcon']['img_data'] ) . '" />';
-            echo '<BR>';
-            echo '<input type="radio" name="data[SiteState][site_state_icon_id]" value="'.$icon['SiteStateIcon']['id'].'"';
-            if ( $icon['SiteStateIcon']['id'] == $this->request->data['SiteState']['site_state_icon_id'] ) {
-                echo ' checked';
-            }
-            echo '>';
-            echo '</td>&nbsp;&nbsp;&nbsp;';
-            if ( ( $u % $mod_by ) === 0 ) {
-                echo '</tr>';
-            }
-            $u++;
-        }
-    ?>
-    </table>
-    
-    <P>Legacy Icon</p>
-    <p>Image</p>
-    <?php
-        echo '<img src="data:'.$this->request->data['SiteState']['img_type'].';base64,'.base64_encode( $this->request->data['SiteState']['img_data'] ) . '" />';
-    ?>
-    <br><br>
-    
-    <div class="fileupload fileupload-new" data-provides="fileupload">
-      <div class="fileupload-new thumbnail" style="width: 100px; height: 75px;"><img src="http://www.placehold.it/200x150/EFEFEF/AAAAAA&text=no+image" /></div>
-      <div class="fileupload-preview fileupload-exists thumbnail" style="max-width: 200px; max-height: 150px; line-height: 20px;"></div>
-      <div>
-        <span class="btn btn-file"><span class="fileupload-new">Select image</span><span class="fileupload-exists">Change</span><input type="file" name="data[SiteState][File]"/></span>
-        <a href="#" class="btn fileupload-exists" data-dismiss="fileupload">Remove</a>
-      </div>
-    </div>
-    
-    <?php
+        echo $this->element('Common/site_state_icons');
         echo $this->Form->submit('Save', array('div' => false,'class'=>'btn btn-primary'));
         echo $this->Form->end(); 
-    ?>
+   ?>
 </div> <!-- /.span9 -->
 </div> <!-- /.row -->
