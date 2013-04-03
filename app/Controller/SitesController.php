@@ -815,14 +815,16 @@ class SitesController extends AppController
         $r_radio = $this->NetworkRadio->read(null,$r_radio_id);
         $r_site = $this->Site->read(null,$r_radio['NetworkRadio']['site_id']);
         $this->loadModel('SiteStateIcon');
-        $r_icon = $this->SiteStateIcon->read(null, $r_site['SiteState']['id']);        
+        //$r_icon = $this->SiteStateIcon->read(null, $r_site['SiteState']['id']); 
+//        $r_icon = $this->SiteStateIcon->read(null, 1); 
 //        echo '<pre>';
-//        var_dump($r_icon['SiteStateIcon']);
+//        var_dump($r_site['SiteState']['id']);
+//        var_dump($r_icon);
 //        echo '</pre>'; die;
         return array (
             $r_site['Site']['lat'],
             $r_site['Site']['lon'],
-            'data:'.$r_icon['SiteStateIcon']['img_type'].';base64,'.base64_encode( $r_icon['SiteStateIcon']['img_data'] ),
+            null, // 'data:'.$r_icon['SiteStateIcon']['img_type'].';base64,'.base64_encode( $r_icon['SiteStateIcon']['img_data'] ),
             // 'data:'.$r_site['SiteStateIcon']['img_type'].';base64,'.base64_encode( $r_site['SiteStateIcon']['img_data'] ),
             $r_site['Site']['site_vf']
         );        
