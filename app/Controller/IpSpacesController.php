@@ -5,7 +5,7 @@
  * This is a very basic controller to add/view/update/delete IP Spacees.
  * Note: All heavy lifting (binary math) is performed in a SQL trigger.
  * 
- * Developed against CakePHP 2.3.0 and PHP 5.4.4.
+ * Developed against CakePHP 2.3.0 and PHP 5.4.x.
  *
  * Copyright 2012, Inveneo, Inc. (http://www.inveneo.org)
  *

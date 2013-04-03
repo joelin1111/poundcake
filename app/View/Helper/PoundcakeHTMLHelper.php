@@ -4,7 +4,7 @@
  * links, as appropriate.  Method calls/signatures should be equivalent to
  * CakePHP's native HtmlHelper.
  * 
- * Developed against CakePHP 2.2.3 and PHP 5.4.4.
+ * Developed against CakePHP 2.2.3 and PHP 5.4.x.
  *
  * Copyright 2012, Inveneo, Inc. (http://www.inveneo.org)
  *

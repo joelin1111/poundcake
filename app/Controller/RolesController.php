@@ -12,7 +12,7 @@
  * a new role is likely to mean changes to the code to add/remove/change
  * permissions in some way.
  *
- * Developed against CakePHP 2.2.3 and PHP 5.4.4.
+ * Developed against CakePHP 2.2.3 and PHP 5.4.x.
  *
  * Copyright 2012, Inveneo, Inc. (http://www.inveneo.org)
  *

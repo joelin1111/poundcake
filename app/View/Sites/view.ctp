@@ -47,10 +47,10 @@
                     <div class="row">
                         <div class="span5">
                             <dl class="dl-horizontal">
-                                <dt>GPS Coordinates</dt>
+                                <dt>Coordinates</dt>
                                 <dd><?php echo sprintf("%01.5f",$site['Site']['lat']) . ' ' . sprintf("%01.5f",$site['Site']['lon']); ?></dd>
 
-                                <dt>Magnetic Declination</dt>
+                                <dt>Declination</dt>
                                 <dd><?php echo sprintf("%01.5f",$site['Site']['declination']); ?></dd>
 
                                 <dt>Zone</dt>

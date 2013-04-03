@@ -5,7 +5,7 @@
  * @see hasMany through (The Join Model)
  * http://book.cakephp.org/1.3/en/The-Manual/Developing-with-CakePHP/Models.html
  *
- * Developed against CakePHP 2.2.5 and PHP 5.4.4.
+ * Developed against CakePHP 2.2.5 and PHP 5.4.x.
  *
  * Copyright 2013, Inveneo, Inc. (http://www.inveneo.org)
  *

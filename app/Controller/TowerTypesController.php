@@ -7,7 +7,7 @@
  * These tasks would typically be performed by a user with administrative level
  * permissions within Poundcake.
  *
- * Developed against CakePHP 2.2.3 and PHP 5.4.4.
+ * Developed against CakePHP 2.2.3 and PHP 5.4.x.
  *
  * Copyright 2012, Inveneo, Inc. (http://www.inveneo.org)
  *

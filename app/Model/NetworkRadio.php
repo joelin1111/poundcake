@@ -5,7 +5,7 @@
  * This Model could have been called just Radio, but for consistency with
  * NetworkSwitch and NetworkRouter, it is NetworkRadio.
  *
- * Developed against CakePHP 2.2.3 and PHP 5.4.4.
+ * Developed against CakePHP 2.2.3 and PHP 5.4.x.
  *
  * Copyright 2012, Inveneo, Inc. (http://www.inveneo.org)
  *

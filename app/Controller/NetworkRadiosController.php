@@ -9,7 +9,7 @@
  * NetworkRadios, both point-point and point-multipoint, this controller
  * leverages MySQL triggers and stored procedures.
  * 
- * Developed against CakePHP 2.2.3 and PHP 5.4.4.
+ * Developed against CakePHP 2.2.3 and PHP 5.4.x.
  *
  * Copyright 2012, Inveneo, Inc. (http://www.inveneo.org)
  *

@@ -5,7 +5,7 @@
  * Ideally this Model would be called just Switch, not NetworkSwitch, but
  * switch is a PHP keyword.  See also NetworkRadio, NetworkRouter.
  * 
- * Developed against CakePHP 2.2.3 and PHP 5.4.4.
+ * Developed against CakePHP 2.2.3 and PHP 5.4.x.
  *
  * Copyright 2012, Inveneo, Inc. (http://www.inveneo.org)
  *

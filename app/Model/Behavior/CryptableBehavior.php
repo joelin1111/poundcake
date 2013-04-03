@@ -2,7 +2,7 @@
 /**
  * Behavior to save senstivie data.  This is not used for login authentication.
  *
- * Developed against CakePHP 2.2.3 and PHP 5.4.4.
+ * Developed against CakePHP 2.2.3 and PHP 5.4.x.
  *
  * Copyright 2013, Inveneo, Inc. (http://www.inveneo.org)
  *

@@ -2,7 +2,7 @@
 /**
  * Model for site state icons.
  *
- * Developed against CakePHP 2.3.0 and PHP 5.4.4.
+ * Developed against CakePHP 2.3.0 and PHP 5.4.x.
  *
  * Copyright 2013, Inveneo, Inc. (http://www.inveneo.org)
  *

@@ -6,7 +6,7 @@
  * in the header to give users a heads up to downtimes, etc.  Available to
  * an administrator only and with one function -- edit.
  *
- * Developed against CakePHP 2.2.5 and PHP 5.4.4.
+ * Developed against CakePHP 2.2.5 and PHP 5.4.x.
  *
  * Copyright 2013, Inveneo, Inc. (http://www.inveneo.org)
  *
