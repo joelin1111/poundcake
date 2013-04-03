@@ -3,16 +3,16 @@
     <H3>Actions</H3>
     <div class="well"> <!-- was: well-large -->
     <ul>
-        <li><?php echo $this->PoundcakeHTML->link('New Site State', array('action' => 'add')); ?></li>
+        <li><?php echo $this->PoundcakeHTML->link('New Site State Icon', array('action' => 'add')); ?></li>
         <li><?php echo $this->PoundcakeHTML->link('Setup',array('controller'=>'admin','action' => 'setup')); ?></li>
     </ul>
     </div>
     
     <P>
-    Grab site icons from <a href="http://mapicons.nicolasmollet.com/markers/restaurants-bars/wi-fi/" target="_blank">here</a>.    
+        Get icons from <a href="http://mapicons.nicolasmollet.com/markers/restaurants-bars/wi-fi/" target="_blank">here</a>.    
     </p>
     <P>
-    Generally "wi-fi unsecured", first row 3rd icon over, pick a color then Save As.
+        Generally "wi-fi unsecured" - first row, 3rd icon over.  Pick a color then <I>Save As</I>.
     </P>
     
 </div><!-- /.span3 .sb-fixed -->
