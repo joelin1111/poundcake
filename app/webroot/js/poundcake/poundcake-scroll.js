@@ -18,4 +18,4 @@ $(document).ready(function() {
             document.removeEventListener('DOMMouseScroll', stopWheel, false);
         }
     });
-})( jQuery );
+});
