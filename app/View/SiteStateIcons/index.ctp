@@ -41,7 +41,7 @@
                 // echo '&nbsp;';
                 echo $this->PoundcakeHTML->postLinkIfAllowed('Delete',
                             array('controller'=>'siteStateIcons','action'=>'delete', $siteStateIcon['SiteStateIcon']['id']),
-                            array('method' => 'post','class'=>'confirm','data-dialog_msg'=>'Confirm delete of icon'.$siteStateIcon['SiteStateIcon']['id']),
+                            array('method' => 'post','class'=>'confirm','data-dialog_msg'=>'Confirm delete of icon'),
                             null
                         );
             ?>
