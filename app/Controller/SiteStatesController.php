@@ -85,16 +85,26 @@ class SiteStatesController extends AppController {
                 $this->Session->setFlash('Error!  The site state could not be saved. Please, try again.');
             }
         }
+        $this->getExistingSiteStateIcons();
     }
 
+    private function getExistingSiteStateIcons() {
+//        $conditions = array(
+//            'fields' => array('DISTINCT SiteState.img_data AS img_data')
+//        );
+        
+        $all_icons = $this->SiteState->SiteStateIcon->find('all');
+        $this->set(compact('all_icons'));
+        
+    }
+    
     public function edit($id = null) {
         $this->SiteState->id = $id;
         if (!$this->SiteState->exists()) {
             throw new NotFoundException('Invalid site state');
         }
+        
         if ($this->request->is('post') || $this->request->is('put')) {
-            
-            // debug( $this->request->data['SiteState'] );
             
             if (is_uploaded_file($this->request->data['SiteState']['File']['tmp_name'])) {
                     $fileData = fread(fopen($this->request->data['SiteState']['File']['tmp_name'], "r"), $this->request->data['SiteState']['File']['size']);
@@ -114,6 +124,7 @@ class SiteStatesController extends AppController {
             $this->request->data = $this->SiteState->read(null, $id);
             $this->getProjects();
         }
+        $this->getExistingSiteStateIcons();
     }
 
     public function delete($id = null) {

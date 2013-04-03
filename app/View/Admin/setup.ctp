@@ -21,7 +21,7 @@
             <H4>Basic Administration</H4><hr>
             <UL>
                 <li><?php echo $this->Html->link('Roles', '/admin/roles/index'); ?></li>
-                <li><?php echo $this->Html->link('Site States', '/admin/siteStates/index'); ?></li>
+                <li><?php echo $this->Html->link('Site State Icons', '/admin/siteStateIcons/index'); ?></li>
                 <li><?php echo $this->Html->link('System Banner', '/admin/notifications/edit'); ?></li>
                 <li><?php echo $this->Html->link('Users', '/admin/users/index'); ?></li>            
             </UL>
@@ -31,7 +31,7 @@
             <H4>Projects</H4><hr>
             <UL>    
                 <li><?php echo $this->Html->link('Projects', '/admin/projects/index'); ?></li>
-<!--                <li><?php //echo $this->Html->link('Root IP Spaces', '/admin/projects/ipspaces'); ?></li>-->
+                <li><?php echo $this->Html->link('Site States', '/admin/siteStates/index'); ?></li>
             </UL>            
         </div> <!-- /.span4 -->
         

@@ -47,3 +47,16 @@ alter table network_radios add ip_space_id int(10) after ip_address;
 alter table network_switches add ip_space_id int(10) after ip_address;
 alter table network_routers add ip_space_id int(10) after ip_address;
 alter table users add ip_address int unsigned default 0;
+
+CREATE TABLE site_state_icons LIKE site_states;
+desc site_state_icons;
+INSERT site_state_icons SELECT * FROM site_states;
+alter table site_state_icons drop project_id;
+alter table site_state_icons drop name;
+alter table site_state_icons drop sequence;
+
+alter table site_states add site_state_icon_id int(10);
+alter table site_states drop img_name;
+alter table site_states drop img_type;
+alter table site_states drop img_size;
+alter table site_states drop img_data;

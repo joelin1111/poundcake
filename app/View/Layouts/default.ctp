@@ -102,16 +102,18 @@ $cakeDescription = __d('poundcake', 'Tower DB');
 <body>
     
 <?php
-    $maint_file = ROOT . DS . APP_DIR . DS . 'maintenance.txt';
-    $maint = file_get_contents( $maint_file );
-    //var_dump( $maint );
-    define( 'MAINTENANCE', $maint );
-    // set this to 1 to enable the maintenance page
-    //define( 'MAINTENANCE', 0 ); 
-    // 24.20.20.146 -- Clark's office at TenPod
-    if( MAINTENANCE > 0 && $_SERVER['REMOTE_ADDR'] != '24.20.20.146' ) {
-        include( 'maintenance.ctp');
-        die(); 
+    if( !defined( 'MAINTENANCE' )) {
+        $maint_file = ROOT . DS . APP_DIR . DS . 'maintenance.txt';
+        $maint = file_get_contents( $maint_file );
+        //var_dump( $maint );
+        define( 'MAINTENANCE', $maint );
+        // set this to 1 to enable the maintenance page
+        //define( 'MAINTENANCE', 0 ); 
+        // 24.20.20.146 -- Clark's office at TenPod
+        if( MAINTENANCE > 0 && $_SERVER['REMOTE_ADDR'] != '24.20.20.146' ) {
+            include_once( 'maintenance.ctp');
+            die(); 
+        }
     }
 ?>
     

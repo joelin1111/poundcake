@@ -120,11 +120,11 @@
                                 $n++;
                             }
                             echo $this->Form->end();
-
                             $u = 0;
                             echo "<div style='visibility:hidden; position:absolute;'>";
                             echo '<ul>';
-                            $icon = 'data:'.$site['SiteState']['img_type'].';base64,'.base64_encode( $site['SiteState']['img_data'] ); 
+                            $icon = 'data:'.$site['SiteState']['SiteStateIcon']['img_type'].';base64,'.base64_encode( $site['SiteState']['SiteStateIcon']['img_data'] ); 
+
                             $item = array( 
                                 'id' => 'm_'.$u,
                                 'icon' => $icon,

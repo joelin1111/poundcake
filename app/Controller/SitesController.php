@@ -197,7 +197,7 @@ class SitesController extends AppController
         // at the end of the list
         //$allSiteStates = $this->Site->SiteState->findAllByProjectId( 1 ,array('order' => array('ISNULL(sequence), sequence ASC')));
         $allSiteStates = $this->Site->SiteState->findAllByProjectId( $this->Session->read('project_id') );
-        $this->set('allSiteStates', $allSiteStates);
+        $this->set(compact( 'allSiteStates' ));
     }
     
     /*
@@ -323,10 +323,10 @@ class SitesController extends AppController
             )
         );
         
-        $this->Site->recursive = 1;
+        $this->Site->recursive = 2;
         $sites = $this->Site->find('all', array('conditions' => $conditions));
         $this->setDefaultLatLon( $this->Session->read('project_id') );
-        $this->set(compact( 'sites' ));
+        $this->set(compact('sites'));
         $this->getSiteStates();
         $this->buildLegend();
     }
@@ -734,9 +734,10 @@ class SitesController extends AppController
     }
     
     /*
-     * View a site (original, now deprecated)
+     * View a site
      */
     function view($id = null) {
+        $this->Site->recursive = 2;
         $this->Site->id = $id;
         $this->set('id',$id);
         
@@ -775,11 +776,11 @@ class SitesController extends AppController
             $n++;
         }
         $this->set('radios', $radios);
-        
+//        echo '<pre>';print_r($site['SiteState']);echo'</pre>';die;
         $ip_addresses = $this->getAllIPAddresses($code);
         $this->set(compact('site', 'ip_addresses'));
     }
-
+    
     /*
      * 
      */
@@ -812,11 +813,17 @@ class SitesController extends AppController
     function getLinkLatLon($r_radio_id) {
         $this->loadModel('NetworkRadio',$r_radio_id);
         $r_radio = $this->NetworkRadio->read(null,$r_radio_id);
-        $r_site = $this->Site->read(null,$r_radio['NetworkRadio']['site_id']);     
+        $r_site = $this->Site->read(null,$r_radio['NetworkRadio']['site_id']);
+        $this->loadModel('SiteStateIcon');
+        $r_icon = $this->SiteStateIcon->read(null, $r_site['SiteState']['id']);        
+//        echo '<pre>';
+//        var_dump($r_icon['SiteStateIcon']);
+//        echo '</pre>'; die;
         return array (
             $r_site['Site']['lat'],
             $r_site['Site']['lon'],
-            'data:'.$r_site['SiteState']['img_type'].';base64,'.base64_encode( $r_site['SiteState']['img_data'] ),
+            'data:'.$r_icon['SiteStateIcon']['img_type'].';base64,'.base64_encode( $r_icon['SiteStateIcon']['img_data'] ),
+            // 'data:'.$r_site['SiteStateIcon']['img_type'].';base64,'.base64_encode( $r_site['SiteStateIcon']['img_data'] ),
             $r_site['Site']['site_vf']
         );        
     }

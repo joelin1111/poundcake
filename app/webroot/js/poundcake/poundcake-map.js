@@ -56,6 +56,7 @@ $(document).ready(function () {
         var siteStates = [];
         $('input[id^=google_mapSitestate]').each(function() {
              siteStates.push( $(this).val() );
+             //console.log( $(this).val() );
         });
         
         $('#map_canvas').gmap({'center': new google.maps.LatLng( default_lat, default_lon ) });

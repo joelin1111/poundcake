@@ -37,7 +37,8 @@ class SiteState extends AppModel {
      * Relations
      */
     var $belongsTo = array(
-       'Project'
+       'Project',
+       'SiteStateIcon'
     );
     
     /*

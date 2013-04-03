@@ -22,12 +22,39 @@
         echo $this->Form->input('project_id');
         echo $this->Form->input('sequence');
         //echo $this->Form->file('File');
+   ?>
+    <table>
+    <?php
+        $u = 1;
+        $mod_by = 11;
+        foreach ( $all_icons as $icon ) {
+            if ( ( $u % $mod_by ) === 0 ) {
+                echo '<tr>';
+                $u = 1;
+            }
+            echo '<td align="center"><img src="data:'.$icon['SiteStateIcon']['img_type'].';base64,'.base64_encode( $icon['SiteStateIcon']['img_data'] ) . '" />';
+            echo '<BR>';
+            echo '<input type="radio" name="data[SiteState][site_state_icon_id]" value="'.$icon['SiteStateIcon']['id'].'"';
+            if ( $icon['SiteStateIcon']['id'] == $this->request->data['SiteState']['site_state_icon_id'] ) {
+                echo ' checked';
+            }
+            echo '>';
+            echo '</td>&nbsp;&nbsp;&nbsp;';
+            if ( ( $u % $mod_by ) === 0 ) {
+                echo '</tr>';
+            }
+            $u++;
+        }
     ?>
+    </table>
+    
+    <P>Legacy Icon</p>
     <p>Image</p>
     <?php
         echo '<img src="data:'.$this->request->data['SiteState']['img_type'].';base64,'.base64_encode( $this->request->data['SiteState']['img_data'] ) . '" />';
     ?>
     <br><br>
+    
     <div class="fileupload fileupload-new" data-provides="fileupload">
       <div class="fileupload-new thumbnail" style="width: 100px; height: 75px;"><img src="http://www.placehold.it/200x150/EFEFEF/AAAAAA&text=no+image" /></div>
       <div class="fileupload-preview fileupload-exists thumbnail" style="max-width: 200px; max-height: 150px; line-height: 20px;"></div>
