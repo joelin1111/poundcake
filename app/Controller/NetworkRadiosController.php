@@ -150,8 +150,6 @@ class NetworkRadiosController extends NetworkDeviceController {
                 $u++;
             }
         }
-        //$this->set('links', $links);
-        //$this->set('sector',$sector);        
         
         $this->checkSnmp(); // check if there is custom SNMP data on this item
         
