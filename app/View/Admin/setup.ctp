@@ -1,7 +1,3 @@
-<?php
-    echo $this->Html->script('poundcake/poundcake-close-dialog');
-?>
-
 <div class="row">
 
 <div class="span12">
