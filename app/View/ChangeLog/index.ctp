@@ -25,9 +25,9 @@
 	<table class="table table-condensed table-striped table-hover">
             <thead>
                 <tr>
-                    <th class="index-item"><?php echo $this->Paginator->sort('version'); ?></th>
-                    <th class="index-item"><?php echo $this->Paginator->sort('release_date'); ?></th>
-                    <th class="index-item"><?php echo $this->Paginator->sort('descrption'); ?></th>
+                    <th style="width: auto;"><?php echo $this->Paginator->sort('version'); ?></th>
+                    <th style="width: auto;" nowrap><?php echo $this->Paginator->sort('release_date'); ?></th>
+                    <th class="index-item"><?php echo $this->Paginator->sort('descrption','Release Notes'); ?></th>
                     <th class="index-action"><?php echo 'Actions'; ?></th>
                 </tr>
             </thead>
@@ -35,19 +35,23 @@
 	<?php
 	foreach ($changeLogs as $change): ?>
 	<tr>
-            <td class="index-item"><?php echo $change['ChangeLog']['version'];?></td>
-            <td class="index-item">
+            <td><?php echo $change['ChangeLog']['version'];?></td>
+            <td nowrap>
             <?php
                 $date = new DateTime($change['ChangeLog']['release_date']);
                 echo $date->format('Y-m-d');
                 ?>
             </td>
-            <td class="index-item"><?php
-                    $desc = substr($change['ChangeLog']['description'], 0, 40);
-                    if (strlen($change['ChangeLog']['description']) > 40 ) {
-                        $desc .= "...";
-                    }
-                    echo $this->Html->link($desc, array('action' => 'view', $change['ChangeLog']['id']));
+            <td nowrap>
+                <?php
+//                    $max = 80;
+//                    $desc = strip_tags(substr($change['ChangeLog']['description'], 0, $max));
+//                    if (strlen($change['ChangeLog']['description']) > $max-3 ) {
+//                        $desc .= "...";
+//                    }
+//                    echo $this->Html->link($desc, array('action' => 'view', $change['ChangeLog']['id']));
+                    $label = "Release Notes for ".$change['ChangeLog']['version'];
+                    echo $this->Html->link( $label, array('action' => 'view', $change['ChangeLog']['id']));
                 ?>
             </td>
             <td class="index-action">

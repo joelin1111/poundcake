@@ -59,6 +59,9 @@
                     <dt>Most Recent Login</dt>
                     <dd><?php echo $last_logged_in_user; ?></dt>
 
+                    <dt>Number of Releases</dt>
+                    <dd><?php echo $release_count; ?></dt>  
+                        
                     <dt>Last Code Update</dt>
                     <dd><?php echo date_format(new DateTime($last_update), 'l, F jS, Y'); ?></dt>      
                 </dl>

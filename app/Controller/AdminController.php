@@ -143,6 +143,7 @@ class AdminController extends AppController {
         $last_logged_in_user = $last_logged_in_user['User']['username'];
         
         $this->loadModel('ChangeLog');
+        $release_count = $this->ChangeLog->find('count');
         $last_update = $this->ChangeLog->find('first', array('order' => array('ChangeLog.release_date DESC')));
         $last_update = $last_update['ChangeLog']['release_date'];
         
@@ -162,7 +163,7 @@ class AdminController extends AppController {
 //        die;
         
         $this->set(compact('project_count','site_count','avg_radio_count','max_radio_count','mp_radio_count','radio_count','router_count','switch_count','user_count','last_logged_in_user','last_update'));
-        $this->set(compact('distribution','radio_types','antenna_types','power_types'));
+        $this->set(compact('distribution','radio_types','antenna_types','power_types','release_count'));
     }
 }
 ?>
