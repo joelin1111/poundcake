@@ -83,8 +83,9 @@ $(document).ready(function () {
             $("[data-gmapping]").each(function(i,el) {
                 var data = $(el).data('gmapping');
                 //console.log(data.zoom);
-                
+//                console.log(data.icon);
                 $('#map_canvas').gmap('addMarker', {'id': data.id, 'icon':data.icon, 'tags':data.tags, 'position': new google.maps.LatLng(data.latlng.lat, data.latlng.lng), 'bounds': fit_bounds }, function(map,marker) {
+                    console.log( data.latlng.lat );
                     // keep track of that marker!                    
                     marker_locations.push( marker );
                     $(el).click(function() {
@@ -199,11 +200,11 @@ function isMarkerVisible( latlng, marker_locations ) {
         var mvis = marker_locations[i].getVisible();
 
         if ( ( mlat == tlat ) && ( mlng == tlng)  && ( mvis == true ) ) {
-          // console.log(  "  The marker at " + mlat + "," + mlng + " is visible");
-          return true;
+//            console.log(  "  The marker at " + mlat + "," + mlng + " is visible");
+            return true;
         }
   }
-  // console.log(  "  The marker at " + mlat + "," + mlng + " is NOT visible");
+//  console.log(  "  The marker at " + mlat + "," + mlng + " is NOT visible");
   return false;
 }
 

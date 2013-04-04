@@ -226,7 +226,7 @@ class SitesController extends AppController
         
         $this->Site->recursive = 1; // we need to access the Site's NetworkRadio array
         $sites = $this->Site->find('all', array('conditions' => $conditions));
-        
+
         $s = array();
         $u = 0;
         $n = 0;
@@ -251,7 +251,11 @@ class SitesController extends AppController
 //                echo( 'Radio ID '. $radio['id'].'<br>');                               
                 $query = 'select dest_radio_id from radios_radios where src_radio_id=('.$radio['id'].')';
                 $results = $this->Site->query( $query );
-
+//                if ( count($results) > 1 ) {
+//                    var_dump( count($results));
+//                    echo '<br>';
+//                    var_dump( $query);
+//                }
                 // typically this is an array of 1 item, but there could be
                 // many -- which would be the case of a P2MP radio
                 foreach( $results as $dest_radio ) {
@@ -818,6 +822,7 @@ class SitesController extends AppController
         //$r_icon = $this->SiteStateIcon->read(null, $r_site['SiteState']['id']); 
 //        $r_icon = $this->SiteStateIcon->read(null, 1); 
 //        echo '<pre>';
+//        var_dump($r_site);
 //        var_dump($r_site['SiteState']['id']);
 //        var_dump($r_icon);
 //        echo '</pre>'; die;

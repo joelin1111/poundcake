@@ -126,7 +126,10 @@ class NetworkRadiosController extends NetworkDeviceController {
                 $true_azimuth = 0;
                 $link_distance = 0;
                 $mag_azimuth = 0;            
-                
+//                echo '<pre>';
+//                var_dump($link);
+//                echo '</pre>';
+//                die;
                 $id = $this->NetworkRadio->field('id');
                 $link_id = $link['radios_radios']['dest_radio_id'];
                 

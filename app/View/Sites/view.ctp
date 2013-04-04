@@ -21,7 +21,6 @@
         <li><?php echo $this->PoundcakeHTML->link('List Sites', array('action'=>'index')); ?></li>
         <li><?php echo $this->PoundcakeHTML->link('Equipment List', array('action'=>'view', 'ext'=>'pdf', $site['Site']['id']));?></li>
         <li><?php
-            //echo $this->Html->link('Work Order', array('action'=>'workorder', $site['Site']['id']));
             echo $this->PoundcakeHTML->link('Work Order', array('action'=>'workorder','ext'=>'xml', $site['Site']['id']));?>
         </li>
     </ul>

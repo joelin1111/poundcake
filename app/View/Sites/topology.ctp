@@ -68,7 +68,7 @@
                 $state = $sitestates[3];
                 $icon = '/img/sites/grey.png';
             }
-            
+//            echo "Putting icon down for ".$site['name'];
             // $state = $site['SiteState']['name'];
             $item = array( 
                 'id' => 'm_'.$u,

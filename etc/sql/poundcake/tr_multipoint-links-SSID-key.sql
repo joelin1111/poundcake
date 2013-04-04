@@ -23,7 +23,8 @@ BEGIN
 	DECLARE matching_ssids_cursor CURSOR FOR
 	SELECT id
 	FROM network_radios
-	WHERE ssid = NEW.ssid;
+	WHERE ssid = NEW.ssid
+	AND ssid <> '';
 	
 	DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = TRUE;
 	
@@ -133,9 +134,12 @@ BEGIN
 	SELECT id
 	FROM network_radios
 	WHERE ssid = NEW.ssid
+	AND ssid <> ''
 	AND id != NEW.id; -- exclude the radio being updated so we don't link it to itself
 	
 	DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = TRUE;
+	
+	-- insert into temp3(debug) values(NEW.ssid);
 	
 	-- cleanup the join table as we're about to re-do the links
 	DELETE radios_radios.*
