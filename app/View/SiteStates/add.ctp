@@ -23,6 +23,7 @@
         echo $this->Form->input('sequence');
         echo $this->element('Common/site_state_icons');
         echo $this->Form->submit('Save', array('div' => false,'class'=>'btn btn-primary'));
+        echo $this->Form->submit('Cancel', array('name' => 'cancel','div' => false,'class'=>'btn btn-cancel'));
         echo $this->Form->end(); 
     ?>
 </div> <!-- /.span9 -->

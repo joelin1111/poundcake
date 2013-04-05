@@ -51,6 +51,7 @@ class SwitchTypesController extends AppController {
      */
     public function add() {
         if ($this->request->is('post')) {
+            // AppController::handleCancel();
             $this->SwitchType->create();
             if ($this->SwitchType->save($this->request->data)) {
                 $this->Session->setFlash('The switch type has been saved.');

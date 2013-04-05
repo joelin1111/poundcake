@@ -375,6 +375,7 @@ class NetworkRadiosController extends NetworkDeviceController {
         $this->getNetworkSwitch($first_site);
         
         if ($this->request->is('post')) {
+            // AppController::handleCancel();
             $this->NetworkRadio->create();            
             $this->request->data = $this->setMagAzimuth($this->request->data);
             if ($this->NetworkRadio->save($this->request->data)) {

@@ -49,6 +49,7 @@
         );
         echo $this->Form->input('ip_space_id', array('type'=>'select','label'=>'IP Address','options' => $ip_spaces));
         echo $this->Form->submit('Save', array('div' => false,'class'=>'btn btn-primary'));
+        echo $this->Form->submit('Cancel', array('name' => 'cancel','div' => false,'class'=>'btn btn-cancel'));
         echo $this->Form->end(); 
     ?>
 </div> <!-- /.span9 -->

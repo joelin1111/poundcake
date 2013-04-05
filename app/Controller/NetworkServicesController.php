@@ -61,6 +61,7 @@ class NetworkServicesController extends AppController {
      */
     public function add() {
         if ($this->request->is('post')) {
+            // AppController::handleCancel();
             $this->NetworkService->create();
             if ($this->NetworkService->save($this->request->data)) {
                 $this->Session->setFlash('The network service has been saved.');

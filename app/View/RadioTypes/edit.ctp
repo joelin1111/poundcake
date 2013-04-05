@@ -23,6 +23,7 @@
             'options' => $antennaTypes,
         ));
         echo $this->Form->submit('Save', array('div' => false,'class'=>'btn btn-primary'));
+        echo $this->Form->submit('Cancel', array('name' => 'cancel','div' => false,'class'=>'btn btn-cancel'));
         echo $this->Form->end(); 
     ?>
 </div> <!-- /.span9 -->

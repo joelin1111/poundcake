@@ -51,6 +51,7 @@ class TowerMountsController extends AppController {
      */
     public function add() {
         if ($this->request->is('post')) {
+            // AppController::handleCancel();
             $this->TowerMount->create();
             if ($this->TowerMount->save($this->request->data)) {
                 $this->Session->setFlash('The tower mount has been saved.');

@@ -477,6 +477,7 @@ class SitesController extends AppController
     
     public function import_sites( ) {
         if ($this->request->is('post')) {
+            // AppController::handleCancel();
             $s = sizeof( $this->request->data );
             foreach( $this->request->data['Site'] as $data ) {
                 $site = explode( "|", $data );                
@@ -1016,6 +1017,7 @@ class SitesController extends AppController
         
         // the user clicked Save on Add screen
         if ($this->request->is('post')) {
+            // AppController::handleCancel();
             // normally we'd just save here, e.g.
             // if ($this->Site->save($this->request->data)) {
             // saveAssociated allows us to save Radios (Site hasMany Radio) from the

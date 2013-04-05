@@ -51,6 +51,7 @@ class PowerTypesController extends AppController {
      */
     public function add() {
         if ($this->request->is('post')) {
+            // AppController::handleCancel();
             $this->PowerType->create();
             if ($this->PowerType->save($this->request->data)) {
                 $this->Session->setFlash('The power type has been saved.');

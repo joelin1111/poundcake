@@ -59,6 +59,7 @@ class OrganizationsController extends AppController {
      */
     public function add() {
         if ($this->request->is('post')) {
+            // AppController::handleCancel();
             $this->Organization->create();
             if ($this->Organization->save($this->request->data)) {
                 $this->Session->setFlash('The organization has been saved.');

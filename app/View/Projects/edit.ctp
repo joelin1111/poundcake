@@ -52,6 +52,7 @@
 //                
 //                echo $this->Form->input('ip_addresses', array( 'value'=> $ips, 'label'=>'Public IP Addresses', 'rows' => '5', 'cols' => '5'));
                 echo $this->Form->submit('Save', array('div' => false,'class'=>'btn btn-primary'));
+                echo $this->Form->submit('Cancel', array('name' => 'cancel','div' => false,'class'=>'btn btn-cancel'));
                 echo $this->Form->end(); 
             ?>
 <!--            </div>

@@ -110,6 +110,7 @@ class NetworkRoutersController extends NetworkDeviceController {
         $this->getAllSitesForProject();
         
         if ($this->request->is('post')) {
+            // AppController::handleCancel();
             $this->NetworkRouter->create();
             if ($this->NetworkRouter->save($this->request->data)) {
                 // see comments in edit

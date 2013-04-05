@@ -61,6 +61,7 @@ class InstallTeamsController extends AppController {
      */
     public function add() {
         if ($this->request->is('post')) {
+            // AppController::handleCancel();
             $this->InstallTeam->create();
             if ($this->InstallTeam->save($this->request->data)) {
                 $this->Session->setFlash('The install team has been saved.');

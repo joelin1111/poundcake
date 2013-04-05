@@ -25,6 +25,7 @@
         echo $this->Form->input('password',array('required'=>false));
         echo $this->Form->input('admin', array('label' => 'System Administrator'));        
         echo $this->Form->submit('Save', array('div' => false,'class'=>'btn btn-primary'));
+        echo $this->Form->submit('Cancel', array('name' => 'cancel','div' => false,'class'=>'btn btn-cancel'));
         echo $this->Form->end(); 
     ?>
     When promoting an existing user to Administrator, leaving the password field empty

@@ -62,6 +62,7 @@ class BuildItemsController extends AppController {
      */
     public function add() {
         if ($this->request->is('post')) {
+            // AppController::handleCancel();
             $this->BuildItem->create();
             if ($this->BuildItem->save($this->request->data)) {
                 $this->Session->setFlash('The build item has been saved.');

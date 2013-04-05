@@ -56,6 +56,7 @@ class RolesController extends AppController {
      */
     public function add() {
         if ($this->request->is('post')) {
+            // AppController::handleCancel();
             $this->Role->create();
             if ($this->Role->save($this->request->data)) {
                 $this->Session->setFlash('The role has been saved.');

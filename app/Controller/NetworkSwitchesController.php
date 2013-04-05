@@ -107,6 +107,7 @@ class NetworkSwitchesController extends NetworkDeviceController {
         $this->getAllSitesForProject();
         
         if ($this->request->is('post')) {
+            // AppController::handleCancel();
             $this->NetworkSwitch->create();
             if ($this->NetworkSwitch->save($this->request->data)) {
                 // see comments in NetworkRouter::edit

@@ -57,6 +57,7 @@ class IpSpacesController extends AppController {
         $dbg = 0; // my debugging
          
         if ($this->request->is('post')) {
+            // AppController::handleCancel();
 //            print_r( $this->request->data );
             $new_cidr = $this->request->data['IpSpace']['cidr'];
             $parent_id = $this->request->data['IpSpace']['parent_id'];
@@ -201,6 +202,7 @@ class IpSpacesController extends AppController {
     public function ip() {
         $project_id = $this->Session->read( 'project_id' );
         if ($this->request->is('post')) {
+            // AppController::handleCancel();
             $this->add();
         }
         $this->set(compact( 'project_id' ));
@@ -259,6 +261,7 @@ class IpSpacesController extends AppController {
         $project_id = $this->Session->read( 'project_id' );
         $project_name = $this->Session->read( 'project_name' );
         if ($this->request->is('post')) {
+            // AppController::handleCancel();
             $this->IpSpace->create();
             if ($this->IpSpace->save($this->request->data)) {
                 $this->Session->setFlash('The Root IP Space has been created.');

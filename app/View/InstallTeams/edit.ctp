@@ -15,6 +15,7 @@
         echo $this->Form->input('name');;
         echo $this->Form->input('project_id');
         echo $this->Form->submit('Save', array('div' => false,'class'=>'btn btn-primary'));
+        echo $this->Form->submit('Cancel', array('name' => 'cancel','div' => false,'class'=>'btn btn-cancel'));
         echo $this->Form->end(); 
     ?>
 </div> <!-- /.span9 -->

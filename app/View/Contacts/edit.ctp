@@ -24,6 +24,7 @@
         echo $this->Form->input('install_team_id', array('type'=>'select','options' => $installteams,'empty' => true));
         echo $this->Form->input('contact_type_id', array('type'=>'select','label' => 'Contact Type','options' => $contacttypes));
         echo $this->Form->submit('Save', array('div' => false,'class'=>'btn btn-primary'));
+        echo $this->Form->submit('Cancel', array('name' => 'cancel','div' => false,'class'=>'btn btn-cancel'));
         echo $this->Form->end(); 
     ?>
 </div> <!-- /.span9 -->

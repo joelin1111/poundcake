@@ -60,6 +60,7 @@ class ChangeLogController extends AppController {
      */
     public function add() {
         if ($this->request->is('post')) {
+            // AppController::handleCancel();
             $this->ChangeLog->create();
             if ($this->ChangeLog->save($this->request->data)) {
                 $this->Session->setFlash('The change log has been saved.');

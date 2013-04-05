@@ -47,6 +47,7 @@ class FrequenciesController extends AppController {
      */
     public function add() {
         if ($this->request->is('post')) {
+            // AppController::handleCancel();
             $this->Frequency->create();
             if ($this->Frequency->save($this->request->data)) {
                 $this->Session->setFlash('The frequency has been saved.');

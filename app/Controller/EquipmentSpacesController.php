@@ -51,6 +51,7 @@ class EquipmentSpacesController extends AppController {
      */
     public function add() {
         if ($this->request->is('post')) {
+            // AppController::handleCancel();
             $this->EquipmentSpace->create();
             if ($this->EquipmentSpace->save($this->request->data)) {
                 $this->Session->setFlash('The equipment space has been saved.');

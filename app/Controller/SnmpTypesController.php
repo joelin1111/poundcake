@@ -62,6 +62,7 @@ class SnmpTypesController extends AppController {
      */
     public function add() {
         if ($this->request->is('post')) {
+            // AppController::handleCancel();
             $this->SnmpType->create();
             if ($this->SnmpType->save($this->request->data)) {
                 $this->Session->setFlash('The SNMP version has been saved.');

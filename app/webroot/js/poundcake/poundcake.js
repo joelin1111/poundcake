@@ -22,7 +22,17 @@ $(document).ready(function () {
 //            }
          });
     });
-    
+       
+    // $( "input[type=submit], a, cancel" )
+    $('.btn-cancel').click(function() {
+        //event.preventDefault();
+        console.log("cancel clicked");
+        //alert("foo");
+        $(this).attr('disabled', 'disabled'); // so no HTML5 form field validation occurs
+        history.back(); // go back
+        return false;
+      });
+      
     // datepicker
 //    $( "input.datepicker" ).dp({
 //        dateFormat: 'dd.mm.yy', 
@@ -32,7 +42,6 @@ $(document).ready(function () {
    
     // fade out flash messages after n miliseconds
     // replace with empty block to maintain space
-    //$('#flash').fadeTo(4000, 0, function(){ $(this).html().fadeTo(1000, 1); })
     $('#flash').fadeTo(4000, 0, function(){  })
     
     // checkbox on Radio add/edit for denoting it as a sector -- enables/disables
@@ -231,18 +240,3 @@ function bootbox_dialogs() {
         return false;
     });
 }
-
-/*
-
-// make all checkboxes checked
-$("#allsts").click(function() {
-    $(".selsts").attr('checked', true);
-});
-
-// make all checkboxes un-checked
-$("#nosts").click(function() {
-    $(".selsts").attr('checked', false);
-});
-
-*/
-

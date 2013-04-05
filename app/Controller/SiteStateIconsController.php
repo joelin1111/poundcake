@@ -51,6 +51,7 @@ class SiteStateIconsController extends AppController {
     
     public function add() {
         if ($this->request->is('post')) {
+            // AppController::handleCancel();
             $this->SiteStateIcon->create();
             //echo "<pre>";
             //print_r($this->request->data['SiteStateIcon']);

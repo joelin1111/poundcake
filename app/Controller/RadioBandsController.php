@@ -46,6 +46,7 @@ class RadioBandsController extends AppController {
      */
     public function add() {
         if ($this->request->is('post')) {
+            // AppController::handleCancel();
             $this->RadioBand->create();
             if ($this->RadioBand->save($this->request->data)) {
                 $this->Session->setFlash('The radio band has been saved.');

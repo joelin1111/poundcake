@@ -51,6 +51,7 @@ class MonitoringSystemTypesController extends AppController {
      */
     public function add() {
         if ($this->request->is('post')) {
+            // AppController::handleCancel();
             $this->MonitoringSystemType->create();
             if ($this->MonitoringSystemType->save($this->request->data)) {
                 $this->Session->setFlash('The monitoring system type has been saved.');

@@ -51,6 +51,7 @@ class TowerMembersController extends AppController {
      */
     public function add() {
         if ($this->request->is('post')) {
+            // AppController::handleCancel();
             $this->TowerMember->create();
             if ($this->TowerMember->save($this->request->data)) {
                 $this->Session->setFlash('The tower member has been saved.');

@@ -59,6 +59,7 @@ class SiteStatesController extends AppController {
         $this->getProjects();
         
         if ($this->request->is('post')) {
+            // AppController::handleCancel();
             $this->SiteState->create();
             if ($this->SiteState->save($this->request->data)) {
                 $this->Session->setFlash('The site state has been saved.');

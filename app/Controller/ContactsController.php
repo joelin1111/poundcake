@@ -116,6 +116,7 @@ class ContactsController extends AppController {
        $this->getInstallTeams();
        $this->getContactTypeOptions();
        if ($this->request->is('post')) {
+           // AppController::handleCancel();
             $this->Contact->create();
             if ($this->Contact->save($this->request->data)) {
                 $this->Session->setFlash('The contact has been saved.');

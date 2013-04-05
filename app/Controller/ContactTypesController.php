@@ -51,6 +51,7 @@ class ContactTypesController extends AppController {
      */
     public function add() {
         if ($this->request->is('post')) {
+            // AppController::handleCancel();
             $this->ContactType->create();
             if ($this->ContactType->save($this->request->data)) {
                 $this->Session->setFlash('The contact type has been saved.');

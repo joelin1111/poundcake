@@ -65,6 +65,7 @@ class RadioModesController extends AppController {
      */
     public function add() {
         if ($this->request->is('post')) {
+            // AppController::handleCancel();
             $this->RadioMode->create();
             if ($this->RadioMode->save($this->request->data)) {
                 $this->Session->setFlash('The radio mode has been saved.');

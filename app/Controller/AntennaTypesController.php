@@ -51,6 +51,7 @@ class AntennaTypesController extends AppController {
      */
     public function add() {
         if ($this->request->is('post')) {
+            // AppController::handleCancel();
             $this->AntennaType->create();
             if ($this->AntennaType->save($this->request->data)) {
                 $this->Session->setFlash('The antenna type has been saved.');

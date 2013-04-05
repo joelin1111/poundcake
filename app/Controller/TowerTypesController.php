@@ -53,6 +53,7 @@ class TowerTypesController extends AppController {
     public function add() {
         $this->getProjects();
         if ($this->request->is('post')) {
+            // AppController::handleCancel();
             $this->TowerType->create();
             if ($this->TowerType->save($this->request->data)) {
                 $this->Session->setFlash('The tower type has been saved.');

@@ -151,7 +151,7 @@ class AppController extends Controller {
         // allows access to nothing if not logged in
         // by only allowing them access to the logout page
         $this->Auth->allow('logout');
-        
+        //$this->Session->delete('Message.auth');
         // this is from:  http://stackoverflow.com/questions/7968312/cakephp-mobile-layout-home-redirect-requesthandler-ismobile
         // see also afterFilter
 //        if ($this->RequestHandler->isMobile()) {
@@ -244,13 +244,33 @@ class AppController extends Controller {
         }         
         $this->set(compact('cidrs'));
     }
-  
+    
     /*
      * Standard callback function before a view is rendered
      * Used to grab any system messages an admin may have set, and get the 
      * release number
      */
     function beforeRender() {
+        /*
+        if ($this->Session->check('Message.flash')) {
+            $flash = $this->Session->read('Message.flash');
+            echo "Flash is ".$flash['message']."<BR>";
+            echo "Last flash is: ".$this->Session->read('last_flash_message');
+            if ( $flash['message'] == $this->Session->read('last_flash_message') ) {
+                echo "clearning flash";
+                $this->Session->setFlash(null);
+                $msg = '';
+            } else {
+                $msg = $flash['message'];
+            }
+            $this->Session->write('last_flash_message', $msg );
+//            if ($flash['element'] == 'default') {
+//                //$flash['element'] = 'flash_error';
+//                $this->Session->write('Message.flash', $flash);
+//            }
+        }
+        */
+        $this->response->disableCache();
         $banner_ctr = $this->Session->read('banner_ctr');
         $this->set('user', $this->Auth->user());
         // only check for this stuff every 10 page loads
@@ -401,6 +421,15 @@ class AppController extends Controller {
             return $HttpSocket;
         } else {
             return null;
+        }
+    }
+    
+    /*
+     * Generic cancel function on form submit
+     */
+    protected function handleCancel( $redirect = 'index' ) {
+        if (isset($this->params['data']['cancel'])) {
+            $this->redirect(array('action' => $redirect ));
         }
     }
     

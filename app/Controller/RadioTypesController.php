@@ -51,6 +51,7 @@ class RadioTypesController extends AppController {
      */
     public function add() {
         if ($this->request->is('post')) {
+            // AppController::handleCancel();
             $this->RadioType->create();
             if ($this->RadioType->save($this->request->data)) {
                 $this->Session->setFlash('The radio type has been saved.');
