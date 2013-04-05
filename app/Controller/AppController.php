@@ -139,6 +139,13 @@ class AppController extends Controller {
     }
     
     /*
+    public function afterLayout() {
+        //$this->Session->delete('Message.flash');
+        //$this->Session->setFlash('Your stuff has been saved.');
+    }
+    */
+    
+    /*
      * Standard call back function -- used for the login/ACL.
      */
     public function beforeFilter() {
@@ -151,6 +158,7 @@ class AppController extends Controller {
         // allows access to nothing if not logged in
         // by only allowing them access to the logout page
         $this->Auth->allow('logout');
+        
         //$this->Session->delete('Message.auth');
         // this is from:  http://stackoverflow.com/questions/7968312/cakephp-mobile-layout-home-redirect-requesthandler-ismobile
         // see also afterFilter

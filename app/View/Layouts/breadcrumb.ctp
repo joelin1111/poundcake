@@ -51,7 +51,6 @@
         
         echo '<i class="icon-list"></i>&nbsp;<strong>Page History</strong><BR>';
         echo '<ul class="poundcake-breadcrumb">';
-        //echo '<LI><i class="icon-list"></i>&nbsp;<B>Page History</B>: ';
         echo '<span class="active"></span>';
         echo '</LI>&nbsp;&nbsp;&nbsp;';
         

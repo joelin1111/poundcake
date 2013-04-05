@@ -23,13 +23,16 @@ $(document).ready(function () {
          });
     });
        
-    // $( "input[type=submit], a, cancel" )
+    // if the user clicks "cancel", go back to the page which is stored as the hidden
+    // input backTo -- taken from the breadcrumbs array
     $('.btn-cancel').click(function() {
-        //event.preventDefault();
-        console.log("cancel clicked");
-        //alert("foo");
+        // event.preventDefault();
+        // history.back was not working consistently, sometimes requiring two clicks
+        // to go back -- so instead, grab the destination to go to when the cancel
+        // button is clicked from the backTo variable, hidden in default.ctp
         $(this).attr('disabled', 'disabled'); // so no HTML5 form field validation occurs
-        history.back(); // go back
+        window.location =  $('#backTo').val();
+        // history.back(-1); // go back
         return false;
       });
       
