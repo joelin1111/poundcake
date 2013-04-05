@@ -425,9 +425,12 @@ class UsersController extends AppController {
     public function login() {
         // if the user is already logged in (maybe opening the site in a new tab)
         // don't send them to the login page
+        if ($this->Session->check('Auth.User')) {
+            $this->redirect($this->Auth->redirect());
+        }
+        
         if ($this->request->is('post')) {
-            if ($this->Auth->login()) {
-                
+            if ($this->Auth->login()) {             
                 $uid = CakeSession::read("Auth.User.id");
                 $this->loadModel('User',$uid);
                 $this->User->id = $uid;
