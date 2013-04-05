@@ -12,7 +12,8 @@ update network_radios set p2mp=1,sector=0 where id=198;
 update network_radios set p2mp=1,sector=0 where id=263;
 update network_radios set p2mp=1,sector=0 where id=264;
 
-source /Users/clarkritchie/Desktop/poundcake/etc/sql/poundcake/tr_multipoint-links-SSID-key.sql
+-- source /Users/clarkritchie/Desktop/poundcake/etc/sql/poundcake/tr_multipoint-links-SSID-key.sql
+source /var/www/towerdb.inveneo.org/poundcake/etc/sql/poundcake/tr_multipoint-links-SSID-key.sql
 
 update network_radios set tmp=1; -- cause the trigger to fire
 alter table network_radios drop tmp; -- remove our column
