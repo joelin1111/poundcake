@@ -7,6 +7,7 @@ CREATE PROCEDURE sp_get_remote_links(radio_id int(10))
     	SELECT dest_radio_id,
     	network_radios.name,
     	network_radios.ssid,
+    	network_radios.is_down,
     	network_radios.frequency,
     	radio_modes.name AS "radio_mode_name"
     	

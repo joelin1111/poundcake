@@ -150,7 +150,7 @@ class NetworkRadiosController extends NetworkDeviceController {
                 $u++;
             }
         }
-        
+//        echo '<pre>';var_dump($links);echo '</pre>';die;
         $this->checkSnmp(); // check if there is custom SNMP data on this item
         
         // retrieve the username of the person who provisioned this device
