@@ -1383,13 +1383,17 @@ class SitesController extends AppController
                                         // Provisioning Requisitions to map to Tower DB objects
                                         if ( preg_match("/Radio/i", $node_foreign_source ) ) {
                                             $model = 'NetworkRadio';
-                                        } elseif ( preg_match("/ubiquiti/i", $node_foreign_source ) ) {
+                                        } elseif ( preg_match("/ubiquiti/i", $node_foreign_source ) ) { // hack for HRBN
                                             $model = 'NetworkRadio';
-                                        } elseif ( preg_match("/ubiquiti/i", $node_foreign_source ) ) {
-                                            $model = 'NetworkRadio';
+                                         
                                         } elseif ( preg_match("/Router/i", $node_foreign_source ) ) {
                                             $model = 'NetworkRouter';                                            
+                                        } elseif ( preg_match("/mikrotik/i", $node_foreign_source ) ) { // hack for HRBN
+                                            $model = 'NetworkRouter';  
+                                                                                        
                                         } elseif ( preg_match("/Switch/i", $node_foreign_source ) ) {
+                                            $model = 'NetworkSwitch';
+                                        } elseif ( preg_match("/h3c/i", $node_foreign_source ) ) { // hack for HRBN
                                             $model = 'NetworkSwitch';
                                         }
                                         
