@@ -1369,6 +1369,8 @@ class SitesController extends AppController
                                             echo "is_down: $is_down <br>";
                                         }
 
+                                        // this needs revisiting:
+                                        
                                         // the foreignSource string (Radios, Routers, Switches) is defined
                                         // in model for a NetworkRadio/NetworkRouter/NetworkSwitch
                                         // this is sort of lame but here we need to align with how they are
@@ -1376,7 +1378,14 @@ class SitesController extends AppController
                                         // without loading the model, just search for a like word in the foreignSource
                                         $model = null;
 //                                        debug( $node_foreign_source );
+//                                        
+                                        // adding "ubiquiti" as a short term workaround to make this work in Haiti -- adding
+                                        // Provisioning Requisitions to map to Tower DB objects
                                         if ( preg_match("/Radio/i", $node_foreign_source ) ) {
+                                            $model = 'NetworkRadio';
+                                        } elseif ( preg_match("/ubiquiti/i", $node_foreign_source ) ) {
+                                            $model = 'NetworkRadio';
+                                        } elseif ( preg_match("/ubiquiti/i", $node_foreign_source ) ) {
                                             $model = 'NetworkRadio';
                                         } elseif ( preg_match("/Router/i", $node_foreign_source ) ) {
                                             $model = 'NetworkRouter';                                            
