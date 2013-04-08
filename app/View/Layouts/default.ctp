@@ -100,11 +100,14 @@ $cakeDescription = __d('poundcake', 'Tower DB');
         <![endif]-->
 </head>
 <body>
+    <?php
+   
+    if (array_key_exists('HTTP_REFERER', $_SERVER)) {
+        echo '<input type="hidden" id="backTo" value="';
+        echo $_SERVER['HTTP_REFERER'];
+        echo '"></input>';
+    }
     
-    <input type="hidden" id="backTo" value="<?php echo $_SERVER['HTTP_REFERER'];; ?>"></input>
-            
-<?php
-
     if( !defined( 'MAINTENANCE' )) {
         $maint_file = ROOT . DS . APP_DIR . DS . 'maintenance.txt';
         $maint = file_get_contents( $maint_file );
