@@ -80,7 +80,6 @@ class SiteStateIconsController extends AppController {
         }        
     }
     
-    /*
     public function edit($id = null) {
         $this->SiteStateIcon->id = $id;
         if (!$this->SiteStateIcon->exists()) {
@@ -108,7 +107,6 @@ class SiteStateIconsController extends AppController {
             $this->request->data = $this->SiteStateIcon->read(null, $id);
         }
     }
-    */
     
     public function delete($id = null) {
         if (!$this->request->is('post')) {
