@@ -24,6 +24,7 @@
         // see comments in edit for why this field is here
         echo $this->Form->input('old_site_id', array('type'=>'hidden','value' => $old_site_id ));
         echo $this->Form->input('Site.id', array('type'=>'select','options' => $sites));
+        echo $this->Form->input('foreign_id',array('type' => 'text','label'=>'Foreign ID'));
         echo $this->element('Common/snmp_override');  // include fiels for SNMP override
         // the IPv4 behavior is correctly decoding the IP address, but this doesn't
         // seem to populate the form:

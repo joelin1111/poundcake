@@ -21,6 +21,7 @@
         echo $this->Form->input('id');
         echo $this->Form->input('name');
         echo $this->Form->input('site_id', array('type'=>'select','options' => $sites,'empty' => false));
+        echo $this->Form->input('foreign_id',array('type' => 'text','label'=>'Foreign ID'));
         echo $this->Form->input('network_switch_id', array( 'value' => $network_switch_id, 'type' => 'hidden' ));
         echo $this->Form->input('switch_port', array(
             'label' => 'Switch/Port #',

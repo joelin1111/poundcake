@@ -23,6 +23,7 @@
         // see comments in edit for why this field is here
         echo $this->Form->input('old_site_id', array('type'=>'hidden','value' => $old_site_id ));
         echo $this->Form->input('Site.id', array('type'=>'select','options' => $sites,'label'=>'Site'));
+        echo $this->Form->input('foreign_id',array('type' => 'text','label'=>'Foreign ID'));
         echo $this->Form->input('router_type_id', array('type'=>'select','options' => $routertypes));
         echo $this->Form->input('serial');
         echo $this->element('Common/snmp_override');  // include fiels for SNMP override
