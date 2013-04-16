@@ -1,3 +1,8 @@
+<?php
+    // jQuery to enable/disable fields based on checkbox
+    echo $this->Html->script('poundcake/poundcake-primary-ip-override');
+?>
+
 <div class="row">
 <div class="span3">
     <H3>Actions</H3>
@@ -22,6 +27,7 @@
                     'value' => '10.0.0.0'
                 )
         );
+        echo $this->Form->input('primary_ip',array( 'label' => 'Primary IP', 'disabled' => true ));
         echo $this->Form->hidden('project_id', array( 'value' => $project_id ));     
     ?>
     </fieldset>

@@ -197,11 +197,8 @@ class AppController extends Controller {
      * the controller
      */
     public function isViewOnly( ) {
-        $this->loadModel('User');
-        $uid = CakeSession::read("Auth.User.id");
-        $this->User->read(null,$uid);
         $ret = false;
-        if ( $this->User->data['Role']['rolealias'] === 'view' )
+        if ( $this->Session->read('role') === 'view' )
             $ret = true;
         return $ret;
     }

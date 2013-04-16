@@ -45,7 +45,8 @@ BEGIN
 	-- In a P2MP scenario, the last radio inserted becomes the one that every other radio
 	-- with the same SSID will link to.  Check if there is already a radio with that SSID
 	-- that is marked as the multipoint end
-	SET link_to = ( SELECT id FROM network_radios WHERE ssid = NEW.ssid AND p2mp > 0 );
+	-- See PC-475 as to why there is a LIMIT 1 on this query
+	SET link_to = ( SELECT id FROM network_radios WHERE ssid = NEW.ssid AND p2mp > 0 LIMIT 1 );
 	-- insert into temp1 values (link_to,'before');
 	-- if a radio has already been marked as the multipoint end, we need to link the radio
 	-- currently being inserted to it -- otherwise, this would not happen in the loop below
@@ -152,7 +153,8 @@ BEGIN
 	-- In a P2MP scenario, the last radio inserted becomes the one that every other radio
 	-- with the same SSID will link to.  Check if there is already a radio with that SSID
 	-- that is marked as the multipoint end
-	SET link_to = ( SELECT id FROM network_radios WHERE ssid = NEW.ssid AND p2mp > 0 );
+	-- See PC-475 as to why there is a LIMIT 1 on this query
+	SET link_to = ( SELECT id FROM network_radios WHERE ssid = NEW.ssid AND p2mp > 0 LIMIT 1 );
 	-- insert into temp1 values (link_to,'before');
 	-- if a radio has already been marked as the multipoint end, we need to link the radio
 	-- currently being inserted to it -- otherwise, this would not happen in the loop below

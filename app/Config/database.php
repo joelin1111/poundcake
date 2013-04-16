@@ -94,9 +94,9 @@ class DATABASE_CONFIG {
             'datasource' => 'Database/Mysql',
             'persistent' => false,
             'host' => 'localhost',
-            'login' => 'poundcake-stage',
+            'login' => 'poundcake_stage',
             'password' => '0A7bIj192l9821s',
-            'database' => 'poundcake-staging',
+            'database' => 'poundcake_stage',
             'prefix' => '',
             'encoding' => 'utf8',
     );

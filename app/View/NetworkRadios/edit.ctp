@@ -52,7 +52,7 @@
             'placeholder' => 'For Testing'
         ));
         echo $this->Form->input('ip_space_id', array('type'=>'select','label'=>'IP Address','options' => $ip_spaces));
-        echo $this->element('Common/snmp_override');  // include fiels for SNMP override
+        echo $this->element('Common/snmp_override');  // include fields for SNMP override
     ?>
     </fieldset>
     <?php

@@ -60,8 +60,10 @@ function recursiveIpSpaces( $array ,$role, $delete_confirm_html ) {
             echo "<li id=\"".$vals['IpSpace']['id']."\">";
             echo $vals['IpSpace']['name'];
             echo ' '.$vals['IpSpace']['ip_address'];
-            echo ' /'.$vals['IpSpace']['cidr']; 
-            
+            echo ' /'.$vals['IpSpace']['cidr'];
+            if (( $vals['IpSpace']['cidr'] == 32 ) && ( $vals['IpSpace']['primary_ip'] > 0 )) {
+                echo ' (Primary)';
+            }
             // must be an admin to see add/delete buttons
             if ( $role === 'admin' ) {
                 echo '&nbsp;&nbsp;&nbsp;';
