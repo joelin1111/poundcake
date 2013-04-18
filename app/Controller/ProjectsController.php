@@ -54,18 +54,19 @@ class ProjectsController extends AppController {
         $users = $this->Project->read(null, $id);
         $project_users = array();
         foreach ( $users['ProjectMembership'] as $user ) {
-            //var_dump( $user );
-            $this->loadModel('Role');
-            $this->Role->id = $user['role_id'];
-            $role = $this->Role->read();            
-            // var_dump( $role );
-            $uid = $user['User']['id'];
-            $u = array(
-                'username' => $user['User']['username'],
-                'role' => $role['Role']['name']
-            );
-            
-            array_push( $project_users, $u );
+            if ( count($user['User']) > 0 ) {
+                $this->loadModel('Role');
+                $this->Role->id = $user['role_id'];
+                $role = $this->Role->read();            
+                //var_dump( $role );
+                $uid = $user['User']['id'];
+                $u = array(
+                    'username' => $user['User']['username'],
+                    'role' => $role['Role']['name']
+                );
+
+                array_push( $project_users, $u );
+            }
         }
         
         $this->set(compact('project','project_users'));
