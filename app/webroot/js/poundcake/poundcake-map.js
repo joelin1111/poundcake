@@ -177,7 +177,7 @@ function drawLines( lines, marker_locations ) {
 //        var end_lat = value[1].lat();
 //        var end_lng = value[1].lng();
         if ( isMarkerVisible( value[0], marker_locations ) && isMarkerVisible( value[1], marker_locations ) ) {
-            $('#map_canvas').gmap('addShape', 'Polyline', { 'path': value, 'strokeColor': "#FF0000", 'strokeOpacity': 1.0, 'strokeWeight': 2 } );
+            $('#map_canvas').gmap('addShape', 'Polyline', { 'path': value, 'strokeColor': "#006BFF", 'strokeOpacity': 1.0, 'strokeWeight': 2 } );
         }
     });
 }
