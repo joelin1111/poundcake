@@ -44,9 +44,15 @@ class NetworkRouter extends AppModel {
     );
     
     /*
-     * The foreignSource name in OpenNMS.
+     * Used for the foreignSource name (in OpenNMS)
      */
-    public $foreignSource = 'Routers';
+    public function getForeignSource() {
+        // I can't seem to sort out the right way, in a model function, to load
+        // a property on a related model
+        // this function is in the models for each of Radios/Switches/Routers
+        $type = ClassRegistry::init("RouterType")->findById($this->data['NetworkRouter']['router_type_id']);
+        return $type['RouterType']['manufacturer'];       
+    }
     
     /*
      * Relations

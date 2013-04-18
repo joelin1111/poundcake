@@ -192,7 +192,7 @@ class NetworkDeviceController extends AppController {
         // revisit - need to add caluses for other network monitoring systems
         $alarms = array();        
         $model = $this->modelClass;
-        $type = $this->$model->foreignSource;
+        $type = $this->$model->getForeignSource();
         $baseURI = $this->getMonitoringSystemBaseURI();
         $id = $this->$model->data[ $model ]['foreign_id'];
         // http://localhost:8980/opennms/rest/alarms?node.foreignSource=Routers&node.foreignId=1001
@@ -242,7 +242,7 @@ class NetworkDeviceController extends AppController {
         // revisit - need to add caluses for other network monitoring systems
         $events = array();        
         $model = $this->modelClass;
-        $type = $this->$model->foreignSource;
+        $type = $this->$model->getForeignSource();
         $baseURI = $this->getMonitoringSystemBaseURI();
         //$id = $this->$model->data[ $model ]['foreign_id'];
         $id = $this->$model->data[ $model ]['node_id'];
@@ -294,9 +294,9 @@ class NetworkDeviceController extends AppController {
         // $this->autoRender = false;        
         $model = $this->modelClass;
         
-        // foreignSource is a variable on the model for each of NetworkRadio/NetworkSwitch/NetworkRouter
-        $type = $this->$model->foreignSource;
-        
+        // getForeignSource is a function on the model for each of NetworkRadio/NetworkSwitch/NetworkRouter
+        $type = $this->$model->getForeignSource();
+                
         if (isset($type)) {
             
             // creating XML from a data array -- I could not get attributes to work
@@ -707,7 +707,8 @@ class NetworkDeviceController extends AppController {
            //'order' => array('IpSpace.lft'),
            'conditions' => array(
                'IpSpace.project_id' => $project_id,
-               'cidr' => 32 // we only want /32 IPs
+               'cidr' => 32, // we only want /32 IPs
+               'primary_ip' => true // we only want /32 IPs
                ),
             // sort by ip address in case some were deleted and then
             // re-added, which would otherwise make them out of sequence

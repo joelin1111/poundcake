@@ -51,16 +51,21 @@ class NetworkRadio extends AppModel {
         'Site',
         'RadioType',
         'NetworkSwitch',
-        //'AntennaType',
         'RadioMode',
         'SnmpType',
         'IpSpace'
     );
     
     /*
-     * The foreignSource name in OpenNMS.
+     * Used for the foreignSource name (in OpenNMS)
      */
-    public $foreignSource = 'Radios';
+    public function getForeignSource() {
+        // I can't seem to sort out the right way, in a model function, to load
+        // a property on a related model
+        // this function is in the models for each of Radios/Switches/Routers
+        $type = ClassRegistry::init("RadioType")->findById($this->data['NetworkRadio']['radio_type_id']);
+        return $type['RadioType']['manufacturer'];       
+    }
     
     /*
      * Field-level validation rules
@@ -79,12 +84,7 @@ class NetworkRadio extends AppModel {
                 'rule' => array('isUnique', array('name')),
                 'message' => 'This field need must be unique.'
             ),
-            /*
-            'format' => array(
-                'rule' => '/^[a-z0-9]{1,}\-[a-z0-9]{1,}$/i',
-                'message' => 'Wrong format, should be: [Letters, Numbers]-[Letters, Numbers]'
-            ),*/
-        ),
+        ),        
     );
     
     /*
