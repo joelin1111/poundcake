@@ -145,9 +145,8 @@ class IpSpacesController extends AppController {
                 $new_ip = long2ip( $start_at );                
             }
             
-            
             // /32s cannot end with .0 so add one
-            if ( $new_cidr == 32 ) {
+            if ( $this->ipEndsWithZero( $new_ip ) && ( $new_cidr == 32 )) {
                 $new_ip = long2ip( ip2long( $new_ip ) + 1 );
             }
             if ( $dbg ) {
@@ -206,6 +205,19 @@ class IpSpacesController extends AppController {
             $this->add();
         }
         $this->set(compact( 'project_id' ));
+    }
+    
+    private function ipEndsWithZero( $ip_addr ) {
+        //var_dump("Checking".$ip_addr);
+        $ret = false;
+        if(preg_match('/.*\.0$/', $ip_addr)) 
+            $ret = true;
+//        if ( $ret )
+//            print "True";
+//        else
+//            print "False";
+//        die;
+        return $ret;
     }
     
     private function checkIfIpAllocated( $ip_address, $project_id, $dbg ) {
