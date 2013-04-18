@@ -67,7 +67,13 @@ class RadioType extends AppModel {
                 //'last' => false, // Stop validation after this rule
                 //'on' => 'create', // Limit validation to 'create' or 'update' operations
             )
-        )
+        ),
+        'manufacturer' => array(
+            'notempty' => array(
+                'rule' => 'alphaNumeric',
+                'message' => 'Manufacturer name may not contain spaces.'
+            )
+        ),
     );
     
     /*
