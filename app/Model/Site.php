@@ -127,28 +127,6 @@ class Site extends AppModel {
     }
     
     /*
-     * Check if there are dirty fields
-     */
-//    function beforeSave($options = array()) {
-//        // if the user edited the lat or lon fields these will be
-//        // new_lat/new_lon
-//        $new_lat = $this->data['Site']['lat'];
-//        $new_lon = $this->data['Site']['lon'];
-//        
-//        // old_lat/old_lon are the original lat/lon fields
-//        $this->old = $this->findById( $this->id );
-//        $old_lat = $this->old['Site']['lat'];
-//        $old_lon = $this->old['Site']['lon'];
-//        
-//        // if they are different, than we need to get the declination
-//        if (($new_lat != $old_lat) || ( $new_lon != $old_lon)) {
-//            echo "Dirty fields"; die;
-//        }
-//        echo "No dirty";
-//        die;        
-//    }
-    
-    /*
      * Returns the declination for a given lat/lon pair using NOAA web service
      */
     function getDeclination($lat, $lon) {
@@ -168,7 +146,6 @@ class Site extends AppModel {
         }
         
         $dirty = false;
-        // echo "$old_lat vs $lat <BR> $old_lon vs $lon <BR>";
         // if they are different, than we need to get the declination
         if (($lat != $old_lat) || ( $lon != $old_lon)) {
             $dirty = true;
@@ -180,11 +157,6 @@ class Site extends AppModel {
             $dirty = true;
         }
         
-//        if ($dirty)
-//            echo "Dirty<BR>";
-//        else
-//            echo "NOT Dirty<BR>";
-//        $dirty = true;
         if ( $dirty ) {
             // since Jan 2013 they appear to want the month now as part of the URL
             // so just get the current month number
@@ -216,9 +188,7 @@ class Site extends AppModel {
                 if (count($y) > 1) {
                     $dec = $y[3];
                 }
-            }
-//            echo"<BR>$url<BR>Dec is $dec<BR>";
-//            die;            
+            }   
             curl_close( $ch );
             
         }

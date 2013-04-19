@@ -21,8 +21,10 @@
  * @license       XYZ License
  */
 
-class SitesController extends AppController
-{
+class SitesController extends AppController {
+    
+    const CRON_DEBUG = 1;
+    
     /*
      * Helpers we use:
      * - AjaxMultiUpload is used for the file upload plugin
@@ -1289,472 +1291,138 @@ class SitesController extends AppController
                 $HttpSocket = parent::getMonitoringSystemSocket( $ms_user, $ms_pass );
                 
                 if ( !is_null( $HttpSocket ) ) {
-                    // begin commented block for testing is_down
-                    
-                    // we need to correlate node IDs with devices in our system
-                    // so first, go get all the nodes in the system
-                    $response = $HttpSocket->request(
-                        array(
-                            'method' => 'GET',
-                            'uri' => $ms_url.'/nodes?limit=0',
-                            'header' => array('Content-Type' => 'application/xml')
-                        )
-                    );
-                    
-                    // now let's iterate through them
-                    $xmlIterator = new SimpleXMLIterator( $response->body );
-                    
-                    $n = 0;
-                    for( $xmlIterator->rewind(); $xmlIterator->valid(); $xmlIterator->next() ) {
-                        if( $xmlIterator->hasChildren() ) {
-                            $attrs = $xmlIterator->current()->attributes();
-                            if ( $debug ) {
-                                debug( $attrs );
-                            }
-                            
-                            $node_label = $xmlIterator->current()->attributes()->label;
-                            $node_id = $xmlIterator->current()->attributes()->id;
-                            $node_foreign_id = $xmlIterator->current()->attributes()->foreignId;  
-                            $node_foreign_source = (string)$xmlIterator->current()->attributes()->foreignSource;
-                            
-                            if ( $debug ) {
-                                echo "Node Label:  $node_label, Node ID: $node_id, Foregin ID:  $node_foreign_id <br><br>";
-                            }
-                            
-                            // http://10.0.2.10:8980/opennms/rest/alarms?node.foreignSource=ubiquiti&node.foreignId=1354986197016&uei=uei.opennms.org/nodes/nodeDown
-                            
-                            // now get the status of the intefaces on that node
-                            $response2 = $HttpSocket->request(
-                                array(
-                                    'method' => 'GET',
-                                    'uri' => $ms_url.'/alarms?node.foreignSource='.$node_foreign_source.'&node.foreignId='.$node_foreign_id.'&uei=uei.opennms.org/nodes/nodeDown',
-                                    'header' => array('Content-Type' => 'application/xml')
-                                )
-                            );
-                            
-                            if ( $debug ) {
-                                var_dump( $response2->body );
-                            }
-                            
-                            /*
-                            // Pm8aU09nTDsRJMj is inv-testrouter
-                            if ( $node_foreign_id == 'Pm8aU09nTDsRJMj' ) {
-                                var_dump( $response2->body );
-                            }
-                            */
-                            
-                            $xmlIterator2 = new SimpleXMLIterator( $response2->body );
-                            for( $xmlIterator2->rewind(); $xmlIterator2->valid(); $xmlIterator2->next() ) {
-                                if( $xmlIterator2->hasChildren() ) {
-                                    // debug( $xmlIterator2->current() );
-                                    $severity = (string)$xmlIterator2->current()->attributes()->severity;
-                                    
-                                    // if there is a result but the severity is "CLEARED" then
-                                    // there is still an alarm but the node is up
-                                    $is_down = true;
-                                    if ( $severity === "CLEARED" ) {
-                                        if ( $debug ) {
-                                            echo( "<BR>There is still an alarm on the node with the foreignId $node_foreign_id, but it is cleared" );
-                                        }
-                                        $is_down = false;
-                                    }
-                                    
-                                    if ( $debug ) {
-                                        var_dump($xmlIterator->current());
-                                    }
-
-                                    // now I need to figure out what this item is -- a NetworkRadio,
-                                    // a NetworkRouter or a NetworkSwitch so that I can load the right
-                                    // model and then save the is_down flag
-
-                                    // this is maybe a little in-elegant... search for a matching item
-                                    // then save using that model
-                                    $model = null;
-
-                                    $found = false;
-                                    $models = array( 'NetworkRadio', 'NetworkRouter', 'NetworkSwitch' );
-                                    foreach( $models as $model ) {
-                                        if ( !$found ) {
-                                            $this->loadModel( $model );
-                                            $this->$model->recursive = -1; // we only need radio/router/switch data
-                                            $device = $this->$model->findByForeignId( $node_foreign_id );
-                                            if ( $device != null ) {
-                                                // set the flags
-                                                $device[ $model ]['is_down'] = $is_down;
-                                                $device[ $model ]['node_id'] = $node_id;
-                                                $device[ $model ]['checked'] = date("Y-m-d H:i:s");
-                                                $this->$model->id = $device[ $model ]['id'];
-
-                                                if ( $debug ) {
-                                                    var_dump( $device );
-                                                }
-
-                                                $this->$model->save( $device[ $model ] );
-                                                echo "Saved!<br>";
-
-                                                $found = true;
-                                            }
-                                        }
-                                                                               
-                                    }
-                                }
-                            }
-                            
-                            $response2 = null;
-                            $node_label = null;
-                            $node_id = null;
-                            $node_foreign_id = null;
-                        }
-                    }
-                    // end commented block for testing is_down
-                    $debug = true;
+                    $this->loadModel('Site');
+                    // $this->Site->recursive = -1;
                     $sites = $this->Site->findAllByProjectId( $project_id );
-                    
                     foreach ( $sites as $site ) {
-                        $is_down = 0; // default to not down
-                        $count = 0;
-                        echo '<pre>';
-                        print_r($site['Site']['id']);
-                        echo '<BR>';
-                        print_r($site['Site']['is_down']);
-                        echo '</pre>';
+                        $down = 0;
+                        $site_down = 0;
                         
-                        $is_down_old = $site['Site']['is_down'];
-                        //if ( $is_down_old == null )
-                        if ( is_null($is_down_old) )
-                            $is_down_old = -1;                        
+                        // get the count of the total number of devices
+                        // attached to this site
+                        $n_devices = $this->getDeviceCount( $site['Site']['id'] );
                         
-                        // we only need to check items that have been provisioned
-                        // hence the check if 'foreign_id' is set
-                        // however note that it's possible there isa foreign_id
-                        // but the node was provisioned incorrectly, maybe an error
-                        // (sucn as an IP of 0.0.0.0) which would cause this to fail
-                        // resulting in a site being marked up when it's node is unknown
-                        // see PC-351
+                        // get foreign ids for all the radios on this site
+                        foreach( $site['NetworkRadios'] as $radio ) {
+                            if (isset($radio['foreign_id'])) {
+                                $this->loadModel('RadioType');
+                                $radio_type = $this->RadioType->read(null, $radio['radio_type_id']);
+                                $down += $this->checkAlarm( $HttpSocket, $ms_url, $radio_type['RadioType']['manufacturer'], $radio['foreign_id'], 'NetworkRadio' ); 
+                            }
+                        }
+                        // at the moment there is only one switch, router at the site
+                        if (isset($site['NetworkRouter']['foreign_id'])) {
+                            $this->loadModel('RouterType');
+                            $router_type = $this->RouterType->read(null, $site['NetworkRouter']['router_type_id']);
+                            $down += $this->checkAlarm( $HttpSocket, $ms_url, $router_type['RouterType']['manufacturer'], $site['NetworkRouter']['foreign_id'], 'NetworkRouter' );                            
+                        }
                         
-                        // check all the radios -- if any are down, the site is down
-                        foreach( $site['NetworkRadios'] as $r ) {
-                            if ( isset($r['foreign_id'] )) {
-                                echo "counting...<Br>";
-                                $count++;
-                                if ( $r['is_down'] > 0 ) {
-                                    echo " Radio ".$r['name']."<br>";
-                                    $is_down++;
-                                }
+                        if (isset($site['NetworkSwitch']['foreign_id'])) {
+                            $this->loadModel('SwitchType');
+                            $switch_type = $this->SwitchType->read(null, $site['NetworkSwitch']['switch_type_id']);
+                            $down += $this->checkAlarm( $HttpSocket, $ms_url, $switch_type['SwitchType']['manufacturer'], $site['NetworkSwitch']['foreign_id'], 'NetworkSwitch' );
+                        }
+                        
+                        if ( $down > 0 ) {
+                            // if the down count is equal to the number of devices, then all
+                            // nodes are down, and the site is down, so set site_down to 1
+                            if ( $down == $n_devices ) {
+                                $site_down = 1;
+                            } else {
+                                // otherwise, some nodes are down, and site_down is > 0 and < 1
+                                $site_down = $down / $n_devices;
                             }
                         }
                         
-                        if ( $site['NetworkSwitch']['id'] != null ) {
-                            $count++;
-                            if (( isset($site['NetworkSwitch']['foreign_id'])) && ( $site['NetworkSwitch']['is_down'] > 0 )) {
-                                echo " Switch ".$site['NetworkSwitch']['name']."<br>";
-                                $is_down++;                            
-                            }
+                        if ( self::CRON_DEBUG ) {
+                            echo '<pre>Counting Devices:<BR>';
+                            print_r("<LI>Total Devices: $n_devices</LI>");
+                            print_r("<LI>Down Count: $down</LI>");
+                            print_r("<LI>Site Down: $site_down</LI>");
+                            echo '</pre>';
                         }
                         
-                        
-                        if ( (isset($site['NetworkRouter']['foreign_id'] )) && ( $site['NetworkRouter']['id'] > 0 )) {
-                            $count++;
-                            if ( $site['NetworkRouter']['is_down'] > 0 ) {
-                                echo " Router ".$site['NetworkRouter']['name']."<br>";
-                                $is_down++;
-                            }
-                        }
-                        
-                        echo '<pre>  count: '. $count .' is_down: '.$is_down.' is_down_old: '.$is_down_old.'<br>';
-                        // if there are 829ices provisioned ($count > 0)
-                        // ...and at least one of them is down (is_down > 0)
-                        // ...and we've not yet updated the site's status ($is_down_old = -1)
-                        // set is_down_old to 0 so that the update happens below
-                        if (( $count > 0 ) && ( $is_down > 0 ) && ( $is_down_old == -1 )) {
-                            $is_down_old = 0;
-                        }
-                        
-                        if ( $debug ) {
-                            echo $site['Site']['id']. ": Count = $count  is_down = $is_down  is_down_old = $is_down_old<br>";
-                        }
-                        
-                        //if ( ($count > 1 ) && () )
-                        // if there are any devices on the site -- switch, router, radio...
-                        // $is_down > 0 should keep is_down = NULL for any sites w/o provisioned devices
-                        if ( ( $is_down_old >= 0 ) && ( $count > 0 )) {
-                            $site['Site']['is_down'] = $is_down / $count;
-//                            debug( $site['Site']['is_down'] );
-//                            debug( $is_down_old );
-                            // if the status has changed, save it back to the db
-//                            if ( $site['Site']['is_down'] != $is_down_old ) {
-                                $this->Site->id = $site['Site']['id'];
-                                $this->Site->saveField( 'is_down', $site['Site']['is_down'] );
-//                            }
-                        }
+                        // finally, save the site's is_down calculation back to the Site model
+                        $this->Site->id = $site['Site']['id'];
+                        $this->Site->saveField( 'is_down', $site_down );                        
                     }
                 }
             }
         }
+    }
+    
+    
+    private function checkAlarm( $HttpSocket, $ms_url, $node_foreign_source, $node_foreign_id, $model ) {
+        $is_down = 0;
+
+        if ( self::CRON_DEBUG ) {
+            echo '<pre>';
+            echo "<LI>URI: $ms_url";
+            echo "<LI>Node Foreign Source: $node_foreign_source";
+            echo "<LI>Node Foreign Id: $node_foreign_id";
+            echo "<LI>Application Model: $model";
+            echo "<LI>".$ms_url.'/alarms?node.foreignSource='.$node_foreign_source.'&node.foreignId='.$node_foreign_id.'&uei=uei.opennms.org/nodes/nodeDown';
+            echo '</pre>';
+        }
+        
+        // query for a nodeDown alarm
+        $response = $HttpSocket->request(
+            array(
+                'method' => 'GET',
+                'uri' => $ms_url.'/alarms?node.foreignSource='.$node_foreign_source.'&node.foreignId='.$node_foreign_id.'&uei=uei.opennms.org/nodes/nodeDown',
+                'header' => array('Content-Type' => 'application/xml')
+            )
+        );
+        
+        if ( self::CRON_DEBUG ) {
+            echo '<pre><b>uei.opennms.org/nodes/nodeDown</b><BR>';
+            print_r( $response->body );
+            echo '</pre>';
+        }
+        
+        $xmlIterator = new SimpleXMLIterator( $response->body );
+        for( $xmlIterator->rewind(); $xmlIterator->valid(); $xmlIterator->next() ) {
+            if( $xmlIterator->hasChildren() ) {
+//                debug( $xmlIterator->current() );
+                $severity = (string)$xmlIterator->current()->attributes()->severity;
+                // $node_id = $xmlIterator->current()->attributes()->id;
+                // if there is a result but the severity is "CLEARED" then
+                // there is still an alarm but the node is up
+                $is_down = 1;
+                if ( $severity === "CLEARED" ) {
+                    if ( $debug ) {
+                        echo( "<BR>There is still an alarm on the node with the foreignId $node_foreign_id, but it is cleared" );
+                    }
+                    $is_down = 0;
+                }
+            }
+        }
+        
+        $this->loadModel( $model );
+        $device = $this->$model->findByForeignId( $node_foreign_id );
+        if ( $device != null ) {
+            // set the flags
+            $device[ $model ]['is_down'] = $is_down;
+            // $device[ $model ]['node_id'] = $node_id; I think I was just saving this for convenience sake?
+            $device[ $model ]['checked'] = date("Y-m-d H:i:s"); // last checked
+            $this->$model->id = $device[ $model ]['id'];
+            
+            if ( self::CRON_DEBUG ) {
+                echo '<pre>';
+                print_r( $device[ $model ] );
+                echo '</pre>';
+            }
+            $this->$model->save( $device[ $model ] );
+            $found = true;
+        }
+        
+        return $is_down;
     }
     
     /*
-     * Query the monitoring system for site status and update the db -- this is
-     * a back-end function meant to be called from cron.  It produces no output
-     * and is outside Auth authentication.  Currently it is OpenNMS specific
-     * and needs to be generalized.
-     */
-    public function cron_orig( $project_id, $debug = false ) {
-        // there is no view
-        $this->autoRender = false;
-        $this->layout = 'blank';
-                
-        $debug = true;
-        
-        if ( $project_id > 0 ) {
-//            echo $project_id;
-
-            // we could get this off each site, but let's try to keep it faster
-            // by getting project info first, then making recurive -1 below
-            $this->loadModel( 'Project', $project_id );
-            $project = $this->Project->read();
-            $ms_url = $this->Project->field( 'monitoring_system_url' );
-            $ms_user = $this->Project->field( 'monitoring_system_username' );
-            $ms_pass = $this->Project->field( 'monitoring_system_password' );
-            
-            if ( isset( $ms_url ) && isset( $ms_user ) && isset( $ms_pass ) ) {
-                
-                $HttpSocket = parent::getMonitoringSystemSocket( $ms_user, $ms_pass );
-                
-                if ( !is_null( $HttpSocket ) ) {
-                    // begin commented block for testing is_down
-                    
-                    // we need to correlate node IDs with devices in our system
-                    // so first, go get all the nodes in the system
-                    $response = $HttpSocket->request(
-                        array(
-                            'method' => 'GET',
-                            'uri' => $ms_url.'/nodes?limit=0',
-                            'header' => array('Content-Type' => 'application/xml')
-                        )
-                    );
-                    
-                    // now let's iterate through them
-                    $xmlIterator = new SimpleXMLIterator( $response->body );
-                    
-                    $n = 0;
-                    for( $xmlIterator->rewind(); $xmlIterator->valid(); $xmlIterator->next() ) {
-                        if( $xmlIterator->hasChildren() ) {
-                            $attrs = $xmlIterator->current()->attributes();
-                            if ( $debug ) {
-                                debug( $attrs );
-                            }
-                            
-                            $node_label = $xmlIterator->current()->attributes()->label;
-                            $node_id = $xmlIterator->current()->attributes()->id;
-                            $node_foreign_id = $xmlIterator->current()->attributes()->foreignId;  
-                            $node_foreign_source = (string)$xmlIterator->current()->attributes()->foreignSource;
-                            
-                            if ( $debug ) {
-                                echo "Found:  $node_label, $node_id, $node_foreign_id <br>";
-                            }
-                            
-                            // now get the status of the intefaces on that node
-                            $response2 = $HttpSocket->request(
-                                array(
-                                    'method' => 'GET',
-                                    'uri' => $ms_url.'/nodes/'.$node_id.'/ipinterfaces',
-                                    'header' => array('Content-Type' => 'application/xml')
-                                )
-                            );
-                            
-                            if ( $debug ) {
-                                var_dump( $response->body );
-                            }
-                            
-                            $xmlIterator2 = new SimpleXMLIterator( $response2->body );
-                            for( $xmlIterator2->rewind(); $xmlIterator2->valid(); $xmlIterator2->next() ) {
-                                if( $xmlIterator2->hasChildren() ) {
-                                    
-                                    // debug( $xmlIterator2->current() );
-                                    $snmpPrimary = (string)$xmlIterator2->current()->attributes()->snmpPrimary;
-                                    
-                                    // we're only concerned about the primary interface
-                                    if ( $snmpPrimary == "P" ) {
-                                    
-                                        // reset our variables
-                                        $ip = null;
-                                        $is_down = null;
-                                        $radio = null;
-
-                                        if ( $debug ) {
-                                            var_dump($xmlIterator->current());
-                                        }
-                                        
-                                        // get the IP address
-                                        $ip = (string)$xmlIterator2->current()->ipAddress;
-                                        
-                                        // get the status
-                                        $is_down = (string)$xmlIterator2->current()->attributes()->isDown;
-                                        if ( $is_down === "false" )
-                                            $is_down = 0;
-                                        else
-                                            $is_down = 1;
-                                        
-                                        //$node_id = (string)$xmlIterator2->current()->attributes();
-                                        
-                                        if ( $debug ) {
-                                            echo "is_down: $is_down <br>";
-                                        }
-
-                                        // this needs revisiting:
-                                        
-                                        // the foreignSource string (Radios, Routers, Switches) is defined
-                                        // in model for a NetworkRadio/NetworkRouter/NetworkSwitch
-                                        // this is sort of lame but here we need to align with how they are
-                                        // categorized in OpenNMS, and sicne we can't call the static variable
-                                        // without loading the model, just search for a like word in the foreignSource
-                                        $model = null;
-//                                        debug( $node_foreign_source );
-//                                        
-                                        // adding "ubiquiti" as a short term workaround to make this work in Haiti -- adding
-                                        // Provisioning Requisitions to map to Tower DB objects
-                                        if ( preg_match("/Radio/i", $node_foreign_source ) ) {
-                                            $model = 'NetworkRadio';
-                                        } elseif ( preg_match("/ubiquiti/i", $node_foreign_source ) ) { // hack for HRBN
-                                            $model = 'NetworkRadio';
-                                         
-                                        } elseif ( preg_match("/Router/i", $node_foreign_source ) ) {
-                                            $model = 'NetworkRouter';                                            
-                                        } elseif ( preg_match("/mikrotik/i", $node_foreign_source ) ) { // hack for HRBN
-                                            $model = 'NetworkRouter';  
-                                                                                        
-                                        } elseif ( preg_match("/Switch/i", $node_foreign_source ) ) {
-                                            $model = 'NetworkSwitch';
-                                        } elseif ( preg_match("/h3c/i", $node_foreign_source ) ) { // hack for HRBN
-                                            $model = 'NetworkSwitch';
-                                        }
-                                        
-                                        if ( $model != null ) {
-                                            $this->loadModel( $model );
-                                            $this->$model->recursive = -1; // we only need radio/router/switch data
-                                            $device = $this->$model->findByForeignId( $node_foreign_id );
-                                            
-                                            if ( $debug ) {
-                                                var_dump( $node_foreign_id );
-                                                var_dump( $device );
-                                            }
-                                            
-                                            if ( $device != null ) {
-                                                
-                                                $device[ $model ]['is_down'] = $is_down;
-                                                $device[ $model ]['node_id'] = $node_id;
-                                                $device[ $model ]['checked'] = date("Y-m-d H:i:s");
-                                                
-    //                                            debug( $radio['NetworkRadio'] );
-                                                $this->$model->id = $device[ $model ]['id'];
-                                                
-                                                if ( $debug ) {
-                                                    var_dump( $device );
-                                                }
-                                                
-                                                $this->$model->save( $device[ $model ] );
-                                                echo "Saved!<br>";
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                            $response2 = null;
-                            $node_label = null;
-                            $node_id = null;
-                            $node_foreign_id = null;
-                        }
-                    }
-                    // end commented block for testing is_down
-                    $debug = true;
-                    $sites = $this->Site->findAllByProjectId( $project_id );
-                    
-                    foreach ( $sites as $site ) {
-                        $is_down = 0; // default to not down
-                        $count = 0;
-                        echo '<pre>';
-                        print_r($site['Site']['id']);
-                        echo '<BR>';
-                        print_r($site['Site']['is_down']);
-                        echo '</pre>';
-                        
-                        $is_down_old = $site['Site']['is_down'];
-                        //if ( $is_down_old == null )
-                        if ( is_null($is_down_old) )
-                            $is_down_old = -1;                        
-                        
-                        // we only need to check items that have been provisioned
-                        // hence the check if 'foreign_id' is set
-                        // however note that it's possible there isa foreign_id
-                        // but the node was provisioned incorrectly, maybe an error
-                        // (sucn as an IP of 0.0.0.0) which would cause this to fail
-                        // resulting in a site being marked up when it's node is unknown
-                        // see PC-351
-                        
-                        // check all the radios -- if any are down, the site is down
-                        foreach( $site['NetworkRadios'] as $r ) {
-                            if ( isset($r['foreign_id'] )) {
-                                echo "counting...<Br>";
-                                $count++;
-                                if ( $r['is_down'] > 0 ) {
-                                    echo " Radio ".$r['name']."<br>";
-                                    $is_down++;
-                                }
-                            }
-                        }
-                        
-                        if ( $site['NetworkSwitch']['id'] != null ) {
-                            $count++;
-                            if (( isset($site['NetworkSwitch']['foreign_id'])) && ( $site['NetworkSwitch']['is_down'] > 0 )) {
-                                echo " Switch ".$site['NetworkSwitch']['name']."<br>";
-                                $is_down++;                            
-                            }
-                        }
-                        
-                        
-                        if ( (isset($site['NetworkRouter']['foreign_id'] )) && ( $site['NetworkRouter']['id'] > 0 )) {
-                            $count++;
-                            if ( $site['NetworkRouter']['is_down'] > 0 ) {
-                                echo " Router ".$site['NetworkRouter']['name']."<br>";
-                                $is_down++;
-                            }
-                        }
-                        
-                        echo '<pre>  count: '. $count .' is_down: '.$is_down.' is_down_old: '.$is_down_old.'<br>';
-                        // if there are 829ices provisioned ($count > 0)
-                        // ...and at least one of them is down (is_down > 0)
-                        // ...and we've not yet updated the site's status ($is_down_old = -1)
-                        // set is_down_old to 0 so that the update happens below
-                        if (( $count > 0 ) && ( $is_down > 0 ) && ( $is_down_old == -1 )) {
-                            $is_down_old = 0;
-                        }
-                        
-                        if ( $debug ) {
-                            echo $site['Site']['id']. ": Count = $count  is_down = $is_down  is_down_old = $is_down_old<br>";
-                        }
-                        
-                        //if ( ($count > 1 ) && () )
-                        // if there are any devices on the site -- switch, router, radio...
-                        // $is_down > 0 should keep is_down = NULL for any sites w/o provisioned devices
-                        if ( ( $is_down_old >= 0 ) && ( $count > 0 )) {
-                            $site['Site']['is_down'] = $is_down / $count;
-//                            debug( $site['Site']['is_down'] );
-//                            debug( $is_down_old );
-                            // if the status has changed, save it back to the db
-//                            if ( $site['Site']['is_down'] != $is_down_old ) {
-                                $this->Site->id = $site['Site']['id'];
-                                $this->Site->saveField( 'is_down', $site['Site']['is_down'] );
-//                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
-    
+     * 
+     */    
     public function linker() {
-        
         if ($this->request->is('post') || $this->request->is('put')) {
             $this->Site->recursive = -1;
             $id1 = $this->request->data['Site']['site1-id'];
@@ -1864,6 +1532,39 @@ class SitesController extends AppController
                 die;
              }
         }
+    }
+    
+    /*
+     * Returns the total number of devices (radios, routers, switches) on a site
+     */
+    private function getDeviceCount( $id ) {
+        $this->Site->read(null, $id );
+        $n_radio = $this->Site->NetworkRadios->find(
+                'count',
+                array('conditions' => array('NetworkRadios.site_id' => $id )
+        ));
+        
+        // is there a better way to count attached routers and switches?
+        $n_router = 0;
+        if ( $this->Site->field('network_router_id') > 0 ) {
+            $n_router++;
+        }
+        
+        $n_switch = 0;
+        if ( $this->Site->field('network_switch_id') > 0 ) {
+            $n_switch++;
+        }
+        
+        if ( self::CRON_DEBUG ) {
+            echo '<pre>Counting Devices:<BR>';
+            print_r("<LI>Site ID: $id</LI>");
+            print_r("<LI>Radios: $n_radio</LI>");
+            print_r("<LI>Routers: $n_router</LI>");
+            print_r("<LI>Switches: $n_switch</LI>");
+            echo '</pre>';
+        }
+        
+        return $n_radio + $n_router + $n_switch;
     }
     
     /*
