@@ -133,17 +133,18 @@ class DATABASE_CONFIG {
 
     public function __construct() {
         $host = php_uname('n');
+        echo $host;die;
         if ( ( $host === 'Clarks-MacBook-Pro.local' ) || ( $host === 'localhost' ) ) {
             $this->default = $this->default_dev;
             $this->addrpool = $this->addrpool_dev;
         } else {
-//            if ( $_SERVER['SERVER_NAME'] === 'towerdb.inveneo.org' ) {
+            if ( $host === 'beaker.inveneo.org' ) {
                 $this->default = $this->default_prod;
                 $this->addrpool = $this->addrpool_prod;
-//            } else {
-//                $this->default = $this->default_staging;
-//                $this->addrpool = $this->addrpool_prod;
-//            }
+            }/* else {
+                $this->default = $this->default_staging;
+                $this->addrpool = $this->addrpool_prod;
+            }*/
         }
     }
 }
