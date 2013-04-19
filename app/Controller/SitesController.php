@@ -1390,7 +1390,7 @@ class SitesController extends AppController {
                 // there is still an alarm but the node is up
                 $is_down = 1;
                 if ( $severity === "CLEARED" ) {
-                    if ( $debug ) {
+                    if ( self::CRON_DEBUG ) {
                         echo( "<BR>There is still an alarm on the node with the foreignId $node_foreign_id, but it is cleared" );
                     }
                     $is_down = 0;

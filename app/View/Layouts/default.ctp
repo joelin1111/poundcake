@@ -101,7 +101,10 @@ $cakeDescription = __d('poundcake', 'Tower DB');
 </head>
 <body>
     <?php
-   
+    echo '<pre>';
+    print_r($_SERVER);
+    echo '</pre>';
+    
     // this is to make the generic cancel button (jQuery on dialogs) work
     if (array_key_exists('HTTP_REFERER', $_SERVER)) {
         echo '<input type="hidden" id="backTo" value="';
@@ -117,7 +120,10 @@ $cakeDescription = __d('poundcake', 'Tower DB');
         // set this to 1 to enable the maintenance page
         //define( 'MAINTENANCE', 0 ); 
         // 24.20.20.146 -- Clark's office at TenPod
-        if( MAINTENANCE > 0 && $_SERVER['REMOTE_ADDR'] != '24.20.20.146' ) {
+        // when behind the load balancer, you have to use HTTP_X_FORWARDED_FOR
+        // otherwise REMOTE_ADDR is the address of the load balancer
+        // if( MAINTENANCE > 0 && $_SERVER['REMOTE_ADDR'] != '24.20.20.146' ) {
+        if( MAINTENANCE > 0 && $_SERVER['HTTP_X_FORWARDED_FOR'] != '24.20.20.146' ) {
             include_once( 'maintenance.ctp');
             die(); 
         }
