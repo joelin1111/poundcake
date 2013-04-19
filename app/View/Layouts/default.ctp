@@ -100,11 +100,7 @@ $cakeDescription = __d('poundcake', 'Tower DB');
         <![endif]-->
 </head>
 <body>
-    <?php
-    echo '<pre>';
-    print_r($_SERVER);
-    echo '</pre>';
-    
+    <?php    
     // this is to make the generic cancel button (jQuery on dialogs) work
     if (array_key_exists('HTTP_REFERER', $_SERVER)) {
         echo '<input type="hidden" id="backTo" value="';
