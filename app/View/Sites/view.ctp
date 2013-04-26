@@ -34,10 +34,10 @@
          
         <div class="tabbable"> <!-- Only required for left/right tabs -->
             <ul class="nav nav-tabs">
-                <li class="active"><a href="#tab1" data-toggle="tab">Detail</a></li>
-                <li><a href="#tab2" data-toggle="tab">Contacts</a></li>
-                <li><a href="#tab3" data-toggle="tab">Network</a></li>
-                <li><a href="#tab4" data-toggle="tab">Files</a></li>
+                <li class="active"><a href="#tab1" data-toggle="tab"><i class="icon-list-alt"></i>Detail</a></li>
+                <li><a href="#tab2" data-toggle="tab"><i class="icon-user"></i>Contacts</a></li>
+                <li><a href="#tab3" data-toggle="tab"><i class="icon-cog"></i>Network</a></li>
+                <li><a href="#tab4" data-toggle="tab"><i class="icon-camera"></i>Files</a></li>
             </ul>
             
             <div class="tab-content">
