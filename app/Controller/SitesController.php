@@ -1291,8 +1291,8 @@ class SitesController extends AppController {
             if ( isset( $ms_url ) && isset( $ms_user ) && isset( $ms_pass ) ) {
                 
                 $HttpSocket = parent::getMonitoringSystemSocket( $ms_user, $ms_pass );
-                
-                if ( !is_null( $HttpSocket ) ) {
+
+                if ( !is_null( $HttpSocket ) && ( self::validateURL( $ms_url )) ) {
                     $this->loadModel('Site');
                     // $this->Site->recursive = -1;
                     $sites = $this->Site->findAllByProjectId( $project_id );
@@ -1355,8 +1355,8 @@ class SitesController extends AppController {
     
     
     private function checkAlarm( $HttpSocket, $ms_url, $node_foreign_source, $node_foreign_id, $model ) {
-        $is_down = 0;
-
+        $is_down = 0;   
+        $node_foreign_source = 'XXX';
         if ( self::CRON_DEBUG ) {
             echo '<pre>';
             echo "<LI>URI: $ms_url";
@@ -1366,14 +1366,14 @@ class SitesController extends AppController {
             echo "<LI>".$ms_url.'/alarms?node.foreignSource='.$node_foreign_source.'&node.foreignId='.$node_foreign_id.'&uei=uei.opennms.org/nodes/nodeDown';
             echo '</pre>';
         }
-        
+
         /*
         if ( $node_foreign_id == 1321398919152 ) {
             echo "Found it!<BR>";
             die;
         }
         */
-        
+
         // query for a nodeDown alarm
         $response = $HttpSocket->request(
             array(
@@ -1382,13 +1382,14 @@ class SitesController extends AppController {
                 'header' => array('Content-Type' => 'application/xml')
             )
         );
-        
+
         if ( self::CRON_DEBUG ) {
             echo '<pre><b>uei.opennms.org/nodes/nodeDown</b><BR>';
+            print_r( $response->code );
             print_r( $response->body );
             echo '</pre>';
         }
-        
+
         $xmlIterator = new SimpleXMLIterator( $response->body );
         for( $xmlIterator->rewind(); $xmlIterator->valid(); $xmlIterator->next() ) {
             if( $xmlIterator->hasChildren() ) {
@@ -1406,7 +1407,7 @@ class SitesController extends AppController {
                 }
             }
         }
-        
+
         $this->loadModel( $model );
         $device = $this->$model->findByForeignId( $node_foreign_id );
         if ( $device != null ) {
@@ -1415,7 +1416,7 @@ class SitesController extends AppController {
             // $device[ $model ]['node_id'] = $node_id; I think I was just saving this for convenience sake?
             $device[ $model ]['checked'] = date("Y-m-d H:i:s"); // last checked
             $this->$model->id = $device[ $model ]['id'];
-            
+
             if ( self::CRON_DEBUG ) {
                 echo '<pre>';
                 print_r( $device[ $model ] );

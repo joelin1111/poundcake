@@ -414,7 +414,7 @@ class AppController extends Controller {
      */
     protected function getMonitoringSystemSocket( $username, $password ) {
         App::uses('HttpSocket', 'Network/Http');
-        
+        $ret = null;
         if ( !(is_null( $username )) && !(is_null( $password )) ) {
             // for future reference, JSON HttpSocket example:  http://ask.cakephp.org/questions/view/how_to_post_json_with_httpsocket
             $HttpSocket = new HttpSocket();
@@ -423,10 +423,9 @@ class AppController extends Controller {
                     $username,
                     $password
                 );
-            return $HttpSocket;
-        } else {
-            return null;
+            $ret = $HttpSocket;
         }
+        return $ret;
     }
     
     /*
@@ -494,5 +493,39 @@ class AppController extends Controller {
 
         return $element;
     }    
+    
+    /*
+     * This just verifies that the URL is valid -- this is currently over-used
+     */
+    protected function validateURL( $url ) {
+        $ret = true;
+        //$url = 'http://la1b.inveneo.org:8980/opennms/rest';
+        
+        // this first check is if the URL is syntactically valid
+        if ( filter_var( $url, FILTER_VALIDATE_URL ) === FALSE) {
+            $ret = false;
+        } else {    
+            // now let's check by DNS
+            $hostname = parse_url($url)['host']; // get just the hostname, lose the http:// etc.
+//            echo $hostname."<BR>";
+            $ip = gethostbynamel( $hostname )[ 0 ];
+//            echo '<pre>';
+//            var_dump( $ip );
+//            echo long2ip( $ip );
+//            echo ip2long( $ip );
+//            echo '</pre>';        
+            if( ip2long( $ip ) == null ) {
+                $ret = false;
+            }
+        }
+        
+//        if ( $ret ) {
+//            echo "URL is OK";
+//        } else {
+//            echo "Bad URL: $url<BR>";
+//        }
+
+        return $ret;
+    }
 }
 ?>

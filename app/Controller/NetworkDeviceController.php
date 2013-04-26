@@ -198,7 +198,7 @@ class NetworkDeviceController extends AppController {
         // http://localhost:8980/opennms/rest/alarms?node.foreignSource=Routers&node.foreignId=1001
         $url = $baseURI.'/alarms?node.foreignSource='.$type.'&node.foreignId='.$id;
         $HttpSocket = parent::getMonitoringSystemSocket( $this->getMonitoringSystemUsername(), $this->getMonitoringSystemPassword() );
-        if ( !is_null( $HttpSocket ) && ( isset( $url ))  ) {
+        if ( !is_null( $HttpSocket ) && ( self::validateURL( $url )) ) {
             $response = $HttpSocket->request(
                         array(
                             'method' => 'GET',
@@ -250,7 +250,7 @@ class NetworkDeviceController extends AppController {
         $url = $baseURI.'/events?node.id='.$id;
 //        debug($url);
         $HttpSocket = parent::getMonitoringSystemSocket( $this->getMonitoringSystemUsername(), $this->getMonitoringSystemPassword() );
-        if ( !is_null( $HttpSocket ) && ( isset( $url ))  ) {
+        if ( !is_null( $HttpSocket ) && ( self::validateURL( $url )) ) {
             $response = $HttpSocket->request(
                         array(
                             'method' => 'GET',
@@ -370,7 +370,7 @@ class NetworkDeviceController extends AppController {
             $HttpSocket = parent::getMonitoringSystemSocket( $this->getMonitoringSystemUsername(), $this->getMonitoringSystemPassword() );
             $baseURI = $this->getMonitoringSystemBaseURI();
             
-            if ( !is_null( $HttpSocket ) && ( isset( $baseURI ))  ) {
+            if ( !is_null( $HttpSocket ) && ( self::validateURL( $url )) ) {
                 $response = $HttpSocket->request(
                         array(
                             'method' => 'POST',
@@ -502,7 +502,7 @@ class NetworkDeviceController extends AppController {
             $url .= "graph/graph.png?reports=all&resourceId=node[$node_id].responseTime[$ip_address]";
             $url .= "&report=icmp&start=$starttime&end=$endtime";
             
-            if ( !is_null( $HttpSocket ) && ( isset( $url ))  ) {
+            if ( !is_null( $HttpSocket ) && ( self::validateURL( $url )) ) {
                 $response = $HttpSocket->request(
                     array(
                         'method' => 'GET',
@@ -542,7 +542,7 @@ class NetworkDeviceController extends AppController {
                 // echo "<a href=\"$url\">$url</a><br>";
                 // die;
 
-                if ( !is_null( $HttpSocket ) && ( isset( $url ))  ) {
+                if ( !is_null( $HttpSocket ) && ( self::validateURL( $url )) ) {
                     $response = $HttpSocket->request(
                         array(
                             'method' => 'GET',
@@ -585,7 +585,7 @@ class NetworkDeviceController extends AppController {
                 //echo ">> <a href=\"$url\">$url</a><br>";
                 //die;
 
-                if ( !is_null( $HttpSocket ) && ( isset( $url ))  ) {
+                if ( !is_null( $HttpSocket ) && ( self::validateURL( $url )) ) {
                     $response = $HttpSocket->request(
                         array(
                             'method' => 'GET',
@@ -607,7 +607,7 @@ class NetworkDeviceController extends AppController {
         $baseURI = $this->getMonitoringSystemBaseURI();
         
         // get all the interfaces -- we need to query each one
-        if ( !is_null( $HttpSocket ) && ( isset( $baseURI ))  ) {
+        if ( !is_null( $HttpSocket ) && ( self::validateURL( $baseURI )) ) {
             $response = $HttpSocket->request(
                     array(
                         'method' => 'GET',
@@ -645,7 +645,7 @@ class NetworkDeviceController extends AppController {
                                 $url .= "&start=$starttime&end=$endtime";
                                 //echo "<a href=\"$url\">$url</a>";
 
-                                if ( !is_null( $HttpSocket ) && ( isset( $url ))  ) {
+                                if ( !is_null( $HttpSocket ) && ( self::validateURL( $url )) ) {
                                     $response2 = $HttpSocket->request(
                                         array(
                                             'method' => 'GET',
