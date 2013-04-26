@@ -44,7 +44,11 @@
     </dd>
     </div>
     
-    <dt>Site</dt><dd><?php echo $networkrouter['Site']['name']; ?></dd>
+    <dt>Site</dt><dd>
+        <?php
+            echo $this->PoundcakeHTML->linkIfAllowed( $networkrouter['Site']['name'], array('action'=>'view', 'controller'=>'sites',$networkrouter['Site']['id']),0);
+        ?>
+    </dd>
     
     <?php echo $this->element('Common/provisioning_info',
             array(

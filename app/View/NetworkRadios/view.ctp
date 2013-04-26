@@ -44,7 +44,11 @@
         ?>
     </dd>
     </div>
-    <dt>Site</dt><dd><?php echo $networkradio['Site']['name']; ?></dd>
+    <dt>Site</dt><dd>
+        <?php
+            echo $this->PoundcakeHTML->linkIfAllowed( $networkradio['Site']['name'], array('action'=>'view', 'controller'=>'sites',$networkradio['Site']['id']),0);
+        ?>
+    </dd>
     
     <?php echo $this->element('Common/provisioning_info',
             array(

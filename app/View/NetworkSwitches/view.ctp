@@ -43,7 +43,12 @@
         ?>
     </dd>
     </div>
-    <dt>Site</dt><dd><?php echo $networkswitch['Site']['name']; ?></dd>
+    
+    <dt>Site</dt><dd>
+        <?php
+            echo $this->PoundcakeHTML->linkIfAllowed( $networkswitch['Site']['name'], array('action'=>'view', 'controller'=>'sites',$networkswitch['Site']['id']),0);
+        ?>
+    </dd>
     
     <?php echo $this->element('Common/provisioning_info',
             array(
