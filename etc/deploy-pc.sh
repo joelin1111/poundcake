@@ -5,7 +5,13 @@
 
 # backup the database
 function backup {
-	mysqldump --extended-insert=FALSE --routines --opt poundcake > $BACKUP_FILE
+	if [[ $BACKUP != "" ]]; then 
+		# mysqldump --extended-insert=FALSE --routines --opt poundcake > $BACKUP_FILE
+		echo "Backing up MySQL database"
+		echo mysqldump --extended-insert=FALSE --routines --opt -uroot -p$BACKUP $poundcake > $BACKUP_FILE
+	else
+		echo "No MySQL backup"
+	fi
 }
 
 # get the code from GitHub
@@ -13,7 +19,7 @@ function deploy {
 	# put the site into maintenance mode
 	sudo sh -c "echo 1 > $MAINT_FILE"
 	cd $TOWERDB/poundcake
-	sudo chown -R critchie $TOWERDB
+	sudo chown -R ubuntu $TOWERDB
 	git pull origin $BRANCH
 	sudo chown -R www-data $TOWERDB
 	echo "*** REMEMBER TO DISABLE MAINTENANCE MODE ***"
@@ -27,27 +33,31 @@ usage: $0 options
 This script will deploy the Poundcake application from GitHub.
 
 OPTIONS:
-   -h      Show this message
-   -b      Git branch to pull from
-   -d      Destination: s for staging (default) or p for production
+   -h      	Show this message
+   -g      	Git branch to pull from
+   -d      	Destination, use: "-d s" for staging (default) or "-d p" for production
+   -b		MySQL root password (to backup current database), it none specified no backup is performed	
 EOF
 }
 
 # http://rsalveti.wordpress.com/2007/04/03/bash-parsing-arguments-with-getopts/
-while getopts "hb:d:" OPTION
+while getopts "hg:d:b:" OPTION
 do
      case $OPTION in
-         h)
+        h)
              usage
              exit 1
              ;;
-         b)
+        g)
              BRANCH=$OPTARG
              ;;
-         d)
+    	b)
+             BACKUP=$OPTARG
+             ;;
+        d)
              DEST=$OPTARG
              ;;
-         ?)
+        ?)
              usage
              exit
              ;;
@@ -56,6 +66,7 @@ done
 
 echo $BRANCH
 echo $DEST
+echo $BACKUP
 
 if [[ -z $BRANCH ]] || [[ -z $DEST ]]
 then
@@ -64,7 +75,7 @@ then
 fi
 
 if  [[ $DEST == "p" ]]; then 
-	TOWERDB=/var/www/towerdb.inveneo.org
+	TOWERDB=/opt/www/towerdb.inveneo.org
 else
 	TOWERDB=/var/www/towerdb-staging.inveneo.org
 fi
@@ -72,13 +83,15 @@ fi
 NOW=$(date +"%m_%d_%Y_at_%H_%M")
 
 MAINT_FILE="$TOWERDB/poundcake/app/maintenance.txt"
-BACKUP_DIR="~/poundcake"
+BACKUP_DIR="/home/ubuntu/poundcake"
 BACKUP_FILE=$BACKUP_DIR"/poundcake-pre-"$BRANCH"-"$NOW".sql"
 
 echo "This will deploy Tower DB using:"
+echo ""
 echo "Branch: $BRANCH"
 echo "Path:  $TOWERDB"
-echo "DB backup:  $BACKUP_FILE"
+echo "DB backup (if specified):  $BACKUP_FILE"
+echo ""
 
 while true; do
     read -p "Do you wish to deploy the site?  [Press Y to continue] " yn
