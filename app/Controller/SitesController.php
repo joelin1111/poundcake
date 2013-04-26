@@ -23,7 +23,9 @@
 
 class SitesController extends AppController {
     
+    // enable/disable debug statements in my most problematic areas
     const CRON_DEBUG = 1;
+    const KML_DEBUG = 0;
     
     /*
      * Helpers we use:
@@ -388,9 +390,15 @@ class SitesController extends AppController {
                             $this->redirect(array('action' => 'index'));                            
                         } else {
                             if ( $sid > 0 ) {
-                                $sites = $this->parseKML( $xml->children(), $sid[0]['site_states']['id'] );
+                                $found_sites = array();
+                                $sites = $this->parseKML( $xml->children(), $sid[0]['site_states']['id'], $found_sites );
                             }
-                            // debug( $sites );
+                            
+                            if ( self::KML_DEBUG ) {
+                                debug( $sites );
+                                die;
+                            }
+                            
                             $this->set(compact('sites'));
                             if ( sizeof( $sites ) > 0 ) {
                                 $this->render('confirm');
@@ -408,75 +416,69 @@ class SitesController extends AppController {
     /*
      * Recursive KML parser
      */
-    private function parseKML( $xml, $default_state ) {
-        $sites = array();
-//        var_dump( count($xml) );
-        if ( count($xml) > 0 ) {
-//            debug ($xml  );
-            if ( isset( $xml->Folder ) ) {
-                // this is untested, but should recurse if there are nested folders
-                // $this->parseKML( $xml->Document->children(), $overwrite, $default_state );
-                $sites = $this->parseKML( $xml->Folder->children(), $default_state );                
-                //array_merge( $sites, $this->parseKML( $xml->Folder->children(), $default_state ) );
-            } elseif ( isset( $xml->Placemark ) && ( $xml->Placemark != null) ) {
-                $count = $xml->Placemark->count();
-                $i = 0;
-                while ( $i < $count ) {
-                    // debug($xml);
-                    // must cast to string here
-                    $name = (string)$xml->Placemark[$i]->name;
-
-                    $coords = explode(",", $xml->Placemark[$i]->Point->coordinates);
+    private function parseKML( $xml, $default_state, $found_sites ) {
+        
+        if ( self::KML_DEBUG ) {
+            echo '<pre>found_sites:<BR>';
+            print_r( $found_sites  );
+            echo '</pre>';
+        }
+        
+        foreach ( $xml->children() as $child ) {
+            if ( $child instanceof SimpleXMLElement ) {
+                
+                if ( self::KML_DEBUG ) {
+                    echo '<pre>Looking at:';
+                    print_r($child->getName());
+                    echo '</pre>';
+                }
+                
+                if ( $child->getName() == 'Placemark' ) {
+                    // get the name of the placemark - note we must cast to string here
+                    $name = (string)$child->name;
+                    
+                    // get the coordinates
+                    $coords = explode(",", $child->Point->coordinates);
                     $lon = $coords[0];
                     $lat = $coords[1];
-
-                    // we need a site code -- remove all special characters,
+                    
+                    // make a site code -- remove all special characters,
                     // whitespace, grab the first 6 characters and make it
                     // uppercase -- the user can change it later
                     $code = $name;
                     preg_replace('/[^a-zA-Z0-9_ %\[\]\.\(\)%&-]/s', '', $code);
                     $code = str_replace(' ', '', $code);
                     $code = strtoupper( substr($code, 0, 6) );
-
-//                    if ( $overwrite ) {
-//                        $site = $this->Site->findByname( $name );
-//                        if (isset( $site['Site']['id'] )) {
-//                            $this->Site->delete( $site['Site']['id'] );
-//                        }
-//                    }
-                    // echo( "$name, Code: $code, is at $lat, $lon<br>" );
-                    /*
-                    $this->Site->create();
-                    $this->Site->set( 'name', $name );
-                    $this->Site->set( 'code', $code );
-                    $this->Site->set( 'lat', $lat );
-                    $this->Site->set( 'lon', $lon );
-                    $this->Site->set( 'site_state_id', $default_state );
-                    $this->Site->set( 'project_id', $this->Session->read('project_id') );
-                    $data = $this->Site->save();
-                    print_r( $data );
-                    */
-                    //$this->Site->create();
+                    
+                    // save our junk back to the array
                     $data['Site']['name'] = $name;
                     $data['Site']['code'] = $code;
                     $data['Site']['lat'] = $lat;
                     $data['Site']['lon'] = $lon;
                     $data['Site']['site_state_id'] = $default_state;
                     $data['Site']['project_id'] = $this->Session->read('project_id');
-                    //$id = $this->Site->save( $data, false );
-//                    debug( $data );
-//                    debug( "Saved with new id of ".$id );
-                    $i++;
-                    array_push( $sites, $data );
+                    array_push( $found_sites, $data );
+                    
+                    if ( self::KML_DEBUG ) {
+                        echo '<pre>';
+                        print_r( "*** Placemark: $name at $lat, $lon *** <BR>");
+                        var_dump($child);
+                        echo '</pre>';        
+                    }                       
                 }
+                $found_sites = $this->parseKML( $child, $default_state, $found_sites );
             }
         }
-//        echo "Returning:<BR>";
-//        debug( $sites );
-//        die;
-        return $sites;
+        
+        if ( self::KML_DEBUG ) {
+            echo '<pre>Found Sites: ';
+            print_r( count($found_sites) );
+            echo '</pre>';
+        }
+        
+        return $found_sites;
     }
-    
+
     public function import_sites( ) {
         if ($this->request->is('post')) {
             // AppController::handleCancel();
@@ -1364,6 +1366,13 @@ class SitesController extends AppController {
             echo "<LI>".$ms_url.'/alarms?node.foreignSource='.$node_foreign_source.'&node.foreignId='.$node_foreign_id.'&uei=uei.opennms.org/nodes/nodeDown';
             echo '</pre>';
         }
+        
+        /*
+        if ( $node_foreign_id == 1321398919152 ) {
+            echo "Found it!<BR>";
+            die;
+        }
+        */
         
         // query for a nodeDown alarm
         $response = $HttpSocket->request(
