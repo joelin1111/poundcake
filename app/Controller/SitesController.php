@@ -1459,12 +1459,15 @@ class SitesController extends AppController {
                 $this->loadModel('RadioType');
                 $radio_type_tmp = $this->RadioType->find('first');
                 $radio_type_id = $radio_type_tmp['RadioType']['id'];
-
-                // as above
-                $this->loadModel('AntennaType');
-                $antenna_type_tmp = $this->AntennaType->find('first');
-                $antenna_type_id = $antenna_type_tmp['AntennaType']['id'];
-
+                $antenna_type_id = $radio_type_tmp['AntennaType'][0]['id']; // get the first compatible antenna
+                
+//                echo '<pre>';
+//                print_r($radio_type_id);
+//                echo '<BR>';
+//                print_r($antenna_type_id);
+//                echo '</pre>';
+//                die;
+                
                 // as above
                 $this->loadModel('RadioMode');
                 $radio_modes_tmp = $this->RadioMode->find('first');
