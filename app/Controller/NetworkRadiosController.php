@@ -143,7 +143,7 @@ class NetworkRadiosController extends NetworkDeviceController {
                 }               
                 $link['network_radios']['mag_azimuth'] = $mag_azimuth;
                 
-                $link['network_radios']['is_down'] = $this->NetworkRadio->field('is_down');
+                $link['network_radios']['is_down'] = $link['network_radios']['is_down'];
                 
                 // save it back to the links array
                 $links[$u] = $link;
