@@ -85,7 +85,7 @@ $(document).ready(function () {
                 //console.log(data.zoom);
 //                console.log(data.icon);
                 $('#map_canvas').gmap('addMarker', {'id': data.id, 'icon':data.icon, 'tags':data.tags, 'position': new google.maps.LatLng(data.latlng.lat, data.latlng.lng), 'bounds': fit_bounds }, function(map,marker) {
-                    console.log( data.latlng.lat );
+                    // console.log( data.latlng.lat );
                     // keep track of that marker!                    
                     marker_locations.push( marker );
                     $(el).click(function() {
