@@ -1335,7 +1335,13 @@ class SitesController extends AppController {
                                 $site_down = $down / $n_devices;
                             }
                         }
-                        
+
+                        // this is a little sloppy, but is_down should be null there 
+                        // are no devices on the site
+                        if ( $n_devices == 0 ) {
+                            $site_down = null;
+                        }
+                                             
                         if ( self::CRON_DEBUG ) {
                             echo '<pre>Counting Devices:<BR>';
                             print_r("<LI>Total Devices: $n_devices</LI>");
