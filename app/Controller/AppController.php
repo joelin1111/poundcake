@@ -506,15 +506,15 @@ class AppController extends Controller {
             $ret = false;
         } else {    
             // now let's check by DNS
-            $hostname = parse_url($url)['host']; // get just the hostname, lose the http:// etc.
+            $hostname = parse_url($url); // get just the hostname, lose the http:// etc.
 //            echo $hostname."<BR>";
-            $ip = gethostbynamel( $hostname )[ 0 ];
+            $ip = gethostbynamel( $hostname['host'] );
 //            echo '<pre>';
 //            var_dump( $ip );
 //            echo long2ip( $ip );
 //            echo ip2long( $ip );
 //            echo '</pre>';        
-            if( ip2long( $ip ) == null ) {
+            if( ip2long( $ip[0] ) == null ) {
                 $ret = false;
             }
         }
