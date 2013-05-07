@@ -8,7 +8,7 @@ function backup {
 	if [[ $BACKUP != "" ]]; then 
 		# mysqldump --extended-insert=FALSE --routines --opt poundcake > $BACKUP_FILE
 		echo "Backing up MySQL database"
-		echo mysqldump --extended-insert=FALSE --routines --opt -uroot -p$BACKUP $poundcake > $BACKUP_FILE
+		/usr/bin/mysqldump --extended-insert=FALSE --routines --opt -uroot -p$BACKUP $poundcake > $BACKUP_FILE
 	else
 		echo "No MySQL backup"
 	fi
