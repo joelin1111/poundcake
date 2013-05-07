@@ -181,7 +181,7 @@ class NetworkRadiosController extends NetworkDeviceController {
         $this->loadModel('AntennaType');
         $a = $this->AntennaType->findById( $this->NetworkRadio->data['NetworkRadio']['antenna_type_id']);
         $antennatype = "";
-        if ( $f != null ) {
+        if ( $a != null ) {
             $antennatype = $a['AntennaType']['name'];
         }
         $networkradio['AntennaType']['name'] = $antennatype;
