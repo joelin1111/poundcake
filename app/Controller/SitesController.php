@@ -442,17 +442,9 @@ class SitesController extends AppController {
                     $lon = $coords[0];
                     $lat = $coords[1];
                     
-                    // make a site code -- remove all special characters,
-                    // whitespace, grab the first 6 characters and make it
-                    // uppercase -- the user can change it later
-                    $code = $name;
-                    preg_replace('/[^a-zA-Z0-9_ %\[\]\.\(\)%&-]/s', '', $code);
-                    $code = str_replace(' ', '', $code);
-                    $code = strtoupper( substr($code, 0, 6) );
-                    
                     // save our junk back to the array
                     $data['Site']['name'] = $name;
-                    $data['Site']['code'] = $code;
+                    $data['Site']['code'] = $this->getSiteCode( $name );
                     $data['Site']['lat'] = $lat;
                     $data['Site']['lon'] = $lon;
                     $data['Site']['site_state_id'] = $default_state;
@@ -486,7 +478,8 @@ class SitesController extends AppController {
             foreach( $this->request->data['Site'] as $data ) {
                 $site = explode( "|", $data );                
                 $site['Site']['name'] = $site[0];
-                $site['Site']['code'] = $site[1];
+                // $site['Site']['code'] = $site[1];
+                $site['Site']['code'] = $this->getSiteCode( $site[1] );
                 $site['Site']['lat'] = $site[2];
                 $site['Site']['lon'] = $site[3];
                 $site['Site']['site_state_id'] = $site[4];
@@ -1041,6 +1034,8 @@ class SitesController extends AppController {
                 $this->request->data['Site']['declination'] = $this->Site->getDeclination($this->request->data['Site']['lat'],$this->request->data['Site']['lon']);
             }
             
+            $this->request->data['Site']['code'] = $this->getSiteCode( $this->request->data['Site']['code'] );
+            
             //if ($this->Site->saveAssociated($this->request->data, array('validate'=>true))) {
             if ($this->Site->saveAssociated($this->request->data, array('validate'=>false))) {
                 $this->Session->setFlash('Success! The site has been saved.');
@@ -1586,6 +1581,51 @@ class SitesController extends AppController {
         return $n_radio + $n_router + $n_switch;
     }
     
+    /*
+     * Ensure unique site codes
+     */
+    private function getSiteCode( $name ) {
+        // this is our default site code -- remove all special characters,
+        // whitespace, grab the first 6 characters and make it
+        // uppercase
+        $code = $name;
+        preg_replace('/[^a-zA-Z0-9_ %\[\]\.\(\)%&-]/s', '', $code);
+        $code = str_replace(' ', '', $code);
+        $code = strtoupper( substr($code, 0, 6) );
+        var_dump($code);
+        $unique = false;
+        $n = 0;
+        // this may go out of control if all permutations of the site code are
+        // not available!
+        while (( !$unique ) && ( $n <= 999999 )) {
+            // look for other sites that have this site code
+            $count = $this->Site->find('count', array(
+                'conditions' => array(
+                    'code' => $code,
+                    'Site.project_id' => $this->Session->read('project_id')
+            )));
+            
+//            echo '<pre>';
+//            var_dump( $code );
+//            var_dump( $count );        
+//            echo '</pre>';
+                       
+            if ( $count == 0 ) {
+                $unique = true;
+            } else {
+                // if any are found, cut off some characters and replace them with
+                // an integer - should result like this:
+                // AAAAAA -- matches existing site code AAAAAAA
+                // AAAAA0 -- next attempt, then
+                // AAAAA1, AAAAA2... AAAAA9, then AAAA10..AAAA99, up to 999999
+                $lob = strlen( $n );
+                $code = substr($code, 0, -$lob) . $n;                
+                $n++;
+            }
+        }
+        
+        return $code;
+    }
     /*
      * Check the user's role to determine if sufficient permission to perform
      * the intended action.
