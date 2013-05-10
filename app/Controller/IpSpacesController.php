@@ -51,14 +51,13 @@ class IpSpacesController extends AppController {
     /*
      * Add a new IpSpace
      */
-    public function add( $parent_id = null ) {
+    public function add( $parent_id = null, $fill = false ) {
         $project_id = $this->Session->read('project_id');
         
         $dbg = 0; // my debugging
-         
-        if ($this->request->is('post')) {
-            // AppController::handleCancel();
-//            print_r( $this->request->data );
+        if ( ( $this->request->is('post') ) || ( $fill ) ) {
+            
+//            print_r( $this->request->data );die;
             $new_cidr = $this->request->data['IpSpace']['cidr'];
             $parent_id = $this->request->data['IpSpace']['parent_id'];
             $children = 0;
@@ -156,16 +155,18 @@ class IpSpacesController extends AppController {
             $this->request->data['IpSpace']['ip_address'] = $new_ip;
                     
             $this->IpSpace->create();
-            if ($this->IpSpace->save($this->request->data)) {
-                $this->Session->setFlash('The IP Space has been saved.');
-                //$this->redirect(array('action' => 'view','parent_id'=>$parent_id,'project_id'=>$project_id));
-                $this->redirect(array('action' => 'index/'.$parent_id));
+            if ( $this->IpSpace->save( $this->request->data )) {
+               if ( !$fill ) {
+                    $this->Session->setFlash('The IP Space has been saved.');
+                    $this->redirect(array('action' => 'index/'.$parent_id));
+                }
             } else {
                 $this->Session->setFlash('Error!  The IP Space could not be saved. Please, try again.');
 //                $log = $this->IpSpace->getDataSource()->getLog(false, false);
 //                debug($log);    
             }
         }
+        
         if ( $parent_id > 0 ) {
             $this->IpSpace->recursive = -1;
             $this->IpSpace->id = $parent_id;
@@ -200,6 +201,32 @@ class IpSpacesController extends AppController {
         } else {
             $this->request->data = $this->IpSpace->read(null, $id);
         }
+    }
+    
+    public function fill($id = null) {
+        $this->IpSpace->id = $id;
+        if (!$this->IpSpace->exists()) {
+            throw new NotFoundException('Invalid IP Space');
+        }
+        $ip_space = $this->IpSpace->read();
+        
+        $parent_cidr = $ip_space['IpSpace']['cidr'];
+        $n = 32 - $parent_cidr;
+        $pos_nets = pow( 2, $n );
+        
+        $this->request->data['IpSpace']['cidr'] = '32';
+        $this->request->data['IpSpace']['parent_id'] = $id;
+        $this->request->data['IpSpace']['project_id'] = $this->Session->read( 'project_id' );
+            
+        for ( $n = 0; $n < $pos_nets - 2; $n++ ) {
+            $u = $n + 1;
+            $alias = "host-".$u;
+            $this->request->data['IpSpace']['name'] = $alias;
+            $this->add( $id, true );
+        }
+
+        $this->Session->setFlash('The IP Space has been filled.');
+        $this->redirect(array('action' => 'index'));
     }
 
 //    private function getIpRange2($from, $to) {

@@ -64,15 +64,17 @@ function recursiveIpSpaces( $array ,$role, $delete_confirm_html ) {
             if (( $vals['IpSpace']['cidr'] == 32 ) && ( $vals['IpSpace']['primary_ip'] > 0 )) {
                 echo ' (Primary)';
             }
-            // must be an admin to see add/delete buttons
+            // must be an admin to see add/edit/delete buttons
             if ( $role === 'admin' ) {
                 echo '&nbsp;&nbsp;&nbsp;';
+                echo '<a href="/ipSpaces/edit/'.$vals['IpSpace']['id'].'"><i class="icon-edit"></i></a>';
+
                 // don't show the plus sign if it's a /32
+                // or the fill link
                 if ( $vals['IpSpace']['cidr'] < 32 ) {
                     echo '<a href="/ipSpaces/add/'.$vals['IpSpace']['id'].'"><i class="icon-plus"></i></a>';
+                    echo '<a href="/ipSpaces/fill/'.$vals['IpSpace']['id'].'"><i class="icon-align-justify"></i></a>';
                 }
-                
-                echo '<a href="/ipSpaces/edit/'.$vals['IpSpace']['id'].'"><i class="icon-edit"></i></a>';
                 
                 // don't allow them to delete the root space
                 // unless it's a /32
