@@ -32,9 +32,9 @@ class PoundcakeHTMLHelper extends AppHelper {
     //const ICON_LIST = '<i class="icon-list"></i>';  
     //const ICON_LIST = '<i class="icon-arrow-left"></i>';
     //const ICON_NEW = '<i class="icon-pencil"></i>'; 
-    const ICON_NEW = '<i class="icon-plus-sign"></i>'; 
+    const ICON_NEW = '<i class="icon-plus"></i>'; 
     const ICON_EDIT = '<i class="icon-edit"></i>';
-    const ICON_DELETE = '<i class="icon-minus-sign"></i>';
+    const ICON_DELETE = '<i class="icon-minus"></i>';
     const ICON_FILE = '<i class="icon-file"></i>';
     const ICON_SETUP = '<i class="icon-wrench"></i>';
     

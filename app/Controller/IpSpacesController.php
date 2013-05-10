@@ -184,6 +184,23 @@ class IpSpacesController extends AppController {
         $this->getCidrs( $parent_cidr );
         $this->set(compact( 'parent_id', 'ip_address', 'project_id' ));
     }
+    
+    public function edit($id = null) {
+        $this->IpSpace->id = $id;
+        if (!$this->IpSpace->exists()) {
+            throw new NotFoundException('Invalid IP Space');
+        }
+        if ($this->request->is('post') || $this->request->is('put')) {
+            if ($this->IpSpace->save($this->request->data)) {
+                $this->Session->setFlash('The IP Space has been saved.');
+                $this->redirect(array('action' => 'index'));
+            } else {
+                $this->Session->setFlash('Error!  The IP Space could not be saved. Please, try again.');
+            }
+        } else {
+            $this->request->data = $this->IpSpace->read(null, $id);
+        }
+    }
 
 //    private function getIpRange2($from, $to) {
 //        $start = ip2long($from);
