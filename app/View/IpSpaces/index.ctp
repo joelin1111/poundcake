@@ -16,6 +16,18 @@
 <!--        <li><?php //echo $this->PoundcakeHTML->linkIfAdmin('New Public /32', array('action' => 'ip')); ?></li>-->
     </ul>
     </div>
+    
+    <H3>Legend</H3>
+    <div class="well">
+        <UL>
+        <?php
+            echo '<LI>'.PoundcakeHTMLHelper::ICON_NEW." New</LI>";
+            echo '<LI>'.PoundcakeHTMLHelper::ICON_DELETE." Delete</LI>";
+            echo '<LI>'.PoundcakeHTMLHelper::ICON_EDIT." Rename</LI>";     
+            echo '<LI><i class="icon-align-justify"></i> Fill</LI>';
+        ?>
+        </UL>
+    </div>
 </div> <!-- /.span3 .sb-fixed -->
 
 <div class="span9">
@@ -41,16 +53,29 @@
                     null,
                     false // don't show the text "Delete" -- icon only
                 );
+                
+                // as above, but this warning is for the fill option
+                $fill_confirm_html = $this->PoundcakeHTML->postLinkIfAllowed('Fill',
+                    array('controller'=>'ipSpaces', 'action'=>'fill', 'FILL_ID'),
+                    array('method' => 'post','class'=>'confirm fillForm','data-dialog_msg'=>'Fill IP Space with /32 host records'),
+                    null,
+                    false // don't show the text "Fill" -- icon only
+                );
+//                echo '<pre>';
+//                var_dump( $fill_confirm_html );
+//                echo '</pre>';
+//                die;
+                
                 // Using CakePHP Tree Behavior
                 // For this view, see http://bakery.cakephp.org/articles/blackbit/2012/12/20/display_tree_index_with_ol_and_li
-                recursiveIpSpaces( $ip_spaces, $this->Session->read('role'), $delete_confirm_html );
+                recursiveIpSpaces( $ip_spaces, $this->Session->read('role'), $delete_confirm_html, $fill_confirm_html );
             }
         ?>
 </div> <!-- /.span9 -->
 </div> <!-- /.row -->
 
 <?php 
-function recursiveIpSpaces( $array ,$role, $delete_confirm_html ) { 
+function recursiveIpSpaces( $array ,$role, $delete_confirm_html, $fill_confirm_html ) { 
 
     if (count($array)) { 
         echo "\n<ul>\n";
@@ -64,7 +89,7 @@ function recursiveIpSpaces( $array ,$role, $delete_confirm_html ) {
             if (( $vals['IpSpace']['cidr'] == 32 ) && ( $vals['IpSpace']['primary_ip'] > 0 )) {
                 echo ' (Primary)';
             }
-            // must be an admin to see add/edit/delete buttons
+            // must be an admin to see add/edit/delete/fill icons
             if ( $role === 'admin' ) {
                 echo '&nbsp;&nbsp;&nbsp;';
                 echo '<a href="/ipSpaces/edit/'.$vals['IpSpace']['id'].'"><i class="icon-edit"></i></a>';
@@ -73,23 +98,23 @@ function recursiveIpSpaces( $array ,$role, $delete_confirm_html ) {
                 // or the fill link
                 if ( $vals['IpSpace']['cidr'] < 32 ) {
                     echo '<a href="/ipSpaces/add/'.$vals['IpSpace']['id'].'"><i class="icon-plus"></i></a>';
-                    echo '<a href="/ipSpaces/fill/'.$vals['IpSpace']['id'].'"><i class="icon-align-justify"></i></a>';
+                    
+                    $fill_confirm_html_tmp0 = preg_replace( '/(FILL_ID)/', $vals['IpSpace']['id'], $fill_confirm_html );
+                    // we also have to replace the default arrow icon (from the HTML Helper) with a custom icon
+                    $fill_confirm_html_tmp = preg_replace( '/icon-circle-arrow-right/', 'icon-align-justify', $fill_confirm_html_tmp0 );
+                    //$fill_confirm_html_tmp = preg_replace( '/href="#"/', 'href="#" onclick="$(this).closest(\'form\').submit()"', $fill_confirm_html_tmp0 );
+                    // <a href="#" onclick="$(this).closest('form').submit()"
+                    echo $fill_confirm_html_tmp; // Spit out the HTML we (manually) created abovee
+                    $fill_confirm_html_tmp = null;                    
                 }
                 
-                // don't allow them to delete the root space
-                // unless it's a /32
-                //if (( $vals['IpSpace']['parent_id'] != null ) || ( $vals['IpSpace']['cidr'] == 32 )) {
-                    $delete_id = $vals['IpSpace']['id'];
-                    $delete_confirm_html_tmp = preg_replace( '/(DELETE_ID)/', $delete_id, $delete_confirm_html);
-                    //var_dump($delete_confirm_html);
-                    //// echo '&nbsp;';
-                    // echo '<a href="/ipspaces/delete/'.$vals['IpSpace']['id'].'"><i class="icon-minus-sign"></i></a>';
-                    echo $delete_confirm_html_tmp; // Spit out the HTML we (manually) created above
-                    $delete_confirm_html_tmp = null;
-                //}
+                $delete_confirm_html_tmp = preg_replace( '/(DELETE_ID)/', $vals['IpSpace']['id'], $delete_confirm_html );
+                echo $delete_confirm_html_tmp; // Spit out the HTML we (manually) created above
+                $delete_confirm_html_tmp = null;
+                
             }
             if (count($vals['children'])) { 
-                recursiveIpSpaces( $vals['children'], $role, $delete_confirm_html ); 
+                recursiveIpSpaces( $vals['children'], $role, $delete_confirm_html, $fill_confirm_html ); 
             } 
             echo "</li>\n";
         } 
