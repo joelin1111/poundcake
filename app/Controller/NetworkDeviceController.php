@@ -370,7 +370,7 @@ class NetworkDeviceController extends AppController {
             $HttpSocket = parent::getMonitoringSystemSocket( $this->getMonitoringSystemUsername(), $this->getMonitoringSystemPassword() );
             $baseURI = $this->getMonitoringSystemBaseURI();
             
-            if ( !is_null( $HttpSocket ) && ( self::validateURL( $url )) ) {
+            if ( !is_null( $HttpSocket ) && ( self::validateURL( $baseURI )) ) {
                 $response = $HttpSocket->request(
                         array(
                             'method' => 'POST',
