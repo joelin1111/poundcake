@@ -214,25 +214,24 @@ function bootbox_dialogs() {
     $('a.confirm').click(function(e) {
         e.preventDefault();
         
-        // get the form element preceding the Delete link
+        // get the form element preceding the link
         //var $action = $('a.confirm').siblings().last().attr('action');
-        var $action = $(this).siblings( 'form' ).attr('action');
-        //console.log( $action );
+        // var action = $(this).closest( 'form' ).attr('action');
+        // var action = $(this).siblings('form').attr('action');
+        var action = $(this).prev('form').attr('action');
+        // console.log( action );
         
         // the text to display in the dialog box comes in as an HTML5
         // data attribute, data-dialog_msg="Foo"
-        var $string = $(this).data( 'dialog_msg' );
+        var string = $(this).data( 'dialog_msg' );
         
-        // console.log( $action );
-        
-        // bootbox.confirm( "Confirm "+$name+"?", function(confirmed) {
-        bootbox.confirm( $string + '?', function(confirmed) {
+        bootbox.confirm( string + '?', function(confirmed) {
             if (confirmed) {
                 $.ajax({
                         type: 'POST',
-                        url: $action,
+                        url: action,
                         success: function() {
-                            console.log( 'success');
+//                            console.log( 'success');
                             window.location.reload(true);
                         },
                         error: function() { console.log( 'error'); }
