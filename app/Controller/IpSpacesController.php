@@ -84,10 +84,14 @@ class IpSpacesController extends AppController {
                     $this->Session->setFlash('The IP Space has been saved.');
                     $this->redirect(array('action' => 'index'));
                 }
-                
-            } elseif ( $children == 0 ) {
+             
+            } elseif (( $children == 0 ) && ( $new_cidr < 32 ) ) {
+                // such as adding a /29 below a /8
                 $new_ip = $parent_ip;
-                //$new_ip++; // add one since this would otherwise assign a .0
+            } elseif (( $children == 0 ) && ( $new_cidr == 32 ) ) {
+                // adding a /32
+                $new_ip = $parent_ip;
+                $new_ip++;
             } else {                
                 $parent_cidr = $this->IpSpace->field('cidr');
 //                echo $parent_ip.'<br>';
@@ -96,8 +100,9 @@ class IpSpacesController extends AppController {
                 // calculate the maximum possible number of network's that can
                 // be created within the parent network (based on the parent's
                 // CIDR)
-                $n = $new_cidr - $parent_cidr;
-                $pos_nets = pow( 2, $n );
+//                $n = $new_cidr - $parent_cidr;
+//                $pos_nets = pow( 2, $n ) - 1;
+                $pos_nets = $this->calculatePossibleNetworks( $new_cidr, $parent_cidr );
                 
                 if ( $children >= $pos_nets ) {
                     $this->Session->setFlash('Error!  Parent subnet is a /'.$parent_cidr.', Maximum possible subnets reached.');
@@ -210,9 +215,14 @@ class IpSpacesController extends AppController {
         }
         $ip_space = $this->IpSpace->read();
         
-        $parent_cidr = $ip_space['IpSpace']['cidr'];
-        $n = 32 - $parent_cidr;
-        $pos_nets = pow( 2, $n );
+        // calculate the number of possible hosts in this cidr
+        $pos_nets = $this->calculatePossibleNetworks( 32, $ip_space['IpSpace']['cidr'] );
+        
+        // if they click "fill" on a /8 it will take forever, so limit
+        // it to 254 hosts
+        if ( $pos_nets > 254 ) {
+            $pos_nets = 254;
+        }
         
         $this->request->data['IpSpace']['cidr'] = '32';
         $this->request->data['IpSpace']['parent_id'] = $id;
@@ -370,6 +380,12 @@ class IpSpacesController extends AppController {
 //        die;
         return array( $start, $end );
   }
+  
+    private function calculatePossibleNetworks( $new_cidr, $parent_cidr ) {
+        $n = $new_cidr - $parent_cidr;
+        $pos_nets = pow( 2, $n );
+        return $pos_nets;
+    }
   
     public function isAuthorized($user) {
         
