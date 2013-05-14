@@ -100,6 +100,7 @@ class PoundcakeHTMLHelper extends AppHelper {
             // at the moment the only place where this is used is in delete of
             // an IP Space            
             $more_options = array('escape' => false );
+            //$more_options = array();
             $options = array_merge( $options, $more_options );
             return $this->Form->postLink($title,$url,$options,$confirmMessage);
         }
@@ -111,11 +112,12 @@ class PoundcakeHTMLHelper extends AppHelper {
    /*
     * Returns postLink if administrator
     */
-    function postLinkIfAdmin($title, $url = null, $options = array(), $confirmMessage = false) {
+    function postLinkIfAdmin($title, $url = null, $options = array(), $confirmMessage = false, $showText = true) {
         $i = $this->getIcon($title);
         $role = $this->Session->read('role');
         if ( $role === 'admin') {
             return $i.$this->Form->postLink($title,$url,$options,$confirmMessage);
+           
         } else {
             return $i.$title;
         }
