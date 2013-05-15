@@ -206,6 +206,9 @@ class IpSpacesController extends AppController {
         } else {
             $this->request->data = $this->IpSpace->read(null, $id);
         }
+        
+        $ip_address = $this->request->data['IpSpace']['ip_address'];
+        $this->set(compact('ip_address'));
     }
     
     public function fill($id = null) {

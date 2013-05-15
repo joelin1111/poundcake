@@ -37,8 +37,6 @@
 <div class="span9">
 	<h2>IP Spaces</h2>
         
-        <a href="#" class="link" data-original-title="first tooltip" data-placement="bottom">Hover me for a tooltip</a>
-        
         <?php
             if ( sizeof($ip_spaces) == 0 ) {
                 echo '<div class="alert">';

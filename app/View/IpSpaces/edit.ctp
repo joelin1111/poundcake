@@ -10,9 +10,11 @@
 
 <div class="span9">
     <?php echo $this->Form->create('IpSpace'); ?>
-    <h2>Edit IP Space</h2>
+    <h2>Edit IP Space</h2>    
     <?php    
-        echo $this->Form->input('name', array( 'required' => false ));   
+        echo '<label>IP Address</label>';
+        echo $ip_address;
+        echo $this->Form->input('name', array( 'required' => false )); 
     ?>
     </fieldset>
     <?php
