@@ -1,5 +1,6 @@
 <?php
-    echo $this->Html->script('bootstrap');
+    echo $this->Html->script('bootstrap'); // for the tooltips
+    echo $this->Html->script('poundcake/poundcake-accordian');
 ?>
 
 <div class="row">
@@ -29,6 +30,7 @@
             echo '<LI>'.PoundcakeHTMLHelper::ICON_DELETE." Delete</LI>";
             echo '<LI>'.PoundcakeHTMLHelper::ICON_EDIT." Rename</LI>";     
             echo '<LI><i class="icon-align-justify"></i> Fill</LI>';
+            echo '<LI><i class="icon-resize-full"></i> Expand/Collapse</LI>';
         ?>
         </UL>
     </div>
@@ -95,17 +97,20 @@
 function recursiveIpSpaces( $array ,$role, $delete_confirm_html, $fill_confirm_html ) { 
 
     if (count($array)) { 
-        echo "\n<ul>\n";
+        echo '<ul id="ip_space">';
         
         foreach ($array as $vals) { 
             //var_dump($vals);
             echo "<li id=\"".$vals['IpSpace']['id']."\">";
+           
             echo $vals['IpSpace']['name'];
             echo ' '.$vals['IpSpace']['ip_address'];
             echo ' /'.$vals['IpSpace']['cidr'];
             if (( $vals['IpSpace']['cidr'] == 32 ) && ( $vals['IpSpace']['primary_ip'] > 0 )) {
                 echo ' (Primary)';
             }
+            
+            
             // must be an admin to see add/edit/delete/fill icons
             if ( $role === 'admin' ) {
                 echo '&nbsp;&nbsp;&nbsp;';
@@ -133,11 +138,20 @@ function recursiveIpSpaces( $array ,$role, $delete_confirm_html, $fill_confirm_h
                 
                 $delete_confirm_html_tmp = preg_replace( '/(DELETE_ID)/', $vals['IpSpace']['id'], $delete_confirm_html );
                 echo $delete_confirm_html_tmp; // Spit out the HTML we (manually) created above
-                $delete_confirm_html_tmp = null;
+                $delete_confirm_html_tmp = null;            
                 
+                // show the expand or collapose icon if it's not a /32 and has children underneath
+                if ( $vals['IpSpace']['cidr'] < 32 ) {                    
+                    echo '<a href="#" class="toggle link" ';
+                    echo 'data-original-title="Expand or collapse" data-placement="bottom">';
+                    echo '<i class="icon-resize-full"></i></a>';
+                }
             }
+            
             if (count($vals['children'])) { 
-                recursiveIpSpaces( $vals['children'], $role, $delete_confirm_html, $fill_confirm_html ); 
+                //echo '<div class=\"toggle-pane\">';
+                recursiveIpSpaces( $vals['children'], $role, $delete_confirm_html, $fill_confirm_html );
+                //echo '</div>';
             } 
             echo "</li>\n";
         } 
