@@ -5,6 +5,9 @@
 
 $(document).ready(function () {
     
+    // show Bootstrap tooltips when there is a class 'tooltip'
+    $('.link').tooltip();
+    
     cakebootstrap();
     
     errorstrap();

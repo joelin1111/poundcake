@@ -1,3 +1,7 @@
+<?php
+    echo $this->Html->script('bootstrap');
+?>
+
 <div class="row">
 <div class="span3">
     <H3>Actions</H3>
@@ -32,6 +36,9 @@
 
 <div class="span9">
 	<h2>IP Spaces</h2>
+        
+        <a href="#" class="link" data-original-title="first tooltip" data-placement="bottom">Hover me for a tooltip</a>
+        
         <?php
             if ( sizeof($ip_spaces) == 0 ) {
                 echo '<div class="alert">';
@@ -49,7 +56,13 @@
                 // DELETE_ID with the id to delete
                 $delete_confirm_html = $this->PoundcakeHTML->postLinkIfAllowed('Delete',
                     array('controller'=>'ipSpaces', 'action'=>'delete', 'DELETE_ID'),
-                    array('method' => 'post','class'=>'confirm','data-dialog_msg'=>'Confirm delete of IP Space'),
+                    array(
+                        'method' => 'post',
+                        'class'=>'confirm link',
+                        'data-original-title' => 'Delete IP Space and children',
+                        'data-placement' => 'bottom',
+                        'data-dialog_msg'=>'Confirm delete of IP Space'
+                        ),
                     null,
                     false // don't show the text "Delete" -- icon only
                 );
@@ -57,7 +70,13 @@
                 // as above, but this warning is for the fill option
                 $fill_confirm_html = $this->PoundcakeHTML->postLinkIfAllowed('Fill',
                     array('controller'=>'ipSpaces', 'action'=>'fill', 'FILL_ID'),
-                    array('method' => 'post','class'=>'confirm fillForm','data-dialog_msg'=>'Fill IP Space with /32 host records'),
+                    array(
+                        'method' => 'post',
+                        'class'=>'confirm link',
+                        'data-original-title' => 'Fill this IP Space with /32s (maximum 254)',
+                        'data-placement' => 'bottom',
+                        'data-dialog_msg'=>'Fill IP Space with /32 host records'
+                        ),
                     null,
                     false // don't show the text "Fill" -- icon only
                 );
@@ -92,13 +111,19 @@ function recursiveIpSpaces( $array ,$role, $delete_confirm_html, $fill_confirm_h
             // must be an admin to see add/edit/delete/fill icons
             if ( $role === 'admin' ) {
                 echo '&nbsp;&nbsp;&nbsp;';
-                echo '<a href="/ipSpaces/edit/'.$vals['IpSpace']['id'].'"><i class="icon-edit"></i></a>';
+                echo '<a href="/ipSpaces/edit/';
+                echo $vals['IpSpace']['id'];
+                echo '" class="link" data-original-title="Rename IP Space" data-placement="bottom">';
+                echo '<i class="icon-edit"></i></a>';
 
                 // don't show the plus sign if it's a /32
                 // or the fill link
                 if ( $vals['IpSpace']['cidr'] < 32 ) {
-                    echo '<a href="/ipSpaces/add/'.$vals['IpSpace']['id'].'"><i class="icon-plus"></i></a>';
-                    
+                    echo '<a href="/ipSpaces/add/';
+                    echo $vals['IpSpace']['id'];
+                    echo '" class="link" data-original-title="Add child IP Space" data-placement="bottom">';
+                    echo '<i class="icon-plus"></i></a>';
+                
                     $fill_confirm_html_tmp0 = preg_replace( '/(FILL_ID)/', $vals['IpSpace']['id'], $fill_confirm_html );
                     // we also have to replace the default arrow icon (from the HTML Helper) with a custom icon
                     $fill_confirm_html_tmp = preg_replace( '/icon-circle-arrow-right/', 'icon-align-justify', $fill_confirm_html_tmp0 );
