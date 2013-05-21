@@ -1,8 +1,3 @@
-<?php
-    // jQuery to enable/disable fields based on checkbox
-    // echo $this->Html->script('poundcake/poundcake-snmp-override');    
-?>
-
 <div class="row">
 <div class="span3">
     <H3>Actions</H3>

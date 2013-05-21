@@ -38,6 +38,8 @@
                 <li><a href="#tab2" data-toggle="tab"><i class="icon-user"></i>Contacts</a></li>
                 <li><a href="#tab3" data-toggle="tab"><i class="icon-cog"></i>Network</a></li>
                 <li><a href="#tab4" data-toggle="tab"><i class="icon-camera"></i>Files</a></li>
+<!--                <li><a href="#tab5" data-toggle="tab"><i class="icon-globe"></i>Profile</a></li>
+                <li><a href="#tab6" data-toggle="tab"><i class="icon-signal"></i>Coverage</a></li>-->
             </ul>
             
             <div class="tab-content">
@@ -393,6 +395,19 @@
                     } else {
                         echo "<P><UL><LI>None</LI></UL></P>";
                     }
+                    ?>
+                </div>
+                <div class="tab-pane" id="tab5">
+                    <?php
+                        echo $this->Html->image('test/profile-1.png', array('alt' => 'Profile #1'));
+                        //echo $this->Html->image('test/profile-2.png', array('alt' => 'Profile #2'));
+                        echo $this->Html->image('test/profile-3.png', array('alt' => 'Profile #3'));
+                        echo $this->Html->image('test/profile-data.png', array('alt' => 'Profile Data'));
+                    ?>
+                </div>
+                <div class="tab-pane" id="tab6">
+                    <?php
+                        echo $this->Html->image('test/viewshed-1.png', array('alt' => 'Viewshed #1'));
                     ?>
                 </div>
             </div>

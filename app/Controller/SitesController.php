@@ -504,51 +504,6 @@ class SitesController extends AppController {
     }
     
     /*
-     * Recursive KML parser - deprecated, was used with Sam's KML for InternetNow
-     */
-    /*
-    private function parseKML_old_Sam ( $xml, $overwrite ) {
-        if ($xml != null ) {
-            if ( $xml->Folder != null ) {
-                $count = $xml->Folder->count();
-                if ( $count == 0 ) {
-                    $children = $xml->children();
-//                    debug( $xml );
-                    foreach ( $children as $child ) {
-                        if ( $child->Point->coordinates ) {
-                            $coords = explode(",", $child->Point->coordinates);
-                            $name = $child->name;
-                            debug ($name);
-                            $lat = $coords[0];
-                            $lon = $coords[1];
-                            if ($overwrite) {
-                                $site = $this->Site->findByname( $name );
-                                if (isset($site['Site']['id'])) {
-                                    $this->Site->delete($site['Site']['id']);
-                                }
-                            }                   
-                            $this->Site->create();
-                            $this->Site->set( 'name', (string)$name ); // converts it from SimpleXMLElement Object back to a string
-                            $this->Site->set( 'lat', $lat );
-                            $this->Site->set( 'lon', $lon );
-                            $this->Site->set( 'project_id', $this->Session->read('project_id') );
-                            $this->Site->save();
-                        }
-                    }
-                }
-                
-                $i = 0;
-                while ( $i < $count ) {
-                        $this->parseKML( $xml->Folder[$i], $overwrite );
-                    $i++;
-                }
-            }
-        }
-        return;
-    }
-    */
-    
-    /*
      * Export sites into a KML file
      * @see https://developers.google.com/kml/articles/phpmysqlkml
      */
@@ -1357,7 +1312,7 @@ class SitesController extends AppController {
     
     private function checkAlarm( $HttpSocket, $ms_url, $node_foreign_source, $node_foreign_id, $model ) {
         $is_down = 0;   
-        $node_foreign_source = 'XXX';
+        // $node_foreign_source = 'XXX';
         if ( self::CRON_DEBUG ) {
             echo '<pre>';
             echo "<LI>URI: $ms_url";
@@ -1592,7 +1547,7 @@ class SitesController extends AppController {
         preg_replace('/[^a-zA-Z0-9_ %\[\]\.\(\)%&-]/s', '', $code);
         $code = str_replace(' ', '', $code);
         $code = strtoupper( substr($code, 0, 6) );
-        var_dump($code);
+        //var_dump($code);
         $unique = false;
         $n = 0;
         // this may go out of control if all permutations of the site code are

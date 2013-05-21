@@ -215,3 +215,7 @@ $td = mcrypt_module_open('tripledes', '', 'ecb', '');
 $iv = mcrypt_create_iv (mcrypt_enc_get_iv_size($td), MCRYPT_RAND); 
 mcrypt_module_close($td); 
 Configure::write('Cryptable.iv', $iv); 
+
+// load the Utility plugin -- thos handles the AutoLogin
+// @see http://milesj.me/code/cakephp/utility
+CakePlugin::load('Utility', array('bootstrap' => true, 'routes' => true));

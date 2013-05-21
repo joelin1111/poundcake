@@ -25,6 +25,8 @@
 
 class UsersController extends AppController {
     
+    public $components = array('Cookie');
+    
     /*
      * Custom pagination, sort order on index listing
      */
@@ -423,6 +425,7 @@ class UsersController extends AppController {
      * Login is our main login routine
      */
     public function login() {
+        
         // if the user is already logged in (maybe opening the site in a new tab)
         // don't send them to the login page
         if ($this->Session->check('Auth.User')) {
@@ -480,6 +483,7 @@ class UsersController extends AppController {
                     // see also projects() in this controller
                     $this->Session->write('project_id', $project_id);
                     $this->Session->write('project_name', $project_name);
+                    
                     // log the user's login time and IP address
                     $this->User->saveField('last_login', date( "Y-m-d H:i:s", time() ));
                     $this->User->saveField('ip_address', ip2long($this->request->clientIp()));                    
@@ -521,7 +525,6 @@ class UsersController extends AppController {
             
         }
         $this->Session->write( 'role', $role );
-        // var_dump( $this->Session->read('role') );
     }
     
     /*
@@ -542,7 +545,7 @@ class UsersController extends AppController {
             $this->Session->destroy();
             $this->redirect($this->Auth->logout());
         } else {
-            $this->redirect(array('controller'=>'pages','action' => 'display','home'));
+            $this->redirect(array('controller'=>'sites','action' => 'overview'));
             $this->Session->setFlash('Error!  Not logged in.', 'default', array(), 'auth');
         }
     }

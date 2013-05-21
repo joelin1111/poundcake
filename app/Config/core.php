@@ -19,6 +19,10 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 
+// @see http://milesj.me/blog/read/using-composer-in-cakephp
+//App::import('Vendor', array('file' => 'autoload'));
+// require_once dirname(__DIR__) . '/Vendor/autoload.php';
+
 /**
  * CakePHP Debug Level:
  *
@@ -32,15 +36,17 @@
  * In production mode, flash messages redirect after a time interval.
  * In development mode, you need to click the flash message to continue.
  */
-    
+    /*
+    // I can't remmeber if this works anymore... I don't think so
+    // an attempt to enable much more debugging when on Clark's machine
     $host = php_uname('n');
     if ( $host === 'Catapult-Clarks-MacBook.local' ) {
         $dbg = 2;
     } else {
         $dbg = 1;
     }
-    
     Configure::write('debug', $dbg );
+    */
     
 /**
  * Configure the Error handler used to handle errors for your application.  By default
@@ -180,9 +186,20 @@
  * the cake shell command: cake schema create Sessions
  *
  */
-	Configure::write('Session', array(
-		'defaults' => 'php'
-	));
+        
+//	Configure::write('Session', array(
+//		'defaults' => 'php'
+//	));
+        // See PC-492
+        Configure::write('Session', array(
+            'defaults' => 'php',
+            //'timeout' => 1, // CakePHP's session timeout
+            //'cookieTimeout' => 10, // Cookie timeout
+            'timeout' => 480, // CakePHP's session timeout
+            'cookieTimeout' => 480, // Cookie timeout
+            'cookie' => 'Poundcake', // Cookie name
+            'autoRegenerate' => true // renew the session timer if they are still active
+        ));
 
 /**
  * The level of CakePHP security.
@@ -197,7 +214,7 @@
 /**
  * A random numeric string (digits only) used to encrypt/decrypt strings.
  */
-	Configure::write('Security.cipherSeed', '7uu6859309657453542496749683645');
+	Configure::write('Security.cipherSeed', '7906859309657453542496749683645');
 
 /**
  * Apply timestamps with the last modified time to static assets (js, css, images).
@@ -259,7 +276,7 @@ if (Configure::read('debug') >= 1) {
 }
 
 // Prefix each application on the same server with a different string, to avoid Memcache and APC conflicts.
-$prefix = 'myapp_';
+$prefix = 'poundcake_';
 
 /**
  * Configure the cache used for general framework caching.  Path information,
@@ -283,3 +300,4 @@ Cache::config('_cake_model_', array(
 	'serialize' => ($engine === 'File'),
 	'duration' => $duration
 ));
+

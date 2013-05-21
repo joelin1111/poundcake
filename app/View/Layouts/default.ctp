@@ -30,7 +30,7 @@ $cakeDescription = __d('poundcake', 'Tower DB');
 	<?php
             // jQuery                
             echo $this->Html->script('jquery-1.9.1.min');
-            echo $this->Html->script('jquery-ui/jquery-ui-1.10.0.custom.min');
+            echo $this->Html->script('jquery-ui/jquery-ui-1.10.3.custom.min');
             echo $this->Html->script('bootstrap.min'); // Bootstrap's jQuery file
             echo $this->Html->script('poundcake/poundcake'); // Our custom jQuery file available to all pages
             echo $this->Html->script('bootbox.min'); // Bootbox jQuery -- for the dialogs
@@ -48,7 +48,7 @@ $cakeDescription = __d('poundcake', 'Tower DB');
             //echo $this->Html->css('spacelab/spacelab-bootstrap.min'); // testing Spacelab from Bootswatch
             echo $this->Html->css('poundcake'); // our own custom CSS file -- some of this overrides Bootstrap's CSS
             echo $this->Html->css('jasny-bootstrap');  // Jasny is used for the File upload widget
-            echo $this->Html->css('jquery-ui'); // used at least by the Datepicker, not sure what else uses jQuery UI
+            echo $this->Html->css('jquery-ui-1.10.3.custom.min'); // used at least by the Datepicker, not sure what else uses jQuery UI
             
             // LESS 
             // @see http://mindthecode.com/using-less-in-cakephp/
@@ -216,11 +216,18 @@ $cakeDescription = __d('poundcake', 'Tower DB');
                 echo $this->Html->link(('Version History'), array('action' => 'index', 'controller' => 'changeLog'));
             }
             echo '</small>';
-            
+                       
         ?>
             
     <?php //echo $this->element('sql_dump'); ?>
     </div> <!-- /footer -->
+    <?php
+//        echo "<BR>Session info:<BR><UL>";
+//        foreach($_SESSION as $key => $value) {
+//            echo  '<li>Current session variable ' . $key . ' is: ' . $value . '</li>';
+//        }
+//        echo "</UL>";
+    ?>
     </div> <!-- /.container -->
 </body>
 </html>

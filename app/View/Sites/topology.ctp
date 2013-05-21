@@ -12,6 +12,8 @@
     echo $this->Html->script('jquery-ui-map/jquery.ui.map.overlays'); // for polyLine support
     echo $this->Html->script('poundcake/poundcake-map');
     
+    $this->Session->write( 'random', rand(5, 15) );
+    
 ?>
 <div class="row">
 <div class="span12">
@@ -130,7 +132,7 @@ Next page refresh: <span id=counter> </span>
 <!--
 var counterobj = document.all ? counter : document.getElementById("counter");
 
-var countdownfrom = 140;	//countdown period in seconds
+var countdownfrom = 120; // countdown period in seconds
 var currentsecond = counterobj.innerHTML = countdownfrom+1; 
 
 function countdown() {

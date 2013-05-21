@@ -40,7 +40,14 @@ class AppController extends Controller {
             'logoutRedirect' => array('controller' => 'users', 'action' => 'login'),
             'authorize' => array('Controller')
         ),
-        'RequestHandler'
+        'Cookie',
+        // see the Utility plugin, AutoLogin feature
+        'Utility.AutoLogin' => array(
+            'cookieName' => 'PoundcakeUser',
+            'expires' => '+2 weeks',
+            'redirect' => false
+        ),        
+        'RequestHandler'        
     );
 
     /*
@@ -149,24 +156,9 @@ class AppController extends Controller {
      * Standard call back function -- used for the login/ACL.
      */
     public function beforeFilter() {
-        // tell the AuthComponent to not require a login for all index and
-        // view actions, in every controller. We want our visitors to be able to
-        // read and list the entries without registering in the site.
-        //$this->Auth->allow('index', 'view', 'overview','overviewalt');
-        // $this->Auth->allow();
-        
         // allows access to nothing if not logged in
         // by only allowing them access to the logout page
         $this->Auth->allow('logout');
-        
-        //$this->Session->delete('Message.auth');
-        // this is from:  http://stackoverflow.com/questions/7968312/cakephp-mobile-layout-home-redirect-requesthandler-ismobile
-        // see also afterFilter
-//        if ($this->RequestHandler->isMobile()) {
-//            $this->is_mobile = true;
-//            $this->set('is_mobile', true );
-//            $this->autoRender = false;
-//        }
     }
     
     /*
@@ -240,6 +232,78 @@ class AppController extends Controller {
     }
     
     /*
+     * Call back for AutoLogin, part of the Utility plugin
+     * @see http://milesj.me/code/cakephp/utility
+     * Also see setup in bootstrap.php
+     */
+    public function _autoLogin( $user ) {
+        // var_dump( $user );        
+        // re-load key session variables here
+        // load the project_id -- this is actually saved to the user table, so
+        // we can retrieve it pretty easily
+        $this->Session->write('project_id', $user['project_id'] );
+
+        // load the User model
+        $this->loadModel('User');
+        $this->User->recursive = 2;
+        $this->User->id = $user['id'];
+        $user = $this->User->read();
+//        var_dump( $user );
+//        $this->User->Behaviors->load('Containable');
+//        $projects = $this->User->find('all',
+//                array(
+//                    'contain' => 'ProjectMembership',
+//                    'conditions' => array('ProjectMembership.user_id =' => $user['id'] )
+//                    )
+//        );
+//        var_dump( $projects ); die;
+        
+        $user['User']['auto_login'] = true;
+//        var_dump( $user );
+//        var_dump( $user2 );
+        // so that we an find any project memberships
+        $projects = $user['ProjectMembership'];
+        foreach ( $projects as $project ) {
+//            echo "Comparing:".$project['project_id']." to ".$user['project_id']." <BR>";
+            if ( $project['project_id'] == $user['project_id'] ) {
+                $role_id = $project['role_id'];
+            }
+        }
+
+        // if they are an amin (admin field is 1 on the User model), then their
+        // role alias is admin regardless
+        if ( $user['User']['admin'] > 0 ) {
+            $rolealias = 'admin';
+        } else {
+            // otherwise we get the role alias off the project's membership
+            $this->loadModel('Role');
+            $this->Role->id = $role_id;
+            $role = $this->Role->read();
+            $rolealias = $role['Role']['rolealias'];
+        }
+        
+//        var_dump($rolealias);
+        $this->Session->write( 'role', $rolealias );
+//        var_dump($role);
+//        var_dump($rolealias);
+//        die;
+        
+        // load the project so we can get the project name
+        $this->loadModel('Project');
+        $this->Project->id = $user['project_id'];
+        $project = $this->Project->read();
+        $t = date("H:i:s");
+        $this->Session->write('project_name', $project['Project']['name'].' - Updated by AutoLogin at '. $t);
+//        var_dump( $user );
+    }
+    
+    public function _autoLoginError( $x ) {
+        echo "_autoLoginError:<BR>";
+        var_dump($x);
+        die;
+    }
+    
+    /*
    * 
    */
     protected function getCidrs( $c ) {
@@ -256,25 +320,6 @@ class AppController extends Controller {
      * release number
      */
     function beforeRender() {
-        /*
-        if ($this->Session->check('Message.flash')) {
-            $flash = $this->Session->read('Message.flash');
-            echo "Flash is ".$flash['message']."<BR>";
-            echo "Last flash is: ".$this->Session->read('last_flash_message');
-            if ( $flash['message'] == $this->Session->read('last_flash_message') ) {
-                echo "clearning flash";
-                $this->Session->setFlash(null);
-                $msg = '';
-            } else {
-                $msg = $flash['message'];
-            }
-            $this->Session->write('last_flash_message', $msg );
-//            if ($flash['element'] == 'default') {
-//                //$flash['element'] = 'flash_error';
-//                $this->Session->write('Message.flash', $flash);
-//            }
-        }
-        */
         $this->response->disableCache();
         $banner_ctr = $this->Session->read('banner_ctr');
         $this->set('user', $this->Auth->user());
