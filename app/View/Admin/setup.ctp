@@ -62,6 +62,7 @@
             <UL>
                 <li><?php echo $this->Html->link('Antenna Types', '/admin/antennaTypes/index'); ?></li>
                 <li><?php echo $this->Html->link('Frequencies', '/admin/frequencies/index'); ?></li>
+                <li><?php echo $this->Html->link('Network Interfaces', '/admin/networkInterfaces/index'); ?> </li>
                 <li><?php echo $this->Html->link('Radio Bands', '/admin/radioBands/index'); ?></li>
                 <li><?php echo $this->Html->link('Radio Modes', '/admin/radioModes/index'); ?> </li>
                 <li><?php echo $this->Html->link('Radio Types', '/admin/radioTypes/index'); ?> </li>

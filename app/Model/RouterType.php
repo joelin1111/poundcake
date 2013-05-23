@@ -29,6 +29,13 @@ class RouterType extends AppModel {
     public $displayField = 'name';
 
     /*
+     * Relations
+     */
+    public $hasAndBelongsToMany = array(
+        'NetworkInterface'
+    );
+    
+    /*
      * Default sort order
      */
     var $order = 'RouterType.name ASC';

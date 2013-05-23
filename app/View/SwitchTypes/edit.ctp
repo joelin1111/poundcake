@@ -18,6 +18,8 @@
         echo $this->Form->input('manufacturer');
         echo $this->Form->input('model');
         echo $this->Form->input('watts');
+        // include multiple checkboxes for NetworkInterfaces
+        echo $this->element('Common/network_interfaces');
     ?>
     </fieldset>
     <?php

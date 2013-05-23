@@ -50,7 +50,10 @@ class RadioType extends AppModel {
     /*
      * Relations
      */
-    public $hasAndBelongsToMany = array('AntennaType');
+    public $hasAndBelongsToMany = array(
+        'AntennaType',
+        'NetworkInterface'
+    );
     
     /*
      * Field-level validation rules

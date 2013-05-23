@@ -49,8 +49,9 @@ class SwitchTypesController extends AppController {
                 $this->Session->setFlash('Error!  The switch type could not be saved. Please, try again.');
             }
         }
+        parent::getNetworkIntefaces();
     }
-
+    
     /*
      * Edit an existing SwitchType
      */
@@ -69,6 +70,7 @@ class SwitchTypesController extends AppController {
         } else {
             $this->request->data = $this->SwitchType->read(null, $id);
         }
+        parent::getNetworkIntefaces();
     }
 
     /*

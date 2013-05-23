@@ -3,22 +3,17 @@
     <H3>Actions</H3>
     <div class="well">
     <ul>
-        <li><?php echo $this->PoundcakeHTML->link('List Router Types', array('action' => 'index')); ?></li>
+        <li><?php echo $this->PoundcakeHTML->link('List Network Interfaces', array('action' => 'index')); ?></li>
     </ul>
     </div>
 </div><!-- /.span3 .sb-fixed -->
 
 <div class="span9">
-    <?php echo $this->Form->create('RouterType'); ?>
-    <h2>Edit Router Type</h2>
+    <?php echo $this->Form->create('NetworkInterface'); ?>
+    <h2>Edit Interface</h2>
     <?php
         echo $this->Form->input('id');
         echo $this->Form->input('name');
-        echo $this->Form->input('manufacturer');
-        echo $this->Form->input('model');
-        echo $this->Form->input('watts');
-        // include multiple checkboxes for NetworkInterfaces
-        echo $this->element('Common/network_interfaces');
     ?>
     </fieldset>
     <?php

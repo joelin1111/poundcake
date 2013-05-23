@@ -1,8 +1,8 @@
 <?php
 /**
- * Model for switch types.
+ * Model for a network interface.
  *
- * Developed against CakePHP 2.2.3 and PHP 5.4.x.
+ * Developed against CakePHP 2.3.0 and PHP 5.4.x.
  *
  * Copyright 2012, Inveneo, Inc. (http://www.inveneo.org)
  *
@@ -14,14 +14,14 @@
  * @author        Clark Ritchie <clark@inveneo.org>
  * @link          http://www.inveneo.org
  * @package       app.Model
- * @since         SwitchType precedes Poundcake v2.2.1
+ * @since         RadioType precedes Poundcake v2.2.1
  * @license       XYZ License
  */
 
 
 App::uses('AppModel', 'Model');
 
-class SwitchType extends AppModel {
+class NetworkInterface extends AppModel {
 
     /*
      * Display field for select lists
@@ -31,13 +31,20 @@ class SwitchType extends AppModel {
     /*
      * Default sort order
      */
-    var $order = 'SwitchType.name ASC';
+    var $order = 'NetworkInterface.name ASC';
     
     /*
      * Relations
      */
-    public $hasAndBelongsToMany = array(
-        'NetworkInterface'
+    var $belongsTo = array(
+       //'RadioBand'
+    );
+    
+    /*
+     * Relations
+     */
+    var $hasMany = array(
+       //'NetworkRadios'
     );
     
     /*
@@ -48,22 +55,6 @@ class SwitchType extends AppModel {
             'notempty' => array(
                 'rule' => array('notempty'),
                 'message' => 'This field cannot be blank.',
-                //'allowEmpty' => false,
-                //'required' => false,
-                //'last' => false, // Stop validation after this rule
-                //'on' => 'create', // Limit validation to 'create' or 'update' operations
-            )
-        ),
-        'manufacturer' => array(
-            'notempty' => array(
-                'rule' => 'alphaNumeric',
-                'message' => 'Manufacturer name may not contain spaces.'
-            )
-        ),
-        'watts' => array(
-            'notempty' => array(
-                'rule' => 'numeric',
-                'message' => 'Watts are a required value.'
             )
         )
     );
