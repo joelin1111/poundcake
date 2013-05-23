@@ -124,8 +124,8 @@ class NetworkRoutersController extends NetworkDeviceController {
             }
         }
         $this->getSnmpTypes();
-        $this->getIpSpaces();
         $project_id = $this->Session->read('project_id');
+        parent::getIpSpaces( $project_id );
         $this->set(compact('project_id'));
     }
 
@@ -161,8 +161,8 @@ class NetworkRoutersController extends NetworkDeviceController {
         $this->getAllSitesForProject();
         $this->getRouterTypes();
         $this->getSnmpTypes();
-        $this->getIpSpaces();
         $project_id = $this->Session->read('project_id');
+        parent::getIpSpaces( $project_id );
         $this->set(compact('old_site_id','project_id'));
     }
 

@@ -696,29 +696,26 @@ class NetworkDeviceController extends AppController {
     }
     
     /*
-     * 
+     * Return a listing of /32 address in the IpSpace for the project that are marked
+     * as Primary IPs
      */
-    protected function getIpSpaces() {
-        $project_id = $this->Session->read('project_id');
+    protected function getIpSpaces( $project_id ) {
         $model = $this->modelClass;
         $this->$model->IpSpace->recursive = -1;
         //$all_addresses = $this->$model->IpSpace->findAllByProjectId( $project_id );
-        $all_addresses = $this->$model->IpSpace->find('all', array( 
+        $ip_spaces = $this->$model->IpSpace->find('list', array( 
            //'order' => array('IpSpace.lft'),
-           'conditions' => array(
+           'conditions' => array (
                'IpSpace.project_id' => $project_id,
                'cidr' => 32, // we only want /32 IPs
                'primary_ip' => true // we only want /32 IPs
                ),
+            'fields' => array ('id','ip_address'),
             // sort by ip address in case some were deleted and then
             // re-added, which would otherwise make them out of sequence
            'order' => array('IpSpace.ip_address')
         )); 
         
-        $ip_spaces = array();
-        foreach ( $all_addresses as $addr ) {
-            $ip_spaces[ $addr['IpSpace']['id'] ] = $addr['IpSpace']['ip_address'];
-        }
         $this->set(compact('ip_spaces'));
     }
     
