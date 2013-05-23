@@ -231,7 +231,7 @@ class IpSpacesController extends AppController {
         $this->request->data['IpSpace']['parent_id'] = $id;
         $this->request->data['IpSpace']['project_id'] = $this->Session->read( 'project_id' );
             
-        for ( $n = 0; $n < $pos_nets - 2; $n++ ) {
+        for ( $n = 0; $n < $pos_nets; $n++ ) {
             $this->request->data['IpSpace']['name'] = 'Unused';
             $this->add( $id, true );
         }

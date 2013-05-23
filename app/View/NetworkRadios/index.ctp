@@ -1,7 +1,7 @@
 <div class="row">
 <div class="span3">
     <H3>Actions</H3>
-    <div class="well"> <!-- was: well-large -->
+    <div class="well">
     <ul>
         <li><?php echo $this->PoundcakeHTML->linkIfAllowed('New Radio', array('action' => 'add')); ?></li>
     </ul>
@@ -66,7 +66,6 @@
     <?php
         // include pagination
         echo $this->element('Common/pagination');
-        //echo $this->element('sql_dump');
     ?>
 </div> <!-- /.span9 -->
 </div> <!-- /.row -->

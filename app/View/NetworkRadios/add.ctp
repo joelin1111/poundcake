@@ -8,7 +8,7 @@
     <?php echo $this->Html->addCrumb('Radios', '/networkRadios'); ?>
 <div class="span3">
     <H3>Actions</H3>
-    <div class="well"> <!-- was: well-large -->
+    <div class="well">
     <ul>
         <li><?php echo $this->Html->link('List Radios', array('action' => 'index')); ?>
     </ul>

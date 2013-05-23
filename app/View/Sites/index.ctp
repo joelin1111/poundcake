@@ -2,7 +2,7 @@
     <?php //echo $this->element('sql_dump'); ?>
 <div class="span3">
     <H3>Actions</H3>
-    <div class="well"> <!-- was: well-large -->
+    <div class="well">
         <ul>
         <li><?php echo $this->PoundcakeHTML->linkIfAllowed('New Site', array('action' => 'add')); ?></li>
         <li><?php echo $this->PoundcakeHTML->linkIfAllowed('Site Linker', array('action' => 'linker')); ?></li>
@@ -21,7 +21,7 @@
     <?php echo $this->element('Common/search'); ?>
     
     <H3>Install Teams</H3>
-    <div class="well"> <!-- was: well-large -->
+    <div class="well">
     <ul>
         <?php
         if ( count($installteams) > 0 ) {

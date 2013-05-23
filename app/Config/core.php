@@ -36,17 +36,16 @@
  * In production mode, flash messages redirect after a time interval.
  * In development mode, you need to click the flash message to continue.
  */
-    /*
     // I can't remmeber if this works anymore... I don't think so
     // an attempt to enable much more debugging when on Clark's machine
     $host = php_uname('n');
-    if ( $host === 'Catapult-Clarks-MacBook.local' ) {
+    if ( $host === 'Clarks-MacBook-Pro.local' ) {
         $dbg = 2;
     } else {
         $dbg = 1;
     }
     Configure::write('debug', $dbg );
-    */
+    
     
 /**
  * Configure the Error handler used to handle errors for your application.  By default

@@ -6,7 +6,7 @@
 <div class="row">
 <div class="span3">
     <H3>Actions</H3>
-    <div class="well"> <!-- was: well-large -->
+    <div class="well">
     <ul>
         <li><?php
             /*if ( $internal_space_count == 0 ) {
@@ -124,7 +124,7 @@ function recursiveIpSpaces( $array ,$role, $delete_confirm_html, $fill_confirm_h
                 if ( $vals['IpSpace']['cidr'] < 32 ) {
                     echo '<a href="/ipSpaces/add/';
                     echo $vals['IpSpace']['id'];
-                    echo '" class="link" data-original-title="Add child IP Space" data-placement="bottom">';
+                    echo '" class="link" data-original-title="Add network or host" data-placement="bottom">';
                     echo '<i class="icon-plus"></i></a>';
                 
                     $fill_confirm_html_tmp0 = preg_replace( '/(FILL_ID)/', $vals['IpSpace']['id'], $fill_confirm_html );

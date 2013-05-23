@@ -36,22 +36,10 @@ class RadioTypesController extends AppController {
     }
     
     /*
-     * View an existing RadioType
-     */
-    public function view($id = null) {
-        $this->RadioType->id = $id;
-        if (!$this->RadioType->exists()) {
-                throw new NotFoundException('Invalid radio type');
-        }
-        $this->set('radioType', $this->RadioType->read(null, $id));
-    }
-
-    /*
      * Add a new RadioType
      */
     public function add() {
         if ($this->request->is('post')) {
-            // AppController::handleCancel();
             $this->RadioType->create();
             if ($this->RadioType->save($this->request->data)) {
                 $this->Session->setFlash('The radio type has been saved.');
@@ -160,5 +148,4 @@ class RadioTypesController extends AppController {
     public function isAuthorized($user) {
         return parent::isAuthorized($user);
     }
-        
 }

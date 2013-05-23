@@ -712,8 +712,11 @@ class SitesController extends AppController {
         $this->getContacts($id);
         $this->getAllSitesForProject( $id ); // exclude this site from the list of sites
         
-        $this->getBuildItems();
-        $code = $this->Site->data['Site']['code'];       
+        // sum up the watts for the devices on this site
+        $watts = 0;
+        $watts += $this->Site->NetworkRouter->RouterType->field( 'watts' );
+        $watts += $this->Site->NetworkSwitch->SwitchType->field( 'watts' );
+        
         $radios = $this->Site->NetworkRadios->findAllBySiteId($id);
         $n = 0;
         foreach ($radios as $radio) {
@@ -731,11 +734,14 @@ class SitesController extends AppController {
             }
             $radios[$n] = $radio;
             $n++;
+            
+            $watts += $radio['RadioType']['watts'];
+            // $watts += $this->Site->NetworkRadios->RouterType->field( 'watts' );
         }
-        $this->set('radios', $radios);
-//        echo '<pre>';print_r($site['SiteState']);echo'</pre>';die;
-        $ip_addresses = $this->getAllIPAddresses($code);
-        $this->set(compact('site', 'ip_addresses'));
+        
+        $this->getBuildItems();
+        $ip_addresses = $this->getAllIPAddresses( $this->Site->data['Site']['code'] );
+        $this->set(compact( 'site', 'ip_addresses', 'radios', 'watts' ));
     }
     
     /*

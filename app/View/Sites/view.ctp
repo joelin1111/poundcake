@@ -15,7 +15,7 @@
 <div class="row">
 <div class="span3">
     <H3>Actions</H3>
-    <div class="well"> <!-- was: well-large -->
+    <div class="well">
     <ul>
         <li><?php echo $this->PoundcakeHTML->linkIfAllowed('Edit Site', array('action'=>'edit', $site['Site']['id']),1);?></li>
         <li><?php echo $this->PoundcakeHTML->link('List Sites', array('action'=>'index')); ?></li>
@@ -80,6 +80,10 @@
 
                                 <dt>Power Type</dt>
                                 <dd><?php echo $site['PowerType']['name'] ? : 'None'; ?></dd>
+                                
+                                <dt>Power Consumption</dt>
+                                <dd><?php echo $watts; ?>W (<?php echo ($watts * 24)?> Watt hours)</dd>
+                        
                             </dl>
                         </div>
                         <div class="span4">

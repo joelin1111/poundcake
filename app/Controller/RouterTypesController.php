@@ -36,17 +36,6 @@ class RouterTypesController extends AppController {
     }
 
     /*
-     * View a RouterType
-     */
-    public function view($id = null) {
-        $this->RouterType->id = $id;
-        if (!$this->RouterType->exists()) {
-            throw new NotFoundException('Invalid router type');
-        }
-        $this->set('routerType', $this->RouterType->read(null, $id));
-    }
-
-    /*
      * Add a new RouterType
      */
     public function add() {

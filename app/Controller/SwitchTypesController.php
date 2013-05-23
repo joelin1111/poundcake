@@ -36,17 +36,6 @@ class SwitchTypesController extends AppController {
     }
 
     /*
-     * View a SwitchType
-     */
-    public function view($id = null) {
-        $this->SwitchType->id = $id;
-        if (!$this->SwitchType->exists()) {
-            throw new NotFoundException('Invalid switch type');
-        }
-        $this->set('switchType', $this->SwitchType->read(null, $id));
-    }
-
-    /*
      * Add a new SwitchType
      */
     public function add() {
