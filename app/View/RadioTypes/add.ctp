@@ -1,7 +1,7 @@
 <div class="row">
 <div class="span3">
     <H3>Actions</H3>
-    <div class="well"> <!-- was: well-large -->
+    <div class="well">
     <ul>
         <li><?php echo $this->PoundcakeHTML->link('List Radio Types', array('action' => 'index')); ?>
     </ul>
@@ -14,6 +14,7 @@
     <?php
         echo $this->Form->input('name');
         echo $this->Form->input('manufacturer');
+        echo $this->Form->input('watts',array('value'=>'0'));
         echo $this->Form->input('radio_band_id', array('type'=>'select','options' => $radiobands));
         // checkboxes for compatable antenna types
         echo $this->Form->input('AntennaType.AntennaType',array(

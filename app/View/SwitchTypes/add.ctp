@@ -1,7 +1,7 @@
 <div class="row">
 <div class="span3">
     <H3>Actions</H3>
-    <div class="well"> <!-- was: well-large -->
+    <div class="well">
     <ul>
         <li><?php echo $this->PoundcakeHTML->link('List Switch Types', array('action' => 'index')); ?>
     </ul>
@@ -16,6 +16,7 @@
         echo $this->Form->input('ports');
         echo $this->Form->input('manufacturer');
         echo $this->Form->input('model');
+        echo $this->Form->input('watts',array('value'=>'0'));
     ?>
     </fieldset>
     <?php

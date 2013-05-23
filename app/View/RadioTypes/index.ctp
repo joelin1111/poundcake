@@ -1,7 +1,7 @@
 <div class="row">
 <div class="span3">
     <H3>Actions</H3>
-    <div class="well"> <!-- was: well-large -->
+    <div class="well">
     <ul>
         <li><?php echo $this->PoundcakeHTML->link('New Radio Type', array('action' => 'add')); ?></li>
         <li><?php echo $this->PoundcakeHTML->link('Setup',array('controller'=>'admin','action' => 'setup')); ?></li>
@@ -16,6 +16,7 @@
                 <tr>
                     <th class="index-item"><?php echo $this->Paginator->sort('name'); ?></th>
                     <th class="index-item"><?php echo $this->Paginator->sort('radio_band_id'); ?></th>
+                    <th class="index-item"><?php echo $this->Paginator->sort('watts'); ?></th>
                     <th class="index-action"><?php echo 'Actions'; ?></th>
                 </tr>
             </thead>
@@ -25,6 +26,7 @@
 	<tr>
             <td class="index-item"><?php echo $radioType['RadioType']['name'];?></td>
             <td class="index-item"><?php echo $radioType['RadioBand']['name'];?></td>
+            <td class="index-item"><?php echo $radioType['RadioType']['watts'];?></td>
             <td class="index-action">
                 <?php
                     echo $this->PoundcakeHTML->link('Edit', array('action' => 'edit', $radioType['RadioType']['id']));

@@ -1,7 +1,7 @@
 <div class="row">
 <div class="span3">
     <H3>Actions</H3>
-    <div class="well"> <!-- was: well-large -->
+    <div class="well">
     <ul>
         <li><?php echo $this->PoundcakeHTML->link('New Router Type', array('action' => 'add')); ?></li>
         <li><?php echo $this->PoundcakeHTML->link('Setup',array('controller'=>'admin','action' => 'setup')); ?></li>
@@ -15,6 +15,7 @@
             <thead>
                 <tr>
                     <th class="index-item"><?php echo $this->Paginator->sort('name'); ?></th>
+                    <th class="index-item"><?php echo $this->Paginator->sort('watts'); ?></th>
                     <th class="index-action"><?php echo 'Actions'; ?></th>
                 </tr>
             </thead>
@@ -23,6 +24,7 @@
 	foreach ($routerTypes as $routerType): ?>
 	<tr>
             <td class="index-item"><?php echo $routerType['RouterType']['name'];?></td>
+            <td class="index-item"><?php echo $routerType['RouterType']['watts'];?></td>
             <td class="index-action">
                 <?php echo $this->PoundcakeHTML->link('Edit', array('action' => 'edit', $routerType['RouterType']['id'])); ?>
                 <?php
