@@ -256,7 +256,6 @@ class IpSpacesController extends AppController {
     public function ip() {
         $project_id = $this->Session->read( 'project_id' );
         if ($this->request->is('post')) {
-            // AppController::handleCancel();
             $this->add();
         }
         $this->set(compact( 'project_id' ));
@@ -267,11 +266,6 @@ class IpSpacesController extends AppController {
         $ret = false;
         if(preg_match('/.*\.0$/', $ip_addr)) 
             $ret = true;
-//        if ( $ret )
-//            print "True";
-//        else
-//            print "False";
-//        die;
         return $ret;
     }
     
