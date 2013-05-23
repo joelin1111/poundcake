@@ -39,7 +39,8 @@ class IpSpace extends AppModel {
      * and the "/24" comes from its parent IpSpace.
      */
     public $virtualFields = array(
-        'parent_cidr' => 'SELECT cidr FROM ip_spaces WHERE id=IpSpace.parent_id'
+        'parent_cidr' => 'SELECT cidr FROM ip_spaces WHERE id=IpSpace.parent_id',
+        'gw_address' => 'SELECT INET_NTOA(ip_address) FROM ip_spaces WHERE id=IpSpace.gateway_id',
     );
     
     /*

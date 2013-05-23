@@ -37,8 +37,13 @@ class SwitchType extends AppModel {
      * Relations
      */
     public $hasAndBelongsToMany = array(
-        'NetworkInterface'
+        'NetworkInterface' =>
+        array (
+                'unique' => 'keepExisting'
+        )
     );
+    
+    
     
     /*
      * Field-level validation rules

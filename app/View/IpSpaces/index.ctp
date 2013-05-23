@@ -114,7 +114,12 @@ function recursiveIpSpaces( $array ,$role, $delete_confirm_html, $fill_confirm_h
             } else {
                 echo ' /'.$vals['IpSpace']['cidr'];
             }
-                    
+            
+            if ( $vals['IpSpace']['gw_address'] > 0 ) {
+                echo ' (Gateway: '.$vals['IpSpace']['gw_address'].') ';
+            }
+            
+            
             // must be an admin to see add/edit/delete/fill icons
             if ( $role === 'admin' ) {
                 echo '&nbsp;&nbsp;&nbsp;';

@@ -187,8 +187,22 @@ class IpSpacesController extends AppController {
             $this->redirect(array( 'action' => 'index/'.$parent_id ));
         }
         
+        $this->getGatewayAddresses( $parent_id );
         $this->getCidrs( $parent_cidr );
         $this->set(compact( 'parent_id', 'ip_address', 'project_id' ));
+    }
+    
+    private function getGatewayAddresses( $parent_id ) {
+        $gw_addresses = $this->IpSpace->find('list', array( 
+            'fields' => array('IpSpace.ip_address'),
+            // 'order' => array('IpSpace.lft'),
+            'conditions' => array('IpSpace.parent_id' => $parent_id),
+             // sort by ip address in case some were deleted and then
+             // re-added, which would otherwise make them out of sequence
+            'order' => array('IpSpace.ip_address')
+        ));
+        //var_dump( $ip_spaces ); die;
+        $this->set(compact('gw_addresses'));
     }
     
     public function edit($id = null) {

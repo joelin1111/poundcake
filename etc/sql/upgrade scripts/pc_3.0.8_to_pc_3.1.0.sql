@@ -5,9 +5,13 @@
 alter table radio_types add watts decimal(5,2);
 alter table switch_types add watts decimal(5,2);
 alter table router_types add watts decimal(5,2);
-update radio_types set watts=6.5;
-update switch_types set watts=5.0;
-update router_types set watts=6.0;
+update radio_types set watts=8.5;
+update switch_types set watts=15.0 where name like '8-Port%';
+update switch_types set watts=16.0 where name like '16-Port%';
+update switch_types set watts=17.0 where name like '24-Port%';
+update router_types set watts=6.0 where name like '%RB750G%';
+update router_types set watts=12.0 where name like '%1100%';
+
 
 DROP TABLE IF EXISTS `network_interfaces`;
 CREATE TABLE `network_interfaces` (
@@ -43,3 +47,15 @@ CREATE TABLE `network_interfaces_router_types` (
   `network_interface_id` int(10) NOT NULL,
   PRIMARY KEY (`router_type_id`,`network_interface_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+
+DROP TABLE IF EXISTS `network_interfaces_switch_types`;
+CREATE TABLE `network_interfaces_switch_types` (
+  `switch_type_id` int(10) NOT NULL,
+  `network_interface_id` int(10) NOT NULL,
+  `count` int(10) NOT NULL,
+  PRIMARY KEY (`switch_type_id`,`network_interface_id`,`count`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+insert into network_interfaces_switch_types values (7,1,0);
+insert into network_interfaces_switch_types values (7,6,0);
