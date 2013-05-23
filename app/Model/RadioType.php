@@ -52,8 +52,6 @@ class RadioType extends AppModel {
      */
     public $hasAndBelongsToMany = array('AntennaType');
     
-    // var $actsAs = array('Containable');
-    
     /*
      * Field-level validation rules
      */
@@ -74,6 +72,12 @@ class RadioType extends AppModel {
                 'message' => 'Manufacturer name may not contain spaces.'
             )
         ),
+        'watts' => array(
+            'notempty' => array(
+                'rule' => 'numeric',
+                'message' => 'Watts are a required value.'
+            )
+        )
     );
     
     /*
@@ -107,14 +111,12 @@ class RadioType extends AppModel {
         $antennatypes_tmp = $this->find('all', array(
             'conditions' => array('RadioType.id' => $radio_type_id ),
             'contain' => array('AntennaType'),
-            // 'order' => array('AntennaType.name' => 'DESC')
         ));
         
         $antennatypes = array();
         foreach ( $antennatypes_tmp[0]['AntennaType'] as $at ) {
             $antennatypes[ $at['id'] ] = $at['name'];            
         }
-//        $antennatypes[0] = 'foo1';$antennatypes[1] = 'bar1';
         
         return $antennatypes;
     }

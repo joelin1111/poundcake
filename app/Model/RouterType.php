@@ -53,6 +53,12 @@ class RouterType extends AppModel {
                 'message' => 'Manufacturer name may not contain spaces.'
             )
         ),
+        'watts' => array(
+            'notempty' => array(
+                'rule' => 'numeric',
+                'message' => 'Watts are a required value.'
+            )
+        )
     );
 }
 ?>
