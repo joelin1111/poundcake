@@ -1,6 +1,6 @@
 <?php
-    echo $this->Html->script('bootstrap'); // for the tooltips
     echo $this->Html->script('poundcake/poundcake-accordian');
+    echo $this->Html->script('bootstrap.min'); // for the tooltips
 ?>
 
 <div class="row">
