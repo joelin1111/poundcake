@@ -34,6 +34,15 @@ class IpSpace extends AppModel {
     // var $order = 'IpSpace.ip_address ASC';
     
     /*
+     * We're using a virtual field to point to the CIDR of the parent IpSpace
+     * For a host record, we would not say 10.1.2.4/32 -- rather we'd say 10.1.2.4/24
+     * and the "/24" comes from its parent IpSpace.
+     */
+    public $virtualFields = array(
+        'parent_cidr' => 'SELECT cidr FROM ip_spaces WHERE id=IpSpace.parent_id'
+    );
+    
+    /*
      * Relations
      */
     var $belongsTo = array(
@@ -50,20 +59,5 @@ class IpSpace extends AppModel {
     );
     
     
-    /*
-     * Field-level validation rules
-     */
-//    public $validate = array(
-//        'name' => array(
-//            'notempty' => array(
-//                'rule' => array('notempty'),
-//                'message' => 'This field cannot be blank.',
-//                //'allowEmpty' => false,
-//                //'required' => false,
-//                //'last' => false, // Stop validation after this rule
-//                //'on' => 'create', // Limit validation to 'create' or 'update' operations
-//            )
-//        )
-//    );
 }
 ?>

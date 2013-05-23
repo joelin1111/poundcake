@@ -95,7 +95,7 @@
 
 <?php 
 function recursiveIpSpaces( $array ,$role, $delete_confirm_html, $fill_confirm_html ) { 
-
+    
     if (count($array)) { 
         echo '<ul id="ip_space">';
         
@@ -105,12 +105,16 @@ function recursiveIpSpaces( $array ,$role, $delete_confirm_html, $fill_confirm_h
            
             echo $vals['IpSpace']['name'];
             echo ' '.$vals['IpSpace']['ip_address'];
-            echo ' /'.$vals['IpSpace']['cidr'];
-            if (( $vals['IpSpace']['cidr'] == 32 ) && ( $vals['IpSpace']['primary_ip'] > 0 )) {
-                echo ' (Primary)';
+            
+            if ( $vals['IpSpace']['cidr'] == 32 ) {
+                echo ' /'.$vals['IpSpace']['parent_cidr'];
+                if ( $vals['IpSpace']['primary_ip'] > 0 ) {
+                    echo ' (Primary)';
+                }
+            } else {
+                echo ' /'.$vals['IpSpace']['cidr'];
             }
-            
-            
+                    
             // must be an admin to see add/edit/delete/fill icons
             if ( $role === 'admin' ) {
                 echo '&nbsp;&nbsp;&nbsp;';

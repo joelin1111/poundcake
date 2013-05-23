@@ -45,7 +45,7 @@ class IpSpacesController extends AppController {
            'conditions' => array('IpSpace.project_id' => $project_id,'cidr <' => 32),
         ));
         
-        $this->set(compact('ip_spaces', 'project_id','internal_space_count')); 
+        $this->set(compact('ip_spaces', 'project_id','internal_space_count', 'parent_cidr')); 
     }
     
     /*
