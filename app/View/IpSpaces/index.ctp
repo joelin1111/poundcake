@@ -28,7 +28,7 @@
         <?php
             echo '<LI>'.PoundcakeHTMLHelper::ICON_NEW." New</LI>";
             echo '<LI>'.PoundcakeHTMLHelper::ICON_DELETE." Delete</LI>";
-            echo '<LI>'.PoundcakeHTMLHelper::ICON_EDIT." Rename</LI>";     
+            echo '<LI>'.PoundcakeHTMLHelper::ICON_EDIT." Edit</LI>";     
             echo '<LI><i class="icon-align-justify"></i> Fill</LI>';
             echo '<LI><i class="icon-resize-full"></i> Expand/Collapse</LI>';
         ?>
@@ -68,18 +68,32 @@
                 );
                 
                 // as above, but this warning is for the fill option
+//                $fill_confirm_html = $this->PoundcakeHTML->postLinkIfAllowed('Fill',
+//                    array('controller'=>'ipSpaces', 'action'=>'fill', 'FILL_ID'),
+//                    array(
+//                        'method' => 'post',
+//                        'class'=>'confirm link',
+//                        'data-original-title' => 'Fill this IP Space with /32s (maximum 254)',
+//                        'data-placement' => 'bottom',
+//                        'data-dialog_msg'=>'Fill IP Space with /32 host records'
+//                        ),
+//                    null,
+//                    false // don't show the text "Fill" -- icon only
+//                );
                 $fill_confirm_html = $this->PoundcakeHTML->postLinkIfAllowed('Fill',
                     array('controller'=>'ipSpaces', 'action'=>'fill', 'FILL_ID'),
                     array(
                         'method' => 'post',
-                        'class'=>'confirm link',
-                        'data-original-title' => 'Fill this IP Space with /32s (maximum 254)',
+                        'class'=>'prompt link',
+                        'data-original-title' => 'Fill IP Space with host records',
                         'data-placement' => 'bottom',
-                        'data-dialog_msg'=>'Fill IP Space with /32 host records'
+                        'data-dialog_msg'=>'How many host records (Max 254)'
                         ),
                     null,
                     false // don't show the text "Fill" -- icon only
                 );
+                
+                
 //                echo '<pre>';
 //                var_dump( $fill_confirm_html );
 //                echo '</pre>';
@@ -109,7 +123,7 @@ function recursiveIpSpaces( $array ,$role, $delete_confirm_html, $fill_confirm_h
             if ( $vals['IpSpace']['cidr'] == 32 ) {
                 echo ' /'.$vals['IpSpace']['parent_cidr'];
                 if ( $vals['IpSpace']['primary_ip'] > 0 ) {
-                    echo ' (Primary)';
+                    echo ' <strong>P</strong>';
                 }
             } else {
                 echo ' /'.$vals['IpSpace']['cidr'];
@@ -125,9 +139,14 @@ function recursiveIpSpaces( $array ,$role, $delete_confirm_html, $fill_confirm_h
                 echo '&nbsp;&nbsp;&nbsp;';
                 echo '<a href="/ipSpaces/edit/';
                 echo $vals['IpSpace']['id'];
-                echo '" class="link" data-original-title="Rename IP Space" data-placement="bottom">';
+                echo '" class="link" data-original-title="Edit IP Space" data-placement="bottom">';
                 echo '<i class="icon-edit"></i></a>';
-
+                
+                echo '<a href="/ipSpaces/find/';
+                echo $vals['IpSpace']['id'];
+                echo '" class="link" data-original-title="Search for matching device" data-placement="bottom">';
+                echo '<i class="icon-search"></i></a>';
+                
                 // don't show the plus sign if it's a /32
                 // or the fill link
                 if ( $vals['IpSpace']['cidr'] < 32 ) {

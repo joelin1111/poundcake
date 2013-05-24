@@ -218,11 +218,7 @@ function bootbox_dialogs() {
         e.preventDefault();
         
         // get the form element preceding the link
-        //var $action = $('a.confirm').siblings().last().attr('action');
-        // var action = $(this).closest( 'form' ).attr('action');
-        // var action = $(this).siblings('form').attr('action');
         var action = $(this).prev('form').attr('action');
-        // console.log( action );
         
         // the text to display in the dialog box comes in as an HTML5
         // data attribute, data-dialog_msg="Foo"
@@ -234,7 +230,44 @@ function bootbox_dialogs() {
                         type: 'POST',
                         url: action,
                         success: function() {
-//                            console.log( 'success');
+                            window.location.reload(true);
+                        },
+                        error: function() { /*console.log( 'error');*/ }
+                });
+                return false;
+            }
+        });
+        return false;
+    });
+    
+    /*
+     * Generic way to handle Bootbox dialog boxes for prompt
+     * that requires capturing some input
+     */
+    $('a.prompt').removeAttr('onclick');
+    $('a.prompt').click(function(e) {
+        e.preventDefault();
+        
+        // get the form element preceding the link
+        var action = $(this).prev('form').attr('action');
+        
+        // the text to display in the dialog box comes in as an HTML5
+        // data attribute, data-dialog_msg="Foo"
+        var string = $(this).data( 'dialog_msg' );
+        
+        bootbox.prompt( string + '?', function(result) {
+            if ( result != null ) {
+                // we want the resulting URL to be soemthing like:
+                // ipSpaces/fill/543/9
+                // ...fill IP space with the ID of 543 with 9 hosts
+                action += '/' + result;
+                console.log( action );
+                console.log( result );
+                $.ajax({
+                        type: 'POST',
+                        url: action,
+                        success: function() {
+                            console.log( 'success');
                             window.location.reload(true);
                         },
                         error: function() { console.log( 'error'); }

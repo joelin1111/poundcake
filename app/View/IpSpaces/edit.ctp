@@ -14,7 +14,18 @@
     <?php    
         echo '<label>IP Address</label>';
         echo $ip_address;
-        echo $this->Form->input('name', array( 'required' => false )); 
+        echo $this->Form->input('name', array( 'required' => false ));
+        
+        // only show the gateway field if it's a /32
+        if ( isset($gw_addresses )) {
+            echo $this->Form->input('gateway_id',
+                    array(
+                        'label' => 'Gateway',
+                        'options' => $gw_addresses,
+                        'empty'=> true
+                )
+            );
+        }
     ?>
     </fieldset>
     <?php

@@ -49,6 +49,27 @@ class IpSpacesController extends AppController {
     }
     
     /*
+     * Find any devices that are assigned to the IP -- Note we have to search
+     * all possible models
+     */
+    public function find( $id ) {
+        $search_models = array( 'NetworkRadio', 'NetworkRouter', 'NetworkSwitch' );
+        foreach ( $search_models as $model ) {
+            $this->loadModel( $model );
+            $item = $this->$model->findByIpSpaceId( $id );
+        }
+        if ( $item != null ) {
+            // if found, send them on their way
+            // Note: Inflector::pluralize is a great function to pluralize the
+            // model name, NetworkSwitch becomes NetworkSwitches, NetworkRadio
+            // becomes NetworkRadios, etc.
+            $this->redirect( array( 'controller' => Inflector::pluralize( $model ), 'action' => 'view', $item[$model]['id'] ));
+        }
+        $this->Session->setFlash('Error!  No devices found.');
+        $this->redirect(array('action' => 'index'));
+    }
+    
+    /*
      * Add a new IpSpace
      */
     public function add( $parent_id = null, $fill = false ) {
@@ -221,17 +242,28 @@ class IpSpacesController extends AppController {
             $this->request->data = $this->IpSpace->read(null, $id);
         }
         
+        if ( $this->request->data['IpSpace']['cidr'] == 32 ) {
+            $this->getGatewayAddresses( $this->request->data['IpSpace']['parent_id'] );
+        }
+        
         $ip_address = $this->request->data['IpSpace']['ip_address'];
         $this->set(compact('ip_address'));
     }
     
-    public function fill($id = null) {
+    public function fill( $id = null, $number = 254 ) {
+        if ( $number > 254 ) {
+            $number = 254;
+        }
+//        var_dump( $number );
+//        die;
+        
         $this->IpSpace->id = $id;
         if (!$this->IpSpace->exists()) {
             throw new NotFoundException('Invalid IP Space');
         }
         $ip_space = $this->IpSpace->read();
         
+        /*
         // calculate the number of possible hosts in this cidr
         $pos_nets = $this->calculatePossibleNetworks( 32, $ip_space['IpSpace']['cidr'] );
         
@@ -240,12 +272,13 @@ class IpSpacesController extends AppController {
         if ( $pos_nets > 254 ) {
             $pos_nets = 254;
         }
+        */
         
         $this->request->data['IpSpace']['cidr'] = '32';
         $this->request->data['IpSpace']['parent_id'] = $id;
         $this->request->data['IpSpace']['project_id'] = $this->Session->read( 'project_id' );
             
-        for ( $n = 0; $n < $pos_nets; $n++ ) {
+        for ( $n = 0; $n < $number; $n++ ) {
             $this->request->data['IpSpace']['name'] = 'Unused';
             $this->add( $id, true );
         }

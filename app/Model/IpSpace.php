@@ -58,7 +58,5 @@ class IpSpace extends AppModel {
         ),
         'Tree' // @see http://book.cakephp.org/2.0/en/core-libraries/behaviors/tree.html
     );
-    
-    
 }
 ?>
