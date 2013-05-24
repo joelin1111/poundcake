@@ -45,7 +45,7 @@ class AddrpoolIPAddress extends AppModel {
      * Returns all the IP addresses from addrpool for a given radio name.
      * Note this name is plural
      */
-    public function getAllIPAddresses($name) {
+    public function getAllAddrpoolIPAddresses($name) {
         $addresses = '';
         if (isset($name)) {
             $query = 'call sp_get_all_ip_addresses("'.$name.'%")';
@@ -58,7 +58,7 @@ class AddrpoolIPAddress extends AppModel {
      * Returns the IP address from addrpool for a given radio name.
      * Note this name is singular
      */
-    public function getIPAddress($name) {
+    public function getAddrpoolIPAddress($name) {
         $ip_address = '';
         $value = '';
         if (isset($name)) {    
@@ -76,7 +76,7 @@ class AddrpoolIPAddress extends AppModel {
     /*
      * Returns all gateway IP addresses from addrpool for a given radio name.
      */
-    public function getGatewayAddress($name) {
+    public function getAddrpoolGatewayAddress($name) {
         if (isset($name)) {
             $query = 'call sp_get_gw("'.$name.'")';
             $address = ClassRegistry::init('AddrpoolIPAddress')->query( $query );

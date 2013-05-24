@@ -106,7 +106,7 @@ class NetworkRadiosController extends NetworkDeviceController {
         $links = $this->NetworkRadio->query( $query );
 //        var_dump($links);die;
         $networkradio = $this->NetworkRadio->read(null, $id);
-        $ip_addresses = $this->getAllIPAddresses($this->NetworkRadio->field('name'));
+        $ip_addresses = $this->getAllAddrpoolIPAddresses($this->NetworkRadio->field('name'));
         $this->set(compact('ip_addresses'));
         
         if ( $this->NetworkRadio->field('sector') > 0 ) {

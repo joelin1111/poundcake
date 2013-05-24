@@ -377,11 +377,11 @@ class AppController extends Controller {
      * 
      * @see MySQL stored procedures.
      */
-    public function getAllIPAddresses($name) {
+    public function getAllAddrpoolIPAddresses($name) {
         $project_id = $this->Session->read('project_id');
         // only return addrpool data for HRBN projects
         if ( ($project_id == 1 ) || ($project_id == 9 ) ) {
-            return ClassRegistry::init('AddrpoolIPAddress')->getAllIPAddresses($name);
+            return ClassRegistry::init('AddrpoolIPAddress')->getAllAddrpoolIPAddresses($name);
         }
         return false;
     }
@@ -392,11 +392,11 @@ class AppController extends Controller {
      * 
      * @see MySQL stored procedures.
      */
-    public function getIPAddress($name) {
+    public function getAddrpoolIPAddress($name) {
         $project_id = $this->Session->read('project_id');
         // only return addrpool data for HRBN projects
         if ( ($project_id == 1 ) || ($project_id == 9 ) ) {
-            return ClassRegistry::init('AddrpoolIPAddress')->getIPAddress($name);
+            return ClassRegistry::init('AddrpoolIPAddress')->getAddrpoolIPAddress($name);
         }
         return false;
     }
@@ -407,11 +407,11 @@ class AppController extends Controller {
      * 
      * @see MySQL stored procedures.
      */
-    public function getGatewayAddress($name) {
+    public function getAddrpoolGatewayAddress($name) {
         $project_id = $this->Session->read('project_id');
         // only return addrpool data for HRBN projects
         if ( ($project_id == 1 ) || ($project_id == 9 )) {
-            return ClassRegistry::init('AddrpoolIPAddress')->getGatewayAddress($name);
+            return ClassRegistry::init('AddrpoolIPAddress')->getAddrpoolGatewayAddress($name);
         }
         return false;
     }

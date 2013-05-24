@@ -185,6 +185,30 @@ class NetworkDeviceController extends AppController {
         return $new_url;
     }
     
+    protected function getAllNetworkAddresses( $ip_space_id ) {
+        $this->loadModel( 'IpSpace' );
+        $this->IpSpace->recursive = -1;
+        $this->IpSpace->id = $ip_space_id;
+        $ip_space = $this->IpSpace->read();
+        // we can get both gateway and subnet off this IpSpace
+        $gw_address = $ip_space['IpSpace']['gw_address']; // gw_address is a virtual field on the IpSpace model
+        $subnet_mask = $this->cidr2NetmaskAddr( long2ip($ip_space['IpSpace']['ip_address']).'/'. $ip_space['IpSpace']['parent_cidr'] );  // parent_cidr is a virtual field on the IpSpace model
+        
+        // but we need to load the parent to get the network address
+        $this->IpSpace->id = $ip_space['IpSpace']['parent_id'];
+        $parent_ip_space = $this->IpSpace->read();
+        $network_address = $parent_ip_space['IpSpace']['ip_address'];
+        
+        $this->set(compact('gw_address','network_address','subnet_mask'));
+    }
+    
+    private  function cidr2NetmaskAddr($cidr) {
+        $ta = substr($cidr, strpos($cidr, '/') + 1) * 1;
+        $netmask = str_split(str_pad(str_pad('', $ta, '1'), 32, '0'), 8);
+        foreach ($netmask as &$element) $element = bindec($element);
+        return join('.', $netmask);
+    }
+    
     /*
      * Return alarms for a given node
      */

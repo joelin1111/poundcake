@@ -740,7 +740,7 @@ class SitesController extends AppController {
         }
         
         $this->getBuildItems();
-        $ip_addresses = $this->getAllIPAddresses( $this->Site->data['Site']['code'] );
+        $ip_addresses = $this->getAllAddrpoolIPAddresses( $this->Site->data['Site']['code'] );
         $this->set(compact( 'site', 'ip_addresses', 'radios', 'watts' ));
     }
     
@@ -1174,11 +1174,11 @@ class SitesController extends AppController {
             }            
             
             $address = '';
-            $ip_address = $this->getIPAddress($radio['NetworkRadios']['name']);
+            $ip_address = $this->getAddrpoolIPAddress($radio['NetworkRadios']['name']);
             $radio['NetworkRadios']['ip_address'] = $ip_address;
             
             $gw_address = '';
-            $gw_address = $this->getGatewayAddress($radio['NetworkRadios']['name']);
+            $gw_address = $this->getAddrpoolGatewayAddress($radio['NetworkRadios']['name']);
             $radio['NetworkRadios']['gw_address'] = $gw_address;
             
             $antenna_type_id = $radio['NetworkRadios']['antenna_type_id'];

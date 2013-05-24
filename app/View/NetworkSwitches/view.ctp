@@ -64,7 +64,6 @@
     <dt>Manufacturer</dt><dd><?php echo $networkswitch['SwitchType']['manufacturer']; ?></dd>
     <dt>Model</dt><dd><?php echo $networkswitch['SwitchType']['model']; ?></dd>
     
-    
     <dt>SNMP Override</dt><dd><?php echo ($networkswitch['NetworkSwitch']['snmp_override'] > 0 ? "Yes" : "No");?></dd>
     <?php
         if ( $snmp_override ) {
@@ -83,11 +82,20 @@
     <dt>IP Address</dt>
     <dd>
         <?php
-        // revisit: the IpV4 behavior should decode this field for us -- why am
-        // I having to decode it manually?
-        echo long2ip($networkswitch['IpSpace']['ip_address']);
+            // revisit: the IpV4 behavior should decode this field for us -- why am
+            // I having to decode it manually?  Because it's in array and not the model?
+            echo long2ip( $networkswitch['IpSpace']['ip_address'] );
         ?>
     </dd>
+    <dt>Gateway</dt>
+    <dd> <?php echo $gw_address; ?></dd>
+    
+    <dt>Network Address</dt>
+    <dd> <?php echo $network_address; ?></dd>
+    
+    <dt>Subnet Mask</dt>
+    <dd> <?php echo $subnet_mask; ?> </dd>
+    
     </dl>
     
     <dl>
