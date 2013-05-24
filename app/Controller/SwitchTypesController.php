@@ -49,7 +49,7 @@ class SwitchTypesController extends AppController {
                 $this->Session->setFlash('Error!  The switch type could not be saved. Please, try again.');
             }
         }
-        parent::getNetworkIntefaces();
+        parent::getNetworkIntefaceTypes();
     }
     
     /*
@@ -61,6 +61,7 @@ class SwitchTypesController extends AppController {
             throw new NotFoundException('Invalid switch type');
         }
         if ($this->request->is('post') || $this->request->is('put')) {
+            var_dump($this->request->data); die;
             if ($this->SwitchType->save($this->request->data)) {
                 $this->Session->setFlash('The switch type has been saved.');
                 $this->redirect(array('action' => 'index'));
@@ -70,7 +71,7 @@ class SwitchTypesController extends AppController {
         } else {
             $this->request->data = $this->SwitchType->read(null, $id);
         }
-        parent::getNetworkIntefaces();
+        parent::getNetworkIntefaceTypes();
     }
 
     /*

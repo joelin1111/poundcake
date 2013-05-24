@@ -50,7 +50,7 @@ class RadioTypesController extends AppController {
         }
         $this->getRadioBands();
         $this->getAntennaTypes();
-        parent::getNetworkIntefaces();
+        parent::getNetworkIntefaceTypes();
     }
 
     /*
@@ -73,7 +73,7 @@ class RadioTypesController extends AppController {
         }
         $this->getRadioBands();
         $this->getAntennaTypes();
-        parent::getNetworkIntefaces();
+        parent::getNetworkIntefaceTypes();
     }
 
     /*

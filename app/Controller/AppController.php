@@ -420,9 +420,9 @@ class AppController extends Controller {
      * This is used by SwitchType/RouterType/RadioType to get a listing of NetworkInterfaces
      * for the add/edit -- each is a HABTM relation to NetworkInterfaces
      */
-    protected function getNetworkIntefaces() {
+    protected function getNetworkIntefaceTypes() {
         $model = $this->modelClass;
-        $this->set('networkInterfaces',$this->$model->NetworkInterface->find('list'));
+        $this->set('networkInterfaceTypes',$this->$model->NetworkInterfaceType->find('list'));
     }
     
     /*
