@@ -36,13 +36,15 @@ class SwitchType extends AppModel {
     /*
      * Relations
      */
-    public $hasAndBelongsToMany = array(
-        'NetworkInterfaceType' =>
-        array (
-                'unique' => 'keepExisting'
-        )
+//    public $hasAndBelongsToMany = array(
+//        'NetworkInterfaceType' =>
+//        array (
+//                'unique' => 'keepExisting'
+//        )
+//    );
+    public $hasMany = array(
+        'NetworkInterfaceTypeSwitchType'
     );
-    
     
     
     /*

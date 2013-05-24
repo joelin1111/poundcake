@@ -19,7 +19,7 @@
         echo $this->Form->input('model');
         echo $this->Form->input('watts');
         // include multiple checkboxes for NetworkInterfaces
-        echo $this->element('Common/network_interfaces');
+        echo $this->element('SwitchTypes/network_interface_types');
     ?>
     </fieldset>
     <?php

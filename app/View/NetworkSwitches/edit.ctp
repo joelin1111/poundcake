@@ -36,7 +36,8 @@
             'value' => $this->data['NetworkSwitch']['ip_address'],
             'placeholder' => 'For Testing'
         ));
-        echo $this->Form->input('ip_space_id', array('type'=>'select','label'=>'IP Address','options' => $ip_spaces));
+        echo $this->Form->input('ip_space_id', array('type'=>'select','label' => 'IP Address','options' => $ip_spaces));
+        echo $this->Form->input('network_interface_type_id', array('type' => 'select','label' => 'Network Interface Type','options' => $network_interface_types ));
         echo $this->Form->input('project_id', array('type'=>'hidden','value' => $project_id ));
     ?>
     </fieldset>

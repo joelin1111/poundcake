@@ -28,36 +28,12 @@ insert into network_interface_types(name) values ('vlan');
 insert into network_interface_types(name) values ('lo');
 
 
+-- TESTING
 
-DROP TABLE IF EXISTS `network_interfaces_switch_types`;
-CREATE TABLE `network_interfaces_switch_types` (
+DROP TABLE IF EXISTS `network_interface_type_switch_types`;
+CREATE TABLE `network_interface_type_switch_types` (
+  `network_interface_type_id` int(10) NOT NULL,
   `switch_type_id` int(10) NOT NULL,
-  `network_interface_id` int(10) NOT NULL,
-  PRIMARY KEY (`switch_type_id`,`network_interface_id`)
+  `number` int(10),
+  PRIMARY KEY (`network_interface_type_id`,`switch_type_id`,`number`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
-DROP TABLE IF EXISTS `network_interfaces_radio_types`;
-CREATE TABLE `network_interfaces_radio_types` (
-  `radio_type_id` int(10) NOT NULL,
-  `network_interface_id` int(10) NOT NULL,
-  PRIMARY KEY (`radio_type_id`,`network_interface_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
-DROP TABLE IF EXISTS `network_interfaces_router_types`;
-CREATE TABLE `network_interfaces_router_types` (
-  `router_type_id` int(10) NOT NULL,
-  `network_interface_id` int(10) NOT NULL,
-  PRIMARY KEY (`router_type_id`,`network_interface_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
-
-DROP TABLE IF EXISTS `network_interfaces_switch_types`;
-CREATE TABLE `network_interfaces_switch_types` (
-  `switch_type_id` int(10) NOT NULL,
-  `network_interface_id` int(10) NOT NULL,
-  `count` int(10) NOT NULL,
-  PRIMARY KEY (`switch_type_id`,`network_interface_id`,`count`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
-insert into network_interfaces_switch_types values (7,1,0);
-insert into network_interfaces_switch_types values (7,6,0);

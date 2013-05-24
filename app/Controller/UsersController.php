@@ -300,35 +300,18 @@ class UsersController extends AppController {
             throw new NotFoundException('Invalid user');
         }
         if ($this->request->is('post') || $this->request->is('put')) {
-            
-//            echo '<pre>';
-//            print_r( $this->request->data );
-//            echo '</pre>';
-            
-            // $blackList is also used above
-            // $blackList = array('password', 'username');
-            // if ($this->User->save($this->request->data, true, array_diff(array_keys($this->User->schema()), $blackList))) {
-            
             $this->User->ProjectMembership->deleteAll(array('ProjectMembership.user_id' => $id ));
-
-//            var_dump( $this->request->data['ProjectMembership'] );
             
             $row_id = 0;
             foreach ( $this->request->data['ProjectMembership'] as $project ) {
-//                var_dump( $project );                
                 if ( is_array($project) && array_key_exists('project_id', $project) && array_key_exists('role_id', $project) ) {
                     
                     $pm['ProjectMembership']['user_id'] = $id;
                     $pm['ProjectMembership']['project_id'] = $project['project_id'];
-                    $pm['ProjectMembership']['role_id'] = $project['role_id'];
-                    
-//                    echo "Saving: ";
-//                    var_dump( $pm );                    
+                    $pm['ProjectMembership']['role_id'] = $project['role_id'];                   
                     $this->User->ProjectMembership->create();
                     $this->User->ProjectMembership->save( $pm );      
                     $row_id = $this->User->ProjectMembership->id;                    
-//                    echo "Got back: ";
-//                    var_dump( $row_id );
                     // the user may have been removed from a project they were on
                     // this is a little sloppy but just assign them a new default
                     // project -- this should probably be outside this loop, too

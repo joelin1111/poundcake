@@ -36,15 +36,8 @@ class NetworkInterfaceType extends AppModel {
     /*
      * Relations
      */
-    var $belongsTo = array(
-       //'RadioBand'
-    );
-    
-    /*
-     * Relations
-     */
-    var $hasMany = array(
-       //'NetworkRadios'
+    public $hasMany = array(
+        'NetworkInterfaceTypeSwitchType'
     );
     
     /*
