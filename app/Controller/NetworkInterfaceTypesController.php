@@ -1,6 +1,6 @@
 <?php
 /**
- * Controller for network interfaces.
+ * Controller for network interface types.
  *
  * This is a very basic controller to add/view/update/delete interface names.
  * 
@@ -25,7 +25,7 @@
 
 App::uses('AppController', 'Controller');
 
-class NetworkInterfacesController extends AppController {
+class NetworkInterfaceTypesController extends AppController {
 
     /*
      * Custom pagination, sort order on index listing
@@ -33,7 +33,7 @@ class NetworkInterfacesController extends AppController {
     public $paginate = array(
         'limit' => 20, // default limit also defined in AppController
         'order' => array(
-            'NetworkInterface.name' => 'asc'
+            'NetworkInterfaceType.name' => 'asc'
         )
     );
         
@@ -41,19 +41,19 @@ class NetworkInterfacesController extends AppController {
      * Main listing for all NetworkInterfaces
      */
     public function index() {
-        $this->NetworkInterface->recursive = 0;
-        $this->set('networkInterfaces', $this->paginate());
+        $this->NetworkInterfaceType->recursive = 0;
+        $this->set('networkInterfaceTypes', $this->paginate());
     }
 
     /*
      * View an existing NetworkInterface
      */
     public function view($id = null) {
-        $this->NetworkInterface->id = $id;
-        if (!$this->NetworkInterface->exists()) {
-            throw new NotFoundException('Invalid network interface');
+        $this->NetworkInterfaceType->id = $id;
+        if (!$this->NetworkInterfaceType->exists()) {
+            throw new NotFoundException('Invalid network interface type');
         }
-        $this->set('networkInterfaces', $this->NetworkInterface->read(null, $id));
+        $this->set('networkInterfaceTypes', $this->NetworkInterfaceType->read(null, $id));
     }
 
     /*
@@ -62,12 +62,12 @@ class NetworkInterfacesController extends AppController {
     public function add() {
         if ($this->request->is('post')) {
             // AppController::handleCancel();
-            $this->NetworkInterface->create();
-            if ($this->NetworkInterface->save($this->request->data)) {
-                $this->Session->setFlash('The network interface has been saved.');
+            $this->NetworkInterfaceType->create();
+            if ($this->NetworkInterfaceType->save($this->request->data)) {
+                $this->Session->setFlash('The network interface type has been saved.');
                 $this->redirect(array('action' => 'index'));
             } else {
-                $this->Session->setFlash('Error!  The network interface could not be saved. Please, try again.');
+                $this->Session->setFlash('Error!  The network interface type could not be saved. Please, try again.');
             }
         }
     }
@@ -76,20 +76,20 @@ class NetworkInterfacesController extends AppController {
      * Edit an existing NetworkInterface
      */
     public function edit($id = null) {
-        $this->NetworkInterface->id = $id;
+        $this->NetworkInterfaceType->id = $id;
         
-        if (!$this->NetworkInterface->exists()) {
-            throw new NotFoundException('Invalid network interface');
+        if (!$this->NetworkInterfaceType->exists()) {
+            throw new NotFoundException('Invalid network interface type');
         }
         if ($this->request->is('post') || $this->request->is('put')) {
-            if ($this->NetworkInterface->save($this->request->data)) {
-                    $this->Session->setFlash('The network interface has been saved.');
+            if ($this->NetworkInterfaceType->save($this->request->data)) {
+                    $this->Session->setFlash('The network interface type has been saved.');
                     $this->redirect(array('action' => 'index'));
             } else {
-                    $this->Session->setFlash('Error!  The network interface could not be saved. Please, try again.');
+                    $this->Session->setFlash('Error!  The network interface type could not be saved. Please, try again.');
             }
         } else {
-            $this->request->data = $this->NetworkInterface->read(null, $id);
+            $this->request->data = $this->NetworkInterfaceType->read(null, $id);
         }
     }
     
@@ -100,15 +100,15 @@ class NetworkInterfacesController extends AppController {
         if (!$this->request->is('post')) {
             throw new MethodNotAllowedException();
         }
-        $this->NetworkInterface->id = $id;
-        if (!$this->NetworkInterface->exists()) {
-            throw new NotFoundException('Invalid network interface');
+        $this->NetworkInterfaceType->id = $id;
+        if (!$this->NetworkInterfaceType->exists()) {
+            throw new NotFoundException('Invalid network interface type');
         }
-        if ($this->NetworkInterface->delete()) {
-            $this->Session->setFlash('Network interface deleted.');
+        if ($this->NetworkInterfaceType->delete()) {
+            $this->Session->setFlash('Network interface type deleted.');
             $this->redirect(array('action' => 'index'));
         }
-        $this->Session->setFlash('Error!  network interface was not deleted.');
+        $this->Session->setFlash('Error!  Network interface type was not deleted.');
         $this->redirect(array('action' => 'index'));
     }
 

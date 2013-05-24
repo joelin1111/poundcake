@@ -3,7 +3,7 @@
         'label' => __('Network Interfaces',true),
         'type' => 'select',
         'multiple' => 'checkbox',
-        'options' => $networkInterfaces,
+        'options' => $networkInterfaceTypeTypes,
         'selected' => $this->Html->value('NetworkInterface.NetworkInterface'),
     ));
 ?>

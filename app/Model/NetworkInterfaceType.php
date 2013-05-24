@@ -1,27 +1,27 @@
 <?php
 /**
- * Model for a network interface.
+ * Model for a network interface types.
  *
  * Developed against CakePHP 2.3.0 and PHP 5.4.x.
  *
- * Copyright 2012, Inveneo, Inc. (http://www.inveneo.org)
+ * Copyright 2013, Inveneo, Inc. (http://www.inveneo.org)
  *
  * Licensed under XYZ License.
  * 
  * Redistributions of files must retain the above copyright notice.
  *
- * @copyright     Copyright 2012, Inveneo, Inc. (http://www.inveneo.org)
+ * @copyright     Copyright 2013, Inveneo, Inc. (http://www.inveneo.org)
  * @author        Clark Ritchie <clark@inveneo.org>
  * @link          http://www.inveneo.org
  * @package       app.Model
- * @since         RadioType precedes Poundcake v2.2.1
+ * @since         NetworkInterfaceType was introduced in Poundcake 3.1.0
  * @license       XYZ License
  */
 
 
 App::uses('AppModel', 'Model');
 
-class NetworkInterface extends AppModel {
+class NetworkInterfaceType extends AppModel {
 
     /*
      * Display field for select lists
@@ -31,7 +31,7 @@ class NetworkInterface extends AppModel {
     /*
      * Default sort order
      */
-    var $order = 'NetworkInterface.name ASC';
+    var $order = 'NetworkInterfaceType.name ASC';
     
     /*
      * Relations

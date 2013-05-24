@@ -32,7 +32,7 @@ class RouterType extends AppModel {
      * Relations
      */
     public $hasAndBelongsToMany = array(
-        'NetworkInterface'
+        'NetworkInterfaceType'
     );
     
     /*

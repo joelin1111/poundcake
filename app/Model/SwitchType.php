@@ -37,7 +37,7 @@ class SwitchType extends AppModel {
      * Relations
      */
     public $hasAndBelongsToMany = array(
-        'NetworkInterface' =>
+        'NetworkInterfaceType' =>
         array (
                 'unique' => 'keepExisting'
         )

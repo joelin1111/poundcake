@@ -202,7 +202,10 @@ class NetworkDeviceController extends AppController {
         $this->set(compact('gw_address','network_address','subnet_mask'));
     }
     
-    private  function cidr2NetmaskAddr($cidr) {
+    /*
+     * This should turn 192.168.1.3/24 into 255.255.255.0
+     */
+    private function cidr2NetmaskAddr($cidr) {
         $ta = substr($cidr, strpos($cidr, '/') + 1) * 1;
         $netmask = str_split(str_pad(str_pad('', $ta, '1'), 32, '0'), 8);
         foreach ($netmask as &$element) $element = bindec($element);

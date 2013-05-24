@@ -3,15 +3,16 @@
     <H3>Actions</H3>
     <div class="well">
     <ul>
-        <li><?php echo $this->PoundcakeHTML->link('List Network Interfaces', array('action' => 'index')); ?>
+        <li><?php echo $this->PoundcakeHTML->link('List Network Interface Types', array('action' => 'index')); ?></li>
     </ul>
     </div>
 </div><!-- /.span3 .sb-fixed -->
 
 <div class="span9">
-    <?php echo $this->Form->create('NetworkInterface'); ?>
-    <h2>Add Interface</h2>
+    <?php echo $this->Form->create('NetworkInterfaceType'); ?>
+    <h2>Edit Interface</h2>
     <?php
+        echo $this->Form->input('id');
         echo $this->Form->input('name');
     ?>
     </fieldset>

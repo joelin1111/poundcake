@@ -64,7 +64,7 @@
         Router::connect('/admin/:controller/:action/*', array(), array('controller' => 'frequencies'));
         Router::connect('/admin/:controller/:action/*', array(), array('controller' => 'radioBands'));
         Router::connect('/admin/:controller/:action/*', array(), array('controller' => 'siteStateIcons'));
-        Router::connect('/admin/:controller/:action/*', array(), array('controller' => 'networkInterfaces'));
+        Router::connect('/admin/:controller/:action/*', array(), array('controller' => 'networkInterfaceTypes'));
         //Router::connect('/admin/:controller/:action/*', array(), array('controller' => 'ipSpaces'));
         
 /**

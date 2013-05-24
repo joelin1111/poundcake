@@ -52,7 +52,7 @@ class RadioType extends AppModel {
      */
     public $hasAndBelongsToMany = array(
         'AntennaType',
-        'NetworkInterface'
+        'NetworkInterfaceType'
     );
     
     /*

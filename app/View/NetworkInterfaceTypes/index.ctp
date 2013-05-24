@@ -3,14 +3,14 @@
     <H3>Actions</H3>
     <div class="well">
     <ul>
-        <li><?php echo $this->PoundcakeHTML->link('New Network Interface', array('action' => 'add')); ?></li>
+        <li><?php echo $this->PoundcakeHTML->link('New Network Interface Type', array('action' => 'add')); ?></li>
         <li><?php echo $this->PoundcakeHTML->link('Setup',array('controller'=>'admin','action' => 'setup')); ?></li>
     </ul>
     </div>
 </div><!-- /.span3 .sb-fixed -->
 
 <div class="span9">
-	<h2>Network Interfaces</h2>
+	<h2>Network Interface Types</h2>
 	<table class="table table-condensed table-striped table-hover">
             <thead>
                 <tr>
@@ -20,15 +20,15 @@
             </thead>
             <tbody>
 	<?php
-	foreach ($networkInterfaces as $networkInterface): ?>
+	foreach ($networkInterfaceTypes as $networkInterfaceType): ?>
 	<tr>
-            <td class="index-item"><?php echo $networkInterface['NetworkInterface']['name'];?></td>
+            <td class="index-item"><?php echo $networkInterfaceType['NetworkInterfaceType']['name'];?></td>
             <td class="index-action">
-                <?php echo $this->PoundcakeHTML->link('Edit', array('action' => 'edit', $networkInterface['NetworkInterface']['id'])); ?>
+                <?php echo $this->PoundcakeHTML->link('Edit', array('action' => 'edit', $networkInterfaceType['NetworkInterfaceType']['id'])); ?>
                 <?php
                     echo $this->PoundcakeHTML->postLinkIfAllowed('Delete',
-                        array('controller'=>'networkinterfaces','action'=>'delete', $networkInterface['NetworkInterface']['id']),
-                        array('method' => 'post','class'=>'confirm','data-dialog_msg'=>'Confirm delete of '.$networkInterface['NetworkInterface']['name']),
+                        array('controller'=>'networkinterfacetypes','action'=>'delete', $networkInterfaceType['NetworkInterfaceType']['id']),
+                        array('method' => 'post','class'=>'confirm','data-dialog_msg'=>'Confirm delete of '.$networkInterfaceType['NetworkInterfaceType']['name']),
                         null
                     );
                 ?>
