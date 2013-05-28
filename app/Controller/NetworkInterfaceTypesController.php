@@ -19,7 +19,7 @@
  * @author        Clark Ritchie <clark@inveneo.org>
  * @link          http://www.inveneo.org
  * @package       app.Controller
- * @since         NetworkInterfacesController introduced in Poundcake v3.0.9
+ * @since         NetworkInterfacesController introduced in Poundcake v3.1.0
  * @license       XYZ License
  */
 
