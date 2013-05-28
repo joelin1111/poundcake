@@ -16,8 +16,8 @@
         echo $ip_address;
         echo $this->Form->input('name', array( 'required' => false ));
         
-        // only show the gateway field if it's a /32
-        if ( isset($gw_addresses )) {
+        // only show the gateway field if ther are valid /32s to set for a gateway
+        if ( isset($gw_addresses ) && (count($gw_addresses) > 0 ) ) {
             echo $this->Form->input('gateway_id',
                     array(
                         'label' => 'Gateway',

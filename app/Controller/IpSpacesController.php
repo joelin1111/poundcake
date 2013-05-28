@@ -222,7 +222,7 @@ class IpSpacesController extends AppController {
              // re-added, which would otherwise make them out of sequence
             'order' => array('IpSpace.ip_address')
         ));
-        //var_dump( $ip_spaces ); die;
+//        var_dump( $gw_addresses ); //die;
         $this->set(compact('gw_addresses'));
     }
     

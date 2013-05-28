@@ -15,13 +15,18 @@
         echo $this->Form->hidden('parent_id', array( 'value' => $parent_id ));        
         echo $this->Form->input('name', array( 'value' => 'subnet', 'required' => false ));
         echo $this->Form->input('cidr', array( 'label' => 'CIDR', 'options' => $cidrs, 'selected'=> '0' ));
-        echo $this->Form->input('gateway_id',
-                array(
-                    'label' => 'Gateway',
-                    'options' => $gw_addresses,
-                    'empty'=> true
-            )
-        );
+        // only show the gateway field if ther are valid /32s to set for a gateway
+        if ( isset($gw_addresses ) && (count($gw_addresses) > 0 ) ) {
+                echo $this->Form->input('gateway_id',
+                    array(
+                        'label' => 'Gateway',
+                        'options' => $gw_addresses,
+                        'empty'=> true,
+                        // default the select list to the first IP in the array
+                        'selected' => key($gw_addresses)
+                )
+            );
+        }
         echo $this->Form->hidden('project_id', array( 'value' => $project_id ));        
     ?>
     </fieldset>
