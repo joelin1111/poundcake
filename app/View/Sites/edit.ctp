@@ -35,6 +35,9 @@
     </div>
     <?php
     echo $this->Form->input('declination', array('type'=>'hidden'));
+    echo $this->Form->input('elevation');
+    echo $this->Form->input('elevation_source',array('style' => 'width:100%'));
+    
     echo $this->Form->input('install_team_id', array('type'=>'select','options' => $installteams,'label' => 'Install Team', 'empty' => true));
     echo $this->Form->input('install_date', 
         array(

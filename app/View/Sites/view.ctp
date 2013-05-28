@@ -54,6 +54,12 @@
                                 <dt>Declination</dt>
                                 <dd><?php echo sprintf("%01.5f",$site['Site']['declination']); ?></dd>
 
+                                <dt>Elevation</dt>
+                                <dd><?php echo $site['Site']['elevation'] ? : 'Unknown'; ?></dd>
+                                
+                                <dt>Elevation Source</dt>
+                                <dd><?php echo $site['Site']['elevation_source'] ? : 'Unknown'; ?></dd>
+                                
                                 <dt>Zone</dt>
                                 <dd><?php echo $site['Zone']['name'] ? : 'None'; ?></dd>
 

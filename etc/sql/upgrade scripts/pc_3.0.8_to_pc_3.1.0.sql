@@ -2,6 +2,9 @@
 -- alter table switch_types drop watts;
 -- alter table router_types drop watts;
 
+alter table sites add elevation int(10) after lon;
+alter table sites add elevation_source varchar(255) after elevation;
+
 alter table radio_types add watts decimal(5,2);
 alter table switch_types add watts decimal(5,2);
 alter table router_types add watts decimal(5,2);
