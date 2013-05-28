@@ -93,7 +93,6 @@ class SwitchTypesController extends AppController {
             }
         }
         $this->set(compact('existing_network_interface_types'));
-        
         // get all network interface types
         $this->getNetworkInterfaceTypes();
     }
