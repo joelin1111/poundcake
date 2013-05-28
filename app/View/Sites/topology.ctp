@@ -132,7 +132,7 @@ Next page refresh: <span id=counter> </span>
 <!--
 var counterobj = document.all ? counter : document.getElementById("counter");
 
-var countdownfrom = 120; // countdown period in seconds
+var countdownfrom = 300; // countdown period in seconds
 var currentsecond = counterobj.innerHTML = countdownfrom+1; 
 
 function countdown() {
