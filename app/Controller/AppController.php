@@ -57,7 +57,7 @@ class AppController extends Controller {
      */
     var $helpers = array(
         'PoundcakeHTML',
-        'Less.Less' 
+        'Less.Less'
     );
     
     /*

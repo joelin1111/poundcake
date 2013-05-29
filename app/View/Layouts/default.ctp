@@ -40,7 +40,12 @@ $cakeDescription = __d('poundcake', 'Tower DB');
             echo $this->fetch('meta');
             echo $this->fetch('css');
             echo $this->fetch('script');            
-            
+            $this->Js->JqueryEngine->jQueryObject = '$j';
+echo $this->Html->scriptBlock(
+    'var $j = jQuery.noConflict();',
+    array('inline' => false)
+);
+// Tell jQuery to go into noconflict mode
             // CSS
             echo $this->Html->css('bootstrap'); // Bootstrap's CSS file
             //echo $this->Html->css('cosmo/bootstrap-bootstrap.min'); // testing Cosmo from Bootswatch

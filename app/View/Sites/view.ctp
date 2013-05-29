@@ -1,4 +1,4 @@
-<?php
+    <?php
     // if we're under SSL we have to give the Google stuff under SSL, too, or
     // else the browser is likely to complain or just not render SSL/non-SSL
     // content together
@@ -8,8 +8,14 @@
         echo $this->Html->script('http://maps.google.com/maps/api/js?sensor=true',false);
     }
     echo $this->Html->script('gears_init');
+//    echo $this->Html->script('jquery-1.9.1.min'); // why do I have to re-import this?  It's in default.ctp!
     echo $this->Html->script('jquery-ui-map/jquery.ui.map');
     echo $this->Html->script('poundcake/poundcake-map');
+    echo $this->Html->script('jquery.prettyPhoto');
+    echo $this->Html->script('poundcake/poundcake-prettyPhoto');
+    echo $this->Html->script('holder');
+    echo $this->Html->css('prettyPhoto');
+    
 ?>
 
 <div class="row">
@@ -375,31 +381,29 @@
                             echo '</a></li>';
                         }
                         echo '</UL></P>';
-
+                        
                         // now show the images
-                        echo '<P><UL class="thumbnails">';
+                        echo '<P><div><ul class="thumbnails">';
                         foreach ( $images as $image ) {
                             $f = basename($image);                    
                             $url = $baseUrl . "/$f";
-        //                    echo '<li><a href="'.$url.'" class="thumbnail">';
-        //                    echo $this->PhpThumb->thumbnail($url, array('w' => 100, 'h' => 100, 'zc' => 1));
-        //                    echo '</a></li>';                    
-                            echo '<li class="span3"><a href="'.$url.'" class="fancybox3 fancybox.image" rel="gallery1">';
-                            echo $this->Html->image( $url );
-                            $this->Fancybox->setProperties( array( 
-                                'class' => 'fancybox3',
-                                'className' => 'fancybox.image',
-                                'title' => $f,
-                                'rel' => 'gallery2'
-                                 )
-                            );
-                            $this->Fancybox->setPreviewContent( $f );
-                            $this->Fancybox->setMainContent($url); 
-                            echo $this->Fancybox->output(null);
+                            echo '<li class="span3">';
+                            echo '<a href="'.$url.'" rel="prettyPhoto[pp_gal]" title="'.$f.'">';
+                            //echo $this->Html->link( $f, $url, array( 'class'=>'thumbnail', 'rel' => 'prettyPhoto' ) );
+                            // this is the actual thumbnail image -- links to the same pace as the A HREF
+                            // that surrounds it
+                            echo $this->Html->image( $url, array(
+                                'class'=>'thumbnail',
+                                'rel' => 'prettyPhoto[pp_gal]'
+                                //'url' => $url
+                            ));
+                            // show the filename underneath the thumbnail
+                            echo '<center>'.$f.'</center>';
+                            echo '</a>';
                             echo '</li>';
 
                         }
-                        echo '</UL></P>';
+                        echo '</ul></div></p>';
 
 
                     } else {
@@ -409,15 +413,15 @@
                 </div>
                 <div class="tab-pane" id="tab5">
                     <?php
-                        echo $this->Html->image('test/profile-1.png', array('alt' => 'Profile #1'));
+                        //echo $this->Html->image('test/profile-1.png', array('alt' => 'Profile #1'));
                         //echo $this->Html->image('test/profile-2.png', array('alt' => 'Profile #2'));
-                        echo $this->Html->image('test/profile-3.png', array('alt' => 'Profile #3'));
-                        echo $this->Html->image('test/profile-data.png', array('alt' => 'Profile Data'));
+                        //echo $this->Html->image('test/profile-3.png', array('alt' => 'Profile #3'));
+                        //echo $this->Html->image('test/profile-data.png', array('alt' => 'Profile Data'));
                     ?>
                 </div>
                 <div class="tab-pane" id="tab6">
                     <?php
-                        echo $this->Html->image('test/viewshed-1.png', array('alt' => 'Viewshed #1'));
+                        //echo $this->Html->image('test/viewshed-1.png', array('alt' => 'Viewshed #1'));
                     ?>
                 </div>
             </div>
@@ -445,4 +449,4 @@
                 )
     );
     echo $this->Js->writeBuffer(); // Write cached scripts
-?>
+?> 
