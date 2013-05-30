@@ -21,7 +21,7 @@
 
 // @see http://milesj.me/blog/read/using-composer-in-cakephp
 //App::import('Vendor', array('file' => 'autoload'));
-// require_once dirname(__DIR__) . '/Vendor/autoload.php';
+require_once dirname(__DIR__) . '/Vendor/autoload.php';
 
 /**
  * CakePHP Debug Level:
@@ -192,8 +192,8 @@
         // See PC-492
         Configure::write('Session', array(
             'defaults' => 'php',
-            //'timeout' => 1, // CakePHP's session timeout
-            //'cookieTimeout' => 10, // Cookie timeout
+//            'timeout' => 1, // CakePHP's session timeout
+//            'cookieTimeout' => 1, // Cookie timeout
             'timeout' => 480, // CakePHP's session timeout
             'cookieTimeout' => 480, // Cookie timeout
             'cookie' => 'Poundcake', // Cookie name

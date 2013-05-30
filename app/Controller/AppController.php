@@ -31,6 +31,13 @@ class AppController extends Controller {
      */
     public $components = array(
         'Session',
+        'Cookie',
+        // see the Utility plugin, AutoLogin feature
+        'Utility.AutoLogin' => array(
+            'cookieName' => 'PoundcakeUser',
+            'expires' => '+2 weeks',
+            'redirect' => false
+        ),
         'Auth' => array(
             //'loginRedirect' => array('controller' => 'schools', 'action' => 'overview'),\
             // if the user is not logged in, 
@@ -40,13 +47,6 @@ class AppController extends Controller {
             'logoutRedirect' => array('controller' => 'users', 'action' => 'login'),
             'authorize' => array('Controller')
         ),
-        'Cookie',
-        // see the Utility plugin, AutoLogin feature
-        'Utility.AutoLogin' => array(
-            'cookieName' => 'PoundcakeUser',
-            'expires' => '+2 weeks',
-            'redirect' => false
-        ),        
         'RequestHandler'        
     );
 
@@ -247,7 +247,7 @@ class AppController extends Controller {
         $this->loadModel('User');
         $this->User->recursive = 2;
         $this->User->id = $user['id'];
-        $user = $this->User->read();
+        $user = $this->User->read( null, $user['id'] );
 //        var_dump( $user );
 //        $this->User->Behaviors->load('Containable');
 //        $projects = $this->User->find('all',
@@ -259,17 +259,19 @@ class AppController extends Controller {
 //        var_dump( $projects ); die;
         
         $user['User']['auto_login'] = true;
+//        echo '<pre>';
 //        var_dump( $user );
 //        var_dump( $user2 );
         // so that we an find any project memberships
         $projects = $user['ProjectMembership'];
         foreach ( $projects as $project ) {
-//            echo "Comparing:".$project['project_id']." to ".$user['project_id']." <BR>";
-            if ( $project['project_id'] == $user['project_id'] ) {
+//            echo "Comparing:".$project['project_id']." to ".$user['User']['project_id']." <BR>";
+            if ( $project['project_id'] == $user['User']['project_id'] ) {
                 $role_id = $project['role_id'];
+                break;
             }
         }
-
+//        echo '</pre>';
         // if they are an amin (admin field is 1 on the User model), then their
         // role alias is admin regardless
         if ( $user['User']['admin'] > 0 ) {
@@ -290,10 +292,10 @@ class AppController extends Controller {
         
         // load the project so we can get the project name
         $this->loadModel('Project');
-        $this->Project->id = $user['project_id'];
-        $project = $this->Project->read();
-        $t = date("H:i:s");
-        $this->Session->write('project_name', $project['Project']['name'].' - Updated by AutoLogin at '. $t);
+        $this->Project->id = $user['User']['project_id'];
+        $project = $this->Project->read( null, $user['User']['project_id'] );
+//        var_dump($project);die;
+        $this->Session->write('project_name', $project['Project']['name'].' - Updated by AutoLogin at '.  date("H:i:s") );
 //        var_dump( $user );
     }
     

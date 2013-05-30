@@ -229,7 +229,7 @@ class SitesController extends AppController {
         
         $this->Site->recursive = 1; // we need to access the Site's NetworkRadio array
         $sites = $this->Site->find('all', array('conditions' => $conditions));
-
+        
         $s = array();
         $u = 0;
         $n = 0;

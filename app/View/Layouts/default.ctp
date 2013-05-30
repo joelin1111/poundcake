@@ -224,7 +224,10 @@ echo $this->Html->scriptBlock(
                        
         ?>
             
-    <?php //echo $this->element('sql_dump'); ?>
+    <?php
+//        echo $this->element('sql_dump');
+//        echo Configure::version(); // show Cake version
+    ?>
     </div> <!-- /footer -->
     <?php
 //        echo "<BR>Session info:<BR><UL>";
