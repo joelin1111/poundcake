@@ -324,16 +324,38 @@ class SitesController extends AppController {
     }
         
     public function overview() {
+        
         $conditions = array(
             'AND' => array(
                 'Site.project_id' => $this->Session->read('project_id') // only show sites for the current project
             )
         );
         
-        $this->Site->recursive = 2;
-        $sites = $this->Site->find('all', array('conditions' => $conditions));
+        $sites = $this->Site->find('all',
+                array( 'conditions' => $conditions ),
+                array(
+                   'contain' => true
+//                    'contain' => array (
+//                        'SiteState' => array(
+//                            'SiteStateIcon' => array('fields' => array('id', 'name'))
+//                        )
+//                    ),
+                )
+        );
+        
+        // this is a hack, but when the overivew page suddenly started throwing out of memory
+        // errors I switched from recursion to Containable -- and I could not
+        // get SiteStateIcons returned in my find query above, so the hack here is that we are
+        // manually putting them back into the array; overview.ctp is basically the same
+        // as it was before
+        $n = 0;
+        foreach ( $sites as $site ) {
+            $sites[$n]['SiteState']['SiteStateIcon'] = $this->Site->SiteState->read(null, $site['Site']['site_state_id'] )['SiteStateIcon'];
+            $n++;
+        }
+        
         $this->setDefaultLatLon( $this->Session->read('project_id') );
-        $this->set(compact('sites'));
+        $this->set(compact( 'sites' ));
         $this->getSiteStates();
         $this->buildLegend();
     }
@@ -715,6 +737,10 @@ class SitesController extends AppController {
         $watts = 0;
         $watts += $this->Site->NetworkRouter->RouterType->field( 'watts' );
         $watts += $this->Site->NetworkSwitch->SwitchType->field( 'watts' );
+        // same for the value of these devices
+        $value = 0;
+        $value += $this->Site->NetworkRouter->RouterType->field( 'value' );
+        $value += $this->Site->NetworkSwitch->SwitchType->field( 'value' );
         
         $radios = $this->Site->NetworkRadios->findAllBySiteId($id);
         $n = 0;
@@ -735,12 +761,12 @@ class SitesController extends AppController {
             $n++;
             
             $watts += $radio['RadioType']['watts'];
-            // $watts += $this->Site->NetworkRadios->RouterType->field( 'watts' );
+            $value += $radio['RadioType']['value'];
         }
         
         $this->getBuildItems();
         $ip_addresses = $this->getAllAddrpoolIPAddresses( $this->Site->data['Site']['code'] );
-        $this->set(compact( 'site', 'ip_addresses', 'radios', 'watts' ));
+        $this->set(compact( 'site', 'ip_addresses', 'radios', 'watts', 'value' ));
     }
     
     /*
@@ -812,14 +838,10 @@ class SitesController extends AppController {
      * Save an array of site states
      */
     function getSiteStates() {
-        //$this->Session->read('project_id');
-        //$this->set('sitestates',$this->Site->SiteState->find('list'));
-       //$sitestates = $this->Site->SiteState->findByProjectId( $this->Session->read('project_id') );
         $sitestates = $this->Site->SiteState->find('list', array(
             'conditions' => array('project_id' => $this->Session->read('project_id') )
         ));
-        //debug($sitestates);
-        $this->set('sitestates',$sitestates);
+        $this->set(compact( 'sitestates' ));
     }
     
     /*

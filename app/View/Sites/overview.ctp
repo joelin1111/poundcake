@@ -21,13 +21,10 @@
     echo $this->element('Common/legend');
 ?>
 </div><!-- /.span3 .sb-fixed -->
-
 <div class="span9">
-    <h2>Overview</h2>
+    <h2><?php echo $this->Session->read('project_name'); ?> Overview</h2>
     
-    <dl>
-        <dt>Project</dt><dd><?php echo $this->Session->read('project_name'); ?></dd>
-    </dl>
+    <?php //echo $this->element('Common/disclaimer'); ?>
     
     <div class="map-frame">
     <div id="map_canvas" style="width:700px;height:600px"></div>
@@ -50,17 +47,7 @@
         echo "<div style='visibility:hidden; position:absolute;'>";
         echo '<ul>';
         foreach ( $sites as $site ) {
-//            $icon = null;
-//            echo '<BR><pre>Icon info:<BR>';
-//            print_r($site['SiteState']);
-//            print_r($site['SiteState']['SiteStateIcon']);
-            $icon_info = $site['SiteState']['SiteStateIcon'];
-            $icon = 'data:'.$icon_info['img_type'].';base64,'.base64_encode( $icon_info['img_data'] );
-//            print_r($icon_info['img_type']);
-//            echo '</pre>';
-//            die;
-//            $icon = 'data:'.$site['SiteState']['SiteStateIcon']['img_type'].';base64,'.base64_encode( $site['SiteStateIcon']['img_data'] );
-            //$icon = 'data:'.$site['SiteState']['img_type'].';base64,'.base64_encode( $site['SiteState']['img_data'] ); 
+            $icon = 'data:'.$site['SiteState']['SiteStateIcon']['img_type'].';base64,'.base64_encode( $site['SiteState']['SiteStateIcon']['img_data'] ); 
             $item = array( 
                 'id' => 'm_'.$u,
                 'icon' => $icon,
@@ -78,7 +65,6 @@
             $u++;
         }
         echo '</ul></div>';
-        
         ?>
     </div>  
 </div> <!-- /.span9 -->
