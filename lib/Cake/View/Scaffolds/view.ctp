@@ -149,7 +149,7 @@ $otherSingularVar = Inflector::variable($_alias);
 			echo "\t\t<th>" . Inflector::humanize($_field) . "</th>\n";
 		}
 ?>
-		<th class="index-actions">Actions</th>
+		<th class="actions">Actions</th>
 	</tr>
 <?php
 		$i = 0;

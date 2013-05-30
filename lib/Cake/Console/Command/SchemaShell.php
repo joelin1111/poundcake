@@ -53,6 +53,8 @@ class SchemaShell extends AppShell {
 		$this->out('Cake Schema Shell');
 		$this->hr();
 
+		Configure::write('Cache.disable', 1);
+
 		$name = $path = $connection = $plugin = null;
 		if (!empty($this->params['name'])) {
 			$name = $this->params['name'];
@@ -305,7 +307,7 @@ class SchemaShell extends AppShell {
  * @param string $table
  * @return void
  */
-	protected function _create($Schema, $table = null) {
+	protected function _create(CakeSchema $Schema, $table = null) {
 		$db = ConnectionManager::getDataSource($this->Schema->connection);
 
 		$drop = $create = array();
@@ -395,7 +397,7 @@ class SchemaShell extends AppShell {
  * @param CakeSchema $Schema
  * @return void
  */
-	protected function _run($contents, $event, &$Schema) {
+	protected function _run($contents, $event, CakeSchema $Schema) {
 		if (empty($contents)) {
 			$this->err(__d('cake_console', 'Sql could not be run'));
 			return;
