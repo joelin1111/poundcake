@@ -17,6 +17,7 @@
         echo $this->Form->input('manufacturer');
         echo $this->Form->input('model');
         echo $this->Form->input('watts',array('value'=>'0'));
+        echo $this->Form->input('value',array('value'=>'0.00'));
         // include multiple checkboxes for NetworkInterfaces
         echo $this->element('SwitchTypes/network_interface_types');
     ?>

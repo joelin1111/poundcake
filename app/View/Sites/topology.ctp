@@ -12,7 +12,7 @@
     echo $this->Html->script('jquery-ui-map/jquery.ui.map.overlays'); // for polyLine support
     echo $this->Html->script('poundcake/poundcake-map');
     
-    $this->Session->write( 'random', rand(5, 15) );
+    //$this->Session->write( 'random', rand(5, 15) );
     
 ?>
 <div class="row">

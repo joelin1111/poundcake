@@ -95,7 +95,6 @@
                                 
                                 <dt>Power Consumption</dt>
                                 <dd><?php echo $watts; ?>W (<?php echo ($watts * 24)?> Watt hours)</dd>
-                        
                             </dl>
                         </div>
                         <div class="span4">
@@ -196,6 +195,9 @@
                         ?>
                         </dd>
                     
+                        <dt>Hardware Value</dt>
+                        <dd>USD $<?php echo $value; ?></dd>
+                                
                         <dt>Site Last Modified</dt>
                         <dd><?php echo date($format, strtotime( $site['Site']['modified'] )); ?></dd>
                     </dl>
@@ -330,7 +332,6 @@
                     </dl>
 
                     <?php echo $this->element('Common/addrpool_data'); ?>
-
                 </div>
 
                 <!-- Tab 4 -->
@@ -387,15 +388,16 @@
                         foreach ( $images as $image ) {
                             $f = basename($image);                    
                             $url = $baseUrl . "/$f";
+                            // we're sort of doing two things here 1) creating a link
+                            // that has the rel attribute of prettyPhoto so the image
+                            // opens up in the prettyPhoto jQuery viewer, and 2) creating
+                            // a standard bootstrap thumbnail image, also wrapped by
+                            // that same link -- so a user just has to click on the thumbnail
+                            // to open the viewer
                             echo '<li class="span3">';
                             echo '<a href="'.$url.'" rel="prettyPhoto[pp_gal]" title="'.$f.'">';
-                            //echo $this->Html->link( $f, $url, array( 'class'=>'thumbnail', 'rel' => 'prettyPhoto' ) );
-                            // this is the actual thumbnail image -- links to the same pace as the A HREF
-                            // that surrounds it
                             echo $this->Html->image( $url, array(
                                 'class'=>'thumbnail',
-                                'rel' => 'prettyPhoto[pp_gal]'
-                                //'url' => $url
                             ));
                             // show the filename underneath the thumbnail
                             echo '<center>'.$f.'</center>';

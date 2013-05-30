@@ -16,6 +16,7 @@
         echo $this->Form->input('name');
         echo $this->Form->input('manufacturer');
         echo $this->Form->input('watts');
+        echo $this->Form->input('value');
         // include multiple checkboxes for NetworkInterfaces
         echo $this->element('Common/network_interfaces');
         echo $this->Form->input('radio_band_id', array('type'=>'select','options' => $radiobands));

@@ -15,6 +15,25 @@ update switch_types set watts=17.0 where name like '24-Port%';
 update router_types set watts=6.0 where name like '%RB750G%';
 update router_types set watts=12.0 where name like '%1100%';
 
+alter table radio_types add value decimal(5,2);
+alter table switch_types add value decimal(5,2);
+alter table router_types add value decimal(5,2);
+update radio_types set value='229.00' where id=1;
+update radio_types set value='78.00' where id=2;
+update radio_types set value='86.00' where id=3;
+update radio_types set value='87.00' where id=4;
+update radio_types set value='79.00' where id=5;
+update radio_types set value='238.00' where id=6;
+update radio_types set value='245.00' where id=7;
+update radio_types set value='219.00' where id=8;
+update radio_types set value='154.00' where id=9;
+
+update switch_types set value='500.00';
+update router_types set value='44.00' where id=2;
+update router_types set value='166.00' where id=3;
+update router_types set value='489.00' where id=4;
+
+
 
 DROP TABLE IF EXISTS `network_interface_types`;
 CREATE TABLE `network_interface_types` (
