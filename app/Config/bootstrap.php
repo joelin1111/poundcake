@@ -212,4 +212,5 @@ Configure::write('Cryptable.iv', $iv);
 
 // load the Utility plugin -- thos handles the AutoLogin
 // @see http://milesj.me/code/cakephp/utility
+CakePlugin::load('Composer', array('bootstrap' => true));
 CakePlugin::load('Utility', array('bootstrap' => true, 'routes' => true));
