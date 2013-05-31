@@ -31,21 +31,7 @@ class SwitchType extends AppModel {
     /*
      * Default sort order
      */
-    var $order = 'SwitchType.name ASC';
-    
-    /*
-     * Relations
-     */
-//    public $hasAndBelongsToMany = array(
-//        'NetworkInterfaceType' =>
-//        array (
-//                'unique' => 'keepExisting'
-//        )
-//    );
-    public $hasMany = array(
-        'NetworkInterfaceTypeSwitchType'
-    );
-    
+    var $order = 'SwitchType.name ASC';    
     
     /*
      * Field-level validation rules

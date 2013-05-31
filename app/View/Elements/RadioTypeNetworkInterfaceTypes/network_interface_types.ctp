@@ -24,7 +24,7 @@
                 }
             }
         }
-//        var_dump($networkInterfaceType);
+        
         // strtolower because Cake will capitalize the first letter,
         // and in this case we don't want eth to be Eth
         // strtolower doesn't seem t work on the first argument
@@ -32,7 +32,7 @@
         $label = strtolower( $networkInterfaceType['NetworkInterfaceType']['name'] );
         echo '<tr><td>';
         echo $this->Form->input(
-                'NetworkInterfaceTypeSwitchType.'.$id.'][network_interface_type_id]',
+                'RadioTypeNetworkInterfaceTypes.'.$id.'][network_interface_type_id]',
                 array(
                     'value' => $id,
                     'label' => $label,
@@ -41,7 +41,7 @@
                 )
         );
         echo '</td><td>';
-        echo $this->Form->input( 'NetworkInterfaceTypeSwitchType.'.$id.'][number]',
+        echo $this->Form->input( 'RadioTypeNetworkInterfaceTypes.'.$id.'][number]',
                 array(
                     'label' =>'',
                     'value'=> $number,

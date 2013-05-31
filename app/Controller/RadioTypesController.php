@@ -41,18 +41,33 @@ class RadioTypesController extends AppController {
     public function add() {
         if ($this->request->is('post')) {
             $this->RadioType->create();
-            if ($this->RadioType->save($this->request->data)) {
+            // purge empty items
+            $this->request->data['RadioTypeNetworkInterfaceTypes'] = $this->purgeEmptyNetworkInterfaceTypes( $this->request->data['RadioTypeNetworkInterfaceTypes'] );
+            if ($this->RadioType->saveAll($this->request->data)) { // saveAll for HABTM through the join model
                 $this->Session->setFlash('The radio type has been saved.');
                 $this->redirect(array('action' => 'index'));
             } else {
                 $this->Session->setFlash('Error!  The radio type could not be saved. Please, try again.');
             }
         }
+        
+        $this->getNetworkInterfaceTypes();
         $this->getRadioBands();
         $this->getAntennaTypes();
-        parent::getNetworkIntefaceTypes();
     }
 
+    /*
+     * Remove elements from the NetworkInterfaceTypes array that are have number of 0
+     * (by default the array of NetworkInterfaceTypes that comes back from the add/edit
+     * screen includes items with quanity of 0)
+     */
+    private function purgeEmptyNetworkInterfaceTypes( $array ) {
+        // nice trick, see http://stackoverflow.com/questions/14759647/remove-array-if-any-element-is-empty
+        return array_filter( $array, function($item) {
+            return ( $item['number'] > 0 && $item['network_interface_type_id'] > 0 );
+        });
+    }
+    
     /*
      * Edit an existing RadioType
      */
@@ -62,7 +77,11 @@ class RadioTypesController extends AppController {
             throw new NotFoundException('Invalid radio type');
         }
         if ($this->request->is('post') || $this->request->is('put')) {
-            if ($this->RadioType->save($this->request->data)) {
+            // we first have to clear out the join table
+            $this->RadioType->RadioTypeNetworkInterfaceTypes->deleteAll(array('RadioTypeNetworkInterfaceTypes.radio_type_id' => $id ));
+            // purge empty items
+            $this->request->data['RadioTypeNetworkInterfaceTypes'] = $this->purgeEmptyNetworkInterfaceTypes( $this->request->data['RadioTypeNetworkInterfaceTypes'] );
+            if ($this->RadioType->saveAll( $this->request->data )) { // saveAll for HABTM through the join model
                 $this->Session->setFlash('The radio type has been saved.');
                 $this->redirect(array('action' => 'index'));
             } else {
@@ -71,11 +90,34 @@ class RadioTypesController extends AppController {
         } else {
             $this->request->data = $this->RadioType->read(null, $id);
         }
+        
+        // manually make an array of checked items -- this is so we can manually
+        // check boxes on the edit page (dealing for HABTM through the join model)
+        $e = $this->RadioType->data['RadioTypeNetworkInterfaceTypes'];
+        $existing_network_interface_types = array();
+        foreach ( $e as $p ) {
+            if ( $p['number'] > 0 ) {
+                array_push( $existing_network_interface_types,
+                        array( 
+                            'network_interface_type_id' => $p['network_interface_type_id'],
+                            'number' => $p['number']
+                            )
+                        );
+            }
+        }
+        $this->set(compact('existing_network_interface_types'));
+        
+        
         $this->getRadioBands();
         $this->getAntennaTypes();
-        parent::getNetworkIntefaceTypes();
+        $this->getNetworkInterfaceTypes();
     }
 
+    private function getNetworkInterfaceTypes() {
+        // get all network interface types
+        $this->set('networkInterfaceTypes',$this->RadioType->RadioTypeNetworkInterfaceTypes->NetworkInterfaceType->find('all'));
+    }
+    
     /*
      * Save an array of antenna types
      */

@@ -104,7 +104,7 @@ class SiteStatesController extends AppController {
                     ));
                     $this->loadModel('Site');
                     $this->Site->updateAll(
-                            array('Site.site_state_id' => $sequence['SiteState']['sequence']),
+                            array('Site.site_state_id' => $sequence['SiteState']['id']),
                             array('Site.project_id <=' => $dest)
                     );
                 } else {

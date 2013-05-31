@@ -26,10 +26,6 @@
  * @see           MySQL triggers, stored procedures
  */
 
-// App::uses('AppController', 'NetworkDeviceController', 'Controller');
-
-// class NetworkRadiosController extends AppController {
-
 App::uses('NetworkDeviceController', 'Controller');
 
 class NetworkRadiosController extends NetworkDeviceController {
@@ -418,6 +414,25 @@ class NetworkRadiosController extends NetworkDeviceController {
         } else {
             $this->request->data = $this->NetworkRadio->read(null, $id);
         }
+        
+        /*
+        $switch_type_id = $this->NetworkSwitch->field('switch_type_id');
+        $network_interface_types_tmp = $this->NetworkSwitch->SwitchType->NetworkInterfaceTypeSwitchType->find('list',
+                array(
+                    'conditions' => array(
+                        'NetworkInterfaceTypeSwitchType.switch_type_id' => $switch_type_id,
+                        'NetworkInterfaceTypeSwitchType.number >' => 0
+                    )
+                )
+        );
+        $network_interface_types = array();
+        $this->loadModel('NetworkInterfaceTypeSwitchType');
+        foreach( $network_interface_types_tmp as $i ) {
+            $interface_type = $this->NetworkInterfaceTypeSwitchType->findById( $i );
+            $network_interface_types[ $interface_type['NetworkInterfaceType']['id'] ] = $interface_type['NetworkInterfaceType']['name'];
+        }
+        */
+        
         $this->getSnmpTypes();
         parent::getIpSpaces( $this->Session->read('project_id') );
     }

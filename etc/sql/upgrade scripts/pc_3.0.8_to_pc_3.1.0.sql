@@ -52,10 +52,11 @@ insert into network_interface_types(name) values ('lo');
 
 -- TESTING
 
-DROP TABLE IF EXISTS `network_interface_type_switch_types`;
-CREATE TABLE `network_interface_type_switch_types` (
+DROP TABLE IF EXISTS `radio_type_network_interface_types`;
+CREATE TABLE `radio_type_network_interface_types` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `network_interface_type_id` int(10) NOT NULL,
-  `switch_type_id` int(10) NOT NULL,
+  `radio_type_id` int(10) NOT NULL,
   `number` int(10),
-  PRIMARY KEY (`network_interface_type_id`,`switch_type_id`,`number`)
+  PRIMARY KEY (`id`,`network_interface_type_id`,`radio_type_id`,`number`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;

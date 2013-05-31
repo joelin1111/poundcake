@@ -161,41 +161,9 @@ class NetworkSwitchesController extends NetworkDeviceController {
         $this->getSwitchTypes();
         $this->getSnmpTypes();
         $project_id = $this->Session->read('project_id');
-        /* I think this is what I want to do, but I can't get it to work:
-        $network_interface_types = $this->NetworkSwitch->SwitchType->NetworkInterfaceTypeSwitchType->NetworkInterfaceType->find(
-                'list',
-                array(
-//                    'recursive' => 2,
-                    'contain' => array(
-                        'SwitchType' => array(
-                            'NetworkInterfaceTypeSwitchType' => array(
-                                'NetworkInterfaceType' => array(
-                                    'fields' => array('name')
-                                )
-                            )
-                        )
-                )
-            )
-        );
-        */
-        $switch_type_id = $this->NetworkSwitch->field('switch_type_id');
-        $network_interface_types_tmp = $this->NetworkSwitch->SwitchType->NetworkInterfaceTypeSwitchType->find('list',
-                array(
-                    'conditions' => array(
-                        'NetworkInterfaceTypeSwitchType.switch_type_id' => $switch_type_id,
-                        'NetworkInterfaceTypeSwitchType.number >' => 0
-                    )
-                )
-        );
-        $network_interface_types = array();
-        $this->loadModel('NetworkInterfaceTypeSwitchType');
-        foreach( $network_interface_types_tmp as $i ) {
-            $interface_type = $this->NetworkInterfaceTypeSwitchType->findById( $i );
-            $network_interface_types[ $interface_type['NetworkInterfaceType']['id'] ] = $interface_type['NetworkInterfaceType']['name'];
-        }
                 
         parent::getIpSpaces( $project_id );
-        $this->set(compact('old_site_id','project_id','network_interface_types'));
+        $this->set(compact( 'old_site_id','project_id' ));
     }
 
     /*

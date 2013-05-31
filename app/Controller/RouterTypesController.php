@@ -49,7 +49,7 @@ class RouterTypesController extends AppController {
                 $this->Session->setFlash('Error!  The router type could not be saved. Please, try again.');
             }
         }
-        parent::getNetworkIntefaceTypes();
+//        parent::getNetworkIntefaceTypes();
     }
 
     /*
@@ -70,7 +70,7 @@ class RouterTypesController extends AppController {
         } else {
             $this->request->data = $this->RouterType->read(null, $id);
         }
-        parent::getNetworkIntefaceTypes();
+//        parent::getNetworkIntefaceTypes();
     }
 
     /*
