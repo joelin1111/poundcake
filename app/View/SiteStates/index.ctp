@@ -4,6 +4,7 @@
     <div class="well">
     <ul>
         <li><?php echo $this->PoundcakeHTML->link('New Site State', array('action' => 'add')); ?></li>
+        <li><?php echo $this->PoundcakeHTML->link('Copy Site States', array('action' => 'copy')); ?></li>
         <li><?php echo $this->PoundcakeHTML->link('Setup',array('controller'=>'admin','action' => 'setup')); ?></li>
     </ul>
     </div>    

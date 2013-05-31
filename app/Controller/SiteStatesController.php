@@ -71,6 +71,56 @@ class SiteStatesController extends AppController {
         $this->getExistingSiteStateIcons();
     }
 
+    public function copy() {
+        if ($this->request->is('post') || $this->request->is('put')) {
+            $src = $this->request->data['SiteState']['project_src'];
+            $dest = $this->request->data['SiteState']['project_dest'];
+//            $src = 1; // HRBN project
+//            $dest = 19; // Test project
+            if ( $src != $dest ) {
+                $conditions = array(
+                    'SiteState.project_id' => $dest
+                );
+//                var_dump($conditions);die;
+                // first, delete any site states on the target project
+                $this->SiteState->deleteAll( $conditions );
+                // now iterate through the ones on the soruce project and copy them
+//                $this->SiteState->recursive = -1;
+                $site_states = $this->SiteState->findAllByProjectId( $src );
+//                var_dump($site_states);
+//                echo '<pre>';
+                if ( count($site_states) > 0 ) {
+                    foreach( $site_states as $ss ) {
+//                        var_dump( $ss );die;
+                        $ss['SiteState']['id'] = null; // set ID to null so it saves a new record
+                        $ss['SiteState']['project_id'] = $dest; // set new project ID
+                        $this->SiteState->save( $ss ); // and save it                        
+                    }
+                    // now we need to set any existing sites in the destination project
+                    // to the SiteState that has the lowest sequence number
+                    $sequence = $this->SiteState->find('first', array(
+                        'conditions' => array('SiteState.project_id' => $dest ),
+                        'order' => array('SiteState.sequence' => 'asc')                       
+                    ));
+                    $this->loadModel('Site');
+                    $this->Site->updateAll(
+                            array('Site.site_state_id' => $sequence['SiteState']['sequence']),
+                            array('Site.project_id <=' => $dest)
+                    );
+                } else {
+                    $this->Session->setFlash('Error!  No site states on source project.');
+                    $this->redirect(array('action' => 'index'));
+                }
+//                echo '</pre>';
+                $this->Session->setFlash('Site states successfully copied to destination project.');
+                $this->redirect(array('action' => 'index'));
+            } else {
+                $this->Session->setFlash('Error!  Cannot copy site states between the same project.  Please, try again.');
+            }
+        }
+        $this->getProjects();
+    }
+    
     private function getExistingSiteStateIcons() {
 //        $conditions = array(
 //            'fields' => array('DISTINCT SiteState.img_data AS img_data')

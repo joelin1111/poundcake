@@ -350,6 +350,15 @@ class SitesController extends AppController {
         // as it was before
         $n = 0;
         foreach ( $sites as $site ) {
+//            $site_state_id = $site['Site']['site_state_id'];
+//            var_dump( $site_state_id );
+//            $this->loadModel('SiteState');
+//            $this->SiteState->id = $site_state_id;
+//            $ss = $this->SiteState->read();
+////            $ss = $this->SiteState->read(null, $site_state_id );
+////            $ss = $this->SiteState->findById( $site_state_id );
+//            var_dump( $ss );
+//            $sites[$n]['SiteState']['SiteStateIcon'] = $this->SiteState->read(null, $site_state_id )['SiteStateIcon'];
             $sites[$n]['SiteState']['SiteStateIcon'] = $this->Site->SiteState->read(null, $site['Site']['site_state_id'] )['SiteStateIcon'];
             $n++;
         }
