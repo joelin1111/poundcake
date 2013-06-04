@@ -30,6 +30,27 @@
     </ul>
     </div>
     
+    <H3>Configured Interfaces</H3>
+    <div class="well">
+        <ul>
+        <?php
+        foreach ($network_interface_types as $nit ) {
+            echo '<li>';
+            echo $this->PoundcakeHTML->linkIfAllowed(
+                'Edit '.$nit['NetworkInterfaceType']['name'],
+                array('controller' => 'networkRadios',
+                    'action' => 'interfaces',
+                    $id,
+                    $nit['RadioTypeNetworkInterfaceTypes']['id'],
+                    $nit['RadioTypeNetworkInterfaceTypes']['number'],
+                )
+            );
+            echo '</li>';
+        }
+        ?>
+        </ul>
+    </div>
+    
 </div><!-- /.span3 .sb-fixed -->
 
 <div class="span9">
@@ -120,15 +141,23 @@
             echo '</li></ul>';            
         }
     ?>
-    <dt>IP Address (Legacy)</dt><dd><?php echo $networkradio['NetworkRadio']['ip_address']; ?>
-    <dt>IP Address</dt><dd>
-        <?php
-        // revisit: the IpV4 behavior should decode this field for us -- why am
-        // I having to decode it manually?
-        echo long2ip($networkradio['IpSpace']['ip_address']);
-     ?>
+    
+    <dt>IP Address (Legacy)</dt><dd><?php echo $networkradio['NetworkRadio']['ip_address']; ?></dd>
     </dl>
+    
     <dl>
+    <dt>Interfaces</dt>
+    <dl  class="dl-horizontal">
+        <?php
+            foreach ( $if_array as $if ) {
+                echo '<dt>'.$if['if_name'].'</dt>';
+                echo '<dd>'.$if['ip_address'].'</dd>';
+            }
+        ?>
+    </dl>
+    </dl>
+    
+    <dl class="dl-horizontal">
     <dt>Link Information</dt>
     <dd>
         <?php
@@ -186,18 +215,6 @@
                 </td>
                 <td>
                     <?php
-                        /*
-                        echo $this->PoundcakeHTML->postLinkIfAllowed(
-                            'Pull Config',
-                            array(
-                                'action' => 'pullConfig',
-                                'controller' => 'networkRadios',
-                                $networkradio['NetworkRadio']['id'],
-                                $link['radios_radios']['dest_radio_id']
-                            ),
-                            null,
-                            'Pull SSID, frequency and mode from '.$link['network_radios']['name'].'?');
-                        */
                         echo $this->PoundcakeHTML->postLinkIfAllowed('Pull Config',
                             array('controller'=>'networkRadios','action'=>'pullConfig', $networkradio['NetworkRadio']['id'],$link['radios_radios']['dest_radio_id']),
                             array('method' => 'post','class'=>'confirm','data-dialog_msg'=>'Pull config from '.$networkradio['NetworkRadio']['name']),

@@ -5,7 +5,6 @@
 ?>
 
 <div class="row">
-    <?php echo $this->Html->addCrumb('Radios', '/networkRadios'); ?>
 <div class="span3">
     <H3>Actions</H3>
     <div class="well">
@@ -47,7 +46,6 @@
                     'label'=>'IP Address (Legacy)'
                 )
         );
-        echo $this->Form->input('ip_space_id', array('type'=>'select','label'=>'IP Address','options' => $ip_spaces));
         echo $this->Form->submit('Save', array('div' => false,'class'=>'btn btn-primary'));
         echo $this->Form->submit('Cancel', array('name' => 'cancel','div' => false,'class'=>'btn btn-cancel'));
         echo $this->Form->end(); 

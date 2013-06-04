@@ -26,13 +26,15 @@ class AppController extends Controller {
 
     const MAX_CIDRS = 32;
     
+    public $actsAs = array('Containable'); // Containable rules -- took forever to get used to it
+    
     /*
      * Compinents - used for the login/ACL
      */
     public $components = array(
         'Session',
         'Cookie',
-        // see the Utility plugin, AutoLogin feature
+        // see the Utility plugin, AutoLogin feature, AutoLogin must come before Auth!
         'Utility.AutoLogin' => array(
             'cookieName' => 'PoundcakeUser',
             'expires' => '+2 weeks',

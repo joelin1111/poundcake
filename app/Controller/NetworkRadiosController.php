@@ -187,21 +187,51 @@ class NetworkRadiosController extends NetworkDeviceController {
         // $datetime_format = $this->getDateTimeFormat();
         $this->getMonitoringSystemLink( $this->NetworkRadio->data['NetworkRadio']['node_id'] );
         
-        // $this->getNetworkServices();
-        $this->set(compact('networkradio','links','sector','provisioned_by_name', 'checked' ));
+        $network_interface_types = $this->NetworkRadio->RadioType->RadioTypeNetworkInterfaceTypes->find('all',
+                array(
+                    'conditions' => array(
+                        'RadioTypeNetworkInterfaceTypes.radio_type_id' => $this->NetworkRadio->field('radio_type_id')
+                    ),
+                    'contains' => true,
+                    'fields' => array(
+                        'RadioTypeNetworkInterfaceTypes.id',
+                        'NetworkInterfaceType.name',
+                        'RadioTypeNetworkInterfaceTypes.number',
+                        
+                    ) 
+                )
+        );
+        
+        $if_array = array();
+        $this->loadModel('NetworkInterfaceIpSpaces');
+        $interfaces_tmp = $this->NetworkInterfaceIpSpaces->findAllByNetworkRadioId( $id );
+        
+//        echo '<pre>';
+//        print_r($interfaces_tmp);
+//        echo '</pre>';
+//        die;
+        $this->loadModel('IpSpaces');
+        foreach( $interfaces_tmp as $if ) {
+            $if_name = $this->getIfName( $if['NetworkInterfaceIpSpaces']['network_interface_type_id'] );            
+            $ip_space = $this->IpSpaces->findById( $if['NetworkInterfaceIpSpaces']['ip_space_id'] );
+            
+            // show empty IP addresses as 0.0.0.0/32 unless there's a defined cidr
+            $ip_address = '0.0.0.0';
+            $cidr = 0;
+            if ( isset( $ip_space['IpSpaces'] )) {
+                $cidr = $ip_space['IpSpaces']['cidr'];
+                $ip_address = long2ip( $ip_space['IpSpaces']['ip_address'] );
+            }
+                        
+            array_push( $if_array, array (
+                'if_name' => $if_name.$if['NetworkInterfaceIpSpaces']['if_number'],                
+                'ip_address' => $ip_address.'/'.$cidr
+            ) );
+        }
+        sort( $if_array ); // so the interfaces appear in order by number and name
+        
+        $this->set(compact('id','if_array','network_interface_types','networkradio','links','sector','provisioned_by_name', 'checked' ));
     }
-    
-//    protected function getNetworkServices() {
-//        $this->loadModel('NetworkServices');
-//        $networkservices = $this->NetworkServices->find('list');
-//        // get all services that should be checked by default
-//        $services = $this->NetworkServices->findAllByDefault( 1 );
-//        $selected = array();
-//        foreach( $services as $k => $v ) {
-//            array_push($selected, $v['NetworkServices']['id']);
-//        }
-//        $this->set(compact('networkservices','selected'));
-//    }
     
     /*
      * Save an array of performance graphs from the monitoring system
@@ -397,6 +427,7 @@ class NetworkRadiosController extends NetworkDeviceController {
         $this->getAllSitesForProject();
         $this->getNetworkSwitch($this->NetworkRadio->field('site_id'));
         
+        $old_radio_type_id = $this->NetworkRadio->field('radio_type_id');
         if (!$this->NetworkRadio->exists()) {
             throw new NotFoundException('Invalid radio');
         }
@@ -404,6 +435,17 @@ class NetworkRadiosController extends NetworkDeviceController {
         if ($this->request->is('post') || $this->request->is('put')) {
             $data = $this->request->data;
             $this->request->data = $this->setMagAzimuth($this->request->data);
+            // if the radio type changed, we need to clear out any old IP space mappings
+            if ( $old_radio_type_id != $this->request->data['NetworkRadio']['radio_type_id'] ) {
+                $this->loadModel('NetworkInterfaceIpSpace');
+                $conditions = array(
+                    'AND' => array(
+                        'NetworkInterfaceIpSpace.network_radio_id' => $id
+                    ),
+                );
+//                var_dump( $conditions );
+                $this->NetworkInterfaceIpSpace->deleteAll( array( 'NetworkInterfaceIpSpace.network_radio_id' => $id ) );
+            }
             
             if ($this->NetworkRadio->save($this->request->data)) {
                 $this->Session->setFlash('The radio has been saved.');
@@ -412,29 +454,119 @@ class NetworkRadiosController extends NetworkDeviceController {
                 $this->Session->setFlash('Error!  The radio could not be saved. Please, try again.');
             }
         } else {
+//            $this->NetworkRadio->contain('NetworkInterfaceIpSpace');
             $this->request->data = $this->NetworkRadio->read(null, $id);
         }
         
-        /*
-        $switch_type_id = $this->NetworkSwitch->field('switch_type_id');
-        $network_interface_types_tmp = $this->NetworkSwitch->SwitchType->NetworkInterfaceTypeSwitchType->find('list',
-                array(
-                    'conditions' => array(
-                        'NetworkInterfaceTypeSwitchType.switch_type_id' => $switch_type_id,
-                        'NetworkInterfaceTypeSwitchType.number >' => 0
-                    )
-                )
-        );
-        $network_interface_types = array();
-        $this->loadModel('NetworkInterfaceTypeSwitchType');
-        foreach( $network_interface_types_tmp as $i ) {
-            $interface_type = $this->NetworkInterfaceTypeSwitchType->findById( $i );
-            $network_interface_types[ $interface_type['NetworkInterfaceType']['id'] ] = $interface_type['NetworkInterfaceType']['name'];
-        }
-        */
-        
         $this->getSnmpTypes();
         parent::getIpSpaces( $this->Session->read('project_id') );
+    }
+    
+    public function interfaces( $id = null, $radio_type_network_interface_type_id = null, $number = null ) {
+        $this->loadModel('NetworkInterfaceIpSpace');
+        $this->loadModel('RadioTypeNetworkInterfaceTypes');
+        
+        $conditions= array(
+                'NetworkInterfaceIpSpace.network_radio_id' => $id,
+                'NetworkInterfaceIpSpace.network_interface_type_id' => $radio_type_network_interface_type_id,
+            );
+        
+//        $network_interface_ip_space = $this->NetworkInterfaceIpSpace->findByNetworkRadioId( $id );
+//        var_dump( $network_interface_ip_space );
+        
+        
+//        if (!$this->NetworkRadio->exists()) {
+//            throw new NotFoundException('Invalid radio');
+//        }
+        $network_interface_ip_space = array();
+        if ($this->request->is('post') || $this->request->is('put')) {
+            
+//            echo '<pre>';
+//            print_r($this->request->data);
+//            echo '</pre>';
+            // clear out existing mappings
+            $conditions = array(
+                'AND' => array(
+                    'NetworkInterfaceIpSpace.network_radio_id' => $id,
+                    'NetworkInterfaceIpSpace.network_interface_type_id' => $radio_type_network_interface_type_id
+                ),
+            );
+            $this->NetworkInterfaceIpSpace->deleteAll( $conditions );
+            
+            
+            if ($this->NetworkInterfaceIpSpace->saveAll( $this->request->data['NetworkInterfaceIpSpace'] )) {
+                $this->Session->setFlash('Saved interface configuration.');
+                $this->redirect(array('action' => 'view',$id,null));
+            } else {
+                $this->Session->setFlash('Error!  The interfaces could not be saved. Please, try again.');
+            }
+        } else {
+//            $this->NetworkRadio->contain('NetworkInterfaceIpSpace');
+//            $this->request->data = $this->NetworkRadio->read(null, $id);
+//            $network_interface_ip_space = $this->NetworkInterfaceIpSpace->findByNetworkRadioId( $id );
+            $network_interface_ip_space = $this->NetworkInterfaceIpSpace->find('all',array('conditions'=>$conditions));
+        }
+        
+        if ( count( $network_interface_ip_space ) == 0 ) {
+            $network_interface_types = $this->RadioTypeNetworkInterfaceTypes->find('all',
+                array(
+                    'conditions' => array(
+                        'RadioTypeNetworkInterfaceTypes.id' => $radio_type_network_interface_type_id,
+                    ),
+                    'contains' => true
+                )
+            );
+            echo '<pre>';
+            var_dump( $network_interface_types );
+            echo '</pre>';
+            
+            $interfaces = array();
+            for ( $n = 0; $n < $network_interface_types[0]['RadioTypeNetworkInterfaceTypes']['number']; $n++ ) {
+                $array = array();
+                array_push($interfaces, array(
+                    'NetworkInterfaceIpSpace' => array(
+                        'id' => null,
+                        'if_number' => $n,
+                        'network_radio_id' => $id,
+                        'network_router_id' => null,
+                        'ip_space_id' => null,
+                        'network_interface_type_id' => $radio_type_network_interface_type_id
+                    )
+                ));
+            }
+            
+            echo '<pre>Interfaces New:';
+            print_r($interfaces);
+            echo '</pre>';
+        } else {
+//            $interfaces = $this->NetworkInterfaceIpSpace->findAllByNetworkRadioId( $id );
+//            $interfaces = $this->NetworkInterfaceIpSpace->findAllByNetworkRadioId(
+//                    $id,
+//                    array(),
+//                    array('NetworkInterfaceIpSpace.if_number' => 'ASC')
+//            );
+            
+            $interfaces = $this->NetworkInterfaceIpSpace->find( 'all',
+                    array(
+                        'conditions' => $conditions
+            ));
+                    
+//            echo '<pre>Interfces Existing:';
+//            print_r( $interfaces );
+//            echo '</pre>';die;
+        }
+        print_r( $number );
+        
+        // $if_name = $this->RadioTypeNetworkInterfaceTypes->findById( $radio_type_network_interface_type_id )['NetworkInterfaceType']['name'];
+        $if_name = $this->getIfName( $radio_type_network_interface_type_id );
+        parent::getIpSpaces( $this->Session->read('project_id') );
+        $this->set(compact( 'id','interfaces','if_name','network_interface_ip_space','network_interface_type_id','number' ));
+        
+    }
+    
+    private function getIfName( $n ) {
+        $this->loadModel('RadioTypeNetworkInterfaceTypes');
+        return $this->RadioTypeNetworkInterfaceTypes->findById( $n )['NetworkInterfaceType']['name'];
     }
     
     /*

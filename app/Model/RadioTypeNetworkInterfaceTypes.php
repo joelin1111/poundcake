@@ -1,6 +1,7 @@
 <?php
 // This is a HABTM Through the Join Model relation
 class RadioTypeNetworkInterfaceTypes extends AppModel {
+//    public $displayField = 'name';
     public $belongsTo = array(
 //        'RadioType',
 //        'NetworkInterfaceType',

@@ -52,8 +52,11 @@ class NetworkRadio extends AppModel {
         'RadioType',
         'NetworkSwitch',
         'RadioMode',
-        'SnmpType',
-        'IpSpace'
+        'SnmpType'
+    );
+    
+    var $hasMany = array(
+        'NetworkInterfaceIpSpace'
     );
     
     /*

@@ -727,6 +727,7 @@ class NetworkDeviceController extends AppController {
      * as Primary IPs
      */
     protected function getIpSpaces( $project_id ) {
+        /*
         $model = $this->modelClass;
         $this->$model->IpSpace->recursive = -1;
         //$all_addresses = $this->$model->IpSpace->findAllByProjectId( $project_id );
@@ -742,7 +743,15 @@ class NetworkDeviceController extends AppController {
             // re-added, which would otherwise make them out of sequence
            'order' => array('IpSpace.ip_address')
         )); 
-        
+        */
+        $this->loadModel('IpSpace');
+        $ip_spaces = $this->IpSpace->find('list',array(
+            'conditions' => array (
+                'IpSpace.project_id' => $project_id,
+                'cidr' => 32, // we only want /32 IPs
+                'primary_ip' => true // we only want /32 IPs
+                )
+        ));
         $this->set(compact('ip_spaces'));
     }
     

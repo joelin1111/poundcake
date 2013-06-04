@@ -8,7 +8,7 @@
     <H3>Actions</H3>
     <div class="well">
     <ul>
-        <li><?php echo $this->PoundcakeHTML->link('List Radios', array('action' => 'index')); ?></li>
+        <li><?php echo $this->PoundcakeHTML->link('List Radios', array('action' => 'index')); ?></li>        
     </ul>
     </div>
 </div><!-- /.span3 .sb-fixed -->
@@ -44,14 +44,50 @@
         // the IPv4 behavior is correctly decoding the IP address, but this doesn't
         // seem to populate the form:
         // echo $this->Form->input('ip_address', array('label'=>'Primary IP'));
-        echo $this->Form->input('ip_address', array(
-            'label' => 'IP Address (Legacy)',
-            'type' => 'text',
-            // 'value' => '1\.2\.3\.4'
-            'value' => $this->data['NetworkRadio']['ip_address'],
-            'placeholder' => 'For Testing'
-        ));
-        echo $this->Form->input('ip_space_id', array('type'=>'select','label'=>'IP Address','options' => $ip_spaces));
+//        echo $this->Form->input('ip_address', array(
+//            'label' => 'IP Address (Legacy)',
+//            'type' => 'text',
+//            // 'value' => '1\.2\.3\.4'
+//            'value' => $this->data['NetworkRadio']['ip_address'],
+//            'placeholder' => 'For Testing'
+//        ));
+//        
+//        echo $this->Form->input('ip_space_id', array('type'=>'select','label'=>'IP Address','options' => $ip_spaces));
+        /*
+        var_dump($network_interface_types);
+        if (isset($this->data['NetworkRadio']['NetworkInterfaceIpSpace'])) {
+            foreach( $this->data['NetworkRadio']['NetworkInterfaceIpSpace'] as $n ) {
+// id of the correspoding NetworkInterfaceType
+                echo $this->Form->input('NetworkInterfaceIpSpace.'.$n.'.network_interface_type_id',
+                        array(
+                            'value' => $n['id'],
+                            'type' => 'hidden'
+                    ));
+                echo $this->Form->input('NetworkInterfaceIpSpace.'.$n.'.ip_space_id',
+                        array(
+                            'type' => 'select',
+                            'label' => $nit['name'].$y, // eth0, eth1, etc.
+                            'options' => $ip_spaces,
+                            'empty' => true
+                        ));
+                // id of the correspoding NetworkInterfaceType
+                echo $this->Form->input('NetworkInterfaceIpSpace.'.$n.'.network_interface_type_id',
+                        array(
+                            'value' => $nit['id'],
+                            'type' => 'hidden'
+                    ));
+                // the number of the interface
+                echo $this->Form->input('NetworkInterfaceIpSpace.'.$n.'.if_number',
+                        array(
+                            'value' => $y,
+                            'type' => 'hidden'
+                    ));                        
+            }
+        } else {
+            echo $this->element('network_interface_ip_space_new');
+        }
+        */
+        
         echo $this->element('Common/snmp_override');  // include fields for SNMP override
     ?>
     </fieldset>

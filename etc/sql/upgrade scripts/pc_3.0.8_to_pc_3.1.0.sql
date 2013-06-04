@@ -33,8 +33,6 @@ update router_types set value='44.00' where id=2;
 update router_types set value='166.00' where id=3;
 update router_types set value='489.00' where id=4;
 
-
-
 DROP TABLE IF EXISTS `network_interface_types`;
 CREATE TABLE `network_interface_types` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -52,11 +50,28 @@ insert into network_interface_types(name) values ('lo');
 
 -- TESTING
 
+alter table network_radios drop ip_space_id;
+alter table network_routers drop ip_space_id;
+alter table network_radios drop ip_space_id;
+-- alter table network_radios add network_interface_ip_space_id int(10) after ip_address;
+
 DROP TABLE IF EXISTS `radio_type_network_interface_types`;
-CREATE TABLE `radio_type_network_interface_types` (
+CREATE TABLE `radio_txype_network_interface_types` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `network_interface_type_id` int(10) NOT NULL,
   `radio_type_id` int(10) NOT NULL,
   `number` int(10),
   PRIMARY KEY (`id`,`network_interface_type_id`,`radio_type_id`,`number`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `network_interface_ip_spaces`;
+CREATE TABLE `network_interface_ip_spaces` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,  
+  `network_interface_type_id` int(10) NOT NULL,
+  `number` int(10) NOT NULL,
+  `network_radio_id` int(10),
+  `network_router_id` int(10),
+  `ip_space_id` int(10),
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+

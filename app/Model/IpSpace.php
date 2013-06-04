@@ -26,7 +26,7 @@ class IpSpace extends AppModel {
     /*
      * Display field for select lists
      */
-    public $displayField = 'name';
+    public $displayField = 'ip_address';
 
     /*
      * Default sort order
