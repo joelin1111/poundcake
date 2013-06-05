@@ -34,7 +34,7 @@ class NetworkRadiosController extends NetworkDeviceController {
      * PoundcakeHTML makes de-links hyperlinks for view-only users
      */
     var $helpers = array('PoundcakeHTML');
-    
+
     /*
      * Custom pagination, sort order on index listing
      */
@@ -212,23 +212,25 @@ class NetworkRadiosController extends NetworkDeviceController {
 //        die;
         $this->loadModel('IpSpaces');
         foreach( $interfaces_tmp as $if ) {
-            $if_name = $this->getIfName( $if['NetworkInterfaceIpSpaces']['network_interface_type_id'] );            
-            $ip_space = $this->IpSpaces->findById( $if['NetworkInterfaceIpSpaces']['ip_space_id'] );
-            
-            // show empty IP addresses as 0.0.0.0/32 unless there's a defined cidr
-            $ip_address = '0.0.0.0';
-            $cidr = 0;
-            if ( isset( $ip_space['IpSpaces'] )) {
-                $cidr = $ip_space['IpSpaces']['cidr'];
-                $ip_address = long2ip( $ip_space['IpSpaces']['ip_address'] );
+            $if_name = $this->getIfName( $if['NetworkInterfaceIpSpaces']['network_interface_type_id'] );
+            if ( $if_name != "" ) {
+                $ip_space = $this->IpSpaces->findById( $if['NetworkInterfaceIpSpaces']['ip_space_id'] );
+
+                // show empty IP addresses as 0.0.0.0/32 unless there's a defined cidr
+                $ip_address = '0.0.0.0';
+                $cidr = 0;
+                if ( isset( $ip_space['IpSpaces'] )) {
+                    $cidr = $ip_space['IpSpaces']['cidr'];
+                    $ip_address = long2ip( $ip_space['IpSpaces']['ip_address'] );
+                }
+
+                array_push( $if_array, array (
+                    'if_name' => $if_name.$if['NetworkInterfaceIpSpaces']['if_number'],                
+                    'ip_address' => $ip_address.'/'.$cidr
+                ) );
             }
-                        
-            array_push( $if_array, array (
-                'if_name' => $if_name.$if['NetworkInterfaceIpSpaces']['if_number'],                
-                'ip_address' => $ip_address.'/'.$cidr
-            ) );
+            sort( $if_array ); // so the interfaces appear in order by number and name
         }
-        sort( $if_array ); // so the interfaces appear in order by number and name
         
         $this->set(compact('id','if_array','network_interface_types','networkradio','links','sector','provisioned_by_name', 'checked' ));
     }
@@ -516,9 +518,9 @@ class NetworkRadiosController extends NetworkDeviceController {
                     'contains' => true
                 )
             );
-            echo '<pre>';
-            var_dump( $network_interface_types );
-            echo '</pre>';
+//            echo '<pre>';
+//            var_dump( $network_interface_types );
+//            echo '</pre>';
             
             $interfaces = array();
             for ( $n = 0; $n < $network_interface_types[0]['RadioTypeNetworkInterfaceTypes']['number']; $n++ ) {
@@ -535,27 +537,20 @@ class NetworkRadiosController extends NetworkDeviceController {
                 ));
             }
             
-            echo '<pre>Interfaces New:';
-            print_r($interfaces);
-            echo '</pre>';
+//            echo '<pre>Interfaces New:';
+//            print_r($interfaces);
+//            echo '</pre>';
         } else {
-//            $interfaces = $this->NetworkInterfaceIpSpace->findAllByNetworkRadioId( $id );
-//            $interfaces = $this->NetworkInterfaceIpSpace->findAllByNetworkRadioId(
-//                    $id,
-//                    array(),
-//                    array('NetworkInterfaceIpSpace.if_number' => 'ASC')
-//            );
-            
             $interfaces = $this->NetworkInterfaceIpSpace->find( 'all',
                     array(
-                        'conditions' => $conditions
+                        'conditions' => $conditions,
+                        'order' => 'if_number ASC'
             ));
                     
 //            echo '<pre>Interfces Existing:';
 //            print_r( $interfaces );
 //            echo '</pre>';die;
         }
-        print_r( $number );
         
         // $if_name = $this->RadioTypeNetworkInterfaceTypes->findById( $radio_type_network_interface_type_id )['NetworkInterfaceType']['name'];
         $if_name = $this->getIfName( $radio_type_network_interface_type_id );
@@ -566,7 +561,12 @@ class NetworkRadiosController extends NetworkDeviceController {
     
     private function getIfName( $n ) {
         $this->loadModel('RadioTypeNetworkInterfaceTypes');
-        return $this->RadioTypeNetworkInterfaceTypes->findById( $n )['NetworkInterfaceType']['name'];
+        $d = $this->RadioTypeNetworkInterfaceTypes->findById( $n );
+        $name = "";
+        if ( isset( $d['NetworkInterfaceType'] ) ) {
+            $name = $d['NetworkInterfaceType']['name'];
+        }
+        return $name;
     }
     
     /*

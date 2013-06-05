@@ -64,7 +64,13 @@ class RadioTypesController extends AppController {
     private function purgeEmptyNetworkInterfaceTypes( $array ) {
         // nice trick, see http://stackoverflow.com/questions/14759647/remove-array-if-any-element-is-empty
         return array_filter( $array, function($item) {
-            return ( $item['number'] > 0 && $item['network_interface_type_id'] > 0 );
+//            echo '<pre>';
+//            print_r( $item );
+//            echo '</pre>';
+//            return ( $item['number'] > 0 && $item['network_interface_type_id'] > 0 );
+            if ( isset( $item['number'] ) && ( $item['network_interface_type_id'] ) ) {
+                return ( $item['number'] > 0 && $item['network_interface_type_id'] > 0 );
+            }
         });
     }
     
@@ -76,12 +82,60 @@ class RadioTypesController extends AppController {
         if (!$this->RadioType->exists()) {
             throw new NotFoundException('Invalid radio type');
         }
+        
         if ($this->request->is('post') || $this->request->is('put')) {
-            // we first have to clear out the join table
-            $this->RadioType->RadioTypeNetworkInterfaceTypes->deleteAll(array('RadioTypeNetworkInterfaceTypes.radio_type_id' => $id ));
             // purge empty items
             $this->request->data['RadioTypeNetworkInterfaceTypes'] = $this->purgeEmptyNetworkInterfaceTypes( $this->request->data['RadioTypeNetworkInterfaceTypes'] );
-            if ($this->RadioType->saveAll( $this->request->data )) { // saveAll for HABTM through the join model
+            
+            // this entire bit is terrible -- we need to know if an interface has been
+            // de-selected or if the quantity has changed
+            $old_data = $this->RadioType->RadioTypeNetworkInterfaceTypes->findAllByRadioTypeId( $id );
+            $old_radio_type_network_interface_types = array();
+            foreach ( $old_data as $r ) {
+                $a = array(
+                            'network_interface_type_id' => $r['RadioTypeNetworkInterfaceTypes']['network_interface_type_id'],
+                            'number' => $r['RadioTypeNetworkInterfaceTypes']['number']
+                );
+                $old_radio_type_network_interface_types[$r['RadioTypeNetworkInterfaceTypes']['network_interface_type_id']] = $a;
+            }
+//            echo '<pre>';
+            $dirty = false; // $this->request->data['RadioTypeNetworkInterfaceTypes']
+            foreach ( $old_radio_type_network_interface_types as $k1 => $v1) {
+//                echo "k1:<BR>";
+//                print_r( $k1 );
+//                echo "v1:<BR>";
+//                var_dump( $v1 );
+//                echo '<br>';
+//                print_r(array_diff($old_radio_type_network_interface_types[$k1], $v1 ));
+                if ( array_key_exists( $k1, $this->request->data['RadioTypeNetworkInterfaceTypes'] )) {
+                    if ( array_diff( $this->request->data['RadioTypeNetworkInterfaceTypes'][$k1], $v1 )) {
+//                        echo "Interface Qty Changed<BR>";
+                        $dirty = true;
+                    }
+                } else {
+//                    echo "Interface type DE-selected<BR>";
+                    $dirty = true;
+                }
+            }
+            
+            // if a field has changed, delete an IP space mappings
+            if ( $dirty ) {
+                $this->loadModel('NetworkInterfaceIpSpaces');
+                foreach( $this->request->data['RadioTypeNetworkInterfaceTypes'] as $i ) { 
+                    $this->NetworkInterfaceIpSpaces->deleteAll( array( 'NetworkInterfaceIpSpaces.network_interface_type_id' => $i['network_interface_type_id'] ) );
+                }
+            }
+//            if ( $dirty ) {
+//                echo "something's changed";
+//            } else {
+//                echo "nothing's changed";
+//            }
+            
+//            echo '<pre>';
+//            print_r( $this->request->data );
+            // we first have to clear out the join table
+            $this->RadioType->RadioTypeNetworkInterfaceTypes->deleteAll(array('RadioTypeNetworkInterfaceTypes.radio_type_id' => $id ));
+             if ($this->RadioType->saveAll( $this->request->data )) { // saveAll for HABTM through the join model
                 $this->Session->setFlash('The radio type has been saved.');
                 $this->redirect(array('action' => 'index'));
             } else {

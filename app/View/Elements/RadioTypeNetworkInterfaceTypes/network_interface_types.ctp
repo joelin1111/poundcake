@@ -37,15 +37,22 @@
                     'value' => $id,
                     'label' => $label,
                     'type' => 'checkbox',
+                    'class' => 'networkinterfacetype',
                     'checked' => $checked
                 )
         );
         echo '</td><td>';
+        $disabled = false;
+        if ( $number == 0 ) { 
+            $disabled = true;
+        }
         echo $this->Form->input( 'RadioTypeNetworkInterfaceTypes.'.$id.'][number]',
                 array(
-                    'label' =>'',
-                    'value'=> $number,
-                    'style'=>'width:30px;'
+                    'label' => '',
+                    'value' => $number,
+                    'style' => 'width:30px;',
+                    'class' => 'networkinterfacetype_number',
+                    'disabled' => $disabled
             )
         );        
         echo '</td></tr>';
