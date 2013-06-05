@@ -42,10 +42,13 @@
                 )
         );
         echo '</td><td>';
+        
+        // disable the number field unless the box is checked
         $disabled = false;
         if ( $number == 0 ) { 
             $disabled = true;
         }
+        
         echo $this->Form->input( 'RadioTypeNetworkInterfaceTypes.'.$id.'][number]',
                 array(
                     'label' => '',
