@@ -748,8 +748,7 @@ class NetworkDeviceController extends AppController {
         $ip_spaces = $this->IpSpace->find('list',array(
             'conditions' => array (
                 'IpSpace.project_id' => $project_id,
-                'cidr' => 32, // we only want /32 IPs
-                'primary_ip' => true // we only want /32 IPs
+                'cidr' => 32 // we only want /32 IPs
                 )
         ));
         $this->set(compact('ip_spaces'));

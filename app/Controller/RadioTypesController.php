@@ -118,7 +118,7 @@ class RadioTypesController extends AppController {
                 }
             }
             
-            // if a field has changed, delete an IP space mappings
+            // if a field has changed, delete any existing IP space mappings
             if ( $dirty ) {
                 $this->loadModel('NetworkInterfaceIpSpaces');
                 foreach( $this->request->data['RadioTypeNetworkInterfaceTypes'] as $i ) { 

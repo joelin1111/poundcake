@@ -47,6 +47,7 @@ insert into network_interface_types(name) values ('br');
 insert into network_interface_types(name) values ('vlan');
 insert into network_interface_types(name) values ('lo');
 
+alter table ip_spaces drop primary_ip;
 
 -- TESTING
 
@@ -68,10 +69,11 @@ DROP TABLE IF EXISTS `network_interface_ip_spaces`;
 CREATE TABLE `network_interface_ip_spaces` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,  
   `network_interface_type_id` int(10) NOT NULL,
-  `number` int(10) NOT NULL,
+  `if_number` int(10) NOT NULL,
   `network_radio_id` int(10),
   `network_router_id` int(10),
   `ip_space_id` int(10),
+  `if_primary` tinyint(1),
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 

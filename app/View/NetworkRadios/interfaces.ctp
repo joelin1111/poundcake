@@ -23,21 +23,39 @@
         echo '<h2>Interface</h2>';
     }
     ?>
-    
     <?php
-//    echo '<pre>';
-//    print_r($interfaces);
-    
+        $primary_interfaces = array();
+        $selected = 0;
+        
         $n = 0;
         foreach( $interfaces as $interface ) {
+            $label = $if_name.$n;
+            $primary_interfaces = $primary_interfaces +  array( $n => $label );
+            if ( $interface['NetworkInterfaceIpSpace']['if_primary'] > 0 ) {
+                $selected = $n;
+            }
+            
             echo $this->Form->input('NetworkInterfaceIpSpace.'.$n.'.ip_space_id',
                     array(
                         'type' => 'select',
-                        'label' => $if_name.$n, // eth0, eth1, etc.
+                        'label' => $label, // eth0, eth1, etc.
                         'options' => $ip_spaces,
                         'empty' => true,
                         'default' => $interface['NetworkInterfaceIpSpace']['ip_space_id']
                     ));
+            
+            
+            
+//            echo '</div><div class="span3">';
+            /*
+            echo $this->Form->input('NetworkInterfaceIpSpace.'.$n.'.if_primary',
+                    array(
+//                        'label' => false,
+                        'type' => 'radio',
+                        'options' => $if_primary_opt
+                )); 
+            */
+//            echo '<input type="radio" name="group2" value="'.$n.'"> Primary<br>';
 //            print_r($interface['NetworkInterfaceIpSpace']['ip_space_id']);
             // the number of the interface
             echo $this->Form->input('NetworkInterfaceIpSpace.'.$n.'.if_number',
@@ -56,8 +74,15 @@
                         'type' => 'hidden'
                 ));                
             $n++;
-        }            
-
+        }
+        
+        echo $this->Form->input('if_primary', array(
+            'label' => 'Primary Interface',
+            'options' => $primary_interfaces,
+            'empty' => true,
+            'default' => $selected
+        ));
+        
         echo $this->Form->submit('Save', array('div' => false,'class'=>'btn btn-primary'));
         echo $this->Form->submit('Cancel', array('name' => 'cancel','div' => false,'class'=>'btn btn-cancel'));
         echo $this->Form->end(); 

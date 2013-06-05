@@ -27,7 +27,6 @@
                     'value' => '10.0.0.0'
                 )
         );
-        echo $this->Form->input('primary_ip',array( 'label' => 'Primary IP', 'disabled' => true ));
         echo $this->Form->hidden('project_id', array( 'value' => $project_id ));     
     ?>
     </fieldset>

@@ -151,7 +151,11 @@
         <?php
             foreach ( $if_array as $if ) {
                 echo '<dt>'.$if['if_name'].'</dt>';
-                echo '<dd>'.$if['ip_address'].'</dd>';
+                echo '<dd>'.$if['ip_address'];
+                if ( $if['if_primary'] ) {
+                    echo "&nbsp;<strong>Primary</strong>";
+                }
+                echo '</dd>';
             }
         ?>
     </dl>

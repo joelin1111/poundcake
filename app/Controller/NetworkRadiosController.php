@@ -224,9 +224,11 @@ class NetworkRadiosController extends NetworkDeviceController {
                     $ip_address = long2ip( $ip_space['IpSpaces']['ip_address'] );
                 }
 
+//                print_r($if['NetworkInterfaceIpSpaces']);die;
                 array_push( $if_array, array (
                     'if_name' => $if_name.$if['NetworkInterfaceIpSpaces']['if_number'],                
-                    'ip_address' => $ip_address.'/'.$cidr
+                    'ip_address' => $ip_address.'/'.$cidr,
+                    'if_primary' => $if['NetworkInterfaceIpSpaces']['if_primary']
                 ) );
             }
             sort( $if_array ); // so the interfaces appear in order by number and name
@@ -483,6 +485,11 @@ class NetworkRadiosController extends NetworkDeviceController {
         $network_interface_ip_space = array();
         if ($this->request->is('post') || $this->request->is('put')) {
             
+            // get the id of the interface marked as primary
+            $if_primary = $this->request->data['NetworkInterfaceIpSpace']['if_primary'];
+            $this->request->data['NetworkInterfaceIpSpace'][$if_primary]['if_primary'] = 1;
+            unset($this->request->data['NetworkInterfaceIpSpace']['if_primary']);
+            
 //            echo '<pre>';
 //            print_r($this->request->data);
 //            echo '</pre>';
@@ -532,6 +539,7 @@ class NetworkRadiosController extends NetworkDeviceController {
                         'network_radio_id' => $id,
                         'network_router_id' => null,
                         'ip_space_id' => null,
+                        'if_primary' => 0,
                         'network_interface_type_id' => $radio_type_network_interface_type_id
                     )
                 ));
@@ -551,6 +559,10 @@ class NetworkRadiosController extends NetworkDeviceController {
 //            print_r( $interfaces );
 //            echo '</pre>';die;
         }
+        
+//        echo '<pre>';
+//        print_r($interfaces);
+//        echo '</pre>';
         
         // $if_name = $this->RadioTypeNetworkInterfaceTypes->findById( $radio_type_network_interface_type_id )['NetworkInterfaceType']['name'];
         $if_name = $this->getIfName( $radio_type_network_interface_type_id );

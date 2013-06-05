@@ -122,9 +122,6 @@ function recursiveIpSpaces( $array ,$role, $delete_confirm_html, $fill_confirm_h
             
             if ( $vals['IpSpace']['cidr'] == 32 ) {
                 echo ' /'.$vals['IpSpace']['parent_cidr'];
-                if ( $vals['IpSpace']['primary_ip'] > 0 ) {
-                    echo ' <strong>P</strong>';
-                }
             } else {
                 echo ' /'.$vals['IpSpace']['cidr'];
             }
