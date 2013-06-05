@@ -16,11 +16,18 @@
 </div><!-- /.span3 .sb-fixed -->
 
 <div class="span9">
-    <?php echo $this->Form->create('NetworkInterfaceIpSpace'); ?>
-    <h2>Configure Interface</h2>
+    <?php echo $this->Form->create('NetworkInterfaceIpSpace');
+    if ( count($interfaces) > 0 ) {
+        echo '<h2>Interfaces</h2>';       
+    } else {
+        echo '<h2>Interface</h2>';
+    }
+    ?>
+    
     <?php
 //    echo '<pre>';
-//    var_dump($interfaces);
+//    print_r($interfaces);
+    
         $n = 0;
         foreach( $interfaces as $interface ) {
             echo $this->Form->input('NetworkInterfaceIpSpace.'.$n.'.ip_space_id',
@@ -31,6 +38,7 @@
                         'empty' => true,
                         'default' => $interface['NetworkInterfaceIpSpace']['ip_space_id']
                     ));
+//            print_r($interface['NetworkInterfaceIpSpace']['ip_space_id']);
             // the number of the interface
             echo $this->Form->input('NetworkInterfaceIpSpace.'.$n.'.if_number',
                     array(

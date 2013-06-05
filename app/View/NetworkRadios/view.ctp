@@ -30,7 +30,7 @@
     </ul>
     </div>
     
-    <H3>Configured Interfaces</H3>
+    <H3>Interfaces</H3>
     <div class="well">
         <ul>
         <?php
