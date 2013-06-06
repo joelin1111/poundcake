@@ -350,6 +350,7 @@ class SitesController extends AppController {
         // as it was before
         $n = 0;
         foreach ( $sites as $site ) {
+            //test
 //            $site_state_id = $site['Site']['site_state_id'];
 //            var_dump( $site_state_id );
 //            $this->loadModel('SiteState');
