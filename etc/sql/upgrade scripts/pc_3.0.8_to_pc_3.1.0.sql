@@ -49,7 +49,7 @@ insert into network_interface_types(name) values ('lo');
 
 alter table ip_spaces drop primary_ip;
 
--- TESTING
+-- PC-543
 
 alter table network_radios drop ip_space_id;
 alter table network_routers drop ip_space_id;
