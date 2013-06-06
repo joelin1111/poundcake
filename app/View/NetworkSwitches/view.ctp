@@ -34,68 +34,51 @@
 <div class="span9">
     <h2>View Switch</h2>
     <dl class="dl-horizontal">
-    <div class="status-icon">
-    <dt>Name</dt>
-    <dd>
-        <?php
-            echo $networkswitch['NetworkSwitch']['name'];
-            echo $this->element('Common/site_status_icon', array('status' => $networkswitch['NetworkSwitch']['is_down']));
+        <div class="status-icon">
+        <dt>Name</dt>
+        <dd>
+            <?php
+                echo $networkswitch['NetworkSwitch']['name'];
+                echo $this->element('Common/site_status_icon', array('status' => $networkswitch['NetworkSwitch']['is_down']));
+            ?>
+        </dd>
+        </div>
+
+        <dt>Site</dt><dd>
+            <?php
+                echo $this->PoundcakeHTML->linkIfAllowed( $networkswitch['Site']['name'], array('action'=>'view', 'controller'=>'sites',$networkswitch['Site']['id']),0);
+            ?>
+        </dd>
+
+        <?php echo $this->element('Common/provisioning_info',
+                array(
+                    'provisioned_on' => $networkswitch['NetworkSwitch']['provisioned_on'],
+                    'provisioned_by_name' => $provisioned_by_name,
+                    'foreign_id' => $networkswitch['NetworkSwitch']['foreign_id'],
+                ));
         ?>
-    </dd>
-    </div>
-    
-    <dt>Site</dt><dd>
+
+        <dt>Serial No</dt><dd><?php echo $networkswitch['NetworkSwitch']['serial'] ? : 'Unknown'; ?></dd>
+        <dt>Switch Type</dt><dd><?php echo $networkswitch['SwitchType']['name']; ?></dd>
+        <dt>Ports</dt><dd><?php echo $networkswitch['SwitchType']['ports']; ?></dd>
+        <dt>Manufacturer</dt><dd><?php echo $networkswitch['SwitchType']['manufacturer']; ?></dd>
+        <dt>Model</dt><dd><?php echo $networkswitch['SwitchType']['model']; ?></dd>
+
+        <dt>SNMP Override</dt><dd><?php echo ($networkswitch['NetworkSwitch']['snmp_override'] > 0 ? "Yes" : "No");?></dd>
         <?php
-            echo $this->PoundcakeHTML->linkIfAllowed( $networkswitch['Site']['name'], array('action'=>'view', 'controller'=>'sites',$networkswitch['Site']['id']),0);
-        ?>
-    </dd>
-    
-    <?php echo $this->element('Common/provisioning_info',
-            array(
-                'provisioned_on' => $networkswitch['NetworkSwitch']['provisioned_on'],
-                'provisioned_by_name' => $provisioned_by_name,
-                'foreign_id' => $networkswitch['NetworkSwitch']['foreign_id'],
-            ));
-    ?>
-    
-    <dt>Serial No</dt><dd><?php echo $networkswitch['NetworkSwitch']['serial'] ? : 'Unknown'; ?></dd>
-    <dt>Switch Type</dt><dd><?php echo $networkswitch['SwitchType']['name']; ?></dd>
-    <dt>Ports</dt><dd><?php echo $networkswitch['SwitchType']['ports']; ?></dd>
-    <dt>Manufacturer</dt><dd><?php echo $networkswitch['SwitchType']['manufacturer']; ?></dd>
-    <dt>Model</dt><dd><?php echo $networkswitch['SwitchType']['model']; ?></dd>
-    
-    <dt>SNMP Override</dt><dd><?php echo ($networkswitch['NetworkSwitch']['snmp_override'] > 0 ? "Yes" : "No");?></dd>
-    <?php
-        if ( $snmp_override ) {
-            echo '<dt>SNMP Version</dt><dd>'.$networkswitch['SnmpType']['name'].'</dd>';
-            echo '<dt>SNMP Community Name</dt><dd>';
-            if ( $snmp_community ) {
-              echo $networkswitch['NetworkSwitch']['snmp_community_name'];
-            } else {
-                echo '********************';
+            if ( $snmp_override ) {
+                echo '<dt>SNMP Version</dt><dd>'.$networkswitch['SnmpType']['name'].'</dd>';
+                echo '<dt>SNMP Community Name</dt><dd>';
+                if ( $snmp_community ) {
+                  echo $networkswitch['NetworkSwitch']['snmp_community_name'];
+                } else {
+                    echo '********************';
+                }
+                echo '</dd>';            
             }
-            echo '</dd>';            
-        }
-    ?>
-    
-    <dt>IP Address (Legacy)</dt><dd><?php echo $networkswitch['NetworkSwitch']['ip_address']; ?></dd>
-    <dt>IP Address</dt>
-    <dd>
-        <?php
-            // revisit: the IpV4 behavior should decode this field for us -- why am
-            // I having to decode it manually?  Because it's in array and not the model?
-            echo long2ip( $networkswitch['IpSpace']['ip_address'] );
         ?>
-    </dd>
-    <dt>Gateway</dt>
-    <dd> <?php echo $gw_address; ?></dd>
-    
-    <dt>Network Address</dt>
-    <dd> <?php echo $network_address; ?></dd>
-    
-    <dt>Subnet Mask</dt>
-    <dd> <?php echo $subnet_mask; ?> </dd>
-    
+
+        <dt>IP Address (Legacy)</dt><dd><?php echo $networkswitch['NetworkSwitch']['ip_address']; ?></dd>
     </dl>
     
     <dl>
