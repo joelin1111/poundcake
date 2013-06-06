@@ -63,11 +63,6 @@
     <dt>Serial No</dt><dd><?php echo $networkrouter['NetworkRouter']['serial'] ? : 'Unknown'; ?></dd>
     <dt>SNMP Override</dt><dd><?php echo ($networkrouter['NetworkRouter']['snmp_override'] > 0 ? "Yes" : "No");?>
     <dt>IP Address (Legacy)</dt><dd><?php echo $networkrouter['NetworkRouter']['ip_address']; ?>
-    <dt>IP Address</dt><dd><?php
-        // revisit: the IpV4 behavior should decode this field for us -- why am
-        // I having to decode it manually?
-        echo long2ip($networkrouter['IpSpace']['ip_address']);
-    ?>
     <?php
         if ( $snmp_override ) {
             echo '<ul>';

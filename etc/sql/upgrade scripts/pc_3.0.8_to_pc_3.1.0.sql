@@ -48,16 +48,17 @@ insert into network_interface_types(name) values ('vlan');
 insert into network_interface_types(name) values ('lo');
 
 alter table ip_spaces drop primary_ip;
+alter table ip_spaces add gateway_id int(10);
 
 -- PC-543
 
 alter table network_radios drop ip_space_id;
 alter table network_routers drop ip_space_id;
-alter table network_radios drop ip_space_id;
+alter table network_switches drop ip_space_id;
 -- alter table network_radios add network_interface_ip_space_id int(10) after ip_address;
 
 DROP TABLE IF EXISTS `radio_type_network_interface_types`;
-CREATE TABLE `radio_txype_network_interface_types` (
+CREATE TABLE `radio_type_network_interface_types` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `network_interface_type_id` int(10) NOT NULL,
   `radio_type_id` int(10) NOT NULL,

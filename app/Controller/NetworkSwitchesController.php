@@ -95,8 +95,6 @@ class NetworkSwitchesController extends NetworkDeviceController {
             $checked = "";
         }
         
-        parent::getAllNetworkAddresses( $this->NetworkSwitch->data['NetworkSwitch']['ip_space_id']);
-        
         $this->getMonitoringSystemLink( $this->NetworkSwitch->data['NetworkSwitch']['node_id'] );
         $this->set(compact( 'networkswitch', 'provisioned_by_name', 'checked' ));
     }
