@@ -360,7 +360,10 @@ class SitesController extends AppController {
 ////            $ss = $this->SiteState->findById( $site_state_id );
 //            var_dump( $ss );
 //            $sites[$n]['SiteState']['SiteStateIcon'] = $this->SiteState->read(null, $site_state_id )['SiteStateIcon'];
-            $sites[$n]['SiteState']['SiteStateIcon'] = $this->Site->SiteState->read(null, $site['Site']['site_state_id'] )['SiteStateIcon'];
+//            $sites[$n]['SiteState']['SiteStateIcon'] = $this->Site->SiteState->read(null, $site['Site']['site_state_id'] )['SiteStateIcon'];
+            $ssi = $this->Site->SiteState->read(null, $site['Site']['site_state_id']);
+            $sites[$n]['SiteState']['SiteStateIcon'] = $ssi['SiteStateIcon'];
+            
             $n++;
         }
         
