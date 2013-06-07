@@ -17,10 +17,13 @@
         <form action="/networkRadios/index" id="NetworkRadioIndexForm" method="post">
             <div class="input text"><label for="NetworkRadioName">Name</label>
                 <input name="data[NetworkRadio][name]" class="search-query" maxlength="10" type="text" value="*" id="NetworkRadioName">
-            </div>
-            <BR>
-            <div align="center">
-                <input class="btn btn-primary" type="submit" value="Search">
+            
+                <div class="btn-toolbar">
+                    <div align="center">
+                        <input class="btn btn-primary" type="submit" value="Search">
+                    </div>
+                </div>
+        
             </div>
         </form>
     </div>

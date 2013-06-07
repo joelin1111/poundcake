@@ -15,12 +15,14 @@
     <H3>Search</H3>
     <div class="well">
         <form action="/networkRouters/index" id="NetworkRouterIndexForm" method="post">
-            <div class="input text"><label for="NetworkRouterName">Name</label>
+            <div class="input text"><label for="NetworkRadioName">Name</label>
                 <input name="data[NetworkRouter][name]" class="search-query" maxlength="10" type="text" value="*" id="NetworkRouterName">
-            </div>
-            <BR>
-            <div align="center">
-                <input class="btn btn-primary" type="submit" value="Search">
+            
+                <div class="btn-toolbar">
+                    <div align="center">
+                        <input class="btn btn-primary" type="submit" value="Search">
+                    </div>
+                </div>        
             </div>
         </form>
     </div>
