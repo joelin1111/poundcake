@@ -7,20 +7,22 @@
     </ul>
     </div>
 
-    <H3>Search</H3>
     <?php
-      echo $this->Form->create(
-          'NetworkRouter',
-          array('action'=>'search','class' => 'well')
-      );
-      echo $this->Form->input('name',array('escape' => true,'class' => 'search-query'));
-      ?>
-    <span class="help-block"></span>
-    <div align="center">
-        <?php
-            echo $this->Form->submit('Search', array('div' => false,'class'=>'btn btn-primary'));
-            echo $this->Form->end(); 
-        ?>
+        // CakePHPs FormHelper changes camel cased controller names, e.g.
+        // NetworkRadios becomes network_radios -- manually creating this search
+        // form
+    ?>
+    <H3>Search</H3>
+    <div class="well">
+        <form action="/networkRouters/index" id="NetworkRouterIndexForm" method="post">
+            <div class="input text"><label for="NetworkRouterName">Name</label>
+                <input name="data[NetworkRouter][name]" class="search-query" maxlength="10" type="text" value="*" id="NetworkRouterName">
+            </div>
+            <BR>
+            <div align="center">
+                <input class="btn btn-primary" type="submit" value="Search">
+            </div>
+        </form>
     </div>
 </div><!-- /.span3 .sb-fixed -->
 

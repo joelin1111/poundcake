@@ -2,28 +2,22 @@
 <div class="well">
 <fieldset id="sitestate_search">
 <?php
-  echo $this->Form->create(
-      'Site',
-      array(
-          'action'=>'index',
-          //'class' => 'well',          
-          //'name' => 'sitesearch'
-          )
-  );
-  //echo $this->Form->input('code',array('escape' => true,'class' => 'span2'));
-  //echo '<div style="width:10px;">';
-  echo $this->Form->input('code',array('escape' => false,'class' => 'search-query', 'required' => false));
-  echo '<br>'; 
-  echo $this->Form->input('name',array('class' => 'search-query', 'required' => false));
-  echo '<br>';
- 
-  echo $this->Form->select(
-          'site_state_id',
-          $sitestates, array(
-              'multiple' => 'checkbox'
-            )
+    echo $this->Form->create(
+        'Site',
+        array( 'action'=>'index' )
     );
-?>
+    echo $this->Form->input('code',array('escape' => false,'class' => 'search-query', 'required' => false));
+    echo '<br>'; 
+    echo $this->Form->input('name',array('class' => 'search-query', 'required' => false));
+    echo '<br>';
+
+    echo $this->Form->select(
+            'site_state_id',
+            $sitestates, array(
+                'multiple' => 'checkbox'
+              )
+      );
+    ?>
     
     <div align="center">
         <a rel="sitestate_search" href="#select_all">Check All</a> |  

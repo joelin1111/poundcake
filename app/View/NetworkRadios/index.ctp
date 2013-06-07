@@ -7,21 +7,23 @@
     </ul>
     </div>
     
+    <?php
+        // CakePHPs FormHelper changes camel cased controller names, e.g.
+        // NetworkRadios becomes network_radios -- manually creating this search
+        // form
+    ?>
     <H3>Search</H3>
-        <?php
-            echo $this->Form->create(
-                'NetworkRadio',
-                array('action'=>'search','class' => 'well')
-            );
-            echo $this->Form->input('name',array('escape' => true,'class' => 'search-query'));
-        ?>
-        <span class="help-block"></span>
-        <div align="center">
-        <?php
-            echo $this->Form->submit('Search', array('div' => false,'class'=>'btn btn-primary'));
-            echo $this->Form->end(); 
-        ?>
-        </div>
+    <div class="well">
+        <form action="/networkRadios/index" id="NetworkRadioIndexForm" method="post">
+            <div class="input text"><label for="NetworkRadioName">Name</label>
+                <input name="data[NetworkRadio][name]" class="search-query" maxlength="10" type="text" value="*" id="NetworkRadioName">
+            </div>
+            <BR>
+            <div align="center">
+                <input class="btn btn-primary" type="submit" value="Search">
+            </div>
+        </form>
+    </div>
 </div><!-- /.span3 .sb-fixed -->
 
 <div class="span9">

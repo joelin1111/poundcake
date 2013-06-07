@@ -43,10 +43,10 @@ class NetworkRoutersController extends NetworkDeviceController {
      * Main listing for all NetworkRouters
      */
     public function index() {
-        // begin search stuff\
+        // begin search stuff
         $name_arg = "";
-        if (isset($this->passedArgs['NetworkRouter.name'])) {
-            $name_arg = str_replace('*','%',$this->passedArgs['NetworkRouter.name']);
+        if ( isset($this->request->data['NetworkRouter']['name'] )) {
+            $name_arg = str_replace('*','%',$this->request->data['NetworkRouter']['name']);
         }
         
         // if no argument was passed, default to a wildcard

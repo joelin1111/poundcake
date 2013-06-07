@@ -50,8 +50,8 @@ class NetworkRadiosController extends NetworkDeviceController {
      */
     public function index() {
         $name_arg = "";
-        if (isset($this->passedArgs['NetworkRadio.name'])) {
-            $name_arg = str_replace('*','%',$this->passedArgs['NetworkRadio.name']);
+        if ( isset( $this->request->data['NetworkRadio']['name'] )) {
+            $name_arg = str_replace('*','%', $this->request->data['NetworkRadio']['name'] );
         }
         
         // if no argument was passed, default to a wildcard
@@ -703,7 +703,7 @@ class NetworkRadiosController extends NetworkDeviceController {
             return true;
         }
         
-        $allowed = array( "add", "edit", "delete" );
+        $allowed = array( "add", "edit", "delete", "interfaces" );
         if ( in_array( $this->action, $allowed )) {
             if ( $this->Session->read('role') === 'edit') {
                 return true;
