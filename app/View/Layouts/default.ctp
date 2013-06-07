@@ -208,8 +208,13 @@ echo $this->Html->scriptBlock(
                 echo " | ";
                 echo $this->Html->link(('Switch Project'), array('action' => 'project', 'controller' => 'users', CakeSession::read("Auth.User.id")));
             }
-            echo '<br><small>Current Role: '.$this->Session->read('role');
-           
+            
+            echo '<small>';
+            $role = $this->Session->read('role');
+            if ( $role != "" ) {
+                echo '<br>Current Role: '.$role;
+            }
+            
             $copyright = 'Copyright © 2012';
             $current_year = date("Y");
             if ($current_year > 2012)
