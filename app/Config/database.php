@@ -133,7 +133,7 @@ class DATABASE_CONFIG {
 
     public function __construct() {
         $host = php_uname('n');
-        if ( ( $host === 'Clarks-MacBook-Pro.local' ) || ( $host === 'localhost' ) ) {
+        if ( ( $host === 'Clarks-MacBook-Pro.local' ) || ( $host === 'localhost' ) || ( $host === 'Taco-Shell.local' )) {
             $this->default = $this->default_dev;
             $this->addrpool = $this->addrpool_dev;
         } else {

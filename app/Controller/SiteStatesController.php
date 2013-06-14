@@ -105,7 +105,7 @@ class SiteStatesController extends AppController {
                     $this->loadModel('Site');
                     $this->Site->updateAll(
                             array('Site.site_state_id' => $sequence['SiteState']['id']),
-                            array('Site.project_id <=' => $dest)
+                            array('Site.project_id =' => $dest)
                     );
                 } else {
                     $this->Session->setFlash('Error!  No site states on source project.');
