@@ -41,6 +41,8 @@
         echo $this->Form->input('frequency', array('type'=>'select','options' => $frequencies));
         echo $this->Form->input('ssid', array('label'=>'SSID'));
         echo $this->Form->input('p2mp', array('label'=>'Multipoint end of P2MP link'));
+        echo $this->Form->input('configuration_template_id', array('label'=>'Configuration Template','options' => $configuration_templates));
+        
         // the IPv4 behavior is correctly decoding the IP address, but this doesn't
         // seem to populate the form:
         // echo $this->Form->input('ip_address', array('label'=>'Primary IP'));

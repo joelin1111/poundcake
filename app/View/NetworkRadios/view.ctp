@@ -25,7 +25,8 @@
         ?>
         <?php if (isset($node_detail_url)) {
             echo '<li><i class="icon-info-sign"></i><a href="'.$node_detail_url .'" target="_blank">More Details</a></li>';
-        } ?>       
+        } ?>
+        <li><?php echo $this->PoundcakeHTML->linkIfAllowed('Configuration File', array('action'=>'config', $networkradio['NetworkRadio']['id']),1);?></li>
         <li><?php echo $this->PoundcakeHTML->linkIfAllowed('List Radios', array('action' => 'index')); ?></li>        
     </ul>
     </div>
@@ -143,6 +144,7 @@
     ?>
     
     <dt>IP Address (Legacy)</dt><dd><?php echo $networkradio['NetworkRadio']['ip_address']; ?></dd>
+    <dt>Configuration Template</dt><dd><?php echo $networkradio['ConfigurationTemplate']['name']; ?></dd>
     </dl>
     
     <dl>

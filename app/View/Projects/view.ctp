@@ -23,7 +23,10 @@
     <dt>Monitoring System Username</dt><dd><?php echo $project['Project']['monitoring_system_username']; ?></dd>
     <dt>Monitoring System Password</dt><dd><?php echo $project['Project']['monitoring_system_password']; ?></dd>
     <dt>Monitoring System ReST URL</dt><dd><?php echo $project['Project']['monitoring_system_url']; ?></dd>
+    <dt>Primary Nameserver</dt><dd><?php echo $project['Project']['dns1']; ?></dd>
+    <dt>Secondary Nameserver</dt><dd><?php echo $project['Project']['dns2']; ?></dd>
     </dl>
+    
     <dl>
         <dt>Users with access to this project:</B>
         <?php

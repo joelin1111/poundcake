@@ -697,6 +697,69 @@ class NetworkDeviceController extends AppController {
         //die;
         $this->set(compact('performance_graphs')); 
     }
+    
+    public function config( $device_id ) {
+        $model = $this->modelClass;
+        $this->$model->id = $device_id;
+        $configuration_template_id = $this->$model->field('configuration_template_id');
+        
+        // get the SSID off the model
+        $ssid = $this->$model->field('ssid');
+        
+        // get the IP address
+        $this->loadModel('NetworkInterfaceIpSpaces');
+        $t = $this->NetworkInterfaceIpSpaces->findByNetworkRadioId( $device_id );
+        $ip_space_id = $t['NetworkInterfaceIpSpaces']['ip_space_id'];
+        $this->loadModel('IpSpace');
+        $this->IpSpace->id = $ip_space_id; //read(null,$ip_space_id);
+        $ip_space = $this->IpSpace->read();
+        $ip_address = long2ip( $ip_space['IpSpace']['ip_address'] );
+        $subnet_mask = $this->cidr2NetmaskAddr( $ip_address.'/'. $ip_space['IpSpace']['parent_cidr'] );
+        echo '<pre>';
+        
+        echo '</pre>';
+        
+        $this->loadModel('ConfigurationTemplate');
+        $ct = $this->ConfigurationTemplate->read( null, $configuration_template_id );
+        $body = $ct['ConfigurationTemplate']['body'];
+        
+        $config_file = array();
+        $lines = explode( "\n", $body );
+        foreach ( $lines as $line ) {
+            $bits = preg_split( '/=/', $line );
+            
+            switch( $bits[0]) {
+                case 'wireless.1.ssid':
+                    $bits[1] = $ssid;
+                    break;
+                case 'wpasupplicant.profile.1.network.1.ssid':
+                    $bits[1] = $ssid;
+                    break;
+                case 'netconf.3.netmask':
+                    $bits[1] = $subnet_mask;
+                    break;
+                case 'system.latitude':
+                    $bits[1] = 'NOT-YET-DONE';
+                    break;
+                case 'system.longitude':
+                    $bits[1] = 'NOT-YET-DONE';
+                    break;
+                case 'users.1.password':
+                    $bits[1] = 'NOT-YET-DONE';
+                    break;
+            }
+            if ( isset($bits[1])) {
+                $config_file[ $bits[0] ] = $bits[1];
+            }
+        }
+        
+        foreach( $config_file as $k => $v ) {
+            echo $k.'='.$v;
+            echo '<BR>';
+        }
+        die;
+    }
+    
     /*
      * Return the datetime format for the current project
      */

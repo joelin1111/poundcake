@@ -31,9 +31,9 @@ class RouterType extends AppModel {
     /*
      * Relations
      */
-    public $hasAndBelongsToMany = array(
-        'NetworkInterfaceType'
-    );
+//    public $hasAndBelongsToMany = array(
+//        'NetworkInterfaceType'
+//    );
     
     /*
      * Default sort order

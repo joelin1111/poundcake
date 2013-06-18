@@ -43,6 +43,8 @@
                 //echo $this->Form->input('monitoring_system_password', array( 'label' => 'Monitoring System Password' ));
                 echo $this->Form->input('monitoring_system_url', array( 'label' => 'Complete URL to ReST API','placeholder' => '' ));
                 
+                echo $this->Form->input('dns1', array( 'type' => 'text', 'label' => 'Primary Nameserver' ));
+                echo $this->Form->input('dns2', array( 'type' => 'text', 'label' => 'Secondary Nameserver' ));
                 
                 
 //                $ips = null;

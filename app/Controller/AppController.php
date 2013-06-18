@@ -233,6 +233,15 @@ class AppController extends Controller {
         );
     }
     
+    protected function getConfigurationTemplates() {
+//         $model = $this->modelClass;
+        // eventually we'll want to filter by radio/router/switch
+        $this->loadModel('ConfigurationTemplate');
+        $configuration_templates = $this->ConfigurationTemplate->getConfigurationTemplatesByProjectId( $this->Session->read('project_id') );
+        $this->set(compact('configuration_templates'));
+        
+    }
+    
     /*
      * Call back for AutoLogin, part of the Utility plugin
      * @see http://milesj.me/code/cakephp/utility

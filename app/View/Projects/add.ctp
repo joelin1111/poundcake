@@ -32,7 +32,8 @@
         echo $this->Form->input('monitoring_system_username', array( 'label' => 'Monitoring System Username' ));
         echo $this->Form->input('monitoring_system_password', array( 'type'=>'password', 'label' => 'Monitoring System Password' ));
         echo $this->Form->input('monitoring_system_url', array( 'label' => 'Complete URL to ReST API','placeholder' => '' ));
-//        echo $this->Form->input('ip_addresses', array( 'label'=>'Public IP Addresses', 'rows' => '5', 'cols' => '5'));
+        echo $this->Form->input('dns1', array( 'type' => 'text', 'label' => 'Primary Nameserver' ));
+        echo $this->Form->input('dns2', array( 'type' => 'text', 'label' => 'Secondary Nameserver' ));
     ?>
     
     </fieldset>

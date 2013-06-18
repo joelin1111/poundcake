@@ -71,13 +71,6 @@ class ContactsController extends AppController {
                     'OrganizationsProject.project_id' => $this->Session->read('project_id'),
                     //'OrganizationsProject.organization_id' => 14
                 )
-                /*
-                'conditions'=> array(
-                    'Contact.organization_id = OrganizationsProject.organization_id',
-                    'OrganizationsProject.project_id = 3',
-                    'OrganizationsProject.organization_id = 14'
-                ) 
-                */
             )
         );
         

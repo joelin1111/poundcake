@@ -31,41 +31,6 @@ class Project extends AppModel {
     /*
      * Relations
      */
-    // public $hasAndBelongsToMany = array('User');
-    /*
-    public $hasAndBelongsToMany = array(
-        'User' => 
-            array('className'    => 'User', 
-                  'joinTable'    => 'projects_users', 
-                  'foreignKey'   => 'project_id', 
-                  'associationForeignKey'=> 'user_id', 
-                  //'conditions'   => 'group by user_id',
-                  //'conditions'   => '(1=1) group by user_id',
-                  'order'        => '', 
-                  'limit'        => '', 
-                  'unique'       => true, 
-                  'finderQuery'  => '', 
-                  'deleteQuery'  => '', 
-            ), 
-//        'Role' => 
-//           array('className'    => 'Role', 
-//                 'joinTable'    => 'projects_users', 
-//                 'foreignKey'   => 'project_id', 
-//                 'associationForeignKey'=> 'role_id', 
-//                 //'conditions'   => '(1=1) group by role_id', 
-//                 //'conditions'   => 'group by role_id', 
-//                 'order'        => '', 
-//                 'limit'        => '', 
-//                 'unique'       => true, 
-//                 'finderQuery'  => '', 
-//                 'deleteQuery'  => '', 
-//           ) 
-    );
-    */
-    
-    /*
-     * Relations
-     */
     public $belongsTo = array(
         'SnmpType',
         'MonitoringSystemType'
@@ -102,7 +67,13 @@ class Project extends AppModel {
                 'secure_password',
                 'insecure_password'
             ) 
-        ) 
+        ),
+        'IPv4' => array( 
+            'fields' => array( 
+                'dns1',
+                'dns2',
+            )
+        )
     ); 
    
     /*
@@ -153,38 +124,5 @@ class Project extends AppModel {
        } else {
            return parent::beforeDelete($cascade);
        }
-    }
-    
-    
-    /*
-     * Standard call back function -- automatically give admins
-     * (or users with roleid of 1) access to the project, called
-     * on both add and edit.
-     */
-//    PC-390 makes this irrelevant now that we don't have a HABTM relation
-//    keeping this commented out for now
-//    
-//    public function beforeSave($options = array()) {
-//        // find all the admins
-//        $admins = ClassRegistry::init('User')->findAllByAdmin( 1 );
-//        $admin_ids = array();
-//        foreach ( $admins as $admin ) {
-//            array_push($admin_ids, $admin['User']['id'] );
-//        }
-//        $this->recursive = 2;
-//        debug( $this->data );
-//        die;
-//        $this->data['User']['User'] = $admin_ids;
-//        /*
-//         * manually verify that admins have access to this following the save:
-//         * 
-//         * select users.id,users.username,projects.name
-//         * from users,projects,projects_users
-//         * where users.role_id=1 and
-//         * users.id = projects_users.user_id
-//         * and projects.id = projects_users.project_id;
-//        */
-//        return true;
-//    }
-    
+    }    
 }

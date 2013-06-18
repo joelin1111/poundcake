@@ -18,7 +18,7 @@
         echo $this->Form->input('watts',array('value'=>'0'));
         echo $this->Form->input('value',array('value'=>'0.00'));
         // include multiple checkboxes for NetworkInterfaces
-        echo $this->element('Common/network_interfaces');
+//        echo $this->element('Common/network_interfaces');
     ?>
     </fieldset>
     <?php

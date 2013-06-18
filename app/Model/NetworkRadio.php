@@ -52,7 +52,8 @@ class NetworkRadio extends AppModel {
         'RadioType',
         'NetworkSwitch',
         'RadioMode',
-        'SnmpType'
+        'SnmpType',
+        'ConfigurationTemplate'
     );
     
     var $hasMany = array(

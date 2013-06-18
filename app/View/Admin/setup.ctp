@@ -61,6 +61,7 @@
             <H4>Network Equipment</H4><hr>
             <UL>
                 <li><?php echo $this->Html->link('Antenna Types', '/admin/antennaTypes/index'); ?></li>
+                <li><?php echo $this->Html->link('Configuration Templates', '/admin/configurationTemplates/index'); ?></li>
                 <li><?php echo $this->Html->link('Frequencies', '/admin/frequencies/index'); ?></li>
                 <li><?php echo $this->Html->link('Network Interface Types', '/admin/networkInterfaceTypes/index'); ?> </li>
                 <li><?php echo $this->Html->link('Radio Bands', '/admin/radioBands/index'); ?></li>
@@ -77,8 +78,8 @@
                 <li><?php echo $this->Html->link('Monitoring System Types', '/admin/monitoringSystemTypes/index'); ?></li>
                 <li><?php echo $this->Html->link('Network Services', '/admin/networkServices/index'); ?></li>        
                 <li><?php echo $this->Html->link('SNMP Versions', '/admin/snmpTypes/index'); ?></li>        
-            </UL>            
+            </UL>             
         </div> <!-- /.span4 --> 
-    </div>    
+    </div>
 </div> <!-- /.span12 -->
 </div> <!-- /.row -->
