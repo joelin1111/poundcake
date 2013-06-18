@@ -98,7 +98,9 @@ class Project extends AppModel {
         'Cryptable' => array( 
             'fields' => array( 
                 'monitoring_system_password',
-                'snmp_community_name'
+                'snmp_community_name',
+                'secure_password',
+                'insecure_password'
             ) 
         ) 
     ); 

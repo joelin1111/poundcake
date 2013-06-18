@@ -1,0 +1,1 @@
+alter table projects add secure_password varchar(255)after default_lon;

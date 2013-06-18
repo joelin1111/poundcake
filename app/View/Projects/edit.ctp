@@ -29,6 +29,9 @@
                 echo $this->Form->input('name');
                 echo $this->Form->input('default_lat', array( 'label' => 'Default Latitude' ));
                 echo $this->Form->input('default_lon', array( 'label' => 'Default Longitude' ));
+                echo $this->Form->input('secure_password', array( 'type'=>'password', 'label' => 'Secure Password' ));
+                echo $this->Form->input('insecure_password', array( 'type'=>'password', 'label' => 'Insecure Password' ));
+                
                 echo $this->Form->input('workorder_title', array( 'label' => 'Title for Workorder' ));
                 echo $this->Form->input('datetime_format', array( 'label' => 'Datetime Format (PHP compatible)' ));
                 echo $this->Form->input('snmp_type_id', array('type'=>'select','options' => $snmptypes, 'label' => 'SNMP Version', 'empty' => true));
@@ -39,6 +42,8 @@
                 echo $this->Form->input('monitoring_system_password', array( 'type'=>'password', 'label' => 'Monitoring System Password' ));
                 //echo $this->Form->input('monitoring_system_password', array( 'label' => 'Monitoring System Password' ));
                 echo $this->Form->input('monitoring_system_url', array( 'label' => 'Complete URL to ReST API','placeholder' => '' ));
+                
+                
                 
 //                $ips = null;
 //                $size = sizeof($ip_addresses);
