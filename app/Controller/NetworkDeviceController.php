@@ -732,6 +732,8 @@ class NetworkDeviceController extends AppController {
         $dns1 = $project['Project']['dns1'];
         $dns2 = $project['Project']['dns2'];
         $secure_password = $project['Project']['secure_password'];
+        $insecure_password = $project['Project']['insecure_password'];
+        $snmp_community = $project['Project']['snmp_community_name'];
         
 //        echo '<pre>';
 //        print_r($lat);
@@ -747,6 +749,7 @@ class NetworkDeviceController extends AppController {
         foreach ( $lines as $line ) {
             $bits = preg_split( '/=/', $line );
             
+            $TBD = 'NOT-YET-DONE';
             switch( $bits[0]) {
                 
                 case 'aaa.1.wpa.psk':
@@ -771,9 +774,6 @@ class NetworkDeviceController extends AppController {
                 case 'system.longitude':
                     $bits[1] = $lon;
                     break;
-                case 'users.1.password':
-                    $bits[1] = 'NOT-YET-DONE';
-                    break;
                 case 'resolv.nameserver.1.ip':
                     $bits[1] = $dns1;
                     break;
@@ -783,8 +783,20 @@ class NetworkDeviceController extends AppController {
                 case 'route.1.gateway':
                     $bits[1] = $gw_address;
                     break;
-                
+                case 'snmp.community':
+                    $bits[1] = $snmp_community;
+                    break;
+                case 'snmp.contact':
+                    $bits[1] = $TBD;
+                    break;
+                case 'snmp.location':
+                    $bits[1] = $name;
+                    break;
+                case 'users.1.password':
+                    $bits[1] = crypt($secure_password,'salt'); // yes, "salt" - WTF?  TOTAL FAIL
+                    break;
             }
+            
             if ( isset($bits[1])) {
                 $config_file[ $bits[0] ] = rtrim($bits[1]);
             }
@@ -792,16 +804,16 @@ class NetworkDeviceController extends AppController {
         
         $this->layout = 'blank';
         $data = "";
+//        echo '<pre>';
         foreach( $config_file as $k => $v ) {
             $data .= $k.'='.$v."\n";
+//            echo $k.'='.$v."\n";
         }
+//        die;
         $this->set('data',$data);
         $this->set('filename',$name);
-//        die;
-//        $this->Session->setFlash('Configuration file generated.  GOOD LUCK!');        
         $this->render('config');
         $this->layout = 'default';
-//        $this->redirect(array('action' => 'view',$device_id));
         
     }
     

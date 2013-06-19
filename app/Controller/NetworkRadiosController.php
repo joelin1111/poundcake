@@ -705,7 +705,7 @@ class NetworkRadiosController extends NetworkDeviceController {
             return true;
         }
         
-        $allowed = array( "add", "edit", "delete", "interfaces" );
+        $allowed = array( "add", "edit", "delete", "interfaces", "config" );
         if ( in_array( $this->action, $allowed )) {
             if ( $this->Session->read('role') === 'edit') {
                 return true;
