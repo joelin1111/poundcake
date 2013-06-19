@@ -734,14 +734,17 @@ class SitesController extends AppController {
         $this->getContacts($id);
         $this->getAllSitesForProject( $id ); // exclude this site from the list of sites
         
-        // sum up the watts for the devices on this site
+        // sum up the watts and value for the devices on this site
         $watts = 0;
-        $watts += $this->Site->NetworkRouter->RouterType->field( 'watts' );
-        $watts += $this->Site->NetworkSwitch->SwitchType->field( 'watts' );
-        // same for the value of these devices
         $value = 0;
-        $value += $this->Site->NetworkRouter->RouterType->field( 'value' );
-        $value += $this->Site->NetworkSwitch->SwitchType->field( 'value' );
+        if ( $this->Site->field('network_router_id') > 0 ) {
+            $watts += $this->Site->NetworkRouter->RouterType->field( 'watts' );
+            $value += $this->Site->NetworkRouter->RouterType->field( 'value' );
+        }
+        if ( $this->Site->field('network_switch_id') > 0 ) {
+            $watts += $this->Site->NetworkSwitch->SwitchType->field( 'watts' );
+            $value += $this->Site->NetworkSwitch->SwitchType->field( 'value' );
+        }
         
         $radios = $this->Site->NetworkRadios->findAllBySiteId($id);
         $n = 0;
@@ -764,6 +767,9 @@ class SitesController extends AppController {
             $watts += $radio['RadioType']['watts'];
             $value += $radio['RadioType']['value'];
         }
+//        
+//        echo $value;
+//        die;
         
         $this->getBuildItems();
         $ip_addresses = $this->getAllAddrpoolIPAddresses( $this->Site->data['Site']['code'] );

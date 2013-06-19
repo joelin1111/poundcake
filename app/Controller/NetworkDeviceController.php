@@ -703,10 +703,19 @@ class NetworkDeviceController extends AppController {
         $this->$model->id = $device_id;
         $configuration_template_id = $this->$model->field('configuration_template_id');
         
+        $name = $this->$model->field('name');
+        
         // get the SSID off the model
         $ssid = $this->$model->field('ssid');
         
-        // get the IP address
+        // this won't work for routers or switches
+        $site_id = $this->$model->field('site_id');
+        $this->loadModel('Site');
+        $site = $this->Site->read(null, $site_id);
+        $lat = $site['Site']['lat'];
+        $lon = $site['Site']['lon'];
+        
+        // get the IP address and related IP stuff from IP Spaces
         $this->loadModel('NetworkInterfaceIpSpaces');
         $t = $this->NetworkInterfaceIpSpaces->findByNetworkRadioId( $device_id );
         $ip_space_id = $t['NetworkInterfaceIpSpaces']['ip_space_id'];
@@ -715,9 +724,19 @@ class NetworkDeviceController extends AppController {
         $ip_space = $this->IpSpace->read();
         $ip_address = long2ip( $ip_space['IpSpace']['ip_address'] );
         $subnet_mask = $this->cidr2NetmaskAddr( $ip_address.'/'. $ip_space['IpSpace']['parent_cidr'] );
-        echo '<pre>';
+        $gw_address = $ip_space['IpSpace']['gw_address'];
         
-        echo '</pre>';
+        // get other info from the project
+        $this->loadModel('Project');
+        $project = $this->Project->read(null, $this->Session->read('project_id'));
+        $dns1 = $project['Project']['dns1'];
+        $dns2 = $project['Project']['dns2'];
+        $secure_password = $project['Project']['secure_password'];
+        
+//        echo '<pre>';
+//        print_r($lat);
+//        echo '</pre>';
+//        die;
         
         $this->loadModel('ConfigurationTemplate');
         $ct = $this->ConfigurationTemplate->read( null, $configuration_template_id );
@@ -729,6 +748,14 @@ class NetworkDeviceController extends AppController {
             $bits = preg_split( '/=/', $line );
             
             switch( $bits[0]) {
+                
+                case 'aaa.1.wpa.psk':
+                    $bits[1] = $secure_password;
+                    break;
+                case 'wpasupplicant.profile.1.network.1.psk':
+                    $bits[1] = $secure_password;
+                    break;
+                
                 case 'wireless.1.ssid':
                     $bits[1] = $ssid;
                     break;
@@ -739,25 +766,43 @@ class NetworkDeviceController extends AppController {
                     $bits[1] = $subnet_mask;
                     break;
                 case 'system.latitude':
-                    $bits[1] = 'NOT-YET-DONE';
+                    $bits[1] = $lat;
                     break;
                 case 'system.longitude':
-                    $bits[1] = 'NOT-YET-DONE';
+                    $bits[1] = $lon;
                     break;
                 case 'users.1.password':
                     $bits[1] = 'NOT-YET-DONE';
                     break;
+                case 'resolv.nameserver.1.ip':
+                    $bits[1] = $dns1;
+                    break;
+                case 'resolv.nameserver.2.ip':
+                    $bits[1] = $dns2;
+                    break;
+                case 'route.1.gateway':
+                    $bits[1] = $gw_address;
+                    break;
+                
             }
             if ( isset($bits[1])) {
-                $config_file[ $bits[0] ] = $bits[1];
+                $config_file[ $bits[0] ] = rtrim($bits[1]);
             }
         }
         
+        $this->layout = 'blank';
+        $data = "";
         foreach( $config_file as $k => $v ) {
-            echo $k.'='.$v;
-            echo '<BR>';
+            $data .= $k.'='.$v."\n";
         }
-        die;
+        $this->set('data',$data);
+        $this->set('filename',$name);
+//        die;
+//        $this->Session->setFlash('Configuration file generated.  GOOD LUCK!');        
+        $this->render('config');
+        $this->layout = 'default';
+//        $this->redirect(array('action' => 'view',$device_id));
+        
     }
     
     /*
