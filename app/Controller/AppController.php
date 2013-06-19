@@ -25,6 +25,9 @@ App::uses('Controller', 'Controller');
 class AppController extends Controller {
 
     const MAX_CIDRS = 32;
+    const NETWORKRADIO = 0; // used by ConfigurationTemplates
+    const NETWORKROUTER = 1; // used by ConfigurationTemplates
+    const NETWORKSWITCH = 2; // used by ConfigurationTemplates
     
     public $actsAs = array('Containable'); // Containable rules -- took forever to get used to it
     

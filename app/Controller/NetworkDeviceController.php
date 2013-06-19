@@ -754,48 +754,75 @@ class NetworkDeviceController extends AppController {
             switch( $bits[0]) {
                 
                 case 'aaa.1.wpa.psk':
-                    $bits[1] = $secure_password;
-                    break;
+                    if (isset($secure_password)) {
+                        $bits[1] = $secure_password;
+                        break;
+                    }
                 case 'wpasupplicant.profile.1.network.1.psk':
-                    $bits[1] = $secure_password;
-                    break;
-                
+                    if (isset($secure_password)) {
+                        $bits[1] = $secure_password;
+                        break;   
+                    }
                 case 'wireless.1.ssid':
-                    $bits[1] = $ssid;
-                    break;
+                    if (isset($ssid)) {
+                        $bits[1] = $ssid;
+                        break;
+                    }
                 case 'wpasupplicant.profile.1.network.1.ssid':
-                    $bits[1] = $ssid;
-                    break;
+                    if (isset($ssid)) {
+                        $bits[1] = $ssid;
+                        break;
+                    }
                 case 'netconf.3.netmask':
-                    $bits[1] = $subnet_mask;
-                    break;
+                    if (isset($subnet_mask)) {
+                        $bits[1] = $subnet_mask;
+                        break;
+                    }
                 case 'system.latitude':
-                    $bits[1] = $lat;
-                    break;
+                    if (isset($lat)) {
+                        $bits[1] = $lat;
+                        break;
+                    }
                 case 'system.longitude':
-                    $bits[1] = $lon;
-                    break;
+                    if (isset($lon)) {
+                        $bits[1] = $lon;
+                        break;
+                    }
                 case 'resolv.nameserver.1.ip':
-                    $bits[1] = $dns1;
-                    break;
+                    if (isset($dns1)) {
+                        $bits[1] = $dns1;
+                        break;
+                    }
                 case 'resolv.nameserver.2.ip':
-                    $bits[1] = $dns2;
-                    break;
+                    if (isset($dns2)) {
+                        $bits[1] = $dns2;
+                        break;
+                    }
                 case 'route.1.gateway':
-                    $bits[1] = $gw_address;
-                    break;
+                    if (isset($gw_address)) {
+                        $bits[1] = $gw_address;
+                        break;
+                    }
                 case 'snmp.community':
-                    $bits[1] = $snmp_community;
-                    break;
+                    if (isset($snmp_community)) {
+                        $bits[1] = $snmp_community;
+                        break;
+                    }
                 case 'snmp.contact':
-                    $bits[1] = $snmp_contact;
-                    break;
+                    if (isset($snmp_contact)) {
+                        $bits[1] = $snmp_contact;
+                        break;
+                    }
                 case 'snmp.location':
-                    $bits[1] = $name;
-                    break;
+                    if (isset($name)) {
+                        $bits[1] = $name;
+                        break;
+                    }
                 case 'users.1.password':
-                    $bits[1] = crypt($secure_password,'salt'); // yes, "salt" - WTF?  TOTAL FAIL
-                    break;
+                    if (isset($secure_password)) {
+                        $bits[1] = crypt($secure_password,'salt'); // yes, "salt" - WTF?  TOTAL FAIL
+                        break;
+                    }
             }
             
             if ( isset($bits[1])) {

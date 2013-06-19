@@ -61,6 +61,7 @@ class ConfigurationTemplatesController extends AppController {
             }
         }
         parent::getProjects();
+        $this->getAppliesToOptions();
     }
 
     /*
@@ -72,6 +73,9 @@ class ConfigurationTemplatesController extends AppController {
             throw new NotFoundException('Invalid configuration template');
         }
         if ($this->request->is('post') || $this->request->is('put')) {
+//            echo '<pre>';
+//            var_dump($this->request->data);
+//            die;
             if ($this->ConfigurationTemplate->save($this->request->data)) {
                 $this->Session->setFlash('The configuration template has been saved.');
                 $this->redirect(array('action' => 'index'));
@@ -82,6 +86,8 @@ class ConfigurationTemplatesController extends AppController {
             $this->request->data = $this->ConfigurationTemplate->read(null, $id);
         }
         parent::getProjects();
+        $this->getAppliesToOptions( $this->ConfigurationTemplate->data['ConfigurationTemplate']['type'] );
+        
     }
     
     /*
@@ -103,6 +109,18 @@ class ConfigurationTemplatesController extends AppController {
         $this->redirect(array('action' => 'index'));
     }
 
+    private function getAppliesToOptions( $selected = null ) {
+        $options = array(
+            // these are constants defined in AppController
+            parent::NETWORKRADIO => 'Radio',
+            parent::NETWORKROUTER => 'Router',
+            parent::NETWORKSWITCH => 'Switch',
+        );
+        if ( !isset($selected )) {
+            $selected = parent::NETWORKRADIO;
+        }
+        $this->set(compact('options','selected'));
+    }
     /*
      * Uses Auth to check the ACL to see if the user is allowed to perform any
      * actions in this controller
