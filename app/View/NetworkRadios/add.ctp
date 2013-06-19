@@ -46,7 +46,7 @@
                     'label'=>'IP Address (Legacy)'
                 )
         );
-        echo $this->Form->input('configuration_template_id', array('label'=>'Configuration Template','options' => $configuration_templates));
+        echo $this->Form->input('configuration_template_id', array('label'=>'Configuration Template','options' => $configuration_templates,'empty'=>true));
         echo $this->Form->submit('Save', array('div' => false,'class'=>'btn btn-primary'));
         echo $this->Form->submit('Cancel', array('name' => 'cancel','div' => false,'class'=>'btn btn-cancel'));
         echo $this->Form->end(); 
