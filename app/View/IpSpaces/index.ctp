@@ -139,11 +139,12 @@ function recursiveIpSpaces( $array ,$role, $delete_confirm_html, $fill_confirm_h
                 echo '" class="link" data-original-title="Edit IP Space" data-placement="bottom">';
                 echo '<i class="icon-edit"></i></a>';
                 
+                /* Commenting this out -- see PC-567
                 echo '<a href="/ipSpaces/find/';
                 echo $vals['IpSpace']['id'];
                 echo '" class="link" data-original-title="Search for matching device" data-placement="bottom">';
                 echo '<i class="icon-search"></i></a>';
-                
+                */
                 // don't show the plus sign if it's a /32
                 // or the fill link
                 if ( $vals['IpSpace']['cidr'] < 32 ) {
