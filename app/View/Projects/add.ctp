@@ -27,6 +27,7 @@
         echo $this->Form->input('datetime_format', array( 'label' => 'Datetime Format (PHP compatible)', 'value' => 'd/m/Y'));  
         echo $this->Form->input('snmp_type_id', array('type'=>'select','options' => $snmptypes, 'label' => 'SNMP Version', 'empty' => true));
         echo $this->Form->input('snmp_community_name', array( 'label' => 'SNMP Community Name' ));
+        echo $this->Form->input('snmp_contact', array( 'label' => 'SNMP Contact' ));
         echo $this->Form->input('read_only', array( 'label' => 'Read-Only Monitoring System Integration' ));
         echo $this->Form->input('monitoring_system_type_id', array('type'=>'select','options' => $monitoringSystemTypes, 'label' => 'Monitoring System Type', 'empty' => true));
         echo $this->Form->input('monitoring_system_username', array( 'label' => 'Monitoring System Username' ));

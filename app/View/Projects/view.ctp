@@ -18,6 +18,7 @@
     <dt>Datetime Format</dt><dd><?php echo $project['Project']['datetime_format']; ?></dd>
     <dt>SNMP Version</dt><dd><?php echo $project['SnmpType']['name']; ?></dd>
     <dt>SNMP Community Name</dt><dd><?php echo $project['Project']['snmp_community_name']; ?></dd>
+    <dt>SNMP Contact</dt><dd><?php echo $project['Project']['snmp_contact']; ?></dd>
     <dt>Read-Only Monitoring System Integration</dt><dd><?php echo ( $project['Project']['read_only'] > 0 ? "Yes" :  "No" ) ?></dd>
     <dt>Monitoring System Type</dt><dd><?php echo $project['MonitoringSystemType']['name']; ?></dd>
     <dt>Monitoring System Username</dt><dd><?php echo $project['Project']['monitoring_system_username']; ?></dd>

@@ -734,6 +734,7 @@ class NetworkDeviceController extends AppController {
         $secure_password = $project['Project']['secure_password'];
         $insecure_password = $project['Project']['insecure_password'];
         $snmp_community = $project['Project']['snmp_community_name'];
+        $snmp_contact = $project['Project']['snmp_contact'];
         
 //        echo '<pre>';
 //        print_r($lat);
@@ -787,7 +788,7 @@ class NetworkDeviceController extends AppController {
                     $bits[1] = $snmp_community;
                     break;
                 case 'snmp.contact':
-                    $bits[1] = $TBD;
+                    $bits[1] = $snmp_contact;
                     break;
                 case 'snmp.location':
                     $bits[1] = $name;
