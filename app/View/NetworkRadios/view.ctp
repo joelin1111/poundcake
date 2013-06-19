@@ -151,6 +151,7 @@
     <dt>Interfaces</dt>
     <dl  class="dl-horizontal">
         <?php
+            /*
             foreach ( $if_array as $if ) {
                 echo '<dt>'.$if['if_name'].'</dt>';
                 echo '<dd>'.$if['ip_address'];
@@ -159,6 +160,29 @@
                 }
                 echo '</dd>';
             }
+          */  
+            foreach ( $if_array as $if ) {
+                if ( $if['ip_address'] > 0 ) {
+                    echo '<dt>'.$if['if_name'].'</dt>';
+                    echo '<dd>';
+                    echo $this->PoundcakeHTML->linkIfAllowed(
+                        $if['ip_address'],
+                        array('controller' => 'IpSpaces',
+                            'action' => 'index',
+                            $this->Session->read('project_id' )
+                        ),
+                        false // no icon
+                    );
+    //                echo '<dd>'.$if['ip_address'];
+                    if ( $if['if_primary'] ) {
+                        echo "&nbsp;<strong>Primary</strong>";
+                    }
+                    echo '</dd>';
+                
+                }
+            }
+            
+            
         ?>
     </dl>
     </dl>
