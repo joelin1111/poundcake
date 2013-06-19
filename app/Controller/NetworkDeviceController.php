@@ -823,6 +823,12 @@ class NetworkDeviceController extends AppController {
                         $bits[1] = crypt($secure_password,'salt'); // yes, "salt" - WTF?  TOTAL FAIL
                         break;
                     }
+                case 'resolv.host.1.name':
+                    if (isset($ssid)) {
+                        $bits[1] = $ssid;
+                        break;
+                    }
+                    
             }
             
             if ( isset($bits[1])) {
