@@ -735,15 +735,20 @@ class SitesController extends AppController {
         $this->getAllSitesForProject( $id ); // exclude this site from the list of sites
         
         // sum up the watts and value for the devices on this site
+        $network_router_id = $this->Site->field('network_router_id');
+        $network_switch_id = $this->Site->field('network_switch_id');
+        
         $watts = 0;
         $value = 0;
-        if ( $this->Site->field('network_router_id') > 0 ) {
-            $watts += $this->Site->NetworkRouter->RouterType->field( 'watts' );
-            $value += $this->Site->NetworkRouter->RouterType->field( 'value' );
+        if ( $network_router_id > 0 ) {
+            $router = $this->Site->NetworkRouter->findById( $network_router_id );
+            $watts += $router['RouterType']['watts'];
+            $value += $router['RouterType']['value'];
         }
-        if ( $this->Site->field('network_switch_id') > 0 ) {
-            $watts += $this->Site->NetworkSwitch->SwitchType->field( 'watts' );
-            $value += $this->Site->NetworkSwitch->SwitchType->field( 'value' );
+        if ( $network_switch_id > 0 ) {
+            $switch = $this->Site->NetworkSwitch->findById( $network_switch_id );
+            $watts += $switch['SwitchType']['watts'];
+            $value += $switch['SwitchType']['value'];
         }
         
         $radios = $this->Site->NetworkRadios->findAllBySiteId($id);
