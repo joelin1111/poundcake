@@ -206,34 +206,34 @@ class NetworkRadiosController extends NetworkDeviceController {
         $this->loadModel('NetworkInterfaceIpSpaces');
         $interfaces_tmp = $this->NetworkInterfaceIpSpaces->findAllByNetworkRadioId( $id );
         
-//        echo '<pre>';
-//        print_r($interfaces_tmp);
-//        echo '</pre>';
-//        die;
-        $this->loadModel('IpSpaces');
+        $this->loadModel('IpSpace');
         foreach( $interfaces_tmp as $if ) {
             $if_name = $this->getIfName( $if['NetworkInterfaceIpSpaces']['network_interface_type_id'] );
             if ( $if_name != "" ) {
-                $ip_space = $this->IpSpaces->findById( $if['NetworkInterfaceIpSpaces']['ip_space_id'] );
-
+//                $ip_space = $this->IpSpaces->findById( $if['NetworkInterfaceIpSpaces']['ip_space_id'] );
+                $ip_space = $this->IpSpace->read(null, $if['NetworkInterfaceIpSpaces']['ip_space_id'] );
                 // show empty IP addresses as 0.0.0.0/32 unless there's a defined cidr
                 $ip_address = '0.0.0.0';
                 $cidr = 0;
-                if ( isset( $ip_space['IpSpaces'] )) {
-                    $cidr = $ip_space['IpSpaces']['cidr'];
-                    $ip_address = long2ip( $ip_space['IpSpaces']['ip_address'] );
+                $parent_cidr = '32';
+                if ( isset( $ip_space['IpSpace'] )) {
+                    // $cidr = $ip_space['IpSpace']['cidr'];
+                    $parent_cidr = $ip_space['IpSpace']['parent_cidr']; // parent_cidr is virtual field
+//                    echo $parent_cidr;
+//                    print_r($ip_space['IpSpaces']['parent_cidr'] );
+                    $ip_address = $ip_space['IpSpace']['ip_address'];
                 }
 
 //                print_r($if['NetworkInterfaceIpSpaces']);die;
                 array_push( $if_array, array (
                     'if_name' => $if_name.$if['NetworkInterfaceIpSpaces']['if_number'],                
-                    'ip_address' => $ip_address.'/'.$cidr,
+                    'ip_address' => $ip_address.'/'.$parent_cidr,
                     'if_primary' => $if['NetworkInterfaceIpSpaces']['if_primary']
                 ) );
             }
             sort( $if_array ); // so the interfaces appear in order by number and name
         }
-        
+//        echo '<pre>'; print_r($if_array);die;
         $this->set(compact('id','if_array','network_interface_types','networkradio','links','sector','provisioned_by_name', 'checked' ));
     }
     
