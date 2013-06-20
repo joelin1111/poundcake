@@ -35,6 +35,7 @@
                 <tr>
                     <th class="index-status"><?php echo $this->Paginator->sort('is_down','Status'); ?></th>
                     <th class="index-item"><?php echo $this->Paginator->sort('name'); ?></th>
+                    <th class="index-item"><?php echo $this->Paginator->sort('router_type_id'); ?></th>
                     <th class="index-action"><?php echo 'Actions'; ?></th>
                 </tr>
             </thead>
@@ -44,6 +45,7 @@
 	<tr>
             <td class="index-status"><?php echo $this->element('Common/site_status_icon', array('status' => $networkrouter['NetworkRouter']['is_down'])); ?></td>
             <td class="index-item"><?php echo $this->Html->link($networkrouter['NetworkRouter']['name'], array('action' => 'view', $networkrouter['NetworkRouter']['id'])); ?></td>
+            <td class="index-item"><?php echo $networkrouter['RouterType']['name']; ?></td>
             <td class="index-action">
                 <?php echo $this->PoundcakeHTML->linkIfAllowed('Edit', array('action' => 'edit', $networkrouter['NetworkRouter']['id'])); ?>
                 <?php

@@ -74,7 +74,7 @@ class NetworkRoutersController extends NetworkDeviceController {
             ));
         //$this->NetworkRouter->recursive = 1;
         $networkrouters = $this->paginate('NetworkRouter');
-//        debug( $networkrouters );
+//        debug( $networkrouters );die;
         //$this->set('networkrouters',$data);
         $this->set(compact('networkrouters'));
     }
