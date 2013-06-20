@@ -208,7 +208,9 @@ echo $this->Html->scriptBlock(
             // only show this stuff if the user is logged in
             if ( !(is_null($project_name))) {
                 echo "Current Project: ";
-                echo $project_name != "" ? $project_name : "Unknown";
+                // echo $project_name != "" ? $project_name : "Unknown";
+                echo $this->Html->link( $project_name , array('action' => 'summary', 'controller' => '/projects', $this->Session->read('project_id') ));
+                // echo $this->PoundcakeHTML->linkIfAllowed( $project_name, array( 'controller' => 'projects', $this->Session->read('project_id')), null );
                 echo " | ";
                 echo $this->Html->link(('Switch Project'), array('action' => 'project', 'controller' => 'users', CakeSession::read("Auth.User.id")));
             }

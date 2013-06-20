@@ -73,10 +73,6 @@ class NetworkRadiosController extends NetworkDeviceController {
                 // limit is the number per page 
                 'limit' => 20,
                 'conditions' => $conditions,
-                /*'contain' => array(
-                    'Site',
-                    'RadioType'
-                ),*/
                 'order' => array(
                     'NetworkRadio.name' => 'asc',
                 ),

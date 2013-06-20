@@ -436,13 +436,6 @@ class IpSpacesController extends AppController {
             return true;
         }
         
-//        $allowed = array( "add", "edit", "delete" );
-//        if ( in_array( $this->action, $allowed )) {
-//            if ( $this->Session->read('role') === 'edit') {
-//                return true;
-//            }
-//        }
-        
         return parent::isAuthorized($user);
     }
 }

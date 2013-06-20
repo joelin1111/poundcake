@@ -44,6 +44,12 @@ class NetworkRadio extends AppModel {
         //'Containable'
     );
     
+    public $virtualFields = array(
+        // see comments on NetworkRouter
+        'watts' => 'SELECT watts FROM radio_types WHERE id=radio_type_id',
+        'value' => 'SELECT value FROM radio_types WHERE id=radio_type_id'
+    );
+    
     /*
      * Relations
      */

@@ -43,6 +43,12 @@ class NetworkSwitch extends AppModel {
         ) 
     );
     
+    public $virtualFields = array(
+        // see comments on NetworkRouter
+        'watts' => 'SELECT watts FROM switch_types WHERE id=switch_type_id',
+        'value' => 'SELECT value FROM switch_types WHERE id=switch_type_id',
+    );
+    
     /*
      * Used for the foreignSource name (in OpenNMS)
      */

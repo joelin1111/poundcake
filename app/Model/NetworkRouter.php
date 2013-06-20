@@ -31,6 +31,13 @@ class NetworkRouter extends AppModel {
      */
     public $displayField = 'name';
 
+    public $virtualFields = array(
+        // maybe I'll regret doing this, but I sort of just want access to
+        // these values on the NetworkRouter itself -- see PC-555
+        'watts' => 'SELECT watts FROM router_types WHERE id=NetworkRouter.router_type_id',
+        'value' => 'SELECT value FROM router_types WHERE id=NetworkRouter.router_type_id',
+    );
+    
     /*
      * Behaviors to use -- IPv4 auto encodes/decodes IPv4 addresses in
      * the fields defined below
