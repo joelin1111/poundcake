@@ -229,7 +229,8 @@ class NetworkRadiosController extends NetworkDeviceController {
             }
             sort( $if_array ); // so the interfaces appear in order by number and name
         }
-//        echo '<pre>'; print_r($if_array);die;
+//        echo '<pre>';
+//        print_r($if_array);
         $this->set(compact('id','if_array','network_interface_types','networkradio','links','sector','provisioned_by_name', 'checked' ));
     }
     
@@ -559,7 +560,7 @@ class NetworkRadiosController extends NetworkDeviceController {
         }
         
 //        echo '<pre>';
-//        print_r($interfaces);
+//        print_r( $if_name );
 //        echo '</pre>';
         
         // $if_name = $this->RadioTypeNetworkInterfaceTypes->findById( $radio_type_network_interface_type_id )['NetworkInterfaceType']['name'];

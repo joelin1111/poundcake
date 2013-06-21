@@ -903,7 +903,11 @@ class NetworkDeviceController extends AppController {
             'conditions' => array (
                 'IpSpace.project_id' => $project_id,
                 'cidr' => 32 // we only want /32 IPs
-                )
+                ),
+            // this returns the IP addresses correctly sorted -- calling
+            // sort($ip_spaces) would put it in this order:
+            // 192.168.88.1, 192.168.88.10, 192.168.88.2...
+            'order' => array('ip_address' => 'ASC')
         ));
         $this->set(compact('ip_spaces'));
     }
