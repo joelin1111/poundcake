@@ -1,6 +1,6 @@
 <div class="row">
 
-    <h2><?php echo $project_name; ?> Summary</h2>
+    <h2>Summary for <?php echo $project_name; ?></h2>
     <div class="span12">
     <table class="table table-condensed table-striped table-hover">
         <?php
