@@ -212,25 +212,28 @@ class NetworkRadiosController extends NetworkDeviceController {
                 $ip_address = '0.0.0.0';
                 $cidr = 0;
                 $parent_cidr = '32';
-                if ( isset( $ip_space['IpSpace'] )) {
+                if ( isset( $ip_space['IpSpace'] ) && ( $if['NetworkInterfaceIpSpaces']['ip_space_id'] > 0 ) ) {
                     // $cidr = $ip_space['IpSpace']['cidr'];
                     $parent_cidr = $ip_space['IpSpace']['parent_cidr']; // parent_cidr is virtual field
 //                    echo $parent_cidr;
-//                    print_r($ip_space['IpSpaces']['parent_cidr'] );
+//                    echo '<pre>';
+//                    print_r( $if['NetworkInterfaceIpSpaces']['ip_space_id'] );
+//                    print_r( $ip_space['IpSpace'] );
                     $ip_address = $ip_space['IpSpace']['ip_address'];
-                }
+                
 
 //                print_r($if['NetworkInterfaceIpSpaces']);die;
-                array_push( $if_array, array (
-                    'if_name' => $if_name.$if['NetworkInterfaceIpSpaces']['if_number'],                
-                    'ip_address' => $ip_address.'/'.$parent_cidr,
-                    'if_primary' => $if['NetworkInterfaceIpSpaces']['if_primary']
-                ) );
+                    array_push( $if_array, array (
+                        'if_name' => $if_name.$if['NetworkInterfaceIpSpaces']['if_number'],                
+                        'ip_address' => $ip_address.'/'.$parent_cidr,
+                        'if_primary' => $if['NetworkInterfaceIpSpaces']['if_primary']
+                    ) );
+                }
             }
             sort( $if_array ); // so the interfaces appear in order by number and name
         }
 //        echo '<pre>';
-//        print_r($if_array);
+//        print_r($if_array);die;
         $this->set(compact('id','if_array','network_interface_types','networkradio','links','sector','provisioned_by_name', 'checked' ));
     }
     
