@@ -8,6 +8,7 @@
     <H3>Actions</H3>
     <div class="well">
     <ul>
+        <li><?php echo $this->PoundcakeHTML->link('View Router', array('action' => 'view', $id)); ?></li>    
         <li><?php echo $this->PoundcakeHTML->link('List Routers', array('action' => 'index')); ?></li>
     </ul>
     </div>

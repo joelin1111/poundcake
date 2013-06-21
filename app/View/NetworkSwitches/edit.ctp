@@ -8,7 +8,8 @@
     <H3>Actions</H3>
     <div class="well">
     <ul>
-        <li><?php echo $this->PoundcakeHTML->link('List  Switches', array('action' => 'index')); ?></li>
+        <li><?php echo $this->PoundcakeHTML->link('View Switch', array('action' => 'view', $id)); ?></li>    
+        <li><?php echo $this->PoundcakeHTML->link('List Switches', array('action' => 'index')); ?></li>
     </ul>
     </div>
 </div><!-- /.span3 .sb-fixed -->

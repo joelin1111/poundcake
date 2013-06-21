@@ -8,6 +8,7 @@
     <H3>Actions</H3>
     <div class="well">
     <ul>
+        <li><?php echo $this->PoundcakeHTML->link('View Radio', array('action' => 'view', $id)); ?></li>    
         <li><?php echo $this->PoundcakeHTML->link('List Radios', array('action' => 'index')); ?></li>        
     </ul>
     </div>

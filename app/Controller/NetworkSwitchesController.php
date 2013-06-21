@@ -161,7 +161,7 @@ class NetworkSwitchesController extends NetworkDeviceController {
         $project_id = $this->Session->read('project_id');
                 
         parent::getIpSpaces( $project_id );
-        $this->set(compact( 'old_site_id','project_id' ));
+        $this->set(compact( 'old_site_id','project_id', 'id' ));
     }
 
     /*

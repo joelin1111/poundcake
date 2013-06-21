@@ -466,6 +466,7 @@ class NetworkRadiosController extends NetworkDeviceController {
         $this->getSnmpTypes();
         parent::getIpSpaces( $this->Session->read('project_id') );
         parent::getConfigurationTemplates();
+        $this->set(compact('id'));
     }
     
     public function interfaces( $id = null, $radio_type_network_interface_type_id = null, $number = null ) {
