@@ -743,6 +743,7 @@ class NetworkDeviceController extends AppController {
         $snmp_contact = $project['Project']['snmp_contact'];
         
 //        echo '<pre>';
+//        print_r($t);
 //        print_r($ip_space);
 //        echo '</pre>';
 //        die;
@@ -751,31 +752,25 @@ class NetworkDeviceController extends AppController {
         $ct = $this->ConfigurationTemplate->read( null, $configuration_template_id );
         $body = $ct['ConfigurationTemplate']['body'];
         
-        echo "<pre>";
-        
-        $config_file = array();
-        $lines = explode( "\n", $body );
         $body = str_replace( '%SSID%', $ssid, $body );
         $body = str_replace( '%IPADDRESS%', $ip_address, $body );
         $body = str_replace( '%SUBNETMASK%', $subnet_mask, $body );
         $body = str_replace( '%GATEWAY%', $gw_address, $body );
-        
         $body = str_replace( '%SNMPCOMMUNITY%', $snmp_community, $body );
         $body = str_replace( '%SNMPCONTACT%', $snmp_contact, $body );
         $body = str_replace( '%SITECODE%', $code, $body );
-        
         $body = str_replace( '%LAT%', $lat, $body );
         $body = str_replace( '%LON%', $lon, $body );
-        
         $body = str_replace( '%SECUREPASSWORDHASH%', crypt( $secure_password,'salt' ), $body ); // yes, 'salt' is the salt!!!
         $body = str_replace( '%SECUREPASSWORD%', $secure_password, $body );
-        
+        $body = str_replace( '%INSECUREPASSWORD%', $insecure_password, $body );
         $body = str_replace( '%DNS1%', $dns1, $body );
         $body = str_replace( '%DNS2%', $dns2, $body );
+        $body = str_replace( '%HOSTNAME%', $name, $body );
         
-        print_r($body);
-        die;
-        
+//        echo "<pre>"; print_r($body); die;
+
+        // output the file to the browser
         $this->layout = 'blank';
         $this->set( 'data', $body );
         $this->set( 'filename', $name );

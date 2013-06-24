@@ -92,19 +92,11 @@ class NetworkSwitch extends AppModel {
                 'rule' => array('notempty'),
                 'message' => 'This field cannot be blank.',
                 'required' => false
-                //'allowEmpty' => false,
-                //'required' => false,
-                //'last' => false, // Stop validation after this rule
-                //'on' => 'create', // Limit validation to 'create' or 'update' operations
-            )/*,
-            'alphanumeric' => array(
-                'rule' => array('alphanumeric'),
-                'message' => 'Only letters and numbers are allowed.',
-                //'allowEmpty' => false,
-                //'required' => false,
-                //'last' => false, // Stop validation after this rule
-                //'on' => 'create', // Limit validation to 'create' or 'update' operations
-            ),*/
+            ),
+            'name' => array(
+                'rule'    => 'alphaNumericDashUnderscore',
+                'message' => 'Name can only be letters, numbers, dash and underscore'
+            )
         ),
     );
 }

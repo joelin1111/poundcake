@@ -94,6 +94,10 @@ class NetworkRadio extends AppModel {
                 'rule' => array('isUnique', array('name')),
                 'message' => 'This field need must be unique.'
             ),
+            'name' => array(
+                'rule'    => 'alphaNumericDashUnderscore',
+                'message' => 'Name can only be letters, numbers, dash and underscore'
+            )
         ),        
     );
     
@@ -120,6 +124,8 @@ class NetworkRadio extends AppModel {
         
         return $distance;
     }
+    
+    
     
     /*
      * Return the bearing (in degrees) between two NetworkRadios

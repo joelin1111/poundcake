@@ -135,4 +135,13 @@ class AppModel extends Model {
         $lastLog = end($logs['log']);
         return $lastLog['query'];
     }
+    
+    public function alphaNumericDashUnderscore($check) {
+        // $data array is passed using the form field name as the key
+        // have to extract the value to make the function generic
+        $value = array_values($check);
+        $value = $value[0];
+
+        return preg_match('|^[0-9a-zA-Z_-]*$|', $value);
+    }
 }
