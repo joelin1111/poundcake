@@ -709,7 +709,7 @@ class NetworkDeviceController extends AppController {
             $query = 'call sp_get_remote_links('.$device_id.')';
             $links = $this->NetworkRadio->query( $query );
             $link_id = $links[0]['radios_radios']['dest_radio_id'];
-            $distance = $this->$model->getLinkDistance( $device_id, $link_id ) * 1000; // convert back to meters
+            $distance = floor($this->$model->getLinkDistance( $device_id, $link_id ) * 1000); // convert back to meters
         }
         
         // get the SSID off the model
