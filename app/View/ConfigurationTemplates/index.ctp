@@ -7,10 +7,53 @@
         <li><?php echo $this->PoundcakeHTML->link('Setup',array('controller'=>'admin','action' => 'setup')); ?></li>
     </ul>
     </div>
+    
+    <?php
+    
+        $terms = array(
+            'DNS1' => 'from Project',
+            'DNS2' => 'from Project',
+            'HOSTNAME' => 'from Radio (Radio Name)',
+            'IPADDRESS' => 'from IpSpace',
+            'INSECUREPASSWORD' => 'from Project',
+            'GATEWAY' => 'from IpSpace',
+            'LAT' => 'from Site',
+            'LINKDISTANCE' => 'Compute link distance',
+            'LON' => 'from Site',
+            'SITECODE' => 'from Site',
+            'SNMPCONTACT' => 'from Project',
+            'SNMPCOMMUNITY' => 'from Project',
+            'SECUREPASSWORD' => 'from Project',
+            'SECUREPASSWORDHASH' => 'from Project',
+            'SUBNETMASK' => 'from IpSpace',
+            'SSID' => 'from Radio',
+        );
+//        array_multisort( $terms, SORT_ASC );
+    ?>
+ 
 </div><!-- /.span3 .sb-fixed -->
 
 <div class="span9">
 	<h2>Configuration Templates</h2>
+        
+        <H4>Keys</H4>
+        
+            <?php
+                $mid = floor(count($terms)/2);
+                $terms1 = array_slice($terms,0,$mid,true);
+                $terms2 = array_slice($terms,$mid);
+                
+                echo '<div class="span4"><ul>';
+                foreach ($terms1 as $key => $value) {
+                    echo '<li>%'.$key ."% ".$value.'</li>';
+                }
+                echo '</ul></div><div class="span4"><ul>';
+                foreach ($terms2 as $key => $value) {
+                    echo '<li>%'.$key ."% ".$value.'</li>';
+                }
+                echo '</ul></div>'
+            ?>
+           
 	<table class="table table-condensed table-striped table-hover">
         <thead>
             <tr>
