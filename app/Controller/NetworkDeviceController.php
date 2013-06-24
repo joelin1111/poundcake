@@ -705,6 +705,13 @@ class NetworkDeviceController extends AppController {
         
         $name = $this->$model->field('name');
         
+        if ( $model == 'NetworkRadio' ) {
+            $query = 'call sp_get_remote_links('.$device_id.')';
+            $links = $this->NetworkRadio->query( $query );
+            $link_id = $links[0]['radios_radios']['dest_radio_id'];
+            $distance = $this->$model->getLinkDistance( $device_id, $link_id ) * 1000; // convert back to meters
+        }
+        
         // get the SSID off the model
         $ssid = $this->$model->field('ssid');
         
@@ -767,7 +774,7 @@ class NetworkDeviceController extends AppController {
         $body = str_replace( '%DNS1%', $dns1, $body );
         $body = str_replace( '%DNS2%', $dns2, $body );
         $body = str_replace( '%HOSTNAME%', $name, $body );
-        
+        $body = str_replace( '%LINKDISTANCE%', $distance, $body );
 //        echo "<pre>"; print_r($body); die;
 
         // output the file to the browser
