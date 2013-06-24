@@ -714,6 +714,7 @@ class NetworkDeviceController extends AppController {
         $site = $this->Site->read(null, $site_id);
         $lat = $site['Site']['lat'];
         $lon = $site['Site']['lon'];
+        $code = $site['Site']['code'];
         
         // get the IP address and related IP stuff from IP Spaces
         $this->loadModel('NetworkInterfaceIpSpaces');
@@ -721,10 +722,15 @@ class NetworkDeviceController extends AppController {
         $ip_space_id = $t['NetworkInterfaceIpSpaces']['ip_space_id'];
         $this->loadModel('IpSpace');
         $this->IpSpace->id = $ip_space_id; //read(null,$ip_space_id);
-        $ip_space = $this->IpSpace->read();
-        $ip_address = long2ip( $ip_space['IpSpace']['ip_address'] );
+        $ip_space = $this->IpSpace->read( null, $ip_space_id );
+        $ip_address = $ip_space['IpSpace']['ip_address'];
         $subnet_mask = $this->cidr2NetmaskAddr( $ip_address.'/'. $ip_space['IpSpace']['parent_cidr'] );
         $gw_address = $ip_space['IpSpace']['gw_address'];
+        
+//        echo '<pre>';
+//        print_r( $t['NetworkInterfaceIpSpaces'] );
+//        echo '</pre>';
+//        die;
         
         // get other info from the project
         $this->loadModel('Project');
@@ -737,7 +743,7 @@ class NetworkDeviceController extends AppController {
         $snmp_contact = $project['Project']['snmp_contact'];
         
 //        echo '<pre>';
-//        print_r($lat);
+//        print_r($ip_space);
 //        echo '</pre>';
 //        die;
         
@@ -745,108 +751,35 @@ class NetworkDeviceController extends AppController {
         $ct = $this->ConfigurationTemplate->read( null, $configuration_template_id );
         $body = $ct['ConfigurationTemplate']['body'];
         
+        echo "<pre>";
+        
         $config_file = array();
         $lines = explode( "\n", $body );
-        foreach ( $lines as $line ) {
-            $bits = preg_split( '/=/', $line );
-            
-            $TBD = 'NOT-YET-DONE';
-            switch( $bits[0]) {
-                
-                case 'aaa.1.wpa.psk':
-                    if (isset($secure_password)) {
-                        $bits[1] = $secure_password;
-                        break;
-                    }
-                case 'wpasupplicant.profile.1.network.1.psk':
-                    if (isset($secure_password)) {
-                        $bits[1] = $secure_password;
-                        break;   
-                    }
-                case 'wireless.1.ssid':
-                    if (isset($ssid)) {
-                        $bits[1] = $ssid;
-                        break;
-                    }
-                case 'wpasupplicant.profile.1.network.1.ssid':
-                    if (isset($ssid)) {
-                        $bits[1] = $ssid;
-                        break;
-                    }
-                case 'netconf.3.netmask':
-                    if (isset($subnet_mask)) {
-                        $bits[1] = $subnet_mask;
-                        break;
-                    }
-                case 'system.latitude':
-                    if (isset($lat)) {
-                        $bits[1] = $lat;
-                        break;
-                    }
-                case 'system.longitude':
-                    if (isset($lon)) {
-                        $bits[1] = $lon;
-                        break;
-                    }
-                case 'resolv.nameserver.1.ip':
-                    if (isset($dns1)) {
-                        $bits[1] = $dns1;
-                        break;
-                    }
-                case 'resolv.nameserver.2.ip':
-                    if (isset($dns2)) {
-                        $bits[1] = $dns2;
-                        break;
-                    }
-                case 'route.1.gateway':
-                    if (isset($gw_address)) {
-                        $bits[1] = $gw_address;
-                        break;
-                    }
-                case 'snmp.community':
-                    if (isset($snmp_community)) {
-                        $bits[1] = $snmp_community;
-                        break;
-                    }
-                case 'snmp.contact':
-                    if (isset($snmp_contact)) {
-                        $bits[1] = $snmp_contact;
-                        break;
-                    }
-                case 'snmp.location':
-                    if (isset($name)) {
-                        $bits[1] = $name;
-                        break;
-                    }
-                case 'users.1.password':
-                    if (isset($secure_password)) {
-                        $bits[1] = crypt($secure_password,'salt'); // yes, "salt" - WTF?  TOTAL FAIL
-                        break;
-                    }
-                case 'resolv.host.1.name':
-                    if (isset($ssid)) {
-                        $bits[1] = $ssid;
-                        break;
-                    }
-                    
-            }
-            
-            if ( isset($bits[1])) {
-                $config_file[ $bits[0] ] = rtrim($bits[1]);
-            }
-        }
+        $body = str_replace( '%SSID%', $ssid, $body );
+        $body = str_replace( '%IPADDRESS%', $ip_address, $body );
+        $body = str_replace( '%SUBNETMASK%', $subnet_mask, $body );
+        $body = str_replace( '%GATEWAY%', $gw_address, $body );
+        
+        $body = str_replace( '%SNMPCOMMUNITY%', $snmp_community, $body );
+        $body = str_replace( '%SNMPCONTACT%', $snmp_contact, $body );
+        $body = str_replace( '%SITECODE%', $code, $body );
+        
+        $body = str_replace( '%LAT%', $lat, $body );
+        $body = str_replace( '%LON%', $lon, $body );
+        
+        $body = str_replace( '%SECUREPASSWORDHASH%', crypt( $secure_password,'salt' ), $body ); // yes, 'salt' is the salt!!!
+        $body = str_replace( '%SECUREPASSWORD%', $secure_password, $body );
+        
+        $body = str_replace( '%DNS1%', $dns1, $body );
+        $body = str_replace( '%DNS2%', $dns2, $body );
+        
+        print_r($body);
+        die;
         
         $this->layout = 'blank';
-        $data = "";
-//        echo '<pre>';
-        foreach( $config_file as $k => $v ) {
-            $data .= $k.'='.$v."\n";
-//            echo $k.'='.$v."\n";
-        }
-//        die;
-        $this->set('data',$data);
-        $this->set('filename',$name);
-        $this->render('config');
+        $this->set( 'data', $body );
+        $this->set( 'filename', $name );
+        $this->render( 'config' );
         $this->layout = 'default';
         
     }
