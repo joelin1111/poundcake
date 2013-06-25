@@ -121,4 +121,7 @@ while true; do
     esac
 done
 
+# cleanup old files
+find $BACKUP_DIR -type f -mtime +14 -exec rm -f {} \;
+
 exit 0

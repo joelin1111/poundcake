@@ -171,6 +171,7 @@ class UsersController extends AppController {
                 if (!is_null($id)) {
                     $this->User->id = $id;
                     $this->User->saveField('project_id',$project_id);
+//                    echo "Just saved $project_id!<BR>";
                     // clear any saved searches ("sticky search" so the main site
                     // listing page goes to sites in the newly selected project
                     $this->Session->write( 'conditions', null );
@@ -420,25 +421,30 @@ class UsersController extends AppController {
                 $uid = CakeSession::read("Auth.User.id");
                 $this->loadModel('User',$uid);
                 $this->User->id = $uid;
-                $user = $this->User->read();
-                
+                $user = $this->User->read( null, $uid );
+//                echo '<pre>';
                 // get the ID of the last project thi user was assigned
                 $last_project_id = $this->User->field('project_id');
+//                debug($user);
                 
                 // get all the projects to which this user is assigned
                 $projects = $this->User->ProjectMembership->findAllByUserId( $uid );
                 
-               
 //                echo "Last project ID:  $last_project_id";
 //                var_dump( $last_project_id );
 //                var_dump( $projects );
-//              
+                
                 // check that the user is still assigned to their last accessed project
+                // as they may have been revoked access to a project
                 $ok_to_login = false;
-                foreach ( $projects as $project ) {
-                    // var_dump( $project['Project']['id'] );
-                    if ( $last_project_id == $project['Project']['id'] ) {
-                        $ok_to_login = true;
+                if ( $user['User']['admin'] == 1 ) {
+                    $ok_to_login = true;
+                } else {
+                    foreach ( $projects as $project ) {
+//                        echo '<pre>'; print_r( $project['Project']['id'] );
+                        if ( $last_project_id == $project['Project']['id'] ) {
+                            $ok_to_login = true;
+                        }
                     }
                 }
                 

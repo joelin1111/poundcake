@@ -20,7 +20,7 @@
     <div class="control-group"></div>
     <?php
         // not using AutoLogin right now, but maybe in the future?  See the Utility plugin
-        echo $this->Form->input('auto_login', array('type' => 'checkbox', 'label' => 'Remember me?  (Note: Experimental Feature)'));
+        echo $this->Form->input('auto_login', array('type' => 'checkbox', 'label' => 'Keep me logged in for 2-weeks'));
     ?>
     </div>
     

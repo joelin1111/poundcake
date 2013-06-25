@@ -6,12 +6,18 @@
     <div class="row">
     
         <div class="alert" align="center">
-    <!--        <button type="button" id="1" class="close" data-dismiss="alert">&times;</button>-->
-            <strong>Caution!</strong> Many items in Tower DB are configurable by users with administrator<BR>
-            permissions.  Changing some of these values may have an unintended impact to<BR>
-            existing projects or the system, overall.  Please proceed with caution.
+            <P>
+        <!--        <button type="button" id="1" class="close" data-dismiss="alert">&times;</button>-->
+                <strong>Caution!</strong> Many items in Tower DB are configurable by users with administrator 
+                permissions.  Changing some of these values may have an unintended impact to 
+                existing projects or the system, overall.  Please proceed with caution.
+            </P>
+            <!--
+            <P> 
+                <i class="icon-globe"></i> Settings with this icon are global in nature, and affect all projects.
+            </p>
+            -->
         </div>
-    
     
         <div class="span4">
             <H4>Basic Administration</H4><hr>
