@@ -8,7 +8,7 @@ function backup {
 	if [[ $BACKUP != "" ]]; then 
 		# mysqldump --extended-insert=FALSE --routines --opt poundcake > $BACKUP_FILE
 		echo "Backing up MySQL database"
-		/usr/bin/mysqldump --extended-insert=FALSE --routines --opt -uroot -p$BACKUP $poundcake > $BACKUP_FILE
+		mysqldump --skip-extended-insert --routines --opt -uroot -p$BACKUP poundcake > $BACKUP_FILE
 	else
 		echo "No MySQL backup"
 	fi
@@ -24,6 +24,21 @@ function deploy {
 	sudo chown -R www-data $TOWERDB
 	echo "*** REMEMBER TO DISABLE MAINTENANCE MODE ***"
 	echo "    sudo sh -c \"echo 0 > $MAINT_FILE\" "
+}
+
+function opensite {
+	read -p "Disable site maintenance mode?  [Press Y to disable] " yn
+    case $yn in
+        [Yy]* )
+        	sudo sh -c "echo 0 > $MAINT_FILE"
+			exit;;
+        * )
+        	echo "********************************************"
+        	echo "*** REMEMBER TO DISABLE MAINTENANCE MODE ***"
+			echo "     sudo sh -c \"echo 0 > $MAINT_FILE\" "
+        	echo "********************************************"
+        	exit;;
+    esac
 }
 
 function usage {
@@ -64,9 +79,9 @@ do
      esac
 done
 
-echo $BRANCH
-echo $DEST
-echo $BACKUP
+#echo $BRANCH
+#echo $DEST
+#echo $BACKUP
 
 if [[ -z $BRANCH ]] || [[ -z $DEST ]]
 then
@@ -99,6 +114,7 @@ while true; do
         [Yy]* )
         	backup
         	deploy
+        	opensite
 			exit;;
         [Nn]* ) exit;;
         * ) echo "Please answer Y or y to continue deployment.";;
