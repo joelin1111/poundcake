@@ -36,8 +36,21 @@
 <div class="span9">
 	<h2>Configuration Templates</h2>
         
+        <H4>Misc</H4>
+        <div class="row">
+             <div class="span9">
+                 <ul>
+                     <li>
+                        <code>
+                        # Put a hashtag in front of a comment
+                        </code>
+                    </li>
+                 </ul>
+             </div>
+        </div>
+         
         <H4>Keys</H4>
-        
+             <div class="row">
             <?php
                 $mid = floor(count($terms)/2);
                 $terms1 = array_slice($terms,0,$mid,true);
@@ -45,15 +58,17 @@
                 
                 echo '<div class="span4"><ul>';
                 foreach ($terms1 as $key => $value) {
-                    echo '<li>%'.$key ."% ".$value.'</li>';
+                    echo '<li><code>%'.$key ."% ".$value.'</code></li>';
                 }
-                echo '</ul></div><div class="span4"><ul>';
+                echo '</ul></div><div class="span5"><ul>';
                 foreach ($terms2 as $key => $value) {
-                    echo '<li>%'.$key ."% ".$value.'</li>';
+                    echo '<li><code>%'.$key ."% ".$value.'</code></li>';
                 }
-                echo '</ul></div>'
+                echo '</ul></div>';
             ?>
-           
+        </div>
+        
+        <div class="span9">   
 	<table class="table table-condensed table-striped table-hover">
         <thead>
             <tr>
