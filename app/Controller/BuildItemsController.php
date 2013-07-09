@@ -71,6 +71,7 @@ class BuildItemsController extends AppController {
                 $this->Session->setFlash('Error!  The build item could not be saved. Please, try again.');
             }
         }
+        parent::getProjects();
         $this->getBuildItemTypes();
     }
     
@@ -92,6 +93,7 @@ class BuildItemsController extends AppController {
         } else {
             $this->request->data = $this->BuildItem->read(null, $id);
         }
+        parent::getProjects();
         $this->getBuildItemTypes();
     }
     

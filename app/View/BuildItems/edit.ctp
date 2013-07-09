@@ -15,6 +15,13 @@
         echo $this->Form->input('name',array('style' => 'width: 500px;'));
         echo $this->Form->input('quantity');
         echo $this->Form->input('build_item_type_id', array('type'=>'select','options' => $builditemtypes)); //,'empty' => true));
+        echo $this->Form->input('Project.Project',array(
+            'label' => __('Projects',true),
+            'type' => 'select',
+            'multiple' => 'checkbox',
+            'options' => $projects,
+            'selected' => $this->Html->value('Project.Project'),
+        ));
         echo $this->Form->submit('Save', array('div' => false,'class'=>'btn btn-primary'));
         echo $this->Form->submit('Cancel', array('name' => 'cancel','div' => false,'class'=>'btn btn-cancel'));
         echo $this->Form->end(); 
