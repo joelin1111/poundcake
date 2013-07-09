@@ -208,6 +208,13 @@ class IpSpacesController extends AppController {
             $this->redirect(array( 'action' => 'index/'.$parent_id ));
         }
         
+//        $n_gateways = $this->getGatewayAddresses( $parent_id );
+//        if ( $n_gateways > 0 ) {
+//            $host = true;
+//        } else {
+//            $host = false;
+//        }
+//        $this->getCidrs( $parent_cidr, $host );
         $this->getGatewayAddresses( $parent_id );
         $this->getCidrs( $parent_cidr );
         $this->set(compact( 'parent_id', 'ip_address', 'project_id' ));
@@ -217,13 +224,17 @@ class IpSpacesController extends AppController {
         $gw_addresses = $this->IpSpace->find('list', array( 
             'fields' => array('IpSpace.ip_address'),
             // 'order' => array('IpSpace.lft'),
-            'conditions' => array('IpSpace.parent_id' => $parent_id),
+            'conditions' => array(
+                'IpSpace.parent_id' => $parent_id,
+                'IpSpace.cidr' => 32,
+            ),
              // sort by ip address in case some were deleted and then
              // re-added, which would otherwise make them out of sequence
             'order' => array('IpSpace.ip_address')
         ));
-//        var_dump( $gw_addresses ); //die;
+//        var_dump( $gw_addresses ); 
         $this->set(compact('gw_addresses'));
+//        return count( $gw_addresses );
     }
     
     public function edit($id = null) {

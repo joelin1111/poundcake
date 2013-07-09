@@ -35,6 +35,8 @@ class BuildItem extends AppModel {
         'BuildItemType'
     );
     
+    var $hasAndBelongsToMany = array('Project');
+    
     /*
      * Default sort order
      */

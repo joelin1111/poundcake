@@ -655,11 +655,36 @@ class SitesController extends AppController {
      * Get an array of build items -- items for the "board" build
      */
     function getBuildItems() {
-       $this->loadModel('BuildItems');
-       $this->BuildItems->bindModel(array('belongsTo' => array('BuildItemTypes' => 
-                             array('foreignKey' => 'build_item_type_id'))));
-       $options = array('order' => 'BuildItems.build_item_type_id', 'recursive'=> 2); // order by item type
-       $builditems = $this->BuildItems->find('all', $options); //,array('recursive' => 2));
+        $this->loadModel('BuildItem');
+        $this->BuildItem->bindModel(array('belongsTo' => array('BuildItemType' => 
+                            array('foreignKey' => 'build_item_type_id'))));
+        // I could not sort out how to do this find with conditions on a HABTM
+        // relationship
+        // see:  http://book.cakephp.org/2.0/en/models/associations-linking-models-together.html#joining-tables
+        // where it says:  Suppose a Book hasAndBelongsToMany Tag association.
+        $options['joins'] = array(
+            array( 
+                'table' => 'build_items_projects', 
+                'alias' => 'BuildItemsProjects', 
+                'type' => 'inner',  
+                'conditions'=> array(
+                    'BuildItem.id = BuildItemsProjects.build_item_id'
+                )
+            ),
+            array('table' => 'projects',
+                'alias' => 'Project',
+                'type' => 'inner',
+                'conditions' => array(
+                    'BuildItemsProjects.project_id = Project.id',
+                    'Project.id = '.$this->Session->read('project_id')
+                )
+            )
+        );
+        $builditems =  $this->BuildItem->find('all', $options);        
+//        echo '<pre>1:';
+//        print_r($builditems);
+//        echo '</pre>';
+//        die;
        $this->set('builditems', $builditems);
        
        // sum up all the radios, antennas for this site

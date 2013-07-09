@@ -9,7 +9,7 @@ $(document).ready(function() {
     $("#IpSpaceCidr").change(            
     function() {
         if ( $("#IpSpaceCidr").val() == 32 ) {
-            console.log("enable or disable");
+            //console.log("enable or disable");
             $("#IpSpacePrimaryIp").prop("disabled", false);
         } else {
             $("#IpSpacePrimaryIp").prop("disabled", true);

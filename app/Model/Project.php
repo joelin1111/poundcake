@@ -36,9 +36,6 @@ class Project extends AppModel {
         'MonitoringSystemType'
     );
     
-    /*
-     * Relations
-     */
     public $hasMany = array(
         'SiteStates',
         'TowerTypes',
@@ -47,6 +44,8 @@ class Project extends AppModel {
         'IpAddress',
         'IpSpace'
     );
+    
+//    public $hasAndBelongsToMany = array('BuildItem');
     
     /*
      * Default sort order

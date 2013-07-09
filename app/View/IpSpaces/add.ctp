@@ -1,3 +1,7 @@
+<?php
+    echo $this->Html->script('poundcake/poundcake-ipspaces-gateway');
+?>
+
 <div class="row">
 <div class="span3">
     <H3>Actions</H3>
@@ -15,18 +19,20 @@
         echo $this->Form->hidden('parent_id', array( 'value' => $parent_id ));        
         echo $this->Form->input('name', array( 'value' => 'subnet', 'required' => false ));
         echo $this->Form->input('cidr', array( 'label' => 'CIDR', 'options' => $cidrs, 'selected'=> '0' ));
-        // only show the gateway field if ther are valid /32s to set for a gateway
-        if ( isset($gw_addresses ) && (count($gw_addresses) > 0 ) ) {
-                echo $this->Form->input('gateway_id',
-                    array(
-                        'label' => 'Gateway',
-                        'options' => $gw_addresses,
-                        'empty'=> true,
-                        // default the select list to the first IP in the array
-                        'selected' => key($gw_addresses)
-                )
-            );
-        }
+        // jQuery will enable this if they select a /32 host record from
+        // the cidr select list
+        
+        echo $this->Form->input('gateway_id',
+            array(
+                'label' => 'Gateway',
+                'options' => $gw_addresses,
+                'empty' => true,
+                'disabled' => true,
+                // default the select list to the first IP in the array
+                // 'selected' => key($gw_addresses)
+                'selected' => 0 // default to blank
+        ));
+        
         echo $this->Form->hidden('project_id', array( 'value' => $project_id ));        
     ?>
     </fieldset>
