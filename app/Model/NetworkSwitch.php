@@ -68,17 +68,11 @@ class NetworkSwitch extends AppModel {
         'NetworkRadio' => array('order' => 'NetworkRadio.switch_port')
     );
     
-    /*
-     * Relations
-     */
     var $belongsTo = array(
         'SwitchType',
         'SnmpType'
     );
 
-    /*
-     * Relations
-     */
     var $hasOne = array(
         'Site'
     );

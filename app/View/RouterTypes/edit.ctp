@@ -14,6 +14,7 @@
     <?php
         echo $this->Form->input('id');
         echo $this->Form->input('name');
+        echo $this->Form->input('ports');
         echo $this->Form->input('manufacturer');
         echo $this->Form->input('model');
         echo $this->Form->input('watts');

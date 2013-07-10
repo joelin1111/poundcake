@@ -63,15 +63,16 @@ class NetworkRouter extends AppModel {
     
     /*
      * Relations
+     * Returns attached radios sorted by the switch port there's connected to.
      */
+    public $hasMany = array(
+        'NetworkRadio' => array('order' => 'NetworkRadio.router_port')
+    );
+    
     var $belongsTo = array(
         'RouterType',
         'SnmpType'
     );
-    
-    /*
-     * Relations
-     */
     var $hasOne = array(
         'Site'
     );

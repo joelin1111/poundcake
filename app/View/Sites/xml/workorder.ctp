@@ -207,7 +207,7 @@ $row++;
 if ( $site['NetworkRouter']['name'] != null ) {
     
     $row += 2;
-    $sheet1->writeString($row,1,'ROUTER1',$fmtBanner);
+    $sheet1->writeString($row,1,'ROUTER',$fmtBanner);
     $sheet1->cellMerge($row,1,4,0);
     $sheet1->rowHeight($row,$fmtBannerHeight);
     $row += 2;
@@ -370,8 +370,14 @@ if ( $radios != null ) {
             $d = sprintf("%01.2f",$radio['NetworkRadios']['distance']);
             $sheet1->writeString($row,2,$d." Km",$fmt4);
         }
-        $sheet1->writeString($row,4,'Switch Port',$fmt3);
-        $sheet1->writeString($row,5,$radio['NetworkRadios']['switch_port'],$fmt4);
+        
+        if ( $radio['NetworkRadios']['switch_port'] > 0 ) {
+            $sheet1->writeString($row,4,'Switch Port',$fmt3);
+            $sheet1->writeString($row,5,$radio['NetworkRadios']['switch_port'],$fmt4);
+        } elseif ( $radio['NetworkRadios']['router_port'] > 0 ) {
+            $sheet1->writeString($row,4,'Router Port',$fmt3);
+            $sheet1->writeString($row,5,$radio['NetworkRadios']['router_port'],$fmt4);
+        }
         $row++;
 
         $sheet1->writeString($row,1,'Azimuth (True)',$fmt3);

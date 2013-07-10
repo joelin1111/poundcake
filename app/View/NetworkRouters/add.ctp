@@ -20,7 +20,7 @@
         echo $this->Form->input('name');
         echo $this->Form->input('serial');
         echo $this->Form->input('router_type_id', array('type'=>'select','options' => $routertypes));
-        echo $this->Form->input('Site.id', array('type'=>'select','options' => $sites));
+        echo $this->Form->input('Site.id', array('type'=>'select','options' => $sites,'label'=>'Site'));
         echo $this->element('Common/snmp_override');  // include fiels for SNMP override
         echo $this->Form->input('ip_address',
                 array(

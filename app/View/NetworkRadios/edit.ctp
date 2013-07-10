@@ -1,6 +1,7 @@
 <?php
     // jQuery to enable/disable fields based on checkbox
     echo $this->Html->script('poundcake/poundcake-snmp-override');
+    echo $this->Html->script('poundcake/poundcake-switch-router-port-change');
 ?>
     
 <div class="row">
@@ -28,8 +29,16 @@
             'label' => 'Switch/Port #',
             'type' => 'select',
             'options' => $networkswitches,
-            'empty' => false
-        ));       
+            'empty' => true
+        ));
+        echo $this->Form->input('network_router_id', array( 'value' => $network_router_id, 'type' => 'hidden' ));
+        echo $this->Form->input('router_port', array(
+            'label' => 'Router/Port #',
+            'type' => 'select',
+            'options' => $networkrouters,
+            'empty' => true
+        ));
+        
         echo $this->Form->input('sector', array('label'=>'Sector Radio' ));
         // if the radio is a sector then enable the azimuth field
         $sector_disabled = ($this->data['NetworkRadio']['sector'] > 0 ? false : true);

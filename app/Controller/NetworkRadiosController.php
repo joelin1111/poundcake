@@ -193,7 +193,6 @@ class NetworkRadiosController extends NetworkDeviceController {
                         'RadioTypeNetworkInterfaceTypes.id',
                         'NetworkInterfaceType.name',
                         'RadioTypeNetworkInterfaceTypes.number',
-                        
                     ) 
                 )
         );
@@ -221,7 +220,6 @@ class NetworkRadiosController extends NetworkDeviceController {
 //                    print_r( $ip_space['IpSpace'] );
                     $ip_address = $ip_space['IpSpace']['ip_address'];
                 
-
 //                print_r($if['NetworkInterfaceIpSpaces']);die;
                     array_push( $if_array, array (
                         'if_name' => $if_name.$if['NetworkInterfaceIpSpaces']['if_number'],                
@@ -327,17 +325,6 @@ class NetworkRadiosController extends NetworkDeviceController {
      * called when the add/edit page is first loaded.
      */
     function getNetworkSwitch( $id ) {
-        /*
-        previously we were just returning all switches in the database, e.g.
-        
-        $this->set('networkswitches',$this->NetworkRadio->NetworkSwitch->find('list',
-            array(
-                'order' => array(
-                    'NetworkSwitch.name ASC'
-            )))
-        );
-        */
-        
         if ( $id != null ) {
             // this is basically now a duplicate of getSwitchForSite in NetworkSwitchesController
             // should probably move this to a model function on NetworkSwitch?        
@@ -348,7 +335,7 @@ class NetworkRadiosController extends NetworkDeviceController {
             // $network_switch_id = $this->Site->field('network_switch_id');
             $this->loadModel('NetworkSwitch', $this->Site->field('network_switch_id'));
             $this->NetworkSwitch->id = $this->Site->field('network_switch_id');
-
+            
             $networkswitches = array();        
             if ( $this->NetworkSwitch->field('name') != null ) {
 
@@ -390,7 +377,71 @@ class NetworkRadiosController extends NetworkDeviceController {
             $this->set('network_switch_id',null);
             $this->set('networkswitches',null);
         }
+    }
+    
+    /*
+     * Duplicate of getNetworkSwitch (above)
+     */
+    function getNetworkRouter( $id ) {
+        if ( $id != null ) {
+            // this is basically now a duplicate of getRouterForSite in NetworkRouteresController
+            // should probably move this to a model function on NetworkRouter?        
+            $this->loadModel('Site', $id);
+            $this->Site->id = $id;
             
+            // now get the NetworkRouter on that site
+            $network_router_id = $this->Site->field('network_router_id');
+            
+            $this->loadModel('NetworkRouter');
+            $this->NetworkRouter->id = $network_router_id;
+            $this->NetworkRouter->read();
+//            echo '<pre>'.print_r($this->NetworkRouter->data).'</pre>';
+            
+            $networkrouters = array();        
+            if ( $this->NetworkRouter->field('name') != null ) {
+
+                // get an array of other radios that are attached to this router
+                $this->NetworkRouter->NetworkRadio->recursive = -1; // we only need radio data
+                $radios_on_router = $this->NetworkRouter->NetworkRadio->findAllByNetworkRouterId( $network_router_id );
+                // reswizzle the array so that we can search it easier below
+                // and denote which ports are available or occupied
+                $unavailable_ports = array();
+                foreach ( $radios_on_router as $r ) {
+                    $unavailable_ports[$r['NetworkRadio']['router_port']] = $r['NetworkRadio']['name'];
+                }
+
+                // now load the RouterType
+                $this->loadModel('RouterType', $this->NetworkRouter->field('router_type_id'));
+                $this->RouterType->id = $this->NetworkRouter->field('router_type_id');
+                $ports = $this->RouterType->field('ports');
+
+                // routeres are labeled 1 to N not 0 to N
+                for ($i = 1; $i <= $ports; $i++) {
+                    // if something is already on the router at that port, then denote
+                    // that it's not available by showing the radio on that port
+                    if ( isset($unavailable_ports[$i] )) {
+                        $label = $unavailable_ports[$i]; //['NetworkRadio']['name'];
+                    } else {
+                        // otherwise it's free
+                        $label = 'Available ('.$this->NetworkRouter->field('name') . ' #'.$i.')';
+                    }
+                    $networkrouters[$i] = $label;
+                }
+            } else {
+                $networkrouters[0] = $this->Site->field('name').' has no router';
+            }
+//            echo '<pre>';
+//            print_r($networkrouters);
+//            echo '<pre>';
+//            die;
+            
+            $this->set('network_router_id',$this->NetworkRouter->id);
+            $this->set('networkrouters',$networkrouters);    
+        } else {
+            // there are no sites yet on this project
+            $this->set('network_router_id',null);
+            $this->set('networkrouteres',null);
+        }
     }
     
     /*
@@ -403,6 +454,7 @@ class NetworkRadiosController extends NetworkDeviceController {
         $this->getFrequencies();
         $first_site = $this->getAllSitesForProject();
         $this->getNetworkSwitch($first_site);
+        $this->getNetworkRouter($first_site);
         
         if ($this->request->is('post')) {
             // AppController::handleCancel();
@@ -431,6 +483,7 @@ class NetworkRadiosController extends NetworkDeviceController {
         $this->getFrequencies(); // for the frequency dropdown
         $this->getAllSitesForProject();
         $this->getNetworkSwitch($this->NetworkRadio->field('site_id'));
+        $this->getNetworkRouter($this->NetworkRadio->field('site_id'));
         
         $old_radio_type_id = $this->NetworkRadio->field('radio_type_id');
         if (!$this->NetworkRadio->exists()) {

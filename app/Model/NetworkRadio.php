@@ -57,6 +57,7 @@ class NetworkRadio extends AppModel {
         'Site',
         'RadioType',
         'NetworkSwitch',
+        'NetworkRouter',
         'RadioMode',
         'SnmpType',
         'ConfigurationTemplate'

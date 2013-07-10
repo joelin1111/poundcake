@@ -15,6 +15,7 @@
             <thead>
                 <tr>
                     <th class="index-item"><?php echo $this->Paginator->sort('name'); ?></th>
+                    <th class="index-item"><?php echo $this->Paginator->sort('ports'); ?></th>
                     <th class="index-item"><?php echo $this->Paginator->sort('watts'); ?></th>
                     <th class="index-action"><?php echo 'Actions'; ?></th>
                 </tr>
@@ -24,6 +25,7 @@
 	foreach ($switchTypes as $switchType): ?>
 	<tr>
             <td class="index-item"><?php echo $switchType['SwitchType']['name'];?></td>
+            <td class="index-item"><?php echo $switchType['SwitchType']['ports'];?></td>
             <td class="index-item"><?php echo $switchType['SwitchType']['watts'];?></td>
             <td class="index-action">
             <?php

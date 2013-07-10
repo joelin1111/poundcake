@@ -15,6 +15,7 @@
             <thead>
                 <tr>
                     <th class="index-item"><?php echo $this->Paginator->sort('name'); ?></th>
+                    <th class="index-item"><?php echo $this->Paginator->sort('ports'); ?></th>
                     <th class="index-item"><?php echo $this->Paginator->sort('watts'); ?></th>
                     <th class="index-action"><?php echo 'Actions'; ?></th>
                 </tr>
@@ -24,6 +25,7 @@
 	foreach ($routerTypes as $routerType): ?>
 	<tr>
             <td class="index-item"><?php echo $routerType['RouterType']['name'];?></td>
+            <td class="index-item"><?php echo $routerType['RouterType']['ports'];?></td>
             <td class="index-item"><?php echo $routerType['RouterType']['watts'];?></td>
             <td class="index-action">
                 <?php echo $this->PoundcakeHTML->link('Edit', array('action' => 'edit', $routerType['RouterType']['id'])); ?>
