@@ -81,14 +81,14 @@ OTHER
     echo '<UL>';
     foreach ($builditems as $key => $value) {
 
-        if ($type != $builditems[$key]['BuildItemTypes']['name']) {
-            $type = $builditems[$key]['BuildItemTypes']['name'];
+        if ($type != $builditems[$key]['BuildItemType']['name']) {
+            $type = $builditems[$key]['BuildItemType']['name'];
             echo '<H4>'.$type.'</H4>';
         }
         echo '<LI>';
-        echo $builditems[$key]['BuildItems']['quantity'];
+        echo $builditems[$key]['BuildItem']['quantity'];
         echo '&nbsp;';
-        echo $builditems[$key]['BuildItems']['name'];
+        echo $builditems[$key]['BuildItem']['name'];
         echo '&nbsp;';
         echo '</LI>';
     }

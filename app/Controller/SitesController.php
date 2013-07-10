@@ -654,7 +654,7 @@ class SitesController extends AppController {
     /*
      * Get an array of build items -- items for the "board" build
      */
-    function getBuildItems() {
+    function getBuildItems( $id ) {
         $this->loadModel('BuildItem');
         $this->BuildItem->bindModel(array('belongsTo' => array('BuildItemType' => 
                             array('foreignKey' => 'build_item_type_id'))));
@@ -680,25 +680,31 @@ class SitesController extends AppController {
                 )
             )
         );
+        $options['fields'] = array(
+            'BuildItem.name',
+            'BuildItem.quantity',
+            'BuildItemType.name'
+        );
+        
         $builditems =  $this->BuildItem->find('all', $options);        
 //        echo '<pre>1:';
 //        print_r($builditems);
 //        echo '</pre>';
 //        die;
-       $this->set('builditems', $builditems);
+        $this->set('builditems', $builditems);
        
-       // sum up all the radios, antennas for this site
-       $query = 'call sp_count_radios('.$this->Site->id.')';
-       $this->set('radio_counts', $this->Site->query( $query ));
-       $query = 'call sp_count_antennas('.$this->Site->id.')';
-       $this->set('antenna_counts', $this->Site->query( $query ));
-       
-       // this is probably not the best way to do this, but if an admin deletes
-       // then re-creates a power source I can't assume the primary key for the
-       // 24/48 volt PowerType
-       $board = array('quantity' => '1','name' => $this->Site->data['PowerType']['volts']. ' Volt Board');
-       
-       $this->set('board', $board);
+        // sum up all the radios, antennas for this site
+        $query = 'call sp_count_radios('.$id.')';
+        $this->set('radio_counts', $this->Site->query( $query ));
+        $query = 'call sp_count_antennas('.$id.')';
+        $this->set('antenna_counts', $this->Site->query( $query ));
+      
+        // this is probably not the best way to do this, but if an admin deletes
+        // then re-creates a power source I can't assume the primary key for the
+        // 24/48 volt PowerType
+        $board = array('quantity' => '1','name' => $this->Site->data['PowerType']['volts']. ' Volt Board');
+
+        $this->set('board', $board);
     }
     
     /*
@@ -801,7 +807,7 @@ class SitesController extends AppController {
 //        echo $value;
 //        die;
         
-        $this->getBuildItems();
+        $this->getBuildItems( $id );
         $ip_addresses = $this->getAllAddrpoolIPAddresses( $this->Site->data['Site']['code'] );
         $this->set(compact( 'site', 'ip_addresses', 'radios', 'watts', 'value' ));
     }
