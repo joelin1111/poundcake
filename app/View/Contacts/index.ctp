@@ -15,11 +15,12 @@
           array('action'=>'search','class' => 'well')
       );
      
-      echo $this->Form->input('first_name',array('escape' => true,'class' => 'search-query'));
+      echo $this->Form->input('first_name',array('escape' => true,'class' => 'search-query','required' => false));
       echo '<br>';
-      echo $this->Form->input('last_name',array('class' => 'search-query'));
+      echo $this->Form->input('last_name',array('class' => 'search-query','required' => false));
       echo '<br>';
       ?>
+    <div align="center">
     <span class="help-block"></span>
     <?php
         $options = array(
@@ -29,8 +30,10 @@
             'div' => false,
             'class'=>'btn btn-primary'
             );
+        
         echo $this->Form->end($options);
     ?>
+    </div>
 </div><!-- /.span3 .sb-fixed -->
 
 <div class="span9">
