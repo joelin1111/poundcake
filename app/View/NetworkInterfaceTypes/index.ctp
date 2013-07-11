@@ -3,14 +3,14 @@
     <H3>Actions</H3>
     <div class="well">
     <ul>
-        <li><?php echo $this->PoundcakeHTML->link('New Network Interface Type', array('action' => 'add')); ?></li>
+        <li><?php echo $this->PoundcakeHTML->link('New Interface Type', array('action' => 'add')); ?></li>
         <li><?php echo $this->PoundcakeHTML->link('Setup',array('controller'=>'admin','action' => 'setup')); ?></li>
     </ul>
     </div>
 </div><!-- /.span3 .sb-fixed -->
 
 <div class="span9">
-	<h2>Network Interface Types</h2>
+	<h2>Interface Types</h2>
 	<table class="table table-condensed table-striped table-hover">
             <thead>
                 <tr>
