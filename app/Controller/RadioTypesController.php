@@ -23,9 +23,9 @@
  * @license       XYZ License
  */
 
-App::uses('AppController', 'Controller');
+App::uses('NetworkDeviceTypeController', 'Controller');
 
-class RadioTypesController extends AppController {
+class RadioTypesController extends NetworkDeviceTypeController {
 
     /*
      * Main listing for all RadioTypes
@@ -42,7 +42,7 @@ class RadioTypesController extends AppController {
         if ($this->request->is('post')) {
             $this->RadioType->create();
             // purge empty items
-            $this->request->data['RadioTypeNetworkInterfaceTypes'] = $this->purgeEmptyNetworkInterfaceTypes( $this->request->data['RadioTypeNetworkInterfaceTypes'] );
+            $this->request->data['RadioTypeNetworkInterfaceTypes'] = parent::purgeEmptyNetworkInterfaceTypes( $this->request->data['RadioTypeNetworkInterfaceTypes'] );
             if ($this->RadioType->saveAll($this->request->data)) { // saveAll for HABTM through the join model
                 $this->Session->setFlash('The radio type has been saved.');
                 $this->redirect(array('action' => 'index'));
@@ -50,28 +50,10 @@ class RadioTypesController extends AppController {
                 $this->Session->setFlash('Error!  The radio type could not be saved. Please, try again.');
             }
         }
-        
-        $this->getNetworkInterfaceTypes();
+        parent::setModelClass( $this->modelClass );
+        parent::getNetworkInterfaceTypes( $this->modelClass );
         $this->getRadioBands();
         $this->getAntennaTypes();
-    }
-
-    /*
-     * Remove elements from the NetworkInterfaceTypes array that are have number of 0
-     * (by default the array of NetworkInterfaceTypes that comes back from the add/edit
-     * screen includes items with quanity of 0)
-     */
-    private function purgeEmptyNetworkInterfaceTypes( $array ) {
-        // nice trick, see http://stackoverflow.com/questions/14759647/remove-array-if-any-element-is-empty
-        return array_filter( $array, function($item) {
-//            echo '<pre>';
-//            print_r( $item );
-//            echo '</pre>';
-//            return ( $item['number'] > 0 && $item['network_interface_type_id'] > 0 );
-            if ( isset( $item['number'] ) && ( $item['network_interface_type_id'] ) ) {
-                return ( $item['number'] > 0 && $item['network_interface_type_id'] > 0 );
-            }
-        });
     }
     
     /*
@@ -85,7 +67,7 @@ class RadioTypesController extends AppController {
         
         if ($this->request->is('post') || $this->request->is('put')) {
             // purge empty items
-            $this->request->data['RadioTypeNetworkInterfaceTypes'] = $this->purgeEmptyNetworkInterfaceTypes( $this->request->data['RadioTypeNetworkInterfaceTypes'] );
+            $this->request->data['RadioTypeNetworkInterfaceTypes'] = parent::purgeEmptyNetworkInterfaceTypes( $this->request->data['RadioTypeNetworkInterfaceTypes'] );
             
             // this entire bit is terrible -- we need to know if an interface has been
             // de-selected or if the quantity has changed
@@ -160,16 +142,10 @@ class RadioTypesController extends AppController {
             }
         }
         $this->set(compact('existing_network_interface_types'));
-        
-        
+        parent::setModelClass( $this->modelClass );
         $this->getRadioBands();
         $this->getAntennaTypes();
-        $this->getNetworkInterfaceTypes();
-    }
-
-    private function getNetworkInterfaceTypes() {
-        // get all network interface types
-        $this->set('networkInterfaceTypes',$this->RadioType->RadioTypeNetworkInterfaceTypes->NetworkInterfaceType->find('all'));
+        parent::getNetworkInterfaceTypes( $this->modelClass );
     }
     
     /*

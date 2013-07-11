@@ -40,17 +40,11 @@ class RadioType extends AppModel {
        'RadioBand'
     );
     
-    /*
-     * Relations
-     */
     public $hasMany = array(
        'NetworkRadios',
        'RadioTypeNetworkInterfaceTypes' // HABTM through the join model
     );
     
-    /*
-     * Relations
-     */
     public $hasAndBelongsToMany = array(
         'AntennaType'
     );

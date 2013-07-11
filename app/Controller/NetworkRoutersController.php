@@ -266,8 +266,114 @@ class NetworkRoutersController extends NetworkDeviceController {
         $this->NetworkRouter->read();
         $name = $this->NetworkRouter->data['NetworkRouter']['name'];
         $this->getPerformanceGraphs( $this->NetworkRouter->data['NetworkRouter']['node_id'] );
-        $this->set(compact( 'id', 'name'));
+        $this->set(compact( 'id', 'name' ));
     }
+    
+    private function interfaces( $id = null, $router_type_network_interface_type_id = null, $number = null ) {
+        $this->loadModel('NetworkInterfaceIpSpace');
+        $this->loadModel('RouterTypeNetworkInterfaceTypes');
+        
+        $conditions= array(
+                'NetworkInterfaceIpSpace.network_router_id' => $id,
+                'NetworkInterfaceIpSpace.network_interface_type_id' => $router_type_network_interface_type_id,
+            );
+        
+//        $network_interface_ip_space = $this->NetworkInterfaceIpSpace->findByNetworkRouterId( $id );
+//        var_dump( $network_interface_ip_space );
+        
+        
+//        if (!$this->NetworkRouter->exists()) {
+//            throw new NotFoundException('Invalid router');
+//        }
+        $network_interface_ip_space = array();
+        if ($this->request->is('post') || $this->request->is('put')) {
+            
+            // get the id of the interface marked as primary
+            $if_primary = $this->request->data['NetworkInterfaceIpSpace']['if_primary'];
+            $this->request->data['NetworkInterfaceIpSpace'][$if_primary]['if_primary'] = 1;
+            unset($this->request->data['NetworkInterfaceIpSpace']['if_primary']);
+            
+//            echo '<pre>';
+//            print_r($this->request->data);
+//            echo '</pre>';
+            // clear out existing mappings
+            $conditions = array(
+                'AND' => array(
+                    'NetworkInterfaceIpSpace.network_router_id' => $id,
+                    'NetworkInterfaceIpSpace.network_interface_type_id' => $router_type_network_interface_type_id
+                ),
+            );
+            $this->NetworkInterfaceIpSpace->deleteAll( $conditions );
+            
+            
+            if ($this->NetworkInterfaceIpSpace->saveAll( $this->request->data['NetworkInterfaceIpSpace'] )) {
+                $this->Session->setFlash('Saved interface configuration.');
+                $this->redirect(array('action' => 'view',$id,null));
+            } else {
+                $this->Session->setFlash('Error!  The interfaces could not be saved. Please, try again.');
+            }
+        } else {
+//            $this->NetworkRouter->contain('NetworkInterfaceIpSpace');
+//            $this->request->data = $this->NetworkRouter->read(null, $id);
+//            $network_interface_ip_space = $this->NetworkInterfaceIpSpace->findByNetworkRouterId( $id );
+            $network_interface_ip_space = $this->NetworkInterfaceIpSpace->find('all',array('conditions'=>$conditions));
+        }
+        
+        if ( count( $network_interface_ip_space ) == 0 ) {
+            $network_interface_types = $this->RouterTypeNetworkInterfaceTypes->find('all',
+                array(
+                    'conditions' => array(
+                        'RouterTypeNetworkInterfaceTypes.id' => $router_type_network_interface_type_id,
+                    ),
+                    'contains' => true
+                )
+            );
+//            echo '<pre>';
+//            var_dump( $network_interface_types );
+//            echo '</pre>';
+            
+            $interfaces = array();
+            for ( $n = 0; $n < $network_interface_types[0]['RouterTypeNetworkInterfaceTypes']['number']; $n++ ) {
+                $array = array();
+                array_push($interfaces, array(
+                    'NetworkInterfaceIpSpace' => array(
+                        'id' => null,
+                        'if_number' => $n,
+                        'network_router_id' => $id,
+                        'network_router_id' => null,
+                        'ip_space_id' => null,
+                        'if_primary' => 0,
+                        'network_interface_type_id' => $router_type_network_interface_type_id
+                    )
+                ));
+            }
+            
+//            echo '<pre>Interfaces New:';
+//            print_r($interfaces);
+//            echo '</pre>';
+        } else {
+            $interfaces = $this->NetworkInterfaceIpSpace->find( 'all',
+                    array(
+                        'conditions' => $conditions,
+                        'order' => 'if_number ASC'
+            ));
+                    
+//            echo '<pre>Interfces Existing:';
+//            print_r( $interfaces );
+//            echo '</pre>';die;
+        }
+        
+//        echo '<pre>';
+//        print_r( $if_name );
+//        echo '</pre>';
+        
+        // $if_name = $this->RouterTypeNetworkInterfaceTypes->findById( $router_type_network_interface_type_id )['NetworkInterfaceType']['name'];
+        $if_name = $this->getIfName( $router_type_network_interface_type_id );
+        parent::getIpSpaces( $this->Session->read('project_id') );
+        $this->set(compact( 'id','interfaces','if_name','network_interface_ip_space','network_interface_type_id','number' ));
+        
+    }
+
     
     /*
      * Check the user's role to determine if sufficient permission to perform

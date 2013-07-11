@@ -31,10 +31,9 @@ class RouterType extends AppModel {
     /*
      * Relations
      */
-//    public $hasAndBelongsToMany = array(
-//        'NetworkInterfaceType'
-//    );
-    
+    public $hasMany = array(
+       'RouterTypeNetworkInterfaceTypes' // HABTM through the join model
+    );
     /*
      * Default sort order
      */

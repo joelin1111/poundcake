@@ -23,9 +23,9 @@
  * @license       XYZ License
  */
 
-App::uses('AppController', 'Controller');
+App::uses('NetworkDeviceTypeController', 'Controller');
 
-class SwitchTypesController extends AppController {
+class SwitchTypesController extends NetworkDeviceTypeController {
 
     /*
      * Main listing for all SwitchTypes

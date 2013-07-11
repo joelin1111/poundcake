@@ -1,14 +1,5 @@
 <table>
 <?php
-//    echo $this->Form->input('NetworkInterfaceType.NetworkInterfaceType',array(
-//        'label' => __('Network Interface Types',true),
-//        'type' => 'select',
-//        'multiple' => 'checkbox',
-//        'options' => $networkInterfaceTypes,
-//        'selected' => $this->Html->value('NetworkInterfaceType.NetworkInterfaceType'),
-//    ));
-    
-//    var_dump( $existing_network_interface_types );
 
     $n = 0;
     foreach ( $networkInterfaceTypes as $networkInterfaceType ) {
@@ -24,7 +15,7 @@
                 }
             }
         }
-        
+//        echo '<pre>';print_r($existing_network_interface_types);echo'</pre>';
         // strtolower because Cake will capitalize the first letter,
         // and in this case we don't want eth to be Eth
         // strtolower doesn't seem t work on the first argument
@@ -32,7 +23,7 @@
         $label = strtolower( $networkInterfaceType['NetworkInterfaceType']['name'] );
         echo '<tr><td>';
         echo $this->Form->input(
-                'RadioTypeNetworkInterfaceTypes.'.$id.'][network_interface_type_id]',
+                $modelClass.'NetworkInterfaceTypes.'.$id.'][network_interface_type_id]',
                 array(
                     'value' => $id,
                     'label' => $label,
@@ -49,7 +40,7 @@
             $disabled = true;
         }
         
-        echo $this->Form->input( 'RadioTypeNetworkInterfaceTypes.'.$id.'][number]',
+        echo $this->Form->input( $modelClass.'NetworkInterfaceTypes.'.$id.'][number]',
                 array(
                     'label' => '',
                     'value' => $number,

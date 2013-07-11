@@ -535,7 +535,7 @@ class AppController extends Controller {
         }
 
         return $element;
-    }    
+    } 
     
     /*
      * This just verifies that the URL is valid -- this is currently over-used

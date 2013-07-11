@@ -1,10 +1,11 @@
 <?php
 // This is a HABTM Through the Join Model relation
-class RadioTypeNetworkInterfaceTypes extends AppModel {
+// Duplicate of RadioTypeNetworkInterfaceTypes
+class RouterTypeNetworkInterfaceTypes extends AppModel {
     public $belongsTo = array(
-        'RadioType' => array(
-            'className'    => 'RadioType',
-            'foreignKey'   => 'radio_type_id'
+        'RouterType' => array(
+            'className'    => 'RouterType',
+            'foreignKey'   => 'router_type_id'
         ),
        'NetworkInterfaceType' => array(
             'className'    => 'NetworkInterfaceType',

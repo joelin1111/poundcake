@@ -37,7 +37,8 @@ class NetworkInterfaceType extends AppModel {
      * Relations
      */
     public $hasMany = array(
-        'RadioTypeNetworkInterfaceTypes'
+        'RadioTypeNetworkInterfaceTypes',
+        'RouterTypeNetworkInterfaceTypes'
     );
     
     /*

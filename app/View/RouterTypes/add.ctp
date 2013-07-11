@@ -1,3 +1,8 @@
+<?php
+    // jQuery to enable/disable quantity field when an interface type is selected/de-selected
+    echo $this->Html->script('poundcake/poundcake-networkinterfacetypes');
+?>
+
 <div class="row">
 <div class="span3">
     <H3>Actions</H3>
@@ -14,12 +19,11 @@
     <?php
         echo $this->Form->input('name');
         echo $this->Form->input('manufacturer');
-        echo $this->Form->input('ports');
+        echo $this->Form->input('ports',array('value'=>'5'));
         echo $this->Form->input('model');
         echo $this->Form->input('watts',array('value'=>'0'));
         echo $this->Form->input('value',array('value'=>'0.00'));
-        // include multiple checkboxes for NetworkInterfaces
-//        echo $this->element('Common/network_interfaces');
+        echo $this->element('Common/network_interface_types');
     ?>
     </fieldset>
     <?php

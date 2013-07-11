@@ -22,7 +22,7 @@
         echo $this->Form->input('watts',array('value'=>'0'));
         echo $this->Form->input('value',array('value'=>'0.00'));
         // checkboxes for NetworkInterfaceTypes
-        echo $this->element('RadioTypeNetworkInterfaceTypes/network_interface_types');
+        echo $this->element('Common/network_interface_types');
         
         echo $this->Form->input('radio_band_id', array('type'=>'select','options' => $radiobands));
         // checkboxes for compatable antenna types
