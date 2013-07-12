@@ -79,5 +79,7 @@ app/Vendor/dompdf/lib/fonts/log.htm
 app/Vendor/dompdf/lib/fonts/log.htm
 app/webroot/files/*
 app/webroot/thumbs/*
-
-app/maintenance.txt
+# our file that puts us into maintenance mode or not
+/app/maintenance.txt
+/app/config/core.php
+/app/config/database.php
