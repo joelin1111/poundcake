@@ -326,12 +326,12 @@ class AppController extends Controller {
         $cidrs = array();
         // we don't want to have /32 in this list, so we'll do up until 1 less,
         // then add "host" at the end
-        for ($n = $c + 1; $n <=  self::MAX_CIDRS - 1; $n++ ) {
+        for ($n = $c + 1; $n <=  self::MAX_CIDRS - 2; $n++ ) {
             $cidrs[ $n ] = '/'.$n;
         }
         // include the option for a /32 host record
         if ( $host ) {
-            $cidrs[ $n++ ] = 'Host';
+            $cidrs[ 32 ] = 'Host';
         }
         $this->set(compact('cidrs'));
     }
