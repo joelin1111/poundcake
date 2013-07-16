@@ -102,7 +102,56 @@ class NetworkRoutersController extends NetworkDeviceController {
         }
         
         $this->getMonitoringSystemLink( $this->NetworkRouter->data['NetworkRouter']['node_id'] );
-        $this->set(compact( 'networkrouter', 'provisioned_by_name', 'checked' ));        
+        
+        $network_interface_types = $this->NetworkRouter->RouterType->RouterTypeNetworkInterfaceTypes->find('all',
+                array(
+                    'conditions' => array(
+                        'RouterTypeNetworkInterfaceTypes.router_type_id' => $this->NetworkRouter->field('router_type_id')
+                    ),
+                    'contains' => true,
+                    'fields' => array(
+                        'RouterTypeNetworkInterfaceTypes.id',
+                        'NetworkInterfaceType.name',
+                        'RouterTypeNetworkInterfaceTypes.number',
+                    ) 
+                )
+        );
+        
+        $if_array = array();
+        $this->loadModel('NetworkInterfaceIpSpaces');
+        $interfaces_tmp = $this->NetworkInterfaceIpSpaces->findAllByNetworkRouterId( $id );
+        
+        $this->loadModel('IpSpace');
+        foreach( $interfaces_tmp as $if ) {
+            $if_name = $this->getIfName( $if['NetworkInterfaceIpSpaces']['network_interface_type_id'] );
+            if ( $if_name != "" ) {
+//                $ip_space = $this->IpSpaces->findById( $if['NetworkInterfaceIpSpaces']['ip_space_id'] );
+                $ip_space = $this->IpSpace->read(null, $if['NetworkInterfaceIpSpaces']['ip_space_id'] );
+                // show empty IP addresses as 0.0.0.0/32 unless there's a defined cidr
+                $ip_address = '0.0.0.0';
+                $cidr = 0;
+                $parent_cidr = '32';
+                if ( isset( $ip_space['IpSpace'] ) && ( $if['NetworkInterfaceIpSpaces']['ip_space_id'] > 0 ) ) {
+                    // $cidr = $ip_space['IpSpace']['cidr'];
+                    $parent_cidr = $ip_space['IpSpace']['parent_cidr']; // parent_cidr is virtual field
+//                    echo $parent_cidr;
+//                    echo '<pre>';
+//                    print_r( $if['NetworkInterfaceIpSpaces']['ip_space_id'] );
+//                    print_r( $ip_space['IpSpace'] );
+                    $ip_address = $ip_space['IpSpace']['ip_address'];
+                
+//                print_r($if['NetworkInterfaceIpSpaces']);die;
+                    array_push( $if_array, array (
+                        'if_name' => $if_name.$if['NetworkInterfaceIpSpaces']['if_number'],                
+                        'ip_address' => $ip_address.'/'.$parent_cidr,
+                        'if_primary' => $if['NetworkInterfaceIpSpaces']['if_primary']
+                    ) );
+                }
+            }
+            sort( $if_array ); // so the interfaces appear in order by number and name
+        }
+        
+        $this->set(compact( 'id','networkrouter', 'if_array','network_interface_types', 'provisioned_by_name', 'checked' ));        
     }
 
     public function add() {
@@ -269,7 +318,7 @@ class NetworkRoutersController extends NetworkDeviceController {
         $this->set(compact( 'id', 'name' ));
     }
     
-    private function interfaces( $id = null, $router_type_network_interface_type_id = null, $number = null ) {
+    public function interfaces( $id = null, $router_type_network_interface_type_id = null, $number = null ) {
         $this->loadModel('NetworkInterfaceIpSpace');
         $this->loadModel('RouterTypeNetworkInterfaceTypes');
         
@@ -373,7 +422,16 @@ class NetworkRoutersController extends NetworkDeviceController {
         $this->set(compact( 'id','interfaces','if_name','network_interface_ip_space','network_interface_type_id','number' ));
         
     }
-
+    
+    private function getIfName( $n ) {
+        $this->loadModel('RouterTypeNetworkInterfaceTypes');
+        $d = $this->RouterTypeNetworkInterfaceTypes->findById( $n );
+        $name = "";
+        if ( isset( $d['NetworkInterfaceType'] ) ) {
+            $name = $d['NetworkInterfaceType']['name'];
+        }
+        return $name;
+    }
     
     /*
      * Check the user's role to determine if sufficient permission to perform

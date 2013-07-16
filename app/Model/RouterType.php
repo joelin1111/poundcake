@@ -46,11 +46,7 @@ class RouterType extends AppModel {
         'name' => array(
             'notempty' => array(
                 'rule' => array('notempty'),
-                'message' => 'This field cannot be blank.',
-                //'allowEmpty' => false,
-                //'required' => false,
-                //'last' => false, // Stop validation after this rule
-                //'on' => 'create', // Limit validation to 'create' or 'update' operations
+                'message' => 'This field cannot be blank.'
             )
         ),
         'manufacturer' => array(
