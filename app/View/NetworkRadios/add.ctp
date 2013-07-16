@@ -34,9 +34,7 @@
             'type' => 'select',
             'options' => $networkrouters,
             'empty' => true
-        ));
-        //echo $this->Form->input('switch_port', array('type'=>'select','options' => $switchports,'empty' => true));
-        
+        ));        
         echo $this->Form->input('serial');
         echo $this->Form->input('sector', array('label'=>'Sector Radio'));
         // sector will default to being un-checked, so we can disable this field by default

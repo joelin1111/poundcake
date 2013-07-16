@@ -63,21 +63,29 @@ class RouterTypesController extends NetworkDeviceTypeController {
             throw new NotFoundException('Invalid router type');
         }
         if ($this->request->is('post') || $this->request->is('put')) {
-                        // purge empty items
+            // purge empty items
             $this->request->data['RouterTypeNetworkInterfaceTypes'] = parent::purgeEmptyNetworkInterfaceTypes( $this->request->data['RouterTypeNetworkInterfaceTypes'] );
             
             // this entire bit is terrible -- we need to know if an interface has been
             // de-selected or if the quantity has changed
             $old_data = $this->RouterType->RouterTypeNetworkInterfaceTypes->findAllByRouterTypeId( $id );
-            $old_router_type_network_interface_types = array();
-            foreach ( $old_data as $r ) {
-                $a = array(
-                            'network_interface_type_id' => $r['RouterTypeNetworkInterfaceTypes']['network_interface_type_id'],
-                            'number' => $r['RouterTypeNetworkInterfaceTypes']['number']
-                );
-                $old_router_type_network_interface_types[$r['RouterTypeNetworkInterfaceTypes']['network_interface_type_id']] = $a;
-            }
 //            echo '<pre>';
+//            print_r($old_data);
+            
+            $old_router_type_network_interface_types = array();
+            foreach ( $old_data as $d ) {
+//                echo '<pre>';
+//                print_r($d);
+//                print_r($d['network_interface_type_id']);
+//                echo'</pre>';
+                
+                $a = array(
+                            'network_interface_type_id' => $d['RouterTypeNetworkInterfaceTypes']['network_interface_type_id'],
+                            'number' => $d['RouterTypeNetworkInterfaceTypes']['number']
+                );
+                
+                $old_router_type_network_interface_types[$d['RouterTypeNetworkInterfaceTypes']['network_interface_type_id']] = $a;
+            }
             $dirty = false; // $this->request->data['RouterTypeNetworkInterfaceTypes']
             foreach ( $old_router_type_network_interface_types as $k1 => $v1) {
 //                echo "k1:<BR>";
@@ -96,6 +104,7 @@ class RouterTypesController extends NetworkDeviceTypeController {
                     $dirty = true;
                 }
             }
+//            if ( $dirty ) { echo "Dirty"; } else { echo "Not dirty"; }
             
             // if a field has changed, delete any existing IP space mappings
             if ( $dirty ) {

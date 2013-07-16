@@ -29,6 +29,27 @@
         <li><?php echo $this->PoundcakeHTML->link('List Routers', array('action' => 'index')); ?>
     </ul>
     </div>
+    
+    <H3>Interfaces</H3>
+    <div class="well">
+        <ul>
+        <?php
+        foreach ($network_interface_types as $nit ) {
+            echo '<li>';
+            echo $this->PoundcakeHTML->linkIfAllowed(
+                'Edit '.$nit['NetworkInterfaceType']['name'],
+                array('controller' => 'networkRouters',
+                    'action' => 'interfaces',
+                    $id,
+                    $nit['RouterTypeNetworkInterfaceTypes']['id'],
+                    $nit['RouterTypeNetworkInterfaceTypes']['number'],
+                )
+            );
+            echo '</li>';
+        }
+        ?>
+        </ul>
+    </div>
 </div><!-- /.span3 .sb-fixed -->
 
 <div class="span9">
@@ -76,6 +97,35 @@
             echo '</li></ul>';            
         }
     ?>
+    </dl>
+    
+    <dl>
+    <dt>Interfaces</dt>
+    <dl  class="dl-horizontal">
+        <?php
+            foreach ( $if_array as $if ) {
+                if ( $if['ip_address'] > 0 ) {
+                    echo '<dt>'.$if['if_name'].'</dt>';
+                    echo '<dd>';
+                    echo $this->PoundcakeHTML->linkIfAllowed(
+                        $if['ip_address'],
+                        array('controller' => 'IpSpaces',
+                            'action' => 'index',
+                            $this->Session->read('project_id' )
+                        ),
+                        false // no icon
+                    );
+                    if ( $if['if_primary'] ) {
+                        echo "&nbsp;<strong>Primary</strong>";
+                    }
+                    echo '</dd>';
+                
+                }
+            }
+            
+            
+        ?>
+    </dl>
     </dl>
 </div> <!-- /.span9 -->
 </div> <!-- /.row -->

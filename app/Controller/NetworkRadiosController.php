@@ -522,7 +522,7 @@ class NetworkRadiosController extends NetworkDeviceController {
         $this->set(compact('id'));
     }
     
-    private function interfaces( $id = null, $radio_type_network_interface_type_id = null, $number = null ) {
+    public function interfaces( $id = null, $radio_type_network_interface_type_id = null, $number = null ) {
         $this->loadModel('NetworkInterfaceIpSpace');
         $this->loadModel('RadioTypeNetworkInterfaceTypes');
         
