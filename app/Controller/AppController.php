@@ -212,7 +212,7 @@ class AppController extends Controller {
         if ( $this->Session->read('role') === 'admin' ) {
             return true;
         }
-
+        
         // default deny
         return false;
     }
