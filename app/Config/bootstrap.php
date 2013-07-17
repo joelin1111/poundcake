@@ -210,9 +210,16 @@ $iv = mcrypt_create_iv (mcrypt_enc_get_iv_size($td), MCRYPT_RAND);
 mcrypt_module_close($td); 
 Configure::write('Cryptable.iv', $iv); 
 
-// load the Utility plugin -- thos handles the AutoLogin
+// load the Utility plugin -- this handles the AutoLogin
 // @see http://milesj.me/code/cakephp/utility
 CakePlugin::load('Composer', array('bootstrap' => true));
 CakePlugin::load('Utility', array('bootstrap' => true, 'routes' => true));
 
+// load the Report Manager plugin
+// @see https://github.com/luisdias/CakePHP-Report-Manager-Plugin
+CakePlugin::load('ReportManager',array('bootstrap' => true));  
+Configure::write('Dispatcher.filters', array(  
+    'AssetDispatcher',  
+    'CacheDispatcher'  
+));
 

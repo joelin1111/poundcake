@@ -29,6 +29,18 @@
     // this doesn't really belong here, should probably serve up a different
     // view for admins
     if ( $this->Session->read('role') === 'admin') {
-        echo "<LI>".$this->Html->link('Setup', array('controller' => 'admin', 'action' => 'setup'))."</LI>";
+ ?>
+        <li class="dropdown" id="menu3">
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#menu3">Admin<b class="caret"></b></a>
+            <ul class="dropdown-menu">
+                <li> <?php // echo $this->Html->link('Setup', array('controller' => '/admin', 'action' => 'setup')) ?>
+                    <a href="/admin/setup">Setup</a>
+                </li>
+                <li> <?php //echo $this->Html->link('Report Manager', array('controller' => '/report_manager', 'action' => 'reports')) ?>
+                    <a href="/report_manager/reports">Reports</a>
+                </li>
+            </ul>
+        </li> <!-- ./menu3 -->
+<?php
     }
 ?>

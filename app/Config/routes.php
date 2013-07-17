@@ -66,6 +66,7 @@
         Router::connect('/admin/:controller/:action/*', array(), array('controller' => 'siteStateIcons'));
         Router::connect('/admin/:controller/:action/*', array(), array('controller' => 'networkInterfaceTypes'));
         Router::connect('/admin/:controller/:action/*', array(), array('controller' => 'configurationTemplates'));
+        //Router::connect('/admin/:controller/:action/*', array(), array('controller' => 'report_manager'));
         //Router::connect('/admin/:controller/:action/*', array(), array('controller' => 'ipSpaces'));
         
 /**
