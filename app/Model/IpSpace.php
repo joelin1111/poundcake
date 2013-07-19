@@ -26,7 +26,7 @@ class IpSpace extends AppModel {
     /*
      * Display field for select lists
      */
-    public $displayField = 'ip_address';
+    public $displayField = 'label';//'ip_address';
 
     /*
      * Default sort order
@@ -41,6 +41,7 @@ class IpSpace extends AppModel {
     public $virtualFields = array(
         'parent_cidr' => 'SELECT cidr FROM ip_spaces WHERE id=IpSpace.parent_id',
         'gw_address' => 'SELECT INET_NTOA(ip_address) FROM ip_spaces WHERE id=IpSpace.gateway_id',
+        'label' => 'CONCAT(INET_NTOA(IpSpace.ip_address)," ",IpSpace.name)'
     );
     
     /*
@@ -58,5 +59,16 @@ class IpSpace extends AppModel {
         ),
         'Tree' // @see http://book.cakephp.org/2.0/en/core-libraries/behaviors/tree.html
     );
+    
+    
+    public function filterToHosts( $list ) {
+        foreach ($list as $key=>$value ) {
+            $this->read(null,$key);
+            if($this->data["IpSpace"]["cidr"] != 32) {
+                unset($list[$key]);
+            }
+        }
+        return $list;
+    }
 }
 ?>
