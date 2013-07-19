@@ -817,22 +817,6 @@ class NetworkDeviceController extends AppController {
      */
     protected function getIpSpaces( $project_id ) {
         /*
-        $model = $this->modelClass;
-        $this->$model->IpSpace->recursive = -1;
-        //$all_addresses = $this->$model->IpSpace->findAllByProjectId( $project_id );
-        $ip_spaces = $this->$model->IpSpace->find('list', array( 
-           //'order' => array('IpSpace.lft'),
-           'conditions' => array (
-               'IpSpace.project_id' => $project_id,
-               'cidr' => 32, // we only want /32 IPs
-               'primary_ip' => true // we only want /32 IPs
-               ),
-            'fields' => array ('id','ip_address'),
-            // sort by ip address in case some were deleted and then
-            // re-added, which would otherwise make them out of sequence
-           'order' => array('IpSpace.ip_address')
-        )); 
-        */
         $this->loadModel('IpSpace');
         $ip_spaces = $this->IpSpace->find('list',array(
             'conditions' => array (
@@ -844,8 +828,20 @@ class NetworkDeviceController extends AppController {
             // 192.168.88.1, 192.168.88.10, 192.168.88.2...
             'order' => array('ip_address' => 'ASC')
         ));
+        */
+        $this->loadModel('IpSpace');
+        $conditions = array(
+            'IpSpace.project_id' => $project_id,
+            //'IpSpace.cidr' => 32 // we only want /32 IPs                
+        );
+        // the condition to limit this to /32s doesn't return a heirarchical listing
+        // so we manally filter the results to /32s with the filterToHosts model function
+        $ip_spaces = $this->IpSpace->filterToHosts( $this->IpSpace->generateTreeList($conditions, "{n}.IpSpace.id", "{n}.IpSpace.label", '--',null) );
+        
+        
         $this->set(compact('ip_spaces'));
     }
+    
     
     /*
      * Returns a data array for the SNMP configuration (format is specific to OpenNMS)
