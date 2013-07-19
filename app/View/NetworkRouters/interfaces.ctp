@@ -41,6 +41,7 @@
                         'label' => $label, // eth0, eth1, etc.
                         'options' => $ip_spaces,
                         'empty' => true,
+                        'escape' => false, // because the $ip_spaces array is nested hierarchically with spaces
                         'default' => $interface['NetworkInterfaceIpSpace']['ip_space_id']
                     ));
             // the number of the interface

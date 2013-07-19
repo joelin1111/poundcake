@@ -836,7 +836,7 @@ class NetworkDeviceController extends AppController {
         );
         // the condition to limit this to /32s doesn't return a heirarchical listing
         // so we manally filter the results to /32s with the filterToHosts model function
-        $ip_spaces = $this->IpSpace->filterToHosts( $this->IpSpace->generateTreeList($conditions, "{n}.IpSpace.id", "{n}.IpSpace.label", '--',null) );
+        $ip_spaces = $this->IpSpace->filterToHosts( $this->IpSpace->generateTreeList($conditions, "{n}.IpSpace.id", "{n}.IpSpace.label", '&nbsp;&nbsp;',null) );
         
         
         $this->set(compact('ip_spaces'));
