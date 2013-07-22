@@ -126,6 +126,9 @@
     <dt>Multipoint Link</dt><dd><?php echo ($networkradio['NetworkRadio']['p2mp'] > 0 ? "Yes" : "No");?></dd>
     
     <?php
+//        $label = "";
+//        $name = "";
+//        $port = "";;
         if ( $networkradio['NetworkRadio']['switch_port'] > 0 ) {
             $label = "Switch";
             $name = $networkradio['NetworkSwitch']['name'];
@@ -135,10 +138,12 @@
             $name = $networkradio['NetworkRouter']['name'];
             $port = $networkradio['NetworkRadio']['router_port'];
         }
+        if ( isset($label) && isset($name) && isset($port) ) {
+            echo "<dt>$label</dt><dd>$name</dd>";
+            echo "<dt>$label</dt><dd>$port</dd>";
+        }
     ?>
-    <dt><?php echo $label ?></dt><dd><?php echo $name ? : 'Unknown'; ?></dd>
-    <dt><?php echo $label ?> Port</dt><dd><?php echo $port ? : 'Unknown'; ?></dd>
-
+    
     <dt>SNMP Override</dt><dd><?php echo ($networkradio['NetworkRadio']['snmp_override'] > 0 ? "Yes" : "No");?>
     <?php
         if ( $snmp_override ) {
