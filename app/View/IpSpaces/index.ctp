@@ -121,9 +121,9 @@ function recursiveIpSpaces( $array ,$role, $delete_confirm_html, $fill_confirm_h
             echo ' '.$vals['IpSpace']['ip_address'];
             
             if ( $vals['IpSpace']['cidr'] == 32 ) {
-                echo ' /'.$vals['IpSpace']['parent_cidr'];
+                echo '/'.$vals['IpSpace']['parent_cidr'];
             } else {
-                echo ' /'.$vals['IpSpace']['cidr'];
+                echo '/'.$vals['IpSpace']['cidr'];
             }
             
             // show the gateway address, if set
