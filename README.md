@@ -191,7 +191,7 @@ The approach that was taken was to employ the use of MySQL triggers (for each of
 
 Note:
 
--   radios\_radios is the name of the join table;
+-   radios_radios is the name of the join table;
 -   Two radios are linked if their SSID matches.  No other link
     properties, such as frequency, are required for radios to be linked.
 
@@ -206,12 +206,11 @@ managed by the insert/update/delete triggers on the network\_radios
 table), would look as such:
 
 ```
-mysql\> select src\_radio\_id, dest\_radio\_id from radios\_radios where
-src\_radio\_id=9 or dest\_radio\_id=9;
+mysql\> select src_radio_id, dest_radio_id from radios_radios where src_radio_id=9 or dest_radio_id=9;
 
 +--------------+---------------+
 
-| src\_radio\_id | dest\_radio\_id |
+| src_radio_id | dest_radio_id |
 
 +--------------+---------------+
 
@@ -234,8 +233,7 @@ the multipoint linkage.
 For example, three NetworkRadios exist with the CakePHP IDs of 310, 263
 and 298, and share the same SSID.  The join table would look as such:
 ```
-mysql\> select src\_radio\_id, dest\_radio\_id from radios\_radios where
-src\_radio\_id=263 or dest\_radio\_id=263;
+mysql\> select src_radio_id, dest_radio_id from radios_radios where src_radio_id=263 or dest_radio_id=263;
 
 +--------------+---------------+
 
