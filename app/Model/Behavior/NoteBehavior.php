@@ -6,7 +6,22 @@
  *
  * Copyright 2013, Inveneo, Inc. (http://www.inveneo.org)
  *
- * Licensed under XYZ License.
+ * Licensed under GNU General Public License.
+ * 
+ * This file is part of Poundcake.
+ * 
+ * Poundcake is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ * 
+ * Poundcake is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with Foobar.  If not, see <http://www.gnu.org/licenses/>.
  * 
  * Redistributions of files must retain the above copyright notice.
  *
@@ -15,7 +30,7 @@
  * @link          http://www.inveneo.org
  * @package       app.Model.Behavior
  * @since         NoteBehavior was introduced in Poundcake v3.1.0
- * @license       XYZ License
+ * @license       GNU General Public License
  */
 
 class NoteBehavior extends ModelBehavior { 

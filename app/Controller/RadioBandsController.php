@@ -8,7 +8,7 @@
  *
  * Copyright 2013, Inveneo, Inc. (http://www.inveneo.org)
  *
- * Licensed under XYZ License.
+ * Licensed under GNU General Public License.
  * 
  * Redistributions of files must retain the above copyright notice.
  *
@@ -17,7 +17,7 @@
  * @link          http://www.inveneo.org
  * @package       app.Controller
  * @since         RadioBandsController was introduced in Poundcake v2.7.0
- * @license       XYZ License
+ * @license       GNU General Public License
  */
 
 class RadioBandsController extends AppController {

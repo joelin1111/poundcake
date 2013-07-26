@@ -11,7 +11,7 @@
  *
  * Copyright 2013, Inveneo, Inc. (http://www.inveneo.org)
  *
- * Licensed under XYZ License.
+ * Licensed under GNU General Public License.
  * 
  * Redistributions of files must retain the above copyright notice.
  *
@@ -20,7 +20,7 @@
  * @link          http://www.inveneo.org
  * @package       app.Controller
  * @since         SiteStateIconIconsController was introduced in Poundcake v3.0.0
- * @license       XYZ License
+ * @license       GNU General Public License
  */
 
 App::uses('AppController', 'Controller');

@@ -6,7 +6,22 @@
  *
  * Copyright 2013, Inveneo, Inc. (http://www.inveneo.org)
  *
- * Licensed under XYZ License.
+ * Licensed under GNU General Public License.
+ * 
+ * This file is part of Poundcake.
+ * 
+ * Poundcake is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ * 
+ * Poundcake is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with Foobar.  If not, see <http://www.gnu.org/licenses/>.
  * 
  * Redistributions of files must retain the above copyright notice.
  *
@@ -15,7 +30,7 @@
  * @link          http://www.inveneo.org
  * @package       app.Model.Behavior
  * @since         IPv4Behavior was introduced in Poundcake v2.3
- * @license       XYZ License
+ * @license       GNU General Public License
  */
 
 class IPv4Behavior extends ModelBehavior { 
@@ -36,25 +51,13 @@ class IPv4Behavior extends ModelBehavior {
      */
     function beforeSave(Model $model, $options = array()) { 
         foreach ($this->settings[$model->alias]['fields'] AS $field) { 
-            if (isset($model->data[$model->alias][$field])) { 
-                //print_r( $model->alias[$field] );
+            if (isset($model->data[$model->alias][$field])) {
                 $model->data[$model->alias]['d_'.$field] = $model->data[$model->alias][$field]; 
                 $model->data[$model->alias][$field] = ip2long( $model->data[$model->alias][$field] ); 
-//                debug($model->data[$model->alias]);
             } 
         }
         return true; 
     }
-    
-//    function beforeFind(Model $model, $query) { 
-//        $queryData = null;
-//        foreach ($this->settings[$model->alias]['fields'] AS $field) { 
-//            if (isset($queryData['conditions'][$model->alias.'.'.$field])) { 
-//                $queryData['conditions'][$model->alias.'.'.$field] = $this->encrypt($queryData['conditions'][$model->alias.'.'.$field]); 
-//            } 
-//        } 
-//        return $queryData; 
-//    } 
     
     /*
      * Decode the IPv4 address to a human readable "dotted quad" format
@@ -63,13 +66,8 @@ class IPv4Behavior extends ModelBehavior {
         foreach ($this->settings[$model->alias]['fields'] AS $field) {
             if ($primary) { 
                 foreach ($results AS $key => $value) { 
-                    if (isset($value[$model->alias][$field])) { 
-//                        debug( $value[$model->alias][$field] );
-//                        $i = $value[$model->alias][$field];
-//                        $i = long2ip( $i );
+                    if (isset($value[$model->alias][$field])) {
                         $results[$key][$model->alias][$field] = long2ip( $value[$model->alias][$field] ); 
-//                        debug( $i );
-//                        $results[$key][$model->alias][$field] = $i;
                     } 
                 } 
             } else { 

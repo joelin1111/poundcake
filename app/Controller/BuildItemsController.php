@@ -12,7 +12,7 @@
  *
  * Copyright 2012, Inveneo, Inc. (http://www.inveneo.org)
  *
- * Licensed under XYZ License.
+ * Licensed under GNU General Public License.
  * 
  * Redistributions of files must retain the above copyright notice.
  *
@@ -21,7 +21,7 @@
  * @link          http://www.inveneo.org
  * @package       app.Controller
  * @since         BuildItemsController precedes Poundcake v2.2.1
- * @license       XYZ License
+ * @license       GNU General Public License
  */
 
 App::uses('AppController', 'Controller');
