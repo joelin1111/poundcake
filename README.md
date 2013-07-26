@@ -349,7 +349,7 @@ consider leveraging Bootstrap’s support for fluid layouts.
 
 #### Apache Configuration
 
-Tower DB remains a relatively simple application from Apache’s perspective.  See the file /etc/apache-example.txt for a more complex example of how Tower DB would be setup as a VirtualHost.  In this example note that:
+Tower DB remains a relatively simple application from Apache’s perspective.  See the file /etc/apache.txt for a more complex example of how Tower DB would be setup as a VirtualHost.  In this example note that:
 
 -   Tower DB is running behind a load balancer (specifically an Amazon
     Elastic Load Balancer) on port 9000, the load balancer proxies that
