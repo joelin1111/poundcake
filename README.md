@@ -195,7 +195,7 @@ Note:
 -   Two radios are linked if their SSID matches.  No other link
     properties, such as frequency, are required for radios to be linked.
 
-##### Point-Point link example
+#### Point-Point link example
 
 To link two radios in a simple point-point link, simply set them to the
 same SSID.
@@ -222,7 +222,7 @@ src\_radio\_id=9 or dest\_radio\_id=9;
 +--------------+---------------+
 ```
 
-##### Point-Multipoint link example
+#### Point-Multipoint link example
 
 To link three or more radios in a point-multipoint configuration, set
 each radio to the same SSID and denote which radio in the group is the
@@ -233,7 +233,7 @@ the multipoint linkage.
 
 For example, three NetworkRadios exist with the CakePHP IDs of 310, 263
 and 298, and share the same SSID.  The join table would look as such:
-
+```
 mysql\> select src\_radio\_id, dest\_radio\_id from radios\_radios where
 src\_radio\_id=263 or dest\_radio\_id=263;
 
@@ -252,7 +252,7 @@ src\_radio\_id=263 or dest\_radio\_id=263;
 |          263 |           298 |
 
 +--------------+---------------+
-
+```
 
 The three triggers to link radios are named tr\_network\_radio\_insert, tr\_network\_radio\_update and tr\_network\_radio\_delete, and are defined in /etc/sql/poundcake/ tr\_multipoint-links-SSID-key.sql.
 
@@ -265,53 +265,33 @@ extensions was explored.  It was hoped these extensions might make
 related geospatial calculations, such as computing the distance between
 two coordinates, easy.
 
-Ultimately, it was determined that using MySQL spatial extensions with
-CakePHP was more trouble than it was worth.  Specifically, encoding and
-decoding latitude/longitude fields between the application and database,
-proved to be cumbersome.
+Ultimately, it was determined that using MySQL spatial extensions with CakePHP was more trouble than it was worth.  Specifically, encoding and decoding latitude/longitude fields between the application and database, proved to be cumbersome.
 
-Nevertheless, in the hope that MySQL spatial extensions might someday
-prove useful, it was decided to create a separate table, named
-*locations*, and use triggers on the sites table to keep the GPS
-coordinates – which are decimal(17,14) – in sync with the spatially
-encoded versions of those coordinates.
+Nevertheless, in the hope that MySQL spatial extensions might someday prove useful, it was decided to create a separate table, named *locations*, and use triggers on the sites table to keep the GPS coordinates – which are decimal(17,14) – in sync with the spatially encoded versions of those coordinates.
 
-The three triggers tr\_location\_insert, tr\_location\_update,
-tr\_location\_delete and are defined in
-/etc/sql/poundcake/tr\_location.sql.
+The three triggers tr\_location\_insert, tr\_location\_update, tr\_location\_delete and are defined in /etc/sql/poundcake/tr\_location.sql.
 
 Note that the locations table is not currently used.
 
-Stored Procedures
+### Stored Procedures
 
-Tower DB also uses a limited number of stored procedures for several
-small tasks.  Stored procedures are named in the form
-sp\_procedure\_name and can be fond in the folder /etc/sql/poundcake.
+Tower DB also uses a limited number of stored procedures for several small tasks.  Stored procedures are named in the form sp\_procedure\_name and can be fond in the folder /etc/sql/poundcake.
 
-Limitations
+### Limitations
 
 Many Radios, One Switch, One Router
 
-When Tower DB was repurposed from being an application to manage the
-deployment of hardware to something more specific for WISPs, it was
-redesigned with a specific project in mind.  Every site on that project
-was to have one router, plugged into which would be one switch, plugged
-into which were multiple radios.
+When Tower DB was repurposed from being an application to manage the deployment of hardware to something more specific for WISPs, it was redesigned with a specific project in mind.  Every site on that project was to have one router, plugged into which would be one switch, plugged into which were multiple radios.
 
-Therein lies one of Tower DB’s single biggest design limitations; the
-underlying model was setup to specifically support that scenario, e.g.
+Therein lies one of Tower DB’s single biggest design limitations; the underlying model was setup to specifically support that scenario, e.g.
 
 -   Site belongsTo NetworkRouter / NetworkRouter hasOne Site
 -   Site belongsTo NetworkSwitch / NetworkSwitch hasOne Site
 -   Site hasMany NetworkRadio / NetworkRadio belongsTo Site
 
-Since that time, Tower DB has been used on a project where not every
-site has a switch (radios plug directly into the router). Other projects
-have wanted to model physical connections.  None of these are possible
-given the current design.
+Since that time, Tower DB has been used on a project where not every site has a switch (radios plug directly into the router). Other projects have wanted to model physical connections.  None of these are possible given the current design.
 
-Future revisions of Tower DB must address this significant design
-limitation.
+Future revisions of Tower DB must address this significant design limitation.
 
 ### OpenNMS
 
@@ -352,7 +332,6 @@ intervals.  For debugging, remove the redirection to /dev/null.
 */5 * * * * /usr/bin/curl -k https://localhost:9000/sites/cron/3 \>
 /dev/null 2\>&1
 ```
-
 
 ### User Interface
 
