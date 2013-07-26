@@ -14,19 +14,5 @@ require_once (ROOT . DS . APP_DIR . "/Plugin/AjaxMultiUpload/Vendor/valums/uploa
 
 class AjaxMultiUploadAppController extends AppController {
 
-    public function isAuthorized($user) {
-        
-         // everyone can see the list and view individual Contacts
-        if ($this->action === 'index' || $this->action === 'view') {
-            return true;
-        }
-        
-        // The role of admin can access every action, huzzah!
-        if ( $this->Session->read('role') === 'edit' ) {
-           return true; 
-        }
-        
-        return parent::isAuthorized($user);
-    }
 }
 
