@@ -1,39 +1,22 @@
-Tower DB
+# Tower DB
 
-Application Overview and Design
+## Application Overview and Design
 
 Clark Ritchie, clark@inveneo.org
 
-
-****\
-
-Introduction
+### Introduction
 
 Tower Database, or Tower DB, is a web application to aid in the design
 and deployment of long-range Wi-Fi networks.  It is target user is
 technical staff at Wireless ISPs, also known as WISPs.
 
-History
+### History
 
-[Inveneo](http://www.inveneo.org), a US 501c3 non-profit, started the Tower DB project in the
-summer of 2012.  The project was given the internal code name of
-“Poundcake”, a term that is still found throughout the source code in
-comments and other project documentation.
+[Inveneo](http://www.inveneo.org), a US 501c3 non-profit, started the Tower DB project in the summer of 2012.  The project was given the internal code name of “Poundcake”, a term that is still found throughout the source code in comments and other project documentation.
 
-In its original incarnation, Poundcake was to be a short-term project –
-several weeks of effort to produce a simple web application for use on a
-project to manage the deployment of computer and network hardware. 
-Regrettably, Inveneo’s involvement in that project stopped before
-Poundcake was completed.  Nevertheless Inveneo decided to continue
-development of Poundcake and repurpose the code for another project,
-with similar, yet different, requirements.  The application was
-refocused to better support the deployment of Wi-Fi radios co-located on
-towers, and Poundcake was renamed Tower DB.  Certain significant design
-decisions related to this repurposing are noted later in this document. 
+In its original incarnation, Poundcake was to be a short-term project--several weeks of effort to produce a simple web application for use on a project to manage the deployment of computer and network hardware.  Regrettably, Inveneo’s involvement in that project stopped before Poundcake was completed.  Nevertheless Inveneo decided to continue development of Poundcake and repurpose the code for another project, with similar, yet different, requirements.  The application was refocused to better support the deployment of Wi-Fi radios co-located on towers, and Poundcake was renamed Tower DB.  Certain significant design decisions related to this repurposing are noted later in this document. 
 
-Throughout 2012 and into 2013, Tower DB continued to evolve as an
-application to aid in the design and management of large-scale wireless
-networks.  Its primary function has since evolved to be:
+Throughout 2012 and into 2013, Tower DB continued to evolve as an application to aid in the design and management of large-scale wireless networks.  Its primary function has since evolved to be:
 
 -   **Network Overview** – Provide a high-level overview of the network,
     graphically depicting sites (or tower/Wi-Fi radio locations) and the
@@ -47,13 +30,9 @@ networks.  Its primary function has since evolved to be:
 -   **Network Design, Deployment** – Provide tools to support the design
     and deployment of large-scale wireless networks.
 
-Features
+### Features
 
-Tower DB has evolved to support a great number of features, too many to
-fully enumerate in this document.  Listed below are a few of Tower DB’s
-major capabilities.
-
-\
+Tower DB has evolved to support a great number of features, too many to fully enumerate in this document.  Listed below are a few of Tower DB’s major capabilities.
 
 -   Multi-project support
 -   User authentication and authorization, with three permission levels
@@ -70,39 +49,30 @@ major capabilities.
 -   Device configuration file generation
 -   Produce site-specific equipment lists for deployments 
 -   KML import/export
--   Extensive configuration for items such as radio bands, SNMP
-    versions, tower types, and so forth
+-   Extensive configuration for items such as radio bands, SNMP versions, tower types, and so forth
 -   Report generation
 
-\
+### Design
 
-Design
+Because Tower DB was initially intended to be a short-term project, the CakePHP application framework was selected primarily due to familiarity and ease of use.  In addition, CakePHP was also highly compatible with an existing LAMP environment.
 
-Because Tower DB was initially intended to be a short-term project, the
-CakePHP application framework was selected primarily due to familiarity
-and ease of use.  In addition, CakePHP was also highly compatible with
-an existing LAMP environment.
+Tower DB’s initial developer was on a short timeframe, and given the application’s original set of requirements, CakePHP seemed appropriate.
 
-Tower DB’s initial developer was on a short timeframe, and given the
-application’s original set of requirements, CakePHP seemed appropriate.
+Support for small screens (e.g. mobile devices) was not part of the original scope, nor was internationalization.
 
-Support for small screens (e.g. mobile devices) was not part of the
-original scope, nor was internationalization.
+### Core Technologies
 
-Core Technologies
-
-As of the writing of this document, some of the core technologies that
-Tower DB uses include:
+As of the writing of this document, some of the core technologies that Tower DB uses include:
 
 -   PHP 5.4.10
 -   MySQL 5.5.29
 -   CakePHP 2.3.5
 
-Other Technologies
+### Other Technologies
 
 Other dependencies that are bundled with the application include:
 
-JavaScript Libraries
+#### JavaScript Libraries
 
 -   jQuery 1.9.1 – base jQuery JavaScript library
 -   jQuery-ui-1.10.3 - JavaScript library for user interface
@@ -112,7 +82,7 @@ JavaScript Libraries
 -   jasny-bootstrap – JavaScript library for enhanced Bootstrap-like
     functionality
 
-CSS
+#### CSS
 
 For UI support, Tower DB uses:
 
@@ -122,7 +92,7 @@ For UI support, Tower DB uses:
 -   Bootswatch – Other CSS/theme files are likely from Bootswatch.com, a
     free Bootstrap-compatible theme site
 
-CakePHP Plugins
+#### CakePHP Plugins
 
 Tower DB leverages CakePHP’s plugin architecture.  Some of the plugins
 used include:
@@ -138,138 +108,86 @@ used include:
     Microsoft Excel
 -   DOMPDF – For generation of PDF files
 
-CakePHP Behaviors
+#### CakePHP Behaviors
 
-Tower DB leverages other small pieces of open source functionality,
-including:
+Tower DB leverages other small pieces of open source functionality, including:
 
 -   Cryptable – A CakePHP behavior for on the fly encrypting/decripting
     of sensitive data
+    
+(Note this listing is incomplete.)
 
-Object Model
+### Object Model
 
-A graphical depiction of Tower DB’s object model can be found in the
-Github repository in the folder /etc/docs.
+A graphical depiction of Tower DB’s object model can be found in the Github repository in the folder /etc/docs.
 
 The primary objects in Tower DB include:
 
-NetworkSwitch – A NetworkSwitch is meant to represent a common layer 2/3
+*   NetworkSwitch – A NetworkSwitch is meant to represent a common layer 2/3
 switch used in Ethernet networks.
 
-NetworkRouter – A NetworkRouter represents a common router used to
+*   NetworkRouter – A NetworkRouter represents a common router used to
 connect different Ethernet networks.
 
-NetworkRadio – A NetworkRadio is meant to represent a Wi-Fi radio.
+*   NetworkRadio – A NetworkRadio is meant to represent a Wi-Fi radio.
 
-Antenna – A NetworkRadio can be associated with one of the compatible
+*   Antenna – A NetworkRadio can be associated with one of the compatible
 antennas.
 
-NetworkDevice – The superclass for NetworkSwitch, NetworkRouter and
+*   NetworkDevice – The superclass for NetworkSwitch, NetworkRouter and
 NetworkRadio.
 
-Site – A site is the central item to which network devices are
-attached.  A site can have zero to many NetworkRadios, zero or one
-NetworkSwitch and zero or one NetworkRouter.  See comments in
-*Limitations* below.
+*   Site – A site is the central item to which network devices are attached.  A site can have zero to many NetworkRadios, zero or one NetworkSwitch and zero or one NetworkRouter.  See comments in *Limitations* below.
 
-Project – A project is really a collection of sites (and network
-devices).  Administrators grant user’s view/edit permission to access
-projects in the application.
+*   Project – A project is really a collection of sites (and network devices).  Administrators grant user’s view/edit permission to access projects in the application.
 
-User – A user has access to one or more projects, and has view or edit
-permission to the elements within that project.  Users can have mixed
-permissions (i.e. view permission on one project, edit permission on
-another).  Users who are administrators have access to the all projects
-in the system, as well as all system configurations.
+*   User – A user has access to one or more projects, and has view or edit permission to the elements within that project.  Users can have mixed permissions (i.e. view permission on one project, edit permission on another).  Users who are administrators have access to the all projects in the system, as well as all system configurations.
 
-[item]Type – Many objects in Tower DB have a corresponding “type”.  The
-*type* of an object further defines the characteristics of that object,
-such as the manufacturer, the number of ports, watts consumed, and so
-on.
+*   [item]Type – Many objects in Tower DB have a corresponding “type”.  The *type* of an object further defines the characteristics of that object, such as the manufacturer, the number of ports, watts consumed, and so on.
 
-For example, there exists an object named SwitchType and an
-administrator may configure any number of valid kinds of switches in the
-Tower DB application.  Which is to say, an administrator of Tower DB may
-have defined several types of switches, say an 8-port DC switch, a
-16-port AC switch, and so on.  These definitions are global in scope. 
-Thus, when a NetworkSwitch is created, the user picks what kind of
-switch it is; the NetworkSwitch object has a corresponding SwitchType.
+For example, there exists an object named SwitchType and an administrator may configure any number of valid kinds of switches in the Tower DB application.  Which is to say, an administrator of Tower DB may have defined several types of switches, say an 8-port DC switch, a 16-port AC switch, and so on.  These definitions are global in scope.   Thus, when a NetworkSwitch is created, the user picks what kind of switch it is; the NetworkSwitch object has a corresponding SwitchType.
 
 Other examples of the [item]Type model:
 
--   A NetworkRouter has a RouterType
--   A NetworkRadio has a RadioType
--   An Antenna has an AntennaType
--   And so forth…
+*   A NetworkRouter has a RouterType
+*   A NetworkRadio has a RadioType
+*   An Antenna has an AntennaType
+*   And so forth...
 
-Note on Github Repository Architecture
+### Note on Github Repository Architecture
 
-Note that none of the aforementioned technology dependencies are
-configured in the Github repository as Git submodules.  Doing this is of
-interest.  Re-architecting the Github repository, and modifying the
-deployment process, has simply not been a priority.
+Note that none of the aforementioned technology dependencies are configured in the Github repository as Git submodules.  Doing this is of interest.  Re-architecting the Github repository, and modifying the deployment process, has simply not been a priority.
 
-SQL
+### SQL
 
-CakePHP is a typical LAMP application and uses MySQL as its underling
-database.  As Tower DB is constantly evolving, the database is also
-continually changing.  While not every version includes a change to the
-schema, in general the following should be sufficient to get a new copy
-of the site up and running:
+CakePHP is a typical LAMP application and uses MySQL as its underling database.  As Tower DB is constantly evolving, the database is also continually changing.  While not every version includes a change to the schema, in general the following should be sufficient to get a new copy of the site up and running:
 
--   A known-good copy of the schema will be periodically generated and
-    put into the /etc/sql/install directory.  This schema will be named
-    in the form poundcake\_3.1.0.sql where 3.1.0 is the name of the
-    version that it corresponds to.
--   Any upgrades to that schema can be found in /etc/sql/upgrade
-    scripts.  For example, known-good copy of the schema were as above,
-    and the administrator wished to get the application from 3.1.0 to
-    3.1.1 to 3.2.0, s/he would need to execute the upgrade script named
-    pc\_3.1.0\_to\_3.1.1.sql followed by the upgrade script named
-    pc\_3.1.1\_to\_3.2.0.sql.  At that point, the database should be at
-    version 3.2.0.
+*   A known-good copy of the schema will be periodically generated and put into the /etc/sql/install directory.  This schema will be named in the form poundcake\_3.1.0.sql where 3.1.0 is the name of the version that it corresponds to.
+*   Any upgrades to that schema can be found in /etc/sql/upgrade scripts.  For example, known-good copy of the schema were as above, and the administrator wished to get the application from 3.1.0 to 3.1.1 to 3.2.0, s/he would need to execute the upgrade script named pc\_3.1.0\_to\_3.1.1.sql followed by the upgrade script named pc\_3.1.1\_to\_3.2.0.sql.  At that point, the database should be at version 3.2.0.
 
-Tower DB makes use MySQL triggers and stored procedures for certain,
-specific pieces of functionality.  Note that mysqldump should include
-the “—routines” option, e.g.
+Tower DB makes use MySQL triggers and stored procedures for certain, specific pieces of functionality.  Note that mysqldump should include the “—routines” option, e.g.
 
+```
 mysqldump –opt –routines –uroot –psecret towerdb…
+```
 
-\
+### Triggers
 
-Triggers
+Perhaps the most non-standard (at least in terms of a CakePHP application) is the use of triggers.
 
-Perhaps the most non-standard (at least in terms of a CakePHP
-application) is the use of triggers.
-
-Triggers are named in the form tr\_trigger\_name and can be fond in the
-folder /etc/sql/poundcake.
+Triggers are named in the form tr\_trigger\_name and can be fond in the folder /etc/sql/poundcake.
 
 Two specific triggers are worth noting:
 
-Radios Linking to Radios
+#### Radios Linking to Radios
 
-One of the first significant design challenges that Tower DB encountered
-was how to link Wi-Fi radios to other Wi-Fi radios in the application. 
-At best it was unclear if objects in CakePHP could relate to themselves
-(e.g. NetworkRadio hasMany NetworkRadio).   Tower DB needed to support
-1) point-point radio connections (NetworkRadio hasOne NetworkRadio), and
-2) point-multipoint radio connections (NetworkRadio hasMany)
-NetworkRadios).
+One of the first significant design challenges that Tower DB encountered was how to link Wi-Fi radios to other Wi-Fi radios in the application. 
 
-The approach of representing a Wi-Fi link as a full CakePHP object unto
-itself (which would imply NetworkRadio hasMany Link and Link hasMany
-NetworkRadio) was considered.  Indeed one could argue there is great
-value in taking this approach as the properties related to that radio
-link, such as frequency and SSID, could then be attached to the link and
-not the radio.  However, this approach was not accepted due to the
-intangible nature of a Wi-Fi link.
+At best it was unclear to the author if objects in CakePHP could relate to themselves (e.g. NetworkRadio hasMany NetworkRadio).   Tower DB needed to support 1) point-point radio connections (NetworkRadio hasOne NetworkRadio), and 2) point-multipoint radio connections (NetworkRadio hasMany) NetworkRadios).
 
-The approach that was taken was to employ the use of MySQL triggers (for
-each of insert, update, delete) to manage a join table.  This approach
-is non-standard, yet fairly consistent with how CakePHP might manage
-this relation.  This, when a radio is created, edited or deleted, a
-trigger updates the join table accordingly.
+The approach of representing a Wi-Fi link as a full CakePHP object unto itself (which would imply NetworkRadio hasMany Link and Link hasMany NetworkRadio) was considered.  Indeed one could argue there is great value in taking this approach as the properties related to that radio link, such as frequency and SSID, could then be attached to the link and not the radio.  However, this approach was not accepted due to the intangible nature of a Wi-Fi link.
+
+The approach that was taken was to employ the use of MySQL triggers (for each of insert, update, delete) to manage a join table.  This approach is non-standard, yet fairly consistent with how CakePHP might manage this relation.  This, when a radio is created, edited or deleted, a trigger updates the join table accordingly.
 
 Note:
 
@@ -277,7 +195,7 @@ Note:
 -   Two radios are linked if their SSID matches.  No other link
     properties, such as frequency, are required for radios to be linked.
 
-Point-Point link example
+##### Point-Point link example
 
 To link two radios in a simple point-point link, simply set them to the
 same SSID.
@@ -287,6 +205,7 @@ and share the same SSID.  The join table (again, the join table is
 managed by the insert/update/delete triggers on the network\_radios
 table), would look as such:
 
+```
 mysql\> select src\_radio\_id, dest\_radio\_id from radios\_radios where
 src\_radio\_id=9 or dest\_radio\_id=9;
 
@@ -301,10 +220,9 @@ src\_radio\_id=9 or dest\_radio\_id=9;
 |           13 |             9 |
 
 +--------------+---------------+
+```
 
-\
-
-Point-Multipoint link example
+##### Point-Multipoint link example
 
 To link three or more radios in a point-multipoint configuration, set
 each radio to the same SSID and denote which radio in the group is the
@@ -335,15 +253,12 @@ src\_radio\_id=263 or dest\_radio\_id=263;
 
 +--------------+---------------+
 
-\
 
-The three triggers to link radios are named tr\_network\_radio\_insert,
-tr\_network\_radio\_update and tr\_network\_radio\_delete, and are
-defined in /etc/sql/poundcake/ tr\_multipoint-links-SSID-key.sql.
+The three triggers to link radios are named tr\_network\_radio\_insert, tr\_network\_radio\_update and tr\_network\_radio\_delete, and are defined in /etc/sql/poundcake/ tr\_multipoint-links-SSID-key.sql.
 
-\
 
-Spatial Extensions
+
+### Spatial Extensions
 
 Early during the development of Tower DB, the use of MySQL spatial
 extensions was explored.  It was hoped these extensions might make
@@ -398,7 +313,7 @@ given the current design.
 Future revisions of Tower DB must address this significant design
 limitation.
 
-OpenNMS
+### OpenNMS
 
 Tower DB’s integration with OpenNMS is extremely primitive, and should
 be considered proof of concept.  Currently, the following operations are
@@ -417,7 +332,7 @@ possible.
     DB’s ability to ascertain a node’s status is best done on current
     releases of OpenNMS due to enhancements in the OpenNMS ReST API.
 
-OpenNMS Setup
+### OpenNMS Setup
 
 To configure Tower DB to poll OpenNMS for a project, an administrator
 would need to:
@@ -433,24 +348,22 @@ In this example, the cron job polls the OpenNMS server every 5 minutes
 passing the job a project ID of 3.  Tower DB is running on localhost
 port 9000.  Multiple cron entries can exist each running on different
 intervals.  For debugging, remove the redirection to /dev/null.
-
-\*/5 \* \* \* \* /usr/bin/curl -k https://localhost:9000/sites/cron/3 \>
+```
+*/5 * * * * /usr/bin/curl -k https://localhost:9000/sites/cron/3 \>
 /dev/null 2\>&1
+```
 
-\
 
-User Interface
+### User Interface
 
 Tower DB uses a fixed-width Bootstrap layout.  Future versions should
 consider leveraging Bootstrap’s support for fluid layouts.
 
-Errata
+### Errata
 
-Apache Configuration
+#### Apache Configuration
 
-Tower DB remains a relatively simple application from Apache’s
-perspective.  Below is a more complex example of how Tower DB would be
-setup as a VirtualHost.  In this example note that:
+Tower DB remains a relatively simple application from Apache’s perspective.  See the file /etc/apache-example.txt for a more complex example of how Tower DB would be setup as a VirtualHost.  In this example note that:
 
 -   Tower DB is running behind a load balancer (specifically an Amazon
     Elastic Load Balancer) on port 9000, the load balancer proxies that
@@ -460,115 +373,3 @@ setup as a VirtualHost.  In this example note that:
     logging using the IP of the client, not the load balancer
 -   The awstats package is installed
 -   Certain Allow rules allow more access from the developer’s office
-
-Listen 9000
-
-\
-
-\<VirtualHost \*:80\>
-
-ServerName towerdb.inveneo.org
-
-Redirect permanent / https://towerdb.inveneo.org/
-
-\</VirtualHost\>
-
-\
-
-\<VirtualHost \*:9000\>
-
-\# this needs to be revisited, this should only be encrypting
-connections
-
-\# between this host and the load balancer, since the lb has the "real"
-
-\# SSL cert installed
-
-SSLEngine On
-
-        SSLCertificateFile
-/etc/apache2/ssl/towerdb.inveneo.org/towerdb.inveneo.org.crt
-
-        SSLCertificateKeyFile
-/etc/apache2/ssl/towerdb.inveneo.org/towerdb.inveneo.org.key
-
-\
-
-ServerName towerdb.my.org
-
-ServerAdmin me@my.org
-
-DocumentRoot /var/www/towerdb.inveneo.org/poundcake
-
-\<Directory /\>
-
-Options FollowSymLinks
-
-AllowOverride None
-
-\</Directory\>
-
-\<Directory /var/www/towerdb.inveneo.org/poundcake/\>
-
-Options -Indexes FollowSymLinks MultiViews
-
-AllowOverride All
-
-Order allow,deny
-
-allow from all
-
-\</Directory\>
-
-\
-
-\<Location /sites/cron/\*\>
-
-Deny from All
-
-                SetEnvIF X-Forwarded-For "a.b.c.d" AllowIP
-
-                allow from env=AllowIP
-
-\# allow from a.b.c.d \# my office, for debugging
-
-allow from 127.0.0.1 \# localhost
-
-allow from a.b.c.d \# my server
-
-\</Location\>
-
-CustomLog /var/log/apache2/towerdb.inveneo.org-access.log proxy
-env=forwarded
-
-ErrorLog /var/log/apache2/towerdb.inveneo.org-error.log
-
-LogLevel warn
-
-\
-
-\# awstats - see https://help.ubuntu.com/community/AWStats
-
-Alias /awstatsclasses "/usr/share/awstats/lib/"
-
-  Alias /awstats-icon/ "/usr/share/awstats/icon/"
-
-  Alias /awstatscss "/usr/share/awstats/icon/"
-
-  ScriptAlias /awstats/ /usr/lib/cgi-bin/
-
-  Options ExecCGI -MultiViews +SymLinksIfOwnerMatch
-
-\<Location /awstats/\*\>
-
-Deny from All
-
-                SetEnvIF X-Forwarded-For "a.b.c.d" AllowIP
-
-                allow from env=AllowIP
-
-                allow from a.b.c.d \# my office
-
-\</Location\>
-
-\</VirtualHost\>
