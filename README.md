@@ -175,7 +175,7 @@ mysqldump –opt –routines –uroot –psecret towerdb…
 
 Perhaps the most non-standard (at least in terms of a CakePHP application) is the use of triggers.
 
-Triggers are named in the form tr\_trigger\_name and can be fond in the folder /etc/sql/poundcake.
+Triggers are named in the form tr_trigger\_name and can be fond in the folder /etc/sql/poundcake.
 
 Two specific triggers are worth noting:
 
@@ -202,7 +202,7 @@ same SSID.
 
 For example, two NetworkRadios exist with the CakePHP IDs of 9 and 13,
 and share the same SSID.  The join table (again, the join table is
-managed by the insert/update/delete triggers on the network\_radios
+managed by the insert/update/delete triggers on the network_radios
 table), would look as such:
 
 ```
@@ -237,7 +237,7 @@ mysql\> select src_radio_id, dest_radio_id from radios_radios where src_radio_id
 
 +--------------+---------------+
 
-| src\_radio\_id | dest\_radio\_id |
+| src_radio_id | dest_radio_id |
 
 +--------------+---------------+
 
@@ -252,7 +252,7 @@ mysql\> select src_radio_id, dest_radio_id from radios_radios where src_radio_id
 +--------------+---------------+
 ```
 
-The three triggers to link radios are named tr\_network\_radio\_insert, tr\_network\_radio\_update and tr\_network\_radio\_delete, and are defined in /etc/sql/poundcake/ tr\_multipoint-links-SSID-key.sql.
+The three triggers to link radios are named tr_network_radio_insert, tr_network_radio_update and tr_network_radio_delete, and are defined in /etc/sql/poundcake/ tr_multipoint-links-SSID-key.sql.
 
 
 
@@ -267,7 +267,7 @@ Ultimately, it was determined that using MySQL spatial extensions with CakePHP w
 
 Nevertheless, in the hope that MySQL spatial extensions might someday prove useful, it was decided to create a separate table, named *locations*, and use triggers on the sites table to keep the GPS coordinates – which are decimal(17,14) – in sync with the spatially encoded versions of those coordinates.
 
-The three triggers tr\_location\_insert, tr\_location\_update, tr\_location\_delete and are defined in /etc/sql/poundcake/tr\_location.sql.
+The three triggers tr_location_insert, tr_location_update, tr_location_delete and are defined in /etc/sql/poundcake/tr_location.sql.
 
 Note that the locations table is not currently used.
 
