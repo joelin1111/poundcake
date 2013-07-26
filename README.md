@@ -12,7 +12,7 @@ technical staff at Wireless ISPs, also known as WISPs.
 
 ### Screen Shots
 
-![Project Overview](https://dl.dropboxusercontent.com/u/100305526/permanent/TowerDB/TowerDB-Overview.tiff "Project Overview")
+![Project Topology](https://dl.dropboxusercontent.com/u/100305526/permanent/TowerDB/TowerDB-Topology.png "Project Topology")
 
 ### History
 
