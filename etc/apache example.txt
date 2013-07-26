@@ -1,8 +1,8 @@
 Listen 9000
 
 <VirtualHost *:80>
-	ServerName towerdb.inveneo.org
-	Redirect permanent / https://towerdb.inveneo.org/
+	ServerName myserver.myhost.com
+	Redirect permanent / https://myserver.myhost.com/
 </VirtualHost>
 
 <VirtualHost *:9000>
@@ -10,19 +10,19 @@ Listen 9000
 	# between this host and the load balancer, since the lb has the "real"
 	# SSL cert installed
 	SSLEngine On
-        SSLCertificateFile /etc/apache2/ssl/towerdb.inveneo.org/towerdb.inveneo.org.crt
-        SSLCertificateKeyFile /etc/apache2/ssl/towerdb.inveneo.org/towerdb.inveneo.org.key
+        SSLCertificateFile /path/to/certificate
+        SSLCertificateKeyFile /path/to/key
 
 	ServerName towerdb.my.org
 	ServerAdmin me@my.org
-	DocumentRoot /var/www/towerdb.inveneo.org/poundcake
+	DocumentRoot /var/www/myserver.myhost.com/poundcake
 	
 	<Directory />
 		Options FollowSymLinks
 		AllowOverride None
 	</Directory>
 	
-	<Directory /var/www/towerdb.inveneo.org/poundcake/>
+	<Directory /var/www/myserver.myhost.com/poundcake/>
 		Options -Indexes FollowSymLinks MultiViews
 		AllowOverride All
 		Order allow,deny
@@ -38,8 +38,8 @@ Listen 9000
 		allow from a.b.c.d # my server
 	</Location>
 	
-	CustomLog /var/log/apache2/towerdb.inveneo.org-access.log proxy env=forwarded
-	ErrorLog /var/log/apache2/towerdb.inveneo.org-error.log
+	CustomLog /var/log/apache2/myserver.myhost.com-access.log proxy env=forwarded
+	ErrorLog /var/log/apache2/myserver.myhost.com-error.log
 	LogLevel warn
 
 	# awstats - see https://help.ubuntu.com/community/AWStats
