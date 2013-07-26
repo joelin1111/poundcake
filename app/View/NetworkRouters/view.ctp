@@ -100,6 +100,32 @@
     </dl>
     
     <dl>
+    <dt>Attached Radios</dt>
+    <?php
+        if (!isset($networkrouter['NetworkRadio'])) {
+            echo "<dd>None</dd>";
+        } else {
+        
+            // the array of attached radios doesn't come out sorted by port, by default
+            // it would come out in the order they were attached to the switch
+            // so re-order the array to make it look more logical
+            foreach ($networkrouter['NetworkRadio'] as $radio) {
+                //print_r($radio);
+                //echo $this->Html->link($contact['first_name']." ".$contact['last_name']), array(
+                echo "<dd>";
+                echo 'Port '.$radio['router_port'].' - ';
+                echo $this->Html->link(($radio['name']), array(
+                    'controller' => 'networkRadios',
+                    'action' => 'view',
+                    $radio['id']));
+                echo " ".$radio['name'];                
+                echo "</dd>";
+            }
+        }
+    ?>
+    </dl>
+    
+    <dl>
     <dt>Interfaces</dt>
     <dl  class="dl-horizontal">
         <?php
