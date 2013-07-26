@@ -1,8 +1,8 @@
 Listen 9000
 
 <VirtualHost *:80>
-	ServerName myserver.myhost.com
-	Redirect permanent / https://myserver.myhost.com/
+	ServerName towerdb.myhost.com
+	Redirect permanent / https://towerdb.myhost.com/
 </VirtualHost>
 
 <VirtualHost *:9000>
@@ -13,16 +13,16 @@ Listen 9000
         SSLCertificateFile /path/to/certificate
         SSLCertificateKeyFile /path/to/key
 
-	ServerName towerdb.my.org
-	ServerAdmin me@my.org
-	DocumentRoot /var/www/myserver.myhost.com/poundcake
+	ServerName towerdb.myhost.com
+	ServerAdmin me@myhost.com
+	DocumentRoot /var/www/towerdb.myhost.com/poundcake
 	
 	<Directory />
 		Options FollowSymLinks
 		AllowOverride None
 	</Directory>
 	
-	<Directory /var/www/myserver.myhost.com/poundcake/>
+	<Directory /var/www/towerdb.myhost.com/poundcake/>
 		Options -Indexes FollowSymLinks MultiViews
 		AllowOverride All
 		Order allow,deny
@@ -35,11 +35,11 @@ Listen 9000
                 allow from env=AllowIP
 		# allow from a.b.c.d # my office, for debugging
 		allow from 127.0.0.1 # localhost
-		allow from a.b.c.d # my server
+		allow from a.b.c.d # another server, for debugging
 	</Location>
 	
-	CustomLog /var/log/apache2/myserver.myhost.com-access.log proxy env=forwarded
-	ErrorLog /var/log/apache2/myserver.myhost.com-error.log
+	CustomLog /var/log/apache2/towerdb.myhost.com-access.log proxy env=forwarded
+	ErrorLog /var/log/apache2/towerdb.myhost.com-error.log
 	LogLevel warn
 
 	# awstats - see https://help.ubuntu.com/community/AWStats
