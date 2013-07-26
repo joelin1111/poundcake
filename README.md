@@ -12,11 +12,7 @@ technical staff at Wireless ISPs, also known as WISPs.
 
 ### History
 
-[Inveneo](http://www.inveneo.org), a US 501c3 non-profit, started the Tower DB project in the summer of 2012.  The project was given the internal code name of “Poundcake”, a term that is still found throughout the source code in comments and other project documentation.
-
-In its original incarnation, Poundcake was to be a short-term project--several weeks of effort to produce a simple web application for use on a project to manage the deployment of computer and network hardware.  Regrettably, Inveneo’s involvement in that project stopped before Poundcake was completed.  Nevertheless Inveneo decided to continue development of Poundcake and repurpose the code for another project, with similar, yet different, requirements.  The application was refocused to better support the deployment of Wi-Fi radios co-located on towers, and Poundcake was renamed Tower DB.  Certain significant design decisions related to this repurposing are noted later in this document. 
-
-Throughout 2012 and into 2013, Tower DB continued to evolve as an application to aid in the design and management of large-scale wireless networks.  Its primary function has since evolved to be:
+[Inveneo](http://www.inveneo.org), a US 501c3 non-profit, started the Tower DB project in the summer of 2012.  It has evolved to become an application to aid in the design and management of large-scale wireless networks.  Its primary functions are:
 
 -   **Network Overview** – Provide a high-level overview of the network,
     graphically depicting sites (or tower/Wi-Fi radio locations) and the
