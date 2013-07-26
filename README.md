@@ -10,6 +10,10 @@ Tower Database, or Tower DB, is a web application to aid in the design
 and deployment of long-range Wi-Fi networks.  It is target user is
 technical staff at Wireless ISPs, also known as WISPs.
 
+### Screen Shots
+
+![Project Overview](https://dl.dropboxusercontent.com/u/100305526/permanent/TowerDB/TowerDB-Overview.tiff "Project Overview")
+
 ### History
 
 [Inveneo](http://www.inveneo.org), a US 501c3 non-profit, started the Tower DB project in the summer of 2012.  The project was given the internal code name of “Poundcake”, a term that is still found throughout the source code in comments and other project documentation.
@@ -206,7 +210,7 @@ managed by the insert/update/delete triggers on the network_radios
 table), would look as such:
 
 ```
-mysql\> select src_radio_id, dest_radio_id from radios_radios where src_radio_id=9 or dest_radio_id=9;
+mysql> select src_radio_id, dest_radio_id from radios_radios where src_radio_id=9 or dest_radio_id=9;
 
 +--------------+---------------+
 
@@ -233,7 +237,7 @@ the multipoint linkage.
 For example, three NetworkRadios exist with the CakePHP IDs of 310, 263
 and 298, and share the same SSID.  The join table would look as such:
 ```
-mysql\> select src_radio_id, dest_radio_id from radios_radios where src_radio_id=263 or dest_radio_id=263;
+mysql> select src_radio_id, dest_radio_id from radios_radios where src_radio_id=263 or dest_radio_id=263;
 
 +--------------+---------------+
 
