@@ -3,6 +3,7 @@
     echo $this->Html->script('poundcake/poundcake-datepicker');
     // disable mouse scroll in the lat/lon fields
     echo $this->Html->script('poundcake/poundcake-scroll');
+    echo $this->Html->script('fineuploader/poundcake-scroll');
 ?>
 
 <div class="row">
@@ -130,7 +131,7 @@
     echo $this->Form->input('Site.notes',array('style' => 'width:100%'));
     
     // this is the upload field
-    echo $this->Upload->edit('Site', $this->Form->fields['Site.id']); 
+    echo $this->Upload->edit('Site', $this->Form->fields['Site.id']);
     echo $this->Form->submit('Save', array('div' => false,'class'=>'btn btn-primary'));
     echo $this->Form->submit('Cancel', array('name' => 'cancel','div' => false,'class'=>'btn btn-cancel'));
     echo $this->Form->end(); 

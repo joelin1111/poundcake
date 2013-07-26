@@ -284,6 +284,7 @@
                             } else {
                                 echo "<table class=\"table table-condensed table-striped\">";
                                 echo "<tr><th>Name</th>";
+                                echo "<th>Router Port</th>";
                                 echo "<th>Switch Port</th>";
                                 echo "<th>Frequency</th>";
                                 echo "<th>SSID</th></tr>";
@@ -299,6 +300,14 @@
                                         $radio['id']));
                                     echo "</td>";
 
+                                    echo '<td>';
+                                    if (!empty($radio['router_port'])) {
+                                         echo $radio['router_port'];
+                                    } else {
+                                        echo "-";
+                                    }
+                                    echo "</td>";
+                                    
                                     echo '<td>';
                                     if (!empty($radio['switch_port'])) {
                                          echo $radio['switch_port'];
