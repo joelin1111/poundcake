@@ -10,14 +10,6 @@ Tower Database, or Tower DB, is a web application to aid in the design
 and deployment of long-range Wi-Fi networks.  It is target user is
 technical staff at Wireless ISPs, also known as WISPs.
 
-### Screen Shots
-
-![Project Overview](https://dl.dropboxusercontent.com/u/100305526/permanent/TowerDB/TowerDB-Overview.png "Project Overview")
-![Project Topology](https://dl.dropboxusercontent.com/u/100305526/permanent/TowerDB/TowerDB-Topology.png "Project Topology")
-![Site Listing](https://dl.dropboxusercontent.com/u/100305526/permanent/TowerDB/TowerDB-Sites.png "Site Listing")
-![Site Details](https://dl.dropboxusercontent.com/u/100305526/permanent/TowerDB/TowerDB-Site.png "Site Details")
-![IP Spaces](https://dl.dropboxusercontent.com/u/100305526/permanent/TowerDB/TowerDB-IpSpaces.png "IP Spaces")
-
 ### History
 
 [Inveneo](http://www.inveneo.org), a US 501c3 non-profit, started the Tower DB project in the summer of 2012.  The project was given the internal code name of “Poundcake”, a term that is still found throughout the source code in comments and other project documentation.
@@ -343,6 +335,15 @@ intervals.  For debugging, remove the redirection to /dev/null.
 
 Tower DB uses a fixed-width Bootstrap layout.  Future versions should
 consider leveraging Bootstrap’s support for fluid layouts.
+
+### Screen Shots
+
+![Project Overview](https://dl.dropboxusercontent.com/u/100305526/permanent/TowerDB/TowerDB-Overview.png "Project Overview")
+![Project Topology](https://dl.dropboxusercontent.com/u/100305526/permanent/TowerDB/TowerDB-Topology.png "Project Topology")
+![Site Listing](https://dl.dropboxusercontent.com/u/100305526/permanent/TowerDB/TowerDB-Sites.png "Site Listing")
+![Site Details](https://dl.dropboxusercontent.com/u/100305526/permanent/TowerDB/TowerDB-Site.png "Site Details")
+![IP Spaces](https://dl.dropboxusercontent.com/u/100305526/permanent/TowerDB/TowerDB-IpSpaces.png "IP Spaces")
+
 
 ### Errata
 
