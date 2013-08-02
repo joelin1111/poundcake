@@ -111,7 +111,8 @@
     <dt>Min. Height (meters)</dt><dd><?php echo $networkradio['NetworkRadio']['min_height'] ? : 'Unknown'; ?></dd>
     <dt>Frequency</dt><dd>
         <?php
-            echo $networkradio['Frequency']['name'] ? : 'Unknown';
+            $label = $networkradio['NetworkRadio']['frequency'] .' MHz ('.$networkradio['Frequency']['name'].')';
+            echo  $label ? : 'Unknown';
             //echo $networkradio['NetworkRadio']['frequency'] ? : '???'.' MHz';
             //if ( $sector && isset($links[0]) ) 
                 //echo '<BR><I>Frequency for '.$links[0]['network_radios']['name'].': '.$links[0]['network_radios']['frequency'] . '</I>';
