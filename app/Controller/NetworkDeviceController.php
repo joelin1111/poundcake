@@ -699,6 +699,9 @@ class NetworkDeviceController extends AppController {
     }
     
     public function config( $device_id ) {
+        
+        $MIN_ACKTIMEOUT = 27; # microseconds
+                
         $model = $this->modelClass;
         $this->$model->id = $device_id;
         $configuration_template_id = $this->$model->field('configuration_template_id');
@@ -710,6 +713,8 @@ class NetworkDeviceController extends AppController {
             $links = $this->NetworkRadio->query( $query );
             $link_id = $links[0]['radios_radios']['dest_radio_id'];
             $distance = floor($this->$model->getLinkDistance( $device_id, $link_id ) * 1000); // convert back to meters
+            // convert meters to acktimeout microseconds, from ubiquiti javascript'''
+            $acktimeout = round($distance / 150 + $MIN_ACKTIMEOUT);            
         }
         
         // get the SSID off the model
@@ -775,6 +780,7 @@ class NetworkDeviceController extends AppController {
         $body = str_replace( '%DNS2%', $dns2, $body );
         $body = str_replace( '%HOSTNAME%', $name, $body );
         $body = str_replace( '%LINKDISTANCE%', $distance, $body );
+        $body = str_replace( '%ACKTIMEOUT%', $acktimeout, $body );
 //        echo "<pre>"; print_r($body); die;
 
         // output the file to the browser

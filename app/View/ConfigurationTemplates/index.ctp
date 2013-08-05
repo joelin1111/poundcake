@@ -19,6 +19,7 @@
             'GATEWAY' => 'from IpSpace',
             'LAT' => 'from Site',
             'LINKDISTANCE' => 'Compute link distance',
+            'ACKTIMEOUT' => 'Compute ack timeout',
             'LON' => 'from Site',
             'SITECODE' => 'from Site',
             'SNMPCONTACT' => 'from Project',
