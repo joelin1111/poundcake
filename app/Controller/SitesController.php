@@ -803,9 +803,6 @@ class SitesController extends AppController {
             $watts += $radio['RadioType']['watts'];
             $value += $radio['RadioType']['value'];
         }
-//        
-//        echo $value;
-//        die;
         
         $this->getBuildItems( $id );
         $ip_addresses = $this->getAllAddrpoolIPAddresses( $this->Site->data['Site']['code'] );
@@ -1253,6 +1250,9 @@ class SitesController extends AppController {
             $n++;
         }
 //        echo "***********";
+        // sort the radios by switch and router port (they can only be connected to one or the other)
+        usort( $radios, function ($a, $b) { return $a['NetworkRadios']['switch_port'] - $b['NetworkRadios']['switch_port']; });
+        usort( $radios, function ($a, $b) { return $a['NetworkRadios']['router_port'] - $b['NetworkRadios']['router_port']; });
 //        echo '<pre>';
 //        print_r($radios);
 //        echo '</pre>';

@@ -341,6 +341,10 @@ if ( $radios != null ) {
     $row += 2;
 
 
+    // sort the radios by switch and router port (they can only be connected to one or the other)
+//    usort( $radios['NetworkRadios'], function ($a, $b) { return $a["switch_port"] - $b["router_port"]; });
+//    usort( $radios['NetworkRadios'], function ($a, $b) { return $a["router_port"] - $b["router_port"]; });
+    
     foreach ($radios as $radio) {
     //    echo '<pre>';
     //    print_r($radio);

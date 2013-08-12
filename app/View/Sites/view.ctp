@@ -282,6 +282,11 @@
                             if ($c == 0) {
                                 echo "None";
                             } else {
+
+                                // sort the radios by switch and router port (they can only be connected to one or the other)
+                                usort( $site['NetworkRadios'], function ($a, $b) { return $a["switch_port"] - $b["router_port"]; });
+                                usort( $site['NetworkRadios'], function ($a, $b) { return $a["router_port"] - $b["router_port"]; });
+                                
                                 echo "<table class=\"table table-condensed table-striped\">";
                                 echo "<tr><th>Name</th>";
                                 echo "<th>Router Port</th>";
