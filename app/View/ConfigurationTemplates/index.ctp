@@ -28,6 +28,7 @@
             'SECUREPASSWORDHASH' => 'from Project',
             'SUBNETMASK' => 'from IpSpace',
             'SSID' => 'from Radio',
+            'FREQUENCY' => 'from Radio'
         );
 //        array_multisort( $terms, SORT_ASC );
     ?>
