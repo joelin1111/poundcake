@@ -30,7 +30,8 @@
             'SSID' => 'from Radio',
             'FREQUENCY' => 'from Radio'
         );
-//        array_multisort( $terms, SORT_ASC );
+        // sort the array by key
+        ksort($terms);
     ?>
  
 </div><!-- /.span3 .sb-fixed -->
