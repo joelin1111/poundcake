@@ -86,8 +86,7 @@ class ConfigurationTemplatesController extends AppController {
             $this->request->data = $this->ConfigurationTemplate->read(null, $id);
         }
         parent::getProjects();
-        $this->getAppliesToOptions( $this->ConfigurationTemplate->data['ConfigurationTemplate']['type'] );
-        
+        $this->getAppliesToOptions( $this->ConfigurationTemplate->data['ConfigurationTemplate']['type'] );        
     }
     
     /*

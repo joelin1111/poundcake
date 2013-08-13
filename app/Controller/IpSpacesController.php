@@ -95,7 +95,8 @@ class IpSpacesController extends AppController {
                 $this->IpSpace->read();
                 // number of existing IP Spaces that already *directly* hang
                 // off the parent node
-                $children = $this->IpSpace->childCount($parent_id, true);           
+                //$children = $this->IpSpace->childCount($parent_id, true);
+                $children = $this->IpSpace->childCountMatchingCidr($parent_id, true, $new_cidr);
                 $parent_ip = $this->IpSpace->field('ip_address');
             }
 
@@ -121,15 +122,29 @@ class IpSpacesController extends AppController {
                 // calculate the maximum possible number of network's that can
                 // be created within the parent network (based on the parent's
                 // CIDR)
-//                $n = $new_cidr - $parent_cidr;
-//                $pos_nets = pow( 2, $n ) - 1;
                 $pos_nets = $this->calculatePossibleNetworks( $new_cidr, $parent_cidr );
-                
+//                echo "new_cidr=$new_cidr <br>";
+//                echo "children=$children <br>";
+//                echo "pos_nets=$pos_nets <br>";
+                // the flaw in this logic here is that if you have, say:
+                // 1 /25
+                // 9 /29s hanging off that /25
+                // then you try to add a /27 under that /25, childCount will be
+                // greater than possible networks, even though this is possible
+                // need to revisit a custom childCount function that takes a
+                // paremeter
+//                echo '<pre>';
+//                echo "children: $children<BR>";
+//                echo "children2: $children2<BR>";
+//                echo "pos_nets: $pos_nets<BR>";
+//                echo '</pre>';
+//                die;
+//                
                 if ( $children >= $pos_nets ) {
                     $this->Session->setFlash('Error!  Parent subnet is a /'.$parent_cidr.', Maximum possible subnets reached.');
                     $this->redirect(array('action' => 'index', $parent_id ));
                 }
-                               
+                
                 if ( $dbg ) {
                     echo( "A /$new_cidr in a /$parent_cidr has $pos_nets possible networks<br>" );
                     echo( "There are currently $children off the parent node<br>" );

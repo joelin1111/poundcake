@@ -1234,12 +1234,30 @@ class SitesController extends AppController {
                 }
             }            
             
-            $address = '';
-            $ip_address = $this->getAddrpoolIPAddress($radio['NetworkRadios']['name']);
-            $radio['NetworkRadios']['ip_address'] = $ip_address;
-            
+            $ip_address = '';
             $gw_address = '';
-            $gw_address = $this->getAddrpoolGatewayAddress($radio['NetworkRadios']['name']);
+            // legacy support for addrpool on the HRBN project (project_id = 1)
+            if ( $this->Session->read('project_id') === 1 ) {
+                $ip_address = $this->getAddrpoolIPAddress($radio['NetworkRadios']['name']);
+                $gw_address = $this->getAddrpoolGatewayAddress($radio['NetworkRadios']['name']);
+            } else {
+                // get the ip address from IP Spaces
+                $this->loadModel('NetworkInterfaceIpSpaces');
+                $conditions = array(
+                    'network_radio_id' => $radio['NetworkRadios']['id'],
+                    'if_primary' => 1 // primary interface only
+                );
+                $x = $this->NetworkInterfaceIpSpaces->find('all',array('conditions' => $conditions));
+                // if there is an IpSpace mapped to this radio
+                if (isset($x[0])) {
+                    $this->loadModel('IpSpace');
+                    $this->IpSpace->read(null,$x[0]['NetworkInterfaceIpSpaces']['ip_space_id'] );
+                    $ip_address = $this->IpSpace->field('ip_address');
+                    $gw_address = $this->IpSpace->field('gw_address');
+                }
+            }
+            
+            $radio['NetworkRadios']['ip_address'] = $ip_address;
             $radio['NetworkRadios']['gw_address'] = $gw_address;
             
             $antenna_type_id = $radio['NetworkRadios']['antenna_type_id'];

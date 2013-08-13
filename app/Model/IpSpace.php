@@ -66,6 +66,7 @@ class IpSpace extends AppModel {
         'Project'
     );
     
+    
     var $actsAs = array( 
         'IPv4' => array( 
             'fields' => array( 
@@ -75,6 +76,17 @@ class IpSpace extends AppModel {
         'Tree' // @see http://book.cakephp.org/2.0/en/core-libraries/behaviors/tree.html
     );
     
+    public function childCountMatchingCidr($id = null, $direct = false, $cidr ) {
+        $directChildren = $this->children($id, true);
+        $n = 0;
+        foreach ( $directChildren as $dc ) {
+            if ($dc['IpSpace']['cidr'] != $cidr ) {
+                unset($directChildren[$n]);
+            }
+            $n++;
+        }
+        return count($directChildren);
+    }
     
     public function filterToHosts( $list ) {
         foreach ($list as $key=>$value ) {
