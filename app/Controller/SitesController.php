@@ -1287,8 +1287,40 @@ class SitesController extends AppController {
         } else {
             $title = 'Inveneo Work Order';
         }
-
-        $this->set(compact('site','title','towercontacts','router','switch','radios'));
+        
+        // HRBN spefific mods
+        if ( $this->Session->read('project_id') == 1 ) {
+            $router_ips = array(
+                'VLAN2 IP' => '',
+                'VLAN11 IP' => '',
+                'VLAN12 IP' => '',
+                'VLAN13 IP' => '',
+                'VLAN14 IP' => '',
+                'VLAN15 IP' => '',
+                'VLAN16 IP' => '',
+                'VLAN17 IP' => '',
+                'VLAN18 IP' => '',
+                'VLAN99 IP' => ''
+            );
+        } else {
+            //if ( $this->Session->read('project_id') == 19 ) {
+            $router_ips = array(
+                'loopback' => '',
+                'LAN-bridge' => '',
+                'ether1' => '',
+                'ether2' => '',
+                'ether3' => '',
+                'ether4' => '',
+                'ether5' => '',
+                'ether6' => '',
+                'ether7' => '',
+                'ether8' => '',
+                'ether9' => ''
+            );
+        //}
+        }
+        
+        $this->set(compact('site','title','towercontacts','router','switch','radios','router_ips'));
         // generate the Excel file but without all the other stuff
         // in the layout -- so set the layout to null then set it back
         //$layout = $this->layout;

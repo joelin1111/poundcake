@@ -228,6 +228,12 @@ if ( $site['NetworkRouter']['name'] != null ) {
     $sheet1->writeString($row,2,'Router port 1 always on switch GB uplink',$fmt4);
     $row++;
 
+    foreach ( $router_ips as $k => $v ) {
+        $sheet1->writeString($row,1,$k,$fmt3);
+        $sheet1->writeString($row,2,$v,$fmt4);
+        $row++;
+    }
+    /*
     $sheet1->writeString($row,1,"VLAN2 IP",$fmt3);
     $sheet1->writeString($row,2,"",$fmt4);
     $row++;
@@ -267,6 +273,7 @@ if ( $site['NetworkRouter']['name'] != null ) {
     $sheet1->writeString($row,1,"VLAN99 IP",$fmt3);
     $sheet1->writeString($row,2,"",$fmt4);
     $row++;
+    */
 }
 
 // ****************************************************************************
