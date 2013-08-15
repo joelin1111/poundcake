@@ -214,6 +214,7 @@ Configure::write('Cryptable.iv', $iv);
 // @see http://milesj.me/code/cakephp/utility
 CakePlugin::load('Composer', array('bootstrap' => true));
 CakePlugin::load('Utility', array('bootstrap' => true, 'routes' => true));
+CakePlugin::load('Uploader');
 
 // load the Report Manager plugin
 // @see https://github.com/luisdias/CakePHP-Report-Manager-Plugin

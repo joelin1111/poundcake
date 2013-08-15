@@ -33,12 +33,38 @@
  * @license       GNU General Public License
  */
 
+//define('UPLOAD_DIR', WWW_ROOT . '/files/Site/196');
+
 class Site extends AppModel {
         
     /*
      * Display field for select lists
      */
     public $displayField = 'site_vf';
+    
+    public $actsAs = array(
+         // also see beforeUpload callback for this setting
+	'Uploader.Attachment' => array(
+		'file' => array(
+//			'nameCallback' => '',
+//			'append' => '',
+//			'prepend' => '',
+			'tempDir' => TMP,
+//			'uploadDir' => UPLOAD_DIR,
+//			'transportDir' => '',
+//			'finalPath' => '',
+			'dbColumn' => '',
+//			'metaColumns' => array(),
+//			'defaultPath' => '',
+//			'overwrite' => false,
+//			'stopSave' => true,
+//			'allowEmpty' => true,
+//			'transforms' => array(),
+//			'transport' => array(),
+//			'curl' => array()
+		)
+	)
+);
     
     /*
      * Relations
@@ -208,6 +234,13 @@ class Site extends AppModel {
             
         }
         return $dec;
-    }      
+    }  
+    
+    public function beforeUpload($options) {
+        // see also move_uploaded_file in the Site controller's edit function
+	$options['finalPath'] = '/files/Site/'.$this->id;
+	$options['uploadDir'] = WWW_ROOT . $options['finalPath'];
+        return $options;
+    }
 }
 ?>

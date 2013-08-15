@@ -1131,9 +1131,28 @@ class SitesController extends AppController {
             // so walk throug that array here and save that
             
             // compute the declination then save it back to the request object
+  
             $this->request->data['Site']['declination'] = $this->Site->getDeclination($this->request->data['Site']['lat'],$this->request->data['Site']['lon']);
-            
+//            echo '<pre>';
+//            print_r($this->request->data);
+//            echo '</pre>';
+//            die;
             if ($this->Site->saveAll($this->request->data, array('deep' => true))) {
+                // with the HTML5 multiple file upload we seem to have to move
+                // each file into place manually
+                $n = 0;
+                $upload_dir = WWW_ROOT.'files/Site/'.$id.'/';
+                if (!is_dir($upload_dir)) {
+                    mkdir($upload_dir);
+                }
+                
+                foreach ( $this->request->data['Site']['file'] as $f ) {
+//                    echo '<pre>';
+//                    print_r($f);
+//                    echo'</pre>';
+                    move_uploaded_file($f['tmp_name'],$upload_dir.$f['name']);
+                    $n++;
+                }
                 
                 // if the specified a new switch
                 if (isset($this->request->data['NetworkSwitch'])) {
@@ -1177,9 +1196,6 @@ class SitesController extends AppController {
             if (!$this->isAllowed($this->Site->data['Site']['project_id'], $this->Auth->user('id')) ) {
                 $this->redirect(array('action' => 'index'));
             }
-//            echo '<pre>';
-//            print_r($this->request->data);
-//            echo '</pre>';
         }
     }
     
@@ -1701,6 +1717,12 @@ class SitesController extends AppController {
         
         return $code;
     }
+    
+    public function foobar( $id, $file, $ext = null ) {
+        // echo $file;
+        unlink( WWW_ROOT.'files/Site/'.$id.'/'.$file );
+    }
+    
     /*
      * Check the user's role to determine if sufficient permission to perform
      * the intended action.
@@ -1713,7 +1735,7 @@ class SitesController extends AppController {
         }
         
         // pages that editors can access
-        $allowed = array( "add","edit", "delete", "export" );
+        $allowed = array( "add", "edit", "delete", "export", "foobar" );
         if ( in_array( $this->action, $allowed )) {
             // maybe this is duplicative to check role here...
             if ( $this->Session->read('role') === 'edit') {

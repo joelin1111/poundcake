@@ -230,9 +230,12 @@ function bootbox_dialogs() {
                         type: 'POST',
                         url: action,
                         success: function() {
+                            // console.log( action );
                             window.location.reload(true);
                         },
-                        error: function() { /*console.log( 'error');*/ }
+                        error: function() {
+                            console.log( 'error');
+                        }
                 });
                 return false;
             }

@@ -8,8 +8,8 @@
         echo $this->Html->script('http://maps.google.com/maps/api/js?sensor=true',false);
     }
     echo $this->Html->script('gears_init');
-//    echo $this->Html->script('jquery-1.9.1.min'); // why do I have to re-import this?  It's in default.ctp!
     echo $this->Html->script('jquery-ui-map/jquery.ui.map');
+    // echo $this->Html->script('poundcake/poundcake');
     echo $this->Html->script('poundcake/poundcake-map');
     echo $this->Html->script('jquery.prettyPhoto');
     echo $this->Html->script('poundcake/poundcake-prettyPhoto');
@@ -357,8 +357,6 @@
                     // maybe test if the file exists here?
                     if ($results['files'] != null) {
                         // list any uploaded files
-                        //echo $this->Upload->view('Site', $site['Site']['id']);
-
                         $directory = $results['directory'];
                         $baseUrl = $results['baseUrl'];
                         $files = $results['files'];
@@ -391,16 +389,26 @@
                         foreach ( $files as $file ) {
                             $f = basename($file);                    
                             $url = $baseUrl . "/$f";
-                            echo '<li><a href="'.$url.'">';
+                            echo '<li>';
+                            echo $this->PoundcakeHTML->postLinkIfAllowed('Delete',
+                                // passing the filename seems to lose the extension in the function?  abc just dummy text
+                                array('controller'=>'sites','action'=>'foobar', $site['Site']['id'],$f,'abc'),
+                                array('method' => 'post','class'=>'confirm','data-dialog_msg'=>'Confirm delete of '.$f),
+                                null,
+                                false
+                            );
+                            echo '<a href="'.$url.'">';
                             echo $f;
                             echo '</a></li>';
                         }
+                       
                         echo '</UL></P>';
                         
                         // now show the images
                         echo '<P><div><ul class="thumbnails">';
                         foreach ( $images as $image ) {
-                            $f = basename($image);                    
+                            $f = basename($image);
+                            $ext = pathinfo($image, PATHINFO_EXTENSION);
                             $url = $baseUrl . "/$f";
                             // we're sort of doing two things here 1) creating a link
                             // that has the rel attribute of prettyPhoto so the image
@@ -410,13 +418,23 @@
                             // to open the viewer
                             echo '<li class="span3">';
                             echo '<a href="'.$url.'" rel="prettyPhoto[pp_gal]" title="'.$f.'">';
-                            echo $this->Html->image( $url, array(
-                                'class'=>'thumbnail',
-                            ));
+                            echo $this->Html->image( $url, array( 'class'=>'thumbnail' ));
                             // show the filename underneath the thumbnail
-                            echo '<center>'.$f.'</center>';
-                            echo '</a>';
-                            echo '</li>';
+                            ?>
+                            </a><center><li>
+                            <?
+                            echo $this->PoundcakeHTML->postLinkIfAllowed('Delete',
+                                // passing the filename seems to lose the extension in the function?  abc just dummy text
+                                array('controller'=>'sites','action'=>'foobar', $site['Site']['id'],$f,'abc'),
+                                array('method' => 'post','class'=>'confirm','data-dialog_msg'=>'Confirm delete of '.$f),
+                                null,
+                                false
+                            );
+                            
+                            ?>
+                            <?php echo $f; ?>
+                            </li></center>
+                            <?php
 
                         }
                         echo '</ul></div></p>';

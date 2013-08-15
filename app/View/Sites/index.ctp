@@ -86,7 +86,6 @@
 <!--               <button class="btn btn-mini"></button>-->
             <?php echo $this->PoundcakeHTML->linkIfAllowed('Edit', array('action'=>'edit', $site['Site']['id']));?>
             <?php
-                // echo $this->PoundcakeHTML->postLinkIfAllowed('Delete', array('action' => 'delete', $site['Site']['id']), null, 'Are you sure?' )
                 echo $this->PoundcakeHTML->postLinkIfAllowed('Delete',
                         array('controller'=>'sites','action'=>'delete', $site['Site']['id']),
                         array('method' => 'post','class'=>'confirm','data-dialog_msg'=>'Confirm delete of '.$site['Site']['name']),

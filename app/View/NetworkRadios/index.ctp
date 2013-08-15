@@ -55,7 +55,6 @@
             <?php
                 echo $this->PoundcakeHTML->linkIfAllowed('Edit', array('action' => 'edit', $networkradio['NetworkRadio']['id']));
                 echo '&nbsp;';
-                //echo $this->PoundcakeHTML->postLinkIfAllowed(__('Delete'), array('action' => 'delete', $networkradio['NetworkRadio']['id']), null, __('Are you sure you want to delete radio %s?', $networkradio['NetworkRadio']['name']));
                 echo $this->PoundcakeHTML->postLinkIfAllowed('Delete',
                     array('controller'=>'networkRadios','action'=>'delete', $networkradio['NetworkRadio']['id']),
                     array('method' => 'post','class'=>'confirm','data-dialog_msg'=>'Confirm delete of '.$networkradio['NetworkRadio']['name']),

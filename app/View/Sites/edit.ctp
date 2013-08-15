@@ -3,7 +3,6 @@
     echo $this->Html->script('poundcake/poundcake-datepicker');
     // disable mouse scroll in the lat/lon fields
     echo $this->Html->script('poundcake/poundcake-scroll');
-    echo $this->Html->script('fineuploader/poundcake-scroll');
 ?>
 
 <div class="row">
@@ -20,8 +19,8 @@
 <div class="span9">
     <h3>Edit Site</h3>
 <?php
-    echo $this->Form->create('Site', array('action' => 'edit'));
-     echo $this->Form->input('project_id', array('type'=>'hidden','value'=>$this->Session->read('project_id')));
+    echo $this->Form->create('Site', array('action' => 'edit','type' => 'file'));
+    echo $this->Form->input('project_id', array('type'=>'hidden','value'=>$this->Session->read('project_id')));
     echo $this->Form->input('id', array('type'=>'hidden'));
     echo $this->Form->input('name', array('error' => array('attributes' => array('wrap' => 'span', 'class' => 'label label-important')))); // still testing
     echo $this->Form->input('code');
@@ -129,9 +128,13 @@
     echo $this->Form->input('Site.storage',array('style' => 'width:100%'));
     echo $this->Form->input('Site.accommodations',array('style' => 'width:100%'));
     echo $this->Form->input('Site.notes',array('style' => 'width:100%'));
+    // this is the upload field (now deprecated)
+    // echo $this->Upload->edit('Site', $this->Form->fields['Site.id']);
+    // single file
+    // echo $this->Form->input('Site.file', array('type' => 'file','label'=>'Experimental File Upload'));
+    // HTML5 approach - see: http://bakery.cakephp.org/articles/veganista/2012/01/31/html_5_multiple_file_upload_with_cake
+    echo $this->Form->input('file.', array('type' => 'file', 'multiple'));
     
-    // this is the upload field
-    echo $this->Upload->edit('Site', $this->Form->fields['Site.id']);
     echo $this->Form->submit('Save', array('div' => false,'class'=>'btn btn-primary'));
     echo $this->Form->submit('Cancel', array('name' => 'cancel','div' => false,'class'=>'btn btn-cancel'));
     echo $this->Form->end(); 
