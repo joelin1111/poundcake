@@ -1211,8 +1211,10 @@ class SitesController extends AppController {
             "Contact.priority" => "1", // 1 is the base priority level
             "Contact.organization_id" => $site['Site']['organization_id']
         );        
-        $towercontacts = $this->Site->Organization->Contact->find('all',array('conditions' => $conditions));        
-        $router = $this->Site->NetworkRouter->findByRouterTypeId($site['NetworkRouter']['router_type_id']);
+        $towercontacts = $this->Site->Organization->Contact->find('all',array('conditions' => $conditions));      
+        $router_type_id = $site['NetworkRouter']['router_type_id'];
+        $router = $this->Site->NetworkRouter->findByRouterTypeId( $router_type_id );
+        
         $switch = $this->Site->NetworkSwitch->findBySwitchTypeId($site['NetworkSwitch']['switch_type_id']);        
         $radios = $this->Site->NetworkRadios->findAllBySiteId($id,array(),array('NetworkRadios.switch_port' => 'ASC'));
         
@@ -1252,6 +1254,9 @@ class SitesController extends AppController {
             
             $ip_address = '';
             $gw_address = '';
+            $cidr = '';
+            $gw_cidr = '';
+            
             // legacy support for addrpool on the HRBN project (project_id = 1)
             if ( $this->Session->read('project_id') === 1 ) {
                 $ip_address = $this->getAddrpoolIPAddress($radio['NetworkRadios']['name']);
@@ -1270,11 +1275,17 @@ class SitesController extends AppController {
                     $this->IpSpace->read(null,$x[0]['NetworkInterfaceIpSpaces']['ip_space_id'] );
                     $ip_address = $this->IpSpace->field('ip_address');
                     $gw_address = $this->IpSpace->field('gw_address');
+                    $cidr = $this->IpSpace->field('cidr');
+                    // now get the cidr of the gateway
+                    $this->IpSpace->read(null,$this->IpSpace->field('gateway_id') );
+                    $gw_cidr = $this->IpSpace->field('cidr');
                 }
             }
             
             $radio['NetworkRadios']['ip_address'] = $ip_address;
             $radio['NetworkRadios']['gw_address'] = $gw_address;
+            $radio['NetworkRadios']['cidr'] = $cidr;
+            $radio['NetworkRadios']['gw_cidr'] = $gw_cidr;
             
             $antenna_type_id = $radio['NetworkRadios']['antenna_type_id'];
             $antenna_type = $this->NetworkRadio->RadioType->AntennaType->findById( $antenna_type_id );
@@ -1283,19 +1294,10 @@ class SitesController extends AppController {
             $radios[$n] = $radio;
             $n++;
         }
-//        echo "***********";
+
         // sort the radios by switch and router port (they can only be connected to one or the other)
         usort( $radios, function ($a, $b) { return $a['NetworkRadios']['switch_port'] - $b['NetworkRadios']['switch_port']; });
         usort( $radios, function ($a, $b) { return $a['NetworkRadios']['router_port'] - $b['NetworkRadios']['router_port']; });
-//        echo '<pre>';
-//        print_r($radios);
-//        echo '</pre>';
-//        die;
-                    
-//        echo '<pre>';
-//        print_r($sites);
-//        echo '</pre>';
-//        die;
         
         // the title on a work order is part of a project's meta-data
         if (isset($sites['Project']['workorder_title'])) {
@@ -1319,21 +1321,21 @@ class SitesController extends AppController {
                 'VLAN99 IP' => ''
             );
         } else {
-            //if ( $this->Session->read('project_id') == 19 ) {
-            $router_ips = array(
+            // not sure if these are standard for every router?
+             $router_ips = array(
                 'loopback' => '',
                 'LAN-bridge' => '',
-                'ether1' => '',
-                'ether2' => '',
-                'ether3' => '',
-                'ether4' => '',
-                'ether5' => '',
-                'ether6' => '',
-                'ether7' => '',
-                'ether8' => '',
-                'ether9' => ''
             );
-        //}
+             // we need to know both 1) the type and 2) number of interfaces on the router
+            $this->loadModel('RouterTypeNetworkInterfaceTypes');
+            $rs = $this->RouterTypeNetworkInterfaceTypes->findAllByRouterTypeId( $router_type_id );
+            foreach ( $rs as $p ) {
+                $number =  $p['RouterTypeNetworkInterfaceTypes']['number'];
+                $name = $p['NetworkInterfaceType']['name'];
+                for ( $i = 0; $i < $number; $i++ ) {
+                    $router_ips = array_merge($router_ips, array( $name.$i => '' ));
+                }
+            }
         }
         
         $this->set(compact('site','title','towercontacts','router','switch','radios','router_ips'));

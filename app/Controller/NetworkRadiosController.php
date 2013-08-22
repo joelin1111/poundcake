@@ -477,7 +477,6 @@ class NetworkRadiosController extends NetworkDeviceController {
     public function edit($id = null) {
         $this->NetworkRadio->id = $id;
         $this->getRadioTypes();
-        //$this->getAntennaTypes();
         $this->getAntennaTypes( $this->NetworkRadio->field('radio_type_id') );
         $this->getRadioModes();
         $this->getFrequencies(); // for the frequency dropdown

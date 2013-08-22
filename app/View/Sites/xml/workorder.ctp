@@ -396,7 +396,14 @@ if ( $radios != null ) {
         if (isset($d))
             $sheet1->writeString($row,2,$d."°",$fmt4);
         $sheet1->writeString($row,4,'IP',$fmt3);
-        $sheet1->writeString($row,5,$radio['NetworkRadios']['ip_address'],$fmt4);
+        
+        if ( $radio['NetworkRadios']['ip_address'] != null ) {
+            $ip = $radio['NetworkRadios']['ip_address'];
+            if ( $radio['NetworkRadios']['cidr'] != null ) {
+                $ip .= '/'.$radio['NetworkRadios']['cidr'];
+            }
+        }
+        $sheet1->writeString($row,5,$ip,$fmt4);
         $row++;
 
         // if it's not a sector radio, calculate the magnetic azimuth
@@ -410,10 +417,16 @@ if ( $radios != null ) {
         $sheet1->writeString($row,1,'Azimuth (Magnetic)',$fmt3);
         //$d = sprintf("%01.2f",$mag_azimuth);
         $d = round($mag_azimuth);
-        //if (isset($d))
-            $sheet1->writeString($row,2,$d."°",$fmt4);
+        
+        if ( $radio['NetworkRadios']['gw_address'] != null ) {
+            $gw_ip = $radio['NetworkRadios']['gw_address'];
+            if ( $radio['NetworkRadios']['gw_cidr'] != null ) {
+                $gw_ip .= '/'.$radio['NetworkRadios']['gw_cidr'];
+            }
+        }
+        $sheet1->writeString($row,2,$d."°",$fmt4);
         $sheet1->writeString($row,4,'Gateway',$fmt3);
-        $sheet1->writeString($row,5,$radio['NetworkRadios']['gw_address'],$fmt4);
+        $sheet1->writeString($row,5,$gw_ip,$fmt4);
         $row++;
 
         $sheet1->writeString($row,1,'Elevaton',$fmt3);
