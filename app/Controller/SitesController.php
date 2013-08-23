@@ -1275,10 +1275,10 @@ class SitesController extends AppController {
                     $this->IpSpace->read(null,$x[0]['NetworkInterfaceIpSpaces']['ip_space_id'] );
                     $ip_address = $this->IpSpace->field('ip_address');
                     $gw_address = $this->IpSpace->field('gw_address');
-                    $cidr = $this->IpSpace->field('cidr');
+                    $cidr = $this->IpSpace->field('parent_cidr');
                     // now get the cidr of the gateway
                     $this->IpSpace->read(null,$this->IpSpace->field('gateway_id') );
-                    $gw_cidr = $this->IpSpace->field('cidr');
+                    $gw_cidr = $this->IpSpace->field('parent_cidr');
                 }
             }
             
@@ -1286,6 +1286,10 @@ class SitesController extends AppController {
             $radio['NetworkRadios']['gw_address'] = $gw_address;
             $radio['NetworkRadios']['cidr'] = $cidr;
             $radio['NetworkRadios']['gw_cidr'] = $gw_cidr;
+            
+//            echo '<pre>';
+//            print_r($radio['NetworkRadios']);
+//            die;
             
             $antenna_type_id = $radio['NetworkRadios']['antenna_type_id'];
             $antenna_type = $this->NetworkRadio->RadioType->AntennaType->findById( $antenna_type_id );
