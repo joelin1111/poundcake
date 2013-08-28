@@ -1150,8 +1150,10 @@ class SitesController extends AppController {
 //                    echo '<pre>';
 //                    print_r($f);
 //                    echo'</pre>';
-                    move_uploaded_file($f['tmp_name'],$upload_dir.$f['name']);
-                    $n++;
+                    if ( isset($f['tmp_name'])) {
+                        move_uploaded_file($f['tmp_name'],$upload_dir.$f['name']);
+                        $n++;
+                    }
                 }
                 
                 // if the specified a new switch
