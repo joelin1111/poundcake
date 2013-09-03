@@ -169,7 +169,7 @@ mysqldump –opt –routines –uroot –psecret towerdb…
 
 ### Triggers
 
-Perhaps the most non-standard (at least in terms of a CakePHP application) is the use of triggers.
+Perhaps the most non-standard (at least in terms of a CakePHP application) is the use of triggers.  I was unaware that I could use a Model alias to make an object associate to itself, so I took the hardway and solved the problem using MySQL triggers.
 
 Triggers are named in the form tr_trigger\_name and can be fond in the folder /etc/sql/poundcake.
 
@@ -340,18 +340,29 @@ consider leveraging Bootstrap’s support for fluid layouts.
 ![Site Details](https://dl.dropboxusercontent.com/u/100305526/permanent/TowerDB/TowerDB-Site.png "Site Details")
 ![IP Spaces](https://dl.dropboxusercontent.com/u/100305526/permanent/TowerDB/TowerDB-IpSpaces.png "IP Spaces")
 
+### Installing Tower DB
+
+
+-   Clone this Git repository (or download the ZIP and unpack the files) into your webroot.  I prefer to use a VirtualHost that points to the /poundcake directory as the HTTP root.
+-   Create a MySQL database and MySQL user.  I believe the MySQL user needs the following permissions:
+```
+ALTER, CREATE TEMPORARY TABLES, CREATE, DELETE, DROP, SELECT, INSERT, UPDATE, REFERENCES, INDEX, LOCK TABLES
+```
+-   Populate it using the schema (.sql) file located in poundcake/etc/db.
+-   Configure CakePHP's database configuration in app/Config/database.php. An example database configuration file can be found at app/Config/database.php.default.  See also [configuration](app/Config/database.php) in the CakePHP documentation  
+-   Restart your web server and point it at your URL.  The default username/password is:  admin / secret
 
 ### Errata
 
-#### Apache Configuration
+#### More Apache Configurations
 
-Tower DB remains a relatively simple application from Apache’s perspective.  See the file /etc/apache.txt for a more complex example of how Tower DB would be setup as a VirtualHost.  In this example note that:
+Tower DB (and CakePHP) is relatively simple from Apache’s perspective.  See the file /etc/apache.txt for a more complex example of how Tower DB would be setup as a VirtualHost.  In this example note that:
 
 -   Tower DB is running behind a load balancer (specifically an Amazon
     Elastic Load Balancer) on port 9000, the load balancer proxies that
     connection (SSL is terminated on the load balancer, and again
     between the load balancer and web sever)
--   The bits about X-Forwarded-For are simply to ensure that Apache is
+-   The bit about X-Forwarded-For are simply to ensure that Apache is
     logging using the IP of the client, not the load balancer
 -   The awstats package is installed
 -   Certain Allow rules allow more access from the developer’s office
